@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Formatter & Validator - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Format, validate, and minify JSON instantly. Drag & drop or paste JSON files, batch process unlimited files, and download results (ZIP). 100% client-side & private.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100% privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">JSON Formatter &amp; Validator</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-6 text-lg">Format, validate, and minify JSON instantly — paste text or batch process files locally.</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <!-- Drop / Paste / Upload -->
+            <div class="space-y-4">
+                <div class="grid gap-3 md:grid-cols-[1fr,auto] items-start">
+                    <div>
+                        <div id="dropzone" class="group relative rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-900/40 p-5 sm:p-6 transition hover:border-blue-400 dark:hover:border-blue-400 focus-within:border-blue-500">
+                            <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+                                <div class="flex-1">
+                                    <div class="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-100">
+                                        <span class="text-lg">📄</span>
+                                        <span>Drag &amp; drop JSON files here</span>
+                                    </div>
+                                    <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">
+                                        Or <span class="font-semibold">Ctrl+V</span> to paste (JSON text or files). Batch supported.
+                                    </p>
+                                    <p class="mt-2 text-xs text-slate-500 dark:text-slate-500">Accepted: .json, application/json, text/plain</p>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <label class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-500 active:scale-[0.99] transition cursor-pointer">
+                                        Choose files
+                                        <input id="fileInput" type="file" class="hidden" accept=".json,application/json,text/plain" multiple>
+                                    </label>
+                                    <button id="clearFilesBtn" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">
+                                        Clear files
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="dropOverlay" class="pointer-events-none absolute inset-0 rounded-2xl border-2 border-blue-500 bg-blue-500/10 opacity-0 transition"></div>
+                        </div>
+                    </div>
+
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-4 space-y-3">
+                        <div class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Options</div>
+                        <div class="space-y-3">
+                            <label class="block">
+                                <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Indent</span>
+                                <select id="indentSelect" class="mt-1 w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="2" selected>2 spaces</option>
+                                    <option value="4">4 spaces</option>
+                                    <option value="tab">Tabs</option>
+                                </select>
+                            </label>
+                            <label class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                                <div>
+                                    <div class="text-sm font-semibold text-slate-800 dark:text-slate-100">Sort object keys</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">Stable output for diffs</div>
+                                </div>
+                                <input id="sortKeys" type="checkbox" class="accent-blue-600" />
+                            </label>
+                            <label class="flex items-center justify-between gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
+                                <div>
+                                    <div class="text-sm font-semibold text-slate-800 dark:text-slate-100">Auto format on paste</div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400">If pasted text is JSON</div>
+                                </div>
+                                <input id="autoFormat" type="checkbox" class="accent-blue-600" checked />
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Status / Actions -->
+                <div class="grid gap-4 md:grid-cols-[1fr,auto] items-start">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-4">
+                        <div class="flex flex-wrap items-center gap-3">
+                            <div id="statusBadge" class="inline-flex items-center gap-2 rounded-full bg-slate-100 dark:bg-slate-800 px-3 py-1.5 text-sm font-semibold text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700">
+                                <span id="statusDot" class="inline-block h-2.5 w-2.5 rounded-full bg-slate-400"></span>
+                                <span id="statusText">Waiting for input…</span>
+                            </div>
+                            <div class="text-sm text-slate-600 dark:text-slate-300">
+                                <span class="font-semibold">Input:</span> <span id="inputSize">0 B</span>
+                                <span class="mx-2 text-slate-300 dark:text-slate-600">•</span>
+                                <span class="font-semibold">Output:</span> <span id="outputSize">0 B</span>
+                            </div>
+                        </div>
+                        <div id="errorPanel" class="hidden mt-4 rounded-xl border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-900/20 p-4 text-sm text-red-800 dark:text-red-200">
+                            <div class="font-bold mb-1">Invalid JSON</div>
+                            <div id="errorMessage" class="font-mono break-words"></div>
+                            <pre id="errorSnippet" class="mt-3 whitespace-pre-wrap rounded-lg bg-white/70 dark:bg-slate-900/60 border border-red-200/70 dark:border-red-900/60 p-3 text-xs overflow-auto"></pre>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 justify-start md:justify-end">
+                        <button id="formatBtn" class="px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-500 active:scale-[0.99] transition" type="button">Format</button>
+                        <button id="minifyBtn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">Minify</button>
+                        <button id="validateBtn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">Validate</button>
+                        <button id="copyBtn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">Copy output</button>
+                        <button id="downloadBtn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">Download .json</button>
+                        <button id="clearBtn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">Clear</button>
+                    </div>
+                </div>
+
+                <!-- Editors -->
+                <div class="grid gap-4 lg:grid-cols-2">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between gap-3">
+                            <label for="inputJson" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Input JSON</label>
+                            <button id="loadSampleBtn" class="text-sm font-semibold text-blue-700 dark:text-blue-300 hover:underline" type="button">Load sample</button>
+                        </div>
+                        <textarea id="inputJson" spellcheck="false" placeholder='Paste JSON here… e.g. {"hello":"world"}' class="w-full h-72 font-mono text-sm rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        <div class="text-xs text-slate-500 dark:text-slate-500">Tip: You can paste raw JSON, or drop multiple .json files above for batch formatting.</div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between gap-3">
+                            <label for="outputJson" class="text-sm font-semibold text-slate-700 dark:text-slate-300">Output</label>
+                            <div class="text-xs text-slate-500 dark:text-slate-500" id="outputModeLabel">—</div>
+                        </div>
+                        <textarea id="outputJson" spellcheck="false" readonly class="w-full h-72 font-mono text-sm rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/60 px-4 py-3 focus:outline-none"></textarea>
+                        <div class="text-xs text-slate-500 dark:text-slate-500">Output updates when you click Format/Minify (or auto-format on paste).</div>
+                    </div>
+                </div>
+
+                <!-- Batch results -->
+                <div class="mt-2 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 p-4">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <div class="font-bold text-slate-800 dark:text-slate-100">Batch results</div>
+                            <div class="text-sm text-slate-600 dark:text-slate-400">Processed files will appear here. Valid files can be downloaded individually or as a ZIP.</div>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <button id="zipBtn" class="px-4 py-2 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-500 active:scale-[0.99] transition disabled:opacity-60 disabled:cursor-not-allowed" type="button" disabled>Download All (ZIP)</button>
+                            <button id="clearResultsBtn" class="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition" type="button">Clear results</button>
+                        </div>
+                    </div>
+
+                    <div id="progressWrap" class="hidden mt-4">
+                        <div class="flex items-center justify-between text-xs text-slate-600 dark:text-slate-400 mb-2">
+                            <span id="progressLabel">Processing…</span>
+                            <span id="progressPercent">0%</span>
+                        </div>
+                        <div class="h-2 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                            <div id="progressBar" class="h-full w-0 bg-blue-600 transition-all"></div>
+                        </div>
+                    </div>
+
+                    <div id="resultsList" class="mt-4 space-y-3"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use the JSON Formatter &amp; Validator</h2>
+            <ol>
+                <li>Paste JSON into the Input box (or drag &amp; drop one or more <code>.json</code> files into the drop zone).</li>
+                <li>Click <strong>Format</strong> to pretty-print JSON, or <strong>Minify</strong> to remove whitespace.</li>
+                <li>Use <strong>Validate</strong> to check syntax and see error details (line/column when available).</li>
+                <li>Copy output or download a formatted <code>.json</code>. For multiple files, use <strong>Download All (ZIP)</strong>.</li>
+            </ol>
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Unlimited &amp; Batch:</strong> Process as many JSON files as your device can handle — no upload limits.</li>
+                <li><strong>Privacy First:</strong> 100% client-side. Your JSON never leaves your browser.</li>
+                <li><strong>Modern UX:</strong> Dark mode, drag &amp; drop, and Ctrl+V paste support.</li>
+                <li><strong>Formatter + Minifier:</strong> Produce readable JSON or compact JSON for production.</li>
+                <li><strong>ZIP Export:</strong> Download multiple formatted outputs in one click.</li>
+            </ul>
+            <h2>FAQ</h2>
+            <h3>Is this JSON formatter safe for sensitive data?</h3>
+            <p>Yes. Everything runs locally in your browser. No uploads, no server processing, and nothing is stored.</p>
+            <h3>Can I format multiple JSON files at once?</h3>
+            <p>Yes. Drag &amp; drop multiple files (or choose multiple files) and then download all results as a ZIP.</p>
+            <h3>Why does JSON validation fail even though it looks correct?</h3>
+            <p>Common causes include trailing commas, comments, unquoted keys, or using <code>NaN</code>/<code>Infinity</code>. Strict JSON does not allow them.</p>
+            <h3>Can I use this tool offline?</h3>
+            <p>Yes. Once the page has loaded, the formatting and validation run locally without a server connection.</p>
+            <h3>Does sorting keys change my JSON data?</h3>
+            <p>Sorting keys does not change values, but it can change key order. Disable “Sort object keys” if you need to preserve original order.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Tool Logic ===
+        const $ = (id) => document.getElementById(id);
+
+        const dropzone = $('dropzone');
+        const dropOverlay = $('dropOverlay');
+        const fileInput = $('fileInput');
+        const clearFilesBtn = $('clearFilesBtn');
+        const indentSelect = $('indentSelect');
+        const sortKeys = $('sortKeys');
+        const autoFormat = $('autoFormat');
+
+        const inputJson = $('inputJson');
+        const outputJson = $('outputJson');
+        const outputModeLabel = $('outputModeLabel');
+
+        const formatBtn = $('formatBtn');
+        const minifyBtn = $('minifyBtn');
+        const validateBtn = $('validateBtn');
+        const copyBtn = $('copyBtn');
+        const downloadBtn = $('downloadBtn');
+        const clearBtn = $('clearBtn');
+        const loadSampleBtn = $('loadSampleBtn');
+
+        const statusDot = $('statusDot');
+        const statusText = $('statusText');
+        const inputSize = $('inputSize');
+        const outputSize = $('outputSize');
+        const errorPanel = $('errorPanel');
+        const errorMessage = $('errorMessage');
+        const errorSnippet = $('errorSnippet');
+
+        const resultsList = $('resultsList');
+        const clearResultsBtn = $('clearResultsBtn');
+        const zipBtn = $('zipBtn');
+        const progressWrap = $('progressWrap');
+        const progressLabel = $('progressLabel');
+        const progressPercent = $('progressPercent');
+        const progressBar = $('progressBar');
+
+        /** @type {{name:string, originalName:string, valid:boolean, formatted?:string, minified?:string, error?:string}[]} */
+        let batchResults = [];
+
+        const humanBytes = (n) => {
+            if (!n) return '0 B';
+            const units = ['B','KB','MB','GB'];
+            let v = n;
+            let i = 0;
+            while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
+            const fixed = i === 0 ? 0 : 1;
+            return `${v.toFixed(fixed)} ${units[i]}`;
+        };
+
+        const setStatus = (kind, text) => {
+            // kind: 'idle' | 'ok' | 'error'
+            statusText.textContent = text;
+            statusDot.className = 'inline-block h-2.5 w-2.5 rounded-full';
+            if (kind === 'ok') statusDot.classList.add('bg-emerald-500');
+            else if (kind === 'error') statusDot.classList.add('bg-red-500');
+            else statusDot.classList.add('bg-slate-400');
+        };
+
+        const showError = (errText, sourceText) => {
+            errorPanel.classList.remove('hidden');
+            errorMessage.textContent = errText || 'Invalid JSON';
+
+            const pos = extractErrorPosition(errText);
+            if (pos == null || !sourceText) {
+                errorSnippet.textContent = '';
+                return;
+            }
+
+            const loc = positionToLineColumn(sourceText, pos);
+            const snippet = buildLineSnippet(sourceText, loc.line, loc.column);
+            errorSnippet.textContent = snippet;
+        };
+
+        const hideError = () => {
+            errorPanel.classList.add('hidden');
+            errorMessage.textContent = '';
+            errorSnippet.textContent = '';
+        };
+
+        const extractErrorPosition = (msg) => {
+            if (!msg) return null;
+            // Chrome: "Unexpected token } in JSON at position 10"
+            // Firefox: sometimes includes "at position 10"
+            const m = msg.match(/position\s+(\d+)/i);
+            if (m && m[1]) {
+                const p = parseInt(m[1], 10);
+                return Number.isFinite(p) ? p : null;
+            }
+            return null;
+        };
+
+        const positionToLineColumn = (text, pos) => {
+            const safePos = Math.max(0, Math.min(pos, text.length));
+            let line = 1;
+            let col = 1;
+            for (let i = 0; i < safePos; i++) {
+                const ch = text[i];
+                if (ch === '\n') { line++; col = 1; }
+                else col++;
+            }
+            return { line, column: col };
+        };
+
+        const buildLineSnippet = (text, line, column) => {
+            const lines = text.replace(/\r\n/g, '\n').split('\n');
+            const idx = Math.max(0, Math.min(line - 1, lines.length - 1));
+            const target = lines[idx] ?? '';
+            const caretPos = Math.max(1, Math.min(column, target.length + 1));
+
+            const start = Math.max(0, idx - 1);
+            const end = Math.min(lines.length - 1, idx + 1);
+            const out = [];
+            for (let i = start; i <= end; i++) {
+                const ln = String(i + 1).padStart(4, ' ');
+                out.push(`${ln} | ${lines[i]}`);
+                if (i === idx) {
+                    out.push(`     | ${' '.repeat(caretPos - 1)}^`);
+                }
+            }
+            return `Line ${line}, Column ${column}\n${out.join('\n')}`;
+        };
+
+        const normalizeIndent = () => {
+            const v = indentSelect.value;
+            if (v === 'tab') return '\t';
+            const n = parseInt(v, 10);
+            return Number.isFinite(n) ? n : 2;
+        };
+
+        const sortObjectKeysDeep = (value) => {
+            if (Array.isArray(value)) return value.map(sortObjectKeysDeep);
+            if (value && typeof value === 'object') {
+                const out = {};
+                Object.keys(value).sort((a, b) => a.localeCompare(b)).forEach((k) => {
+                    out[k] = sortObjectKeysDeep(value[k]);
+                });
+                return out;
+            }
+            return value;
+        };
+
+        const safeParseJson = (text) => {
+            // Strip UTF-8 BOM if present
+            const cleaned = (text || '').replace(/^\uFEFF/, '');
+            return JSON.parse(cleaned);
+        };
+
+        const formatFromInput = () => {
+            const raw = inputJson.value || '';
+            inputSize.textContent = humanBytes(new Blob([raw]).size);
+            hideError();
+            if (!raw.trim()) {
+                outputJson.value = '';
+                outputModeLabel.textContent = '—';
+                outputSize.textContent = '0 B';
+                setStatus('idle', 'Waiting for input…');
+                return;
+            }
+            try {
+                let obj = safeParseJson(raw);
+                if (sortKeys.checked) obj = sortObjectKeysDeep(obj);
+                const indent = normalizeIndent();
+                const out = JSON.stringify(obj, null, indent);
+                outputJson.value = out;
+                outputModeLabel.textContent = `Formatted (${indentSelect.value === 'tab' ? 'tabs' : indentSelect.value + ' spaces'})`;
+                outputSize.textContent = humanBytes(new Blob([out]).size);
+                setStatus('ok', 'Valid JSON');
+            } catch (e) {
+                outputJson.value = '';
+                outputModeLabel.textContent = '—';
+                outputSize.textContent = '0 B';
+                const msg = (e && e.message) ? e.message : String(e);
+                setStatus('error', 'Invalid JSON');
+                showError(msg, raw);
+            }
+        };
+
+        const minifyFromInput = () => {
+            const raw = inputJson.value || '';
+            inputSize.textContent = humanBytes(new Blob([raw]).size);
+            hideError();
+            if (!raw.trim()) {
+                outputJson.value = '';
+                outputModeLabel.textContent = '—';
+                outputSize.textContent = '0 B';
+                setStatus('idle', 'Waiting for input…');
+                return;
+            }
+            try {
+                let obj = safeParseJson(raw);
+                if (sortKeys.checked) obj = sortObjectKeysDeep(obj);
+                const out = JSON.stringify(obj);
+                outputJson.value = out;
+                outputModeLabel.textContent = 'Minified';
+                outputSize.textContent = humanBytes(new Blob([out]).size);
+                setStatus('ok', 'Valid JSON');
+            } catch (e) {
+                outputJson.value = '';
+                outputModeLabel.textContent = '—';
+                outputSize.textContent = '0 B';
+                const msg = (e && e.message) ? e.message : String(e);
+                setStatus('error', 'Invalid JSON');
+                showError(msg, raw);
+            }
+        };
+
+        const validateOnly = () => {
+            const raw = inputJson.value || '';
+            inputSize.textContent = humanBytes(new Blob([raw]).size);
+            hideError();
+            if (!raw.trim()) {
+                setStatus('idle', 'Waiting for input…');
+                return;
+            }
+            try {
+                safeParseJson(raw);
+                setStatus('ok', 'Valid JSON');
+            } catch (e) {
+                const msg = (e && e.message) ? e.message : String(e);
+                setStatus('error', 'Invalid JSON');
+                showError(msg, raw);
+            }
+        };
+
+        const copyOutput = async () => {
+            const text = outputJson.value || '';
+            if (!text) return;
+            try {
+                await navigator.clipboard.writeText(text);
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => copyBtn.textContent = 'Copy output', 1000);
+            } catch {
+                // Fallback
+                outputJson.focus();
+                outputJson.select();
+                document.execCommand('copy');
+            }
+        };
+
+        const downloadOutputJson = () => {
+            const text = outputJson.value || '';
+            if (!text) return;
+            const blob = new Blob([text], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'formatted.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        const clearAll = () => {
+            inputJson.value = '';
+            outputJson.value = '';
+            outputModeLabel.textContent = '—';
+            inputSize.textContent = '0 B';
+            outputSize.textContent = '0 B';
+            hideError();
+            setStatus('idle', 'Waiting for input…');
+        };
+
+        const sampleJson = () => ({
+            tool: 'JSON Formatter & Validator',
+            privacy: true,
+            batch: { supported: true, zipExport: true },
+            examples: [
+                { id: 1, name: 'Alice', tags: ['dev', 'json'] },
+                { id: 2, name: 'Bob', tags: ['tools', 'web'] }
+            ],
+            meta: { createdAt: new Date().toISOString() }
+        });
+
+        // === Batch file handling ===
+        const sanitizeBaseName = (name) => {
+            const base = (name || 'file').replace(/\.[^.]+$/, '');
+            return base.replace(/[^\w\-\.]+/g, '_').slice(0, 120) || 'file';
+        };
+
+        const renderResults = () => {
+            resultsList.innerHTML = '';
+            if (!batchResults.length) {
+                resultsList.innerHTML = '<div class="text-sm text-slate-500 dark:text-slate-400">No batch results yet.</div>';
+                zipBtn.disabled = true;
+                return;
+            }
+
+            zipBtn.disabled = batchResults.length < 2;
+
+            batchResults.forEach((r, idx) => {
+                const row = document.createElement('div');
+                row.className = 'rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4';
+
+                const top = document.createElement('div');
+                top.className = 'flex flex-col sm:flex-row sm:items-start justify-between gap-3';
+
+                const left = document.createElement('div');
+                const title = document.createElement('div');
+                title.className = 'font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2';
+                title.innerHTML = `<span class="text-slate-500 dark:text-slate-400">#${idx + 1}</span><span>${escapeHtml(r.originalName)}</span>`;
+
+                const meta = document.createElement('div');
+                meta.className = 'mt-1 text-sm text-slate-600 dark:text-slate-400';
+                meta.textContent = r.valid ? '✅ Valid JSON' : '❌ Invalid JSON';
+
+                left.append(title, meta);
+
+                const right = document.createElement('div');
+                right.className = 'flex flex-wrap gap-2';
+
+                const btnBase = 'px-3 py-2 rounded-xl text-sm font-semibold transition active:scale-[0.99]';
+                const mkBtn = (label, classes, onClick) => {
+                    const b = document.createElement('button');
+                    b.type = 'button';
+                    b.textContent = label;
+                    b.className = `${btnBase} ${classes}`;
+                    b.addEventListener('click', onClick);
+                    return b;
+                };
+
+                if (r.valid && r.formatted) {
+                    right.append(
+                        mkBtn('Copy', 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600', async () => {
+                            await navigator.clipboard.writeText(r.formatted);
+                        }),
+                        mkBtn('Download', 'bg-blue-600 text-white hover:bg-blue-500', () => {
+                            downloadText(`${r.name}.formatted.json`, r.formatted, 'application/json');
+                        })
+                    );
+                } else {
+                    right.append(
+                        mkBtn('Copy error', 'bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 hover:bg-slate-300 dark:hover:bg-slate-600', async () => {
+                            await navigator.clipboard.writeText(r.error || 'Invalid JSON');
+                        })
+                    );
+                }
+
+                top.append(left, right);
+
+                const details = document.createElement('div');
+                details.className = 'mt-3 text-xs text-slate-500 dark:text-slate-400';
+                if (r.valid) details.textContent = 'Formatted output ready.';
+                else details.textContent = r.error || 'Invalid JSON.';
+
+                row.append(top, details);
+                resultsList.appendChild(row);
+            });
+        };
+
+        const downloadText = (filename, text, mime) => {
+            const blob = new Blob([text], { type: mime || 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        const escapeHtml = (s) => String(s)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#039;');
+
+        const processFiles = async (files) => {
+            const list = Array.from(files || []).filter(Boolean);
+            if (!list.length) return;
+
+            batchResults = [];
+            renderResults();
+
+            progressWrap.classList.remove('hidden');
+            progressLabel.textContent = `Processing ${list.length} file(s)…`;
+            progressPercent.textContent = '0%';
+            progressBar.style.width = '0%';
+
+            for (let i = 0; i < list.length; i++) {
+                const f = list[i];
+                const name = sanitizeBaseName(f.name);
+                try {
+                    const text = await f.text();
+                    let obj = safeParseJson(text);
+                    if (sortKeys.checked) obj = sortObjectKeysDeep(obj);
+                    const indent = normalizeIndent();
+                    const formatted = JSON.stringify(obj, null, indent);
+                    const minified = JSON.stringify(obj);
+                    batchResults.push({
+                        name,
+                        originalName: f.name,
+                        valid: true,
+                        formatted,
+                        minified
+                    });
+                } catch (e) {
+                    const msg = (e && e.message) ? e.message : String(e);
+                    batchResults.push({
+                        name,
+                        originalName: f.name,
+                        valid: false,
+                        error: msg
+                    });
+                }
+
+                const pct = Math.round(((i + 1) / list.length) * 100);
+                progressPercent.textContent = `${pct}%`;
+                progressBar.style.width = `${pct}%`;
+                renderResults();
+                await new Promise(r => setTimeout(r, 0));
+            }
+
+            progressWrap.classList.add('hidden');
+        };
+
+        const downloadZip = async () => {
+            if (!batchResults.length) return;
+            if (typeof JSZip === 'undefined') return;
+
+            const zip = new JSZip();
+            const folder = zip.folder('json-formatter');
+            const indent = indentSelect.value === 'tab' ? 'tab' : `${indentSelect.value}`;
+            const sort = sortKeys.checked ? 'sorted' : 'original';
+
+            batchResults.forEach((r) => {
+                if (r.valid && r.formatted) {
+                    folder.file(`${r.name}.formatted.${sort}.${indent}.json`, r.formatted);
+                    if (r.minified) folder.file(`${r.name}.min.json`, r.minified);
+                } else {
+                    folder.file(`${r.name}.error.txt`, r.error || 'Invalid JSON');
+                }
+            });
+
+            zipBtn.disabled = true;
+            zipBtn.textContent = 'Building ZIP…';
+            try {
+                const blob = await zip.generateAsync({ type: 'blob' }, (meta) => {
+                    const pct = Math.round(meta.percent || 0);
+                    zipBtn.textContent = `Building ZIP… ${pct}%`;
+                });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `json-formatter.${sort}.${indent}.zip`;
+                a.click();
+                URL.revokeObjectURL(url);
+            } finally {
+                zipBtn.textContent = 'Download All (ZIP)';
+                zipBtn.disabled = batchResults.length < 2;
+            }
+        };
+
+        // === Events ===
+        formatBtn.addEventListener('click', formatFromInput);
+        minifyBtn.addEventListener('click', minifyFromInput);
+        validateBtn.addEventListener('click', validateOnly);
+        copyBtn.addEventListener('click', copyOutput);
+        downloadBtn.addEventListener('click', downloadOutputJson);
+        clearBtn.addEventListener('click', clearAll);
+
+        loadSampleBtn.addEventListener('click', () => {
+            inputJson.value = JSON.stringify(sampleJson(), null, normalizeIndent());
+            inputSize.textContent = humanBytes(new Blob([inputJson.value]).size);
+            if (autoFormat.checked) formatFromInput();
+        });
+
+        inputJson.addEventListener('input', () => {
+            inputSize.textContent = humanBytes(new Blob([inputJson.value || '']).size);
+        });
+
+        // Paste support (text + files)
+        const handlePaste = async (e) => {
+            const dt = e.clipboardData;
+            if (!dt) return;
+
+            const files = dt.files && dt.files.length ? Array.from(dt.files) : [];
+            if (files.length) {
+                e.preventDefault();
+                await processFiles(files);
+                return;
+            }
+
+            const text = dt.getData('text/plain');
+            if (!text) return;
+
+            // If pasted text looks like JSON, optionally auto-format
+            inputJson.value = text;
+            inputSize.textContent = humanBytes(new Blob([text]).size);
+            if (autoFormat.checked) {
+                e.preventDefault();
+                formatFromInput();
+            }
+        };
+
+        inputJson.addEventListener('paste', handlePaste);
+        dropzone.addEventListener('paste', handlePaste);
+        document.addEventListener('paste', (e) => {
+            // Allow Ctrl+V even when drop zone is focused/hovered
+            if (document.activeElement === inputJson) return;
+            // If user is typing in another input/select, don't hijack
+            const tag = (document.activeElement && document.activeElement.tagName) ? document.activeElement.tagName.toLowerCase() : '';
+            if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+            handlePaste(e);
+        });
+
+        // Drag & drop
+        const setDropActive = (active) => {
+            dropOverlay.style.opacity = active ? '1' : '0';
+        };
+
+        ['dragenter','dragover'].forEach(ev => {
+            dropzone.addEventListener(ev, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setDropActive(true);
+            });
+        });
+        ['dragleave','drop'].forEach(ev => {
+            dropzone.addEventListener(ev, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setDropActive(false);
+            });
+        });
+        dropzone.addEventListener('drop', async (e) => {
+            const files = e.dataTransfer && e.dataTransfer.files ? Array.from(e.dataTransfer.files) : [];
+            if (!files.length) return;
+            await processFiles(files);
+        });
+
+        fileInput.addEventListener('change', async (e) => {
+            const files = e.target && e.target.files ? Array.from(e.target.files) : [];
+            if (!files.length) return;
+            await processFiles(files);
+            fileInput.value = '';
+        });
+
+        clearFilesBtn.addEventListener('click', () => {
+            fileInput.value = '';
+        });
+
+        clearResultsBtn.addEventListener('click', () => {
+            batchResults = [];
+            renderResults();
+        });
+
+        zipBtn.addEventListener('click', downloadZip);
+
+        // Init
+        clearAll();
+        renderResults();
+    </script>
+</body>
+</html>
+
+

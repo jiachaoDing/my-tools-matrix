@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Generate strong, unique passwords instantly in your browser. Customize length, symbols, and exclusions. 100% client-side, unlimited, and free.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100% privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">Password Generator</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-6 text-lg">Create ultra-strong, unique passwords instantly. 100% client-side.</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Generated locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <div class="grid gap-6 lg:grid-cols-[2fr,1fr]">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <div class="relative w-full">
+                            <input id="password-output" class="w-full text-lg font-mono bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 pr-24 focus:outline-none focus:ring-2 focus:ring-blue-500" readonly value="Click Generate to create a password">
+                            <div class="absolute inset-y-1 right-1 flex items-center gap-2 pr-2">
+                                <button id="copy-btn" class="px-3 py-2 rounded-lg text-sm font-semibold bg-blue-600 text-white hover:bg-blue-500 active:scale-[0.99] transition disabled:opacity-60 disabled:cursor-not-allowed">Copy</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-semibold text-slate-600 dark:text-slate-300">Strength</p>
+                            <p id="strength-label" class="text-lg font-bold text-slate-900 dark:text-white">Waiting...</p>
+                        </div>
+                        <div class="w-48 h-3 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                            <div id="strength-bar" class="h-full w-0 bg-red-500 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label for="length" class="font-semibold text-slate-800 dark:text-slate-100">Length: <span id="length-value" class="text-blue-600 dark:text-blue-400">16</span></label>
+                            <input type="number" id="count" min="1" max="20" value="1" class="w-20 px-3 py-2 rounded-lg border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-sm" aria-label="Number of passwords to generate">
+                        </div>
+                        <input type="range" id="length" min="6" max="64" value="16" class="w-full accent-blue-600">
+                    </div>
+
+                    <div class="grid sm:grid-cols-2 gap-3">
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                            <input type="checkbox" id="include-lower" class="accent-blue-600" checked>
+                            <span class="font-semibold">Lowercase (a-z)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                            <input type="checkbox" id="include-upper" class="accent-blue-600" checked>
+                            <span class="font-semibold">Uppercase (A-Z)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                            <input type="checkbox" id="include-numbers" class="accent-blue-600" checked>
+                            <span class="font-semibold">Numbers (0-9)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                            <input type="checkbox" id="include-symbols" class="accent-blue-600" checked>
+                            <span class="font-semibold">Symbols (!@#$...)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                            <input type="checkbox" id="avoid-similar" class="accent-blue-600">
+                            <span class="font-semibold">Avoid similar (0/O, 1/l/I)</span>
+                        </label>
+                        <label class="flex items-center gap-3 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900">
+                            <input type="checkbox" id="no-repeats" class="accent-blue-600">
+                            <span class="font-semibold">Reduce repeats</span>
+                        </label>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3">
+                        <button id="generate-btn" class="px-5 py-3 rounded-xl bg-blue-600 text-white font-semibold hover:bg-blue-500 active:scale-[0.99] transition">Generate</button>
+                        <button id="copy-all-btn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition">Copy All</button>
+                        <button id="download-btn" class="px-5 py-3 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-100 font-semibold hover:bg-slate-300 dark:hover:bg-slate-600 active:scale-[0.99] transition">Download TXT</button>
+                    </div>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 h-fit">
+                    <h3 class="font-bold text-lg mb-3 text-slate-800 dark:text-white">Generated Passwords</h3>
+                    <div id="password-list" class="space-y-2 max-h-80 overflow-auto pr-1">
+                        <p class="text-sm text-slate-500">Passwords will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use the Password Generator</h2>
+            <ol>
+                <li>Choose your desired length (6-64) and how many passwords to output.</li>
+                <li>Select which character sets to include and optional safety filters.</li>
+                <li>Click Generate to instantly create strong passwords in your browser.</li>
+                <li>Copy individual passwords, copy all, or download as a TXT file.</li>
+            </ol>
+            <h2>Features</h2>
+            <ul>
+                <li>Unlimited, instant generation powered by your device—no server calls.</li>
+                <li>Advanced options: exclude similar characters and reduce repeats.</li>
+                <li>Batch mode: create up to 20 passwords per click for teams and rotation.</li>
+                <li>Privacy-first: all randomness is from your browser (crypto-safe).</li>
+                <li>Dark mode, responsive layout, and keyboard-friendly controls.</li>
+            </ul>
+            <h2>FAQ</h2>
+            <h3>Is this generator secure?</h3>
+            <p>Yes. It runs 100% locally using <code>crypto.getRandomValues</code>; no data leaves your device.</p>
+            <h3>Can I generate multiple passwords at once?</h3>
+            <p>Yes. Set the count (up to 20) to create a batch and copy or download them.</p>
+            <h3>How strong should my password be?</h3>
+            <p>Use 16+ characters with all character sets for best entropy and enable similar-character filtering if you prefer readability.</p>
+            <h3>Do you store my passwords?</h3>
+            <p>No. Everything is generated in-memory on your browser and cleared on refresh.</p>
+            <h3>Can I use it offline?</h3>
+            <p>Yes. Load the page once, then you can keep generating without a network connection.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Tool Logic ===
+        const lengthInput = document.getElementById('length');
+        const lengthValue = document.getElementById('length-value');
+        const includeLower = document.getElementById('include-lower');
+        const includeUpper = document.getElementById('include-upper');
+        const includeNumbers = document.getElementById('include-numbers');
+        const includeSymbols = document.getElementById('include-symbols');
+        const avoidSimilar = document.getElementById('avoid-similar');
+        const noRepeats = document.getElementById('no-repeats');
+        const countInput = document.getElementById('count');
+        const output = document.getElementById('password-output');
+        const passwordList = document.getElementById('password-list');
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthLabel = document.getElementById('strength-label');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const copyAllBtn = document.getElementById('copy-all-btn');
+        const downloadBtn = document.getElementById('download-btn');
+
+        const charset = {
+            lower: 'abcdefghijklmnopqrstuvwxyz',
+            upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+            numbers: '0123456789',
+            symbols: '!@#$%^&*()-_=+[]{};:,.<>?/|~'
+        };
+        const similarChars = new Set(['0','O','o','1','l','I']);
+
+        const randomIndex = (max) => {
+            const array = new Uint32Array(1);
+            crypto.getRandomValues(array);
+            return array[0] % max;
+        };
+
+        const pickChar = (pool) => pool[randomIndex(pool.length)];
+
+        const buildPool = () => {
+            let pool = '';
+            if (includeLower.checked) pool += charset.lower;
+            if (includeUpper.checked) pool += charset.upper;
+            if (includeNumbers.checked) pool += charset.numbers;
+            if (includeSymbols.checked) pool += charset.symbols;
+            if (avoidSimilar.checked) {
+                pool = [...pool].filter(c => !similarChars.has(c)).join('');
+            }
+            return pool;
+        };
+
+        const generatePassword = (length, pool) => {
+            if (!pool) return '';
+            let pwd = '';
+            while (pwd.length < length) {
+                const char = pickChar(pool);
+                if (noRepeats.checked && pwd.endsWith(char)) continue;
+                pwd += char;
+            }
+            return pwd;
+        };
+
+        const scorePassword = (pwd) => {
+            if (!pwd) return 0;
+            let variations = 0;
+            if (/[a-z]/.test(pwd)) variations++;
+            if (/[A-Z]/.test(pwd)) variations++;
+            if (/[0-9]/.test(pwd)) variations++;
+            if (/[^a-zA-Z0-9]/.test(pwd)) variations++;
+            const lengthScore = Math.min(pwd.length, 64);
+            return lengthScore * variations;
+        };
+
+        const updateStrengthUI = (pwd) => {
+            const score = scorePassword(pwd);
+            const percent = Math.min(100, Math.round((score / 256) * 100));
+            strengthBar.style.width = `${percent}%`;
+            let color = 'bg-red-500';
+            let label = 'Weak';
+            if (percent > 70) { color = 'bg-green-500'; label = 'Excellent'; }
+            else if (percent > 50) { color = 'bg-amber-500'; label = 'Strong'; }
+            else if (percent > 30) { color = 'bg-yellow-500'; label = 'Fair'; }
+            strengthBar.className = `h-full transition-all duration-300 ${color}`;
+            strengthBar.style.width = `${percent}%`;
+            strengthLabel.textContent = pwd ? label : 'Waiting...';
+        };
+
+        const renderPasswords = (list) => {
+            passwordList.innerHTML = '';
+            if (!list.length) {
+                passwordList.innerHTML = '<p class="text-sm text-slate-500">Passwords will appear here.</p>';
+                return;
+            }
+            list.forEach((pwd, idx) => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700';
+                const text = document.createElement('input');
+                text.readOnly = true;
+                text.value = pwd;
+                text.className = 'flex-1 bg-transparent font-mono text-sm focus:outline-none';
+                const btn = document.createElement('button');
+                btn.textContent = 'Copy';
+                btn.className = 'px-3 py-1 text-xs font-semibold rounded-lg bg-blue-600 text-white hover:bg-blue-500';
+                btn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(pwd);
+                });
+                const badge = document.createElement('span');
+                badge.textContent = `#${idx + 1}`;
+                badge.className = 'text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-200';
+                row.append(badge, text, btn);
+                passwordList.appendChild(row);
+            });
+        };
+
+        const generate = () => {
+            const length = parseInt(lengthInput.value, 10);
+            const count = Math.min(Math.max(parseInt(countInput.value, 10) || 1, 1), 20);
+            lengthValue.textContent = length;
+            countInput.value = count;
+            const pool = buildPool();
+            if (!pool) {
+                output.value = 'Select at least one character set.';
+                updateStrengthUI('');
+                renderPasswords([]);
+                return;
+            }
+            const passwords = [];
+            for (let i = 0; i < count; i++) {
+                passwords.push(generatePassword(length, pool));
+            }
+            output.value = passwords[0] || '';
+            renderPasswords(passwords);
+            updateStrengthUI(passwords[0]);
+        };
+
+        lengthInput.addEventListener('input', () => {
+            lengthValue.textContent = lengthInput.value;
+        });
+
+        generateBtn.addEventListener('click', generate);
+        copyBtn.addEventListener('click', () => {
+            if (!output.value || output.value.startsWith('Click Generate')) return;
+            navigator.clipboard.writeText(output.value);
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => copyBtn.textContent = 'Copy', 1000);
+        });
+
+        copyAllBtn.addEventListener('click', () => {
+            const inputs = passwordList.querySelectorAll('input');
+            if (!inputs.length) return;
+            const text = Array.from(inputs).map(i => i.value).join('\\n');
+            navigator.clipboard.writeText(text);
+            copyAllBtn.textContent = 'Copied!';
+            setTimeout(() => copyAllBtn.textContent = 'Copy All', 1000);
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const inputs = passwordList.querySelectorAll('input');
+            if (!inputs.length) return;
+            const blob = new Blob([Array.from(inputs).map(i => i.value).join('\\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'passwords.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Generate one set on load for instant preview
+        generate();
+    </script>
+</body>
+</html>
+

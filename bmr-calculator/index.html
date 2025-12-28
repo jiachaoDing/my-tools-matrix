@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR Calculator - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Calculate your Basal Metabolic Rate (BMR) instantly. Support for Metric and Imperial units. 100% client-side, private, and free.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100% privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">BMR Calculator</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-6 text-lg">Calculate your Basal Metabolic Rate and estimate your daily calorie needs.</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Input Section -->
+                <div class="space-y-6">
+                    <div class="flex p-1 bg-slate-100 dark:bg-slate-900 rounded-xl">
+                        <button id="unit-metric" class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400">Metric (kg/cm)</button>
+                        <button id="unit-imperial" class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">Imperial (lb/in)</button>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Gender</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <label class="flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 cursor-pointer transition-all hover:border-blue-300">
+                                    <input type="radio" name="gender" value="male" checked class="accent-blue-600">
+                                    <span class="font-medium">Male</span>
+                                </label>
+                                <label class="flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 cursor-pointer transition-all hover:border-blue-300">
+                                    <input type="radio" name="gender" value="female" class="accent-blue-600">
+                                    <span class="font-medium">Female</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div class="space-y-2">
+                                <label for="age" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Age</label>
+                                <input type="number" id="age" placeholder="25" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                            </div>
+
+                            <div id="metric-inputs" class="space-y-4">
+                                <div class="space-y-2">
+                                    <label for="height-cm" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (cm)</label>
+                                    <input type="number" id="height-cm" placeholder="175" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="weight-kg" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Weight (kg)</label>
+                                    <input type="number" id="weight-kg" placeholder="70" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div id="imperial-inputs" class="hidden space-y-4">
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="space-y-2">
+                                        <label for="height-ft" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (ft)</label>
+                                        <input type="number" id="height-ft" placeholder="5" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label for="height-in" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (in)</label>
+                                        <input type="number" id="height-in" placeholder="9" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label for="weight-lb" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Weight (lb)</label>
+                                    <input type="number" id="weight-lb" placeholder="154" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label for="activity" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Activity Level</label>
+                                <select id="activity" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                                    <option value="1.2">Basal Metabolic Rate (BMR)</option>
+                                    <option value="1.2">Sedentary (little or no exercise)</option>
+                                    <option value="1.375">Lightly active (light exercise/sports 1-3 days/week)</option>
+                                    <option value="1.55">Moderately active (moderate exercise/sports 3-5 days/week)</option>
+                                    <option value="1.725">Very active (hard exercise/sports 6-7 days a week)</option>
+                                    <option value="1.9">Extra active (very hard exercise/sports & physical job)</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="calculate-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all">Calculate BMR</button>
+                </div>
+
+                <!-- Result Section -->
+                <div class="flex flex-col justify-center items-center text-center p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 min-h-[400px]">
+                    <div id="result-placeholder" class="text-slate-400">
+                        <svg class="w-16 h-16 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        <p>Enter your details to see results</p>
+                    </div>
+
+                    <div id="result-display" class="hidden space-y-6 w-full">
+                        <div>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Your BMR</p>
+                            <h2 id="bmr-value" class="text-6xl font-black text-blue-600 dark:text-blue-400 my-2">--</h2>
+                            <p class="text-slate-500 dark:text-slate-400">Calories/day</p>
+                        </div>
+
+                        <div class="space-y-4 text-left">
+                            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Daily Calorie Estimates</h3>
+                            <div id="tdee-list" class="space-y-3">
+                                <!-- TDEE items will be injected here -->
+                            </div>
+                        </div>
+
+                        <div id="bmr-tip" class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 text-sm text-blue-800 dark:text-blue-200 text-left">
+                            BMR is the amount of energy expanded while at rest in a neutrally temperate environment.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use the BMR Calculator</h2>
+            <ol>
+                <li>Choose your unit system: <strong>Metric</strong> (kg/cm) or <strong>Imperial</strong> (lb/in).</li>
+                <li>Select your gender and enter your age, height, and weight.</li>
+                <li>Choose an activity level to estimate your Total Daily Energy Expenditure (TDEE).</li>
+                <li>Click <strong>Calculate BMR</strong> to see your basal needs and activity-based estimates.</li>
+            </ol>
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Mifflin-St Jeor Equation:</strong> Uses the most accurate current formula for calculating BMR.</li>
+                <li><strong>Privacy First:</strong> No data is ever uploaded. All calculations happen instantly in your browser.</li>
+                <li><strong>TDEE Estimation:</strong> Provides a range of calorie needs based on your daily activity levels.</li>
+                <li><strong>Responsive Design:</strong> Works seamlessly across mobile, tablet, and desktop devices.</li>
+                <li><strong>Dual Units:</strong> Easily switch between metric and imperial measurements.</li>
+            </ul>
+            <h2>FAQ</h2>
+            <h3>What is BMR?</h3>
+            <p>Basal Metabolic Rate (BMR) is the number of calories your body needs to accomplish its most basic (basal) life-sustaining functions, such as breathing, circulation, and cell production. It is calculated while you are at complete rest.</p>
+            <h3>How is BMR different from TDEE?</h3>
+            <p>BMR is your baseline calorie need at rest. Total Daily Energy Expenditure (TDEE) is the total number of calories you burn in a day, including physical activity and the thermic effect of food.</p>
+            <h3>Which BMR formula do you use?</h3>
+            <p>We use the <strong>Mifflin-St Jeor Equation</strong>, which is widely considered by the scientific and nutrition community as the most reliable standard for healthy adults.</p>
+            <h3>Is this calculator private?</h3>
+            <p>Absolutely. Like all tools on WebUtilityKit.com, this calculator runs 100% locally in your browser. No health data is ever sent to our servers.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Tool Logic ===
+        const btnMetric = document.getElementById('unit-metric');
+        const btnImperial = document.getElementById('unit-imperial');
+        const metricInputs = document.getElementById('metric-inputs');
+        const imperialInputs = document.getElementById('imperial-inputs');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultPlaceholder = document.getElementById('result-placeholder');
+        const resultDisplay = document.getElementById('result-display');
+        const bmrValue = document.getElementById('bmr-value');
+        const tdeeList = document.getElementById('tdee-list');
+
+        let currentUnit = 'metric';
+
+        btnMetric.addEventListener('click', () => {
+            currentUnit = 'metric';
+            btnMetric.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400';
+            btnImperial.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
+            metricInputs.classList.remove('hidden');
+            imperialInputs.classList.add('hidden');
+        });
+
+        btnImperial.addEventListener('click', () => {
+            currentUnit = 'imperial';
+            btnImperial.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400';
+            btnMetric.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
+            metricInputs.classList.add('hidden');
+            imperialInputs.classList.remove('hidden');
+        });
+
+        calculateBtn.addEventListener('click', () => {
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const age = parseInt(document.getElementById('age').value);
+            let weight = 0;
+            let height = 0;
+
+            if (currentUnit === 'metric') {
+                weight = parseFloat(document.getElementById('weight-kg').value);
+                height = parseFloat(document.getElementById('height-cm').value);
+            } else {
+                const ft = parseFloat(document.getElementById('height-ft').value) || 0;
+                const inches = parseFloat(document.getElementById('height-in').value) || 0;
+                const totalInches = (ft * 12) + inches;
+                height = totalInches * 2.54;
+                weight = parseFloat(document.getElementById('weight-lb').value) * 0.453592;
+            }
+
+            if (!age || !weight || !height) {
+                alert('Please enter all required fields.');
+                return;
+            }
+
+            // Mifflin-St Jeor Equation
+            let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+            if (gender === 'male') {
+                bmr += 5;
+            } else {
+                bmr -= 161;
+            }
+
+            showResult(bmr);
+        });
+
+        function showResult(bmr) {
+            resultPlaceholder.classList.add('hidden');
+            resultDisplay.classList.remove('hidden');
+            
+            bmrValue.textContent = Math.round(bmr).toLocaleString();
+
+            const activityLevels = [
+                { label: 'Sedentary', desc: 'Little or no exercise', factor: 1.2 },
+                { label: 'Lightly Active', desc: 'Exercise 1-3 days/week', factor: 1.375 },
+                { label: 'Moderately Active', desc: 'Exercise 3-5 days/week', factor: 1.55 },
+                { label: 'Very Active', desc: 'Exercise 6-7 days/week', factor: 1.725 },
+                { label: 'Extra Active', desc: 'Very hard exercise & physical job', factor: 1.9 }
+            ];
+
+            tdeeList.innerHTML = activityLevels.map(level => `
+                <div class="flex items-center justify-between p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
+                    <div>
+                        <p class="font-bold text-slate-800 dark:text-white">${level.label}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">${level.desc}</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="font-mono font-bold text-blue-600 dark:text-blue-400">${Math.round(bmr * level.factor).toLocaleString()}</p>
+                        <p class="text-[10px] text-slate-400 uppercase font-bold">kcal</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+    </script>
+</body>
+</html>
+

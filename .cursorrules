@@ -1,46 +1,162 @@
-# Role & Objective
-You are an expert Full-Stack Developer specializing in high-performance "Micro-SaaS" and SEO-driven utility tools.
-Your goal is to help me build 100+ simple, client-side tools that run on Cloudflare Pages.
+# Project Context: WebUtilityKit.com (High-Performance Tool Matrix)
 
-# Tech Stack Constraints (STRICT)
-- **Core:** HTML5, Tailwind CSS, Vanilla JavaScript (ES6+).
-- **Frameworks:** DO NOT use React, Vue, Angular, Svelte, or jQuery.
-- **Build Tools:** DO NOT use npm, yarn, webpack, vite, or node_modules.
+## 1. Project Mission & Differentiation
+
+We are building a suite of 100+ client-side utility tools. To beat competitors, we strictly enforce these 4 competitive advantages:
+
+1.  **Privacy First:** ALL processing must happen in the browser (Client-Side). NO server uploads.
+2.  **Batch & Unlimited:** Leverage user hardware to allow unlimited batch processing (e.g., convert 50 images at once).
+3.  **Modern UX:** Support Dark Mode, Drag & Drop, and "Ctrl+V" Paste.
+4.  **Long-tail SEO:** Target specific use-cases in content.
+
+## 2. Tech Stack Constraints (STRICT)
+
+> AI MUST follow these strict technical constraints:
+
+- **Core:** HTML5, Vanilla JavaScript (ES6+), Tailwind CSS (via CDN).
+- **Frameworks:** **FORBIDDEN**. DO NOT use React, Vue, Angular, Svelte, or jQuery.
+- **Build Tools:** **FORBIDDEN**. DO NOT use npm, yarn, webpack, vite, or node_modules.
 - **CSS Method:** Use Tailwind CSS via CDN link only.
   - `<script src="https://cdn.tailwindcss.com"></script>`
 - **External Libraries:** Use CDN links (cdnjs/jsdelivr) for libraries (e.g., JSZip, PDF.js, heic2any).
-- **Backend:** NO server-side code (Node.js, Python, PHP). All logic must run in the browser (Client-side).
+- **Backend:** **NO server-side code**. All logic must run in the browser.
+  - Use `FileReader`, `Canvas`, `Blob`, `WebAssembly`.
 
-# Project Structure & Architecture
-- **Single File Pattern:** Combine HTML, CSS, and JavaScript into a single `index.html` file whenever possible.
-- **Directory Strategy:** Each tool lives in its own subdirectory (e.g., `/heic-to-jpg/index.html`).
-- **Asset Handling:** No local assets if possible. Use Base64 or remote URLs.
+## 3. Project Structure (Directory Routing)
 
-# Coding Standards
-- **HTML:** Semantic HTML5 tags (<header>, <main>, <footer>, <section>).
-- **JavaScript:**
-  - Use modern ES6+ syntax (const/let, arrow functions, async/await).
-  - Handle errors gracefully (try/catch).
-  - Add comments explaining complex logic.
-- **Tailwind Config:**
-  - Use `class="..."` directly.
-  - Design for Mobile First (responsive).
-  - Use neutral/slate for text, blue/indigo for primary actions.
+The project follows a "Directory as Route" structure for Cloudflare Pages.
 
-# SEO & Monetization Requirements (Mandatory)
-Every generated `index.html` MUST include:
-1. **Meta Tags:** unique `<title>` and `<meta name="description">`.
-2. **Structure:** A clear `<h1>` tag at the top.
-3. **Content Area:** A placeholder section `<article>` below the tool for SEO text (Introduction, How-to, FAQ).
-4. **Performance:** Lazy load non-critical scripts.
+```text
+/ (root)
+├── index.html            # Landing page
+├── assets/               # Shared assets (js/css/images)
+├── [tool-slug]/          # Each tool gets its own folder
+│   └── index.html        # The tool code (Combined HTML/JS/CSS)
+└── ...
 
-# User Experience (UX) Guidelines
-- **Interaction:** Visual feedback for all actions (hover states, click effects).
-- **Loading:** Show spinners/progress bars during processing.
-- **Privacy:** If file processing is involved, display a badge: "🔒 Processed locally in browser. No upload."
-- **Empty States:** Clear instructions when no input is provided.
+```
 
-# Response Behavior
-- **Code First:** Provide the full, copy-pasteable code block immediately.
-- **Don't Explain Basics:** Do not explain how HTML works. Focus on the logic.
-- **File Name:** Always specify which folder/file the code belongs to (e.g., `folder-name/index.html`).
+* **Naming:** Folder names must be kebab-case (e.g., `heic-to-jpg`).
+* **File Placement:** ALWAYS create a folder named after the tool's keyword and place the code in `index.html` inside it.
+
+## 4. UI/UX Design System (The "2025 Look")
+
+> AI MUST implement these styles by default:
+
+* **Theme:** Minimalist, Clean, Trustworthy.
+* **Dark Mode:** **MANDATORY**. Use Tailwind's `dark:` classes and include a toggle script.
+* **Color Palette:**
+* Primary: `blue-600` (Light) / `blue-500` (Dark)
+* Background: `bg-slate-50` (Light) / `bg-slate-900` (Dark)
+* Surface: `bg-white` (Light) / `bg-slate-800` (Dark)
+* Text: `text-slate-900` (Light) / `text-slate-100` (Dark)
+
+
+* **Interactions:**
+* **Drag & Drop:** File inputs must be large drop zones.
+* **Feedback:** Visual feedback for hover/active states.
+* **Loading:** Show spinners/progress bars during processing.
+* **Header/Footer Consistency:** Tool pages must reuse the landing page header/footer styling (bordered translucent header with sticky nav + matching bordered footer).
+* **Article Styling:** Use Tailwind Typography via `https://cdn.tailwindcss.com?plugins=typography` and wrap SEO copy in `article` with `prose prose-slate dark:prose-invert lg:prose-lg` plus ample top margin.
+
+
+
+## 5. Feature Requirements (Killer Features)
+
+### A. The "Privacy Badge"
+
+Every file-processing tool MUST display this badge prominently below the title:
+
+```html
+<div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+    <svg ...>SHIELD_ICON</svg>
+    <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+</div>
+
+```
+
+### B. Batch Processing Logic
+
+If the tool handles files (e.g., converters, compressors):
+
+1. Input element MUST have `multiple` attribute.
+2. Logic MUST use a loop to handle arrays of files.
+3. Output MUST provide a "Download All (ZIP)" button if > 1 file.
+
+### C. SEO Content Structure
+
+Every `index.html` MUST end with a semantic `<article>` tag containing:
+
+1. **H2:** How to use [Tool Name] (Step-by-step).
+2. **H2:** Features (Emphasize "Unlimited" & "Privacy").
+3. **H2:** FAQ (3-5 Questions targeting long-tail keywords).
+
+## 6. Master Code Template
+
+When asked to create a tool, use this skeleton (Adapt as needed):
+
+```html
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Tool Keyword] - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="[SEO Description]">
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    
+    <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-4 sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400">
+                <span id="theme-icon">🌗</span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">[Tool Name]</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-8 text-lg">[Short Value Prop]</p>
+        
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use...</h2>
+            <h2>Features</h2>
+            <h2>FAQ</h2>
+        </article>
+    </main>
+
+    <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12 text-center text-slate-500">
+        <p>&copy; 2025 WebUtilityKit.com. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        // (Include logic to toggle 'dark' class on html tag and save to localStorage)
+
+        // === Tool Logic ===
+    </script>
+</body>
+</html>
+
+```
+
+## 7. Response Protocol
+
+1. **Code First:** Provide the full, copy-pasteable `index.html` code block immediately.
+2. **File Path:** **ALWAYS start the response by stating the file path.** (e.g., "Here is the code for `tools/password-gen/index.html`:")
+3. **No Fluff:** Do not explain basic HTML concepts.
+

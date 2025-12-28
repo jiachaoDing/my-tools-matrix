@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Calculate your Body Mass Index (BMI) instantly. Support for Metric and Imperial units. 100% client-side, private, and free.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100% privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">BMI Calculator</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-6 text-lg">Quickly calculate your Body Mass Index and understand your health status.</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Input Section -->
+                <div class="space-y-6">
+                    <div class="flex p-1 bg-slate-100 dark:bg-slate-900 rounded-xl">
+                        <button id="unit-metric" class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400">Metric (kg/cm)</button>
+                        <button id="unit-imperial" class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">Imperial (lb/in)</button>
+                    </div>
+
+                    <div id="metric-inputs" class="space-y-4">
+                        <div class="space-y-2">
+                            <label for="height-cm" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (cm)</label>
+                            <input type="number" id="height-cm" placeholder="175" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                        </div>
+                        <div class="space-y-2">
+                            <label for="weight-kg" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Weight (kg)</label>
+                            <input type="number" id="weight-kg" placeholder="70" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                        </div>
+                    </div>
+
+                    <div id="imperial-inputs" class="hidden space-y-4">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="space-y-2">
+                                <label for="height-ft" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (ft)</label>
+                                <input type="number" id="height-ft" placeholder="5" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                            </div>
+                            <div class="space-y-2">
+                                <label for="height-in" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (in)</label>
+                                <input type="number" id="height-in" placeholder="9" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label for="weight-lb" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Weight (lb)</label>
+                            <input type="number" id="weight-lb" placeholder="154" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                        </div>
+                    </div>
+
+                    <button id="calculate-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all">Calculate BMI</button>
+                </div>
+
+                <!-- Result Section -->
+                <div class="flex flex-col justify-center items-center text-center p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 min-h-[300px]">
+                    <div id="result-placeholder" class="text-slate-400">
+                        <svg class="w-16 h-16 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                        </svg>
+                        <p>Enter your details to see results</p>
+                    </div>
+
+                    <div id="result-display" class="hidden space-y-6 w-full">
+                        <div>
+                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Your BMI</p>
+                            <h2 id="bmi-value" class="text-6xl font-black text-blue-600 dark:text-blue-400 my-2">22.9</h2>
+                            <p id="bmi-status" class="text-xl font-bold text-slate-800 dark:text-white">Normal Weight</p>
+                        </div>
+
+                        <!-- Gauge -->
+                        <div class="relative w-full h-4 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden mt-8 flex">
+                            <div class="h-full bg-blue-400" style="width: 18.5%"></div>
+                            <div class="h-full bg-green-500" style="width: 6.5%"></div>
+                            <div class="h-full bg-yellow-500" style="width: 5%"></div>
+                            <div class="h-full bg-red-500" style="width: 70%"></div>
+                            <!-- Marker -->
+                            <div id="bmi-marker" class="absolute top-0 bottom-0 w-1 bg-slate-900 dark:bg-white border-x border-white dark:border-slate-900 transition-all duration-700" style="left: 0%"></div>
+                        </div>
+                        <div class="flex justify-between text-[10px] text-slate-400 font-bold uppercase tracking-tighter">
+                            <span>Underweight</span>
+                            <span>Normal</span>
+                            <span>Overweight</span>
+                            <span>Obese</span>
+                        </div>
+
+                        <div id="bmi-tip" class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 text-sm text-blue-800 dark:text-blue-200">
+                            Maintain a healthy lifestyle through balanced diet and regular exercise.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use the BMI Calculator</h2>
+            <ol>
+                <li>Choose your preferred unit system: <strong>Metric</strong> (kg/cm) or <strong>Imperial</strong> (lb/in).</li>
+                <li>Enter your height and weight in the corresponding fields.</li>
+                <li>Click <strong>Calculate BMI</strong> to see your result instantly.</li>
+                <li>Review your BMI score and health category on the visual scale.</li>
+            </ol>
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Dual Units:</strong> Supports both Metric and Imperial systems for worldwide users.</li>
+                <li><strong>Privacy First:</strong> Your health data stays in your browser. No data is sent to any server.</li>
+                <li><strong>Visual Feedback:</strong> A color-coded scale helps you understand where your BMI falls compared to healthy ranges.</li>
+                <li><strong>Instant Results:</strong> Lightning-fast calculation with no page reloads.</li>
+                <li><strong>Responsive Design:</strong> Works perfectly on smartphones, tablets, and desktops.</li>
+            </ul>
+            <h2>FAQ</h2>
+            <h3>What is BMI?</h3>
+            <p>Body Mass Index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. It is a simple tool to estimate whether a person is at a healthy weight for their height.</p>
+            <h3>What are the BMI categories?</h3>
+            <ul>
+                <li><strong>Underweight:</strong> BMI < 18.5</li>
+                <li><strong>Normal weight:</strong> BMI 18.5–24.9</li>
+                <li><strong>Overweight:</strong> BMI 25–29.9</li>
+                <li><strong>Obese:</strong> BMI ≥ 30</li>
+            </ul>
+            <h3>Is BMI accurate for everyone?</h3>
+            <p>BMI is a useful screening tool but does not directly measure body fat. It may not be accurate for athletes, pregnant women, or the elderly, as it doesn't account for muscle mass or bone density.</p>
+            <h3>How do you calculate BMI?</h3>
+            <p>The formula for BMI is <code>weight (kg) / [height (m)]²</code>. For imperial units, the formula is <code>703 x weight (lb) / [height (in)]²</code>.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Tool Logic ===
+        const btnMetric = document.getElementById('unit-metric');
+        const btnImperial = document.getElementById('unit-imperial');
+        const metricInputs = document.getElementById('metric-inputs');
+        const imperialInputs = document.getElementById('imperial-inputs');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultPlaceholder = document.getElementById('result-placeholder');
+        const resultDisplay = document.getElementById('result-display');
+        const bmiValue = document.getElementById('bmi-value');
+        const bmiStatus = document.getElementById('bmi-status');
+        const bmiMarker = document.getElementById('bmi-marker');
+        const bmiTip = document.getElementById('bmi-tip');
+
+        let currentUnit = 'metric';
+
+        btnMetric.addEventListener('click', () => {
+            currentUnit = 'metric';
+            btnMetric.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400';
+            btnImperial.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
+            metricInputs.classList.remove('hidden');
+            imperialInputs.classList.add('hidden');
+        });
+
+        btnImperial.addEventListener('click', () => {
+            currentUnit = 'imperial';
+            btnImperial.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400';
+            btnMetric.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
+            metricInputs.classList.add('hidden');
+            imperialInputs.classList.remove('hidden');
+        });
+
+        calculateBtn.addEventListener('click', () => {
+            let bmi = 0;
+            if (currentUnit === 'metric') {
+                const height = parseFloat(document.getElementById('height-cm').value) / 100;
+                const weight = parseFloat(document.getElementById('weight-kg').value);
+                if (height > 0 && weight > 0) {
+                    bmi = weight / (height * height);
+                }
+            } else {
+                const ft = parseFloat(document.getElementById('height-ft').value) || 0;
+                const inches = parseFloat(document.getElementById('height-in').value) || 0;
+                const weight = parseFloat(document.getElementById('weight-lb').value);
+                const totalInches = (ft * 12) + inches;
+                if (totalInches > 0 && weight > 0) {
+                    bmi = (weight * 703) / (totalInches * totalInches);
+                }
+            }
+
+            if (bmi > 0) {
+                showResult(bmi);
+            } else {
+                alert('Please enter valid height and weight values.');
+            }
+        });
+
+        function showResult(bmi) {
+            resultPlaceholder.classList.add('hidden');
+            resultDisplay.classList.remove('hidden');
+            
+            const roundedBmi = bmi.toFixed(1);
+            bmiValue.textContent = roundedBmi;
+
+            let status = '';
+            let color = '';
+            let tip = '';
+            let markerPos = 0;
+
+            if (bmi < 18.5) {
+                status = 'Underweight';
+                color = 'text-blue-500';
+                tip = 'You are in the underweight range. It might be beneficial to consult a healthcare provider or nutritionist.';
+                markerPos = (bmi / 18.5) * 18.5; 
+            } else if (bmi < 25) {
+                status = 'Normal Weight';
+                color = 'text-green-500';
+                tip = 'Congratulations! You are within the healthy weight range. Keep up the good work with your diet and exercise.';
+                markerPos = 18.5 + ((bmi - 18.5) / 6.5) * 6.5;
+            } else if (bmi < 30) {
+                status = 'Overweight';
+                color = 'text-yellow-500';
+                tip = 'You are in the overweight range. Consider a balanced diet and increasing physical activity to move toward a healthier weight.';
+                markerPos = 25 + ((bmi - 25) / 5) * 5;
+            } else {
+                status = 'Obese';
+                color = 'text-red-500';
+                tip = 'You are in the obese range. This may increase the risk of health issues. We recommend consulting a doctor for professional guidance.';
+                markerPos = 30 + ((bmi - 30) / 20) * 70; // Capped for visualization
+            }
+
+            bmiStatus.textContent = status;
+            bmiStatus.className = `text-xl font-bold ${color}`;
+            bmiValue.className = `text-6xl font-black ${color} my-2`;
+            bmiTip.textContent = tip;
+            
+            // Map BMI to gauge percentage (0-100)
+            // 0-18.5 (18.5%), 18.5-25 (6.5%), 25-30 (5%), 30-50 (70%)
+            let finalPos = 0;
+            if (bmi < 18.5) finalPos = (bmi / 18.5) * 18.5;
+            else if (bmi < 25) finalPos = 18.5 + ((bmi - 18.5) / 6.5) * 6.5;
+            else if (bmi < 30) finalPos = 25 + ((bmi - 25) / 5) * 5;
+            else finalPos = 30 + Math.min(70, ((bmi - 30) / 20) * 70);
+
+            bmiMarker.style.left = `${finalPos}%`;
+        }
+    </script>
+</body>
+</html>
+

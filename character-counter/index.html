@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Count characters, letters, numbers, spaces, and punctuation in your text. Detailed character analysis with real-time statistics, no registration required.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">Character Counter</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-8 text-lg">Count characters, letters, numbers, spaces, and punctuation in your text</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <div class="mb-6">
+                <label for="text-input" class="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Enter your text:</label>
+                <textarea
+                    id="text-input"
+                    placeholder="Paste or type your text here... (Ctrl+V to paste)"
+                    class="w-full h-48 p-4 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-colors"
+                ></textarea>
+                <div class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                    Tip: You can paste text with Ctrl+V or drag and drop text files
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="total-chars">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Total Characters</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="chars-no-spaces">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Characters (no spaces)</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="letters">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Letters</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="numbers">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Numbers</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="spaces">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Spaces</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="punctuation">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Punctuation</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="special-chars">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Special Characters</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="lines">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Lines</div>
+                </div>
+            </div>
+
+            <div class="mb-6">
+                <h3 class="text-lg font-semibold mb-3 text-slate-800 dark:text-white">Character Breakdown</h3>
+                <div class="bg-slate-50 dark:bg-slate-700 p-4 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                            <h4 class="font-medium mb-2 text-slate-700 dark:text-slate-300">Uppercase Letters</h4>
+                            <div class="flex flex-wrap gap-1">
+                                <span id="uppercase-letters" class="text-slate-600 dark:text-slate-400">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</span>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-medium mb-2 text-slate-700 dark:text-slate-300">Lowercase Letters</h4>
+                            <div class="flex flex-wrap gap-1">
+                                <span id="lowercase-letters" class="text-slate-600 dark:text-slate-400">a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button id="clear-btn" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                    Clear Text
+                </button>
+                <button id="sample-btn" class="px-6 py-2 bg-slate-600 hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-600 text-white rounded-lg transition-colors">
+                    Load Sample Text
+                </button>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use Character Counter</h2>
+            <ol>
+                <li><strong>Enter Text:</strong> Type or paste your text into the input box above. You can also drag and drop text files.</li>
+                <li><strong>View Statistics:</strong> The tool automatically analyzes and displays detailed character statistics.</li>
+                <li><strong>Real-time Updates:</strong> Statistics update instantly as you type or modify the text.</li>
+                <li><strong>Character Breakdown:</strong> See which letters are present in your text.</li>
+                <li><strong>Clear Text:</strong> Use the "Clear Text" button to reset everything and start over.</li>
+                <li><strong>Sample Text:</strong> Click "Load Sample Text" to see how the counter works with example content.</li>
+            </ol>
+
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Detailed Analysis:</strong> Count total characters, letters, numbers, spaces, punctuation, and special characters</li>
+                <li><strong>Character Breakdown:</strong> See exactly which letters (uppercase and lowercase) appear in your text</li>
+                <li><strong>Unlimited Processing:</strong> Analyze text of any length - no file size limits</li>
+                <li><strong>100% Private:</strong> All text processing happens locally in your browser - your text never leaves your device</li>
+                <li><strong>Real-time Counting:</strong> See instant updates as you type</li>
+                <li><strong>Dark Mode Support:</strong> Switch between light and dark themes for comfortable reading</li>
+                <li><strong>Paste Support:</strong> Easily paste text with Ctrl+V</li>
+                <li><strong>Mobile Friendly:</strong> Works perfectly on all devices</li>
+            </ul>
+
+            <h2>FAQ</h2>
+            <h3>What counts as a special character?</h3>
+            <p>Special characters include symbols like @, #, $, %, &, *, etc., as well as non-alphanumeric characters that aren't letters, numbers, spaces, or standard punctuation.</p>
+
+            <h3>How are letters counted?</h3>
+            <p>Letters include all alphabetic characters (A-Z, a-z) in any language. The character breakdown shows which specific letters appear in your text.</p>
+
+            <h3>What about non-English characters?</h3>
+            <p>The tool works with any Unicode characters, including accented letters, non-Latin scripts, and emojis.</p>
+
+            <h3>Is my text secure?</h3>
+            <p>Absolutely. All text processing happens locally in your browser. Your content never gets uploaded to any server.</p>
+
+            <h3>Can I analyze code or programming text?</h3>
+            <p>Yes, the character counter works perfectly with code, markup, and any other text content, accurately counting all characters and symbols.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Character Counter Logic ===
+        const textInput = document.getElementById('text-input');
+        const clearBtn = document.getElementById('clear-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const totalChars = document.getElementById('total-chars');
+        const charsNoSpaces = document.getElementById('chars-no-spaces');
+        const letters = document.getElementById('letters');
+        const numbers = document.getElementById('numbers');
+        const spaces = document.getElementById('spaces');
+        const punctuation = document.getElementById('punctuation');
+        const specialChars = document.getElementById('special-chars');
+        const lines = document.getElementById('lines');
+        const uppercaseLetters = document.getElementById('uppercase-letters');
+        const lowercaseLetters = document.getElementById('lowercase-letters');
+
+        function analyzeText(text) {
+            // Total characters
+            totalChars.textContent = text.length;
+
+            // Characters without spaces
+            charsNoSpaces.textContent = text.replace(/\s/g, '').length;
+
+            // Letters (alphabetic characters)
+            const letterMatches = text.match(/[a-zA-Z]/g);
+            letters.textContent = letterMatches ? letterMatches.length : 0;
+
+            // Numbers
+            const numberMatches = text.match(/[0-9]/g);
+            numbers.textContent = numberMatches ? numberMatches.length : 0;
+
+            // Spaces
+            const spaceMatches = text.match(/\s/g);
+            spaces.textContent = spaceMatches ? spaceMatches.length : 0;
+
+            // Punctuation
+            const punctuationMatches = text.match(/[.,!?;:()[\]{}'"-]/g);
+            punctuation.textContent = punctuationMatches ? punctuationMatches.length : 0;
+
+            // Special characters (everything else that's not letters, numbers, spaces, or punctuation)
+            const specialMatches = text.match(/[^a-zA-Z0-9\s.,!?;:()[\]{}'"-]/g);
+            specialChars.textContent = specialMatches ? specialMatches.length : 0;
+
+            // Lines
+            lines.textContent = text === '' ? 0 : text.split('\n').length;
+
+            // Character breakdown - find unique letters used
+            const uniqueUppercase = [...new Set(text.match(/[A-Z]/g) || [])].sort().join(' ');
+            const uniqueLowercase = [...new Set(text.match(/[a-z]/g) || [])].sort().join(' ');
+
+            uppercaseLetters.textContent = uniqueUppercase || 'None';
+            lowercaseLetters.textContent = uniqueLowercase || 'None';
+        }
+
+        // Real-time analysis
+        textInput.addEventListener('input', () => {
+            analyzeText(textInput.value);
+        });
+
+        // Clear text
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            analyzeText('');
+            textInput.focus();
+        });
+
+        // Load sample text
+        sampleBtn.addEventListener('click', () => {
+            const sampleText = `Hello World! This is a sample text with 123 numbers, spaces, and special characters: @#$%^&*().
+
+It includes uppercase and lowercase letters, punctuation marks, and even some symbols like ©™®.
+
+Try typing or pasting your own text to see detailed character analysis!`;
+            textInput.value = sampleText;
+            analyzeText(sampleText);
+        });
+
+        // Paste support (Ctrl+V)
+        document.addEventListener('paste', (e) => {
+            if (document.activeElement === textInput) {
+                setTimeout(() => analyzeText(textInput.value), 0);
+            }
+        });
+
+        // Drag and drop support
+        textInput.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        textInput.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('text/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        textInput.value = e.target.result;
+                        analyzeText(e.target.result);
+                    };
+                    reader.readAsText(file);
+                }
+            }
+        });
+
+        // Initialize
+        analyzeText('');
+    </script>
+</body>
+</html>

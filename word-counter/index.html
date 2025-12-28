@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Count words, characters, lines, and sentences in your text instantly. Free online word counter with real-time statistics, no registration required.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">Word Counter</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-8 text-lg">Count words, characters, lines, and sentences in your text instantly</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <div class="mb-6">
+                <label for="text-input" class="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Enter your text:</label>
+                <textarea
+                    id="text-input"
+                    placeholder="Paste or type your text here... (Ctrl+V to paste)"
+                    class="w-full h-48 p-4 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-colors"
+                ></textarea>
+                <div class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                    Tip: You can paste text with Ctrl+V or drag and drop text files
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6">
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="char-count">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Characters</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="char-no-space-count">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Characters (no spaces)</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="word-count">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Words</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="line-count">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Lines</div>
+                </div>
+                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
+                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="sentence-count">0</div>
+                    <div class="text-sm text-slate-600 dark:text-slate-400">Sentences</div>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button id="clear-btn" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
+                    Clear Text
+                </button>
+                <button id="sample-btn" class="px-6 py-2 bg-slate-600 hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-600 text-white rounded-lg transition-colors">
+                    Load Sample Text
+                </button>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use Word Counter</h2>
+            <ol>
+                <li><strong>Enter Text:</strong> Type or paste your text into the input box above. You can also drag and drop text files.</li>
+                <li><strong>View Statistics:</strong> The tool automatically counts and displays characters (with/without spaces), words, lines, and sentences.</li>
+                <li><strong>Real-time Updates:</strong> Statistics update instantly as you type or modify the text.</li>
+                <li><strong>Clear Text:</strong> Use the "Clear Text" button to reset everything and start over.</li>
+                <li><strong>Sample Text:</strong> Click "Load Sample Text" to see how the counter works with example content.</li>
+            </ol>
+
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Unlimited Processing:</strong> Count words in text of any length - no file size limits</li>
+                <li><strong>100% Private:</strong> All processing happens locally in your browser - your text never leaves your device</li>
+                <li><strong>Real-time Counting:</strong> See instant updates as you type</li>
+                <li><strong>Multiple Metrics:</strong> Track characters, words, lines, and sentences simultaneously</li>
+                <li><strong>Dark Mode Support:</strong> Switch between light and dark themes for comfortable reading</li>
+                <li><strong>Paste Support:</strong> Easily paste text with Ctrl+V</li>
+                <li><strong>Mobile Friendly:</strong> Works perfectly on all devices</li>
+            </ul>
+
+            <h2>FAQ</h2>
+            <h3>What is counted as a word?</h3>
+            <p>Words are counted by splitting text on spaces, punctuation, and line breaks. Contractions like "don't" count as one word.</p>
+
+            <h3>How are sentences counted?</h3>
+            <p>Sentences are identified by periods (.), exclamation marks (!), and question marks (?) followed by whitespace or end of text.</p>
+
+            <h3>Does it count special characters?</h3>
+            <p>Yes, all characters including spaces, punctuation, and special symbols are included in the character count.</p>
+
+            <h3>Is my text secure?</h3>
+            <p>Absolutely. All text processing happens locally in your browser. Your content never gets uploaded to any server.</p>
+
+            <h3>Can I count words in different languages?</h3>
+            <p>Yes, the tool works with any language and character set, including non-Latin scripts like Chinese, Arabic, and Cyrillic.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Word Counter Logic ===
+        const textInput = document.getElementById('text-input');
+        const clearBtn = document.getElementById('clear-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const charCount = document.getElementById('char-count');
+        const charNoSpaceCount = document.getElementById('char-no-space-count');
+        const wordCount = document.getElementById('word-count');
+        const lineCount = document.getElementById('line-count');
+        const sentenceCount = document.getElementById('sentence-count');
+
+        function countText(text) {
+            // Characters (including spaces)
+            charCount.textContent = text.length;
+
+            // Characters (excluding spaces)
+            charNoSpaceCount.textContent = text.replace(/\s/g, '').length;
+
+            // Words
+            const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length;
+            wordCount.textContent = words;
+
+            // Lines
+            const lines = text === '' ? 0 : text.split('\n').length;
+            lineCount.textContent = lines;
+
+            // Sentences
+            const sentences = text.trim() === '' ? 0 : text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            sentenceCount.textContent = sentences;
+        }
+
+        // Real-time counting
+        textInput.addEventListener('input', () => {
+            countText(textInput.value);
+        });
+
+        // Clear text
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            countText('');
+            textInput.focus();
+        });
+
+        // Load sample text
+        sampleBtn.addEventListener('click', () => {
+            const sampleText = `Welcome to WebUtilityKit! This is a sample text to demonstrate the word counter tool.
+
+The quick brown fox jumps over the lazy dog. This pangram contains every letter of the alphabet at least once. How many words can you count in this sentence?
+
+Word counting tools are essential for writers, students, and professionals. They help ensure content meets specific requirements and maintain consistency across documents.
+
+Try pasting your own text to see instant results!`;
+            textInput.value = sampleText;
+            countText(sampleText);
+        });
+
+        // Paste support (Ctrl+V)
+        document.addEventListener('paste', (e) => {
+            if (document.activeElement === textInput) {
+                setTimeout(() => countText(textInput.value), 0);
+            }
+        });
+
+        // Drag and drop support
+        textInput.addEventListener('dragover', (e) => {
+            e.preventDefault();
+        });
+
+        textInput.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('text/')) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        textInput.value = e.target.result;
+                        countText(e.target.result);
+                    };
+                    reader.readAsText(file);
+                }
+            }
+        });
+
+        // Initialize
+        countText('');
+    </script>
+</body>
+</html>

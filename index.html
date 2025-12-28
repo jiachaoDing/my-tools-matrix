@@ -1,55 +1,370 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Global Tools Matrix - 100+ Free Online Tools</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>WebUtilityKit.com - 100+ Free, Secure & Unlimited Tools</title>
+    <meta name="description" content="Browse 100+ privacy-first, client-side tools with modern dark mode UI. Everything runs in your browser—no uploads, no limits.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <script src="tools-config.js"></script>
 </head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Global Tools Matrix</h1>
-            <p class="subtitle">100+ Free Online Tools for Everyday Tasks</p>
-        </header>
-
-        <main>
-            <div class="tools-grid">
-                <!-- Tool 1: HEIC to JPG Converter -->
-                <div class="tool-card">
-                    <a href="/heic-to-jpg/">
-                        <h2>HEIC to JPG Converter</h2>
-                        <p>Convert HEIC image files to JPG format instantly</p>
-                        <span class="tool-tag">Image</span>
-                    </a>
-                </div>
-
-                <!-- Tool 2: Password Generator -->
-                <div class="tool-card">
-                    <a href="/password-gen/">
-                        <h2>Password Generator</h2>
-                        <p>Generate strong, secure passwords with customizable options</p>
-                        <span class="tool-tag">Security</span>
-                    </a>
-                </div>
-
-                <!-- Tool 3: BMI Calculator -->
-                <div class="tool-card">
-                    <a href="/bmi-calc/">
-                        <h2>BMI Calculator</h2>
-                        <p>Calculate your Body Mass Index and health status</p>
-                        <span class="tool-tag">Health</span>
-                    </a>
-                </div>
-
-                <!-- More tools will be added here as you build them -->
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
             </div>
-        </main>
+        </nav>
+    </header>
 
-        <footer>
-            <p>&copy; 2024 Global Tools Matrix. All tools are free to use.</p>
-        </footer>
-    </div>
+    <main class="max-w-7xl mx-auto px-4 py-12">
+        <section class="relative overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800 bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 px-6 sm:px-10 py-10 shadow-xl">
+            <div class="absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-blue-500/10 to-transparent pointer-events-none"></div>
+            <div class="relative max-w-4xl mx-auto space-y-4 text-center">
+                <div class="inline-flex items-center justify-center gap-2 rounded-full bg-blue-50 dark:bg-blue-900/30 px-4 py-2 text-sm font-medium text-blue-700 dark:text-blue-200 border border-blue-100 dark:border-blue-800">
+                    ⚡ High-Performance Client-Side Tools
+                </div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold leading-tight text-slate-900 dark:text-white">
+                    100+ Free, Secure & Unlimited Tools
+                </h1>
+                <p class="text-lg text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+                    Everything runs locally in your browser. Batch-friendly, dark mode ready, and built for speed on any device.
+                </p>
+                <div class="flex flex-wrap items-center justify-center gap-3">
+                    <div class="flex items-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full border border-green-200 dark:border-green-900">
+                        <span>🔒</span><span class="font-medium">100% secure. No uploads.</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-200 bg-blue-50 dark:bg-blue-900/20 py-2 px-4 rounded-full border border-blue-100 dark:border-blue-800">
+                        <span>🌓</span><span class="font-medium">Dark mode by default</span>
+                    </div>
+                    <div class="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800/60 py-2 px-4 rounded-full border border-slate-200 dark:border-slate-700">
+                        <span>🖱️</span><span class="font-medium">Drag, drop, or paste files</span>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 text-sm text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 p-4">
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-total">—</div>
+                        <div class="text-slate-500 dark:text-slate-400">Total tools</div>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 p-4">
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white" id="stat-categories">—</div>
+                        <div class="text-slate-500 dark:text-slate-400">Categories</div>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/70 p-4">
+                        <div class="text-2xl font-bold text-slate-900 dark:text-white">Client-side</div>
+                        <div class="text-slate-500 dark:text-slate-400">Zero uploads, zero installs</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="mt-10 flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar Navigation -->
+            <aside class="lg:w-72 flex-shrink-0">
+                <div class="sticky top-8 space-y-4">
+                    <!-- Search -->
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm">
+                        <label class="block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">Search tools</label>
+                        <div class="relative">
+                            <input
+                                type="text"
+                                id="toolSearch"
+                                placeholder="Search by name..."
+                                class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 placeholder:text-slate-400 dark:placeholder:text-slate-500"
+                            >
+                            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                                <svg class="h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categories -->
+                    <nav class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm space-y-2">
+                        <div class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">Jump to category</div>
+                        <a href="#images" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>📸 Images & Media</span><span id="count-images" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                        <a href="#developer" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>💻 Developer Tools</span><span id="count-developer" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                        <a href="#text" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>📝 Text & Strings</span><span id="count-text" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                        <a href="#calculators" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>🧮 Calculators</span><span id="count-calculators" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                        <a href="#pdf" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>📄 PDF & Documents</span><span id="count-pdf" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                        <a href="#fun" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>🎲 Fun & Random</span><span id="count-fun" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                        <a href="#converters" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                            <span>📏 Unit Converters</span><span id="count-converters" class="text-xs text-slate-500 dark:text-slate-400">—</span>
+                        </a>
+                    </nav>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="flex-1 min-w-0 space-y-12">
+                <!-- Images & Media -->
+                <section id="images" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">📸 Images & Media Tools</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-images">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="images-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+
+                <!-- Developer Tools -->
+                <section id="developer" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">💻 Developer Tools</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-developer">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="developer-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+
+                <!-- Text & Strings -->
+                <section id="text" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">📝 Text & String Tools</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-text">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="text-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+
+                <!-- Calculators -->
+                <section id="calculators" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">🧮 Calculators</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-calculators">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="calculators-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+
+                <!-- PDF & Documents -->
+                <section id="pdf" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">📄 PDF & Document Tools</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-pdf">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="pdf-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+
+                <!-- Fun & Random -->
+                <section id="fun" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">🎲 Fun & Random Tools</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-fun">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="fun-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+
+                <!-- Unit Converters -->
+                <section id="converters" class="space-y-4">
+                    <div class="flex items-center justify-between gap-3">
+                        <h2 class="text-xl font-bold">📏 Unit Converters</h2>
+                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-converters">— tools</span>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="converters-grid">
+                        <!-- Tools will be dynamically generated here -->
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <section class="mt-16 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm">
+            <div class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <h2 class="text-xl font-bold mb-3 text-slate-900 dark:text-white">Why WebUtilityKit?</h2>
+                    <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                        Every tool is engineered to run fully in your browser for ultimate privacy and speed. Batch processing is encouraged—drag & drop or paste multiple files at once, stay in dark mode, and get results instantly without sending data anywhere.
+                    </p>
+                </div>
+                <div class="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-6 text-center text-sm text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/60">
+                    Advertisement Space
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Dynamic Tool Card Generation ===
+        function createToolCard(tool) {
+            const isLive = tool.status === 'live';
+            const statusBadge = isLive
+                ? '<span class="inline-flex items-center gap-1 rounded-full bg-green-50 dark:bg-green-900/30 px-2.5 py-1 text-xs font-semibold text-green-700 dark:text-green-300">✅ Live</span>'
+                : '<span class="inline-flex items-center gap-1 rounded-full bg-slate-100 dark:bg-slate-800 px-2.5 py-1 text-xs font-semibold text-slate-600 dark:text-slate-300">Soon</span>';
+
+            const baseClasses = 'group block rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm hover:border-blue-300 hover:shadow-md dark:hover:border-blue-500/50 transition';
+
+            if (isLive) {
+                return `
+                    <a href="${tool.url}" class="${baseClasses}" data-tool-name="${tool.name}">
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <h3 class="text-lg font-semibold group-hover:text-blue-700 dark:group-hover:text-blue-300">${tool.name}</h3>
+                                <p class="mt-1 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${tool.description}</p>
+                            </div>
+                            ${statusBadge}
+                        </div>
+                        <div class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-blue-700 dark:text-blue-300">
+                            Open <span aria-hidden="true">→</span>
+                        </div>
+                    </a>
+                `;
+            }
+
+            return `
+                <div class="${baseClasses}" data-tool-name="${tool.name}">
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">${tool.name}</h3>
+                            <p class="mt-1 text-sm text-slate-600 dark:text-slate-300 leading-relaxed">${tool.description}</p>
+                        </div>
+                        ${statusBadge}
+                    </div>
+                    <div class="mt-4 text-xs text-slate-500 dark:text-slate-400">In progress</div>
+                </div>
+            `;
+        }
+
+        function populateStats() {
+            let totalTools = 0;
+            const counts = {};
+            toolsConfig.categories.forEach(category => {
+                const count = category.tools.length;
+                totalTools += count;
+                counts[category.id] = count;
+                const label = document.getElementById(`label-${category.id}`);
+                const badge = document.getElementById(`count-${category.id}`);
+                if (label) label.textContent = `${count} tools`;
+                if (badge) badge.textContent = count;
+            });
+            const totalEl = document.getElementById('stat-total');
+            const catEl = document.getElementById('stat-categories');
+            if (totalEl) totalEl.textContent = totalTools;
+            if (catEl) catEl.textContent = toolsConfig.categories.length;
+        }
+
+        function generateToolCards() {
+            toolsConfig.categories.forEach(category => {
+                const gridElement = document.getElementById(`${category.id}-grid`);
+                if (gridElement) {
+                    const cardsHtml = category.tools.map(tool => createToolCard(tool)).join('');
+                    gridElement.innerHTML = cardsHtml;
+                }
+            });
+            populateStats();
+        }
+
+        // Generate cards and initialize search when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            generateToolCards();
+            initializeSearch();
+        });
+
+        // Simple search functionality
+        function initializeSearch() {
+            const searchInput = document.getElementById('toolSearch');
+            const categorySections = document.querySelectorAll('section[id]');
+
+            searchInput.addEventListener('input', function() {
+                const query = this.value.toLowerCase().trim();
+                let visibleCategories = 0;
+
+                categorySections.forEach(section => {
+                    const cards = section.querySelectorAll('[data-tool-name]');
+                    let visibleCards = 0;
+
+                    cards.forEach(card => {
+                        const toolName = card.dataset.toolName.toLowerCase();
+                        const isVisible = toolName.includes(query);
+                        card.style.display = isVisible ? '' : 'none';
+                        if (isVisible) visibleCards++;
+                    });
+
+                    const hasVisibleCards = visibleCards > 0;
+                    section.style.display = hasVisibleCards ? '' : 'none';
+                    if (hasVisibleCards) visibleCategories++;
+                });
+
+                let noResultsMsg = document.getElementById('noResults');
+                if (visibleCategories === 0 && query) {
+                    if (!noResultsMsg) {
+                        noResultsMsg = document.createElement('div');
+                        noResultsMsg.id = 'noResults';
+                        noResultsMsg.className = 'text-center py-12 text-slate-500 dark:text-slate-400';
+                        noResultsMsg.textContent = 'No tools found matching your search.';
+                        document.querySelector('main').appendChild(noResultsMsg);
+                    }
+                    noResultsMsg.style.display = '';
+                } else if (noResultsMsg) {
+                    noResultsMsg.style.display = 'none';
+                }
+            });
+        }
+
+        // Smooth scrolling for category links
+        document.querySelectorAll('aside a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 

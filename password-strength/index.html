@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker - Free, Secure & Unlimited | WebUtilityKit</title>
+    <meta name="description" content="Check your password strength instantly. Analyze entropy, crack time, and security complexity. 100% client-side, private, and free.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100% privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle dark mode">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 py-12">
+        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">Password Strength Checker</h1>
+        <p class="text-center text-slate-600 dark:text-slate-400 mb-6 text-lg">Instant, private password analysis. Measure entropy and estimated crack time.</p>
+
+        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="M9 12l2 2 4-4"></path>
+            </svg>
+            <span class="font-medium">🔒 100% Secure. Analyzed locally in browser. No upload.</span>
+        </div>
+
+        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+            <div class="space-y-8">
+                <!-- Input Section -->
+                <div class="space-y-2">
+                    <label for="password-input" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Enter Password to Analyze</label>
+                    <div class="relative">
+                        <input id="password-input" type="password" 
+                            class="w-full text-xl font-mono bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-4 pr-12 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all"
+                            placeholder="Type your password here..."
+                            autocomplete="off"
+                            spellcheck="false">
+                        <button id="toggle-visibility" class="absolute inset-y-0 right-0 px-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition">
+                            <span id="eye-icon">👁️</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Strength Overview -->
+                <div class="grid gap-6 md:grid-cols-2">
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider">Overall Rating</span>
+                                <span id="strength-label" class="font-bold text-lg text-slate-400">None</span>
+                            </div>
+                            <div class="h-3 w-full bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700">
+                                <div id="strength-bar" class="h-full w-0 bg-slate-400 transition-all duration-500"></div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Entropy</span>
+                                <span id="entropy-value" class="font-mono font-bold text-blue-600 dark:text-blue-400">0 bits</span>
+                            </div>
+                            <p class="text-xs text-slate-500 dark:text-slate-500 leading-tight">Measures the mathematical complexity based on character variety and length.</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 space-y-4">
+                        <h3 class="text-sm font-bold uppercase tracking-wider text-slate-500">Estimated Crack Time</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Brute Force (PC)</span>
+                                <span id="crack-time-pc" class="font-bold text-slate-800 dark:text-slate-200">—</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600 dark:text-slate-400">Supercomputer</span>
+                                <span id="crack-time-super" class="font-bold text-slate-800 dark:text-slate-200">—</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Details -->
+                <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+                    <div id="check-length" class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition">
+                        <div class="status-icon text-slate-300">⚪</div>
+                        <div class="text-sm font-medium">8+ Characters</div>
+                    </div>
+                    <div id="check-upper" class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition">
+                        <div class="status-icon text-slate-300">⚪</div>
+                        <div class="text-sm font-medium">Uppercase</div>
+                    </div>
+                    <div id="check-numbers" class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition">
+                        <div class="status-icon text-slate-300">⚪</div>
+                        <div class="text-sm font-medium">Numbers</div>
+                    </div>
+                    <div id="check-symbols" class="flex items-center gap-3 p-4 rounded-xl border border-slate-200 dark:border-slate-700 transition">
+                        <div class="status-icon text-slate-300">⚪</div>
+                        <div class="text-sm font-medium">Symbols</div>
+                    </div>
+                </div>
+
+                <!-- Warnings/Feedback -->
+                <div id="feedback-panel" class="hidden p-4 rounded-xl border-l-4 border-amber-500 bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-200 text-sm space-y-2">
+                    <div class="font-bold flex items-center gap-2">
+                        <span>⚠️</span> Suggestions:
+                    </div>
+                    <ul id="feedback-list" class="list-disc list-inside space-y-1"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
+            Advertisement Space
+        </div>
+
+        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
+            <h2>How to use the Password Strength Checker</h2>
+            <ol>
+                <li>Type or paste the password you want to test into the input box.</li>
+                <li>Toggle the "eye" icon to show or hide your password as you type.</li>
+                <li>Instantly view the strength rating, entropy bits, and estimated crack time.</li>
+                <li>Follow the suggested improvements to make your password even more secure.</li>
+            </ol>
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Privacy First:</strong> Your password is never sent to a server. All analysis happens 100% locally in your browser.</li>
+                <li><strong>Real-time Analysis:</strong> Get instant feedback as you type, including character variety and entropy calculations.</li>
+                <li><strong>Crack Time Estimates:</strong> Understand how long it would take for different types of hardware to guess your password.</li>
+                <li><strong>Entropy Calculation:</strong> Learn the mathematical strength of your password based on information theory.</li>
+                <li><strong>No Limits:</strong> Check as many passwords as you like without any restrictions or account requirements.</li>
+            </ul>
+            <h2>FAQ</h2>
+            <h3>How do you calculate password strength?</h3>
+            <p>Strength is calculated using Information Entropy. We analyze the "pool size" (number of possible characters) and the length. We also check for common patterns and complexity requirements like uppercase letters, numbers, and symbols.</p>
+            <h3>Is my password safe here?</h3>
+            <p>Yes. This tool is built with a "Privacy First" philosophy. No data is ever uploaded or saved. You can even disconnect your internet and the tool will still work.</p>
+            <h3>What is a "good" entropy score?</h3>
+            <p>Generally, an entropy score above 60 bits is considered "Good" for most personal accounts, while 80+ bits is "Strong" and 100+ is "Very Strong" (military-grade).</p>
+            <h3>Why does crack time vary?</h3>
+            <p>Crack time depends on how many guesses an attacker can make per second. We show estimates for both standard consumer hardware and highly optimized supercomputer clusters.</p>
+        </article>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Dark Mode Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const storedTheme = localStorage.getItem('wuk-theme');
+        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
+
+        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
+        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
+
+        themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
+            themeIcon.textContent = isDark ? '🌙' : '☀️';
+        });
+
+        // === Tool Logic ===
+        const passwordInput = document.getElementById('password-input');
+        const toggleVisibility = document.getElementById('toggle-visibility');
+        const eyeIcon = document.getElementById('eye-icon');
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthLabel = document.getElementById('strength-label');
+        const entropyValue = document.getElementById('entropy-value');
+        const crackTimePC = document.getElementById('crack-time-pc');
+        const crackTimeSuper = document.getElementById('crack-time-super');
+        const feedbackPanel = document.getElementById('feedback-panel');
+        const feedbackList = document.getElementById('feedback-list');
+
+        const checks = {
+            length: document.getElementById('check-length'),
+            upper: document.getElementById('check-upper'),
+            numbers: document.getElementById('check-numbers'),
+            symbols: document.getElementById('check-symbols')
+        };
+
+        toggleVisibility.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.textContent = isPassword ? '🙈' : '👁️';
+        });
+
+        const formatTime = (seconds) => {
+            if (seconds === Infinity) return "Centuries";
+            if (seconds < 1) return "Instantly";
+            if (seconds < 60) return `${Math.round(seconds)} seconds`;
+            const minutes = seconds / 60;
+            if (minutes < 60) return `${Math.round(minutes)} minutes`;
+            const hours = minutes / 60;
+            if (hours < 24) return `${Math.round(hours)} hours`;
+            const days = hours / 24;
+            if (days < 365) return `${Math.round(days)} days`;
+            const years = days / 365;
+            if (years < 1000) return `${Math.round(years)} years`;
+            if (years < 1000000) return `${Math.round(years / 1000)}k years`;
+            if (years < 1000000000) return `${Math.round(years / 1000000)}m years`;
+            return "Billions of years";
+        };
+
+        const updateUI = () => {
+            const pwd = passwordInput.value;
+            if (!pwd) {
+                strengthBar.style.width = '0%';
+                strengthLabel.textContent = 'None';
+                strengthLabel.className = 'font-bold text-lg text-slate-400';
+                entropyValue.textContent = '0 bits';
+                crackTimePC.textContent = '—';
+                crackTimeSuper.textContent = '—';
+                feedbackPanel.classList.add('hidden');
+                Object.values(checks).forEach(el => {
+                    el.querySelector('.status-icon').textContent = '⚪';
+                    el.classList.remove('border-green-500', 'bg-green-50', 'dark:bg-green-900/20');
+                });
+                return;
+            }
+
+            let poolSize = 0;
+            const hasLower = /[a-z]/.test(pwd);
+            const hasUpper = /[A-Z]/.test(pwd);
+            const hasNumber = /[0-9]/.test(pwd);
+            const hasSymbol = /[^a-zA-Z0-9]/.test(pwd);
+
+            if (hasLower) poolSize += 26;
+            if (hasUpper) poolSize += 26;
+            if (hasNumber) poolSize += 10;
+            if (hasSymbol) poolSize += 33;
+
+            // Entropy: E = log2(poolSize ^ length) = length * log2(poolSize)
+            const entropy = pwd.length * Math.log2(poolSize || 1);
+            entropyValue.textContent = `${Math.round(entropy)} bits`;
+
+            // Crack times (Guesses per second)
+            const pcGuesses = 1e10; // 10 Billion/sec
+            const superGuesses = 1e15; // 1 Quadrillion/sec
+
+            const combinations = Math.pow(poolSize || 1, pwd.length);
+            crackTimePC.textContent = formatTime(combinations / pcGuesses);
+            crackTimeSuper.textContent = formatTime(combinations / superGuesses);
+
+            // Update Checks
+            const updateCheck = (key, condition) => {
+                const el = checks[key];
+                const icon = el.querySelector('.status-icon');
+                if (condition) {
+                    icon.textContent = '✅';
+                    el.classList.add('border-green-500', 'bg-green-50', 'dark:bg-green-900/20');
+                } else {
+                    icon.textContent = '⚪';
+                    el.classList.remove('border-green-500', 'bg-green-50', 'dark:bg-green-900/20');
+                }
+            };
+
+            updateCheck('length', pwd.length >= 8);
+            updateCheck('upper', hasUpper);
+            updateCheck('numbers', hasNumber);
+            updateCheck('symbols', hasSymbol);
+
+            // Strength Rating
+            let score = entropy;
+            let label = 'Very Weak';
+            let colorClass = 'bg-red-500';
+            let textClass = 'text-red-500';
+
+            if (score > 100) { label = 'Very Strong'; colorClass = 'bg-emerald-500'; textClass = 'text-emerald-500'; }
+            else if (score > 80) { label = 'Strong'; colorClass = 'bg-blue-500'; textClass = 'text-blue-500'; }
+            else if (score > 60) { label = 'Good'; colorClass = 'bg-green-500'; textClass = 'text-green-500'; }
+            else if (score > 40) { label = 'Fair'; colorClass = 'bg-yellow-500'; textClass = 'text-yellow-500'; }
+            else if (score > 20) { label = 'Weak'; colorClass = 'bg-orange-500'; textClass = 'text-orange-500'; }
+
+            strengthBar.style.width = `${Math.min(100, (score / 120) * 100)}%`;
+            strengthBar.className = `h-full transition-all duration-500 ${colorClass}`;
+            strengthLabel.textContent = label;
+            strengthLabel.className = `font-bold text-lg ${textClass}`;
+
+            // Feedback
+            const feedback = [];
+            if (pwd.length < 8) feedback.push("Make it at least 8 characters long.");
+            if (!hasUpper) feedback.push("Add uppercase letters.");
+            if (!hasNumber) feedback.push("Include at least one number.");
+            if (!hasSymbol) feedback.push("Use special characters (like !@#$).");
+            if (/(.)\1{2,}/.test(pwd)) feedback.push("Avoid repeating the same character 3+ times.");
+            
+            if (feedback.length > 0) {
+                feedbackPanel.classList.remove('hidden');
+                feedbackList.innerHTML = feedback.map(f => `<li>${f}</li>`).join('');
+            } else {
+                feedbackPanel.classList.add('hidden');
+            }
+        };
+
+        passwordInput.addEventListener('input', updateUI);
+    </script>
+</body>
+</html>
+
