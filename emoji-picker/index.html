@@ -1,0 +1,1889 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Picker - Find & Copy Emojis Instantly | WebUtilityKit</title>
+    <meta name="description" content="A fast, private, and beautiful emoji picker. Search, browse categories, and copy emojis to your clipboard with one click. 100% client-side.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d', 800: '#9d174d', 900: '#831843', 950: '#500724',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .category-btn {
+                @apply p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px];
+            }
+            .category-btn.active {
+                @apply bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shadow-sm border border-pink-100 dark:border-pink-800/50;
+            }
+            .emoji-card {
+                @apply aspect-square flex items-center justify-center text-3xl cursor-pointer rounded-2xl transition-all hover:bg-white dark:hover:bg-slate-800 hover:scale-125 hover:shadow-xl hover:shadow-pink-500/10 active:scale-95;
+            }
+            .search-input {
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-medium text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5;
+            }
+        }
+        /* Custom scrollbar */
+        #emoji-grid::-webkit-scrollbar { width: 6px; }
+        #emoji-grid::-webkit-scrollbar-track { background: transparent; }
+        #emoji-grid::-webkit-scrollbar-thumb { 
+            @apply bg-slate-200 dark:bg-slate-800 rounded-full;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Emoji Picker</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Find and copy emojis instantly. Search by name, browse categories, or pick from your recent favorites.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Controls (5 cols) -->
+                <div class="lg:col-span-4 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 block ml-1">Search Emojis</label>
+                                <div class="relative group">
+                                    <input type="text" id="emoji-search" placeholder="Type to search..." class="search-input">
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-500 transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                                <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 block ml-1">Categories</label>
+                                <div class="flex flex-wrap gap-2" id="category-list">
+                                    <button class="category-btn active" data-category="recent" title="Recent">
+                                        <span class="text-xl">🕒</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Recent</span>
+                                    </button>
+                                    <button class="category-btn" data-category="smileys" title="Smileys & Emotion">
+                                        <span class="text-xl">😊</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Smileys</span>
+                                    </button>
+                                    <button class="category-btn" data-category="people" title="People & Body">
+                                        <span class="text-xl">👋</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">People</span>
+                                    </button>
+                                    <button class="category-btn" data-category="animals" title="Animals & Nature">
+                                        <span class="text-xl">🐶</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Animals</span>
+                                    </button>
+                                    <button class="category-btn" data-category="food" title="Food & Drink">
+                                        <span class="text-xl">🍎</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Food</span>
+                                    </button>
+                                    <button class="category-btn" data-category="activities" title="Activities">
+                                        <span class="text-xl">⚽</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Activity</span>
+                                    </button>
+                                    <button class="category-btn" data-category="travel" title="Travel & Places">
+                                        <span class="text-xl">🚀</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Travel</span>
+                                    </button>
+                                    <button class="category-btn" data-category="objects" title="Objects">
+                                        <span class="text-xl">💡</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Objects</span>
+                                    </button>
+                                    <button class="category-btn" data-category="symbols" title="Symbols">
+                                        <span class="text-xl">❤️</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Symbols</span>
+                                    </button>
+                                    <button class="category-btn" data-category="flags" title="Flags">
+                                        <span class="text-xl">🚩</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Flags</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Selected Preview -->
+                        <div id="preview-section" class="border-t border-slate-100 dark:border-slate-700 pt-6 hidden">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 block ml-1">Selected</label>
+                            <div class="flex items-center gap-6 p-4 bg-slate-50 dark:bg-slate-900/40 rounded-3xl border border-slate-100 dark:border-slate-800/50">
+                                <div id="preview-emoji" class="text-6xl">😊</div>
+                                <div class="flex-grow">
+                                    <div id="preview-name" class="text-lg font-bold text-slate-900 dark:text-white mb-1">smiling face</div>
+                                    <div id="preview-code" class="text-xs font-mono text-slate-400">U+1F60A</div>
+                                </div>
+                                <button id="copy-btn" class="p-4 bg-pink-600 text-white rounded-2xl shadow-lg shadow-pink-500/20 hover:bg-pink-700 transition-all flex items-center gap-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                    <span class="font-bold">Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Emoji Grid (7 cols) -->
+                <div class="lg:col-span-8 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] h-[600px] flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden">
+                        <div id="emoji-grid" class="flex-grow overflow-y-auto p-8 grid grid-cols-5 sm:grid-cols-6 md:grid-cols-8 gap-4 content-start">
+                            <!-- Emojis will be injected here -->
+                        </div>
+                        
+                        <!-- Empty State -->
+                        <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center hidden">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">No emojis found</h3>
+                            <p class="text-slate-500">Try searching for something else</p>
+                        </div>
+
+                        <!-- Toast Notification -->
+                        <div id="toast" class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-2xl opacity-0 transition-opacity pointer-events-none flex items-center gap-2">
+                            <span class="text-green-400">✅</span>
+                            <span>Emoji copied to clipboard!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase">Express Yourself</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Search or Browse</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Type keywords into the search bar or click through categories to find the perfect emoji for your mood.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Click to Select</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Click any emoji to see a larger preview with its name and official Unicode point.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Instant Copy</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">The emoji is automatically copied to your clipboard. Paste it anywhere—social media, chats, or documents!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-pink-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Modern Communication</h2>
+                            <p class="text-lg text-pink-50/80 leading-relaxed mb-8 italic">
+                                Emojis are the universal language of the digital age. They add emotional nuance, save space, and bring personality to text. Our picker is designed to be the fastest way to access the full standard library of emojis without leaving your browser.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-pink-200 text-[10px] font-black uppercase mb-1 italic">Library</div>
+                                    <div class="font-bold">1,000+ Emojis</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-pink-200 text-[10px] font-black uppercase mb-1 italic">Privacy</div>
+                                    <div class="font-bold">Local History</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_50s_linear_infinite]">
+                                <span class="text-7xl">🔥</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest">Picker Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-pink-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-pink-100 dark:bg-pink-900/30 text-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="text-2xl">🕒</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Smart History</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Automatically remembers your most recently used emojis, so your favorites are always just one click away.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-pink-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="text-2xl">🔍</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Instant Search</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Lightning-fast search filters through names and keywords as you type. Find exactly what you need in milliseconds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter">Emoji FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-pink-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">What are Unicode Emojis?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                Emojis are part of the Unicode Standard, which means they are assigned specific code points. This ensures they look consistent across different devices and operating systems, though the visual design may vary.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-pink-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">Are these emojis free to use?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                Yes! Emojis are a standard feature of modern systems. You can use them in any text field that supports Unicode, which includes almost all modern websites and apps.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Emoji Data ===
+        // Curated comprehensive emoji set
+        const EMOJI_DATA = {
+            smileys: [
+                {char: '😀', name: 'grinning face', keywords: 'happy joy smile'},
+                {char: '😃', name: 'grinning face with big eyes', keywords: 'happy joy smile'},
+                {char: '😄', name: 'grinning face with smiling eyes', keywords: 'happy joy smile'},
+                {char: '😁', name: 'beaming face with smiling eyes', keywords: 'happy joy smile'},
+                {char: '😆', name: 'grinning squinting face', keywords: 'laugh haha'},
+                {char: '😅', name: 'grinning face with sweat', keywords: 'nervous relieve'},
+                {char: '🤣', name: 'rolling on the floor laughing', keywords: 'rofl lol'},
+                {char: '😂', name: 'face with tears of joy', keywords: 'lol haha'},
+                {char: '🙂', name: 'slightly smiling face', keywords: 'happy'},
+                {char: '🙃', name: 'upside-down face', keywords: 'silly joke'},
+                {char: '😉', name: 'winking face', keywords: 'flirt'},
+                {char: '😊', name: 'smiling face with smiling eyes', keywords: 'happy blush'},
+                {char: '😇', name: 'smiling face with halo', keywords: 'angel innocent'},
+                {char: '🥰', name: 'smiling face with hearts', keywords: 'love crush'},
+                {char: '😍', name: 'smiling face with heart-eyes', keywords: 'love crush'},
+                {char: '🤩', name: 'star-struck', keywords: 'wow amazing'},
+                {char: '😘', name: 'face blowing a kiss', keywords: 'love kiss'},
+                {char: '😗', name: 'kissing face', keywords: 'love'},
+                {char: '☺️', name: 'smiling face', keywords: 'happy blush'},
+                {char: '😚', name: 'kissing face with closed eyes', keywords: 'love'},
+                {char: '😙', name: 'kissing face with smiling eyes', keywords: 'love'},
+                {char: '😋', name: 'face savoring food', keywords: 'yummy hungry'},
+                {char: '😛', name: 'face with tongue', keywords: 'silly'},
+                {char: '😜', name: 'winking face with tongue', keywords: 'silly joke'},
+                {char: '🤪', name: 'zany face', keywords: 'crazy silly'},
+                {char: '😝', name: 'squinting face with tongue', keywords: 'silly'},
+                {char: '🤑', name: 'money-mouth face', keywords: 'rich cash'},
+                {char: '🤗', name: 'hugging face', keywords: 'hug welcome'},
+                {char: '🤭', name: 'face with hand over mouth', keywords: 'oops secret'},
+                {char: '🤫', name: 'shushing face', keywords: 'quiet silence'},
+                {char: '🤔', name: 'thinking face', keywords: 'hmmm wonder'},
+                {char: '🤐', name: 'zipper-mouth face', keywords: 'secret silent'},
+                {char: '🤨', name: 'face with raised eyebrow', keywords: 'suspect doubt'},
+                {char: '😐', name: 'neutral face', keywords: 'meh'},
+                {char: '😑', name: 'expressionless face', keywords: 'meh bored'},
+                {char: '😶', name: 'face without mouth', keywords: 'silent'},
+                {char: '😏', name: 'smirking face', keywords: 'sly smirk'},
+                {char: '😒', name: 'unamused face', keywords: 'meh bored'},
+                {char: '🙄', name: 'face with rolling eyes', keywords: 'bored annoying'},
+                {char: '😬', name: 'grimacing face', keywords: 'oops nervous'},
+                {char: '🤥', name: 'lying face', keywords: 'pinocchio liar'},
+                {char: '😌', name: 'relieved face', keywords: 'happy peace'},
+                {char: '😔', name: 'pensive face', keywords: 'sad sorry'},
+                {char: '😪', name: 'sleepy face', keywords: 'tired sleep'},
+                {char: '🤤', name: 'drooling face', keywords: 'hungry love'},
+                {char: '😴', name: 'sleeping face', keywords: 'sleep zzz'},
+                {char: '😷', name: 'face with medical mask', keywords: 'sick doctor'},
+                {char: '🤒', name: 'face with thermometer', keywords: 'sick fever'},
+                {char: '🤕', name: 'face with head-bandage', keywords: 'sick hurt'},
+                {char: '🤢', name: 'nauseated face', keywords: 'sick vomit'},
+                {char: '🤮', name: 'face vomiting', keywords: 'sick vomit'},
+                {char: '🤧', name: 'sneezing face', keywords: 'sick sneeze'},
+                {char: '🥵', name: 'hot face', keywords: 'heat sweat summer'},
+                {char: '🥶', name: 'cold face', keywords: 'winter ice'},
+                {char: '🥴', name: 'woozy face', keywords: 'drunk dizzy'},
+                {char: '😵', name: 'dizzy face', keywords: 'dead dizzy'},
+                {char: '🤯', name: 'exploding head', keywords: 'mind blown wow'},
+                {char: '🤠', name: 'cowboy hat face', keywords: 'western'},
+                {char: '🥳', name: 'partying face', keywords: 'party celebrate'},
+                {char: '😎', name: 'smiling face with sunglasses', keywords: 'cool sunglasses'},
+                {char: '🤓', name: 'nerd face', keywords: 'smart geek'},
+                {char: '🧐', name: 'face with monocle', keywords: 'smart hmmm'},
+                {char: '😕', name: 'confused face', keywords: 'hmmm'},
+                {char: '😟', name: 'worried face', keywords: 'sad nervous'},
+                {char: '🙁', name: 'slightly frowning face', keywords: 'sad'},
+                {char: '☹️', name: 'frowning face', keywords: 'sad'},
+                {char: '😮', name: 'face with open mouth', keywords: 'wow shock'},
+                {char: '😯', name: 'hushed face', keywords: 'wow surprise'},
+                {char: '😲', name: 'astonished face', keywords: 'wow surprise'},
+                {char: '😳', name: 'flushed face', keywords: 'embarrassed shame'},
+                {char: '🥺', name: 'pleading face', keywords: 'puppy eyes please'},
+                {char: '😦', name: 'frowning face with open mouth', keywords: 'shock surprise'},
+                {char: '😧', name: 'anguished face', keywords: 'shock surprise'},
+                {char: '😨', name: 'fearful face', keywords: 'scared fear'},
+                {char: '😰', name: 'anxious face with sweat', keywords: 'nervous stress'},
+                {char: '😥', name: 'sad but relieved face', keywords: 'phew whew'},
+                {char: '😢', name: 'crying face', keywords: 'sad tear'},
+                {char: '😭', name: 'loudly crying face', keywords: 'sad sob'},
+                {char: '😱', name: 'face screaming in fear', keywords: 'scared shock'},
+                {char: '😖', name: 'confounded face', keywords: 'sad'},
+                {char: '😣', name: 'persevering face', keywords: 'sad'},
+                {char: '😞', name: 'disappointed face', keywords: 'sad'},
+                {char: '😓', name: 'downcast face with sweat', keywords: 'sad nervous'},
+                {char: '😩', name: 'weary face', keywords: 'tired sad'},
+                {char: '😫', name: 'tired face', keywords: 'tired sleep'},
+                {char: '🥱', name: 'yawning face', keywords: 'tired sleep'},
+                {char: '😤', name: 'face with steam from nose', keywords: 'angry mad'},
+                {char: '😡', name: 'pouting face', keywords: 'angry mad'},
+                {char: '😠', name: 'angry face', keywords: 'angry mad'},
+                {char: '🤬', name: 'face with symbols on mouth', keywords: 'angry curse'},
+                {char: '😈', name: 'smiling face with horns', keywords: 'devil evil'},
+                {char: '👿', name: 'angry face with horns', keywords: 'devil evil'},
+                {char: '💀', name: 'skull', keywords: 'dead skeleton'},
+                {char: '☠️', name: 'skull and crossbones', keywords: 'dead poison'},
+                {char: '💩', name: 'pile of poo', keywords: 'poop crap'},
+                {char: '🤡', name: 'clown face', keywords: 'clown circus'},
+                {char: '👹', name: 'ogre', keywords: 'monster devil'},
+                {char: '👺', name: 'goblin', keywords: 'monster devil'},
+                {char: '👻', name: 'ghost', keywords: 'scary spooky'},
+                {char: '👽', name: 'alien', keywords: 'space ufo'},
+                {char: '👾', name: 'alien monster', keywords: 'space video game'},
+                {char: '🤖', name: 'robot', keywords: 'bot tech'}
+            ],
+            people: [
+                {char: '👋', name: 'waving hand', keywords: 'hello goodbye'},
+                {char: '🤚', name: 'raised back of hand', keywords: 'stop hand'},
+                {char: '🖐️', name: 'hand with fingers splayed', keywords: 'hand stop'},
+                {char: '✋', name: 'raised hand', keywords: 'stop high five'},
+                {char: '🖖', name: 'vulcan salute', keywords: 'spock star trek'},
+                {char: '👌', name: 'OK hand', keywords: 'perfect alright'},
+                {char: '🤌', name: 'pinched fingers', keywords: 'italian chef kiss'},
+                {char: '🤏', name: 'pinching hand', keywords: 'small little'},
+                {char: '✌️', name: 'victory hand', keywords: 'peace v'},
+                {char: '🤞', name: 'crossed fingers', keywords: 'luck hope'},
+                {char: '🤟', name: 'love-you gesture', keywords: 'love rock'},
+                {char: '🤘', name: 'sign of the horns', keywords: 'rock on metal'},
+                {char: '🤙', name: 'call me hand', keywords: 'phone'},
+                {char: '👈', name: 'backhand index pointing left', keywords: 'point left'},
+                {char: '👉', name: 'backhand index pointing right', keywords: 'point right'},
+                {char: '👆', name: 'backhand index pointing up', keywords: 'point up'},
+                {char: '🖕', name: 'middle finger', keywords: 'rude offensive'},
+                {char: '👇', name: 'backhand index pointing down', keywords: 'point down'},
+                {char: '☝️', name: 'index pointing up', keywords: 'point up'},
+                {char: '👍', name: 'thumbs up', keywords: 'good yes like'},
+                {char: '👎', name: 'thumbs down', keywords: 'bad no dislike'},
+                {char: '✊', name: 'raised fist', keywords: 'punch power'},
+                {char: '👊', name: 'oncoming fist', keywords: 'punch hit'},
+                {char: '🤛', name: 'left-facing fist', keywords: 'punch'},
+                {char: '🤜', name: 'right-facing fist', keywords: 'punch'},
+                {char: '👏', name: 'clapping hands', keywords: 'applause bravo'},
+                {char: '🙌', name: 'raising hands', keywords: 'celebration praise'},
+                {char: '👐', name: 'open hands', keywords: 'hug open'},
+                {char: '🤲', name: 'palms up together', keywords: 'pray'},
+                {char: '🤝', name: 'handshake', keywords: 'deal agreement'},
+                {char: '🙏', name: 'folded hands', keywords: 'pray please thank you'},
+                {char: '✍️', name: 'writing hand', keywords: 'write draw'},
+                {char: '💅', name: 'nail polish', keywords: 'beauty fashion'},
+                {char: '🤳', name: 'selfie', keywords: 'photo phone'},
+                {char: '💪', name: 'flexed biceps', keywords: 'strong muscle'},
+                {char: '🦾', name: 'mechanical arm', keywords: 'robot tech'},
+                {char: '🦵', name: 'leg', keywords: 'body'},
+                {char: '🦿', name: 'mechanical leg', keywords: 'robot tech'},
+                {char: '🦶', name: 'foot', keywords: 'body'},
+                {char: '耳', name: 'ear', keywords: 'body hear'},
+                {char: '🦻', name: 'ear with hearing aid', keywords: 'body hear'},
+                {char: '鼻', name: 'nose', keywords: 'body smell'},
+                {char: '🧠', name: 'brain', keywords: 'body smart'},
+                {char: '🫀', name: 'anatomical heart', keywords: 'body organ'},
+                {char: '🫁', name: 'lungs', keywords: 'body organ'},
+                {char: '🦷', name: 'tooth', keywords: 'body dentist'},
+                {char: '🦴', name: 'bone', keywords: 'body skeleton'},
+                {char: '👀', name: 'eyes', keywords: 'body look'},
+                {char: '👁️', name: 'eye', keywords: 'body look'},
+                {char: '👅', name: 'tongue', keywords: 'body taste'},
+                {char: '👄', name: 'mouth', keywords: 'body lips'},
+                {char: '👶', name: 'baby', keywords: 'child kid'},
+                {char: '🧒', name: 'child', keywords: 'kid young'},
+                {char: '👦', name: 'boy', keywords: 'child male'},
+                {char: '👧', name: 'girl', keywords: 'child female'},
+                {char: '🧑', name: 'person', keywords: 'adult human'},
+                {char: '👱', name: 'person: blond hair', keywords: 'blonde'},
+                {char: '👨', name: 'man', keywords: 'adult male'},
+                {char: '🧔', name: 'person: beard', keywords: 'man beard'},
+                {char: '👨‍🦰', name: 'man: red hair', keywords: 'ginger'},
+                {char: '👨‍🦱', name: 'man: curly hair', keywords: 'man'},
+                {char: '👨‍🦳', name: 'man: white hair', keywords: 'old man'},
+                {char: '👨‍🦲', name: 'man: bald', keywords: 'bald'},
+                {char: '👩', name: 'woman', keywords: 'adult female'},
+                {char: '👩‍🦰', name: 'woman: red hair', keywords: 'ginger'},
+                {char: '👩‍🦱', name: 'woman: curly hair', keywords: 'woman'},
+                {char: '👩‍🦳', name: 'woman: white hair', keywords: 'old woman'},
+                {char: '👩‍🦲', name: 'woman: bald', keywords: 'bald'},
+                {char: '👱‍♀️', name: 'woman: blond hair', keywords: 'blonde'},
+                {char: '👱‍♂️', name: 'man: blond hair', keywords: 'blonde'},
+                {char: '🧓', name: 'older person', keywords: 'old human'},
+                {char: '👴', name: 'old man', keywords: 'grandpa'},
+                {char: '👵', name: 'old woman', keywords: 'grandma'}
+            ],
+            animals: [
+                {char: '🐶', name: 'dog face', keywords: 'pet puppy'},
+                {char: '🐱', name: 'cat face', keywords: 'pet kitten'},
+                {char: '🐭', name: 'mouse face', keywords: 'pet rat'},
+                {char: '🐹', name: 'hamster face', keywords: 'pet'},
+                {char: '🐰', name: 'rabbit face', keywords: 'pet bunny'},
+                {char: '🦊', name: 'fox face', keywords: 'wild'},
+                {char: '🐻', name: 'bear face', keywords: 'wild'},
+                {char: '🐼', name: 'panda face', keywords: 'wild china'},
+                {char: '🐨', name: 'koala', keywords: 'wild australia'},
+                {char: '🐯', name: 'tiger face', keywords: 'wild'},
+                {char: '🦁', name: 'lion face', keywords: 'wild king'},
+                {char: '🐮', name: 'cow face', keywords: 'farm'},
+                {char: '🐷', name: 'pig face', keywords: 'farm'},
+                {char: '🐽', name: 'pig nose', keywords: 'farm'},
+                {char: '🐸', name: 'frog face', keywords: 'wild'},
+                {char: '🐵', name: 'monkey face', keywords: 'wild'},
+                {char: '🙈', name: 'see-no-evil monkey', keywords: 'monkey hidden'},
+                {char: '🙉', name: 'hear-no-evil monkey', keywords: 'monkey hidden'},
+                {char: '🙊', name: 'speak-no-evil monkey', keywords: 'monkey hidden'},
+                {char: '🐒', name: 'monkey', keywords: 'wild'},
+                {char: '🦍', name: 'gorilla', keywords: 'wild'},
+                {char: '🦧', name: 'orangutan', keywords: 'wild'},
+                {char: '🐶', name: 'dog', keywords: 'pet'},
+                {char: '🐕', name: 'dog', keywords: 'pet'},
+                {char: '🐩', name: 'poodle', keywords: 'dog pet'},
+                {char: '🐺', name: 'wolf', keywords: 'wild'},
+                {char: '🦊', name: 'fox', keywords: 'wild'},
+                {char: '🦝', name: 'raccoon', keywords: 'wild'},
+                {char: '🐱', name: 'cat', keywords: 'pet'},
+                {char: '🐈', name: 'cat', keywords: 'pet'},
+                {char: '🦁', name: 'lion', keywords: 'wild'},
+                {char: '🐯', name: 'tiger', keywords: 'wild'},
+                {char: '🐆', name: 'leopard', keywords: 'wild'},
+                {char: '🐴', name: 'horse face', keywords: 'farm ride'},
+                {char: '🐎', name: 'horse', keywords: 'farm ride'},
+                {char: '🦄', name: 'unicorn', keywords: 'magic'},
+                {char: '🦓', name: 'zebra', keywords: 'wild'},
+                {char: '🦌', name: 'deer', keywords: 'wild'},
+                {char: '🦬', name: 'bison', keywords: 'wild'},
+                {char: '🐮', name: 'cow', keywords: 'farm'},
+                {char: '🐂', name: 'ox', keywords: 'farm'},
+                {char: '🐃', name: 'water buffalo', keywords: 'farm'},
+                {char: '🐄', name: 'cow', keywords: 'farm'},
+                {char: '🐷', name: 'pig', keywords: 'farm'},
+                {char: '🐖', name: 'pig', keywords: 'farm'},
+                {char: '🐗', name: 'boar', keywords: 'wild'},
+                {char: '🐽', name: 'pig nose', keywords: 'farm'},
+                {char: '🐏', name: 'ram', keywords: 'farm'},
+                {char: '🐑', name: 'sheep', keywords: 'farm'},
+                {char: '🐐', name: 'goat', keywords: 'farm'},
+                {char: '🐪', name: 'camel', keywords: 'desert'},
+                {char: '🐫', name: 'two-hump camel', keywords: 'desert'},
+                {char: '🦙', name: 'llama', keywords: 'farm'},
+                {char: '🦒', name: 'giraffe', keywords: 'wild'},
+                {char: '🐘', name: 'elephant', keywords: 'wild'},
+                {char: '🦣', name: 'mammoth', keywords: 'dead'},
+                {char: '🦏', name: 'rhinoceros', keywords: 'wild'},
+                {char: '🦛', name: 'hippopotamus', keywords: 'wild'},
+                {char: '🐭', name: 'mouse', keywords: 'pet'},
+                {char: '🐁', name: 'mouse', keywords: 'pet'},
+                {char: '🐀', name: 'rat', keywords: 'pet'},
+                {char: '🐹', name: 'hamster', keywords: 'pet'},
+                {char: '🐰', name: 'rabbit', keywords: 'pet'},
+                {char: '🐇', name: 'rabbit', keywords: 'pet'},
+                {char: '🐿️', name: 'chipmunk', keywords: 'wild'},
+                {char: '🦫', name: 'beaver', keywords: 'wild'},
+                {char: '🦔', name: 'hedgehog', keywords: 'pet'},
+                {char: '🦇', name: 'bat', keywords: 'wild fly'},
+                {char: '🐻', name: 'bear', keywords: 'wild'},
+                {char: '🐨', name: 'koala', keywords: 'wild'},
+                {char: '🐼', name: 'panda', keywords: 'wild'},
+                {char: '🦥', name: 'sloth', keywords: 'wild'},
+                {char: '🦦', name: 'otter', keywords: 'wild'},
+                {char: '🦨', name: 'skunk', keywords: 'wild'},
+                {char: '🦘', name: 'kangaroo', keywords: 'wild australia'},
+                {char: '🦡', name: 'badger', keywords: 'wild'}
+            ],
+            food: [
+                {char: '🍏', name: 'green apple', keywords: 'fruit health'},
+                {char: '🍎', name: 'red apple', keywords: 'fruit health'},
+                {char: '🍐', name: 'pear', keywords: 'fruit health'},
+                {char: '🍊', name: 'tangerine', keywords: 'fruit health orange'},
+                {char: '🍋', name: 'lemon', keywords: 'fruit health yellow'},
+                {char: '🍌', name: 'banana', keywords: 'fruit health yellow'},
+                {char: '🍉', name: 'watermelon', keywords: 'fruit health summer'},
+                {char: '🍇', name: 'grapes', keywords: 'fruit health'},
+                {char: '🍓', name: 'strawberry', keywords: 'fruit health red'},
+                {char: '🫐', name: 'blueberries', keywords: 'fruit health blue'},
+                {char: '🍈', name: 'melon', keywords: 'fruit health'},
+                {char: '🍒', name: 'cherries', keywords: 'fruit health red'},
+                {char: '🍑', name: 'peach', keywords: 'fruit health'},
+                {char: '🥭', name: 'mango', keywords: 'fruit health'},
+                {char: '🍍', name: 'pineapple', keywords: 'fruit health'},
+                {char: '🥥', name: 'coconut', keywords: 'fruit health'},
+                {char: '🥝', name: 'kiwi fruit', keywords: 'fruit health'},
+                {char: '🍅', name: 'tomato', keywords: 'vegetable health red'},
+                {char: '🍆', name: 'eggplant', keywords: 'vegetable health purple'},
+                {char: '🥑', name: 'avocado', keywords: 'vegetable health green'},
+                {char: '🥦', name: 'broccoli', keywords: 'vegetable health green'},
+                {char: '🥬', name: 'leafy green', keywords: 'vegetable health green'},
+                {char: '🥒', name: 'cucumber', keywords: 'vegetable health green'},
+                {char: '🌶️', name: 'hot pepper', keywords: 'vegetable health red spicy'},
+                {char: '🫑', name: 'bell pepper', keywords: 'vegetable health green red'},
+                {char: '🌽', name: 'ear of corn', keywords: 'vegetable health yellow'},
+                {char: '🥕', name: 'carrot', keywords: 'vegetable health orange'},
+                {char: '🫒', name: 'olive', keywords: 'vegetable health green'},
+                {char: '🧄', name: 'garlic', keywords: 'vegetable health'},
+                {char: '🧅', name: 'onion', keywords: 'vegetable health'},
+                {char: '🍄', name: 'mushroom', keywords: 'vegetable health'},
+                {char: '🥜', name: 'peanuts', keywords: 'nut health'},
+                {char: '🫘', name: 'beans', keywords: 'vegetable health'},
+                {char: '🌰', name: 'chestnut', keywords: 'nut health'},
+                {char: '🍞', name: 'bread', keywords: 'bakery'},
+                {char: '🥐', name: 'croissant', keywords: 'bakery france'},
+                {char: '🥖', name: 'baguette bread', keywords: 'bakery france'},
+                {char: '🫓', name: 'flatbread', keywords: 'bakery'},
+                {char: '🥨', name: 'pretzel', keywords: 'bakery snack'},
+                {char: '🥯', name: 'bagel', keywords: 'bakery breakfast'},
+                {char: '🥞', name: 'pancakes', keywords: 'breakfast'},
+                {char: '🧇', name: 'waffle', keywords: 'breakfast'},
+                {char: '🧀', name: 'cheese wedge', keywords: 'dairy'},
+                {char: '🍖', name: 'meat on bone', keywords: 'meat'},
+                {char: '🍗', name: 'poultry leg', keywords: 'meat chicken'},
+                {char: '🥩', name: 'cut of meat', keywords: 'meat steak'},
+                {char: '🥓', name: 'bacon', keywords: 'meat breakfast'},
+                {char: '🍔', name: 'hamburger', keywords: 'fast food junk burger'},
+                {char: '🍟', name: 'french fries', keywords: 'fast food junk potato'},
+                {char: '🍕', name: 'pizza', keywords: 'fast food junk'},
+                {char: '🌭', name: 'hot dog', keywords: 'fast food junk'},
+                {char: '🥪', name: 'sandwich', keywords: 'lunch'},
+                {char: '🌮', name: 'taco', keywords: 'mexican'},
+                {char: '🌯', name: 'burrito', keywords: 'mexican'},
+                {char: '🫔', name: 'tamale', keywords: 'mexican'},
+                {char: '🥙', name: 'stuffed flatbread', keywords: 'lunch'},
+                {char: '🧆', name: 'falafel', keywords: 'lunch'},
+                {char: '🥚', name: 'egg', keywords: 'breakfast'},
+                {char: '🍳', name: 'cooking', keywords: 'egg breakfast'},
+                {char: '🥘', name: 'shallow pan of food', keywords: 'lunch dinner'},
+                {char: '🍲', name: 'pot of food', keywords: 'lunch dinner soup'},
+                {char: '🫕', name: 'fondue', keywords: 'cheese chocolate'},
+                {char: '🥣', name: 'bowl with spoon', keywords: 'breakfast soup cereal'},
+                {char: '🥗', name: 'green salad', keywords: 'health vegetable'},
+                {char: '🍿', name: 'popcorn', keywords: 'movie snack'},
+                {char: '🧈', name: 'butter', keywords: 'dairy cooking'},
+                {char: '🧂', name: 'salt', keywords: 'cooking spice'},
+                {char: '🥫', name: 'canned food', keywords: 'cooking'},
+                {char: '🍱', name: 'bento box', keywords: 'japanese lunch'},
+                {char: '🍘', name: 'rice cracker', keywords: 'japanese snack'},
+                {char: '🍙', name: 'rice ball', keywords: 'japanese snack'},
+                {char: '🍚', name: 'cooked rice', keywords: 'japanese'},
+                {char: '🍛', name: 'curry rice', keywords: 'indian japanese dinner'},
+                {char: '🍜', name: 'steaming bowl', keywords: 'japanese ramen soup'},
+                {char: '🍝', name: 'spaghetti', keywords: 'italian dinner'},
+                {char: '🍠', name: 'roasted sweet potato', keywords: 'japanese snack'},
+                {char: '🍢', name: 'oden', keywords: 'japanese snack'},
+                {char: '🍣', name: 'sushi', keywords: 'japanese dinner'},
+                {char: '🍤', name: 'fried shrimp', keywords: 'japanese snack tempura'},
+                {char: '🍥', name: 'fish cake with swirl', keywords: 'japanese snack'},
+                {char: '🥮', name: 'moon cake', keywords: 'china snack'},
+                {char: '🍡', name: 'dango', keywords: 'japanese snack'},
+                {char: '🥟', name: 'dumpling', keywords: 'china snack'},
+                {char: '🥠', name: 'fortune cookie', keywords: 'china snack'},
+                {char: '🥡', name: 'takeout box', keywords: 'food china'},
+                {char: '🦀', name: 'crab', keywords: 'seafood'},
+                {char: '🦞', name: 'lobster', keywords: 'seafood'},
+                {char: '🦐', name: 'shrimp', keywords: 'seafood'},
+                {char: '🦑', name: 'squid', keywords: 'seafood'},
+                {char: '🦪', name: 'oyster', keywords: 'seafood'},
+                {char: '🍦', name: 'soft serve', keywords: 'dessert ice cream icecream'},
+                {char: '🍧', name: 'shaved ice', keywords: 'dessert ice'},
+                {char: '🍨', name: 'ice cream', keywords: 'dessert icecream'},
+                {char: '🍩', name: 'doughnut', keywords: 'dessert donut snack'},
+                {char: '🍪', name: 'cookie', keywords: 'dessert snack'},
+                {char: '🎂', name: 'birthday cake', keywords: 'dessert celebrate party'},
+                {char: '🍰', name: 'shortcake', keywords: 'dessert cake'},
+                {char: '🧁', name: 'cupcake', keywords: 'dessert cake'},
+                {char: '🥧', name: 'pie', keywords: 'dessert bakery'},
+                {char: '🍫', name: 'chocolate bar', keywords: 'dessert candy'},
+                {char: '🍬', name: 'candy', keywords: 'dessert snack'},
+                {char: '🍭', name: 'lollipop', keywords: 'dessert candy'},
+                {char: '🍮', name: 'custard', keywords: 'dessert pudding'},
+                {char: '🍯', name: 'honey pot', keywords: 'dessert sweet'},
+                {char: '🍼', name: 'baby bottle', keywords: 'drink milk'},
+                {char: '🥛', name: 'glass of milk', keywords: 'drink dairy'},
+                {char: '☕', name: 'hot beverage', keywords: 'drink coffee tea cafe'},
+                {char: '🫖', name: 'teapot', keywords: 'drink tea'},
+                {char: '🍵', name: 'teacup without handle', keywords: 'drink green tea'},
+                {char: '🍶', name: 'sake', keywords: 'drink alcohol japanese'},
+                {char: '🍾', name: 'bottle with popping cork', keywords: 'drink alcohol celebrate champagne'},
+                {char: '🍷', name: 'wine glass', keywords: 'drink alcohol'},
+                {char: '🍸', name: 'cocktail glass', keywords: 'drink alcohol'},
+                {char: '🍹', name: 'tropical drink', keywords: 'drink alcohol summer'},
+                {char: '🍺', name: 'beer mug', keywords: 'drink alcohol'},
+                {char: '🍻', name: 'clinking beer mugs', keywords: 'drink alcohol celebrate'},
+                {char: '🥂', name: 'clinking glasses', keywords: 'drink alcohol celebrate'},
+                {char: '🥃', name: 'tumbler glass', keywords: 'drink alcohol whiskey'},
+                {char: '🥤', name: 'cup with straw', keywords: 'drink soda'},
+                {char: '🧋', name: 'bubble tea', keywords: 'drink tea'},
+                {char: '🧃', name: 'beverage box', keywords: 'drink juice'},
+                {char: '🧉', name: 'mate', keywords: 'drink tea'},
+                {char: '🧊', name: 'ice', keywords: 'cold water'}
+            ],
+            activities: [
+                {char: '🎃', name: 'jack-o-lantern', keywords: 'halloween scary'},
+                {char: '🎄', name: 'christmas tree', keywords: 'holiday winter'},
+                {char: '🎆', name: 'fireworks', keywords: 'celebrate party'},
+                {char: '🎇', name: 'sparkler', keywords: 'celebrate party'},
+                {char: '🧨', name: 'firecracker', keywords: 'celebrate party china'},
+                {char: '✨', name: 'sparkles', keywords: 'magic shiny'},
+                {char: '🎈', name: 'balloon', keywords: 'celebrate party'},
+                {char: '🎉', name: 'party popper', keywords: 'celebrate party'},
+                {char: '🎊', name: 'confetti ball', keywords: 'celebrate party'},
+                {char: '🎋', name: 'tanabata tree', keywords: 'japanese festival'},
+                {char: '🎍', name: 'pine decoration', keywords: 'japanese festival'},
+                {char: '🎎', name: 'japanese dolls', keywords: 'japanese festival'},
+                {char: '🎏', name: 'carp streamer', keywords: 'japanese festival'},
+                {char: '🎐', name: 'wind chime', keywords: 'japanese summer'},
+                {char: '🎑', name: 'moon viewing ceremony', keywords: 'japanese festival'},
+                {char: '🧧', name: 'red envelope', keywords: 'china gift money'},
+                {char: '🎀', name: 'ribbon', keywords: 'gift decoration'},
+                {char: '🎁', name: 'wrapped gift', keywords: 'gift present celebrate'},
+                {char: '🎗️', name: 'reminder ribbon', keywords: 'ribbon'},
+                {char: '🎟️', name: 'admission tickets', keywords: 'event movie'},
+                {char: '🎫', name: 'ticket', keywords: 'event movie'},
+                {char: '🎖️', name: 'military medal', keywords: 'award win'},
+                {char: '🏆', name: 'trophy', keywords: 'award win best'},
+                {char: '🏅', name: 'sports medal', keywords: 'award win sports'},
+                {char: '🥇', name: '1st place medal', keywords: 'award win gold'},
+                {char: '🥈', name: '2nd place medal', keywords: 'award win silver'},
+                {char: '🥉', name: '3rd place medal', keywords: 'award win bronze'},
+                {char: '⚽', name: 'soccer ball', keywords: 'sports ball football'},
+                {char: '⚾', name: 'baseball', keywords: 'sports ball'},
+                {char: '🥎', name: 'softball', keywords: 'sports ball'},
+                {char: '🏀', name: 'basketball', keywords: 'sports ball'},
+                {char: '🏐', name: 'volleyball', keywords: 'sports ball'},
+                {char: '🏈', name: 'american football', keywords: 'sports ball'},
+                {char: '🏉', name: 'rugby football', keywords: 'sports ball'},
+                {char: '🎾', name: 'tennis', keywords: 'sports ball'},
+                {char: '🥏', name: 'flying disc', keywords: 'sports frisbee'},
+                {char: '🎳', name: 'bowling', keywords: 'sports ball'},
+                {char: '🏏', name: 'cricket game', keywords: 'sports ball'},
+                {char: '🏑', name: 'field hockey', keywords: 'sports'},
+                {char: '🏒', name: 'ice hockey', keywords: 'sports winter'},
+                {char: '🥍', name: 'lacrosse', keywords: 'sports'},
+                {char: '🏓', name: 'ping pong', keywords: 'sports ball table tennis'},
+                {char: '🏸', name: 'badminton', keywords: 'sports'},
+                {char: '🥊', name: 'boxing glove', keywords: 'sports fighting'},
+                {char: '🥋', name: 'martial arts uniform', keywords: 'sports fighting karate judo'},
+                {char: '🥅', name: 'goal net', keywords: 'sports'},
+                {char: '⛳', name: 'flag in hole', keywords: 'sports golf'},
+                {char: '⛸️', name: 'ice skate', keywords: 'sports winter'},
+                {char: '🎣', name: 'fishing pole', keywords: 'hobby sport fish'},
+                {char: '🤿', name: 'diving mask', keywords: 'hobby sport dive swim'},
+                {char: '🎽', name: 'running shirt', keywords: 'sports run'},
+                {char: '🎿', name: 'skis', keywords: 'sports winter'},
+                {char: '🛷', name: 'sled', keywords: 'sports winter'},
+                {char: '🥌', name: 'curling stone', keywords: 'sports winter'},
+                {char: '🎯', name: 'direct hit', keywords: 'game hobby target bullseye'},
+                {char: '🪀', name: 'yo-yo', keywords: 'game hobby toy'},
+                {char: '🪁', name: 'kite', keywords: 'game hobby toy'},
+                {char: '🎱', name: 'pool 8 ball', keywords: 'game hobby ball'},
+                {char: '🔮', name: 'crystal ball', keywords: 'magic'},
+                {char: '🪄', name: 'magic wand', keywords: 'magic'},
+                {char: '🧿', name: 'nazar amulet', keywords: 'magic eye'},
+                {char: '🎮', name: 'video game', keywords: 'game hobby play'},
+                {char: '🕹️', name: 'joystick', keywords: 'game hobby play'},
+                {char: '🎰', name: 'slot machine', keywords: 'game gamble luck'},
+                {char: '🎲', name: 'game die', keywords: 'game hobby dice luck'},
+                {char: '🧩', name: 'puzzle piece', keywords: 'game hobby'},
+                {char: '🧸', name: 'teddy bear', keywords: 'toy child'},
+                {char: '🪅', name: 'piñata', keywords: 'party celebrate mexico'},
+                {char: '🪆', name: 'nesting dolls', keywords: 'toy russia'},
+                {char: '♠️', name: 'spade suit', keywords: 'card game'},
+                {char: '♥️', name: 'heart suit', keywords: 'card game love'},
+                {char: '♦️', name: 'diamond suit', keywords: 'card game'},
+                {char: '♣️', name: 'club suit', keywords: 'card game'},
+                {char: '♟️', name: 'chess pawn', keywords: 'card game board'},
+                {char: '🃏', name: 'joker', keywords: 'card game'},
+                {char: '🀄', name: 'mahjong red dragon', keywords: 'card game china'},
+                {char: '🎴', name: 'flower playing cards', keywords: 'card game japanese'},
+                {char: '🎭', name: 'performing arts', keywords: 'theater drama movie'},
+                {char: '🖼️', name: 'framed picture', keywords: 'art museum painting'},
+                {char: '🎨', name: 'artist palette', keywords: 'art design painting'},
+                {char: '🧵', name: 'thread', keywords: 'hobby craft'},
+                {char: '🪡', name: 'sewing needle', keywords: 'hobby craft'},
+                {char: '🧶', name: 'yarn', keywords: 'hobby craft'},
+                {char: '🪢', name: 'knot', keywords: 'hobby craft'}
+            ],
+            travel: [
+                {char: '🌍', name: 'globe showing Europe-Africa', keywords: 'earth world space'},
+                {char: '🌎', name: 'globe showing Americas', keywords: 'earth world space'},
+                {char: '🌏', name: 'globe showing Asia-Australia', keywords: 'earth world space'},
+                {char: '🌐', name: 'globe with meridians', keywords: 'earth world space'},
+                {char: '🗺️', name: 'world map', keywords: 'travel map'},
+                {char: '🗾', name: 'map of Japan', keywords: 'travel map japan'},
+                {char: '🧭', name: 'compass', keywords: 'travel navigation'},
+                {char: '🏔️', name: 'snow-capped mountain', keywords: 'nature travel mountain winter'},
+                {char: '⛰️', name: 'mountain', keywords: 'nature travel mountain'},
+                {char: '🌋', name: 'volcano', keywords: 'nature travel mountain fire'},
+                {char: '🗻', name: 'mount fuji', keywords: 'nature travel mountain japan'},
+                {char: '⛺', name: 'tent', keywords: 'travel camping nature'},
+                {char: '🏕️', name: 'camping', keywords: 'travel camping nature'},
+                {char: '🏖️', name: 'beach with umbrella', keywords: 'travel summer nature water'},
+                {char: '🏜️', name: 'desert', keywords: 'travel nature hot'},
+                {char: '🏝️', name: 'desert island', keywords: 'travel summer nature water'},
+                {char: '🏞️', name: 'national park', keywords: 'travel nature'},
+                {char: '🏟️', name: 'stadium', keywords: 'building sports'},
+                {char: '🏛️', name: 'classical building', keywords: 'building museum'},
+                {char: '🏗️', name: 'building construction', keywords: 'building build'},
+                {char: '🧱', name: 'brick', keywords: 'building build'},
+                {char: '🏠', name: 'house', keywords: 'building home'},
+                {char: '🏡', name: 'house with garden', keywords: 'building home'},
+                {char: '🏢', name: 'office building', keywords: 'building work'},
+                {char: '🏣', name: 'Japanese post office', keywords: 'building japan'},
+                {char: '🏤', name: 'post office', keywords: 'building'},
+                {char: '🏥', name: 'hospital', keywords: 'building health'},
+                {char: '🏦', name: 'bank', keywords: 'building money'},
+                {char: '🏨', name: 'hotel', keywords: 'building travel'},
+                {char: '🏩', name: 'love hotel', keywords: 'building japan love'},
+                {char: '🏪', name: 'convenience store', keywords: 'building shop'},
+                {char: '🏫', name: 'school', keywords: 'building learn education'},
+                {char: '🏬', name: 'department store', keywords: 'building shop'},
+                {char: '🏭', name: 'factory', keywords: 'building work industrial'},
+                {char: '🏯', name: 'Japanese castle', keywords: 'building japan castle'},
+                {char: '🏰', name: 'castle', keywords: 'building castle'},
+                {char: '💒', name: 'wedding', keywords: 'building celebrate love'},
+                {char: '🗼', name: 'Tokyo tower', keywords: 'building japan'},
+                {char: '🗽', name: 'Statue of Liberty', keywords: 'building usa'},
+                {char: '⛪', name: 'church', keywords: 'building religion'},
+                {char: '🕌', name: 'mosque', keywords: 'building religion'},
+                {char: '🛕', name: 'hindu temple', keywords: 'building religion'},
+                {char: '🕍', name: 'synagogue', keywords: 'building religion'},
+                {char: '⛩️', name: 'shinto shrine', keywords: 'building religion japan'},
+                {char: '🕋', name: 'kaaba', keywords: 'building religion'},
+                {char: '⛲', name: 'fountain', keywords: 'building water'},
+                {char: '⛺', name: 'tent', keywords: 'travel camping'},
+                {char: '🌁', name: 'foggy', keywords: 'nature weather city'},
+                {char: '🌃', name: 'night with stars', keywords: 'nature weather city space'},
+                {char: '🏙️', name: 'cityscape', keywords: 'city building'},
+                {char: '🌄', name: 'sunrise over mountains', keywords: 'nature sun morning'},
+                {char: '🌅', name: 'sunrise', keywords: 'nature sun morning'},
+                {char: '🌆', name: 'cityscape at dusk', keywords: 'city building evening'},
+                {char: '🌇', name: 'sunset', keywords: 'city building evening'},
+                {char: '🌉', name: 'bridge at night', keywords: 'city building night'},
+                {char: '♨️', name: 'hot springs', keywords: 'japan travel water'},
+                {char: '🎠', name: 'carousel horse', keywords: 'park child fun'},
+                {char: '🎡', name: 'ferris wheel', keywords: 'park child fun'},
+                {char: '🎢', name: 'roller coaster', keywords: 'park child fun'},
+                {char: '💈', name: 'barber pole', keywords: 'shop barber'},
+                {char: '🎪', name: 'circus tent', keywords: 'park child fun circus'},
+                {char: '🚂', name: 'locomotive', keywords: 'travel train vehicle'},
+                {char: '🚃', name: 'railway car', keywords: 'travel train vehicle'},
+                {char: '🚄', name: 'high-speed train', keywords: 'travel train vehicle'},
+                {char: '🚅', name: 'bullet train', keywords: 'travel train vehicle'},
+                {char: '🚆', name: 'train', keywords: 'travel train vehicle'},
+                {char: '🚇', name: 'metro', keywords: 'travel train vehicle'},
+                {char: '🚈', name: 'light rail', keywords: 'travel train vehicle'},
+                {char: '🚉', name: 'station', keywords: 'travel train'},
+                {char: '🚊', name: 'tram', keywords: 'travel train vehicle'},
+                {char: '🚝', name: 'monorail', keywords: 'travel train vehicle'},
+                {char: '🚞', name: 'mountain railway', keywords: 'travel train vehicle'},
+                {char: '🚋', name: 'tram car', keywords: 'travel train vehicle'},
+                {char: '🚌', name: 'bus', keywords: 'travel vehicle'},
+                {char: '🚍', name: 'oncoming bus', keywords: 'travel vehicle'},
+                {char: '🚎', name: 'trolleybus', keywords: 'travel vehicle'},
+                {char: '🚐', name: 'minibus', keywords: 'travel vehicle'},
+                {char: '🚑', name: 'ambulance', keywords: 'vehicle health emergency'},
+                {char: '🚒', name: 'fire engine', keywords: 'vehicle emergency fire'},
+                {char: '🚓', name: 'police car', keywords: 'vehicle emergency police'},
+                {char: '🚔', name: 'oncoming police car', keywords: 'vehicle emergency police'},
+                {char: '🚕', name: 'taxi', keywords: 'travel vehicle'},
+                {char: '🚖', name: 'oncoming taxi', keywords: 'travel vehicle'},
+                {char: '🚗', name: 'automobile', keywords: 'travel vehicle car'},
+                {char: '🚘', name: 'oncoming automobile', keywords: 'travel vehicle car'},
+                {char: '🚙', name: 'sport utility vehicle', keywords: 'travel vehicle car'},
+                {char: '🛻', name: 'pickup truck', keywords: 'travel vehicle car truck'},
+                {char: '🚚', name: 'delivery truck', keywords: 'vehicle delivery'},
+                {char: '🚛', name: 'articulated lorry', keywords: 'vehicle delivery'},
+                {char: '🚜', name: 'tractor', keywords: 'vehicle farm'},
+                {char: '🏎️', name: 'racing car', keywords: 'vehicle sports race'},
+                {char: '🏍️', name: 'motorcycle', keywords: 'vehicle sports bike'},
+                {char: '🛵', name: 'motor scooter', keywords: 'vehicle bike'},
+                {char: '🦽', name: 'manual wheelchair', keywords: 'health wheelchair'},
+                {char: '🦼', name: 'motorized wheelchair', keywords: 'health wheelchair'},
+                {char: '🛺', name: 'auto rickshaw', keywords: 'vehicle travel'},
+                {char: '🚲', name: 'bicycle', keywords: 'vehicle bike sports'},
+                {char: '🛴', name: 'kick scooter', keywords: 'vehicle bike'},
+                {char: '🛹', name: 'skateboard', keywords: 'vehicle bike sports'},
+                {char: '🛼', name: 'roller skate', keywords: 'vehicle bike sports'},
+                {char: '🚏', name: 'bus stop', keywords: 'travel bus'},
+                {char: '🛣️', name: 'motorway', keywords: 'travel car road'},
+                {char: '🛤️', name: 'railway track', keywords: 'travel train road'},
+                {char: '🛢️', name: 'oil drum', keywords: 'fuel energy'},
+                {char: '⛽', name: 'fuel pump', keywords: 'fuel car energy'},
+                {char: '🚨', name: 'police car light', keywords: 'emergency police fire'},
+                {char: '🚥', name: 'horizontal traffic light', keywords: 'travel car road'},
+                {char: '🚦', name: 'vertical traffic light', keywords: 'travel car road'},
+                {char: '🛑', name: 'stop sign', keywords: 'travel car road'},
+                {char: '🚧', name: 'construction', keywords: 'travel road build'},
+                {char: '⚓', name: 'anchor', keywords: 'travel sea boat ship'},
+                {char: '⛵', name: 'sailboat', keywords: 'travel sea boat ship'},
+                {char: '🛶', name: 'canoe', keywords: 'travel water boat'},
+                {char: '🚤', name: 'speedboat', keywords: 'travel water boat'},
+                {char: '🛳️', name: 'passenger ship', keywords: 'travel sea boat ship'},
+                {char: '⛴️', name: 'ferry', keywords: 'travel sea boat ship'},
+                {char: '🛥️', name: 'motor boat', keywords: 'travel water boat'},
+                {char: '🚢', name: 'ship', keywords: 'travel sea boat ship'},
+                {char: '✈️', name: 'airplane', keywords: 'travel flight plane space'},
+                {char: '🛫', name: 'airplane departure', keywords: 'travel flight plane'},
+                {char: '🛬', name: 'airplane arrival', keywords: 'travel flight plane'},
+                {char: '🛩️', name: 'small airplane', keywords: 'travel flight plane'},
+                {char: '💺', name: 'seat', keywords: 'travel flight plane bus train'},
+                {char: '🚁', name: 'helicopter', keywords: 'travel flight vehicle'},
+                {char: '🚟', name: 'suspension railway', keywords: 'travel train vehicle'},
+                {char: '🚠', name: 'mountain cableway', keywords: 'travel vehicle'},
+                {char: '🚡', name: 'aerial tramway', keywords: 'travel vehicle'},
+                {char: '🛰️', name: 'satellite', keywords: 'space tech'},
+                {char: '🚀', name: 'rocket', keywords: 'space flight travel'},
+                {char: '🛸', name: 'flying saucer', keywords: 'space ufo'},
+                {char: '🛎️', name: 'bellhop bell', keywords: 'hotel travel'},
+                {char: '🧳', name: 'luggage', keywords: 'travel suitcase bag'}
+            ],
+            objects: [
+                {char: '⌛', name: 'hourglass done', keywords: 'time clock'},
+                {char: '⏳', name: 'hourglass not done', keywords: 'time clock'},
+                {char: '⌚', name: 'watch', keywords: 'time clock tech'},
+                {char: '⏰', name: 'alarm clock', keywords: 'time clock alert'},
+                {char: '⏱️', name: 'stopwatch', keywords: 'time clock sport'},
+                {char: '⏲️', name: 'timer clock', keywords: 'time clock cooking'},
+                {char: '🕰️', name: 'mantelpiece clock', keywords: 'time clock'},
+                {char: '🌡️', name: 'thermometer', keywords: 'weather health heat'},
+                {char: '⛱️', name: 'umbrella on ground', keywords: 'weather summer beach'},
+                {char: '🧨', name: 'firecracker', keywords: 'celebrate china'},
+                {char: '🎈', name: 'balloon', keywords: 'celebrate party'},
+                {char: '🎉', name: 'party popper', keywords: 'celebrate party'},
+                {char: '🎊', name: 'confetti ball', keywords: 'celebrate party'},
+                {char: '🎎', name: 'japanese dolls', keywords: 'japanese festival'},
+                {char: '🎏', name: 'carp streamer', keywords: 'japanese festival'},
+                {char: '🎐', name: 'wind chime', keywords: 'japanese summer'},
+                {char: '🎑', name: 'moon viewing ceremony', keywords: 'japanese festival'},
+                {char: '🧧', name: 'red envelope', keywords: 'china gift money'},
+                {char: '🎀', name: 'ribbon', keywords: 'gift decoration'},
+                {char: '🎁', name: 'wrapped gift', keywords: 'gift present celebrate'},
+                {char: '🎗️', name: 'reminder ribbon', keywords: 'ribbon'},
+                {char: '🎟️', name: 'admission tickets', keywords: 'event movie'},
+                {char: '🎫', name: 'ticket', keywords: 'event movie'},
+                {char: '🎖️', name: 'military medal', keywords: 'award win'},
+                {char: '🏆', name: 'trophy', keywords: 'award win best'},
+                {char: '🏅', name: 'sports medal', keywords: 'award win sports'},
+                {char: '🥇', name: '1st place medal', keywords: 'award win gold'},
+                {char: '🥈', name: '2nd place medal', keywords: 'award win silver'},
+                {char: '🥉', name: '3rd place medal', keywords: 'award win bronze'},
+                {char: '⚽', name: 'soccer ball', keywords: 'sports ball football'},
+                {char: '⚾', name: 'baseball', keywords: 'sports ball'},
+                {char: '🥎', name: 'softball', keywords: 'sports ball'},
+                {char: '🏀', name: 'basketball', keywords: 'sports ball'},
+                {char: '🏐', name: 'volleyball', keywords: 'sports ball'},
+                {char: '🏈', name: 'american football', keywords: 'sports ball'},
+                {char: '🏉', name: 'rugby football', keywords: 'sports ball'},
+                {char: '🎾', name: 'tennis', keywords: 'sports ball'},
+                {char: '🥏', name: 'flying disc', keywords: 'sports frisbee'},
+                {char: '🎳', name: 'bowling', keywords: 'sports ball'},
+                {char: '🏏', name: 'cricket game', keywords: 'sports ball'},
+                {char: '🏑', name: 'field hockey', keywords: 'sports'},
+                {char: '🏒', name: 'ice hockey', keywords: 'sports winter'},
+                {char: '🥍', name: 'lacrosse', keywords: 'sports'},
+                {char: '🏓', name: 'ping pong', keywords: 'sports ball table tennis'},
+                {char: '🏸', name: 'badminton', keywords: 'sports'},
+                {char: '🥊', name: 'boxing glove', keywords: 'sports fighting'},
+                {char: '🥋', name: 'martial arts uniform', keywords: 'sports fighting karate judo'},
+                {char: '🥅', name: 'goal net', keywords: 'sports'},
+                {char: '⛳', name: 'flag in hole', keywords: 'sports golf'},
+                {char: '⛸️', name: 'ice skate', keywords: 'sports winter'},
+                {char: '🎣', name: 'fishing pole', keywords: 'hobby sport fish'},
+                {char: '🤿', name: 'diving mask', keywords: 'hobby sport dive swim'},
+                {char: '🎽', name: 'running shirt', keywords: 'sports run'},
+                {char: '🎿', name: 'skis', keywords: 'sports winter'},
+                {char: '🛷', name: 'sled', keywords: 'sports winter'},
+                {char: '🥌', name: 'curling stone', keywords: 'sports winter'},
+                {char: '🎯', name: 'direct hit', keywords: 'game hobby target bullseye'},
+                {char: '🪀', name: 'yo-yo', keywords: 'game hobby toy'},
+                {char: ' kite', name: 'kite', keywords: 'game hobby toy'},
+                {char: '🎱', name: 'pool 8 ball', keywords: 'game hobby ball'},
+                {char: '🔮', name: 'crystal ball', keywords: 'magic'},
+                {char: '🪄', name: 'magic wand', keywords: 'magic'},
+                {char: '🧿', name: 'nazar amulet', keywords: 'magic eye'},
+                {char: '🎮', name: 'video game', keywords: 'game hobby play'},
+                {char: '🕹️', name: 'joystick', keywords: 'game hobby play'},
+                {char: '🎰', name: 'slot machine', keywords: 'game gamble luck'},
+                {char: '🎲', name: 'game die', keywords: 'game hobby dice luck'},
+                {char: '🧩', name: 'puzzle piece', keywords: 'game hobby'},
+                {char: '🧸', name: 'teddy bear', keywords: 'toy child'},
+                {char: '🪅', name: 'piñata', keywords: 'party celebrate mexico'},
+                {char: '🪆', name: 'nesting dolls', keywords: 'toy russia'},
+                {char: '♠️', name: 'spade suit', keywords: 'card game'},
+                {char: '♥️', name: 'heart suit', keywords: 'card game love'},
+                {char: '♦️', name: 'diamond suit', keywords: 'card game'},
+                {char: '♣️', name: 'club suit', keywords: 'card game'},
+                {char: '♟️', name: 'chess pawn', keywords: 'card game board'},
+                {char: '🃏', name: 'joker', keywords: 'card game'},
+                {char: '🀄', name: 'mahjong red dragon', keywords: 'card game china'},
+                {char: '🎴', name: 'flower playing cards', keywords: 'card game japanese'},
+                {char: '🎭', name: 'performing arts', keywords: 'theater drama movie'},
+                {char: '🖼️', name: 'framed picture', keywords: 'art museum painting'},
+                {char: '🎨', name: 'artist palette', keywords: 'art design painting'},
+                {char: '🧵', name: 'thread', keywords: 'hobby craft'},
+                {char: '🪡', name: 'sewing needle', keywords: 'hobby craft'},
+                {char: '🧶', name: 'yarn', keywords: 'hobby craft'},
+                {char: '🪢', name: 'knot', keywords: 'hobby craft'},
+                {char: '📱', name: 'mobile phone', keywords: 'tech phone apple'},
+                {char: '📲', name: 'mobile phone with arrow', keywords: 'tech phone call'},
+                {char: '☎️', name: 'telephone', keywords: 'tech phone old'},
+                {char: '📞', name: 'telephone receiver', keywords: 'tech phone call'},
+                {char: '📟', name: 'pager', keywords: 'tech old'},
+                {char: '📠', name: 'fax machine', keywords: 'tech old office'},
+                {char: '🔋', name: 'battery', keywords: 'tech power energy'},
+                {char: '🪫', name: 'low battery', keywords: 'tech power empty'},
+                {char: '🔌', name: 'electric plug', keywords: 'tech power energy'},
+                {char: '💻', name: 'laptop', keywords: 'tech computer work apple'},
+                {char: '🖥️', name: 'desktop computer', keywords: 'tech computer work'},
+                {char: '🖨️', name: 'printer', keywords: 'tech office work'},
+                {char: '⌨️', name: 'keyboard', keywords: 'tech computer work'},
+                {char: '🖱️', name: 'computer mouse', keywords: 'tech computer work'},
+                {char: '🖲️', name: 'trackball', keywords: 'tech computer work'},
+                {char: '💽', name: 'computer disk', keywords: 'tech old'},
+                {char: '💾', name: 'floppy disk', keywords: 'tech old save'},
+                {char: '💿', name: 'optical disk', keywords: 'tech old cd music'},
+                {char: ' DVD', name: 'dvd', keywords: 'tech old movie'},
+                {char: '🧮', name: 'abacus', keywords: 'math old'},
+                {char: '🎥', name: 'movie camera', keywords: 'movie film video'},
+                {char: '🎞️', name: 'film frames', keywords: 'movie film video'},
+                {char: '📽️', name: 'film projector', keywords: 'movie film video'},
+                {char: '🎬', name: 'clapper board', keywords: 'movie film video'},
+                {char: '📺', name: 'television', keywords: 'movie video old'},
+                {char: '📷', name: 'camera', keywords: 'photo photography'},
+                {char: '📸', name: 'camera with flash', keywords: 'photo photography'},
+                {char: '📹', name: 'video camera', keywords: 'movie video'},
+                {char: '📼', name: 'videocassette', keywords: 'movie video old vhs'},
+                {char: '🔍', name: 'magnifying glass tilted left', keywords: 'search find zoom'},
+                {char: '🔎', name: 'magnifying glass tilted right', keywords: 'search find zoom'},
+                {char: '🕯️', name: 'candle', keywords: 'light fire'},
+                {char: '💡', name: 'light bulb', keywords: 'light idea smart'},
+                {char: '🔦', name: 'flashlight', keywords: 'light dark'},
+                {char: '🏮', name: 'red paper lantern', keywords: 'light china festival'},
+                {char: '🪔', name: 'diya lamp', keywords: 'light india festival'},
+                {char: '📔', name: 'notebook with decorative cover', keywords: 'book read write'},
+                {char: '📕', name: 'closed book', keywords: 'book read write'},
+                {char: '📖', name: 'open book', keywords: 'book read write'},
+                {char: '📗', name: 'green book', keywords: 'book read write'},
+                {char: '📘', name: 'blue book', keywords: 'book read write'},
+                {char: '📙', name: 'orange book', keywords: 'book read write'},
+                {char: '📚', name: 'books', keywords: 'book read write library'},
+                {char: '📓', name: 'notebook', keywords: 'book read write'},
+                {char: '📒', name: 'ledger', keywords: 'book read write'},
+                {char: '📃', name: 'page with curl', keywords: 'paper read write'},
+                {char: '📜', name: 'scroll', keywords: 'paper read write old history'},
+                {char: '📄', name: 'facing up page', keywords: 'paper read write office'},
+                {char: '📰', name: 'newspaper', keywords: 'paper read news'},
+                {char: '🗞️', name: 'rolled-up newspaper', keywords: 'paper read news'},
+                {char: '📑', name: 'bookmark tabs', keywords: 'paper office'},
+                {char: '🔖', name: 'bookmark', keywords: 'paper book'},
+                {char: '🏷️', name: 'label', keywords: 'paper tag shop'},
+                {char: '💰', name: 'money bag', keywords: 'money cash rich'},
+                {char: '🪙', name: 'coin', keywords: 'money cash rich'},
+                {char: '💴', name: 'yen banknote', keywords: 'money cash japan'},
+                {char: '💵', name: 'dollar banknote', keywords: 'money cash usa'},
+                {char: '💶', name: 'euro banknote', keywords: 'money cash europe'},
+                {char: '💷', name: 'pound banknote', keywords: 'money cash uk'},
+                {char: '💸', name: 'money with wings', keywords: 'money cash rich fly'},
+                {char: '💳', name: 'credit card', keywords: 'money cash pay shop'},
+                {char: '🧾', name: 'receipt', keywords: 'money pay shop'},
+                {char: '💹', name: 'chart increasing with yen', keywords: 'money rich business'},
+                {char: '✉️', name: 'envelope', keywords: 'mail email message'},
+                {char: '📧', name: 'e-mail', keywords: 'mail email message'},
+                {char: '📨', name: 'incoming envelope', keywords: 'mail email message'},
+                {char: '📩', name: 'envelope with arrow', keywords: 'mail email message'},
+                {char: '📤', name: 'outbox tray', keywords: 'mail email message'},
+                {char: '📥', name: 'inbox tray', keywords: 'mail email message'},
+                {char: '📦', name: 'package', keywords: 'mail box delivery'},
+                {char: '📫', name: 'closed mailbox with raised flag', keywords: 'mail box'},
+                {char: '📪', name: 'closed mailbox with lowered flag', keywords: 'mail box'},
+                {char: '📬', name: 'open mailbox with raised flag', keywords: 'mail box'},
+                {char: '📭', name: 'open mailbox with lowered flag', keywords: 'mail box'},
+                {char: '📮', name: 'postbox', keywords: 'mail box'},
+                {char: '🗳️', name: 'ballot box with ballot', keywords: 'vote election'},
+                {char: '✏️', name: 'pencil', keywords: 'write draw school'},
+                {char: '✒️', name: 'black nib', keywords: 'write draw school'},
+                {char: '🖋️', name: 'fountain pen', keywords: 'write draw school'},
+                {char: '🖊️', name: 'pen', keywords: 'write draw school'},
+                {char: '🖌️', name: 'paintbrush', keywords: 'art draw painting'},
+                {char: '🖍️', name: 'crayon', keywords: 'art draw child'},
+                {char: '📝', name: 'memo', keywords: 'write note message'},
+                {char: '💼', name: 'briefcase', keywords: 'work office business'},
+                {char: '📁', name: 'file folder', keywords: 'office computer work'},
+                {char: '📂', name: 'open file folder', keywords: 'office computer work'},
+                {char: '🗂️', name: 'card index dividers', keywords: 'office work'},
+                {char: '📅', name: 'calendar', keywords: 'time day date'},
+                {char: '📆', name: 'tear-off calendar', keywords: 'time day date'},
+                {char: '🗒️', name: 'spiral notebook', keywords: 'write note'},
+                {char: '🗓️', name: 'spiral calendar', keywords: 'time day date'},
+                {char: '📇', name: 'card index', keywords: 'office work'},
+                {char: '📈', name: 'chart increasing', keywords: 'business success up'},
+                {char: '📉', name: 'chart decreasing', keywords: 'business fail down'},
+                {char: '📊', name: 'bar chart', keywords: 'business data'},
+                {char: '📋', name: 'clipboard', keywords: 'office work note'},
+                {char: '📌', name: 'pushpin', keywords: 'office work note'},
+                {char: '📍', name: 'round pushpin', keywords: 'office work map note'},
+                {char: '📎', name: 'paperclip', keywords: 'office work paper'},
+                {char: '🖇️', name: 'linked paperclips', keywords: 'office work paper'},
+                {char: '📏', name: 'straight ruler', keywords: 'school math tool'},
+                {char: '📐', name: 'triangular ruler', keywords: 'school math tool'},
+                {char: '✂️', name: 'scissors', keywords: 'tool cut school'},
+                {char: '🗃️', name: 'card file box', keywords: 'office work'},
+                {char: '🗄️', name: 'filing cabinet', keywords: 'office work'},
+                {char: '🗑️', name: 'wastebasket', keywords: 'office bin trash delete'},
+                {char: '🔒', name: 'locked', keywords: 'security safe'},
+                {char: '🔓', name: 'unlocked', keywords: 'security safe open'},
+                {char: '🔏', name: 'locked with pen', keywords: 'security safe'},
+                {char: '🔐', name: 'locked with key', keywords: 'security safe'},
+                {char: '🔑', name: 'key', keywords: 'security safe open'},
+                {char: '🗝️', name: 'old key', keywords: 'security safe open old'},
+                {char: '🔨', name: 'hammer', keywords: 'tool build work'},
+                {char: '🪓', name: 'axe', keywords: 'tool build cut'},
+                {char: '⛏️', name: 'pick', keywords: 'tool build work'},
+                {char: '⚒️', name: 'hammer and pick', keywords: 'tool build work'},
+                {char: '🛠️', name: 'hammer and wrench', keywords: 'tool build work'},
+                {char: '🗡️', name: 'dagger', keywords: 'weapon fight'},
+                {char: '⚔️', name: 'crossed swords', keywords: 'weapon fight war'},
+                {char: '🔫', name: 'pistol', keywords: 'weapon gun water'},
+                {char: '🪃', name: 'boomerang', keywords: 'weapon australia tool'},
+                {char: '🏹', name: 'bow and arrow', keywords: 'weapon fight hunt'},
+                {char: '🛡️', name: 'shield', keywords: 'protection security armor'},
+                {char: '🪚', name: 'carpentry saw', keywords: 'tool build work'},
+                {char: '🔧', name: 'wrench', keywords: 'tool build work repair'},
+                {char: '🪛', name: 'screwdriver', keywords: 'tool build work repair'},
+                {char: '🔩', name: 'nut and bolt', keywords: 'tool build work'},
+                {char: '⚙️', name: 'gear', keywords: 'tool tech build work settings'},
+                {char: '🗜️', name: 'clamp', keywords: 'tool build work'},
+                {char: '⚖️', name: 'balance scale', keywords: 'tool justice law'},
+                {char: '🦯', name: 'white cane', keywords: 'health'},
+                {char: '🔗', name: 'link', keywords: 'tool chain connect'},
+                {char: '⛓️', name: 'chains', keywords: 'tool jail chain'},
+                {char: '🪝', name: 'hook', keywords: 'tool'},
+                {char: '🧰', name: 'toolbox', keywords: 'tool build work'},
+                {char: '🧲', name: 'magnet', keywords: 'tool physics'},
+                {char: '🪜', name: 'ladder', keywords: 'tool build work'},
+                {char: '⚗️', name: 'alembic', keywords: 'science chemistry lab'},
+                {char: '🧪', name: 'test tube', keywords: 'science chemistry lab'},
+                {char: '🧫', name: 'petri dish', keywords: 'science biology lab'},
+                {char: ' DNA', name: 'dna', keywords: 'science biology health'},
+                {char: '🔬', name: 'microscope', keywords: 'science biology lab'},
+                {char: '🔭', name: 'telescope', keywords: 'science space astronomy'},
+                {char: '📡', name: 'satellite antenna', keywords: 'science space tech'},
+                {char: '💉', name: 'syringe', keywords: 'health doctor sick'},
+                {char: '🩸', name: 'drop of blood', keywords: 'health doctor sick'},
+                {char: '💊', name: 'pill', keywords: 'health doctor sick medicine'},
+                {char: '🩹', name: 'adhesive bandage', keywords: 'health doctor sick hurt'},
+                {char: '🩺', name: 'stethoscope', keywords: 'health doctor sick'},
+                {char: '🚪', name: 'door', keywords: 'building home'},
+                {char: '🛗', name: 'elevator', keywords: 'building lift'},
+                {char: '🪞', name: 'mirror', keywords: 'beauty home'},
+                {char: '🪟', name: 'window', keywords: 'building home'},
+                {char: '🛏️', name: 'bed', keywords: 'home sleep'},
+                {char: '🛋️', name: 'couch and lamp', keywords: 'home relax'},
+                {char: '座', name: 'chair', keywords: 'home sit'},
+                {char: '🚽', name: 'toilet', keywords: 'home bathroom'},
+                {char: '🪠', name: 'plunger', keywords: 'home tool bathroom'},
+                {char: '🚿', name: 'shower', keywords: 'home bathroom water'},
+                {char: '🛁', name: 'bathtub', keywords: 'home bathroom water'},
+                {char: '🪤', name: 'mouse trap', keywords: 'home tool'},
+                {char: '🪒', name: 'razor', keywords: 'beauty tool shave'},
+                {char: '🧴', name: 'lotion bottle', keywords: 'beauty skin'},
+                {char: '🧼', name: 'soap', keywords: 'beauty wash clean'},
+                {char: '🪥', name: 'toothbrush', keywords: 'beauty clean teeth'},
+                {char: '🧽', name: 'sponge', keywords: 'clean wash'},
+                {char: '🧯', name: 'fire extinguisher', keywords: 'emergency fire safety'},
+                {char: '🛒', name: 'shopping cart', keywords: 'shop buy money'},
+                {char: '🚬', name: 'cigarette', keywords: 'smoke bad bad'},
+                {char: '⚰️', name: 'coffin', keywords: 'dead funeral'},
+                {char: '🪦', name: 'headstone', keywords: 'dead funeral memory'},
+                {char: '⚱️', name: 'funeral urn', keywords: 'dead funeral'},
+                {char: '🗿', name: 'moai', keywords: 'rock history statue'}
+            ],
+            symbols: [
+                {char: '❤️', name: 'red heart', keywords: 'love heart red'},
+                {char: '🧡', name: 'orange heart', keywords: 'love heart orange'},
+                {char: '💛', name: 'yellow heart', keywords: 'love heart yellow'},
+                {char: '💚', name: 'green heart', keywords: 'love heart green'},
+                {char: '💙', name: 'blue heart', keywords: 'love heart blue'},
+                {char: '💜', name: 'purple heart', keywords: 'love heart purple'},
+                {char: '🖤', name: 'black heart', keywords: 'love heart black'},
+                {char: '🤍', name: 'white heart', keywords: 'love heart white'},
+                {char: '🤎', name: 'brown heart', keywords: 'love heart brown'},
+                {char: '💔', name: 'broken heart', keywords: 'love heart sad'},
+                {char: '❣️', name: 'heart exclamation', keywords: 'love heart alert'},
+                {char: '💕', name: 'two hearts', keywords: 'love heart'},
+                {char: '💞', name: 'revolving hearts', keywords: 'love heart'},
+                {char: '💓', name: 'beating heart', keywords: 'love heart beat'},
+                {char: '💗', name: 'growing heart', keywords: 'love heart'},
+                {char: '💖', name: 'sparkling heart', keywords: 'love heart shiny'},
+                {char: '💘', name: 'heart with arrow', keywords: 'love heart cupid'},
+                {char: '💝', name: 'heart with ribbon', keywords: 'love heart gift'},
+                {char: '💟', name: 'heart decoration', keywords: 'love heart'},
+                {char: '☮️', name: 'peace symbol', keywords: 'peace'},
+                {char: '✝️', name: 'latin cross', keywords: 'religion'},
+                {char: '☪️', name: 'star and crescent', keywords: 'religion'},
+                {char: '🕉️', name: 'om', keywords: 'religion'},
+                {char: '☸️', name: 'wheel of dharma', keywords: 'religion'},
+                {char: '✡️', name: 'star of david', keywords: 'religion'},
+                {char: '🔯', name: 'dotted six-pointed star', keywords: 'religion'},
+                {char: '🕎', name: 'menorah', keywords: 'religion'},
+                {char: '☯️', name: 'yin yang', keywords: 'religion'},
+                {char: '☦️', name: 'orthodox cross', keywords: 'religion'},
+                {char: '🛐', name: 'place of worship', keywords: 'religion pray'},
+                {char: '⛎', name: 'ophiuchus', keywords: 'zodiac star'},
+                {char: '♈', name: 'aries', keywords: 'zodiac star'},
+                {char: '♉', name: 'taurus', keywords: 'zodiac star'},
+                {char: '♊', name: 'gemini', keywords: 'zodiac star'},
+                {char: '♋', name: 'cancer', keywords: 'zodiac star'},
+                {char: '♌', name: 'leo', keywords: 'zodiac star'},
+                {char: '♍', name: 'virgo', keywords: 'zodiac star'},
+                {char: '♎', name: 'libra', keywords: 'zodiac star'},
+                {char: '♏', name: 'scorpio', keywords: 'zodiac star'},
+                {char: '♐', name: 'sagittarius', keywords: 'zodiac star'},
+                {char: '♑', name: 'capricorn', keywords: 'zodiac star'},
+                {char: '♒', name: 'aquarius', keywords: 'zodiac star'},
+                {char: '♓', name: 'pisces', keywords: 'zodiac star'},
+                {char: '🆔', name: 'ID button', keywords: 'id icon'},
+                {char: '⚛️', name: 'atom symbol', keywords: 'science physics'},
+                {char: '🉑', name: 'Japanese “acceptable” button', keywords: 'japan icon'},
+                {char: '☢️', name: 'radioactive', keywords: 'danger science'},
+                {char: '☣️', name: 'biohazard', keywords: 'danger science'},
+                {char: '📴', name: 'mobile phone off', keywords: 'tech phone silent'},
+                {char: '📳', name: 'vibration mode', keywords: 'tech phone silent'},
+                {char: '🈶', name: 'Japanese “not free of charge” button', keywords: 'japan icon'},
+                {char: '🈚', name: 'Japanese “free of charge” button', keywords: 'japan icon'},
+                {char: '🈸', name: 'Japanese “application” button', keywords: 'japan icon'},
+                {char: '🈺', name: 'Japanese “open for business” button', keywords: 'japan icon'},
+                {char: '🈷️', name: 'Japanese “monthly amount” button', keywords: 'japan icon'},
+                {char: '✴️', name: 'eight-pointed star', keywords: 'star icon'},
+                {char: '🆚', name: 'VS button', keywords: 'game versus'},
+                {char: '🉑', name: 'Japanese “acceptable” button', keywords: 'japan icon'},
+                {char: '💮', name: 'white flower', keywords: 'japan icon flower'},
+                {char: '🉐', name: 'Japanese “bargain” button', keywords: 'japan icon money'},
+                {char: '㊙️', name: 'Japanese “secret” button', keywords: 'japan icon secret'},
+                {char: '㊗️', name: 'Japanese “congratulations” button', keywords: 'japan icon celebrate'},
+                {char: '🈴', name: 'Japanese “passing grade” button', keywords: 'japan icon learn'},
+                {char: '🈵', name: 'Japanese “no vacancy” button', keywords: 'japan icon full'},
+                {char: '🈹', name: 'Japanese “discount” button', keywords: 'japan icon money'},
+                {char: '🈲', name: 'Japanese “prohibited” button', keywords: 'japan icon no'},
+                {char: '🅰️', name: 'A button (blood type)', keywords: 'icon blood'},
+                {char: '🅱️', name: 'B button (blood type)', keywords: 'icon blood'},
+                {char: '🆎', name: 'AB button (blood type)', keywords: 'icon blood'},
+                {char: '🆑', name: 'CL button', keywords: 'icon clear'},
+                {char: '🅾️', name: 'O button (blood type)', keywords: 'icon blood'},
+                {char: '🆘', name: 'SOS button', keywords: 'icon help emergency'},
+                {char: '❌', name: 'cross mark', keywords: 'no fail bad'},
+                {char: '⭕', name: 'hollow red circle', keywords: 'yes good ok'},
+                {char: '🛑', name: 'stop sign', keywords: 'no road'},
+                {char: '⛔', name: 'no entry', keywords: 'no road'},
+                {char: '📛', name: 'name badge', keywords: 'id kid school'},
+                {char: '🚫', name: 'prohibited', keywords: 'no ban'},
+                {char: '💯', name: 'hundred points', keywords: 'good best smart score'},
+                {char: '💢', name: 'anger symbol', keywords: 'angry anime'},
+                {char: '♨️', name: 'hot springs', keywords: 'japan water hot'},
+                {char: '🚷', name: 'no pedestrians', keywords: 'no road walk'},
+                {char: '🚯', name: 'no littering', keywords: 'no clean trash'},
+                {char: '🚳', name: 'no bicycles', keywords: 'no bike road'},
+                {char: '🚱', name: 'non-potable water', keywords: 'no water'},
+                {char: '🚸', name: 'children crossing', keywords: 'road walk child school'},
+                {char: '⛔', name: 'no entry', keywords: 'no road'},
+                {char: '🚭', name: 'no smoking', keywords: 'no smoke health'},
+                {char: '❗', name: 'exclamation mark', keywords: 'alert surprise'},
+                {char: '❕', name: 'white exclamation mark', keywords: 'alert surprise'},
+                {char: '❓', name: 'question mark', keywords: 'wonder hmmm'},
+                {char: '❔', name: 'white question mark', keywords: 'wonder hmmm'},
+                {char: '‼️', name: 'double exclamation mark', keywords: 'alert surprise'},
+                {char: '⁉️', name: 'exclamation question mark', keywords: 'alert wonder surprise hmmm'},
+                {char: '🔅', name: 'dim button', keywords: 'light sun low'},
+                {char: '🔆', name: 'bright button', keywords: 'light sun high'},
+                {char: '〽️', name: 'part alternation mark', keywords: 'japan icon'},
+                {char: '⚠️', name: 'warning', keywords: 'alert danger yellow'},
+                {char: '🚸', name: 'children crossing', keywords: 'road child walk'},
+                {char: '🔱', name: 'trident emblem', keywords: 'weapon ocean'},
+                {char: '⚜️', name: 'fleur-de-lis', keywords: 'france emblem'},
+                {char: '🔰', name: 'Japanese symbol for beginner', keywords: 'japan beginner new start'},
+                {char: '♻️', name: 'recycling symbol', keywords: 'clean nature green'},
+                {char: '✅', name: 'check mark button', keywords: 'yes ok good pass'},
+                {char: '🈯', name: 'Japanese “reserved” button', keywords: 'japan icon'},
+                {char: '💹', name: 'chart increasing with yen', keywords: 'japan money business'},
+                {char: '❇️', name: 'sparkle', keywords: 'magic green'},
+                {char: '✳️', name: 'eight-spoked asterisk', keywords: 'icon asterisk'},
+                {char: '❎', name: 'cross mark button', keywords: 'no fail bad'},
+                {char: '🌐', name: 'globe with meridians', keywords: 'earth world tech'},
+                {char: '💠', name: 'diamond with a dot', keywords: 'icon diamond'},
+                {char: 'Ⓜ️', name: 'circled M', keywords: 'icon metro train'},
+                {char: '🌀', name: 'cyclone', keywords: 'weather storm anime'},
+                {char: '💤', name: 'zzz', keywords: 'sleep tired'},
+                {char: '🏧', name: 'ATM sign', keywords: 'money bank'},
+                {char: '🚾', name: 'water closet', keywords: 'bathroom toilet'},
+                {char: '♿', name: 'wheelchair symbol', keywords: 'health wheelchair'},
+                {char: '🅿️', name: 'P button', keywords: 'road parking car'},
+                {char: '🈳', name: 'Japanese “vacancy” button', keywords: 'japan icon vacancy'},
+                {char: '🈂️', name: 'Japanese “service charge” button', keywords: 'japan icon money'},
+                {char: '🛂', name: 'passport control', keywords: 'travel airport passport'},
+                {char: '🛃', name: 'customs', keywords: 'travel airport'},
+                {char: '🛄', name: 'baggage reclaim', keywords: 'travel airport luggage'},
+                {char: '🛅', name: 'left luggage', keywords: 'travel airport luggage'},
+                {char: '🚹', name: 'men’s room', keywords: 'bathroom male man'},
+                {char: '🚺', name: 'women’s room', keywords: 'bathroom female woman'},
+                {char: '🚼', name: 'baby symbol', keywords: 'bathroom child baby'},
+                {char: '🚻', name: 'restroom', keywords: 'bathroom restroom man woman'},
+                {char: '🚮', name: 'litter in bin symbol', keywords: 'clean trash bin'},
+                {char: '🎦', name: 'cinema', keywords: 'movie theater theater'},
+                {char: '📶', name: 'antenna bars', keywords: 'tech phone signal wifi'},
+                {char: '🈁', name: 'Japanese “here” button', keywords: 'japan icon here'},
+                {char: '🆖', name: 'NG button', keywords: 'no bad icon'},
+                {char: '🆗', name: 'OK button', keywords: 'yes good icon ok'},
+                {char: '🆙', name: 'UP! button', keywords: 'up icon'},
+                {char: '🆒', name: 'COOL button', keywords: 'cool icon'},
+                {char: '🆕', name: 'NEW button', keywords: 'new icon start'},
+                {char: '🆓', name: 'FREE button', keywords: 'free icon money'},
+                {char: '0️⃣', name: 'keycap: 0', keywords: 'number 0'},
+                {char: '1️⃣', name: 'keycap: 1', keywords: 'number 1'},
+                {char: '2️⃣', name: 'keycap: 2', keywords: 'number 2'},
+                {char: '3️⃣', name: 'keycap: 3', keywords: 'number 3'},
+                {char: '4️⃣', name: 'keycap: 4', keywords: 'number 4'},
+                {char: '5️⃣', name: 'keycap: 5', keywords: 'number 5'},
+                {char: '6️⃣', name: 'keycap: 6', keywords: 'number 6'},
+                {char: '7️⃣', name: 'keycap: 7', keywords: 'number 7'},
+                {char: '8️⃣', name: 'keycap: 8', keywords: 'number 8'},
+                {char: '9️⃣', name: 'keycap: 9', keywords: 'number 9'},
+                {char: '🔟', name: 'keycap: 10', keywords: 'number 10'},
+                {char: '🔢', name: 'input numbers', keywords: 'number 1234'},
+                {char: '#️⃣', name: 'keycap: #', keywords: 'number symbol hash'},
+                {char: '*️⃣', name: 'keycap: *', keywords: 'number symbol star'},
+                {char: '⏏️', name: 'eject button', keywords: 'tech icon'},
+                {char: '▶️', name: 'play button', keywords: 'movie video tech icon'},
+                {char: '⏸️', name: 'pause button', keywords: 'movie video tech icon'},
+                {char: '⏯️', name: 'play or pause button', keywords: 'movie video tech icon'},
+                {char: '⏹️', name: 'stop button', keywords: 'movie video tech icon'},
+                {char: '⏺️', name: 'record button', keywords: 'movie video tech icon'},
+                {char: '⏭️', name: 'next track button', keywords: 'movie video tech icon'},
+                {char: '⏮️', name: 'previous track button', keywords: 'movie video tech icon'},
+                {char: '⏩', name: 'fast-forward button', keywords: 'movie video tech icon'},
+                {char: '⏪', name: 'fast reverse button', keywords: 'movie video tech icon'},
+                {char: '⏫', name: 'fast up button', keywords: 'icon up'},
+                {char: '⏬', name: 'fast down button', keywords: 'icon down'},
+                {char: '◀️', name: 'reverse button', keywords: 'movie video tech icon'},
+                {char: '🔼', name: 'upwards button', keywords: 'icon up'},
+                {char: '🔽', name: 'downwards button', keywords: 'icon down'},
+                {char: '➡️', name: 'right arrow', keywords: 'icon right'},
+                {char: '⬅️', name: 'left arrow', keywords: 'icon left'},
+                {char: '⬆️', name: 'up arrow', keywords: 'icon up'},
+                {char: '⬇️', name: 'down arrow', keywords: 'icon down'},
+                {char: '↗️', name: 'up-right arrow', keywords: 'icon right up'},
+                {char: '↘️', name: 'down-right arrow', keywords: 'icon right down'},
+                {char: '↙️', name: 'down-left arrow', keywords: 'icon left down'},
+                {char: '↖️', name: 'up-left arrow', keywords: 'icon left up'},
+                {char: '↕️', name: 'up-down arrow', keywords: 'icon up down'},
+                {char: '↔️', name: 'left-right arrow', keywords: 'icon left right'},
+                {char: '↪️', name: 'left arrow curving right', keywords: 'icon right'},
+                {char: '↩️', name: 'right arrow curving left', keywords: 'icon left'},
+                {char: '⤴️', name: 'right arrow curving up', keywords: 'icon up'},
+                {char: '⤵️', name: 'right arrow curving down', keywords: 'icon down'},
+                {char: '🔃', name: 'clockwise vertical arrows', keywords: 'icon refresh'},
+                {char: '🔄', name: 'counterclockwise arrows button', keywords: 'icon refresh'},
+                {char: '🔙', name: 'BACK arrow', keywords: 'icon back left'},
+                {char: '🔚', name: 'END arrow', keywords: 'icon end right'},
+                {char: '🔛', name: 'ON! arrow', keywords: 'icon on right left'},
+                {char: '🔜', name: 'SOON arrow', keywords: 'icon soon right'},
+                {char: '🔝', name: 'TOP arrow', keywords: 'icon top up'},
+                {char: '🛐', name: 'place of worship', keywords: 'religion pray'},
+                {char: '⚛️', name: 'atom symbol', keywords: 'science physics'},
+                {char: '🕉️', name: 'om', keywords: 'religion'},
+                {char: '✡️', name: 'star of david', keywords: 'religion'},
+                {char: '☸️', name: 'wheel of dharma', keywords: 'religion'},
+                {char: '☯️', name: 'yin yang', keywords: 'religion'},
+                {char: '✝️', name: 'latin cross', keywords: 'religion'},
+                {char: '☦️', name: 'orthodox cross', keywords: 'religion'},
+                {char: '☪️', name: 'star and crescent', keywords: 'religion'},
+                {char: '☮️', name: 'peace symbol', keywords: 'peace'},
+                {char: '🕎', name: 'menorah', keywords: 'religion'},
+                {char: '🔯', name: 'dotted six-pointed star', keywords: 'religion'},
+                {char: '♈', name: 'aries', keywords: 'zodiac star'},
+                {char: '♉', name: 'taurus', keywords: 'zodiac star'},
+                {char: '♊', name: 'gemini', keywords: 'zodiac star'},
+                {char: '♋', name: 'cancer', keywords: 'zodiac star'},
+                {char: '♌', name: 'leo', keywords: 'zodiac star'},
+                {char: '♍', name: 'virgo', keywords: 'zodiac star'},
+                {char: '♎', name: 'libra', keywords: 'zodiac star'},
+                {char: '♏', name: 'scorpio', keywords: 'zodiac star'},
+                {char: '♐', name: 'sagittarius', keywords: 'zodiac star'},
+                {char: '♑', name: 'capricorn', keywords: 'zodiac star'},
+                {char: '♒', name: 'aquarius', keywords: 'zodiac star'},
+                {char: ' Pisces', name: 'pisces', keywords: 'zodiac star'},
+                {char: '⛎', name: 'ophiuchus', keywords: 'zodiac star'},
+                {char: '🔀', name: 'shuffle tracks button', keywords: 'music tech icon'},
+                {char: '🔁', name: 'repeat button', keywords: 'music tech icon'},
+                {char: '🔂', name: 'repeat single button', keywords: 'music tech icon'},
+                {char: '▶️', name: 'play button', keywords: 'movie video tech icon'},
+                {char: '⏩', name: 'fast-forward button', keywords: 'movie video tech icon'},
+                {char: '⏭️', name: 'next track button', keywords: 'movie video tech icon'},
+                {char: '⏯️', name: 'play or pause button', keywords: 'movie video tech icon'},
+                {char: '◀️', name: 'reverse button', keywords: 'movie video tech icon'},
+                {char: '⏪', name: 'fast reverse button', keywords: 'movie video tech icon'},
+                {char: '⏮️', name: 'previous track button', keywords: 'movie video tech icon'},
+                {char: '🔼', name: 'upwards button', keywords: 'icon up'},
+                {char: '⏫', name: 'fast up button', keywords: 'icon up'},
+                {char: '🔽', name: 'downwards button', keywords: 'icon down'},
+                {char: '⏬', name: 'fast down button', keywords: 'icon down'},
+                {char: '⏸️', name: 'pause button', keywords: 'movie video tech icon'},
+                {char: '⏹️', name: 'stop button', keywords: 'movie video tech icon'},
+                {char: '⏺️', name: 'record button', keywords: 'movie video tech icon'},
+                {char: '⏏️', name: 'eject button', keywords: 'tech icon'},
+                {char: '🎦', name: 'cinema', keywords: 'movie theater theater'},
+                {char: '🔅', name: 'dim button', keywords: 'light sun low'},
+                {char: '🔆', name: 'bright button', keywords: 'light sun high'},
+                {char: '📶', name: 'antenna bars', keywords: 'tech phone signal wifi'},
+                {char: '📳', name: 'vibration mode', keywords: 'tech phone silent'},
+                {char: '📴', name: 'mobile phone off', keywords: 'tech phone silent'},
+                {char: '♀️', name: 'female sign', keywords: 'woman gender'},
+                {char: '♂️', name: 'male sign', keywords: 'man gender'},
+                {char: '⚧️', name: 'transgender symbol', keywords: 'gender'},
+                {char: '✖️', name: 'multiply', keywords: 'math symbol'},
+                {char: '➕', name: 'plus', keywords: 'math symbol'},
+                {char: '➖', name: 'minus', keywords: 'math symbol'},
+                {char: '➗', name: 'divide', keywords: 'math symbol'},
+                {char: '♾️', name: 'infinity', keywords: 'math symbol endless'},
+                {char: '‼️', name: 'double exclamation mark', keywords: 'alert surprise'},
+                {char: '⁉️', name: 'exclamation question mark', keywords: 'alert wonder surprise hmmm'},
+                {char: '❓', name: 'question mark', keywords: 'wonder hmmm'},
+                {char: '❔', name: 'white question mark', keywords: 'wonder hmmm'},
+                {char: '❕', name: 'white exclamation mark', keywords: 'alert surprise'},
+                {char: '❗', name: 'exclamation mark', keywords: 'alert surprise'},
+                {char: '〰️', name: 'wavy dash', keywords: 'icon dash'},
+                {char: '💱', name: 'currency exchange', keywords: 'money cash business'},
+                {char: '💲', name: 'heavy dollar sign', keywords: 'money cash usa'},
+                {char: '⚕️', name: 'medical symbol', keywords: 'health doctor health'},
+                {char: '♻️', name: 'recycling symbol', keywords: 'clean nature green'},
+                {char: '⚜️', name: 'fleur-de-lis', keywords: 'france emblem'},
+                {char: '🔱', name: 'trident emblem', keywords: 'weapon ocean'},
+                {char: '📛', name: 'name badge', keywords: 'id kid school'},
+                {char: '🔰', name: 'Japanese symbol for beginner', keywords: 'japan beginner new start'},
+                {char: '⭕', name: 'hollow red circle', keywords: 'yes ok good'},
+                {char: '✅', name: 'check mark button', keywords: 'yes ok good pass'},
+                {char: '☑️', name: 'check box with check', keywords: 'yes ok good pass'},
+                {char: '✔️', name: 'check mark', keywords: 'yes ok good pass'},
+                {char: '❌', name: 'cross mark', keywords: 'no fail bad'},
+                {char: '❎', name: 'cross mark button', keywords: 'no fail bad'},
+                {char: '➰', name: 'curly loop', keywords: 'icon loop'},
+                {char: '➿', name: 'double curly loop', keywords: 'icon loop'},
+                {char: '〽️', name: 'part alternation mark', keywords: 'japan icon'},
+                {char: '✳️', name: 'eight-spoked asterisk', keywords: 'icon asterisk'},
+                {char: '✴️', name: 'eight-pointed star', keywords: 'star icon'},
+                {char: '❇️', name: 'sparkle', keywords: 'magic green'},
+                {char: '‼️', name: 'double exclamation mark', keywords: 'alert surprise'},
+                {char: '⁉️', name: 'exclamation question mark', keywords: 'alert wonder surprise hmmm'},
+                {char: '©️', name: 'copyright', keywords: 'law icon'},
+                {char: '®️', name: 'registered', keywords: 'law icon'},
+                {char: '™️', name: 'trade mark', keywords: 'law icon'},
+                {char: '➕', name: 'plus', keywords: 'math symbol'},
+                {char: '➖', name: 'minus', keywords: 'math symbol'},
+                {char: '➗', name: 'divide', keywords: 'math symbol'},
+                {char: '✖️', name: 'multiply', keywords: 'math symbol'},
+                {char: '♾️', name: 'infinity', keywords: 'math symbol endless'},
+                {char: '➰', name: 'curly loop', keywords: 'icon loop'},
+                {char: '➿', name: 'double curly loop', keywords: 'icon loop'},
+                {char: '〰️', name: 'wavy dash', keywords: 'icon dash'},
+                {char: '➰', name: 'curly loop', keywords: 'icon loop'},
+                {char: '➿', name: 'double curly loop', keywords: 'icon loop'}
+            ],
+            flags: [
+                {char: '🏁', name: 'chequered flag', keywords: 'race finish win'},
+                {char: '🚩', name: 'triangular flag', keywords: 'marker red'},
+                {char: '🎌', name: 'crossed flags', keywords: 'celebrate japan'},
+                {char: '🏴', name: 'black flag', keywords: 'pirate flag'},
+                {char: '🏳️', name: 'white flag', keywords: 'peace flag'},
+                {char: '🏳️‍🌈', name: 'rainbow flag', keywords: 'pride lgbt pride'},
+                {char: '🏳️‍⚧️', name: 'transgender flag', keywords: 'pride transgender pride'},
+                {char: '🏴‍☠️', name: 'pirate flag', keywords: 'pirate flag skull'},
+                {char: '🇦🇨', name: 'flag: Ascension Island', keywords: 'flag'},
+                {char: '🇦🇩', name: 'flag: Andorra', keywords: 'flag'},
+                {char: '🇦🇪', name: 'flag: United Arab Emirates', keywords: 'flag uae'},
+                {char: '🇦🇫', name: 'flag: Afghanistan', keywords: 'flag'},
+                {char: '🇦🇬', name: 'flag: Antigua & Barbuda', keywords: 'flag'},
+                {char: '🇦🇮', name: 'flag: Anguilla', keywords: 'flag'},
+                {char: '🇦🇱', name: 'flag: Albania', keywords: 'flag'},
+                {char: '🇦🇲', name: 'flag: Armenia', keywords: 'flag'},
+                {char: '🇦🇴', name: 'flag: Angola', keywords: 'flag'},
+                {char: '🇦🇶', name: 'flag: Antarctica', keywords: 'flag south'},
+                {char: '🇦🇷', name: 'flag: Argentina', keywords: 'flag'},
+                {char: '🇦🇸', name: 'flag: American Samoa', keywords: 'flag'},
+                {char: '🇦🇹', name: 'flag: Austria', keywords: 'flag'},
+                {char: '🇦🇺', name: 'flag: Australia', keywords: 'flag'},
+                {char: '🇦🇼', name: 'flag: Aruba', keywords: 'flag'},
+                {char: '🇦🇽', name: 'flag: Åland Islands', keywords: 'flag'},
+                {char: '🇦🇿', name: 'flag: Azerbaijan', keywords: 'flag'},
+                {char: '🇧🇦', name: 'flag: Bosnia & Herzegovina', keywords: 'flag'},
+                {char: '🇧🇧', name: 'flag: Barbados', keywords: 'flag'},
+                {char: '🇧🇩', name: 'flag: Bangladesh', keywords: 'flag'},
+                {char: '🇧🇪', name: 'flag: Belgium', keywords: 'flag'},
+                {char: '🇧🇫', name: 'flag: Burkina Faso', keywords: 'flag'},
+                {char: '🇧🇬', name: 'flag: Bulgaria', keywords: 'flag'},
+                {char: '🇧🇭', name: 'flag: Bahrain', keywords: 'flag'},
+                {char: '🇧🇮', name: 'flag: Burundi', keywords: 'flag'},
+                {char: '🇧🇯', name: 'flag: Benin', keywords: 'flag'},
+                {char: '🇧🇱', name: 'flag: St. Barthélemy', keywords: 'flag'},
+                {char: '🇧🇲', name: 'flag: Bermuda', keywords: 'flag'},
+                {char: '🇧🇳', name: 'flag: Brunei', keywords: 'flag'},
+                {char: '🇧🇴', name: 'flag: Bolivia', keywords: 'flag'},
+                {char: '🇧🇶', name: 'flag: Caribbean Netherlands', keywords: 'flag'},
+                {char: '🇧🇷', name: 'flag: Brazil', keywords: 'flag brazil'},
+                {char: '🇧🇸', name: 'flag: Bahamas', keywords: 'flag'},
+                {char: '🇧🇹', name: 'flag: Bhutan', keywords: 'flag'},
+                {char: '🇧🇻', name: 'flag: Bouvet Island', keywords: 'flag'},
+                {char: '🇧🇼', name: 'flag: Botswana', keywords: 'flag'},
+                {char: '🇧🇾', name: 'flag: Belarus', keywords: 'flag'},
+                {char: '🇧🇿', name: 'flag: Belize', keywords: 'flag'},
+                {char: '🇨🇦', name: 'flag: Canada', keywords: 'flag canada'},
+                {char: '🇨🇨', name: 'flag: Cocos (Keeling) Islands', keywords: 'flag'},
+                {char: '🇨🇩', name: 'flag: Congo - Kinshasa', keywords: 'flag'},
+                {char: '🇨🇫', name: 'flag: Central African Republic', keywords: 'flag'},
+                {char: '🇨🇬', name: 'flag: Congo - Brazzaville', keywords: 'flag'},
+                {char: '🇨🇭', name: 'flag: Switzerland', keywords: 'flag'},
+                {char: '🇨🇮', name: 'flag: Côte d’Ivoire', keywords: 'flag'},
+                {char: '🇨🇰', name: 'flag: Cook Islands', keywords: 'flag'},
+                {char: '🇨🇱', name: 'flag: Chile', keywords: 'flag'},
+                {char: '🇨🇲', name: 'flag: Cameroon', keywords: 'flag'},
+                {char: '🇨🇳', name: 'flag: China', keywords: 'flag china'},
+                {char: '🇨🇴', name: 'flag: Colombia', keywords: 'flag'},
+                {char: '🇨🇵', name: 'flag: Clipperton Island', keywords: 'flag'},
+                {char: '🇨🇷', name: 'flag: Costa Rica', keywords: 'flag'},
+                {char: '🇨🇺', name: 'flag: Cuba', keywords: 'flag'},
+                {char: '🇨🇻', name: 'flag: Cape Verde', keywords: 'flag'},
+                {char: '🇨🇼', name: 'flag: Curaçao', keywords: 'flag'},
+                {char: '🇨🇽', name: 'flag: Christmas Island', keywords: 'flag'},
+                {char: '🇨🇾', name: 'flag: Cyprus', keywords: 'flag'},
+                {char: '🇨🇿', name: 'flag: Czechia', keywords: 'flag'},
+                {char: '🇩🇪', name: 'flag: Germany', keywords: 'flag germany'},
+                {char: '🇩🇬', name: 'flag: Diego Garcia', keywords: 'flag'},
+                {char: '🇩🇯', name: 'flag: Djibouti', keywords: 'flag'},
+                {char: '🇩🇰', name: 'flag: Denmark', keywords: 'flag'},
+                {char: '🇩🇲', name: 'flag: Dominica', keywords: 'flag'},
+                {char: '🇩🇴', name: 'flag: Dominican Republic', keywords: 'flag'},
+                {char: '🇩🇿', name: 'flag: Algeria', keywords: 'flag'},
+                {char: '🇪🇦', name: 'flag: Ceuta & Melilla', keywords: 'flag'},
+                {char: '🇪🇨', name: 'flag: Ecuador', keywords: 'flag'},
+                {char: '🇪🇪', name: 'flag: Estonia', keywords: 'flag'},
+                {char: '🇪🇬', name: 'flag: Egypt', keywords: 'flag'},
+                {char: '🇪🇭', name: 'flag: Western Sahara', keywords: 'flag'},
+                {char: '🇪🇷', name: 'flag: Eritrea', keywords: 'flag'},
+                {char: '🇪🇸', name: 'flag: Spain', keywords: 'flag spain'},
+                {char: '🇪🇹', name: 'flag: Ethiopia', keywords: 'flag'},
+                {char: '🇪🇺', name: 'flag: European Union', keywords: 'flag eu'},
+                {char: '🇫🇮', name: 'flag: Finland', keywords: 'flag'},
+                {char: '🇫🇯', name: 'flag: Fiji', keywords: 'flag'},
+                {char: '🇫🇰', name: 'flag: Falkland Islands', keywords: 'flag'},
+                {char: '🇫🇲', name: 'flag: Micronesia', keywords: 'flag'},
+                {char: '🇫🇴', name: 'flag: Faroe Islands', keywords: 'flag'},
+                {char: '🇫🇷', name: 'flag: France', keywords: 'flag france'},
+                {char: '🇬🇦', name: 'flag: Gabon', keywords: 'flag'},
+                {char: '🇬🇧', name: 'flag: United Kingdom', keywords: 'flag uk britain'},
+                {char: '🇬🇩', name: 'flag: Grenada', keywords: 'flag'},
+                {char: '🇬🇪', name: 'flag: Georgia', keywords: 'flag'},
+                {char: '🇬🇫', name: 'flag: French Guiana', keywords: 'flag'},
+                {char: '🇬🇬', name: 'flag: Guernsey', keywords: 'flag'},
+                {char: '🇬🇭', name: 'flag: Ghana', keywords: 'flag'},
+                {char: '🇬🇮', name: 'flag: Gibraltar', keywords: 'flag'},
+                {char: '🇬🇱', name: 'flag: Greenland', keywords: 'flag'},
+                {char: '🇬🇲', name: 'flag: Gambia', keywords: 'flag'},
+                {char: '🇬🇳', name: 'flag: Guinea', keywords: 'flag'},
+                {char: '🇬🇵', name: 'flag: Guadeloupe', keywords: 'flag'},
+                {char: '🇬🇶', name: 'flag: Equatorial Guinea', keywords: 'flag'},
+                {char: '🇬🇷', name: 'flag: Greece', keywords: 'flag'},
+                {char: '🇬🇸', name: 'flag: South Georgia & South Sandwich Islands', keywords: 'flag'},
+                {char: '🇬🇹', name: 'flag: Guatemala', keywords: 'flag'},
+                {char: '🇬🇺', name: 'flag: Guam', keywords: 'flag'},
+                {char: '🇬🇼', name: 'flag: Guinea-Bissau', keywords: 'flag'},
+                {char: '🇬🇾', name: 'flag: Guyana', keywords: 'flag'},
+                {char: '🇭🇰', name: 'flag: Hong Kong SAR China', keywords: 'flag hong kong china'},
+                {char: '🇭🇲', name: 'flag: Heard & McDonald Islands', keywords: 'flag'},
+                {char: '🇭🇳', name: 'flag: Honduras', keywords: 'flag'},
+                {char: '🇭🇷', name: 'flag: Croatia', keywords: 'flag'},
+                {char: '🇭🇹', name: 'flag: Haiti', keywords: 'flag'},
+                {char: '🇭🇺', name: 'flag: Hungary', keywords: 'flag'},
+                {char: '🇮🇨', name: 'flag: Canary Islands', keywords: 'flag'},
+                {char: '🇮🇩', name: 'flag: Indonesia', keywords: 'flag'},
+                {char: '🇮🇪', name: 'flag: Ireland', keywords: 'flag'},
+                {char: '🇮🇱', name: 'flag: Israel', keywords: 'flag israel'},
+                {char: '🇮🇲', name: 'flag: Isle of Man', keywords: 'flag'},
+                {char: '🇮🇳', name: 'flag: India', keywords: 'flag india'},
+                {char: '🇮🇴', name: 'flag: British Indian Ocean Territory', keywords: 'flag'},
+                {char: '🇮🇶', name: 'flag: Iraq', keywords: 'flag'},
+                {char: '🇮🇷', name: 'flag: Iran', keywords: 'flag'},
+                {char: '🇮🇸', name: 'flag: Iceland', keywords: 'flag'},
+                {char: '🇮🇹', name: 'flag: Italy', keywords: 'flag italy'},
+                {char: '🇯🇪', name: 'flag: Jersey', keywords: 'flag'},
+                {char: '🇯🇲', name: 'flag: Jamaica', keywords: 'flag'},
+                {char: '🇯🇴', name: 'flag: Jordan', keywords: 'flag'},
+                {char: '🇯🇵', name: 'flag: Japan', keywords: 'flag japan'},
+                {char: '🇰🇪', name: 'flag: Kenya', keywords: 'flag'},
+                {char: '🇰🇬', name: 'flag: Kyrgyzstan', keywords: 'flag'},
+                {char: '🇰🇭', name: 'flag: Cambodia', keywords: 'flag'},
+                {char: '🇰🇮', name: 'flag: Kiribati', keywords: 'flag'},
+                {char: '🇰🇲', name: 'flag: Comoros', keywords: 'flag'},
+                {char: '🇰🇳', name: 'flag: St. Kitts & Nevis', keywords: 'flag'},
+                {char: '🇰🇵', name: 'flag: North Korea', keywords: 'flag'},
+                {char: '🇰🇷', name: 'flag: South Korea', keywords: 'flag'},
+                {char: '🇰🇼', name: 'flag: Kuwait', keywords: 'flag'},
+                {char: '🇰🇾', name: 'flag: Cayman Islands', keywords: 'flag'},
+                {char: '🇰🇿', name: 'flag: Kazakhstan', keywords: 'flag'},
+                {char: '🇱🇦', name: 'flag: Laos', keywords: 'flag'},
+                {char: '🇱🇧', name: 'flag: Lebanon', keywords: 'flag'},
+                {char: '🇱🇨', name: 'flag: St. Lucia', keywords: 'flag'},
+                {char: '🇱🇮', name: 'flag: Liechtenstein', keywords: 'flag'},
+                {char: '🇱🇰', name: 'flag: Sri Lanka', keywords: 'flag'},
+                {char: '🇱🇷', name: 'flag: Liberia', keywords: 'flag'},
+                {char: '🇱🇸', name: 'flag: Lesotho', keywords: 'flag'},
+                {char: '🇱🇹', name: 'flag: Lithuania', keywords: 'flag'},
+                {char: '🇱🇺', name: 'flag: Luxembourg', keywords: 'flag'},
+                {char: '🇱🇻', name: 'flag: Latvia', keywords: 'flag'},
+                {char: '🇱🇾', name: 'flag: Libya', keywords: 'flag'},
+                {char: '🇲🇦', name: 'flag: Morocco', keywords: 'flag'},
+                {char: '🇲🇨', name: 'flag: Monaco', keywords: 'flag'},
+                {char: '🇲🇩', name: 'flag: Moldova', keywords: 'flag'},
+                {char: '🇲🇪', name: 'flag: Montenegro', keywords: 'flag'},
+                {char: '🇲🇫', name: 'flag: St. Martin', keywords: 'flag'},
+                {char: '🇲🇬', name: 'flag: Madagascar', keywords: 'flag'},
+                {char: '🇲🇭', name: 'flag: Marshall Islands', keywords: 'flag'},
+                {char: '🇲🇰', name: 'flag: North Macedonia', keywords: 'flag'},
+                {char: '🇲🇱', name: 'flag: Mali', keywords: 'flag'},
+                {char: '🇲🇲', name: 'flag: Myanmar (Burma)', keywords: 'flag'},
+                {char: '🇲🇳', name: 'flag: Mongolia', keywords: 'flag'},
+                {char: '🇲🇴', name: 'flag: Macao SAR China', keywords: 'flag macao china'},
+                {char: '🇲🇵', name: 'flag: Northern Mariana Islands', keywords: 'flag'},
+                {char: '🇲🇶', name: 'flag: Martinique', keywords: 'flag'},
+                {char: '🇲🇷', name: 'flag: Mauritania', keywords: 'flag'},
+                {char: '🇲🇸', name: 'flag: Montserrat', keywords: 'flag'},
+                {char: '🇲🇹', name: 'flag: Malta', keywords: 'flag'},
+                {char: '🇲🇺', name: 'flag: Mauritius', keywords: 'flag'},
+                {char: '🇲🇻', name: 'flag: Maldives', keywords: 'flag'},
+                {char: '🇲🇼', name: 'flag: Malawi', keywords: 'flag'},
+                {char: '🇲🇽', name: 'flag: Mexico', keywords: 'flag mexico'},
+                {char: '🇲🇾', name: 'flag: Malaysia', keywords: 'flag'},
+                {char: '🇲🇿', name: 'flag: Mozambique', keywords: 'flag'},
+                {char: '🇳🇦', name: 'flag: Namibia', keywords: 'flag'},
+                {char: '🇳🇨', name: 'flag: New Caledonia', keywords: 'flag'},
+                {char: '🇳🇪', name: 'flag: Niger', keywords: 'flag'},
+                {char: '🇳🇫', name: 'flag: Norfolk Island', keywords: 'flag'},
+                {char: '🇳🇬', name: 'flag: Nigeria', keywords: 'flag'},
+                {char: '🇳🇮', name: 'flag: Nicaragua', keywords: 'flag'},
+                {char: '🇳🇱', name: 'flag: Netherlands', keywords: 'flag'},
+                {char: '🇳🇴', name: 'flag: Norway', keywords: 'flag'},
+                {char: '🇳🇵', name: 'flag: Nepal', keywords: 'flag'},
+                {char: '🇳🇷', name: 'flag: Nauru', keywords: 'flag'},
+                {char: '🇳🇺', name: 'flag: Niue', keywords: 'flag'},
+                {char: '🇳🇿', name: 'flag: New Zealand', keywords: 'flag'},
+                {char: '🇴🇲', name: 'flag: Oman', keywords: 'flag'},
+                {char: '🇵🇦', name: 'flag: Panama', keywords: 'flag'},
+                {char: '🇵🇪', name: 'flag: Peru', keywords: 'flag'},
+                {char: '🇵🇫', name: 'flag: French Polynesia', keywords: 'flag'},
+                {char: '🇵🇬', name: 'flag: Papua New Guinea', keywords: 'flag'},
+                {char: '🇵🇭', name: 'flag: Philippines', keywords: 'flag'},
+                {char: '🇵🇰', name: 'flag: Pakistan', keywords: 'flag'},
+                {char: '🇵🇱', name: 'flag: Poland', keywords: 'flag'},
+                {char: '🇵🇲', name: 'flag: St. Pierre & Miquelon', keywords: 'flag'},
+                {char: '🇵🇳', name: 'flag: Pitcairn Islands', keywords: 'flag'},
+                {char: '🇵🇷', name: 'flag: Puerto Rico', keywords: 'flag'},
+                {char: '🇵🇸', name: 'flag: Palestinian Territories', keywords: 'flag'},
+                {char: '🇵🇹', name: 'flag: Portugal', keywords: 'flag'},
+                {char: '🇵🇼', name: 'flag: Palau', keywords: 'flag'},
+                {char: '🇵🇾', name: 'flag: Paraguay', keywords: 'flag'},
+                {char: '🇶🇦', name: 'flag: Qatar', keywords: 'flag'},
+                {char: '🇷🇪', name: 'flag: Réunion', keywords: 'flag'},
+                {char: '🇷🇴', name: 'flag: Romania', keywords: 'flag'},
+                {char: '🇷🇸', name: 'flag: Serbia', keywords: 'flag'},
+                {char: '🇷🇺', name: 'flag: Russia', keywords: 'flag russia'},
+                {char: '🇷🇼', name: 'flag: Rwanda', keywords: 'flag'},
+                {char: '🇸🇦', name: 'flag: Saudi Arabia', keywords: 'flag'},
+                {char: '🇸🇧', name: 'flag: Solomon Islands', keywords: 'flag'},
+                {char: '🇸🇨', name: 'flag: Seychelles', keywords: 'flag'},
+                {char: '🇸🇩', name: 'flag: Sudan', keywords: 'flag'},
+                {char: '🇸🇪', name: 'flag: Sweden', keywords: 'flag'},
+                {char: '🇸🇬', name: 'flag: Singapore', keywords: 'flag'},
+                {char: '🇸🇭', name: 'flag: St. Helena', keywords: 'flag'},
+                {char: '🇸🇮', name: 'flag: Slovenia', keywords: 'flag'},
+                {char: '🇸🇯', name: 'flag: Svalbard & Jan Mayen', keywords: 'flag'},
+                {char: '🇸🇰', name: 'flag: Slovakia', keywords: 'flag'},
+                {char: '🇸🇱', name: 'flag: Sierra Leone', keywords: 'flag'},
+                {char: '🇸🇲', name: 'flag: San Marino', keywords: 'flag'},
+                {char: '🇸🇳', name: 'flag: Senegal', keywords: 'flag'},
+                {char: '🇸🇴', name: 'flag: Somalia', keywords: 'flag'},
+                {char: '🇸🇷', name: 'flag: Suriname', keywords: 'flag'},
+                {char: '🇸🇸', name: 'flag: South Sudan', keywords: 'flag'},
+                {char: '🇸🇹', name: 'flag: São Tomé & Príncipe', keywords: 'flag'},
+                {char: '🇸🇻', name: 'flag: El Salvador', keywords: 'flag'},
+                {char: '🇸🇽', name: 'flag: Sint Maarten', keywords: 'flag'},
+                {char: '🇸🇾', name: 'flag: Syria', keywords: 'flag'},
+                {char: '🇸🇿', name: 'flag: Eswatini', keywords: 'flag'},
+                {char: '🇹🇦', name: 'flag: Tristan da Cunha', keywords: 'flag'},
+                {char: '🇹🇨', name: 'flag: Turks & Caicos Islands', keywords: 'flag'},
+                {char: '🇹🇩', name: 'flag: Chad', keywords: 'flag'},
+                {char: '🇹🇫', name: 'flag: French Southern Territories', keywords: 'flag'},
+                {char: '🇹🇬', name: 'flag: Togo', keywords: 'flag'},
+                {char: '🇹🇭', name: 'flag: Thailand', keywords: 'flag'},
+                {char: '🇹🇯', name: 'flag: Tajikistan', keywords: 'flag'},
+                {char: '🇹🇰', name: 'flag: Tokelau', keywords: 'flag'},
+                {char: '🇹🇱', name: 'flag: Timor-Leste', keywords: 'flag'},
+                {char: '🇹🇲', name: 'flag: Turkmenistan', keywords: 'flag'},
+                {char: '🇹🇳', name: 'flag: Tunisia', keywords: 'flag'},
+                {char: '🇹🇴', name: 'flag: Tonga', keywords: 'flag'},
+                {char: '🇹🇷', name: 'flag: Turkey', keywords: 'flag turkey'},
+                {char: '🇹🇹', name: 'flag: Trinidad & Tobago', keywords: 'flag'},
+                {char: '🇹🇻', name: 'flag: Tuvalu', keywords: 'flag'},
+                {char: '🇹🇼', name: 'flag: Taiwan', keywords: 'flag taiwan'},
+                {char: '🇹🇿', name: 'flag: Tanzania', keywords: 'flag'},
+                {char: '🇺🇦', name: 'flag: Ukraine', keywords: 'flag ukraine'},
+                {char: '🇺🇬', name: 'flag: Uganda', keywords: 'flag'},
+                {char: '🇺🇲', name: 'flag: U.S. Outlying Islands', keywords: 'flag'},
+                {char: '🇺🇳', name: 'flag: United Nations', keywords: 'flag un'},
+                {char: '🇺🇸', name: 'flag: United States', keywords: 'flag usa america'},
+                {char: '🇺🇾', name: 'flag: Uruguay', keywords: 'flag'},
+                {char: '🇺🇿', name: 'flag: Uzbekistan', keywords: 'flag'},
+                {char: '🇻🇦', name: 'flag: Vatican City', keywords: 'flag'},
+                {char: '🇻🇨', name: 'flag: St. Vincent & Grenadines', keywords: 'flag'},
+                {char: '🇻🇪', name: 'flag: Venezuela', keywords: 'flag'},
+                {char: '🇻🇬', name: 'flag: British Virgin Islands', keywords: 'flag'},
+                {char: '🇻🇮', name: 'flag: U.S. Virgin Islands', keywords: 'flag'},
+                {char: '🇻🇳', name: 'flag: Vietnam', keywords: 'flag'},
+                {char: '🇻🇺', name: 'flag: Vanuatu', keywords: 'flag'},
+                {char: '🇼🇫', name: 'flag: Wallis & Futuna', keywords: 'flag'},
+                {char: '🇼🇸', name: 'flag: Samoa', keywords: 'flag'},
+                {char: '🇽🇰', name: 'flag: Kosovo', keywords: 'flag'},
+                {char: '🇾🇪', name: 'flag: Yemen', keywords: 'flag'},
+                {char: '🇾🇹', name: 'flag: Mayotte', keywords: 'flag'},
+                {char: '🇿🇦', name: 'flag: South Africa', keywords: 'flag africa'},
+                {char: '🇿🇲', name: 'flag: Zambia', keywords: 'flag'},
+                {char: '🇿🇼', name: 'flag: Zimbabwe', keywords: 'flag'}
+            ]
+        };
+
+        // === Picker Logic ===
+        const searchInput = document.getElementById('emoji-search');
+        const emojiGrid = document.getElementById('emoji-grid');
+        const emptyState = document.getElementById('empty-state');
+        const categoryList = document.getElementById('category-list');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const previewSection = document.getElementById('preview-section');
+        const previewEmoji = document.getElementById('preview-emoji');
+        const previewName = document.getElementById('preview-name');
+        const previewCode = document.getElementById('preview-code');
+        const copyBtn = document.getElementById('copy-btn');
+        const toast = document.getElementById('toast');
+
+        let activeCategory = 'smileys';
+        let recentEmojis = JSON.parse(localStorage.getItem('recent_emojis') || '[]');
+        let selectedEmojiChar = null;
+
+        function init() {
+            // Load initial view
+            renderEmojis();
+
+            // Search listener
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                if (query) {
+                    renderSearch(query);
+                    // Deactivate categories
+                    categoryBtns.forEach(btn => btn.classList.remove('active'));
+                } else {
+                    renderEmojis();
+                    // Reactivate current category
+                    categoryBtns.forEach(btn => {
+                        if (btn.dataset.category === activeCategory) btn.classList.add('active');
+                    });
+                }
+            });
+
+            // Category listener
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeCategory = btn.dataset.category;
+                    searchInput.value = '';
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderEmojis();
+                });
+            });
+
+            // Copy listener
+            copyBtn.addEventListener('click', () => {
+                if (selectedEmojiChar) copyToClipboard(selectedEmojiChar);
+            });
+        }
+
+        function renderEmojis() {
+            let emojis = [];
+            if (activeCategory === 'recent') {
+                emojis = recentEmojis;
+            } else {
+                emojis = EMOJI_DATA[activeCategory] || [];
+            }
+
+            if (emojis.length === 0 && activeCategory === 'recent') {
+                emojiGrid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                emptyState.querySelector('h3').textContent = 'No recent emojis';
+                emptyState.querySelector('p').textContent = 'Use some emojis and they will appear here';
+                return;
+            }
+
+            renderGrid(emojis);
+        }
+
+        function renderSearch(query) {
+            const results = [];
+            Object.values(EMOJI_DATA).forEach(category => {
+                category.forEach(emoji => {
+                    if (emoji.name.includes(query) || emoji.keywords.includes(query)) {
+                        results.push(emoji);
+                    }
+                });
+            });
+            renderGrid(results);
+        }
+
+        function renderGrid(emojis) {
+            emojiGrid.innerHTML = '';
+            if (emojis.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.querySelector('h3').textContent = 'No emojis found';
+                emptyState.querySelector('p').textContent = 'Try searching for something else';
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            emojis.forEach(emoji => {
+                const el = document.createElement('div');
+                el.className = 'emoji-card';
+                el.textContent = emoji.char;
+                el.title = emoji.name;
+                el.addEventListener('click', () => selectEmoji(emoji));
+                emojiGrid.appendChild(el);
+            });
+        }
+
+        function selectEmoji(emoji) {
+            selectedEmojiChar = emoji.char;
+            previewEmoji.textContent = emoji.char;
+            previewName.textContent = emoji.name;
+            previewCode.textContent = `U+${emoji.char.codePointAt(0).toString(16).toUpperCase()}`;
+            previewSection.classList.remove('hidden');
+            
+            // Auto copy for speed
+            copyToClipboard(emoji.char);
+            
+            // Update history
+            addToHistory(emoji);
+        }
+
+        function addToHistory(emoji) {
+            // Remove if already exists
+            recentEmojis = recentEmojis.filter(e => e.char !== emoji.char);
+            // Prepend
+            recentEmojis.unshift(emoji);
+            // Cap at 48 (6x8 grid)
+            recentEmojis = recentEmojis.slice(0, 48);
+            localStorage.setItem('recent_emojis', JSON.stringify(recentEmojis));
+            
+            // Re-render if in recent tab
+            if (activeCategory === 'recent') renderEmojis();
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
+

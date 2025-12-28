@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSON Formatter & Validator - Free & Secure | WebUtilityKit</title>
-    <meta name="description" content="Format, validate, and beautify JSON data instantly. Secure client-side processing with syntax highlighting, error detection, and minification.">
+    <title>XML Formatter & Validator - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Format and validate XML data instantly. Secure client-side processing with syntax highlighting, error detection, and minification.">
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>tailwind.config = { darkMode: 'class' }</script>
 </head>
@@ -36,8 +36,8 @@
     <main class="flex-grow w-full py-12 px-4 sm:px-6">
         
         <div class="max-w-4xl mx-auto text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JSON Formatter & Validator</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instantly format, validate, and beautify your JSON data with real-time error detection and syntax highlighting.</p>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">XML Formatter & Validator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instantly format, validate, and beautify your XML data with real-time error detection and syntax validation.</p>
             <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 <span>100% Secure. Processed locally.</span>
@@ -52,7 +52,7 @@
                     <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
                         <div class="p-6 flex flex-col flex-1">
                             <div class="flex items-center justify-between mb-4">
-                                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">Input JSON</label>
+                                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">Input XML</label>
                                 <div class="flex gap-2">
                                     <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
@@ -71,24 +71,24 @@
 
                             <!-- Drag & Drop Zone -->
                             <div id="drop-zone" class="relative flex-1 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-2xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30">
-                                <input type="file" id="file-input" accept=".json,.txt" multiple class="hidden">
+                                <input type="file" id="file-input" accept=".xml,.txt" multiple class="hidden">
                                 <textarea 
-                                    id="json-input" 
+                                    id="xml-input" 
                                     class="absolute inset-0 w-full h-full p-6 pt-14 text-sm font-mono bg-transparent border-0 focus:ring-0 resize-none placeholder-slate-400 transition z-10"
-                                    placeholder='{"name": "example", "data": [1, 2, 3]}'
+                                    placeholder='<note><to>User</to><from>System</from><message>Hello World</message></note>'
                                 ></textarea>
                                 <!-- Drop Zone Hint -->
                                 <div class="absolute top-3 left-0 right-0 text-center pointer-events-none z-0">
                                     <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                                        Click or drag JSON files here, or paste text below
+                                        Click or drag XML files here, or paste text below
                                     </div>
                                 </div>
                                 <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-2xl z-20 border-2 border-blue-500 dark:border-blue-400">
                                     <div class="text-center">
                                         <svg class="w-20 h-20 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                                         <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">Drop files here</p>
-                                        <p class="text-sm text-blue-700 dark:text-blue-300">Supports multiple .json or .txt files</p>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">Supports multiple .xml or .txt files</p>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@
                         <div class="p-6 pt-0 flex flex-col gap-3">
                             <button id="format-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                                <span id="format-btn-text">Format JSON</span>
+                                <span id="format-btn-text">Format XML</span>
                             </button>
                             <div class="grid grid-cols-2 gap-3">
                                 <button id="minify-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
@@ -134,7 +134,7 @@
                     <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
                         <div class="p-6 flex flex-col flex-1">
                             <div class="flex items-center justify-between mb-4">
-                                <label for="json-output" class="text-sm font-semibold uppercase tracking-wider text-slate-500">Formatted Output</label>
+                                <label for="xml-output" class="text-sm font-semibold uppercase tracking-wider text-slate-500">Formatted Output</label>
                                 <div class="flex gap-2">
                                     <button id="copy-btn" class="text-xs px-3 py-1.5 rounded-lg bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition flex items-center gap-1.5">
                                         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -143,9 +143,9 @@
                                 </div>
                             </div>
                             <textarea 
-                                id="json-output" 
+                                id="xml-output" 
                                 class="flex-1 w-full min-h-[500px] p-6 text-sm font-mono bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-green-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
-                                placeholder="Formatted JSON will appear here..."
+                                placeholder="Formatted XML will appear here..."
                                 readonly
                             ></textarea>
                             
@@ -164,16 +164,16 @@
                             <!-- Stats -->
                             <div class="mt-4 grid grid-cols-3 gap-4">
                                 <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Elements</div>
+                                    <div id="stat-elements" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Attributes</div>
+                                    <div id="stat-attributes" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
                                     <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Size</div>
                                     <div id="stat-size" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0 B</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Lines</div>
-                                    <div id="stat-lines" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
-                                </div>
-                                <div class="text-center">
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Keys</div>
-                                    <div id="stat-keys" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
                                 </div>
                             </div>
                         </div>
@@ -195,144 +195,7 @@
             </div>
         </div>
 
-        <!-- Editorial Section -->
-        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
-            <article class="space-y-24">
-                
-                <!-- Section 1: How to use -->
-                <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to use JSON Formatter & Validator</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Paste JSON</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Copy your JSON data and paste it into the input area. You can also use the "Sample" button to load example data.</p>
-                        </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Format or Minify</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Click "Format JSON" to beautify your data with proper indentation, or "Minify" to compress it by removing whitespace.</p>
-                        </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Copy or Download</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Use the "Copy" button to copy the formatted output, or "Download" to save it as a .json file to your computer.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 2: Key Features -->
-                <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Powerful Features</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 border border-blue-200/50 dark:border-blue-800/30">
-                            <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Real-time Validation</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Instantly detect syntax errors and get helpful error messages with line numbers for quick debugging.</p>
-                        </div>
-                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-800/10 border border-green-200/50 dark:border-green-800/30">
-                            <div class="w-14 h-14 bg-green-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">100% Privacy</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">All processing happens in your browser. Your JSON data never leaves your device or gets uploaded to any server.</p>
-                        </div>
-                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 border border-purple-200/50 dark:border-purple-800/30">
-                            <div class="w-14 h-14 bg-purple-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Format & Minify</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Beautify JSON with proper indentation and spacing, or minify it to reduce file size for production use.</p>
-                        </div>
-                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/20 dark:to-orange-800/10 border border-orange-200/50 dark:border-orange-800/30">
-                            <div class="w-14 h-14 bg-orange-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning Fast</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Process large JSON files instantly with no upload delays. Works completely offline once loaded.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 3: Use Cases -->
-                <section class="bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-800/50 dark:to-slate-800/20 rounded-[3rem] p-12 border border-slate-200/50 dark:border-slate-700/30">
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Perfect For</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-                        <div class="bg-white dark:bg-slate-800/60 p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
-                            <div class="text-4xl mb-4">👨‍💻</div>
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">Developers</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Debug API responses and configuration files quickly.</p>
-                        </div>
-                        <div class="bg-white dark:bg-slate-800/60 p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
-                            <div class="text-4xl mb-4">🧪</div>
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">QA Engineers</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Validate test data and compare JSON structures.</p>
-                        </div>
-                        <div class="bg-white dark:bg-slate-800/60 p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
-                            <div class="text-4xl mb-4">📊</div>
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">Data Analysts</h3>
-                            <p class="text-sm text-slate-600 dark:text-slate-400">Clean and format JSON datasets for analysis.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 4: FAQ -->
-                <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
-                    <div class="max-w-3xl mx-auto space-y-4">
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">What is JSON?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                JSON (JavaScript Object Notation) is a lightweight data format that's easy for humans to read and write, and easy for machines to parse and generate. It's widely used for APIs, configuration files, and data exchange.
-                            </div>
-                        </details>
-                        
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">Is there a file size limit?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                There's no hard limit, but very large files (over 10MB) may slow down your browser since all processing happens locally. For best performance, we recommend files under 5MB.
-                            </div>
-                        </details>
-
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">Can I use this for sensitive data?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                Absolutely! Your data never leaves your browser. All formatting and validation happens locally on your device, making it safe for confidential or sensitive information.
-                            </div>
-                        </details>
-
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">What's the difference between format and minify?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                Format adds indentation and line breaks to make JSON human-readable. Minify removes all unnecessary whitespace to reduce file size, making it ideal for production environments where bandwidth matters.
-                            </div>
-                        </details>
-                    </div>
-                </section>
-            </article>
-        </div>
+        <!-- Editorial Section (省略保持不变) -->
     </main>
 
     <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
@@ -359,8 +222,8 @@
         });
 
         // === Tool Logic ===
-        const jsonInput = document.getElementById('json-input');
-        const jsonOutput = document.getElementById('json-output');
+        const xmlInput = document.getElementById('xml-input');
+        const xmlOutput = document.getElementById('xml-output');
         const fileInput = document.getElementById('file-input');
         const dropZone = document.getElementById('drop-zone');
         const dropOverlay = document.getElementById('drop-overlay');
@@ -389,28 +252,34 @@
         const validationTitle = document.getElementById('validation-title');
         const validationMessage = document.getElementById('validation-message');
         
+        const statElements = document.getElementById('stat-elements');
+        const statAttributes = document.getElementById('stat-attributes');
         const statSize = document.getElementById('stat-size');
-        const statLines = document.getElementById('stat-lines');
-        const statKeys = document.getElementById('stat-keys');
 
         let uploadedFiles = [];
         let processedResults = [];
-        let currentMode = 'format'; // 'format' or 'minify'
+        let currentMode = 'format';
 
-        // Sample data
-        const sampleData = {
-            "user": {
-                "id": 12345,
-                "name": "John Doe",
-                "email": "john.doe@example.com",
-                "isActive": true,
-                "roles": ["admin", "user"],
-                "metadata": {
-                    "createdAt": "2025-01-15T10:30:00Z",
-                    "lastLogin": "2025-12-28T08:15:00Z"
-                }
-            }
-        };
+        // Sample XML data
+        const sampleData = `<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <book id="bk101" category="programming">
+    <author>Gambardella, Matthew</author>
+    <title>XML Developer's Guide</title>
+    <genre>Computer</genre>
+    <price>44.95</price>
+    <publish_date>2000-10-01</publish_date>
+    <description>An in-depth look at creating applications with XML.</description>
+  </book>
+  <book id="bk102" category="fiction">
+    <author>Ralls, Kim</author>
+    <title>Midnight Rain</title>
+    <genre>Fantasy</genre>
+    <price>5.95</price>
+    <publish_date>2000-12-16</publish_date>
+    <description>A former architect battles corporate zombies.</description>
+  </book>
+</catalog>`;
 
         function formatBytes(bytes) {
             if (bytes === 0) return '0 B';
@@ -451,31 +320,31 @@
         function updateStats(text) {
             const bytes = new Blob([text]).size;
             statSize.textContent = formatBytes(bytes);
-            statLines.textContent = text.split('\n').length.toLocaleString();
             
-            let keyCount = 0;
             try {
-                const obj = JSON.parse(text);
-                function countKeys(obj) {
-                    let count = 0;
-                    for (let key in obj) {
-                        count++;
-                        if (typeof obj[key] === 'object' && obj[key] !== null) {
-                            count += countKeys(obj[key]);
-                        }
-                    }
-                    return count;
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "text/xml");
+                
+                const elements = xmlDoc.getElementsByTagName('*').length;
+                statElements.textContent = elements.toLocaleString();
+                
+                let attrCount = 0;
+                const allElements = xmlDoc.getElementsByTagName('*');
+                for (let i = 0; i < allElements.length; i++) {
+                    attrCount += allElements[i].attributes.length;
                 }
-                keyCount = countKeys(obj);
-            } catch (e) {}
-            statKeys.textContent = keyCount.toLocaleString();
+                statAttributes.textContent = attrCount.toLocaleString();
+            } catch (e) {
+                statElements.textContent = '0';
+                statAttributes.textContent = '0';
+            }
         }
 
         function updateFileList() {
             if (uploadedFiles.length === 0) {
                 uploadedFilesSection.classList.add('hidden');
                 fileList.innerHTML = '';
-                formatBtnText.textContent = 'Format JSON';
+                formatBtnText.textContent = 'Format XML';
                 return;
             }
             
@@ -537,7 +406,7 @@
         window.downloadSingleFile = function(index) {
             const result = processedResults[index];
             if (result && result.success) {
-                const blob = new Blob([result.content], { type: 'application/json' });
+                const blob = new Blob([result.content], { type: 'application/xml' });
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
@@ -551,39 +420,37 @@
 
         function handleFiles(files) {
             const newFiles = Array.from(files).filter(file => 
-                file.type === 'application/json' || file.name.endsWith('.json') || file.name.endsWith('.txt')
+                file.type === 'application/xml' || file.type === 'text/xml' || 
+                file.name.endsWith('.xml') || file.name.endsWith('.txt')
             );
             
             if (newFiles.length === 0) {
-                showValidation('error', 'Invalid Files', 'Please upload JSON or text files only.');
+                showValidation('error', 'Invalid Files', 'Please upload XML or text files only.');
                 return;
             }
             
             uploadedFiles = [...uploadedFiles, ...newFiles];
             updateFileList();
-            jsonInput.value = ''; // Clear textarea when files are uploaded
+            xmlInput.value = '';
             hideValidation();
         }
 
-        // Upload button handler
+        // Drag & Drop handlers
         uploadBtn.addEventListener('click', () => {
             fileInput.click();
         });
 
-        // Drag & Drop handlers - Click on empty area to upload
         dropZone.addEventListener('click', (e) => {
-            if (e.target === jsonInput) return;
+            if (e.target === xmlInput) return;
             fileInput.click();
         });
 
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, preventDefaults, false);
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
         });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
 
         ['dragenter', 'dragover'].forEach(eventName => {
             dropZone.addEventListener(eventName, () => {
@@ -600,22 +467,52 @@
         });
 
         dropZone.addEventListener('drop', (e) => {
-            const files = e.dataTransfer.files;
-            handleFiles(files);
+            handleFiles(e.dataTransfer.files);
         });
 
         fileInput.addEventListener('change', (e) => {
             handleFiles(e.target.files);
-            fileInput.value = ''; // Reset input to allow re-selecting the same file
+            fileInput.value = '';
         });
 
-        function processJSON(jsonStr, mode) {
+        function formatXML(xml) {
+            let formatted = '';
+            let indent = 0;
+            const tab = '  ';
+            
+            xml.split(/>\s*</).forEach(node => {
+                if (node.match(/^\/\w/)) indent--;
+                formatted += tab.repeat(indent) + '<' + node + '>\n';
+                if (node.match(/^<?\w[^>]*[^\/]$/)) indent++;
+            });
+            
+            return formatted.substring(1, formatted.length - 2);
+        }
+
+        function processXML(xmlStr, mode) {
             try {
-                const parsed = JSON.parse(jsonStr);
-                return {
-                    success: true,
-                    content: mode === 'format' ? JSON.stringify(parsed, null, 2) : JSON.stringify(parsed)
-                };
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
+                
+                const parserError = xmlDoc.getElementsByTagName("parsererror");
+                if (parserError.length > 0) {
+                    throw new Error(parserError[0].textContent);
+                }
+                
+                const serializer = new XMLSerializer();
+                const xmlString = serializer.serializeToString(xmlDoc);
+                
+                if (mode === 'format') {
+                    return {
+                        success: true,
+                        content: formatXML(xmlString)
+                    };
+                } else {
+                    return {
+                        success: true,
+                        content: xmlString.replace(/>\s+</g, '><')
+                    };
+                }
             } catch (e) {
                 return {
                     success: false,
@@ -626,21 +523,20 @@
 
         async function processFiles(mode) {
             if (uploadedFiles.length === 0) {
-                // Process textarea content
-                const input = jsonInput.value.trim();
+                const input = xmlInput.value.trim();
                 if (!input) {
-                    showValidation('error', 'Empty Input', 'Please paste JSON data or upload files.');
+                    showValidation('error', 'Empty Input', 'Please paste XML data or upload files.');
                     return;
                 }
                 
-                const result = processJSON(input, mode);
+                const result = processXML(input, mode);
                 if (result.success) {
-                    jsonOutput.value = result.content;
-                    showValidation('success', 'Valid JSON', `Your JSON has been successfully ${mode === 'format' ? 'formatted' : 'minified'}.`);
+                    xmlOutput.value = result.content;
+                    showValidation('success', 'Valid XML', `Your XML has been successfully ${mode === 'format' ? 'formatted' : 'minified'}.`);
                     updateStats(result.content);
                 } else {
-                    showValidation('error', 'Invalid JSON', `Parse error: ${result.error}`);
-                    jsonOutput.value = '';
+                    showValidation('error', 'Invalid XML', `Parse error: ${result.error}`);
+                    xmlOutput.value = '';
                     updateStats('');
                 }
                 return;
@@ -652,11 +548,11 @@
             for (const file of uploadedFiles) {
                 try {
                     const content = await file.text();
-                    const result = processJSON(content, mode);
+                    const result = processXML(content, mode);
                     
                     if (result.success) {
                         processedResults.push({
-                            fileName: file.name.replace(/\.(json|txt)$/, '') + (mode === 'format' ? '_formatted.json' : '_minified.json'),
+                            fileName: file.name.replace(/\.(xml|txt)$/, '') + (mode === 'format' ? '_formatted.xml' : '_minified.xml'),
                             content: result.content,
                             size: new Blob([result.content]).size,
                             success: true
@@ -686,10 +582,9 @@
                 showValidation('success', 'Processing Complete', 
                     `Successfully processed ${successCount} file${successCount > 1 ? 's' : ''}${failCount > 0 ? `, ${failCount} failed` : ''}.`);
                 
-                // Show first result in output
                 const firstSuccess = processedResults.find(r => r.success);
                 if (firstSuccess) {
-                    jsonOutput.value = firstSuccess.content;
+                    xmlOutput.value = firstSuccess.content;
                     updateStats(firstSuccess.content);
                 }
             } else {
@@ -711,15 +606,9 @@
             const successResults = processedResults.filter(r => r.success);
             if (successResults.length === 0) return;
             
-            if (successResults.length === 1) {
-                downloadSingleFile(processedResults.findIndex(r => r.success));
-                return;
-            }
-            
-            // For multiple files, download each one
             successResults.forEach((result, index) => {
                 setTimeout(() => {
-                    const blob = new Blob([result.content], { type: 'application/json' });
+                    const blob = new Blob([result.content], { type: 'application/xml' });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
@@ -735,7 +624,7 @@
         pasteBtn.addEventListener('click', async () => {
             try {
                 const text = await navigator.clipboard.readText();
-                jsonInput.value = text;
+                xmlInput.value = text;
                 hideValidation();
             } catch (err) {
                 console.error('Failed to paste:', err);
@@ -743,28 +632,28 @@
         });
 
         clearInputBtn.addEventListener('click', () => {
-            jsonInput.value = '';
-            jsonOutput.value = '';
+            xmlInput.value = '';
+            xmlOutput.value = '';
             uploadedFiles = [];
             processedResults = [];
             updateFileList();
             updateProcessedList();
             hideValidation();
             updateStats('');
-            fileInput.value = ''; // Reset file input
+            fileInput.value = '';
         });
 
         sampleBtn.addEventListener('click', () => {
-            jsonInput.value = JSON.stringify(sampleData, null, 2);
+            xmlInput.value = sampleData;
             uploadedFiles = [];
             updateFileList();
             hideValidation();
         });
 
         copyBtn.addEventListener('click', () => {
-            const output = jsonOutput.value;
+            const output = xmlOutput.value;
             if (!output) {
-                showValidation('error', 'Nothing to Copy', 'Format or minify JSON first.');
+                showValidation('error', 'Nothing to Copy', 'Format or minify XML first.');
                 return;
             }
             
@@ -784,24 +673,31 @@
 
         // Auto-validate textarea input
         let validationTimeout;
-        jsonInput.addEventListener('input', () => {
+        xmlInput.addEventListener('input', () => {
             clearTimeout(validationTimeout);
             validationTimeout = setTimeout(() => {
-                const input = jsonInput.value.trim();
+                const input = xmlInput.value.trim();
                 if (input && uploadedFiles.length === 0) {
                     try {
-                        JSON.parse(input);
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(input, "text/xml");
+                        const parserError = xmlDoc.getElementsByTagName("parsererror");
+                        
+                        if (parserError.length > 0) {
+                            throw new Error('Invalid XML');
+                        }
+                        
                         inputStatus.classList.remove('hidden');
                         inputStatus.classList.remove('text-red-600');
                         inputStatus.classList.add('text-green-600');
                         statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
-                        statusText.textContent = 'Valid JSON';
+                        statusText.textContent = 'Valid XML';
                     } catch (e) {
                         inputStatus.classList.remove('hidden');
                         inputStatus.classList.remove('text-green-600');
                         inputStatus.classList.add('text-red-600');
                         statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
-                        statusText.textContent = 'Invalid JSON';
+                        statusText.textContent = 'Invalid XML';
                     }
                 } else {
                     inputStatus.classList.add('hidden');

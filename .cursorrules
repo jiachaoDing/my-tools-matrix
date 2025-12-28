@@ -1,162 +1,211 @@
 # Project Context: WebUtilityKit.com (High-Performance Tool Matrix)
 
-## 1. Project Mission & Differentiation
+   ## 1. Project Mission
 
-We are building a suite of 100+ client-side utility tools. To beat competitors, we strictly enforce these 4 competitive advantages:
+   We are building a suite of 100+ client-side utility tools.
+   **Core Philosophy:** Privacy First, Instant Speed, and "Native App" Feel.
 
-1.  **Privacy First:** ALL processing must happen in the browser (Client-Side). NO server uploads.
-2.  **Batch & Unlimited:** Leverage user hardware to allow unlimited batch processing (e.g., convert 50 images at once).
-3.  **Modern UX:** Support Dark Mode, Drag & Drop, and "Ctrl+V" Paste.
-4.  **Long-tail SEO:** Target specific use-cases in content.
+   ## 2. Tech Stack Constraints (STRICT)
 
-## 2. Tech Stack Constraints (STRICT)
+   - **Core:** HTML5, Vanilla JS, Tailwind CSS (CDN).
+   - **Forbidden:** No Frameworks (React/Vue), No Build Tools (npm/webpack), No Backend.
+   - **Processing:** Client-side only (`FileReader`, `Blob`).
 
-> AI MUST follow these strict technical constraints:
+   ## 3. Design Role & Intelligent Layout (AI EMPOWERED)
 
-- **Core:** HTML5, Vanilla JavaScript (ES6+), Tailwind CSS (via CDN).
-- **Frameworks:** **FORBIDDEN**. DO NOT use React, Vue, Angular, Svelte, or jQuery.
-- **Build Tools:** **FORBIDDEN**. DO NOT use npm, yarn, webpack, vite, or node_modules.
-- **CSS Method:** Use Tailwind CSS via CDN link only.
-  - `<script src="https://cdn.tailwindcss.com"></script>`
-- **External Libraries:** Use CDN links (cdnjs/jsdelivr) for libraries (e.g., JSZip, PDF.js, heic2any).
-- **Backend:** **NO server-side code**. All logic must run in the browser.
-  - Use `FileReader`, `Canvas`, `Blob`, `WebAssembly`.
+   **You are the Lead UI/UX Designer.** Do not just output code; **reason about the visual layout.**
 
-## 3. Project Structure (Directory Routing)
+   > **The "Immersive" Standard:**
+   > The tool must feel like a high-end desktop application (e.g., Linear, Raycast).
+   > **NO borders or shadows** on the main tool container. The tool floats on the canvas.
 
-The project follows a "Directory as Route" structure for Cloudflare Pages.
+   ### 🧠 Smart Layout Protocols
 
-```text
-/ (root)
-├── index.html            # Landing page
-├── assets/               # Shared assets (js/css/images)
-├── [tool-slug]/          # Each tool gets its own folder
-│   └── index.html        # The tool code (Combined HTML/JS/CSS)
-└── ...
+      1.  **Auto-Balance Split Panes (Type A):**
+          * In side-by-side layouts, enforce **visual symmetry**.
+          * **Strategy:** Use `flex-col`, `flex-1`, and `h-full` to push action buttons to the absolute bottom of their containers, ensuring horizontal alignment across columns.
 
-```
+      2.  **Visual Hierarchy:**
+          * **Primary Actions:** Prominent (Blue/Primary).
+          * **Secondary Actions:** Subtle (Outline/Ghost).
+          * **Inputs:** Clean, expansive, and focused.
 
-* **Naming:** Folder names must be kebab-case (e.g., `heic-to-jpg`).
-* **File Placement:** ALWAYS create a folder named after the tool's keyword and place the code in `index.html` inside it.
+   ## 4. Feature Requirements
 
-## 4. UI/UX Design System (The "2025 Look")
+      1.  **Privacy Badge:** Green, Pill-shaped, Centered.
+      2.  **Batch Processing:** Auto-implement for file tools.
+      3.  **File Import/Export (MANDATORY for Data Tools):**
+          * **Drag & Drop Zone:** Input textarea MUST be wrapped in a drag-drop zone with visual feedback overlay
+          * **Click to Upload:** The drop zone OR a dedicated "Upload Files" button must trigger file selection dialog when clicked
+          * **Multiple File Support:** Support `multiple` attribute on file input for batch processing
+          * **Uploaded Files List:** 
+              - Display uploaded files with name, size, and remove button
+              - Show file count (e.g., "3 files")
+              - Hide when no files uploaded
+          * **Batch Processing:**
+              - Process all uploaded files when action button clicked
+              - Update button text dynamically (e.g., "Process 3 Files")
+              - Show progress for each file
+          * **Processed Results List:**
+              - Display each processed file with success/error status
+              - Show individual download button for each successful file
+              - Include "Download All" button for batch export
+              - Display file size and status indicators
+          * **Clear Functionality:**
+              - Reset textarea content
+              - Clear uploaded files array
+              - Clear processed results
+              - Reset file input element (`fileInput.value = ''`)
+              - Hide all file lists
+          * **Implementation Details:**
+              - Use `FileReader` for import (client-side only)
+              - Use `Blob` + `URL.createObjectURL()` for export
+              - File types: Use appropriate `accept` attribute (e.g., `.json,.txt`, `.csv,.txt`, `.xml,.txt`)
+              - Prevent default drag events and show drop overlay
+              - Allow re-uploading same file by resetting input after selection
+      4.  **SEO Structure (The "Editorial" Standard):**
+          * **Visual Hierarchy:** Do NOT just dump text. Use a dedicated, beautifully styled `<article>` section.
+          * **Feature Grid:** Display key features in a 2 or 3-column grid with subtle cards and SVG icons.
+          * **Styled Steps:** For "How to Use", use large numeric indicators or icon-led steps with clear heading/description splits.
+          * **Typography:** Mix font weights. Use `text-slate-900` for headings and `text-slate-600` for descriptions.
+          * **FAQ:** MUST use interactive `<details>` accordions with a distinct background tint and hover states.
+          * **Visual Separators:** Use subtle gradients or wide borders between major article sections.
 
-> AI MUST implement these styles by default:
+   ## 5. Code Generation Template (Flexible Skeleton)
 
-* **Theme:** Minimalist, Clean, Trustworthy.
-* **Dark Mode:** **MANDATORY**. Use Tailwind's `dark:` classes and include a toggle script.
-* **Color Palette:**
-* Primary: `blue-600` (Light) / `blue-500` (Dark)
-* Background: `bg-slate-50` (Light) / `bg-slate-900` (Dark)
-* Surface: `bg-white` (Light) / `bg-slate-800` (Dark)
-* Text: `text-slate-900` (Light) / `text-slate-100` (Dark)
+   Use this structure. Note the **Prose Styling** in the article section.
 
-
-* **Interactions:**
-* **Drag & Drop:** File inputs must be large drop zones.
-* **Feedback:** Visual feedback for hover/active states.
-* **Loading:** Show spinners/progress bars during processing.
-* **Header/Footer Consistency:** Tool pages must reuse the landing page header/footer styling (bordered translucent header with sticky nav + matching bordered footer).
-* **Article Styling:** Use Tailwind Typography via `https://cdn.tailwindcss.com?plugins=typography` and wrap SEO copy in `article` with `prose prose-slate dark:prose-invert lg:prose-lg` plus ample top margin.
-
-
-
-## 5. Feature Requirements (Killer Features)
-
-### A. The "Privacy Badge"
-
-Every file-processing tool MUST display this badge prominently below the title:
-
-```html
-<div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
-    <svg ...>SHIELD_ICON</svg>
-    <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
-</div>
-
-```
-
-### B. Batch Processing Logic
-
-If the tool handles files (e.g., converters, compressors):
-
-1. Input element MUST have `multiple` attribute.
-2. Logic MUST use a loop to handle arrays of files.
-3. Output MUST provide a "Download All (ZIP)" button if > 1 file.
-
-### C. SEO Content Structure
-
-Every `index.html` MUST end with a semantic `<article>` tag containing:
-
-1. **H2:** How to use [Tool Name] (Step-by-step).
-2. **H2:** Features (Emphasize "Unlimited" & "Privacy").
-3. **H2:** FAQ (3-5 Questions targeting long-tail keywords).
-
-## 6. Master Code Template
-
-When asked to create a tool, use this skeleton (Adapt as needed):
-
-```html
+   ```html
 <!DOCTYPE html>
 <html lang="en" class="">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>[Tool Keyword] - Free, Secure & Unlimited | WebUtilityKit</title>
+    <title>[Tool Name] - Free & Secure | WebUtilityKit</title>
     <meta name="description" content="[SEO Description]">
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-    <script>
-        tailwind.config = { darkMode: 'class' }
-    </script>
+    <script src="[https://cdn.tailwindcss.com?plugins=typography](https://cdn.tailwindcss.com?plugins=typography)"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
-    <nav class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 p-4 sticky top-0 z-50">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="/" class="text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
                 WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
             </a>
-            <button id="theme-toggle" class="p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400">
-                <span id="theme-icon">🌗</span>
-            </button>
-        </div>
-    </nav>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">[Tool Name]</h1>
-        <p class="text-center text-slate-600 dark:text-slate-400 mb-8 text-lg">[Short Value Prop]</p>
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
         
-        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">[Tool Name]</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">[Short Value Prop]</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
             </div>
 
-        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
-            Advertisement Space
-        </div>
+        <div class="max-w-3xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-16">
+            <article class="prose prose-slate dark:prose-invert lg:prose-lg mx-auto 
+                prose-headings:font-bold prose-headings:tracking-tight prose-headings:text-slate-900 dark:prose-headings:text-white 
+                prose-a:text-blue-600 dark:prose-a:text-blue-400 prose-a:no-underline hover:prose-a:underline
+                prose-strong:text-slate-900 dark:prose-strong:text-white
+                prose-li:marker:text-blue-600 dark:prose-li:marker:text-blue-500">
+                
+                <h2>How to use [Tool Name]</h2>
+                <ol>
+                    <li>Step 1 description...</li>
+                    <li>Step 2 description...</li>
+                </ol>
 
-        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
-            <h2>How to use...</h2>
-            <h2>Features</h2>
-            <h2>FAQ</h2>
-        </article>
+                <h2>Key Features</h2>
+                <ul>
+                    <li><strong>Privacy Guaranteed:</strong> No server uploads ever.</li>
+                    <li><strong>Unlimited:</strong> Process as many files as you want.</li>
+                </ul>
+
+                <h2>Frequently Asked Questions</h2>
+                <div class="not-prose space-y-4 mt-6">
+                    <details class="group bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white list-none">
+                            <span>Is this tool free?</span>
+                            <span class="transition-transform group-open:rotate-180">
+                                <svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                            Yes, it's completely free and runs entirely in your browser.
+                        </div>
+                    </details>
+                    
+                    <details class="group bg-slate-50 dark:bg-slate-800/50 rounded-xl p-4 cursor-pointer transition-all hover:bg-slate-100 dark:hover:bg-slate-800">
+                        <summary class="flex justify-between items-center font-semibold text-slate-900 dark:text-white list-none">
+                            <span>Is my data secure?</span>
+                            <span class="transition-transform group-open:rotate-180">
+                                <svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="text-slate-600 dark:text-slate-400 mt-3 leading-relaxed">
+                            Absolutely. We use local browser processing, so your files never leave your device.
+                        </div>
+                    </details>
+                </div>
+
+            </article>
+        </div>
     </main>
 
-    <footer class="mt-20 border-t border-slate-200 dark:border-slate-800 py-12 text-center text-slate-500">
-        <p>&copy; 2025 WebUtilityKit.com. All rights reserved.</p>
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
     </footer>
 
+
     <script>
-        // === Dark Mode Logic ===
-        // (Include logic to toggle 'dark' class on html tag and save to localStorage)
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
 
         // === Tool Logic ===
     </script>
 </body>
 </html>
+   ```
 
-```
+   ## 6. Response Protocol
 
-## 7. Response Protocol
-
-1. **Code First:** Provide the full, copy-pasteable `index.html` code block immediately.
-2. **File Path:** **ALWAYS start the response by stating the file path.** (e.g., "Here is the code for `tools/password-gen/index.html`:")
-3. **No Fluff:** Do not explain basic HTML concepts.
-
+      1. **Analyze & Plan:** Determine layout type (A/B/C) and necessary logic.
+      2. **File Path:** Start with the path.
+      3. **Code:** Provide the complete HTML.

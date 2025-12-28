@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspect Ratio Calculator - Fast & Precise Scaling | WebUtilityKit</title>
+    <meta name="description" content="Calculate aspect ratios, resize images, or find dimensions instantly. Supports custom ratios and common presets like 16:9, 4:3, and 1:1. 100% private.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
+            }
+            .input-label { 
+                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
+            }
+            .unit-badge { 
+                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
+            }
+            .preset-btn { 
+                @apply py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1; 
+            }
+            .active-preset {
+                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-500/5;
+            }
+            .result-card {
+                @apply p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:border-blue-500/10;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Aspect Ratio Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Calculate dimensions, find ratios, or scale images perfectly. Essential for designers, photographers, and video editors.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Input Section (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="input-label">Width</label>
+                                <div class="relative group">
+                                    <input type="number" id="width-input" value="1920" min="1" step="1" class="custom-input">
+                                    <span class="unit-badge">PX</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-center py-2">
+                                <button id="lock-btn" class="p-3 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all group" title="Lock Ratio">
+                                    <svg id="lock-icon" class="w-6 h-6 text-slate-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path id="lock-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div>
+                                <label class="input-label">Height</label>
+                                <div class="relative group">
+                                    <input type="number" id="height-input" value="1080" min="1" step="1" class="custom-input">
+                                    <span class="unit-badge">PX</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-700">
+                                <label class="input-label">Custom Ratio (W:H)</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="relative group">
+                                        <input type="number" id="ratio-w" value="16" min="0.1" step="0.1" class="custom-input text-center">
+                                    </div>
+                                    <div class="relative group">
+                                        <input type="number" id="ratio-h" value="9" min="0.1" step="0.1" class="custom-input text-center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-4">
+                            <label class="input-label">Quick Presets</label>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                                <button class="preset-btn" data-w="16" data-h="9">
+                                    <span class="font-black">16:9</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">HD</span>
+                                </button>
+                                <button class="preset-btn" data-w="4" data-h="3">
+                                    <span class="font-black">4:3</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">TV</span>
+                                </button>
+                                <button class="preset-btn" data-w="1" data-h="1">
+                                    <span class="font-black">1:1</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Square</span>
+                                </button>
+                                <button class="preset-btn" data-w="21" data-h="9">
+                                    <span class="font-black">21:9</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Ultra</span>
+                                </button>
+                                <button class="preset-btn" data-w="9" data-h="16">
+                                    <span class="font-black">9:16</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Mobile</span>
+                                </button>
+                                <button class="preset-btn" data-w="3" data-h="2">
+                                    <span class="font-black">3:2</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Photo</span>
+                                </button>
+                                <button class="preset-btn" data-w="4" data-h="5">
+                                    <span class="font-black">4:5</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Social</span>
+                                </button>
+                                <button class="preset-btn" data-w="2" data-h="1">
+                                    <span class="font-black">2:1</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Cinema</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization Section (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-blue-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-blue-500/20 relative overflow-hidden text-white">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-blue-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label class="text-xs font-bold text-blue-200 uppercase tracking-[0.2em] block mb-12 italic">Visual Scale & Ratio</label>
+                            
+                            <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                                <!-- Aspect Ratio Box -->
+                                <div class="relative w-full aspect-video flex items-center justify-center transition-all duration-500 overflow-hidden rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-inner" id="visual-container">
+                                    <div id="visual-box" class="bg-white rounded-xl shadow-2xl transition-all duration-500 flex items-center justify-center relative group">
+                                        <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                        <span id="visual-label" class="text-blue-600 font-black text-2xl drop-shadow-sm">16:9</span>
+                                        <!-- Measure lines -->
+                                        <div class="absolute -top-6 left-0 right-0 h-px bg-white/40 flex justify-between px-1">
+                                            <div class="w-px h-2 bg-white/40"></div>
+                                            <div id="label-w" class="text-[10px] font-bold text-white/60 -mt-2">1920px</div>
+                                            <div class="w-px h-2 bg-white/40"></div>
+                                        </div>
+                                        <div class="absolute top-0 bottom-0 -right-6 w-px bg-white/40 flex flex-col justify-between py-1">
+                                            <div class="h-px w-2 bg-white/40"></div>
+                                            <div id="label-h" class="text-[10px] font-bold text-white/60 origin-left rotate-90 ml-2">1080px</div>
+                                            <div class="h-px w-2 bg-white/40"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-blue-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">Simplest Ratio</div>
+                                        <div id="simple-ratio" class="text-3xl font-black tracking-tight tabular-nums">16 : 9</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-blue-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">Decimal Ratio</div>
+                                        <div id="decimal-ratio" class="text-3xl font-black tracking-tight tabular-nums">1.778</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-blue-200/80 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>Ratio = Width / Height. Simplest ratio found using GCD (Greatest Common Divisor).</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase">Scaling Your Vision</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Set Dimensions</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">Enter your starting width and height. Our tool will instantly calculate the resulting aspect ratio.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lock & Resize</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">Click the lock icon to maintain the ratio. Now, changing one dimension will automatically update the other.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Use Presets</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">Quickly switch between common standards like 16:9 for video, 3:2 for photos, or 1:1 for social media posts.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Educational Content -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Understanding Aspect Ratio</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 italic">
+                                Aspect ratio represents the proportional relationship between a shape's width and its height. It is commonly expressed as two numbers separated by a colon, like 16:9. Regardless of the actual size (pixels, inches, centimeters), the ratio stays the same.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic">Consistency</div>
+                                    <div class="font-bold">Perfect Scaling</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic">Precision</div>
+                                    <div class="font-bold">GCD Algorithm</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest">Designed for Professionals</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Bidirectional Resizing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Lock the ratio to calculate height from width or width from height. Perfect for preparing image assets.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Smart Ratio Discovery</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Automatically finds the simplest whole-number ratio (like 16:9) using a mathematically precise GCD algorithm.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter">Ratio FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">What is the aspect ratio of 1920x1080?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                1920x1080 is exactly <strong>16:9</strong>. This is the standard aspect ratio for high-definition video, monitors, and television screens.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">How do I calculate a custom aspect ratio?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                To find any ratio, divide the width by the height. For example, if your width is 1000 and height is 500, the ratio is 2 (or 2:1). Our tool also provides the simplest fractional form automatically.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Aspect Ratio Logic ===
+        const widthInput = document.getElementById('width-input');
+        const heightInput = document.getElementById('height-input');
+        const ratioWInput = document.getElementById('ratio-w');
+        const ratioHInput = document.getElementById('ratio-h');
+        const lockBtn = document.getElementById('lock-btn');
+        const lockIcon = document.getElementById('lock-icon');
+        const lockPath = document.getElementById('lock-path');
+        const visualBox = document.getElementById('visual-box');
+        const visualContainer = document.getElementById('visual-container');
+        const visualLabel = document.getElementById('visual-label');
+        const labelW = document.getElementById('label-w');
+        const labelH = document.getElementById('label-h');
+        const simpleRatioEl = document.getElementById('simple-ratio');
+        const decimalRatioEl = document.getElementById('decimal-ratio');
+
+        let isLocked = true;
+        let activeRatio = 16 / 9;
+
+        function gcd(a, b) {
+            return b ? gcd(b, a % b) : a;
+        }
+
+        function updateRatiosFromDimensions() {
+            const w = parseFloat(widthInput.value) || 1;
+            const h = parseFloat(heightInput.value) || 1;
+            
+            const common = gcd(w, h);
+            const sw = w / common;
+            const sh = h / common;
+            
+            ratioWInput.value = sw;
+            ratioHInput.value = sh;
+            activeRatio = w / h;
+            
+            updateVisuals();
+        }
+
+        function updateDimensionsFromRatio(source) {
+            const rw = parseFloat(ratioWInput.value) || 1;
+            const rh = parseFloat(ratioHInput.value) || 1;
+            activeRatio = rw / rh;
+
+            if (source === 'width') {
+                const w = parseFloat(widthInput.value) || 1;
+                heightInput.value = Math.round(w / activeRatio);
+            } else {
+                const h = parseFloat(heightInput.value) || 1;
+                widthInput.value = Math.round(h * activeRatio);
+            }
+            updateVisuals();
+        }
+
+        function updateVisuals() {
+            const w = parseFloat(widthInput.value) || 1;
+            const h = parseFloat(heightInput.value) || 1;
+            const rw = parseFloat(ratioWInput.value) || 1;
+            const rh = parseFloat(ratioHInput.value) || 1;
+
+            // Simple Ratio (GCD)
+            const common = gcd(Math.round(w), Math.round(h));
+            const sw = Math.round(w) / common;
+            const sh = Math.round(h) / common;
+            
+            simpleRatioEl.textContent = `${sw} : ${sh}`;
+            decimalRatioEl.textContent = (w / h).toFixed(3);
+            visualLabel.textContent = `${sw}:${sh}`;
+            labelW.textContent = `${Math.round(w)}px`;
+            labelH.textContent = `${Math.round(h)}px`;
+
+            // Visual Box Scale
+            const containerWidth = visualContainer.clientWidth - 100;
+            const containerHeight = visualContainer.clientHeight - 100;
+            const containerRatio = containerWidth / containerHeight;
+            const boxRatio = w / h;
+
+            let finalW, finalH;
+            if (boxRatio > containerRatio) {
+                finalW = containerWidth;
+                finalH = containerWidth / boxRatio;
+            } else {
+                finalH = containerHeight;
+                finalW = containerHeight * boxRatio;
+            }
+
+            visualBox.style.width = `${finalW}px`;
+            visualBox.style.height = `${finalH}px`;
+        }
+
+        // Event Listeners
+        widthInput.addEventListener('input', () => {
+            if (isLocked) {
+                const rw = parseFloat(ratioWInput.value) || 1;
+                const rh = parseFloat(ratioHInput.value) || 1;
+                heightInput.value = Math.round(parseFloat(widthInput.value) / (rw / rh));
+            } else {
+                updateRatiosFromDimensions();
+            }
+            updateVisuals();
+        });
+
+        heightInput.addEventListener('input', () => {
+            if (isLocked) {
+                const rw = parseFloat(ratioWInput.value) || 1;
+                const rh = parseFloat(ratioHInput.value) || 1;
+                widthInput.value = Math.round(parseFloat(heightInput.value) * (rw / rh));
+            } else {
+                updateRatiosFromDimensions();
+            }
+            updateVisuals();
+        });
+
+        [ratioWInput, ratioHInput].forEach(el => {
+            el.addEventListener('input', () => {
+                updateDimensionsFromRatio('width');
+            });
+        });
+
+        lockBtn.addEventListener('click', () => {
+            isLocked = !isLocked;
+            lockIcon.classList.toggle('text-blue-500', isLocked);
+            lockIcon.classList.toggle('text-slate-400', !isLocked);
+            lockPath.setAttribute('d', isLocked 
+                ? 'M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z' 
+                : 'M8 11V7a4 4 0 118 0m4 4H5M6.633 19a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2H6.633a2 2 0 00-2 2v6a2 2 0 002 2z');
+        });
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                ratioWInput.value = btn.dataset.w;
+                ratioHInput.value = btn.dataset.h;
+                updateDimensionsFromRatio('width');
+                
+                document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active-preset'));
+                btn.classList.add('active-preset');
+            });
+        });
+
+        window.addEventListener('resize', updateVisuals);
+
+        // Init
+        updateVisuals();
+
+    </script>
+</body>
+</html>
+

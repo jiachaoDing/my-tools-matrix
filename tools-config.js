@@ -13,27 +13,32 @@ const toolsConfig = {
                 {
                     name: 'HEIC to JPG Converter',
                     description: 'Convert HEIC images to JPG locally.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/heic-to-jpg/'
                 },
                 {
                     name: 'PNG to JPG Converter',
                     description: 'Convert PNG images to JPG format.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/png-to-jpg/'
                 },
                 {
                     name: 'JPG to PNG Converter',
                     description: 'Convert JPG images to PNG format.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/jpg-to-png/'
                 },
                 {
                     name: 'WebP Converter',
                     description: 'Convert images to WebP format.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/webp-converter/'
                 },
                 {
                     name: 'Image Compressor',
                     description: 'Compress images using browser canvas.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/image-compressor/'
                 },
                 {
                     name: 'Image Resizer',
@@ -125,17 +130,20 @@ const toolsConfig = {
                 {
                     name: 'JSON to CSV',
                     description: 'Convert JSON data to CSV format.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/json-to-csv/'
                 },
                 {
                     name: 'CSV to JSON',
                     description: 'Convert CSV data to JSON format.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/csv-to-json/'
                 },
                 {
                     name: 'XML Formatter',
                     description: 'Format and validate XML data.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/xml-formatter/'
                 },
                 {
                     name: 'SQL Formatter',
@@ -251,67 +259,86 @@ const toolsConfig = {
                 {
                     name: 'Word Counter',
                     description: 'Count words, characters, and paragraphs.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/word-counter/'
                 },
                 {
                     name: 'Character Counter',
                     description: 'Count characters in text.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/character-counter/'
                 },
                 {
                     name: 'Case Converter',
                     description: 'Convert text case (upper/lower/camel).',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/case-converter/'
                 },
                 {
                     name: 'Remove Duplicate Lines',
                     description: 'Remove duplicate lines from text.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/remove-duplicate-lines/'
                 },
                 {
                     name: 'Sort Text Lines',
                     description: 'Sort lines of text alphabetically.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/sort-text/'
                 },
                 {
                     name: 'Find and Replace',
                     description: 'Search and replace text.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/find-and-replace/'
                 },
                 {
                     name: 'Reverse Text',
                     description: 'Reverse the order of text.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/reverse-text/'
                 },
                 {
                     name: 'Text to Binary',
                     description: 'Convert text to binary representation.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/text-to-binary/'
                 },
                 {
                     name: 'Binary to Text',
                     description: 'Convert binary to text.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/binary-to-text/'
                 },
                 {
                     name: 'ASCII Art Generator',
                     description: 'Convert images to ASCII art.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/ascii-art-generator/'
                 },
                 {
                     name: 'Emoji Picker',
                     description: 'Browse and copy emojis.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/emoji-picker/'
+                },
+                {
+                    name: 'Special Symbols Picker',
+                    description: 'Browse and copy special symbols.',
+                    status: 'live',
+                    url: '/special-symbols-picker/'
                 },
                 {
                     name: 'Upside Down Text',
                     description: 'Flip text upside down.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/upside-down-text/'
                 },
                 {
                     name: 'Small Text Generator',
                     description: 'Generate small text fonts.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/small-text-generator/'
                 },
                 {
                     name: 'Invisible Character',
@@ -355,73 +382,87 @@ const toolsConfig = {
                 },
                 {
                     name: 'Age Calculator',
-                    description: 'Calculate age in years, months, days.',
-                    status: 'coming-soon'
+                    description: 'Calculate your exact age in years, months, and days.',
+                    status: 'live',
+                    url: '/age-calculator/'
                 },
                 {
                     name: 'Date Difference Calculator',
-                    description: 'Calculate days between dates.',
-                    status: 'coming-soon'
+                    description: 'Calculate the exact number of days, months, and years between two dates.',
+                    status: 'live',
+                    url: '/days-between-dates/'
                 },
                 {
                     name: 'Time Zone Converter',
-                    description: 'Convert time between time zones.',
-                    status: 'coming-soon'
+                    description: 'Convert time between multiple world locations instantly.',
+                    status: 'live',
+                    url: '/time-zone-converter/'
                 },
                 {
                     name: 'Unix Timestamp Converter',
-                    description: 'Convert between Unix timestamps and dates.',
-                    status: 'coming-soon'
+                    description: 'Convert between Unix timestamps and human-readable dates.',
+                    status: 'live',
+                    url: '/unix-timestamp/'
                 },
                 {
                     name: 'Stopwatch & Timer',
-                    description: 'Online stopwatch and countdown timer.',
-                    status: 'coming-soon'
+                    description: 'Professional online stopwatch and countdown timer.',
+                    status: 'live',
+                    url: '/online-stopwatch/'
                 },
                 {
                     name: 'Pomodoro Timer',
-                    description: 'Focus timer for productivity.',
-                    status: 'coming-soon'
+                    description: 'Science-backed focus timer for improved productivity.',
+                    status: 'live',
+                    url: '/pomodoro-timer/'
                 },
                 {
                     name: 'Discount Calculator',
-                    description: 'Calculate discounts and savings.',
-                    status: 'coming-soon'
+                    description: 'Calculate savings and final prices instantly.',
+                    status: 'live',
+                    url: '/discount-calculator/'
                 },
                 {
                     name: 'Sales Tax Calculator',
                     description: 'Calculate sales tax amounts.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/sales-tax-calculator/'
                 },
                 {
                     name: 'Tip Calculator',
                     description: 'Calculate tips and split bills.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/tip-calculator/'
                 },
                 {
                     name: 'Percentage Calculator',
                     description: 'Calculate percentages and ratios.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/percentage-calculator/'
                 },
                 {
                     name: 'Loan Calculator',
                     description: 'Calculate loan payments and interest.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/loan-calculator/'
                 },
                 {
                     name: 'CPM Calculator',
                     description: 'Calculate CPM and advertising costs.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/cpm-calculator/'
                 },
                 {
                     name: 'Aspect Ratio Calculator',
                     description: 'Calculate aspect ratios and dimensions.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/aspect-ratio-calculator/'
                 },
                 {
                     name: 'Download Time Calculator',
                     description: 'Calculate download times and speeds.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/download-time-calculator/'
                 }
             ]
         },
@@ -432,7 +473,8 @@ const toolsConfig = {
                 {
                     name: 'Merge PDF',
                     description: 'Combine multiple PDF files.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/merge-pdf/'
                 },
                 {
                     name: 'Split PDF',

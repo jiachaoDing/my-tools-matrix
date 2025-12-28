@@ -3,22 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Body Fat Calculator - Free, Secure & Unlimited | WebUtilityKit</title>
-    <meta name="description" content="Calculate your body fat percentage using the U.S. Navy method. Supports Metric and Imperial units. 100% client-side, private, and free.">
+    <title>Body Fat Calculator - U.S. Navy Method | WebUtilityKit</title>
+    <meta name="description" content="Calculate your body fat percentage using the U.S. Navy method. Scientific accuracy with metric and imperial support. 100% private and secure.">
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
-        tailwind.config = { darkMode: 'class' };
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
     </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
+            }
+            .input-label { 
+                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
+            }
+            .tab-btn { 
+                @apply flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300; 
+            }
+            .active-tab { 
+                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400; 
+            }
+            .inactive-tab { 
+                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300; 
+            }
+            .unit-badge { 
+                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
-    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
         <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
             <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
                 WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
             </a>
             <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
-                <span class="hidden sm:inline">100% privacy-first tools</span>
-                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition" aria-label="Toggle dark mode">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                     <span id="theme-icon">🌗</span>
                     <span class="hidden sm:inline">Toggle theme</span>
                 </button>
@@ -26,138 +68,279 @@
         </nav>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">Body Fat Calculator</h1>
-        <p class="text-center text-slate-600 dark:text-slate-400 mb-6 text-lg">Estimate your body fat percentage using the U.S. Navy fitness formula.</p>
-
-        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                <path d="M9 12l2 2 4-4"></path>
-            </svg>
-            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Body Fat Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Estimate your body fat percentage using the scientific U.S. Navy Method. Highly accurate without expensive scans.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
         </div>
 
-        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
-            <div class="grid lg:grid-cols-2 gap-12">
-                <!-- Input Section -->
-                <div class="space-y-6">
-                    <div class="flex p-1 bg-slate-100 dark:bg-slate-900 rounded-xl">
-                        <button id="unit-metric" class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400">Metric (cm)</button>
-                        <button id="unit-imperial" class="flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200">Imperial (in)</button>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="space-y-2">
-                            <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Gender</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <label class="flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 cursor-pointer transition-all hover:border-blue-300">
-                                    <input type="radio" name="gender" value="male" checked class="accent-blue-600">
-                                    <span class="font-medium">Male</span>
-                                </label>
-                                <label class="flex items-center justify-center gap-2 p-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 cursor-pointer transition-all hover:border-blue-300">
-                                    <input type="radio" name="gender" value="female" class="accent-blue-600">
-                                    <span class="font-medium">Female</span>
-                                </label>
-                            </div>
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Inputs (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-6 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="unit-metric" class="tab-btn active-tab">Metric (cm/kg)</button>
+                            <button id="unit-imperial" class="tab-btn inactive-tab ml-1">Imperial (in/lb)</button>
                         </div>
 
                         <div class="space-y-4">
-                            <div class="space-y-2">
-                                <label for="weight" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Weight (<span id="weight-unit">kg</span>)</label>
-                                <input type="number" id="weight" placeholder="75" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                            <div>
+                                <label class="input-label">Gender</label>
+                                <div class="flex gap-4">
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="male" checked class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">Male</div>
+                                    </label>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="female" class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">Female</div>
+                                    </label>
+                                </div>
                             </div>
-                            <div class="space-y-2">
-                                <label for="height" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Height (<span class="unit-text">cm</span>)</label>
-                                <input type="number" id="height" placeholder="175" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="input-label">Height</label>
+                                    <div class="relative group">
+                                        <input type="number" id="height-input" value="175" class="custom-input">
+                                        <span class="unit-badge unit-height">cm</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="input-label">Neck</label>
+                                    <div class="relative group">
+                                        <input type="number" id="neck-input" value="38" class="custom-input">
+                                        <span class="unit-badge unit-height">cm</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="space-y-2">
-                                <label for="neck" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Neck (<span class="unit-text">cm</span>)</label>
-                                <input type="number" id="neck" placeholder="38" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+
+                            <div>
+                                <label class="input-label">Waist</label>
+                                <div class="relative group">
+                                    <input type="number" id="waist-input" value="85" class="custom-input">
+                                    <span class="unit-badge unit-height">cm</span>
+                                </div>
                             </div>
-                            <div class="space-y-2">
-                                <label for="waist" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Waist (<span class="unit-text">cm</span>)</label>
-                                <input type="number" id="waist" placeholder="85" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+
+                            <div id="hip-container" class="hidden">
+                                <label class="input-label">Hip (Women only)</label>
+                                <div class="relative group">
+                                    <input type="number" id="hip-input" value="95" class="custom-input">
+                                    <span class="unit-badge unit-height">cm</span>
+                                </div>
                             </div>
-                            <div id="hip-container" class="space-y-2 hidden">
-                                <label for="hip" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Hip (<span class="unit-text">cm</span>)</label>
-                                <input type="number" id="hip" placeholder="95" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+
+                            <div>
+                                <label class="input-label">Weight (Optional)</label>
+                                <div class="relative group">
+                                    <input type="number" id="weight-input" value="75" class="custom-input">
+                                    <span class="unit-badge unit-weight">kg</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                    <button id="calculate-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow-lg shadow-blue-500/20 active:scale-[0.98] transition-all">Calculate Body Fat</button>
                 </div>
 
-                <!-- Result Section -->
-                <div class="flex flex-col justify-center items-center text-center p-8 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 min-h-[350px]">
-                    <div id="result-placeholder" class="text-slate-400">
-                        <svg class="w-16 h-16 mx-auto mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                        </svg>
-                        <p>Enter your measurements to see results</p>
-                    </div>
-
-                    <div id="result-display" class="hidden space-y-6 w-full">
-                        <div>
-                            <p class="text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Estimated Body Fat</p>
-                            <h2 id="fat-value" class="text-6xl font-black text-blue-600 dark:text-blue-400 my-2">15.5%</h2>
-                            <p id="fat-status" class="text-xl font-bold text-slate-800 dark:text-white">Fitness</p>
-                        </div>
-
-                        <!-- Info Grid -->
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mb-1 uppercase font-bold">Fat Mass</p>
-                                <p id="fat-mass" class="text-lg font-bold text-slate-800 dark:text-white">--</p>
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">Calculated Results</label>
+                        
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                            <!-- Large BF% Result -->
+                            <div class="text-center relative">
+                                <div id="bf-result" class="text-8xl font-black text-slate-900 dark:text-white leading-none">18.4<span class="text-4xl text-blue-500">%</span></div>
+                                <div class="text-sm font-bold text-slate-400 uppercase mt-4 tracking-widest">Body Fat Percentage</div>
+                                <!-- Visual Gauge Sub-indicator -->
+                                <div class="w-64 h-2 bg-slate-100 dark:bg-slate-900/50 rounded-full mt-6 mx-auto overflow-hidden">
+                                    <div id="bf-progress" class="h-full bg-blue-500 transition-all duration-1000" style="width: 18.4%"></div>
+                                </div>
                             </div>
-                            <div class="p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mb-1 uppercase font-bold">Lean Mass</p>
-                                <p id="lean-mass" class="text-lg font-bold text-slate-800 dark:text-white">--</p>
-                            </div>
-                        </div>
 
-                        <div id="fat-tip" class="p-4 rounded-xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50 text-sm text-blue-800 dark:text-blue-200 text-left">
-                            --
+                            <div id="category-badge" class="px-8 py-4 rounded-3xl font-bold text-xl transition-all duration-500 bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
+                                Fitness Category
+                            </div>
+
+                            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">Lean Body Mass</div>
+                                    <div id="lean-mass" class="text-2xl font-bold text-slate-800 dark:text-white">61.2 kg</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">Body Fat Mass</div>
+                                    <div id="fat-mass" class="text-2xl font-bold text-slate-800 dark:text-white">13.8 kg</div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="w-full p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-900/20">
+                                <div class="flex gap-4">
+                                    <div class="text-blue-500">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p id="health-tip" class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        Your body fat is in the ideal fitness range. This is associated with good cardiovascular health and athletic performance.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
-            Advertisement Space
-        </div>
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to get an accurate measurement</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Neck Measurement</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Measure just below the Adam's apple for men, or the narrowest part for women. Keep the tape level.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Waist & Hips</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Measure at the navel for men. Women should measure the narrowest part of the waist and the widest part of the hips.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input & Analyze</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Enter your values into the calculator. We'll use the U.S. Navy formula to provide your estimate instantly.</p>
+                        </div>
+                    </div>
+                </section>
 
-        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
-            <h2>How to use the Body Fat Calculator</h2>
-            <ol>
-                <li>Choose your unit system (Metric or Imperial) and select your gender.</li>
-                <li>Measure your height, neck, and waist circumference (at the navel for men, at the narrowest point for women).</li>
-                <li><strong>For women:</strong> also measure your hip circumference at the widest point.</li>
-                <li>Enter the values and click <strong>Calculate Body Fat</strong> to see your estimate.</li>
-            </ol>
-            <h2>Features</h2>
-            <ul>
-                <li><strong>U.S. Navy Method:</strong> Uses the scientifically validated formula developed by the U.S. Navy for fitness assessments.</li>
-                <li><strong>Gender-Specific:</strong> Tailored calculations for both men and women to account for biological differences in fat distribution.</li>
-                <li><strong>Metric & Imperial:</strong> Seamlessly switch between centimeters and inches.</li>
-                <li><strong>100% Private:</strong> All calculations happen in your browser. Your measurements never leave your device.</li>
-                <li><strong>Instant Breakdown:</strong> Shows your fat mass, lean mass, and overall fitness category.</li>
-            </ul>
-            <h2>FAQ</h2>
-            <h3>What is a healthy body fat percentage?</h3>
-            <p>Healthy ranges vary by gender and age. Generally, for men, 14-24% is considered fit/healthy. For women, 21-31% is considered fit/healthy. Athletes may have much lower percentages.</p>
-            <h3>How accurate is the Navy Method?</h3>
-            <p>While not as accurate as a DXA scan or hydrostatic weighing, the Navy Method is surprisingly reliable (typically within 3-4% accuracy) for most people when measurements are taken precisely.</p>
-            <h3>Where should I measure?</h3>
-            <p>Measure on bare skin with a flexible tape. <strong>Neck:</strong> Just below the larynx. <strong>Waist:</strong> At the navel for men, at the narrowest point for women. <strong>Hips (Women only):</strong> At the widest point.</p>
-            <h3>Does this work for athletes?</h3>
-            <p>Athletes with high muscle mass may find this method slightly overestimates fat, as it doesn't account for extreme muscle density.</p>
-        </article>
+                <!-- Section 2: Why the Navy Method? -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">The Science of Circumference</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                Developed by the U.S. Navy Health Research Center, this method is one of the most reliable ways to estimate body fat without expensive equipment like DXA scans or hydrostatic weighing. It uses simple tape measurements to calculate body density with surprising accuracy.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Method</div>
+                                    <div class="font-bold">U.S. Navy Standard</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Accuracy</div>
+                                    <div class="font-bold">+/- 3-4% Variance</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Ideal Body Fat Chart -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Body Fat Classifications (ACE)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">Men</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Essential Fat</span>
+                                    <span class="font-bold text-slate-400">2 - 5%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Athletes</span>
+                                    <span class="font-bold text-green-500">6 - 13%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                    <span class="font-medium">Fitness</span>
+                                    <span class="font-bold text-blue-500">14 - 17%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">Average</span>
+                                    <span class="font-bold text-orange-500">18 - 24%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">Obese</span>
+                                    <span class="font-bold text-red-500">25%+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-pink-600 mb-6">Women</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Essential Fat</span>
+                                    <span class="font-bold text-slate-400">10 - 13%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Athletes</span>
+                                    <span class="font-bold text-green-500">14 - 20%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                    <span class="font-medium">Fitness</span>
+                                    <span class="font-bold text-blue-500">21 - 24%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">Average</span>
+                                    <span class="font-bold text-orange-500">25 - 31%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">Obese</span>
+                                    <span class="font-bold text-red-500">32%+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">When should I measure?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                For consistency, measure in the morning after waking up and using the bathroom, but before eating. Your body water content changes throughout the day, which can affect measurements slightly.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How accurate is this method?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                While no formula is perfect, the Navy method is widely considered the most accurate "tape measurement" method. It typically stays within 3-4% of expensive DEXA scan results, making it an excellent tool for tracking progress over time.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
     </main>
 
-    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
         <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div>&copy; 2025 WebUtilityKit.com</div>
             <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
@@ -165,144 +348,162 @@
     </footer>
 
     <script>
-        // === Dark Mode Logic ===
+        // === Theme Logic ===
         const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const storedTheme = localStorage.getItem('wuk-theme');
-        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
-
-        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
-        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
-
-        themeToggle.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
-            themeIcon.textContent = isDark ? '🌙' : '☀️';
-        });
-
-        // === Tool Logic ===
-        const btnMetric = document.getElementById('unit-metric');
-        const btnImperial = document.getElementById('unit-imperial');
-        const unitTexts = document.querySelectorAll('.unit-text');
-        const calculateBtn = document.getElementById('calculate-btn');
-        const resultPlaceholder = document.getElementById('result-placeholder');
-        const resultDisplay = document.getElementById('result-display');
-        const fatValue = document.getElementById('fat-value');
-        const fatStatus = document.getElementById('fat-status');
-        const fatMassText = document.getElementById('fat-mass');
-        const leanMassText = document.getElementById('lean-mass');
-        const fatTip = document.getElementById('fat-tip');
-        const hipContainer = document.getElementById('hip-container');
-
-        const weightUnitText = document.getElementById('weight-unit');
-        const weightInput = document.getElementById('weight');
-
-        let currentUnit = 'metric';
-
-        // Listen for gender change to show/hide hip input
-        document.querySelectorAll('input[name="gender"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                if (e.target.value === 'female') {
-                    hipContainer.classList.remove('hidden');
-                } else {
-                    hipContainer.classList.add('hidden');
-                }
-            });
-        });
-
-        btnMetric.addEventListener('click', () => {
-            currentUnit = 'metric';
-            btnMetric.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400';
-            btnImperial.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
-            unitTexts.forEach(el => el.textContent = 'cm');
-            weightUnitText.textContent = 'kg';
-        });
-
-        btnImperial.addEventListener('click', () => {
-            currentUnit = 'imperial';
-            btnImperial.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400';
-            btnMetric.className = 'flex-1 py-2 px-4 rounded-lg text-sm font-bold transition-all text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200';
-            unitTexts.forEach(el => el.textContent = 'in');
-            weightUnitText.textContent = 'lb';
-        });
-
-        calculateBtn.addEventListener('click', () => {
-            const gender = document.querySelector('input[name="gender"]:checked').value;
-            let weight = parseFloat(weightInput.value);
-            let height = parseFloat(document.getElementById('height').value);
-            let neck = parseFloat(document.getElementById('neck').value);
-            let waist = parseFloat(document.getElementById('waist').value);
-            let hip = parseFloat(document.getElementById('hip').value) || 0;
-
-            if (!weight || !height || !neck || !waist || (gender === 'female' && !hip)) {
-                alert('Please enter all required measurements.');
-                return;
-            }
-
-            // Convert to metric for formula if imperial
-            const h = currentUnit === 'metric' ? height : height * 2.54;
-            const w = currentUnit === 'metric' ? waist : waist * 2.54;
-            const n = currentUnit === 'metric' ? neck : neck * 2.54;
-            const hp = currentUnit === 'metric' ? hip : hip * 2.54;
-
-            let bodyFat = 0;
-            if (gender === 'male') {
-                bodyFat = 495 / (1.0324 - 0.19077 * Math.log10(w - n) + 0.15456 * Math.log10(h)) - 450;
-            } else {
-                bodyFat = 495 / (1.29579 - 0.35004 * Math.log10(w + hp - n) + 0.22100 * Math.log10(h)) - 450;
-            }
-
-            if (bodyFat > 0) {
-                showResult(bodyFat, gender, weight);
-            } else {
-                alert('Calculation error. Please check your measurements.');
-            }
-        });
-
-        function showResult(fat, gender, weight) {
-            resultPlaceholder.classList.add('hidden');
-            resultDisplay.classList.remove('hidden');
-            
-            fatValue.textContent = `${fat.toFixed(1)}%`;
-
-            let status = '';
-            let color = '';
-            let tip = '';
-
-            if (gender === 'male') {
-                if (fat < 6) { status = 'Essential Fat'; color = 'text-blue-500'; }
-                else if (fat < 14) { status = 'Athletes'; color = 'text-green-500'; }
-                else if (fat < 18) { status = 'Fitness'; color = 'text-green-600'; }
-                else if (fat < 25) { status = 'Acceptable'; color = 'text-yellow-500'; }
-                else { status = 'Obese'; color = 'text-red-500'; }
-            } else {
-                if (fat < 14) { status = 'Essential Fat'; color = 'text-blue-500'; }
-                else if (fat < 21) { status = 'Athletes'; color = 'text-green-500'; }
-                else if (fat < 25) { status = 'Fitness'; color = 'text-green-600'; }
-                else if (fat < 32) { status = 'Acceptable'; color = 'text-yellow-500'; }
-                else { status = 'Obese'; color = 'text-red-500'; }
-            }
-
-            fatStatus.textContent = status;
-            fatStatus.className = `text-xl font-bold ${color}`;
-            fatValue.className = `text-6xl font-black ${color} my-2`;
-            
-            const fatMass = (fat / 100) * weight;
-            const leanMass = weight - fatMass;
-            const unit = currentUnit === 'metric' ? 'kg' : 'lb';
-
-            fatMassText.textContent = `${fatMass.toFixed(1)} ${unit}`;
-            leanMassText.textContent = `${leanMass.toFixed(1)} ${unit}`;
-
-            tip = `Your body fat is estimated at ${fat.toFixed(1)}%. For a ${gender}, this level is categorized as <strong>${status}</strong>. `;
-            if (status === 'Obese' || status === 'Acceptable') {
-                tip += "Consider a balanced diet and regular cardiovascular exercise to maintain optimal health.";
-            } else {
-                tip += "Keep maintaining your current fitness and nutrition routine.";
-            }
-            fatTip.innerHTML = tip;
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
         }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Body Fat Calculator Logic ===
+        const unitMetric = document.getElementById('unit-metric');
+        const unitImperial = document.getElementById('unit-imperial');
+        const heightInput = document.getElementById('height-input');
+        const neckInput = document.getElementById('neck-input');
+        const waistInput = document.getElementById('waist-input');
+        const hipInput = document.getElementById('hip-input');
+        const weightInput = document.getElementById('weight-input');
+        const hipContainer = document.getElementById('hip-container');
+        
+        const bfResult = document.getElementById('bf-result');
+        const bfProgress = document.getElementById('bf-progress');
+        const categoryBadge = document.getElementById('category-badge');
+        const leanMassDisplay = document.getElementById('lean-mass');
+        const fatMassDisplay = document.getElementById('fat-mass');
+        const healthTip = document.getElementById('health-tip');
+
+        let isMetric = true;
+
+        function updateUIUnits() {
+            const heightUnits = document.querySelectorAll('.unit-height');
+            const weightUnits = document.querySelectorAll('.unit-weight');
+            
+            if (isMetric) {
+                heightUnits.forEach(u => u.textContent = 'cm');
+                weightUnits.forEach(u => u.textContent = 'kg');
+                unitMetric.classList.add('active-tab');
+                unitMetric.classList.remove('inactive-tab');
+                unitImperial.classList.remove('active-tab');
+                unitImperial.classList.add('inactive-tab');
+            } else {
+                heightUnits.forEach(u => u.textContent = 'in');
+                weightUnits.forEach(u => u.textContent = 'lb');
+                unitImperial.classList.add('active-tab');
+                unitImperial.classList.remove('inactive-tab');
+                unitMetric.classList.remove('active-tab');
+                unitMetric.classList.add('inactive-tab');
+            }
+            calculateBF();
+        }
+
+        unitMetric.addEventListener('click', () => {
+            if (!isMetric) {
+                isMetric = true;
+                // Convert values
+                heightInput.value = (parseFloat(heightInput.value) * 2.54).toFixed(1);
+                neckInput.value = (parseFloat(neckInput.value) * 2.54).toFixed(1);
+                waistInput.value = (parseFloat(waistInput.value) * 2.54).toFixed(1);
+                hipInput.value = (parseFloat(hipInput.value) * 2.54).toFixed(1);
+                weightInput.value = (parseFloat(weightInput.value) / 2.20462).toFixed(1);
+                updateUIUnits();
+            }
+        });
+
+        unitImperial.addEventListener('click', () => {
+            if (isMetric) {
+                isMetric = false;
+                // Convert values
+                heightInput.value = (parseFloat(heightInput.value) / 2.54).toFixed(1);
+                neckInput.value = (parseFloat(neckInput.value) / 2.54).toFixed(1);
+                waistInput.value = (parseFloat(waistInput.value) / 2.54).toFixed(1);
+                hipInput.value = (parseFloat(hipInput.value) / 2.54).toFixed(1);
+                weightInput.value = (parseFloat(weightInput.value) * 2.20462).toFixed(1);
+                updateUIUnits();
+            }
+        });
+
+        function calculateBF() {
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            let height = parseFloat(heightInput.value) || 0;
+            let neck = parseFloat(neckInput.value) || 0;
+            let waist = parseFloat(waistInput.value) || 0;
+            let hip = parseFloat(hipInput.value) || 0;
+            let weight = parseFloat(weightInput.value) || 0;
+
+            if (height <= 0 || neck <= 0 || waist <= 0) return;
+
+            // Normalize to metric for formula
+            let h = isMetric ? height : height * 2.54;
+            let n = isMetric ? neck : neck * 2.54;
+            let w = isMetric ? waist : waist * 2.54;
+            let hp = isMetric ? hip : hip * 2.54;
+
+            let bf = 0;
+            if (gender === 'male') {
+                hipContainer.classList.add('hidden');
+                // Male formula
+                bf = 495 / (1.0324 - 0.19077 * Math.log10(w - n) + 0.15456 * Math.log10(h)) - 450;
+            } else {
+                hipContainer.classList.remove('hidden');
+                // Female formula
+                bf = 495 / (1.29579 - 0.35004 * Math.log10(w + hp - n) + 0.22100 * Math.log10(h)) - 450;
+            }
+
+            bf = Math.max(0, bf);
+            bfResult.innerHTML = `${bf.toFixed(1)}<span class="text-4xl text-blue-500">%</span>`;
+            bfProgress.style.width = `${Math.min(100, bf)}%`;
+
+            updateCategory(bf, gender);
+            
+            if (weight > 0) {
+                const fatMass = (weight * (bf / 100)).toFixed(1);
+                const leanMass = (weight - fatMass).toFixed(1);
+                const weightUnit = isMetric ? 'kg' : 'lb';
+                fatMassDisplay.textContent = `${fatMass} ${weightUnit}`;
+                leanMassDisplay.textContent = `${leanMass} ${weightUnit}`;
+            } else {
+                fatMassDisplay.textContent = '-';
+                leanMassDisplay.textContent = '-';
+            }
+        }
+
+        function updateCategory(bf, gender) {
+            let cat = "";
+            let color = "";
+            let tip = "";
+
+            if (gender === 'male') {
+                if (bf < 6) { cat = "Essential Fat"; color = "bg-slate-100 text-slate-600"; tip = "Your body fat is at essential levels. Professional athletes often maintain this range."; }
+                else if (bf < 14) { cat = "Athletes"; color = "bg-green-100 text-green-600"; tip = "Peak physical condition. Ideal for performance and vascularity."; }
+                else if (bf < 18) { cat = "Fitness"; color = "bg-blue-100 text-blue-600"; tip = "A very healthy and lean athletic look. Associated with great longevity."; }
+                else if (bf < 25) { cat = "Average"; color = "bg-orange-100 text-orange-600"; tip = "The average range for most men. Healthy, but with room for improvement."; }
+                else { cat = "Obese"; color = "bg-red-100 text-red-600"; tip = "Higher risk for cardiovascular issues. Consider a guided nutrition plan."; }
+            } else {
+                if (bf < 14) { cat = "Essential Fat"; color = "bg-slate-100 text-slate-600"; tip = "Your body fat is at essential levels. Women naturally require more body fat for hormonal health."; }
+                else if (bf < 21) { cat = "Athletes"; color = "bg-green-100 text-green-600"; tip = "Excellent fitness level. Common among highly active women and athletes."; }
+                else if (bf < 25) { cat = "Fitness"; color = "bg-blue-100 text-blue-600"; tip = "Defined as fit and healthy. Great balance of health and appearance."; }
+                else if (bf < 32) { cat = "Average"; color = "bg-orange-100 text-orange-600"; tip = "Healthy range for most women. Within normal biological variations."; }
+                else { cat = "Obese"; color = "bg-red-100 text-red-600"; tip = "Increased health risks. Consult a professional for body composition management."; }
+            }
+
+            categoryBadge.textContent = cat;
+            categoryBadge.className = `px-8 py-4 rounded-3xl font-bold text-xl transition-all duration-500 ${color}`;
+            healthTip.textContent = tip;
+        }
+
+        [heightInput, neckInput, waistInput, hipInput, weightInput].forEach(el => el.addEventListener('input', calculateBF));
+        document.querySelectorAll('input[name="gender"]').forEach(el => el.addEventListener('change', calculateBF));
+
+        // Init
+        updateUIUnits();
+
     </script>
 </body>
 </html>

@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Text Lines - Alphabetical, Numeric & Natural Sort | WebUtilityKit</title>
+    <meta name="description" content="Free online text sorting tool. Sort lists alphabetically, numerically, by length, or randomly. Supports natural sorting and custom delimiters. 100% private.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .pane-container {
+                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
+            }
+            .input-area {
+                @apply flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all;
+            }
+            .sort-btn {
+                @apply flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent;
+            }
+            .sort-btn-primary {
+                @apply bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20;
+            }
+            .sort-btn-secondary {
+                @apply bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800;
+            }
+            .drop-zone {
+                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
+            }
+            .drop-zone.drag-over {
+                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Sort Text Lines</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Organize your data exactly how you need it. Intelligent sorting algorithms for any type of list.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="pane-container">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Input List</label>
+                            <div class="flex gap-2">
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700">Paste</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear</button>
+                            </div>
+                        </div>
+                        <textarea id="text-input" class="input-area" placeholder="Enter your list here..."></textarea>
+                        
+                        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <button onclick="sortText('asc')" class="sort-btn sort-btn-primary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                A to Z
+                            </button>
+                            <button onclick="sortText('desc')" class="sort-btn sort-btn-primary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4 4m0 0l4-4m-4 4v-12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Z to A
+                            </button>
+                            <button onclick="sortText('natural')" class="sort-btn sort-btn-secondary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Natural
+                            </button>
+                            <button onclick="sortText('numeric')" class="sort-btn sort-btn-secondary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Numeric
+                            </button>
+                            <button onclick="sortText('length')" class="sort-btn sort-btn-secondary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Length
+                            </button>
+                            <button onclick="sortText('random')" class="sort-btn sort-btn-secondary">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Random
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="pane-container">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sorted Result</label>
+                            <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">Copy Sorted List</button>
+                        </div>
+                        <textarea id="text-output" class="input-area" readonly placeholder="Sorted results will appear here..."></textarea>
+                        
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sorting Modifiers</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="case-sensitive" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer">
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Case Sensitive</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="reverse-order" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer">
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Reverse Order</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="remove-duplicates" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Remove Duplicates</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="ignore-whitespace" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Trim Each Line</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Mastering Your Lists</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Paste Content</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Input your list or text. Each item should be on a separate line for accurate processing.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Choose Logic</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Select from alphabetical, numerical, or natural sorting. You can also randomize or sort by line length.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Refine & Export</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Fine-tune with case sensitivity or reverse order modifiers, then copy your perfectly ordered list.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Sorting Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Structured Data, Superior Clarity</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                Unordered information is just noise. Our Intelligent Sorter uses advanced algorithms to find the hidden structure in your data—from natural language patterns to numerical sequences—helping you transform raw lists into actionable assets.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Standard</div>
+                                    <div class="font-bold">Natural Sort</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Privacy</div>
+                                    <div class="font-bold">In-Memory</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Sorting Algorithms Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Advanced Sorting Engines</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">Logical Styles</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Alphabetical</span>
+                                    <span class="font-bold text-blue-500">A to Z / Z to A</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Numeric</span>
+                                    <span class="font-bold text-green-500">Value-based</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">Natural</span>
+                                    <span class="font-bold text-orange-500">Human-like (v1 < v10)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">Structural Styles</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Line Length</span>
+                                    <span class="font-bold text-slate-400">Shortest to Longest</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500">
+                                    <span class="font-medium">Random</span>
+                                    <span class="font-bold text-purple-500">Shuffle Shuffle</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">Custom Delimiter</span>
+                                    <span class="font-bold text-red-500">Line-break Focus</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is "Natural Sorting"?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Standard alphabetical sorting treats strings character-by-character, meaning "File 10" comes before "File 2". Natural sorting handles multi-digit numbers as single values, placing "File 2" before "File 10", which is how humans expect to see them.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can it handle thousands of lines?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes. Our engine is highly optimized for performance and can process large lists efficiently using your browser's local resources. The only limit is your device's available memory.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is my list data secure?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                100%. All sorting happens entirely within your browser's memory. No data is ever sent to our servers or stored anywhere. Your lists remain completely private.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Sort Text Logic ===
+        const textInput = document.getElementById('text-input');
+        const textOutput = document.getElementById('text-output');
+        const caseSensitive = document.getElementById('case-sensitive');
+        const reverseOrder = document.getElementById('reverse-order');
+        const removeDuplicates = document.getElementById('remove-duplicates');
+        const ignoreWhitespace = document.getElementById('ignore-whitespace');
+
+        function sortText(type) {
+            let content = textInput.value;
+            if (!content) return;
+
+            let lines = content.split(/\r?\n/);
+
+            // Pre-processing
+            if (ignoreWhitespace.checked) {
+                lines = lines.map(line => line.trim());
+            }
+
+            if (removeDuplicates.checked) {
+                lines = [...new Set(lines)];
+            }
+
+            // Sorting Algorithms
+            switch (type) {
+                case 'asc':
+                    lines.sort((a, b) => {
+                        if (!caseSensitive.checked) {
+                            a = a.toLowerCase();
+                            b = b.toLowerCase();
+                        }
+                        return a.localeCompare(b);
+                    });
+                    break;
+                case 'desc':
+                    lines.sort((a, b) => {
+                        if (!caseSensitive.checked) {
+                            a = a.toLowerCase();
+                            b = b.toLowerCase();
+                        }
+                        return b.localeCompare(a);
+                    });
+                    break;
+                case 'numeric':
+                    lines.sort((a, b) => {
+                        const numA = parseFloat(a.replace(/[^0-9.-]/g, '')) || 0;
+                        const numB = parseFloat(b.replace(/[^0-9.-]/g, '')) || 0;
+                        return numA - numB;
+                    });
+                    break;
+                case 'natural':
+                    const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: caseSensitive.checked ? 'variant' : 'base' });
+                    lines.sort(collator.compare);
+                    break;
+                case 'length':
+                    lines.sort((a, b) => a.length - b.length);
+                    break;
+                case 'random':
+                    for (let i = lines.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [lines[i], lines[j]] = [lines[j], lines[i]];
+                    }
+                    break;
+            }
+
+            // Post-processing
+            if (reverseOrder.checked && type !== 'desc') {
+                lines.reverse();
+            }
+
+            textOutput.value = lines.join('\n');
+        }
+
+        // Action Listeners
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+            } catch (err) {
+                console.error('Failed to paste:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            textOutput.value = '';
+            textInput.focus();
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            if (!textOutput.value) return;
+            navigator.clipboard.writeText(textOutput.value).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

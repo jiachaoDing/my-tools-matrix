@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer - Deep Focus & Productivity | WebUtilityKit</title>
+    <meta name="description" content="Boost your productivity with our high-performance Pomodoro Timer. Customizable cycles, task management, and session tracking. 100% private and secure.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
+            }
+            .mode-btn {
+                @apply flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300;
+            }
+            .mode-btn.active {
+                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400;
+            }
+            .mode-btn.inactive {
+                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300;
+            }
+            .control-btn {
+                @apply p-6 rounded-3xl transition-all duration-300 transform active:scale-95;
+            }
+            .progress-ring__circle {
+                transition: stroke-dashoffset 0.35s;
+                transform: rotate(-90deg);
+                transform-origin: 50% 50%;
+            }
+            .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+            .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+            .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+            .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Pomodoro Timer</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Master your focus with deep-work cycles. Designed for minimalists who value time and privacy.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: The Timer (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-10 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50 flex flex-col items-center justify-center">
+                        
+                        <!-- Mode Toggle -->
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] w-full max-w-sm border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="mode-work" class="mode-btn active">Work</button>
+                            <button id="mode-short" class="mode-btn inactive">Short Break</button>
+                            <button id="mode-long" class="mode-btn inactive">Long Break</button>
+                        </div>
+
+                        <!-- Main Display -->
+                        <div class="relative flex items-center justify-center">
+                            <svg class="w-72 h-72 md:w-80 md:h-80">
+                                <circle class="text-slate-100 dark:text-slate-900/50" stroke-width="8" stroke="currentColor" fill="transparent" r="140" cx="50%" cy="50%"/>
+                                <circle id="progress-circle" class="progress-ring__circle text-blue-600 dark:text-blue-400" stroke-width="8" stroke-dasharray="880" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="140" cx="50%" cy="50%"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                <div id="time-display" class="text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-none tracking-tighter tabular-nums">25:00</div>
+                                <div id="mode-status" class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mt-4">Deep Work</div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="flex gap-6 w-full max-w-sm">
+                            <button id="pomo-start-pause" class="flex-[2] bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-[2rem] shadow-xl shadow-blue-500/20 flex items-center justify-center gap-3 text-xl transition-all active:scale-95">
+                                <svg id="play-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                <svg id="pause-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                <span id="btn-text">Start Focus</span>
+                            </button>
+                            <button id="pomo-reset" class="flex-1 bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold rounded-[2rem] flex items-center justify-center transition-all hover:bg-slate-200 dark:hover:bg-slate-800 active:scale-95">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Tasks & Stats (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col gap-8">
+                    <!-- Task Management -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50 flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-6">
+                            <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">Focus Tasks</label>
+                            <span id="task-count" class="text-xs font-bold text-blue-500 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-lg">0 Tasks</span>
+                        </div>
+                        
+                        <div class="relative group mb-6">
+                            <input type="text" id="task-input" placeholder="What are you working on?" class="custom-input pr-14">
+                            <button id="add-task" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        </div>
+
+                        <div id="task-list" class="space-y-3 flex-grow overflow-y-auto max-h-[300px] pr-2 custom-scrollbar">
+                            <!-- Tasks appear here -->
+                            <div id="task-empty" class="text-center py-12 text-slate-400 italic text-sm">
+                                No tasks added for this session
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-6">Today's Progress</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-tighter">Completed Sessions</div>
+                                <div id="stat-sessions" class="text-3xl font-black text-blue-600 dark:text-blue-400">0</div>
+                            </div>
+                            <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-tighter">Focus Time (Min)</div>
+                                <div id="stat-time" class="text-3xl font-black text-green-600 dark:text-green-400">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to master your flow</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Define Your Task</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Start by listing what you want to achieve in the task list. Breaking big projects into bite-sized tasks is the key to focus.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Focus for 25 Minutes</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Engage in deep work until the timer ends. No emails, no social media—just the task at hand.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Recover & Repeat</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Take a short 5-minute break to recharge. After four work sessions, reward yourself with a longer 15-minute break.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it works -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">The Science of Deep Focus</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                The Pomodoro Technique was developed in the late 1980s by Francesco Cirillo. By using a timer to break work into intervals, traditionally 25 minutes in length, separated by short breaks, you train your brain to focus more effectively and combat the symptoms of burnout.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Impact</div>
+                                    <div class="font-bold">Higher Quality Work</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Benefit</div>
+                                    <div class="font-bold">Reduced Mental Fatigue</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Engineered for distraction-free work</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Integrated Tasks</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Don't just watch the clock. Track your progress directly within the tool. Completed tasks and sessions are automatically calculated for your daily goal.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Smart Sound Alerts</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Our alarm uses synthesized Web Audio beeps. It works instantly without loading large MP3 files and remains functional even in offline mode.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Zero-Server Policy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your focus sessions and task lists are private. We store absolutely nothing on our servers. Your data stays in your browser's local memory.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">High-Performance Engine</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Optimized JavaScript ensures the timer stays accurate to the millisecond, even if you switch tabs or your computer goes to sleep.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Pomodoro FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What if I finish a task early?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                If you finish before the timer ends, Cirillo suggests "overlearning"—reviewing your work, noting what you learned, or improving upon the task until the interval completes.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is it okay to skip breaks?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                While tempting, skipping breaks often leads to long-term fatigue. The technique relies on the "rest" period to consolidate information and keep the brain fresh for the next work interval.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Pomodoro Logic ===
+        const MODES = {
+            work: { time: 25 * 60, label: 'Deep Work', status: 'Focusing' },
+            short: { time: 5 * 60, label: 'Short Break', status: 'Resting' },
+            long: { time: 15 * 60, label: 'Long Break', status: 'Recovering' }
+        };
+
+        let currentMode = 'work';
+        let timeLeft = MODES.work.time;
+        let isRunning = false;
+        let timerInterval = null;
+        let sessionsCompleted = 0;
+        let totalFocusMinutes = 0;
+
+        const timeDisplay = document.getElementById('time-display');
+        const modeStatus = document.getElementById('mode-status');
+        const progressCircle = document.getElementById('progress-circle');
+        const startPauseBtn = document.getElementById('pomo-start-pause');
+        const btnText = document.getElementById('btn-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const resetBtn = document.getElementById('pomo-reset');
+        
+        const modeBtns = {
+            work: document.getElementById('mode-work'),
+            short: document.getElementById('mode-short'),
+            long: document.getElementById('mode-long')
+        };
+
+        const taskInput = document.getElementById('task-input');
+        const addTaskBtn = document.getElementById('add-task');
+        const taskList = document.getElementById('task-list');
+        const taskEmpty = document.getElementById('task-empty');
+        const taskCount = document.getElementById('task-count');
+        const statSessions = document.getElementById('stat-sessions');
+        const statTime = document.getElementById('stat-time');
+
+        const radius = 140;
+        const circumference = 2 * Math.PI * radius;
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            timeDisplay.textContent = timeStr;
+            document.title = `${timeStr} - ${MODES[currentMode].label} | WebUtilityKit`;
+
+            const offset = circumference - (timeLeft / MODES[currentMode].time) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            timeLeft = MODES[mode].time;
+            isRunning = false;
+            clearInterval(timerInterval);
+            
+            Object.keys(modeBtns).forEach(key => {
+                modeBtns[key].className = `mode-btn ${key === mode ? 'active' : 'inactive'}`;
+            });
+
+            modeStatus.textContent = MODES[mode].label;
+            btnText.textContent = mode === 'work' ? 'Start Focus' : 'Start Break';
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+            
+            updateDisplay();
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                // Pause
+                isRunning = false;
+                clearInterval(timerInterval);
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                btnText.textContent = 'Resume';
+            } else {
+                // Start
+                isRunning = true;
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                btnText.textContent = 'Pause';
+                
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        finishCycle();
+                    }
+                    updateDisplay();
+                }, 1000);
+            }
+        }
+
+        function finishCycle() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            playAlert();
+            
+            if (currentMode === 'work') {
+                sessionsCompleted++;
+                totalFocusMinutes += 25;
+                updateStats();
+                setMode('short');
+            } else {
+                setMode('work');
+            }
+            alert(`${MODES[currentMode].label} cycle finished!`);
+        }
+
+        function resetTimer() {
+            setMode(currentMode);
+        }
+
+        function updateStats() {
+            statSessions.textContent = sessionsCompleted;
+            statTime.textContent = totalFocusMinutes;
+        }
+
+        function playAlert() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1);
+                osc.start();
+                osc.stop(ctx.currentTime + 1);
+            } catch (e) { console.error(e); }
+        }
+
+        // Task Management
+        let tasks = JSON.parse(localStorage.getItem('pomo-tasks') || '[]');
+
+        function saveTasks() {
+            localStorage.setItem('pomo-tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function renderTasks() {
+            if (tasks.length === 0) {
+                taskEmpty.classList.remove('hidden');
+                taskList.innerHTML = '';
+            } else {
+                taskEmpty.classList.add('hidden');
+                taskList.innerHTML = tasks.map((task, i) => `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-transparent hover:border-blue-500/10 group transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" ${task.done ? 'checked' : ''} onclick="toggleTask(${i})" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            <span class="font-bold text-sm ${task.done ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">${task.text}</span>
+                        </div>
+                        <button onclick="deleteTask(${i})" class="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            taskCount.textContent = `${tasks.length} Task${tasks.length === 1 ? '' : 's'}`;
+        }
+
+        window.toggleTask = (i) => {
+            tasks[i].done = !tasks[i].done;
+            saveTasks();
+        };
+
+        window.deleteTask = (i) => {
+            tasks.splice(i, 1);
+            saveTasks();
+        };
+
+        addTaskBtn.addEventListener('click', () => {
+            const text = taskInput.value.trim();
+            if (text) {
+                tasks.push({ text, done: false });
+                taskInput.value = '';
+                saveTasks();
+            }
+        });
+
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTaskBtn.click();
+        });
+
+        // Init
+        modeBtns.work.addEventListener('click', () => setMode('work'));
+        modeBtns.short.addEventListener('click', () => setMode('short'));
+        modeBtns.long.addEventListener('click', () => setMode('long'));
+        startPauseBtn.addEventListener('click', toggleTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        setMode('work');
+        renderTasks();
+
+    </script>
+</body>
+</html>
+

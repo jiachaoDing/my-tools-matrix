@@ -3,22 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Character Counter - Free, Secure & Unlimited | WebUtilityKit</title>
-    <meta name="description" content="Count characters, letters, numbers, spaces, and punctuation in your text. Detailed character analysis with real-time statistics, no registration required.">
+    <title>Character Counter - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Instant character and word count tool. Detailed analysis of spaces, digits, symbols, and social media limits. 100% private and secure local processing.">
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
     <script>
-        tailwind.config = { darkMode: 'class' }
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
     </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .stat-card {
+                @apply bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md;
+            }
+            .stat-label {
+                @apply text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1;
+            }
+            .stat-value {
+                @apply text-3xl font-black text-slate-900 dark:text-white;
+            }
+            .limit-bar {
+                @apply h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2;
+            }
+        }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans transition-colors duration-200">
-
-    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
         <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
             <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
                 WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
             </a>
             <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
                 <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
                 <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                     <span id="theme-icon">🌗</span>
                     <span class="hidden sm:inline">Toggle theme</span>
@@ -27,270 +62,396 @@
         </nav>
     </header>
 
-    <main class="max-w-4xl mx-auto px-4 py-12">
-        <h1 class="text-4xl font-extrabold text-center mb-4 text-slate-800 dark:text-white">Character Counter</h1>
-        <p class="text-center text-slate-600 dark:text-slate-400 mb-8 text-lg">Count characters, letters, numbers, spaces, and punctuation in your text</p>
-
-        <div class="flex items-center justify-center gap-2 text-sm text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-900/20 py-2 px-4 rounded-full mb-8 mx-auto w-fit border border-green-200 dark:border-green-900">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="font-medium">🔒 100% Secure. Processed locally in browser. No upload.</span>
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Character Counter</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Get precise counts for characters, words, and social media limits. All processing happens instantly in your browser.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
         </div>
 
-        <div id="app" class="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 transition-all">
-            <div class="mb-6">
-                <label for="text-input" class="block text-sm font-medium mb-2 text-slate-700 dark:text-slate-300">Enter your text:</label>
-                <textarea
-                    id="text-input"
-                    placeholder="Paste or type your text here... (Ctrl+V to paste)"
-                    class="w-full h-48 p-4 border border-slate-300 dark:border-slate-600 rounded-lg bg-slate-50 dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none transition-colors"
-                ></textarea>
-                <div class="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                    Tip: You can paste text with Ctrl+V or drag and drop text files
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="total-chars">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Total Characters</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="chars-no-spaces">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Characters (no spaces)</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="letters">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Letters</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="numbers">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Numbers</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="spaces">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Spaces</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="punctuation">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Punctuation</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="special-chars">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Special Characters</div>
-                </div>
-                <div class="text-center p-4 bg-slate-50 dark:bg-slate-700 rounded-lg border border-slate-200 dark:border-slate-600">
-                    <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="lines">0</div>
-                    <div class="text-sm text-slate-600 dark:text-slate-400">Lines</div>
-                </div>
-            </div>
-
-            <div class="mb-6">
-                <h3 class="text-lg font-semibold mb-3 text-slate-800 dark:text-white">Character Breakdown</h3>
-                <div class="bg-slate-50 dark:bg-slate-700 p-4 rounded-lg">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <h4 class="font-medium mb-2 text-slate-700 dark:text-slate-300">Uppercase Letters</h4>
-                            <div class="flex flex-wrap gap-1">
-                                <span id="uppercase-letters" class="text-slate-600 dark:text-slate-400">A B C D E F G H I J K L M N O P Q R S T U V W X Y Z</span>
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Input -->
+                <div class="lg:col-span-7 flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Input Text</label>
+                            <div class="flex gap-2">
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700">Paste</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear</button>
                             </div>
                         </div>
-                        <div>
-                            <h4 class="font-medium mb-2 text-slate-700 dark:text-slate-300">Lowercase Letters</h4>
-                            <div class="flex flex-wrap gap-1">
-                                <span id="lowercase-letters" class="text-slate-600 dark:text-slate-400">a b c d e f g h i j k l m n o p q r s t u v w x y z</span>
+                        <textarea id="text-input" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-blue-500/20 rounded-3xl p-6 text-lg placeholder-slate-400 resize-none outline-none transition-all" placeholder="Paste your text here..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Statistics -->
+                <div class="lg:col-span-5 space-y-6">
+                    <!-- Top Main Stats -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="stat-card">
+                            <div class="stat-label">Characters</div>
+                            <div id="count-chars" class="stat-value text-blue-600 dark:text-blue-400">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Chars (No Space)</div>
+                            <div id="count-chars-no-space" class="stat-value">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Words</div>
+                            <div id="count-words" class="stat-value text-blue-600 dark:text-blue-400">0</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-label">Sentences</div>
+                            <div id="count-sentences" class="stat-value">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Detailed Breakdown</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Paragraphs</span>
+                                <span id="count-paragraphs" class="font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">White Spaces</span>
+                                <span id="count-spaces" class="font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Numeric Digits</span>
+                                <span id="count-digits" class="font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">Special Symbols</span>
+                                <span id="count-symbols" class="font-bold">0</span>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Platform Limits -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Platform Limits</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-semibold">Twitter / X</span>
+                                    <span class="text-slate-500"><span id="limit-x">0</span>/280</span>
+                                </div>
+                                <div class="limit-bar">
+                                    <div id="bar-x" class="h-full bg-blue-400 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-semibold">SMS (Single)</span>
+                                    <span class="text-slate-500"><span id="limit-sms">0</span>/160</span>
+                                </div>
+                                <div class="limit-bar">
+                                    <div id="bar-sms" class="h-full bg-green-400 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-semibold">LinkedIn Post</span>
+                                    <span class="text-slate-500"><span id="limit-linkedin">0</span>/3000</span>
+                                </div>
+                                <div class="limit-bar">
+                                    <div id="bar-linkedin" class="h-full bg-blue-600 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="copy-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]">
+                        Copy Full Report
+                    </button>
                 </div>
             </div>
-
-            <div class="flex gap-3">
-                <button id="clear-btn" class="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors">
-                    Clear Text
-                </button>
-                <button id="sample-btn" class="px-6 py-2 bg-slate-600 hover:bg-slate-700 dark:bg-slate-500 dark:hover:bg-slate-600 text-white rounded-lg transition-colors">
-                    Load Sample Text
-                </button>
-            </div>
         </div>
 
-        <div class="ad-placeholder mt-12 h-32 bg-slate-100 dark:bg-slate-800 border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-lg flex items-center justify-center text-slate-400">
-            Advertisement Space
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to use Character Counter</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Text</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Paste your text or type directly into the input field. We handle any character encoding perfectly.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Live Analysis</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Watch the statistics update in real-time. We provide separate counts for characters with and without spaces.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Check Limits</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Review platform-specific limits for social media or messaging to ensure your content fits perfectly.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Precision Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Mastering Micro-Copy</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                In a world of character limits, every byte counts. Our Character Counter goes beyond simple counting, offering a deep dive into the anatomy of your text—from white spaces to numeric density—helping you craft the perfect message for any medium.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Standard</div>
+                                    <div class="font-bold">Unicode Ready</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Accuracy</div>
+                                    <div class="font-bold">1:1 Mapping</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Platform Standards -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Platform Specific Limits</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-500 mb-6">Social Media</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Twitter (X) Post</span>
+                                    <span class="font-bold text-slate-400">280 Chars</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-400">
+                                    <span class="font-medium">Instagram Caption</span>
+                                    <span class="font-bold text-blue-400">2,200 Chars</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-600">
+                                    <span class="font-medium">LinkedIn Post</span>
+                                    <span class="font-bold text-blue-600">3,000 Chars</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-green-600 mb-6">Messaging & Search</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">SMS Message</span>
+                                    <span class="font-bold text-slate-400">160 Chars</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Google Page Title</span>
+                                    <span class="font-bold text-green-500">~60 Chars</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-yellow-500">
+                                    <span class="font-medium">Meta Description</span>
+                                    <span class="font-bold text-yellow-500">~155 Chars</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Are spaces counted as characters?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes, technically a space is a character. However, our tool provides two separate metrics: total characters (including spaces) and characters excluding spaces, so you have the exact data you need.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How do emoji affect the count?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Emojis are counted as single visual units in our character count, but they may consume more "bytes" depending on the platform's encoding. Our counter reflects the visual character count (length).
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is it safe to paste private text?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Absolutely. We use client-side JavaScript to process your text. This means your data never leaves your computer and is never sent to our servers.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
         </div>
-
-        <article class="prose prose-slate dark:prose-invert lg:prose-lg mt-16 mx-auto">
-            <h2>How to use Character Counter</h2>
-            <ol>
-                <li><strong>Enter Text:</strong> Type or paste your text into the input box above. You can also drag and drop text files.</li>
-                <li><strong>View Statistics:</strong> The tool automatically analyzes and displays detailed character statistics.</li>
-                <li><strong>Real-time Updates:</strong> Statistics update instantly as you type or modify the text.</li>
-                <li><strong>Character Breakdown:</strong> See which letters are present in your text.</li>
-                <li><strong>Clear Text:</strong> Use the "Clear Text" button to reset everything and start over.</li>
-                <li><strong>Sample Text:</strong> Click "Load Sample Text" to see how the counter works with example content.</li>
-            </ol>
-
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Detailed Analysis:</strong> Count total characters, letters, numbers, spaces, punctuation, and special characters</li>
-                <li><strong>Character Breakdown:</strong> See exactly which letters (uppercase and lowercase) appear in your text</li>
-                <li><strong>Unlimited Processing:</strong> Analyze text of any length - no file size limits</li>
-                <li><strong>100% Private:</strong> All text processing happens locally in your browser - your text never leaves your device</li>
-                <li><strong>Real-time Counting:</strong> See instant updates as you type</li>
-                <li><strong>Dark Mode Support:</strong> Switch between light and dark themes for comfortable reading</li>
-                <li><strong>Paste Support:</strong> Easily paste text with Ctrl+V</li>
-                <li><strong>Mobile Friendly:</strong> Works perfectly on all devices</li>
-            </ul>
-
-            <h2>FAQ</h2>
-            <h3>What counts as a special character?</h3>
-            <p>Special characters include symbols like @, #, $, %, &, *, etc., as well as non-alphanumeric characters that aren't letters, numbers, spaces, or standard punctuation.</p>
-
-            <h3>How are letters counted?</h3>
-            <p>Letters include all alphabetic characters (A-Z, a-z) in any language. The character breakdown shows which specific letters appear in your text.</p>
-
-            <h3>What about non-English characters?</h3>
-            <p>The tool works with any Unicode characters, including accented letters, non-Latin scripts, and emojis.</p>
-
-            <h3>Is my text secure?</h3>
-            <p>Absolutely. All text processing happens locally in your browser. Your content never gets uploaded to any server.</p>
-
-            <h3>Can I analyze code or programming text?</h3>
-            <p>Yes, the character counter works perfectly with code, markup, and any other text content, accurately counting all characters and symbols.</p>
-        </article>
     </main>
 
-    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur mt-20">
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
         <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div>&copy; 2025 WebUtilityKit.com</div>
             <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
         </div>
     </footer>
 
+
     <script>
-        // === Dark Mode Logic ===
+        // === Theme Logic ===
         const themeToggle = document.getElementById('theme-toggle');
-        const themeIcon = document.getElementById('theme-icon');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const storedTheme = localStorage.getItem('wuk-theme');
-        const initialTheme = storedTheme || (prefersDark ? 'dark' : 'light');
-
-        document.documentElement.classList.toggle('dark', initialTheme === 'dark');
-        themeIcon.textContent = initialTheme === 'dark' ? '🌙' : '☀️';
-
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
         themeToggle.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark');
-            localStorage.setItem('wuk-theme', isDark ? 'dark' : 'light');
-            themeIcon.textContent = isDark ? '🌙' : '☀️';
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
         });
 
         // === Character Counter Logic ===
         const textInput = document.getElementById('text-input');
-        const clearBtn = document.getElementById('clear-btn');
-        const sampleBtn = document.getElementById('sample-btn');
-        const totalChars = document.getElementById('total-chars');
-        const charsNoSpaces = document.getElementById('chars-no-spaces');
-        const letters = document.getElementById('letters');
-        const numbers = document.getElementById('numbers');
-        const spaces = document.getElementById('spaces');
-        const punctuation = document.getElementById('punctuation');
-        const specialChars = document.getElementById('special-chars');
-        const lines = document.getElementById('lines');
-        const uppercaseLetters = document.getElementById('uppercase-letters');
-        const lowercaseLetters = document.getElementById('lowercase-letters');
+        const countChars = document.getElementById('count-chars');
+        const countCharsNoSpace = document.getElementById('count-chars-no-space');
+        const countWords = document.getElementById('count-words');
+        const countSentences = document.getElementById('count-sentences');
+        const countParagraphs = document.getElementById('count-paragraphs');
+        const countSpaces = document.getElementById('count-spaces');
+        const countDigits = document.getElementById('count-digits');
+        const countSymbols = document.getElementById('count-symbols');
 
-        function analyzeText(text) {
-            // Total characters
-            totalChars.textContent = text.length;
+        // Platform Limit Elements
+        const limitX = document.getElementById('limit-x');
+        const barX = document.getElementById('bar-x');
+        const limitSms = document.getElementById('limit-sms');
+        const barSms = document.getElementById('bar-sms');
+        const limitLinkedin = document.getElementById('limit-linkedin');
+        const barLinkedin = document.getElementById('bar-linkedin');
 
-            // Characters without spaces
-            charsNoSpaces.textContent = text.replace(/\s/g, '').length;
+        function updateStats() {
+            const text = textInput.value;
+            
+            // Basic Counts
+            const totalChars = text.length;
+            const noSpaceChars = text.replace(/\s/g, '').length;
+            const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+            
+            // Detailed Breakdown
+            const spaces = (text.match(/\s/g) || []).length;
+            const digits = (text.match(/\d/g) || []).length;
+            const symbols = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
 
-            // Letters (alphabetic characters)
-            const letterMatches = text.match(/[a-zA-Z]/g);
-            letters.textContent = letterMatches ? letterMatches.length : 0;
+            // UI Updates
+            countChars.textContent = totalChars.toLocaleString();
+            countCharsNoSpace.textContent = noSpaceChars.toLocaleString();
+            countWords.textContent = words.toLocaleString();
+            countSentences.textContent = sentences.toLocaleString();
+            countParagraphs.textContent = paragraphs.toLocaleString();
+            countSpaces.textContent = spaces.toLocaleString();
+            countDigits.textContent = digits.toLocaleString();
+            countSymbols.textContent = symbols.toLocaleString();
 
-            // Numbers
-            const numberMatches = text.match(/[0-9]/g);
-            numbers.textContent = numberMatches ? numberMatches.length : 0;
-
-            // Spaces
-            const spaceMatches = text.match(/\s/g);
-            spaces.textContent = spaceMatches ? spaceMatches.length : 0;
-
-            // Punctuation
-            const punctuationMatches = text.match(/[.,!?;:()[\]{}'"-]/g);
-            punctuation.textContent = punctuationMatches ? punctuationMatches.length : 0;
-
-            // Special characters (everything else that's not letters, numbers, spaces, or punctuation)
-            const specialMatches = text.match(/[^a-zA-Z0-9\s.,!?;:()[\]{}'"-]/g);
-            specialChars.textContent = specialMatches ? specialMatches.length : 0;
-
-            // Lines
-            lines.textContent = text === '' ? 0 : text.split('\n').length;
-
-            // Character breakdown - find unique letters used
-            const uniqueUppercase = [...new Set(text.match(/[A-Z]/g) || [])].sort().join(' ');
-            const uniqueLowercase = [...new Set(text.match(/[a-z]/g) || [])].sort().join(' ');
-
-            uppercaseLetters.textContent = uniqueUppercase || 'None';
-            lowercaseLetters.textContent = uniqueLowercase || 'None';
+            // Platform Limits
+            updateLimit('x', totalChars, 280, barX, limitX);
+            updateLimit('sms', totalChars, 160, barSms, limitSms);
+            updateLimit('linkedin', totalChars, 3000, barLinkedin, limitLinkedin);
         }
 
-        // Real-time analysis
-        textInput.addEventListener('input', () => {
-            analyzeText(textInput.value);
+        function updateLimit(id, current, max, barEl, labelEl) {
+            labelEl.textContent = current.toLocaleString();
+            const percent = Math.min(100, (current / max) * 100);
+            barEl.style.width = `${percent}%`;
+            
+            if (current > max) {
+                barEl.classList.add('bg-red-500');
+                barEl.classList.remove('bg-blue-400', 'bg-green-400', 'bg-blue-600');
+                labelEl.classList.add('text-red-500');
+            } else {
+                barEl.classList.remove('bg-red-500');
+                if (id === 'x') barEl.classList.add('bg-blue-400');
+                if (id === 'sms') barEl.classList.add('bg-green-400');
+                if (id === 'linkedin') barEl.classList.add('bg-blue-600');
+                labelEl.classList.remove('text-red-500');
+            }
+        }
+
+        textInput.addEventListener('input', updateStats);
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updateStats();
+            } catch (err) {
+                console.error('Failed to paste:', err);
+            }
         });
 
-        // Clear text
-        clearBtn.addEventListener('click', () => {
+        document.getElementById('clear-btn').addEventListener('click', () => {
             textInput.value = '';
-            analyzeText('');
+            updateStats();
             textInput.focus();
         });
 
-        // Load sample text
-        sampleBtn.addEventListener('click', () => {
-            const sampleText = `Hello World! This is a sample text with 123 numbers, spaces, and special characters: @#$%^&*().
-
-It includes uppercase and lowercase letters, punctuation marks, and even some symbols like ©™®.
-
-Try typing or pasting your own text to see detailed character analysis!`;
-            textInput.value = sampleText;
-            analyzeText(sampleText);
-        });
-
-        // Paste support (Ctrl+V)
-        document.addEventListener('paste', (e) => {
-            if (document.activeElement === textInput) {
-                setTimeout(() => analyzeText(textInput.value), 0);
-            }
-        });
-
-        // Drag and drop support
-        textInput.addEventListener('dragover', (e) => {
-            e.preventDefault();
-        });
-
-        textInput.addEventListener('drop', (e) => {
-            e.preventDefault();
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-                const file = files[0];
-                if (file.type.startsWith('text/')) {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        textInput.value = e.target.result;
-                        analyzeText(e.target.result);
-                    };
-                    reader.readAsText(file);
-                }
-            }
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            const report = `
+Character Count Report
+----------------------
+Total Characters: ${countChars.textContent}
+Chars (No Space): ${countCharsNoSpace.textContent}
+Words: ${countWords.textContent}
+Sentences: ${countSentences.textContent}
+Paragraphs: ${countParagraphs.textContent}
+Spaces: ${countSpaces.textContent}
+Digits: ${countDigits.textContent}
+Symbols: ${countSymbols.textContent}
+            `.trim();
+            
+            navigator.clipboard.writeText(report).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'Report Copied!';
+                copyBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
         });
 
         // Initialize
-        analyzeText('');
+        updateStats();
     </script>
 </body>
 </html>

@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upside Down Text Generator - Flip Your Text | WebUtilityKit</title>
+    <meta name="description" content="Instantly flip your text upside down. Perfect for social media, clever bios, and fun messages. 100% private and client-side.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .tool-container {
+                @apply bg-white dark:bg-slate-800/40 rounded-[3rem] p-8 lg:p-12 shadow-sm border border-slate-100 dark:border-slate-800/50;
+            }
+            .text-pane {
+                @apply flex flex-col flex-1 min-h-[300px];
+            }
+            .custom-textarea {
+                @apply w-full h-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-[2rem] p-8 outline-none transition-all font-medium text-lg leading-relaxed resize-none shadow-inner;
+            }
+            .action-btn {
+                @apply flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95;
+            }
+            .primary-btn {
+                @apply bg-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700;
+            }
+            .secondary-btn {
+                @apply bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700;
+            }
+            .drop-zone-active {
+                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Upside Down Text Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Flip your words upside down instantly. Perfect for creative social media bios, clever messages, or just having fun with text.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
+                
+                <!-- Input Pane -->
+                <div class="text-pane group relative">
+                    <div id="drop-zone" class="absolute inset-0 z-10 hidden border-4 border-dashed border-blue-500 rounded-[2.5rem] bg-blue-50/80 dark:bg-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center transition-all pointer-events-none">
+                        <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mb-4 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        </div>
+                        <p class="text-xl font-bold text-blue-600 dark:text-blue-400">Drop your file here</p>
+                    </div>
+                    
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-widest italic">Input Text</label>
+                        <div class="flex items-center gap-2">
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt">
+                            <button id="upload-btn" class="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
+                                Import File
+                            </button>
+                            <button id="clear-btn" class="text-xs font-bold text-red-500 hover:text-red-600 transition-colors">Clear</button>
+                        </div>
+                    </div>
+                    
+                    <textarea id="input-text" placeholder="Type or paste your text here... Or drag and drop a file." class="custom-textarea flex-grow"></textarea>
+                    
+                    <div id="uploaded-files" class="mt-4 hidden space-y-2 px-2">
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex justify-between">
+                            <span>Uploaded Files</span>
+                            <span id="file-count">0 files</span>
+                        </div>
+                        <div id="file-list" class="space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- Output Pane -->
+                <div class="text-pane">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-widest italic">Upside Down Result</label>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="reverse-check" class="sr-only peer" checked>
+                                    <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 relative"></div>
+                                    <span class="ml-2 text-[10px] font-bold text-slate-500 uppercase">Backwards</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <textarea id="output-text" readonly placeholder="Result will appear here..." class="custom-textarea flex-grow bg-white/50 dark:bg-slate-800/30 cursor-default"></textarea>
+                    
+                    <div class="mt-6 flex gap-4">
+                        <button id="copy-btn" class="action-btn primary-btn flex-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-1 4h.01M9 16h.01"></path></svg>
+                            Copy Result
+                        </button>
+                        <button id="download-btn" class="action-btn secondary-btn">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M7 10l5 5m0 0l5-5m-5 5V3"></path></svg>
+                            Export .txt
+                        </button>
+                    </div>
+
+                    <div id="processed-files" class="mt-4 hidden space-y-2 px-2">
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex justify-between">
+                            <span>Processed Results</span>
+                            <button id="download-all" class="text-blue-600 hover:underline">Download All</button>
+                        </div>
+                        <div id="processed-list" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase underline decoration-blue-500/30 underline-offset-8">How to flip text</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Words</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Type your text directly into the box, paste it from your clipboard, or drag and drop a .txt file.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Toggle Options</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Decide if you want the text just upside down or both upside down and reversed (backwards).</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Copy & Paste</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Instantly copy the result or download it as a text file for batch processing.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight leading-tight">Stand Out in a Digital Crowd</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8 italic">
+                                Whether you're making your Discord bio more unique, sending a playful message to a friend, or creating artistic captions, flipped text is a simple yet effective way to break the visual monotony of standard fonts.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic tracking-widest">Compatibility</div>
+                                    <div class="font-bold">Unicode Standard</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic tracking-widest">Speed</div>
+                                    <div class="font-bold">Instant Render</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <span class="text-7xl font-black rotate-180 drop-shadow-2xl">FLIP</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest italic decoration-blue-500/30 underline underline-offset-8">Core Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Drag & Drop Import</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Handle long text documents with ease. Simply drag your file into the input pane to flip thousands of characters at once.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Privacy Guaranteed</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Your text stays on your device. We use browser-native JavaScript to process everything locally—no server uploads ever.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter decoration-blue-500/30 underline underline-offset-8">Upside Down FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">Where can I use flipped text?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                You can use it almost anywhere that supports standard Unicode text! This includes Instagram, Facebook, Twitter (X), Discord, WhatsApp, and most modern messaging apps and website builders.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">How does it work?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                The tool maps each standard character to its upside-down Unicode equivalent. It's not a different font, but a collection of special characters that visually resemble your original text flipped 180 degrees.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400 italic">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Upside Down Logic ===
+        const inputArea = document.getElementById('input-text');
+        const outputArea = document.getElementById('output-text');
+        const reverseCheck = document.getElementById('reverse-check');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileList = document.getElementById('file-list');
+        const uploadedSection = document.getElementById('uploaded-files');
+        const fileCountEl = document.getElementById('file-count');
+        const processedSection = document.getElementById('processed-files');
+        const processedList = document.getElementById('processed-list');
+        const downloadAllBtn = document.getElementById('download-all');
+
+        let uploadedFiles = [];
+        let processedFiles = [];
+
+        const mapping = {
+            'a': 'ɐ', 'b': 'q', 'c': 'ɔ', 'd': 'p', 'e': 'ǝ', 'f': 'ɟ', 'g': 'ƃ', 'h': 'ɥ', 'i': 'ı', 'j': 'ɾ', 'k': 'ʞ', 'l': 'l', 'm': 'ɯ', 'n': 'u', 'o': 'o', 'p': 'd', 'q': 'b', 'r': 'ɹ', 's': 's', 't': 'ʇ', 'u': 'n', 'v': 'ʌ', 'w': 'ʍ', 'x': 'x', 'y': 'ʎ', 'z': 'z',
+            'A': '∀', 'B': 'B', 'C': 'Ɔ', 'D': 'D', 'E': 'Ǝ', 'F': 'Ⅎ', 'G': '⅁', 'H': 'H', 'I': 'I', 'J': 'ɾ', 'K': 'ʞ', 'L': '˥', 'M': 'W', 'N': 'N', 'O': 'O', 'P': 'Ԁ', 'Q': 'Ό', 'R': 'ᴚ', 'S': 'S', 'T': '⊥', 'U': '∩', 'V': 'Λ', 'W': 'M', 'X': 'X', 'Y': '⅄', 'Z': 'Z',
+            '1': 'Ɩ', '2': 'ᄅ', '3': 'Ɛ', '4': 'ㄣ', '5': 'ϛ', '6': '9', '7': 'ㄥ', '8': '8', '9': '6', '0': '0',
+            '.': '˙', ',': '\'', '\'': ',', '\"': '„', '?': '¿', '!': '¡', '(': ')', ')': '(', '[': ']', ']': '[', '{': '}', '}': '{', '<': '>', '>': '<', '&': '⅋', '_': '‾', '`': ',', 'v': 'ʌ'
+        };
+
+        function flipText(text) {
+            let result = '';
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                result += mapping[char] || char;
+            }
+            if (reverseCheck.checked) {
+                return result.split('').reverse().join('');
+            }
+            return result;
+        }
+
+        function handleInput() {
+            outputArea.value = flipText(inputArea.value);
+        }
+
+        // File Handlers
+        function handleFiles(files) {
+            uploadedSection.classList.remove('hidden');
+            processedSection.classList.remove('hidden');
+            
+            Array.from(files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const content = e.target.result;
+                    const flipped = flipText(content);
+                    
+                    const fileObj = {
+                        name: file.name,
+                        size: formatSize(file.size),
+                        content: content,
+                        result: flipped
+                    };
+                    
+                    uploadedFiles.push(fileObj);
+                    processedFiles.push(fileObj);
+                    
+                    renderFileList();
+                    if (uploadedFiles.length === 1) {
+                        inputArea.value = content;
+                        handleInput();
+                    }
+                };
+                reader.readAsText(file);
+            });
+        }
+
+        function renderFileList() {
+            fileList.innerHTML = '';
+            processedList.innerHTML = '';
+            fileCountEl.textContent = `${uploadedFiles.length} file${uploadedFiles.length === 1 ? '' : 's'}`;
+
+            uploadedFiles.forEach((file, index) => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/40 rounded-xl border border-slate-100 dark:border-slate-800/50 text-xs';
+                row.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-blue-500"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></span>
+                        <span class="font-bold truncate max-w-[150px]">${file.name}</span>
+                        <span class="text-slate-400">${file.size}</span>
+                    </div>
+                    <button onclick="removeFile(${index})" class="text-red-500 hover:text-red-600 p-1">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(row);
+
+                const pRow = document.createElement('div');
+                pRow.className = 'flex items-center justify-between p-3 bg-green-50/50 dark:bg-green-900/10 rounded-xl border border-green-100/50 dark:border-green-900/20 text-xs';
+                pRow.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <span class="text-green-500">✅</span>
+                        <span class="font-bold truncate max-w-[150px]">${file.name}</span>
+                    </div>
+                    <button onclick="downloadSingle(${index})" class="text-blue-600 hover:underline font-bold">Download</button>
+                `;
+                processedList.appendChild(pRow);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            processedFiles.splice(index, 1);
+            renderFileList();
+            if (uploadedFiles.length === 0) {
+                uploadedSection.classList.add('hidden');
+                processedSection.classList.add('hidden');
+                inputArea.value = '';
+                outputArea.value = '';
+            }
+        };
+
+        window.downloadSingle = (index) => {
+            const file = processedFiles[index];
+            const blob = new Blob([file.result], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `flipped_${file.name}`;
+            a.click();
+            URL.revokeObjectURL(url);
+        };
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Event Listeners
+        inputArea.addEventListener('input', handleInput);
+        reverseCheck.addEventListener('change', handleInput);
+
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(outputArea.value).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<span>✅ Copied!</span>`;
+                setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+            });
+        });
+
+        clearBtn.addEventListener('click', () => {
+            inputArea.value = '';
+            outputArea.value = '';
+            uploadedFiles = [];
+            processedFiles = [];
+            uploadedSection.classList.add('hidden');
+            processedSection.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (!outputArea.value) return;
+            const blob = new Blob([outputArea.value], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'flipped_text.txt';
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedFiles.forEach((file, index) => {
+                setTimeout(() => downloadSingle(index), index * 200);
+            });
+        });
+
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Drag and Drop
+        window.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('hidden');
+        });
+
+        dropZone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('hidden');
+        });
+
+        window.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('hidden');
+            if (e.dataTransfer.files.length) {
+                handleFiles(e.dataTransfer.files);
+            }
+        });
+
+    </script>
+</body>
+</html>
+

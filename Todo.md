@@ -14,11 +14,11 @@
 
 > 这类工具极易传播，且因为你主打“本地处理、不上传服务器”，隐私优势巨大。
 
-1. **HEIC to JPG Converter** (`heic-to-jpg`) - *刚需，苹果用户痛点*
-2. **PNG to JPG Converter** (`png-to-jpg`)
-3. **JPG to PNG Converter** (`jpg-to-png`)
-4. **WebP Converter** (`webp-converter`)
-5. **Image Compressor** (`image-compressor`) - *使用浏览器 canvas 压缩*
+1. **HEIC to JPG Converter** (`heic-to-jpg`) - *刚需，苹果用户痛点*[done]
+2. **PNG to JPG Converter** (`png-to-jpg`)[done]
+3. **JPG to PNG Converter** (`jpg-to-png`)[done]
+4. **WebP Converter** (`webp-converter`)[done]
+5. **Image Compressor** (`image-compressor`) - *使用浏览器 canvas 压缩*[done]
 6. **Image Resizer** (`image-resizer`)
 7. **Image Cropper** (`image-cropper`)
 8. **SVG to PNG** (`svg-to-png`)
@@ -39,11 +39,11 @@
 
 > 程序员和站长常用的工具，这些人习惯收藏好用的工具站。
 
-21. **JSON Formatter & Validator** (`json-formatter`)
-22. **JSON to CSV** (`json-to-csv`)
-23. **CSV to JSON** (`csv-to-json`)
-24. **XML Formatter** (`xml-formatter`)
-25. **SQL Formatter** (`sql-formatter`)
+21. **JSON Formatter & Validator** (`json-formatter`)[done] ✅
+22. **JSON to CSV** (`json-to-csv`)[done] ✅
+23. **CSV to JSON** (`csv-to-json`)[done] ✅
+24. **XML Formatter** (`xml-formatter`)[done] ✅
+25. **SQL Formatter** (`sql-formatter`)[done]
 26. **CSS Minifier** (`css-minifier`)
 27. **JavaScript Minifier** (`js-minifier`)
 28. **HTML Beautifier** (`html-beautifier`)
@@ -69,19 +69,19 @@
 
 > 办公文员、学生常用，搜索量巨大。
 
-46. **Word Counter** (`word-counter`) - *字数统计* [Done]
-47. **Character Counter** (`character-counter`) [Done]
-48. **Case Converter** (`case-converter`) - *大写/小写/驼峰互转*
-49. **Remove Duplicate Lines** (`remove-duplicate-lines`)
-50. **Sort Text Lines** (`sort-text`)
-51. **Find and Replace** (`find-and-replace`)
-52. **Reverse Text** (`reverse-text`)
-53. **Text to Binary** (`text-to-binary`)
-54. **Binary to Text** (`binary-to-text`)
-55. **ASCII Art Generator** (`ascii-art`)
-56. **Emoji Picker** (`emoji-picker`)
-57. **Upside Down Text** (`upside-down-text`)
-58. **Small Text Generator** (`small-text-generator`)
+46. **Word Counter** (`word-counter`) - *字数统计*[done]
+47. **Character Counter** (`character-counter`)[done]
+48. **Case Converter** (`case-converter`) - *大写/小写/驼峰互转*[done]
+49. **Remove Duplicate Lines** (`remove-duplicate-lines`)[done]
+50. **Sort Text Lines** (`sort-text`)[done]
+51. **Find and Replace** (`find-and-replace`)[done]
+52. **Reverse Text** (`reverse-text`)[done]
+53. **Text to Binary** (`text-to-binary`)[done]
+54. **Binary to Text** (`binary-to-text`)[done]
+55. **ASCII Art Generator** (`ascii-art`)[done]
+56. **Emoji Picker** (`emoji-picker`)[done]
+57. **Upside Down Text** (`upside-down-text`)[done]
+58. **Small Text Generator** (`small-text-generator`)[done]
 59. **Invisible Character** (`invisible-character`) - *复制空白字符*
 60. **Random Word Generator** (`random-word-generator`)
 
@@ -89,31 +89,31 @@
 
 > 解决日常生活问题，用户停留时间长。
 
-61. **Password Generator** (`password-generator`) - *强密码生成* [Done]
-62. **Password Strength Checker** (`password-strength`) [Done]
-63. **BMI Calculator** (`bmi-calculator`) [Done]
-64. **Body Fat Calculator** (`body-fat-calculator`) [Done]
-65. **BMR Calculator** (`bmr-calculator`) [Done]
-66. **Age Calculator** (`age-calculator`)
-67. **Date Difference Calculator** (`days-between-dates`)
-68. **Time Zone Converter** (`time-zone-converter`)
-69. **Unix Timestamp Converter** (`unix-timestamp`)
-70. **Stopwatch & Timer** (`online-stopwatch`)
-71. **Pomodoro Timer** (`pomodoro-timer`)
-72. **Discount Calculator** (`discount-calculator`)
-73. **Sales Tax Calculator** (`sales-tax-calculator`)
-74. **Tip Calculator** (`tip-calculator`)
-75. **Percentage Calculator** (`percentage-calculator`)
-76. **Loan Calculator** (`loan-calculator`) - *简单版房贷/车贷*
-77. **CPM Calculator** (`cpm-calculator`) - *广告人常用*
-78. **Aspect Ratio Calculator** (`aspect-ratio-calculator`)
-79. **Download Time Calculator** (`download-time-calculator`)
+61. **Password Generator** (`password-generator`) - *强密码生成*[done]
+62. **Password Strength Checker** (`password-strength`)[done]
+63. **BMI Calculator** (`bmi-calculator`)[done]
+64. **Body Fat Calculator** (`body-fat-calculator`)[done]
+65. **BMR Calculator** (`bmr-calculator`)[done]
+66. **Age Calculator** (`age-calculator`)[done]
+67. **Date Difference Calculator** (`days-between-dates`)[done]
+68. **Time Zone Converter** (`time-zone-converter`)[done]
+69. **Unix Timestamp Converter** (`unix-timestamp`)[done]
+70. **Stopwatch & Timer** (`online-stopwatch`)[done]
+71. **Pomodoro Timer** (`pomodoro-timer`)[done]
+72. **Discount Calculator** (`discount-calculator`)[done]
+73. **Sales Tax Calculator** (`sales-tax-calculator`)[done]
+74. **Tip Calculator** (`tip-calculator`)[done]
+75. **Percentage Calculator** (`percentage-calculator`)[done]
+76. **Loan Calculator** (`loan-calculator`) - *简单版房贷/车贷*[done]
+77. **CPM Calculator** (`cpm-calculator`) - *广告人常用*[done]
+78. **Aspect Ratio Calculator** (`aspect-ratio-calculator`)[done]
+79. **Download Time Calculator** (`download-time-calculator`)[done]
 
 ### 第五类：PDF 与办公文档 (高价值)
 
 > 使用 `pdf-lib` 等库实现纯前端处理，无需上传服务器。
 
-80. **Merge PDF** (`merge-pdf`)
+80. **Merge PDF** (`merge-pdf`)[done]
 81. **Split PDF** (`split-pdf`)
 82. **JPG to PDF** (`jpg-to-pdf`)
 83. **PDF to JPG** (`pdf-to-jpg`) - *利用 PDF.js*

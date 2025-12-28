@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Tax Calculator - Precise Tax & Gross Price | WebUtilityKit</title>
+    <meta name="description" content="Calculate sales tax, net price, and gross price instantly. Supports reverse tax calculation and custom tax rates. 100% private and client-side.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
+            }
+            .input-label { 
+                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
+            }
+            .unit-badge { 
+                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
+            }
+            .result-card {
+                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group;
+            }
+            .tab-btn { 
+                @apply flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300; 
+            }
+            .active-tab { 
+                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400; 
+            }
+            .inactive-tab { 
+                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300; 
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Sales Tax Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instantly calculate sales tax, net amount, and total price. Supports bidirectional "Tax In" and "Tax Out" calculations.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Configuration (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="calc-add" class="tab-btn active-tab">Add Tax</button>
+                            <button id="calc-remove" class="tab-btn inactive-tab ml-1">Remove Tax</button>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label id="price-label" class="input-label">Net Price (Before Tax)</label>
+                                <div class="relative group">
+                                    <input type="number" id="price-input" value="100" min="0" step="0.01" class="custom-input pl-12">
+                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span id="price-badge" class="unit-badge">NET</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="input-label">Tax Rate (%)</label>
+                                <div class="relative group">
+                                    <input type="number" id="tax-rate" value="8.5" min="0" max="100" step="0.01" class="custom-input">
+                                    <span class="unit-badge">RATE</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 grid grid-cols-2 gap-3">
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="0">0%</button>
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="5">5%</button>
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="10">10%</button>
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="20">20%</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-10">Total Breakdown</label>
+                        
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                            <!-- Hero Gross Price -->
+                            <div class="text-center relative">
+                                <div id="hero-label" class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mb-4">Gross Price (Total)</div>
+                                <div id="total-price" class="text-8xl font-black text-slate-900 dark:text-white leading-none tracking-tighter tabular-nums">$108.50</div>
+                                <div class="mt-6 flex items-center justify-center gap-2">
+                                    <span class="w-12 h-1 bg-blue-500 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-blue-500/30 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-blue-500/30 rounded-full"></span>
+                                </div>
+                            </div>
+
+                            <div class="w-full space-y-4">
+                                <!-- Tax Amount Card -->
+                                <div class="p-8 rounded-[2rem] bg-blue-600 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden group transition-all hover:scale-[1.02]">
+                                    <div class="absolute right-0 top-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-125 transition-transform"></div>
+                                    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                        <div>
+                                            <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1 italic">Tax Amount</div>
+                                            <div id="tax-amount" class="text-5xl font-black tracking-tight">$8.50</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1 italic">Applied Rate</div>
+                                            <div id="applied-rate" class="text-2xl font-black">8.50%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="result-card">
+                                        <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-widest">Net Price (Excl. Tax)</div>
+                                        <div id="net-price" class="text-2xl font-bold text-slate-800 dark:text-white">$100.00</div>
+                                    </div>
+                                    <div class="result-card">
+                                        <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-widest">Total Value</div>
+                                        <div id="total-val" class="text-2xl font-bold text-slate-800 dark:text-white">$108.50</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="w-full p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-900/20">
+                                <div class="flex gap-4">
+                                    <div class="text-blue-500 mt-1">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        Reverse Calculation: Use "Remove Tax" to find the original price if you only know the total including tax.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to calculate sales tax</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Choose Mode</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Select <strong>Add Tax</strong> if you have the base price, or <strong>Remove Tax</strong> if you have the total price and want to find the net value.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Enter Price & Rate</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Type the amount and the tax percentage. Use the quick-rate buttons for common values like 5%, 10%, or 20%.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Get Precise Totals</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Instantly see the tax amount and final price breakdown. Our tool handles high-precision floating point math for perfect accuracy.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Bidirectional Clarity</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                Most people know how to add tax, but "de-taxing" a price is mathematically different. Removing 10% tax isn't just subtracting 10% from the total—it requires calculating the original base that, when 10% is added, equals your total. Our tool handles this complex division automatically.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Standard</div>
+                                    <div class="font-bold">Add / Subtract Tax</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Accuracy</div>
+                                    <div class="font-bold">Decimal Precision</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Built for business and shopping</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Reverse Calculation</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Easily find the pre-tax price from any total. Perfect for business owners who need to back-calculate net values for accounting.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Updates</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">No "Calculate" button needed. Our engine re-computes the entire breakdown every time you change a single digit or select a preset.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy First</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your financial data is private. Calculations happen locally in your browser, meaning your prices and rates never leave your device.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Clean Typography</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">High-contrast, large-scale typography ensures you can read your totals clearly even from a distance or on small screens.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Tax FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is the difference between Net and Gross?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                <strong>Net Price</strong> is the value before any tax is added. <strong>Gross Price</strong> is the final amount including tax. In "Remove Tax" mode, you start with Gross and find the Net.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is it "Reverse Sales Tax"?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes. The "Remove Tax" mode is often called reverse tax calculation. It uses the formula: `Net = Gross / (1 + Rate)`. This ensures that when you add the tax back to the Net, you get the exact Gross value again.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Sales Tax Logic ===
+        let mode = 'add'; // 'add' or 'remove'
+        const calcAddBtn = document.getElementById('calc-add');
+        const calcRemoveBtn = document.getElementById('calc-remove');
+        const priceLabel = document.getElementById('price-label');
+        const priceInput = document.getElementById('price-input');
+        const priceBadge = document.getElementById('price-badge');
+        const taxRateInput = document.getElementById('tax-rate');
+        const heroLabel = document.getElementById('hero-label');
+        const totalPriceEl = document.getElementById('total-price');
+        const taxAmountEl = document.getElementById('tax-amount');
+        const appliedRateEl = document.getElementById('applied-rate');
+        const netPriceEl = document.getElementById('net-price');
+        const totalValEl = document.getElementById('total-val');
+        const quickRateBtns = document.querySelectorAll('.quick-rate');
+
+        function updateUI() {
+            if (mode === 'add') {
+                calcAddBtn.className = 'tab-btn active-tab';
+                calcRemoveBtn.className = 'tab-btn inactive-tab ml-1';
+                priceLabel.textContent = 'Net Price (Before Tax)';
+                priceBadge.textContent = 'NET';
+                heroLabel.textContent = 'Gross Price (Total)';
+            } else {
+                calcAddBtn.className = 'tab-btn inactive-tab';
+                calcRemoveBtn.className = 'tab-btn active-tab ml-1';
+                priceLabel.textContent = 'Gross Price (Incl. Tax)';
+                priceBadge.textContent = 'GROSS';
+                heroLabel.textContent = 'Net Price (Original)';
+            }
+            calculate();
+        }
+
+        function calculate() {
+            const price = parseFloat(priceInput.value) || 0;
+            const rate = parseFloat(taxRateInput.value) || 0;
+            let net, tax, gross;
+
+            if (mode === 'add') {
+                net = price;
+                tax = net * (rate / 100);
+                gross = net + tax;
+            } else {
+                gross = price;
+                net = gross / (1 + (rate / 100));
+                tax = gross - net;
+            }
+
+            // Update displays
+            totalPriceEl.textContent = `$${(mode === 'add' ? gross : net).toFixed(2)}`;
+            taxAmountEl.textContent = `$${tax.toFixed(2)}`;
+            appliedRateEl.textContent = `${rate.toFixed(2)}%`;
+            netPriceEl.textContent = `$${net.toFixed(2)}`;
+            totalValEl.textContent = `$${gross.toFixed(2)}`;
+        }
+
+        calcAddBtn.addEventListener('click', () => { mode = 'add'; updateUI(); });
+        calcRemoveBtn.addEventListener('click', () => { mode = 'remove'; updateUI(); });
+        priceInput.addEventListener('input', calculate);
+        taxRateInput.addEventListener('input', calculate);
+
+        quickRateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                taxRateInput.value = btn.dataset.rate;
+                calculate();
+            });
+        });
+
+        // Init
+        updateUI();
+
+    </script>
+</body>
+</html>
+

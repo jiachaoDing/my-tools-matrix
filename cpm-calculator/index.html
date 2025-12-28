@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPM Calculator - Advertising Cost Per Mille | WebUtilityKit</title>
+    <meta name="description" content="Calculate CPM (Cost Per Mille), total cost, or impressions instantly. Essential tool for digital marketers and advertisers. 100% private and local.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d', 800: '#9d174d', 900: '#831843', 950: '#500724',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5; 
+            }
+            .input-label { 
+                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
+            }
+            .unit-badge { 
+                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
+            }
+            .tab-btn { 
+                @apply flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300; 
+            }
+            .active-tab { 
+                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-pink-600 dark:text-pink-400; 
+            }
+            .inactive-tab { 
+                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300; 
+            }
+            .result-card {
+                @apply p-8 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:border-pink-500/10;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">CPM Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Calculate Cost Per Mille (CPM), total cost, or total impressions instantly for your ad campaigns.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Configuration (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="solve-cpm" class="tab-btn active-tab">Solve CPM</button>
+                            <button id="solve-cost" class="tab-btn inactive-tab ml-1">Solve Cost</button>
+                            <button id="solve-impr" class="tab-btn inactive-tab ml-1">Solve Impr</button>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Input 1 -->
+                            <div id="group-1">
+                                <label id="label-1" class="input-label">Total Cost</label>
+                                <div class="relative group">
+                                    <input type="number" id="input-1" value="500" min="0" step="0.01" class="custom-input pl-12">
+                                    <span id="prefix-1" class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span id="badge-1" class="unit-badge">COST</span>
+                                </div>
+                            </div>
+
+                            <!-- Input 2 -->
+                            <div id="group-2">
+                                <label id="label-2" class="input-label">Total Impressions</label>
+                                <div class="relative group">
+                                    <input type="number" id="input-2" value="100000" min="0" step="1" class="custom-input">
+                                    <span id="prefix-2" class="hidden absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span id="badge-2" class="unit-badge">IMPR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-4">
+                            <label class="input-label">Quick Presets (Impressions)</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-val="10000">10k</button>
+                                <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-val="1000000">1M</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-pink-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-pink-500/20 relative overflow-hidden text-white">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-pink-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label id="res-label" class="text-xs font-bold text-pink-200 uppercase tracking-[0.2em] block mb-12 italic">Campaign CPM (Rate)</label>
+                            
+                            <div class="flex-grow space-y-12">
+                                <!-- Hero Results -->
+                                <div class="text-center sm:text-left">
+                                    <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                                        <span id="res-prefix" class="text-pink-200 text-3xl font-black italic">$</span>
+                                        <span id="res-main" class="text-8xl font-black tracking-tighter tabular-nums">5.00</span>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-center sm:justify-start gap-2">
+                                        <span class="w-12 h-1 bg-white rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div id="stat-1-label" class="text-pink-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">Total Cost</div>
+                                        <div id="stat-1-val" class="text-3xl font-black tracking-tight tabular-nums">$500.00</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div id="stat-2-label" class="text-pink-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">Total Impressions</div>
+                                        <div id="stat-2-val" class="text-3xl font-black tracking-tight tabular-nums">100,000</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-pink-200/80 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>CPM = (Total Cost / Total Impressions) × 1,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase">Campaign Calculation Guide</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Choose Target</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">Select what you want to calculate: CPM, Total Cost, or total Impressions from the tabs.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Metrics</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">Enter your campaign numbers. Use the quick presets for standard impression benchmarks.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Analyze ROI</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">Instantly see your campaign's efficiency. The calculation happens in real-time as you type.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">The Marketer's Metric</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 italic">
+                                CPM (Cost Per Mille) is the industry standard for measuring the cost-effectiveness of a media campaign. "Mille" is Latin for thousand, so CPM represents the cost to reach 1,000 potential customers. It allows you to compare different media channels—like Facebook Ads vs. YouTube vs. TV—on a level playing field.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-pink-300 text-[10px] font-black uppercase mb-1 italic">Efficiency</div>
+                                    <div class="font-bold">Comparative ROI</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-pink-300 text-[10px] font-black uppercase mb-1 italic">Precision</div>
+                                    <div class="font-bold">Floating Point Math</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-pink-500/20 rounded-full flex items-center justify-center animate-[spin_50s_linear_infinite]">
+                                <svg class="w-32 h-32 text-pink-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest">Marketer Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-pink-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-pink-100 dark:bg-pink-900/30 text-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Bidirectional Solver</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Switch between solving for CPM, total budget, or required impressions with a single click. Ideal for campaign planning.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-pink-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Privacy Guaranteed</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Your campaign budgets and performance metrics are confidential. All calculations happen locally in your browser.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter">Advertising FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-pink-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">What is a "good" CPM?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                A "good" CPM varies wildly by industry, platform, and targeting. For example, a LinkedIn B2B campaign might have a $50 CPM, while a broad Facebook campaign might be $5. The goal is to balance CPM with conversion rate to achieve a profitable CPA.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-pink-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">How do I calculate required impressions for a budget?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                If you have a fixed budget and a target CPM, you can calculate the expected impressions using the formula: <strong>Impressions = (Cost / CPM) × 1,000</strong>. Use our "Solve Impr" tab to do this automatically.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === CPM Logic ===
+        let solveFor = 'cpm'; // 'cpm', 'cost', 'impr'
+        
+        const tabs = {
+            cpm: document.getElementById('solve-cpm'),
+            cost: document.getElementById('solve-cost'),
+            impr: document.getElementById('solve-impr')
+        };
+
+        const inputs = {
+            1: document.getElementById('input-1'),
+            2: document.getElementById('input-2')
+        };
+
+        const groups = {
+            1: document.getElementById('group-1'),
+            2: document.getElementById('group-2')
+        };
+
+        const labels = {
+            1: document.getElementById('label-1'),
+            2: document.getElementById('label-2')
+        };
+
+        const badges = {
+            1: document.getElementById('badge-1'),
+            2: document.getElementById('badge-2')
+        };
+
+        const prefixes = {
+            1: document.getElementById('prefix-1'),
+            2: document.getElementById('prefix-2')
+        };
+
+        const results = {
+            label: document.getElementById('res-label'),
+            prefix: document.getElementById('res-prefix'),
+            main: document.getElementById('res-main'),
+            stat1Label: document.getElementById('stat-1-label'),
+            stat1Val: document.getElementById('stat-1-val'),
+            stat2Label: document.getElementById('stat-2-label'),
+            stat2Val: document.getElementById('stat-2-val')
+        };
+
+        function updateUI() {
+            // Reset tabs
+            Object.values(tabs).forEach(tab => {
+                tab.className = 'tab-btn inactive-tab ml-1';
+            });
+            tabs[solveFor].className = 'tab-btn active-tab ml-1';
+            if (solveFor === 'cpm') tabs[solveFor].className = 'tab-btn active-tab';
+
+            // Configure Inputs based on mode
+            if (solveFor === 'cpm') {
+                labels[1].textContent = 'Total Cost';
+                prefixes[1].classList.remove('hidden');
+                badges[1].textContent = 'COST';
+                
+                labels[2].textContent = 'Total Impressions';
+                prefixes[2].classList.add('hidden');
+                badges[2].textContent = 'IMPR';
+
+                results.label.textContent = 'Campaign CPM (Rate)';
+                results.prefix.classList.remove('hidden');
+            } else if (solveFor === 'cost') {
+                labels[1].textContent = 'CPM (Rate)';
+                prefixes[1].classList.remove('hidden');
+                badges[1].textContent = 'CPM';
+
+                labels[2].textContent = 'Total Impressions';
+                prefixes[2].classList.add('hidden');
+                badges[2].textContent = 'IMPR';
+
+                results.label.textContent = 'Total Campaign Cost';
+                results.prefix.classList.remove('hidden');
+            } else if (solveFor === 'impr') {
+                labels[1].textContent = 'Total Cost';
+                prefixes[1].classList.remove('hidden');
+                badges[1].textContent = 'COST';
+
+                labels[2].textContent = 'CPM (Rate)';
+                prefixes[2].classList.remove('hidden');
+                badges[2].textContent = 'CPM';
+
+                results.label.textContent = 'Total Impressions';
+                results.prefix.classList.add('hidden');
+            }
+
+            calculate();
+        }
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(num);
+        }
+
+        function formatNumber(num) {
+            return new Intl.NumberFormat('en-US').format(num);
+        }
+
+        function calculate() {
+            const v1 = parseFloat(inputs[1].value) || 0;
+            const v2 = parseFloat(inputs[2].value) || 0;
+            let result = 0;
+            let s1Label = '', s1Val = '', s2Label = '', s2Val = '';
+
+            if (solveFor === 'cpm') {
+                // Cost / Impr * 1000
+                if (v2 > 0) result = (v1 / v2) * 1000;
+                s1Label = 'Total Cost';
+                s1Val = '$' + formatCurrency(v1);
+                s2Label = 'Total Impressions';
+                s2Val = formatNumber(v2);
+            } else if (solveFor === 'cost') {
+                // CPM * Impr / 1000
+                result = (v1 * v2) / 1000;
+                s1Label = 'CPM Rate';
+                s1Val = '$' + formatCurrency(v1);
+                s2Label = 'Total Impressions';
+                s2Val = formatNumber(v2);
+            } else if (solveFor === 'impr') {
+                // Cost / CPM * 1000
+                if (v2 > 0) result = (v1 / v2) * 1000;
+                s1Label = 'Total Cost';
+                s1Val = '$' + formatCurrency(v1);
+                s2Label = 'CPM Rate';
+                s2Val = '$' + formatCurrency(v2);
+            }
+
+            // Update Result UI
+            results.main.textContent = solveFor === 'impr' ? formatNumber(Math.round(result)) : formatCurrency(result);
+            results.stat1Label.textContent = s1Label;
+            results.stat1Val.textContent = s1Val;
+            results.stat2Label.textContent = s2Label;
+            results.stat2Val.textContent = s2Val;
+        }
+
+        // Listeners
+        Object.entries(tabs).forEach(([mode, tab]) => {
+            tab.addEventListener('click', () => {
+                solveFor = mode;
+                updateUI();
+            });
+        });
+
+        inputs[1].addEventListener('input', calculate);
+        inputs[2].addEventListener('input', calculate);
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Usually presets apply to impressions
+                if (solveFor === 'cpm' || solveFor === 'cost') {
+                    inputs[2].value = btn.dataset.val;
+                } else {
+                    // if solving for impr, maybe preset cost? Let's just keep it simple.
+                    inputs[1].value = btn.dataset.val;
+                }
+                calculate();
+            });
+        });
+
+        // Init
+        updateUI();
+
+    </script>
+</body>
+</html>
+

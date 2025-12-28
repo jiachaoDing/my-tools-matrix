@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Calculator - Accurate Mortgage & Car Loan Estimates | WebUtilityKit</title>
+    <meta name="description" content="Calculate your monthly loan payments instantly. Accurate estimates for mortgages, car loans, and personal loans. 100% private and secure.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4', 100: '#dcfce7', 200: '#bbf7d0', 300: '#86efac', 400: '#4ade80', 500: '#22c55e', 600: '#16a34a', 700: '#15803d', 800: '#166534', 900: '#14532d', 950: '#052e16',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5; 
+            }
+            .input-label { 
+                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
+            }
+            .unit-badge { 
+                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
+            }
+            .result-card {
+                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-emerald-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group;
+            }
+            .tab-btn { 
+                @apply flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300; 
+            }
+            .active-tab { 
+                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-emerald-600 dark:text-emerald-400; 
+            }
+            .inactive-tab { 
+                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300; 
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Loan Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Calculate monthly payments and total interest for mortgages, car loans, or personal loans instantly.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Configuration (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="input-label">Loan Amount</label>
+                                <div class="relative group">
+                                    <input type="number" id="amount-input" value="300000" min="0" step="1000" class="custom-input pl-12">
+                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span class="unit-badge">LOAN</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="input-label">Interest Rate (%)</label>
+                                <div class="relative group">
+                                    <input type="number" id="rate-input" value="5.5" min="0" max="100" step="0.01" class="custom-input">
+                                    <span class="unit-badge">ANNUAL</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="input-label">Loan Term</label>
+                                <div class="flex gap-4">
+                                    <div class="relative flex-grow group">
+                                        <input type="number" id="term-input" value="30" min="1" step="1" class="custom-input">
+                                        <span id="term-unit-badge" class="unit-badge">YEARS</span>
+                                    </div>
+                                    <div class="flex flex-col p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
+                                        <button id="unit-years" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all active-tab">Y</button>
+                                        <button id="unit-months" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all inactive-tab mt-1">M</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-4">
+                            <label class="input-label">Quick Presets</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-amount="30000" data-rate="6.5" data-term="5" data-unit="years">Car Loan (5y)</button>
+                                <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-amount="500000" data-rate="5.0" data-term="30" data-unit="years">Mortgage (30y)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-emerald-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-emerald-500/20 relative overflow-hidden text-white">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-emerald-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label class="text-xs font-bold text-emerald-200 uppercase tracking-[0.2em] block mb-12">Monthly Payment</label>
+                            
+                            <div class="flex-grow space-y-12">
+                                <!-- Hero Results -->
+                                <div class="text-center sm:text-left">
+                                    <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                                        <span class="text-emerald-200 text-3xl font-black italic">$</span>
+                                        <span id="monthly-payment" class="text-8xl font-black tracking-tighter tabular-nums">1,703.37</span>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-center sm:justify-start gap-2">
+                                        <span class="w-12 h-1 bg-white rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-emerald-200 text-[10px] font-black uppercase mb-1 tracking-widest">Total Interest</div>
+                                        <div id="total-interest" class="text-3xl font-black tracking-tight tabular-nums">$313,213</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-emerald-200 text-[10px] font-black uppercase mb-1 tracking-widest">Total Payment</div>
+                                        <div id="total-payment" class="text-3xl font-black tracking-tight tabular-nums">$613,213</div>
+                                    </div>
+                                </div>
+
+                                <!-- Interest Visualization -->
+                                <div class="w-full space-y-4">
+                                    <div class="flex justify-between text-[10px] font-black uppercase tracking-widest text-emerald-200">
+                                        <span>Principal</span>
+                                        <span>Interest</span>
+                                    </div>
+                                    <div class="h-4 w-full bg-white/10 rounded-full overflow-hidden flex">
+                                        <div id="principal-bar" class="h-full bg-white transition-all duration-1000" style="width: 50%"></div>
+                                        <div id="interest-bar" class="h-full bg-emerald-400/50 transition-all duration-1000" style="width: 50%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-sm font-bold">
+                                        <span id="principal-percent">49%</span>
+                                        <span id="interest-percent">51%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-emerald-200/80 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>Estimates based on a fixed interest rate for the entire term.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to calculate your loan</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Enter Amount</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Type in the total principal amount you intend to borrow (e.g., $300,000 for a mortgage).</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Set Interest & Term</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Input the annual interest rate and the duration of the loan in years or months.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Review Results</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Instantly see your monthly payment and how much total interest you'll pay over the life of the loan.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Financial Tip -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">The Impact of Interest</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                On long-term loans like a 30-year mortgage, even a 0.5% difference in interest rate can save or cost you tens of thousands of dollars. Use this tool to compare different scenarios and find the most affordable option for your budget.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                                    <span class="text-slate-200">Lower Rate = Less Total Interest</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                                    <span class="text-slate-200">Shorter Term = Higher Monthly, Lower Total</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-emerald-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-emerald-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Built for Clarity and Privacy</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Computation</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Results update in real-time as you adjust any parameter. No buttons, just immediate financial feedback.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% Secure</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your financial data stays on your device. We use local browser processing, so nothing is ever uploaded to a server.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Visual Breakdown</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Understand the ratio of principal vs. interest with our dynamic progress bar visualization.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Flexible Terms</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Calculate loans in years or months. Perfect for both 30-year mortgages and 36-month car loans.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Loan FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-emerald-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What formula do you use?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                We use the standard amortization formula: <strong>M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]</strong>, where M is the monthly payment, P is the principal, i is the monthly interest rate, and n is the number of months.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-emerald-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Does this include taxes and insurance?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                No. This is a basic principal and interest calculator. It does not account for property taxes, homeowners insurance, or private mortgage insurance (PMI), which are often included in a bank's quote.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Loan Calculator Logic ===
+        const amountInput = document.getElementById('amount-input');
+        const rateInput = document.getElementById('rate-input');
+        const termInput = document.getElementById('term-input');
+        const unitYearsBtn = document.getElementById('unit-years');
+        const unitMonthsBtn = document.getElementById('unit-months');
+        const termUnitBadge = document.getElementById('term-unit-badge');
+
+        const monthlyPaymentEl = document.getElementById('monthly-payment');
+        const totalInterestEl = document.getElementById('total-interest');
+        const totalPaymentEl = document.getElementById('total-payment');
+        const principalBar = document.getElementById('principal-bar');
+        const interestBar = document.getElementById('interest-bar');
+        const principalPercentEl = document.getElementById('principal-percent');
+        const interestPercentEl = document.getElementById('interest-percent');
+
+        let termUnit = 'years';
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(num);
+        }
+
+        function calculate() {
+            const principal = parseFloat(amountInput.value) || 0;
+            const annualRate = parseFloat(rateInput.value) || 0;
+            const termValue = parseFloat(termInput.value) || 0;
+
+            const monthlyRate = annualRate / 100 / 12;
+            const numberOfMonths = termUnit === 'years' ? termValue * 12 : termValue;
+
+            let monthlyPayment = 0;
+            if (principal > 0 && numberOfMonths > 0) {
+                if (monthlyRate === 0) {
+                    monthlyPayment = principal / numberOfMonths;
+                } else {
+                    const x = Math.pow(1 + monthlyRate, numberOfMonths);
+                    monthlyPayment = (principal * x * monthlyRate) / (x - 1);
+                }
+            }
+
+            const totalPayment = monthlyPayment * numberOfMonths;
+            const totalInterest = totalPayment - principal;
+
+            // Update UI
+            monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
+            totalInterestEl.textContent = '$' + formatCurrency(Math.max(0, totalInterest)).split('.')[0];
+            totalPaymentEl.textContent = '$' + formatCurrency(totalPayment).split('.')[0];
+
+            // Update Visuals
+            if (totalPayment > 0) {
+                const principalRatio = (principal / totalPayment) * 100;
+                const interestRatio = 100 - principalRatio;
+                
+                principalBar.style.width = principalRatio + '%';
+                interestBar.style.width = interestRatio + '%';
+                principalPercentEl.textContent = Math.round(principalRatio) + '%';
+                interestPercentEl.textContent = Math.round(interestRatio) + '%';
+            } else {
+                principalBar.style.width = '50%';
+                interestBar.style.width = '50%';
+                principalPercentEl.textContent = '50%';
+                interestPercentEl.textContent = '50%';
+            }
+        }
+
+        function setTermUnit(unit) {
+            termUnit = unit;
+            if (unit === 'years') {
+                unitYearsBtn.classList.add('active-tab');
+                unitYearsBtn.classList.remove('inactive-tab');
+                unitMonthsBtn.classList.add('inactive-tab');
+                unitMonthsBtn.classList.remove('active-tab');
+                termUnitBadge.textContent = 'YEARS';
+            } else {
+                unitMonthsBtn.classList.add('active-tab');
+                unitMonthsBtn.classList.remove('inactive-tab');
+                unitYearsBtn.classList.add('inactive-tab');
+                unitYearsBtn.classList.remove('active-tab');
+                termUnitBadge.textContent = 'MONTHS';
+            }
+            calculate();
+        }
+
+        amountInput.addEventListener('input', calculate);
+        rateInput.addEventListener('input', calculate);
+        termInput.addEventListener('input', calculate);
+        unitYearsBtn.addEventListener('click', () => setTermUnit('years'));
+        unitMonthsBtn.addEventListener('click', () => setTermUnit('months'));
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                amountInput.value = btn.dataset.amount;
+                rateInput.value = btn.dataset.rate;
+                termInput.value = btn.dataset.term;
+                setTermUnit(btn.dataset.unit);
+            });
+        });
+
+        // Init
+        calculate();
+
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Special Symbols Picker - Copy Symbols & Characters | WebUtilityKit</title>
+    <meta name="description" content="Quickly find and copy special symbols, math characters, arrows, and currency signs. A beautiful, private, and fast symbol library for your browser.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .category-btn {
+                @apply w-full text-left px-4 py-3 rounded-xl transition-all flex items-center gap-3 font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-blue-600 dark:hover:text-blue-400;
+            }
+            .category-btn.active {
+                @apply bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm border border-blue-100/50 dark:border-blue-800/50;
+            }
+            .symbol-card {
+                @apply aspect-square flex items-center justify-center text-2xl cursor-pointer rounded-2xl transition-all hover:bg-white dark:hover:bg-slate-800 hover:scale-125 hover:shadow-xl hover:shadow-blue-500/10 active:scale-95 border border-transparent hover:border-blue-500/20;
+            }
+            .search-input {
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-medium text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5;
+            }
+        }
+        #symbol-grid::-webkit-scrollbar { width: 6px; }
+        #symbol-grid::-webkit-scrollbar-track { background: transparent; }
+        #symbol-grid::-webkit-scrollbar-thumb { 
+            @apply bg-slate-200 dark:bg-slate-800 rounded-full;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Special Symbols Picker</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Find and copy professional typography, math, and technical symbols instantly. Pure client-side tool for developers and writers.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch h-[700px]">
+                
+                <!-- Left Pane: Categories & Search (4 cols) -->
+                <div class="lg:col-span-4 flex flex-col gap-6">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="mb-8">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 block ml-1 italic">Search Symbols</label>
+                            <div class="relative group">
+                                <input type="text" id="symbol-search" placeholder="e.g. arrow, math, degree..." class="search-input">
+                                <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow overflow-y-auto pr-2 space-y-1" id="category-list">
+                            <button class="category-btn active" data-category="recent">
+                                <span class="text-lg">🕒</span>
+                                <span>Recently Used</span>
+                            </button>
+                            <div class="h-px bg-slate-100 dark:bg-slate-700/50 my-2 mx-2"></div>
+                            <button class="category-btn" data-category="arrows">
+                                <span class="text-lg">➔</span>
+                                <span>Arrows</span>
+                            </button>
+                            <button class="category-btn" data-category="math">
+                                <span class="text-lg">±</span>
+                                <span>Mathematics</span>
+                            </button>
+                            <button class="category-btn" data-category="currency">
+                                <span class="text-lg">€</span>
+                                <span>Currency</span>
+                            </button>
+                            <button class="category-btn" data-category="punctuation">
+                                <span class="text-lg">«</span>
+                                <span>Punctuation</span>
+                            </button>
+                            <button class="category-btn" data-category="greek">
+                                <span class="text-lg">Ω</span>
+                                <span>Greek Letters</span>
+                            </button>
+                            <button class="category-btn" data-category="technical">
+                                <span class="text-lg">⌘</span>
+                                <span>Technical</span>
+                            </button>
+                            <button class="category-btn" data-category="misc">
+                                <span class="text-lg">★</span>
+                                <span>Misc Symbols</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Selected Preview (Bottom of Left Column) -->
+                    <div id="preview-section" class="bg-blue-600 rounded-[2rem] p-6 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden hidden transition-all">
+                        <div class="absolute right-0 top-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                        <div class="relative z-10 flex items-center gap-6">
+                            <div id="preview-symbol" class="text-5xl font-bold bg-white/10 backdrop-blur-md w-20 h-20 flex items-center justify-center rounded-2xl border border-white/20">∞</div>
+                            <div class="flex-grow">
+                                <div id="preview-name" class="text-sm font-bold uppercase tracking-wider mb-1 text-blue-100 italic">infinity</div>
+                                <div id="preview-code" class="text-xs font-mono bg-black/20 px-2 py-1 rounded w-fit text-blue-50">&amp;infin;</div>
+                            </div>
+                            <button id="copy-btn" class="p-4 bg-white text-blue-600 rounded-2xl shadow-lg hover:scale-105 active:scale-95 transition-all">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Symbol Grid (8 cols) -->
+                <div class="lg:col-span-8 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden">
+                        <div id="symbol-grid" class="flex-grow overflow-y-auto p-8 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 content-start">
+                            <!-- Symbols injected here -->
+                        </div>
+                        
+                        <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center hidden">
+                            <div class="text-6xl mb-4">🔍</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white italic">No symbols found</h3>
+                            <p class="text-slate-500 italic">Try searching for something else</p>
+                        </div>
+
+                        <!-- Copy Toast -->
+                        <div id="toast" class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-6 py-3 rounded-2xl text-sm font-bold shadow-2xl opacity-0 transition-opacity pointer-events-none flex items-center gap-2">
+                            <span class="text-green-400">✅</span>
+                            <span>Copied to clipboard!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase underline decoration-blue-500/30 underline-offset-8">Mastering Typography</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 italic">Browse or Search</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Filter by category or search for specific symbols like "delta", "copyright", or "euro".</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 italic">Select Symbol</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Click any character to view its details, HTML entity, and larger preview.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 italic">Instant Copy</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Characters are automatically copied to your clipboard when clicked. Simple and fast.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight leading-tight">Beyond the Keyboard</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 italic">
+                                Most of the characters we use in professional writing—from proper dashes (—) to mathematical proof symbols (∴)—aren't readily available on standard keyboards. Our picker bridges this gap, providing instant access to the full breadth of Unicode typography.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic tracking-widest">Variety</div>
+                                    <div class="font-bold">500+ Characters</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic tracking-widest">Dev Friendly</div>
+                                    <div class="font-bold">HTML Entities</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <span class="text-7xl font-black drop-shadow-2xl">Σ</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter decoration-blue-500/30 underline underline-offset-8">Symbol FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">Will these symbols work in Word/Google Docs?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                Yes. These are standard Unicode characters. When you copy them from here and paste them into any modern text editor or document processor, they will maintain their appearance regardless of the font.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">What are HTML Entities?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                HTML Entities (like &amp;copy;) are used by web developers to display special characters in HTML code without causing issues with the code's structure. Our tool provides these codes for easier development.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400 italic">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Symbol Data ===
+        const SYMBOL_DATA = {
+            arrows: [
+                {char: '←', name: 'left arrow', entity: '&larr;', keywords: 'direction move back'},
+                {char: '↑', name: 'up arrow', entity: '&uarr;', keywords: 'direction move top'},
+                {char: '→', name: 'right arrow', entity: '&rarr;', keywords: 'direction move next'},
+                {char: '↓', name: 'down arrow', entity: '&darr;', keywords: 'direction move bottom'},
+                {char: '↔', name: 'left right arrow', entity: '&harr;', keywords: 'direction horizontal'},
+                {char: '↕', name: 'up down arrow', entity: '&#8597;', keywords: 'direction vertical'},
+                {char: '↖', name: 'north west arrow', entity: '&#8598;', keywords: 'direction diagonal'},
+                {char: '↗', name: 'north east arrow', entity: '&#8599;', keywords: 'direction diagonal'},
+                {char: '↘', name: 'south east arrow', entity: '&#8600;', keywords: 'direction diagonal'},
+                {char: '↙', name: 'south west arrow', entity: '&#8601;', keywords: 'direction diagonal'},
+                {char: '↚', name: 'left arrow with stroke', entity: '&#8602;', keywords: 'no direction'},
+                {char: '↛', name: 'right arrow with stroke', entity: '&#8603;', keywords: 'no direction'},
+                {char: '↜', name: 'left wave arrow', entity: '&#8604;', keywords: 'curve'},
+                {char: '↝', name: 'right wave arrow', entity: '&#8605;', keywords: 'curve'},
+                {char: '↞', name: 'left two headed arrow', entity: '&#8606;', keywords: 'fast'},
+                {char: '↟', name: 'up two headed arrow', entity: '&#8607;', keywords: 'fast'},
+                {char: '↠', name: 'right two headed arrow', entity: '&#8608;', keywords: 'fast'},
+                {char: '↡', name: 'down two headed arrow', entity: '&#8609;', keywords: 'fast'},
+                {char: '↩', name: 'left arrow with hook', entity: '&hookleftarrow;', keywords: 'return enter'},
+                {char: '↪', name: 'right arrow with hook', entity: '&hookrightarrow;', keywords: 'next'},
+                {char: '↫', name: 'left arrow with loop', entity: '&#8619;', keywords: 'return'},
+                {char: '↬', name: 'right arrow with loop', entity: '&#8620;', keywords: 'next'},
+                {char: '↭', name: 'left right wave arrow', entity: '&#8621;', keywords: 'curve'},
+                {char: '↮', name: 'left right arrow with stroke', entity: '&#8622;', keywords: 'no'},
+                {char: '↯', name: 'down zigzag arrow', entity: '&#8623;', keywords: 'lightning bolt'},
+                {char: '↵', name: 'down arrow with corner left', entity: '&crarr;', keywords: 'return enter'},
+                {char: '↴', name: 'down arrow with corner right', entity: '&#8625;', keywords: 'next'},
+                {char: '↺', name: 'anticlockwise open circle arrow', entity: '&#8634;', keywords: 'refresh reload'},
+                {char: '↻', name: 'clockwise open circle arrow', entity: '&#8635;', keywords: 'refresh reload'},
+                {char: '⇚', name: 'left triple arrow', entity: '&#8666;', keywords: 'fast'},
+                {char: '⇛', name: 'right triple arrow', entity: '&#8667;', keywords: 'fast'},
+                {char: '⇄', name: 'left right arrows', entity: '&#8644;', keywords: 'exchange swap'},
+                {char: '⇅', name: 'up down arrows', entity: '&#8645;', keywords: 'vertical swap'},
+                {char: '⇆', name: 'right left arrows', entity: '&#8646;', keywords: 'exchange swap'},
+                {char: '⇇', name: 'left left arrows', entity: '&#8647;', keywords: 'parallel'},
+                {char: '⇉', name: 'right right arrows', entity: '&#8649;', keywords: 'parallel'},
+                {char: '⇈', name: 'up up arrows', entity: '&#8648;', keywords: 'parallel'},
+                {char: '⇊', name: 'down down arrows', entity: '&#8650;', keywords: 'parallel'},
+                {char: '⇐', name: 'left double arrow', entity: '&lArr;', keywords: 'logic'},
+                {char: '⇒', name: 'right double arrow', entity: '&rArr;', keywords: 'logic'},
+                {char: '⇔', name: 'left right double arrow', entity: '&hArr;', keywords: 'logic'},
+                {char: '⇕', name: 'up down double arrow', entity: '&vArr;', keywords: 'logic'},
+                {char: '➔', name: 'heavy right arrow', entity: '&#10132;', keywords: 'bold next'},
+                {char: '➕', name: 'heavy plus', entity: '&#10133;', keywords: 'math add'},
+                {char: '➖', name: 'heavy minus', entity: '&#10134;', keywords: 'math sub'},
+                {char: '✖️', name: 'heavy multiply', entity: '&#10006;', keywords: 'math cross no'}
+            ],
+            math: [
+                {char: '±', name: 'plus-minus', entity: '&plusmn;', keywords: 'add sub'},
+                {char: '×', name: 'multiplication', entity: '&times;', keywords: 'times multiply'},
+                {char: '÷', name: 'division', entity: '&divide;', keywords: 'divide slash'},
+                {char: '≈', name: 'almost equal to', entity: '&asymp;', keywords: 'equal approx'},
+                {char: '≠', name: 'not equal to', entity: '&ne;', keywords: 'equal no'},
+                {char: '≡', name: 'identical to', entity: '&equiv;', keywords: 'equal same'},
+                {char: '≤', name: 'less-than or equal to', entity: '&le;', keywords: 'compare'},
+                {char: '≥', name: 'greater-than or equal to', entity: '&ge;', keywords: 'compare'},
+                {char: '√', name: 'square root', entity: '&radic;', keywords: 'math root'},
+                {char: '∞', name: 'infinity', entity: '&infin;', keywords: 'forever endless'},
+                {char: '∑', name: 'n-ary summation', entity: '&sum;', keywords: 'sum total sigma'},
+                {char: '∏', name: 'n-ary product', entity: '&prod;', keywords: 'times pi'},
+                {char: 'π', name: 'greek small letter pi', entity: '&pi;', keywords: 'math circle'},
+                {char: '∆', name: 'increment', entity: '&delta;', keywords: 'change diff'},
+                {char: '∇', name: 'nabla', entity: '&nabla;', keywords: 'vector grad'},
+                {char: '∂', name: 'partial differential', entity: '&part;', keywords: 'diff deriv'},
+                {char: '∫', name: 'integral', entity: '&int;', keywords: 'math calc'},
+                {char: '∬', name: 'double integral', entity: '&#8748;', keywords: 'math calc'},
+                {char: '∭', name: 'triple integral', entity: '&#8749;', keywords: 'math calc'},
+                {char: '∮', name: 'contour integral', entity: '&oint;', keywords: 'math calc'},
+                {char: '∝', name: 'proportional to', entity: '&prop;', keywords: 'ratio scale'},
+                {char: '∠', name: 'angle', entity: '&ang;', keywords: 'geo degree'},
+                {char: '⊥', name: 'up tack', entity: '&perp;', keywords: 'perp ortho'},
+                {char: '∥', name: 'parallel to', entity: '&#8741;', keywords: 'geo side'},
+                {char: '∧', name: 'logical and', entity: '&and;', keywords: 'logic wedge'},
+                {char: '∨', name: 'logical or', entity: '&or;', keywords: 'logic vee'},
+                {char: '∩', name: 'intersection', entity: '&cap;', keywords: 'set set-theory'},
+                {char: '∪', name: 'union', entity: '&cup;', keywords: 'set set-theory'},
+                {char: '∅', name: 'empty set', entity: '&empty;', keywords: 'set null zero'},
+                {char: '∈', name: 'element of', entity: '&isin;', keywords: 'set member'},
+                {char: '∉', name: 'not an element of', entity: '&notin;', keywords: 'set no'},
+                {char: '⊂', name: 'subset of', entity: '&sub;', keywords: 'set less'},
+                {char: '⊃', name: 'superset of', entity: '&sup;', keywords: 'set more'},
+                {char: '⊆', name: 'subset of or equal to', entity: '&sube;', keywords: 'set'},
+                {char: '⊇', name: 'superset of or equal to', entity: '&supe;', keywords: 'set'},
+                {char: '⊕', name: 'circled plus', entity: '&oplus;', keywords: 'xor'},
+                {char: '⊗', name: 'circled times', entity: '&otimes;', keywords: 'math'},
+                {char: '∀', name: 'for all', entity: '&forall;', keywords: 'logic every'},
+                {char: '∃', name: 'there exists', entity: '&exist;', keywords: 'logic'},
+                {char: '∄', name: 'there does not exist', entity: '&#8708;', keywords: 'logic no'},
+                {char: '∴', name: 'therefore', entity: '&there4;', keywords: 'logic prove'},
+                {char: '∵', name: 'because', entity: '&because;', keywords: 'logic prove'},
+                {char: '∠', name: 'angle', entity: '&ang;', keywords: 'geometry'},
+                {char: '°', name: 'degree sign', entity: '&deg;', keywords: 'weather unit angle'},
+                {char: '‰', name: 'per mille sign', entity: '&permil;', keywords: 'percent thousand'},
+                {char: '†', name: 'dagger', entity: '&dagger;', keywords: 'note cross'},
+                {char: '‡', name: 'double dagger', entity: '&Dagger;', keywords: 'note cross'}
+            ],
+            currency: [
+                {char: '$', name: 'dollar sign', entity: '&#36;', keywords: 'money usa cash'},
+                {char: '€', name: 'euro sign', entity: '&euro;', keywords: 'money europe cash'},
+                {char: '£', name: 'pound sign', entity: '&pound;', keywords: 'money uk cash'},
+                {char: '¥', name: 'yen sign', entity: '&yen;', keywords: 'money japan china cash'},
+                {char: '₹', name: 'indian rupee sign', entity: '&#8377;', keywords: 'money india cash'},
+                {char: '₽', name: 'ruble sign', entity: '&#8381;', keywords: 'money russia cash'},
+                {char: '₩', name: 'won sign', entity: '&#8361;', keywords: 'money korea cash'},
+                {char: '₺', name: 'turkish lira sign', entity: '&#8378;', keywords: 'money turkey cash'},
+                {char: '₴', name: 'hryvnia sign', entity: '&#8372;', keywords: 'money ukraine cash'},
+                {char: '₦', name: 'naira sign', entity: '&#8358;', keywords: 'money nigeria cash'},
+                {char: '฿', name: 'baht sign', entity: '&#3647;', keywords: 'money thailand cash'},
+                {char: '₫', name: 'dong sign', entity: '&#8363;', keywords: 'money vietnam cash'},
+                {char: '₭', name: 'kip sign', entity: '&#8365;', keywords: 'money laos cash'},
+                {char: '₮', name: 'tugrik sign', entity: '&#8366;', keywords: 'money mongolia cash'},
+                {char: '₯', name: 'drachma sign', entity: '&#8367;', keywords: 'money greece cash'},
+                {char: '₰', name: 'german penny sign', entity: '&#8368;', keywords: 'money germany cash'},
+                {char: '₲', name: 'guarani sign', entity: '&#8370;', keywords: 'money paraguay cash'},
+                {char: '₳', name: 'austral sign', entity: '&#8371;', keywords: 'money argentina cash'},
+                {char: '₵', name: 'cedi sign', entity: '&#8373;', keywords: 'money ghana cash'},
+                {char: '₶', name: 'livre tournois sign', entity: '&#8374;', keywords: 'money france cash'},
+                {char: '₷', name: 'spesmilo sign', entity: '&#8375;', keywords: 'money cash'},
+                {char: '₸', name: 'tenge sign', entity: '&#8376;', keywords: 'money kazakhstan cash'},
+                {char: '֏', name: 'armenian dram sign', entity: '&#1423;', keywords: 'money armenia cash'},
+                {char: '₠', name: 'euro-currency sign', entity: '&#8352;', keywords: 'money cash'},
+                {char: '₡', name: 'colon sign', entity: '&#8353;', keywords: 'money costa rica cash'},
+                {char: '₢', name: 'cruzeiro sign', entity: '&#8354;', keywords: 'money brazil cash'},
+                {char: '₣', name: 'french franc sign', entity: '&#8355;', keywords: 'money france cash'},
+                {char: '₥', name: 'mill sign', entity: '&#8357;', keywords: 'money cash'},
+                {char: '₧', name: 'peseta sign', entity: '&#8359;', keywords: 'money spain cash'},
+                {char: '₪', name: 'shekel sign', entity: '&#8362;', keywords: 'money israel cash'},
+                {char: '₧', name: 'peseta sign', entity: '&#8359;', keywords: 'money spain cash'},
+                {char: '¢', name: 'cent sign', entity: '&cent;', keywords: 'money cash small'},
+                {char: '¤', name: 'currency sign', entity: '&curren;', keywords: 'money cash general'},
+                {char: 'ƒ', name: 'florin sign', entity: '&fnof;', keywords: 'money netherlands cash'}
+            ],
+            punctuation: [
+                {char: '«', name: 'left-pointing double angle quotation mark', entity: '&laquo;', keywords: 'quote double french'},
+                {char: '»', name: 'right-pointing double angle quotation mark', entity: '&raquo;', keywords: 'quote double french'},
+                {char: '‹', name: 'single left-pointing angle quotation mark', entity: '&lsaquo;', keywords: 'quote single'},
+                {char: '›', name: 'single right-pointing angle quotation mark', entity: '&rsaquo;', keywords: 'quote single'},
+                {char: '“', name: 'left double quotation mark', entity: '&ldquo;', keywords: 'quote double'},
+                {char: '”', name: 'right double quotation mark', entity: '&rdquo;', keywords: 'quote double'},
+                {char: '‘', name: 'left single quotation mark', entity: '&lsquo;', keywords: 'quote single'},
+                {char: '’', name: 'right single quotation mark', entity: '&rsquo;', keywords: 'quote single'},
+                {char: '–', name: 'en dash', entity: '&ndash;', keywords: 'dash small'},
+                {char: '—', name: 'em dash', entity: '&mdash;', keywords: 'dash large'},
+                {char: '…', name: 'horizontal ellipsis', entity: '&hellip;', keywords: 'dot wait more'},
+                {char: '¿', name: 'inverted question mark', entity: '&iquest;', keywords: 'ques spanish'},
+                {char: '¡', name: 'inverted exclamation mark', entity: '&iexcl;', keywords: 'alert spanish'},
+                {char: '•', name: 'bullet', entity: '&bull;', keywords: 'list dot'},
+                {char: '·', name: 'middle dot', entity: '&middot;', keywords: 'list dot center'},
+                {char: '¶', name: 'pilcrow sign', entity: '&para;', keywords: 'para end'},
+                {char: '§', name: 'section sign', entity: '&sect;', keywords: 'law part'},
+                {char: '†', name: 'dagger', entity: '&dagger;', keywords: 'note cross'},
+                {char: '‡', name: 'double dagger', entity: '&Dagger;', keywords: 'note cross'},
+                {char: '′', name: 'prime', entity: '&prime;', keywords: 'unit feet time'},
+                {char: '″', name: 'double prime', entity: '&Prime;', keywords: 'unit inch time'},
+                {char: '‾', name: 'overline', entity: '&oline;', keywords: 'top line'},
+                {char: '⁄', name: 'fraction slash', entity: '&frasl;', keywords: 'divide math'}
+            ],
+            greek: [
+                {char: 'α', name: 'alpha', entity: '&alpha;', keywords: 'greek small'},
+                {char: 'β', name: 'beta', entity: '&beta;', keywords: 'greek small'},
+                {char: 'γ', name: 'gamma', entity: '&gamma;', keywords: 'greek small'},
+                {char: 'δ', name: 'delta', entity: '&delta;', keywords: 'greek small'},
+                {char: 'ε', name: 'epsilon', entity: '&epsilon;', keywords: 'greek small'},
+                {char: 'ζ', name: 'zeta', entity: '&zeta;', keywords: 'greek small'},
+                {char: 'η', name: 'eta', entity: '&eta;', keywords: 'greek small'},
+                {char: 'θ', name: 'theta', entity: '&theta;', keywords: 'greek small'},
+                {char: 'ι', name: 'iota', entity: '&iota;', keywords: 'greek small'},
+                {char: 'κ', name: 'kappa', entity: '&kappa;', keywords: 'greek small'},
+                {char: 'λ', name: 'lambda', entity: '&lambda;', keywords: 'greek small wave'},
+                {char: 'μ', name: 'mu', entity: '&mu;', keywords: 'greek small micro'},
+                {char: 'ν', name: 'nu', entity: '&nu;', keywords: 'greek small'},
+                {char: 'ξ', name: 'xi', entity: '&xi;', keywords: 'greek small'},
+                {char: 'ο', name: 'omicron', entity: '&omicron;', keywords: 'greek small'},
+                {char: 'π', name: 'pi', entity: '&pi;', keywords: 'greek small math'},
+                {char: 'ρ', name: 'rho', entity: '&rho;', keywords: 'greek small'},
+                {char: 'σ', name: 'sigma', entity: '&sigma;', keywords: 'greek small sum'},
+                {char: 'τ', name: 'tau', entity: '&tau;', keywords: 'greek small'},
+                {char: 'υ', name: 'upsilon', entity: '&upsilon;', keywords: 'greek small'},
+                {char: 'φ', name: 'phi', entity: '&phi;', keywords: 'greek small golden'},
+                {char: 'χ', name: 'chi', entity: '&chi;', keywords: 'greek small'},
+                {char: 'ψ', name: 'psi', entity: '&psi;', keywords: 'greek small'},
+                {char: 'ω', name: 'omega', entity: '&omega;', keywords: 'greek small end'},
+                {char: 'Α', name: 'Alpha', entity: '&Alpha;', keywords: 'greek caps'},
+                {char: 'Β', name: 'Beta', entity: '&Beta;', keywords: 'greek caps'},
+                {char: 'Γ', name: 'Gamma', entity: '&Gamma;', keywords: 'greek caps'},
+                {char: 'Δ', name: 'Delta', entity: '&Delta;', keywords: 'greek caps change'},
+                {char: 'Ε', name: 'Epsilon', entity: '&Epsilon;', keywords: 'greek caps'},
+                {char: 'Ζ', name: 'Zeta', entity: '&Zeta;', keywords: 'greek caps'},
+                {char: 'Η', name: 'Eta', entity: '&Eta;', keywords: 'greek caps'},
+                {char: 'Θ', name: 'Theta', entity: '&Theta;', keywords: 'greek caps'},
+                {char: 'Ι', name: 'Iota', entity: '&Iota;', keywords: 'greek caps'},
+                {char: 'Κ', name: 'Kappa', entity: '&Kappa;', keywords: 'greek caps'},
+                {char: 'Λ', name: 'Lambda', entity: '&Lambda;', keywords: 'greek caps'},
+                {char: 'Μ', name: 'Mu', entity: '&Mu;', keywords: 'greek caps'},
+                {char: 'Ν', name: 'Nu', entity: '&Nu;', keywords: 'greek caps'},
+                {char: 'Ξ', name: 'Xi', entity: '&Xi;', keywords: 'greek caps'},
+                {char: 'Ο', name: 'Omicron', entity: '&Omicron;', keywords: 'greek caps'},
+                {char: 'Π', name: 'Pi', entity: '&Pi;', keywords: 'greek caps'},
+                {char: 'Ρ', name: 'Rho', entity: '&Rho;', keywords: 'greek caps'},
+                {char: 'Σ', name: 'Sigma', entity: '&Sigma;', keywords: 'greek caps sum'},
+                {char: 'Τ', name: 'Tau', entity: '&Tau;', keywords: 'greek caps'},
+                {char: 'Υ', name: 'Upsilon', entity: '&Upsilon;', keywords: 'greek caps'},
+                {char: 'Φ', name: 'Phi', entity: '&Phi;', keywords: 'greek caps'},
+                {char: 'Χ', name: 'Chi', entity: '&Chi;', keywords: 'greek caps'},
+                {char: 'Ψ', name: 'Psi', entity: '&Psi;', keywords: 'greek caps'},
+                {char: 'Ω', name: 'Omega', entity: '&Omega;', keywords: 'greek caps end ohm'}
+            ],
+            technical: [
+                {char: '⌘', name: 'command', entity: '&#8984;', keywords: 'apple mac key'},
+                {char: '⌥', name: 'option', entity: '&#8997;', keywords: 'apple mac alt key'},
+                {char: '⇧', name: 'shift', entity: '&#8679;', keywords: 'key upper'},
+                {char: '⌃', name: 'control', entity: '&#8963;', keywords: 'key ctrl'},
+                {char: '⎋', name: 'escape', entity: '&#9099;', keywords: 'key esc'},
+                {char: '⌫', name: 'backspace', entity: '&#9003;', keywords: 'key delete'},
+                {char: '⌦', name: 'delete', entity: '&#8998;', keywords: 'key del'},
+                {char: '⏎', name: 'return', entity: '&#9166;', keywords: 'key enter'},
+                {char: '⏏', name: 'eject', entity: '&#9167;', keywords: 'media disk'},
+                {char: '⇪', name: 'caps lock', entity: '&#8682;', keywords: 'key'},
+                {char: '⇥', name: 'tab', entity: '&#8677;', keywords: 'key'},
+                {char: '⇤', name: 'backtab', entity: '&#8676;', keywords: 'key'},
+                {char: '⌧', name: 'clear', entity: '&#8999;', keywords: 'key'},
+                {char: '⌨', name: 'keyboard', entity: '&#9000;', keywords: 'tech type'},
+                {char: '⌬', name: 'benzene ring', entity: '&#9042;', keywords: 'chem science'},
+                {char: '⏚', name: 'ground', entity: '&#9178;', keywords: 'elec tech'},
+                {char: '⏛', name: 'fuse', entity: '&#9179;', keywords: 'elec tech'},
+                {char: '⌀', name: 'diameter', entity: '&#8960;', keywords: 'math unit size'},
+                {char: '⌂', name: 'house', entity: '&#8962;', keywords: 'home building'},
+                {char: '⌕', name: 'magnifying glass', entity: '&#8981;', keywords: 'search find'},
+                {char: '⌄', name: 'caret down', entity: '&#8964;', keywords: 'direction'},
+                {char: '⌃', name: 'caret up', entity: '&#8963;', keywords: 'direction'}
+            ],
+            misc: [
+                {char: '★', name: 'black star', entity: '&#9733;', keywords: 'fav rate win star'},
+                {char: '☆', name: 'white star', entity: '&#9734;', keywords: 'fav rate star'},
+                {char: '☎', name: 'black telephone', entity: '&#9742;', keywords: 'phone call tech'},
+                {char: '☐', name: 'ballot box', entity: '&#9744;', keywords: 'vote check box'},
+                {char: '☑', name: 'ballot box with check', entity: '&#9745;', keywords: 'vote check yes'},
+                {char: '☒', name: 'ballot box with x', entity: '&#9746;', keywords: 'vote no cross'},
+                {char: '☕', name: 'hot beverage', entity: '&#9749;', keywords: 'coffee tea drink cafe'},
+                {char: '☘', name: 'shamrock', keywords: 'luck nature green'},
+                {char: '☸', name: 'wheel of dharma', keywords: 'religion'},
+                {char: '☹', name: 'white frowning face', keywords: 'sad smile face'},
+                {char: '☺', name: 'white smiling face', keywords: 'happy face'},
+                {char: '☻', name: 'black smiling face', keywords: 'happy face'},
+                {char: '☼', name: 'white sun with rays', keywords: 'weather summer hot sun'},
+                {char: '☽', name: 'first quarter moon', keywords: 'night weather space'},
+                {char: '☾', name: 'last quarter moon', keywords: 'night weather space'},
+                {char: '☿', name: 'mercury', keywords: 'zodiac planet'},
+                {char: '♀', name: 'female sign', entity: '&female;', keywords: 'woman gender'},
+                {char: '♂', name: 'male sign', entity: '&male;', keywords: 'man gender'},
+                {char: '♃', name: 'jupiter', keywords: 'zodiac planet'},
+                {char: '♄', name: 'saturn', keywords: 'zodiac planet'},
+                {char: '♅', name: 'uranus', keywords: 'zodiac planet'},
+                {char: '♆', name: 'neptune', keywords: 'zodiac planet'},
+                {char: '♇', name: 'pluto', keywords: 'zodiac planet'},
+                {char: '♈', name: 'aries', keywords: 'zodiac star'},
+                {char: '♉', name: 'taurus', keywords: 'zodiac star'},
+                {char: '♊', name: 'gemini', keywords: 'zodiac star'},
+                {char: '♋', name: 'cancer', keywords: 'zodiac star'},
+                {char: '♌', name: 'leo', keywords: 'zodiac star'},
+                {char: '♍', name: 'virgo', keywords: 'zodiac star'},
+                {char: '♎', name: 'libra', keywords: 'zodiac star'},
+                {char: '♏', name: 'scorpio', keywords: 'zodiac star'},
+                {char: '♐', name: 'sagittarius', keywords: 'zodiac star'},
+                {char: '♑', name: 'capricorn', keywords: 'zodiac star'},
+                {char: '♒', name: 'aquarius', keywords: 'zodiac star'},
+                {char: '♓', name: 'pisces', keywords: 'zodiac star'},
+                {char: '♠', name: 'black spade suit', entity: '&spades;', keywords: 'game card'},
+                {char: '♣', name: 'black club suit', entity: '&clubs;', keywords: 'game card'},
+                {char: '♥', name: 'black heart suit', entity: '&hearts;', keywords: 'game card love'},
+                {char: '♦', name: 'black diamond suit', entity: '&diams;', keywords: 'game card'},
+                {char: '♨', name: 'hot springs', keywords: 'water heat japan'},
+                {char: '♩', name: 'quarter note', keywords: 'music sound'},
+                {char: '♪', name: 'eighth note', keywords: 'music sound'},
+                {char: '♫', name: 'beamed eighth notes', keywords: 'music sound'},
+                {char: '♬', name: 'beamed sixteenth notes', keywords: 'music sound'},
+                {char: '♭', name: 'music flat sign', keywords: 'music sound'},
+                {char: '♮', name: 'music natural sign', keywords: 'music sound'},
+                {char: '♯', name: 'music sharp sign', keywords: 'music sound'},
+                {char: '♲', name: 'universal recycling symbol', keywords: 'green clean nature'},
+                {char: '♾', name: 'infinity', keywords: 'forever endless math'},
+                {char: '♿', name: 'wheelchair symbol', keywords: 'health access'}
+            ]
+        };
+
+        // === Picker Logic ===
+        const searchInput = document.getElementById('symbol-search');
+        const symbolGrid = document.getElementById('symbol-grid');
+        const emptyState = document.getElementById('empty-state');
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const previewSection = document.getElementById('preview-section');
+        const previewSymbol = document.getElementById('preview-symbol');
+        const previewName = document.getElementById('preview-name');
+        const previewCode = document.getElementById('preview-code');
+        const copyBtn = document.getElementById('copy-btn');
+        const toast = document.getElementById('toast');
+
+        let activeCategory = 'arrows';
+        let recentSymbols = JSON.parse(localStorage.getItem('recent_symbols') || '[]');
+        let selectedSymbol = null;
+
+        function init() {
+            // Check for initial category
+            if (recentSymbols.length > 0) {
+                activeCategory = 'recent';
+            } else {
+                activeCategory = 'arrows';
+                categoryBtns.forEach(btn => {
+                    if (btn.dataset.category === 'arrows') btn.classList.add('active');
+                    else btn.classList.remove('active');
+                });
+            }
+            
+            renderSymbols();
+
+            // Search
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                if (query) {
+                    renderSearch(query);
+                    categoryBtns.forEach(btn => btn.classList.remove('active'));
+                } else {
+                    categoryBtns.forEach(btn => {
+                        if (btn.dataset.category === activeCategory) btn.classList.add('active');
+                    });
+                    renderSymbols();
+                }
+            });
+
+            // Category buttons
+            categoryBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    activeCategory = btn.dataset.category;
+                    searchInput.value = '';
+                    categoryBtns.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderSymbols();
+                });
+            });
+
+            // Copy button
+            copyBtn.addEventListener('click', () => {
+                if (selectedSymbol) copyToClipboard(selectedSymbol.char);
+            });
+        }
+
+        function renderSymbols() {
+            let symbols = [];
+            if (activeCategory === 'recent') {
+                symbols = recentSymbols;
+            } else {
+                symbols = SYMBOL_DATA[activeCategory] || [];
+            }
+
+            if (symbols.length === 0 && activeCategory === 'recent') {
+                symbolGrid.innerHTML = '';
+                emptyState.classList.remove('hidden');
+                emptyState.querySelector('h3').textContent = 'No recent symbols';
+                emptyState.querySelector('p').textContent = 'Start picking symbols and they will appear here.';
+                return;
+            }
+
+            renderGrid(symbols);
+        }
+
+        function renderSearch(query) {
+            const results = [];
+            Object.values(SYMBOL_DATA).forEach(cat => {
+                cat.forEach(sym => {
+                    if (sym.name.includes(query) || sym.keywords.includes(query)) {
+                        results.push(sym);
+                    }
+                });
+            });
+            renderGrid(results);
+        }
+
+        function renderGrid(symbols) {
+            symbolGrid.innerHTML = '';
+            if (symbols.length === 0) {
+                emptyState.classList.remove('hidden');
+                emptyState.querySelector('h3').textContent = 'No symbols found';
+                emptyState.querySelector('p').textContent = 'Try searching for something else.';
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            symbols.forEach(sym => {
+                const card = document.createElement('div');
+                card.className = 'symbol-card';
+                card.textContent = sym.char;
+                card.title = sym.name;
+                card.addEventListener('click', () => selectSymbol(sym));
+                symbolGrid.appendChild(card);
+            });
+        }
+
+        function selectSymbol(sym) {
+            selectedSymbol = sym;
+            previewSymbol.textContent = sym.char;
+            previewName.textContent = sym.name;
+            previewCode.textContent = sym.entity || `&#${sym.char.codePointAt(0)};`;
+            previewSection.classList.remove('hidden');
+            
+            copyToClipboard(sym.char);
+            addToRecent(sym);
+        }
+
+        function addToRecent(sym) {
+            recentSymbols = recentSymbols.filter(s => s.char !== sym.char);
+            recentSymbols.unshift(sym);
+            recentSymbols = recentSymbols.slice(0, 50); // Keep last 50
+            localStorage.setItem('recent_symbols', JSON.stringify(recentSymbols));
+            if (activeCategory === 'recent') renderSymbols();
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showToast();
+            });
+        }
+
+        function showToast() {
+            toast.classList.remove('opacity-0');
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 2000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
+

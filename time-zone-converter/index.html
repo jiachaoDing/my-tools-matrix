@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Zone Converter - Global Time & Meeting Planner | WebUtilityKit</title>
+    <meta name="description" content="Convert time across different time zones instantly. Plan international meetings and track global time with ease. 100% private and client-side.">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+        tailwind.config = { 
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .custom-input { 
+                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
+            }
+            .input-label { 
+                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
+            }
+            .tz-card {
+                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group;
+            }
+            .unit-badge { 
+                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Time Zone Converter</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10">Coordinate across the globe effortlessly. Select a source time and instantly see it converted across multiple destinations.</p>
+            
+            <!-- Real-time Hero Clock (No Card) -->
+            <div id="hero-clock" class="mb-12">
+                <div id="current-time-hero" class="text-7xl md:text-8xl font-black text-blue-600 dark:text-blue-400 tracking-tighter tabular-nums leading-none mb-4">00:00:00</div>
+                <div id="current-tz-hero" class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em]">Local Time: ---</div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left Pane: Source Time (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="input-label">Source Time Zone</label>
+                                <div class="relative">
+                                    <select id="source-tz" class="custom-input appearance-none pr-12 cursor-pointer">
+                                        <!-- Populated via JS -->
+                                    </select>
+                                    <div class="absolute right-6 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="input-label">Date & Time</label>
+                                <input type="datetime-local" id="source-datetime" class="custom-input">
+                                <button id="set-now" class="mt-2 text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline uppercase tracking-widest">Set to Now</button>
+                            </div>
+
+                            <div class="pt-4">
+                                <label class="input-label">Quick Search Time Zones</label>
+                                <div class="relative group">
+                                    <input type="text" id="tz-search" placeholder="e.g. London, Tokyo, EST..." class="custom-input pl-12">
+                                    <div class="absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    </div>
+                                    <div id="search-results" class="absolute z-50 left-0 right-0 top-full mt-2 max-h-64 overflow-y-auto bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 hidden">
+                                        <!-- Search items populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Conversions (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex justify-between items-center mb-8">
+                            <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">Target Conversions</label>
+                            <button id="clear-all" class="text-xs font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest">Clear All</button>
+                        </div>
+                        
+                        <div id="targets-container" class="space-y-4 flex-grow overflow-y-auto max-h-[600px] pr-2 custom-scrollbar">
+                            <!-- Target cards populated here -->
+                            <div id="empty-state" class="h-full flex flex-col items-center justify-center text-slate-400 italic py-20">
+                                <svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                Search and add time zones to see conversions
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Global collaboration made simple</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Universal IANA DB</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Access the complete IANA database of world time zones. From PST to the most obscure regional zones, we've got you covered.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Real-time Sync</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">As you adjust the source time or date, all added time zones update instantly. Perfect for finding that perfect meeting window.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Smart Clipboard</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Quickly copy individual converted times or the entire list to paste directly into your calendar or messaging apps.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Privacy -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 max-w-3xl">
+                        <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Privacy-First Coordination</h2>
+                        <p class="text-lg text-blue-50 leading-relaxed mb-10">
+                            Your location and schedule are your business. Unlike cloud-based planners that track your inputs, our Time Zone Converter processes all time calculations <strong>exclusively in your browser</strong>. No cookies, no trackers, and no server logs—just pure local logic.
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">Local-Only Logic</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">No External APIs</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">Secure Design</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4 text-pretty">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How does it handle Daylight Saving Time (DST)?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                The tool uses the built-in browser Intl API, which contains up-to-date IANA timezone rules. It automatically adjusts for DST based on the specific date and year you select for the conversion.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can I convert times in the future?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes. By using the date picker, you can plan meetings weeks or months in advance. The tool will apply the correct timezone offset rules for that specific future date.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is UTC/GMT?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                UTC (Coordinated Universal Time) is the primary time standard by which the world regulates clocks and time. It is effectively the same as GMT (Greenwich Mean Time) but is used in technical contexts. Most timezones are expressed as an offset from UTC (e.g., UTC-5).
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Time Zone Logic ===
+        const sourceTzSelect = document.getElementById('source-tz');
+        const sourceDatetime = document.getElementById('source-datetime');
+        const setNowBtn = document.getElementById('set-now');
+        const tzSearch = document.getElementById('tz-search');
+        const searchResults = document.getElementById('search-results');
+        const targetsContainer = document.getElementById('targets-container');
+        const clearAllBtn = document.getElementById('clear-all');
+        const emptyState = document.getElementById('empty-state');
+        const currentTimeHero = document.getElementById('current-time-hero');
+        const currentTzHero = document.getElementById('current-tz-hero');
+
+        let targetTzs = new Set(['UTC', 'Europe/London', 'America/New_York', 'Asia/Tokyo']);
+        const allTzs = Intl.supportedValuesOf('timeZone');
+
+        function init() {
+            // Populate Source TZ
+            const userTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            currentTzHero.textContent = `Local Time: ${userTz.replace(/_/g, ' ')}`;
+            
+            // Start Hero Clock
+            setInterval(updateHeroClock, 1000);
+            updateHeroClock();
+
+            allTzs.forEach(tz => {
+                const option = document.createElement('option');
+                option.value = tz;
+                option.textContent = tz.replace(/_/g, ' ');
+                if (tz === userTz) option.selected = true;
+                sourceTzSelect.appendChild(option);
+            });
+
+            // Set Initial Time
+            setNow();
+            renderTargets();
+        }
+
+        function updateHeroClock() {
+            const now = new Date();
+            currentTimeHero.textContent = now.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit', 
+                hour12: false 
+            });
+        }
+
+        function setNow() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const day = String(now.getDate()).padStart(2, '0');
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            sourceDatetime.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+            updateConversions();
+        }
+
+        function renderTargets() {
+            if (targetTzs.size === 0) {
+                emptyState.classList.remove('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Keep existing and update or re-render
+            targetsContainer.querySelectorAll('.tz-card').forEach(c => c.remove());
+            
+            targetTzs.forEach(tz => {
+                const card = createTzCard(tz);
+                targetsContainer.appendChild(card);
+            });
+            updateConversions();
+        }
+
+        function createTzCard(tz) {
+            const card = document.createElement('div');
+            card.className = 'tz-card';
+            card.dataset.tz = tz;
+            card.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h4 class="font-black text-slate-900 dark:text-white text-lg tracking-tight">${tz.replace(/_/g, ' ').split('/').pop()}</h4>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${tz}</p>
+                    </div>
+                    <button class="remove-tz p-1.5 text-slate-300 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div class="mt-4 flex items-end justify-between">
+                    <div class="converted-time text-3xl font-black text-blue-600 dark:text-blue-400">--:--</div>
+                    <div class="converted-date text-xs font-bold text-slate-400 text-right">---</div>
+                </div>
+                <button class="copy-time absolute right-4 bottom-4 p-1.5 bg-white dark:bg-slate-800 rounded-lg shadow-sm border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 transition-all hover:text-blue-600">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                </button>
+            `;
+
+            card.querySelector('.remove-tz').addEventListener('click', () => {
+                targetTzs.delete(tz);
+                renderTargets();
+            });
+
+            card.querySelector('.copy-time').addEventListener('click', () => {
+                const time = card.querySelector('.converted-time').textContent;
+                const date = card.querySelector('.converted-date').textContent;
+                navigator.clipboard.writeText(`${time} (${date}) - ${tz}`);
+            });
+
+            return card;
+        }
+
+        function updateConversions() {
+            const sourceTz = sourceTzSelect.value;
+            const dtValue = sourceDatetime.value;
+            if (!dtValue) return;
+
+            // Create source date in its timezone
+            // Unfortunately, native Date doesn't support creating in a specific TZ easily without libraries.
+            // Hack: Use Intl to find the offset difference or use the ISO string with offset.
+            // Simpler approach for client-side: Create a Date object assuming it's the target TZ then adjust.
+            
+            const [datePart, timePart] = dtValue.split('T');
+            const [year, month, day] = datePart.split('-');
+            const [hours, minutes] = timePart.split(':');
+            
+            // Build a string that Intl can parse or use the Date constructor with year, month-1, day, hours, minutes
+            // But this assumes local time. We need to tell it "this is the time in sourceTz".
+            
+            // Modern way: Use the parts from Intl.DateTimeFormat to reconstruct the UTC time.
+            const sourceDate = new Date(year, month-1, day, hours, minutes);
+            
+            // Adjust for source TZ offset
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: sourceTz,
+                year: 'numeric', month: 'numeric', day: 'numeric',
+                hour: 'numeric', minute: 'numeric', second: 'numeric',
+                hour12: false
+            });
+            
+            // Find the offset of the sourceTz at that moment
+            const parts = formatter.formatToParts(sourceDate);
+            const formattedDate = new Date(
+                parts.find(p => p.type === 'year').value,
+                parts.find(p => p.type === 'month').value - 1,
+                parts.find(p => p.type === 'day').value,
+                parts.find(p => p.type === 'hour').value,
+                parts.find(p => p.type === 'minute').value
+            );
+            
+            const offsetDiff = sourceDate.getTime() - formattedDate.getTime();
+            const utcDate = new Date(sourceDate.getTime() + offsetDiff);
+
+            targetsContainer.querySelectorAll('.tz-card').forEach(card => {
+                const tz = card.dataset.tz;
+                const timeStr = utcDate.toLocaleTimeString('en-US', {
+                    timeZone: tz,
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+                const dateStr = utcDate.toLocaleDateString('en-US', {
+                    timeZone: tz,
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric'
+                });
+                
+                card.querySelector('.converted-time').textContent = timeStr;
+                card.querySelector('.converted-date').textContent = dateStr;
+            });
+        }
+
+        // Search Logic
+        tzSearch.addEventListener('input', () => {
+            const query = tzSearch.value.toLowerCase();
+            if (query.length < 2) {
+                searchResults.classList.add('hidden');
+                return;
+            }
+
+            const matches = allTzs.filter(tz => 
+                tz.toLowerCase().includes(query) || 
+                tz.replace(/_/g, ' ').toLowerCase().includes(query)
+            ).slice(0, 10);
+
+            if (matches.length > 0) {
+                searchResults.innerHTML = matches.map(tz => `
+                    <div class="px-6 py-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer transition-colors border-b border-slate-50 dark:border-slate-700 last:border-0" data-tz="${tz}">
+                        <div class="font-bold text-slate-900 dark:text-white">${tz.replace(/_/g, ' ')}</div>
+                        <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${tz}</div>
+                    </div>
+                `).join('');
+                searchResults.classList.remove('hidden');
+            } else {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        searchResults.addEventListener('click', (e) => {
+            const item = e.target.closest('[data-tz]');
+            if (item) {
+                const tz = item.dataset.tz;
+                targetTzs.add(tz);
+                tzSearch.value = '';
+                searchResults.classList.add('hidden');
+                renderTargets();
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!tzSearch.contains(e.target) && !searchResults.contains(e.target)) {
+                searchResults.classList.add('hidden');
+            }
+        });
+
+        sourceTzSelect.addEventListener('change', updateConversions);
+        sourceDatetime.addEventListener('input', updateConversions);
+        setNowBtn.addEventListener('click', setNow);
+        clearAllBtn.addEventListener('click', () => {
+            targetTzs.clear();
+            renderTargets();
+        });
+
+        init();
+
+    </script>
+</body>
+</html>
+
