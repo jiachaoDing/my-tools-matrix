@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEIC to JPG Converter - Free Online Tool</title>
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .tool-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            padding: 60px 20px;
+            text-align: center;
+            background: #f8f9fa;
+            margin: 30px 0;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background: #e9ecef;
+        }
+        
+        .upload-area.dragover {
+            background: #e7edff;
+            border-color: #764ba2;
+        }
+        
+        #fileInput {
+            display: none;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #5568d3;
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .preview-area {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .preview-image {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tool-container">
+            <a href="../" class="back-link">← Back to Home</a>
+            
+            <header>
+                <h1>HEIC to JPG Converter</h1>
+                <p class="subtitle">Convert HEIC images to JPG format instantly in your browser</p>
+            </header>
+
+            <main>
+                <div class="upload-area" id="uploadArea">
+                    <p style="font-size: 1.2rem; margin-bottom: 10px;">📁 Drop HEIC files here or click to browse</p>
+                    <p style="color: #666;">Supports .heic and .heif files</p>
+                    <input type="file" id="fileInput" accept=".heic,.heif" multiple>
+                </div>
+
+                <div style="text-align: center;">
+                    <button class="btn" id="convertBtn" disabled>Convert to JPG</button>
+                </div>
+
+                <div class="preview-area" id="previewArea" style="display: none;">
+                    <h2 style="margin-bottom: 20px;">Converted Images</h2>
+                    <div id="imageList"></div>
+                </div>
+            </main>
+
+            <footer>
+                <p>&copy; 2024 Global Tools Matrix. Free HEIC to JPG converter.</p>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Note: HEIC conversion requires a library like heic2any
+        // For now, this is a placeholder structure
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        const convertBtn = document.getElementById('convertBtn');
+        const previewArea = document.getElementById('previewArea');
+        const imageList = document.getElementById('imageList');
+        
+        let selectedFiles = [];
+
+        uploadArea.addEventListener('click', () => fileInput.click());
+        
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.classList.add('dragover');
+        });
+        
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.classList.remove('dragover');
+        });
+        
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.classList.remove('dragover');
+            handleFiles(e.dataTransfer.files);
+        });
+        
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+        
+        function handleFiles(files) {
+            selectedFiles = Array.from(files);
+            convertBtn.disabled = selectedFiles.length === 0;
+            
+            if (selectedFiles.length > 0) {
+                uploadArea.innerHTML = `<p style="font-size: 1.2rem;">${selectedFiles.length} file(s) selected</p>`;
+            }
+        }
+        
+        convertBtn.addEventListener('click', () => {
+            // Conversion logic will be implemented with heic2any library
+            alert('HEIC conversion requires the heic2any library. This is a placeholder structure.');
+        });
+    </script>
+</body>
+</html>
+
