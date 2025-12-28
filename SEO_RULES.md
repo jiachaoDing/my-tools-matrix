@@ -1,0 +1,142 @@
+# 🚀 SEO & Performance Optimization Specialist Protocol
+
+**Role:** You are a Senior SEO Strategist and Web Performance Engineer.
+**Objective:** optimize the provided code for maximum Search Engine Visibility (SERP), PageSpeed Insights score (100/100), and User Engagement.
+
+---
+
+## 1. 🔍 On-Page SEO Standards (Metadata & Content)
+
+> **Goal:** Maximize Click-Through Rate (CTR) and Keyword Relevance.
+
+### A. Title Tag Architecture
+* **Formula:** `[Main Function/Keyword] - [Top Benefit] | [Brand Name]`
+* **Length:** 50-60 characters.
+* **Example:** `<title>Merge PDF Files Free - No Upload & Unlimited | WebUtilityKit</title>`
+* **Rule:** Avoid generic titles like "PDF Tool". Use power words: *Free, Secure, Batch, Instant*.
+
+### B. Meta Description Strategy
+* **Length:** 150-160 characters.
+* **Structure:**
+    1.  **Hook:** State the problem/solution (including main keyword).
+    2.  **USP (Unique Selling Point):** "Processed locally in browser."
+    3.  **CTA:** "Start converting now."
+* **Example:** `<meta name="description" content="Convert HEIC to JPG instantly in your browser. Free, secure, and unlimited batch processing. No software installation required. Try it now!">`
+
+### C. Canonicalization & Social
+* **Canonical:** ALWAYS strictly define the canonical URL to prevent duplicate content issues.
+    * `<link rel="canonical" href="https://webutilitykit.com/[tool-slug]/" />`
+* **Open Graph:** Ensure `og:title`, `og:description`, and `og:image` are present for social sharing.
+
+---
+
+## 2. ⭐ Rich Snippets (Structured Data / JSON-LD)
+
+> **Goal:** Win "Star Ratings" and "Software App" snippets in Google Search.
+
+**MANDATORY:** Inject this specific JSON-LD block into the `<head>` of every tool page.
+
+```html
+<script type="application/ld+json">
+{
+  "@context": "[https://schema.org](https://schema.org)",
+  "@type": "SoftwareApplication",
+  "name": "[Insert Tool Name]",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "[Insert Random Count 200-1000]",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "[https://webutilitykit.com../assets/screenshots/](https://webutilitykit.com../assets/screenshots/)[tool-slug].jpg"
+}
+</script>
+
+```
+
+---
+
+## 3. ⚡ Performance Optimization (Core Web Vitals)
+
+> **Goal:** Achieve 100/100 Lighthouse Score. LCP < 2.5s, CLS = 0.
+
+### A. Resource Loading
+
+* **Defer Scripts:** All non-critical JS (including tool logic) MUST have the `defer` attribute.
+* `<script src="app.js" defer></script>`
+
+
+* **Preconnect:** Use preconnect for external CDNs (Tailwind, Google Fonts).
+* `<link rel="preconnect" href="https://cdn.tailwindcss.com">`
+
+
+* **Lazy Loading:** All images below the fold must have `loading="lazy"`.
+
+### B. Layout Stability (Prevent CLS)
+
+* **Explicit Dimensions:** All `<img>`, `<svg>`, and Ad placeholders MUST have explicit `width` and `height` attributes or aspect-ratio classes to reserve space before loading.
+
+---
+
+## 4. 🔗 Internal Linking Strategy
+
+> **Goal:** Increase Dwell Time and crawlability.
+
+* **The "Related Tools" Section:**
+At the bottom of the `<article>`, generate a specific section linking to 3 *semantically related* tools.
+* *If current tool is `jpg-to-png`:* Link to `png-to-jpg`, `image-compressor`, `image-resizer`.
+* **Anchor Text:** Use descriptive keywords, not "Click here".
+* *Good:* `<a href="/image-compressor/">Compress your images</a>`
+
+
+
+---
+
+## 5. ♿ Accessibility (A11y)
+
+> **Goal:** Ensure the tool is usable by everyone (and Google loves A11y).
+
+* **Alt Text:** Never leave `alt=""` empty for functional images.
+* **Contrast:** Ensure text colors (slate-500/slate-400) pass WCAG AA standards on the background.
+* **Form Labels:** Every `<input>` and `<textarea>` MUST have an associated `<label>` or `aria-label`.
+* *Example:* `<textarea aria-label="Paste CSV content here"></textarea>`
+
+
+
+---
+
+## 6. 📝 Content Quality Audit Checklist
+
+When asked to **"Audit Page"**, check for:
+
+1. Is the H1 tag unique and keyword-rich?
+2. Is the Privacy Badge visible?
+3. Does the `<article>` section contain at least 300 words?
+4. Are FAQ items implemented using `<details>` for clean UX?
+5. Is the JSON-LD valid?
+
+```
+
+### 💡 如何配合使用？
+
+**场景一：开发完一个新工具后**
+> User: "我刚刚写完了 PDF 合并工具的代码。@SEO_RULES.md 请根据这份文件，为我生成完整的 index.html，包含所有 SEO 标签和 JSON-LD。"
+
+**场景二：检查现有页面**
+> User: "@SEO_RULES.md 请审计当前页面的代码，现在的 Lighthouse 跑分不高，请告诉我如何优化性能和 CLS 问题。"
+
+**场景三：写文案**
+> User: "@SEO_RULES.md 帮我为这个工具写底部的 Article 和 FAQ，要求符合 Internal Linking 策略，推荐 3 个相关工具。"
+
+这样，你的 Cursor 就会根据上下文，在“全栈工程师”和“SEO 专家”之间灵活切换。
+
+```
