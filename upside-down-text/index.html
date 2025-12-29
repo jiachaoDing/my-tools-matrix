@@ -6,45 +6,6 @@
     <title>Upside Down Text Generator - Flip Your Text | WebUtilityKit</title>
     <meta name="description" content="Instantly flip your text upside down. Perfect for social media, clever bios, and fun messages. 100% private and client-side.">
     <link href="../assets/css/styles.css" rel="stylesheet">
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .tool-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[3rem] p-8 lg:p-12 shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .text-pane {
-                @apply flex flex-col flex-1 min-h-[300px];
-            }
-            .custom-textarea {
-                @apply w-full h-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-[2rem] p-8 outline-none transition-all font-medium text-lg leading-relaxed resize-none shadow-inner;
-            }
-            .action-btn {
-                @apply flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95;
-            }
-            .primary-btn {
-                @apply bg-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700;
-            }
-            .secondary-btn {
-                @apply bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700;
-            }
-            .drop-zone-active {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-        }
-    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -79,7 +40,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
                 
                 <!-- Input Pane -->
-                <div class="text-pane group relative">
+                <div class="flex flex-col flex-1 min-h-[300px] group relative">
                     <div id="drop-zone" class="absolute inset-0 z-10 hidden border-4 border-dashed border-blue-500 rounded-[2.5rem] bg-blue-50/80 dark:bg-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center transition-all pointer-events-none">
                         <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mb-4 shadow-xl">
                             <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
@@ -99,7 +60,7 @@
                         </div>
                     </div>
                     
-                    <textarea id="input-text" placeholder="Type or paste your text here... Or drag and drop a file." class="custom-textarea flex-grow"></textarea>
+                    <textarea id="input-text" placeholder="Type or paste your text here... Or drag and drop a file." class="w-full h-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-[2rem] p-8 outline-none transition-all font-medium text-lg leading-relaxed resize-none shadow-inner flex-grow"></textarea>
                     
                     <div id="uploaded-files" class="mt-4 hidden space-y-2 px-2">
                         <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex justify-between">
@@ -111,7 +72,7 @@
                 </div>
 
                 <!-- Output Pane -->
-                <div class="text-pane">
+                <div class="flex flex-col flex-1 min-h-[300px]">
                     <div class="flex items-center justify-between mb-4 px-2">
                         <label class="text-xs font-bold text-slate-500 uppercase tracking-widest italic">Upside Down Result</label>
                         <div class="flex items-center gap-4">
@@ -125,14 +86,14 @@
                         </div>
                     </div>
                     
-                    <textarea id="output-text" readonly placeholder="Result will appear here..." class="custom-textarea flex-grow bg-white/50 dark:bg-slate-800/30 cursor-default"></textarea>
+                    <textarea id="output-text" readonly placeholder="Result will appear here..." class="w-full h-full bg-white/50 dark:bg-slate-800/30 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-[2rem] p-8 outline-none transition-all font-medium text-lg leading-relaxed resize-none shadow-inner flex-grow cursor-default"></textarea>
                     
                     <div class="mt-6 flex gap-4">
-                        <button id="copy-btn" class="action-btn primary-btn flex-1">
+                        <button id="copy-btn" class="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95 bg-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700 flex-1">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-1 4h.01M9 16h.01"></path></svg>
                             Copy Result
                         </button>
-                        <button id="download-btn" class="action-btn secondary-btn">
+                        <button id="download-btn" class="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M7 10l5 5m0 0l5-5m-5 5V3"></path></svg>
                             Export .txt
                         </button>
