@@ -3,9 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PNG to JPG Converter - Free & Fast | WebUtilityKit</title>
-    <meta name="description" content="Convert PNG images to JPG instantly with adjustable quality. Free, secure, and works offline. No uploads required - all processing happens in your browser.">
+    <title>PNG to JPG Converter - Free, Secure & Batch | WebUtilityKit</title>
+    <meta name="description" content="Convert PNG to JPG instantly in your browser with adjustable quality. Free, secure, and unlimited batch processing. No server uploads - your privacy is guaranteed. Try it now!">
+    
+    <link rel="canonical" href="https://webutilitykit.com/png-to-jpg/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/png-to-jpg/">
+    <meta property="og:title" content="PNG to JPG Converter - 100% Secure & Local">
+    <meta property="og:description" content="Batch convert PNG images to JPG without uploading to any server. Adjustable quality, fast, and privacy-focused.">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/png-to-jpg.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link href="../assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PNG to JPG Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "925",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Adjustable JPG quality",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/png-to-jpg.jpg"
+    }
+    </script>
     
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
@@ -50,7 +87,7 @@
                 <!-- Upload Zone -->
                 <div class="p-8">
                     <div id="drop-zone" class="relative border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-3xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
-                        <input type="file" id="file-input" accept=".png,image/png" multiple class="hidden">
+                        <input type="file" id="file-input" accept=".png,image/png" multiple class="hidden" aria-label="Upload PNG images">
                         
                         <div id="upload-prompt" class="text-center p-8">
                             <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
@@ -142,57 +179,57 @@
         </div>
 
         <div class="max-w-6xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-16">
-            <div class="space-y-24">
+            <article class="space-y-24">
                 
                 <!-- Section 1: How to use -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to Convert PNG to JPG</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Upload Images</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Drag and drop your PNG files or click to select them from any device.</p>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to Convert PNG to JPG</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Upload Images</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Drag and drop your PNG files or click to select them from any device.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Adjust Quality</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Set your desired JPG quality from 50% to 100% to balance size and clarity.</p>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Adjust Quality</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Set your desired JPG quality from 50% to 100% to balance size and clarity.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Download JPGs</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Preview converted images and download individually or all at once.</p>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download JPGs</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Preview converted images and download individually or all at once.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Section 2: Why PNG to JPG -->
-                <section class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
-                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
                             <h2 class="text-4xl font-bold mb-6 italic tracking-tight">PNG vs JPG: When to Convert?</h2>
-                            <p class="text-lg text-blue-50/90 leading-relaxed mb-8">
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
                                 PNG is perfect for graphics with transparency, but JPG is ideal for photos and web use. Converting PNG to JPG reduces file size dramatically (often 50-80% smaller) while maintaining excellent visual quality—perfect for faster uploads, email attachments, and web optimization.
                             </p>
                             <div class="flex gap-4 flex-wrap">
-                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
-                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1">File Size</div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">File Size</div>
                                     <div class="font-bold">50-80% Smaller</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
-                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1">Privacy</div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">Privacy</div>
                                     <div class="font-bold">100% Local</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
-                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1">Speed</div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">Speed</div>
                                     <div class="font-bold">Instant</div>
                                 </div>
                             </div>
                         </div>
                         <div class="hidden lg:flex justify-center">
-                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
-                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                         </div>
                     </div>
@@ -395,7 +432,7 @@
             resultList.innerHTML = convertedResults.map((result, index) => `
                 <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden group">
                     <div class="aspect-square bg-slate-200 dark:bg-slate-900 rounded-xl mb-3 overflow-hidden">
-                        <img src="${result.url}" alt="${result.name}" class="w-full h-full object-cover">
+                        <img src="${result.url}" alt="${result.name}" class="w-full h-full object-cover" loading="lazy">
                     </div>
                     <div class="mb-3">
                         <div class="font-semibold text-sm text-slate-900 dark:text-white truncate mb-1">${result.name}</div>

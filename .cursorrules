@@ -7,9 +7,39 @@
 
    ## 2. Tech Stack Constraints (STRICT)
 
-   - **Core:** HTML5, Vanilla JS, Tailwind CSS (CDN).
-   - **Forbidden:** No Frameworks (React/Vue), No Build Tools (npm/webpack), No Backend.
+   - **Core:** HTML5, Vanilla JS, Tailwind CSS (**CLI-compiled**, output to `assets/css/styles.css`).
+   - **Forbidden:** No Frameworks (React/Vue), No Backend, **no Node/npm toolchain** (no webpack/vite/postcss via npm).
    - **Processing:** Client-side only (`FileReader`, `Blob`).
+
+   ## 2.1 Tailwind / CSS Rules (CRITICAL — must follow)
+
+   **We use Tailwind via CLI build, not CDN runtime.**
+
+   - **Allowed CSS entrypoint(s):**
+     - Edit `input.css` (and any CSS it `@import`s). This is where Tailwind directives and `@apply` belong.
+     - Every HTML page must link the compiled CSS:
+       - Tool pages: `<link href="../assets/css/styles.css" rel="stylesheet">`
+       - Root index: `<link href="assets/css/styles.css" rel="stylesheet">`
+
+   - **Forbidden in HTML (do not generate):**
+     - `<style type="text/tailwindcss"> ... </style>` (CDN-only feature)
+     - `tailwind.config = {...}` blocks in HTML (no `cdn.tailwindcss.com`, so it does nothing)
+     - Any `@apply`, `@layer`, `@tailwind`, `@import "tailwindcss"` inside HTML `<style>`
+
+   - **How to style components:**
+     - **Preferred:** write Tailwind utility classes directly on elements (`class=""`).
+     - **If reuse is needed:** define semantic classes inside `input.css` using:
+       - `@layer components { .btn { @apply ... } }`
+       - Then use `class="btn"` in HTML.
+
+   - **Watch mode (PowerShell, canonical):**
+     - `D:\APP\tailwindcss-windows-x64.exe -i .\input.css -o .\assets\css\styles.css -w`
+     - Note: `input.css` must include `@source "./**/*.{html,js}"` so editing HTML/JS triggers rebuild.
+
+   - **Workflow assumption (IMPORTANT):**
+     - The developer will manually start Tailwind watch at the beginning of each coding session.
+     - Do NOT propose Tailwind CDN usage or in-HTML Tailwind compilation.
+     - After HTML/JS changes, assume CSS will be regenerated automatically by watch; never rely on `<style type="text/tailwindcss">` or `tailwind.config` blocks.
 
    ## 3. Design Role & Intelligent Layout (AI EMPOWERED)
 

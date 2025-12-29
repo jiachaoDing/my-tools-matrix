@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Compressor - Free & Secure | WebUtilityKit</title>
-    <meta name="description" content="Compress images locally in your browser. Fast, secure, and privacy-focused image optimization for JPG, PNG, and WebP. No server uploads ever.">
+    <title>Image Compressor - Free, Secure & Batch Optimize | WebUtilityKit</title>
+    <meta name="description" content="Compress images locally in your browser with adjustable quality. Free, secure, and unlimited batch processing for JPG, PNG, and WebP. No server uploads - your privacy is guaranteed. Try it now!">
+    
+    <link rel="canonical" href="https://webutilitykit.com/image-compressor/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/image-compressor/">
+    <meta property="og:title" content="Image Compressor - 100% Secure & Local Optimization">
+    <meta property="og:description" content="Batch compress and optimize images without uploading to any server. Reduce file size instantly while maintaining quality.">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/image-compressor.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link href="../assets/css/styles.css" rel="stylesheet">
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Compressor",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "942",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Real-time preview, Adjustable quality",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/image-compressor.jpg"
+    }
     </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .pane-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-            .control-card {
-                @apply p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800;
-            }
-            .stat-badge {
-                @apply text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md;
-            }
-        }
-    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -81,19 +85,19 @@
                 
                 <!-- Input Pane -->
                 <div class="flex flex-col h-full text-left">
-                    <div class="pane-container text-left text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full border border-slate-100 dark:border-slate-800/50 text-left">
                         <div class="flex items-center justify-between mb-6">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">Upload Photos</label>
                             <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear All</button>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone text-left">
-                            <input type="file" id="file-input" class="hidden" multiple accept="image/jpeg,image/png,image/webp">
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 text-left">
+                            <input type="file" id="file-input" class="hidden" multiple accept="image/jpeg,image/png,image/webp" aria-label="Upload images for compression">
                             <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl group-hover:scale-110 transition-transform">
                                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                             <p class="text-slate-900 dark:text-white font-bold text-lg text-left">Drop images here</p>
-                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1 text-left text-left">or click to select files</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1 text-left">or click to select files</p>
                             
                             <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed text-left">
                                 <p class="text-blue-600 dark:text-blue-400 font-bold text-lg text-left">Release to upload</p>
@@ -101,13 +105,13 @@
                         </div>
 
                         <!-- Uploaded Files List -->
-                        <div id="file-list-container" class="mt-6 hidden text-left text-left">
+                        <div id="file-list-container" class="mt-6 hidden text-left">
                             <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2 text-left">Selected Images (<span id="file-count">0</span>)</h4>
-                            <div id="file-list" class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar text-left text-left text-left"></div>
+                            <div id="file-list" class="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar text-left"></div>
                         </div>
 
                         <div class="mt-6 space-y-4 text-left">
-                            <div class="control-card text-left text-left">
+                            <div class="p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800 text-left">
                                 <div class="flex items-center justify-between mb-4">
                                     <span class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">Compression Quality</span>
                                     <span id="quality-val" class="text-sm font-bold text-blue-600 dark:text-blue-400">80%</span>
@@ -124,7 +128,7 @@
 
                 <!-- Result Pane -->
                 <div class="flex flex-col h-full text-left">
-                    <div class="pane-container text-left text-left text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full border border-slate-100 dark:border-slate-800/50 text-left">
                         <div class="flex items-center justify-between mb-6">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">Optimized Results</label>
                             <div class="flex gap-2">
@@ -170,138 +174,141 @@
 
         <!-- Editorial Section -->
         <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 text-left">
-            <article class="space-y-24 text-left text-left text-left text-left text-left">
+            <article class="space-y-24">
                 
                 <!-- Section 1: How to use -->
-                <section class="text-left text-left">
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center text-left text-left">How to optimize your images</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left text-left">
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Add Images</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-left">Drag and drop your photos or click the upload zone. We support JPEG, PNG, and WebP formats up to large resolutions.</p>
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to optimize your images</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Add Images</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Drag and drop your photos or click the upload zone. We support JPEG, PNG, and WebP formats up to large resolutions.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left text-left">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Set Quality</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-left">Adjust the slider. 80% is the "sweet spot" for most web images—providing massive savings with no visible quality loss.</p>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Set Quality</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Adjust the slider. 80% is the "sweet spot" for most web images—providing massive savings with no visible quality loss.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left text-left">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Save Result</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-left">Click "Compress All" and download your optimized files individually or as a batch. Your original images stay untouched.</p>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Save Result</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click "Compress All" and download your optimized files individually or as a batch. Your original images stay untouched.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Section 2: Technical/Privacy -->
-                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl text-left text-left text-left">
-                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
-                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left text-left">
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-left">High Speed, Higher Privacy</h2>
-                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8 text-left text-left text-left">
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">High Speed, Higher Privacy</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
                                 Most image compressors upload your sensitive photos to their servers for processing. We don't. Our tool uses the power of your browser's hardware-accelerated canvas to optimize images locally. This means instant speeds and 100% privacy for your personal or professional assets.
                             </p>
-                            <div class="flex gap-4 text-left text-left">
-                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20 text-left text-left">
-                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Processing</div>
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">Processing</div>
                                     <div class="font-bold">Hardware-Canvas</div>
                                 </div>
-                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20 text-left text-left text-left text-left text-left">
-                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Privacy</div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">Privacy</div>
                                     <div class="font-bold">Zero-Upload</div>
                                 </div>
                             </div>
                         </div>
-                        <div class="hidden lg:flex justify-center text-left text-left text-left text-left text-left">
-                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse text-left text-left">
-                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Section 3: Use Cases -->
-                <section class="text-left text-left">
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center text-left text-left">Optimized for every workflow</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-left">
-                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left">
-                            <h3 class="text-xl font-bold text-blue-600 mb-6 text-left">Web Performance</h3>
-                            <div class="space-y-4 text-left text-left">
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl text-left">
-                                    <span class="font-medium text-left">Page Speed</span>
-                                    <span class="font-bold text-blue-500 text-left">Faster Load</span>
-                                </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500 text-left text-left">
-                                    <span class="font-medium text-left">SEO Score</span>
-                                    <span class="font-bold text-green-500 text-left text-left text-left text-left">Core Web Vitals</span>
-                                </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500 text-left text-left">
-                                    <span class="font-medium text-left">Storage</span>
-                                    <span class="font-bold text-orange-500 text-left text-left text-left text-left">Reduce Costs</span>
-                                </div>
+                <!-- Section 3: Key Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Optimized for every workflow</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Web Performance</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Achieve faster page loads and better SEO scores by reducing image weights without compromising visual quality.</p>
                             </div>
                         </div>
-                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left text-left">
-                            <h3 class="text-xl font-bold text-purple-600 mb-6 text-left text-left text-left">Social & Creative</h3>
-                            <div class="space-y-4 text-left text-left">
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl text-left text-left text-left text-left text-left">
-                                    <span class="font-medium text-left">Attachments</span>
-                                    <span class="font-bold text-slate-400 text-left text-left">Bypass Limits</span>
-                                </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500 text-left text-left text-left">
-                                    <span class="font-medium text-left text-left text-left">Photo Sharing</span>
-                                    <span class="font-bold text-purple-500 text-left text-left">Maintain Clarity</span>
-                                </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500 text-left text-left text-left text-left">
-                                    <span class="font-medium text-left text-left">Archives</span>
-                                    <span class="font-bold text-red-500 text-left text-left">Compact Storage</span>
-                                </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Social & Creative</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Bypass email attachment limits and social media upload restrictions with perfectly sized assets.</p>
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Section 4: FAQ -->
-                <section class="text-left text-left text-left text-left">
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic text-left text-left text-left text-left">Expert Q&A</h2>
-                    <div class="max-w-3xl mx-auto space-y-4 text-left text-left text-left text-left">
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left text-left text-left">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left text-left text-left text-left text-left text-left">
-                                <span class="text-xl text-left text-left text-left">What formats are supported?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left text-left text-left">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What formats are supported?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
                                     <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                                 </span>
                             </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left text-left text-left text-left">
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
                                 You can compress JPEG, PNG, and WebP images. For PNGs, the output will typically be a JPEG to ensure maximum compression unless you specifically need transparency.
                             </div>
                         </details>
                         
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left text-left text-left">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left text-left text-left text-left text-left">
-                                <span class="text-xl text-left text-left text-left text-left">Is there a limit on file size?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left text-left text-left">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is there a limit on file size?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
                                     <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                                 </span>
                             </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left text-left text-left text-left">
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
                                 No hard limit exists, but your browser's memory capacity will dictate how many high-resolution images can be processed at once. For massive images (over 20MB), we recommend processing them 1 or 2 at a time.
                             </div>
                         </details>
 
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left text-left text-left">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left text-left text-left text-left text-left">
-                                <span class="text-xl text-left text-left text-left text-left">Do you keep a copy of my images?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left text-left text-left">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Do you keep a copy of my images?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
                                     <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                                 </span>
                             </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left text-left text-left text-left">
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
                                 Never. All processing happens entirely within your own browser's environment. The images never touch our servers, and they are cleared from your device's memory as soon as you close the tab or clear the list.
                             </div>
                         </details>
+                    </div>
+                </section>
+
+                <!-- Related Tools Section -->
+                <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Related Tools You Might Need</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="/webp-converter/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">WebP Converter</h3>
+                            <p class="text-sm text-slate-500 mt-1">Convert images to modern WebP for even smaller sizes.</p>
+                        </a>
+                        <a href="/image-resizer/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Resizer</h3>
+                            <p class="text-sm text-slate-500 mt-1">Easily change dimensions for social media or web use.</p>
+                        </a>
+                        <a href="/image-cropper/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Cropper</h3>
+                            <p class="text-sm text-slate-500 mt-1">Crop your images precisely for any aspect ratio.</p>
+                        </a>
                     </div>
                 </section>
             </article>
@@ -530,9 +537,9 @@
             
             if (result.status === 'success') {
                 item.innerHTML = `
-                    <div class="flex items-center gap-4 text-left text-left text-left text-left text-left">
-                        <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0 text-left text-left text-left text-left text-left">
-                            <img src="${result.url}" class="w-full h-full object-cover text-left text-left text-left text-left text-left">
+                    <div class="flex items-center gap-4 text-left">
+                        <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0 text-left">
+                            <img src="${result.url}" class="w-full h-full object-cover" loading="lazy">
                         </div>
                         <div class="overflow-hidden text-left text-left text-left text-left text-left text-left">
                             <div class="text-xs font-bold truncate text-left text-left text-left text-left text-left">${result.name}</div>

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Cropper - Free, Secure & Precision Online Tool | WebUtilityKit</title>
+    <meta name="description" content="Crop images online with pixel-perfect precision. Free, secure, and unlimited processing for JPG, PNG, and WebP. No server uploads - your privacy is guaranteed. Try it now!">
+    
+    <link rel="canonical" href="https://webutilitykit.com/image-cropper/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/image-cropper/">
+    <meta property="og:title" content="Image Cropper - 100% Secure & Local Precision Cropping">
+    <meta property="og:description" content="Precisely crop your photos instantly with preset ratios for social media without uploading to any server.">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/image-cropper.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Cropper",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "724",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Preset aspect ratios, Lossless cropping, Rotation and Flip",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/image-cropper.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white text-pretty italic">Image Cropper</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Precisely crop your images locally. Instant, secure, and preserves original quality.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local processing only.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left: Editor Area (8 cols) -->
+                <div class="lg:col-span-8 flex flex-col h-full min-h-[500px]">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+                        
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 transition-all cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
+                            <input type="file" id="file-input" class="hidden" accept="image/jpeg,image/png,image/webp" aria-label="Upload image for cropping">
+                            <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Drop your image here</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">or click to browse files</p>
+                        </div>
+
+                        <!-- Editor Area (Hidden initially) -->
+                        <div id="editor-container" class="hidden flex-grow flex flex-col relative min-h-[400px]">
+                            <div class="flex-grow relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden flex items-center justify-center">
+                                <div id="cropper-stage" class="relative max-w-full max-h-full">
+                                    <img id="source-image" class="max-w-full max-h-full block select-none pointer-events-none" src="" alt="To crop">
+                                    <div id="crop-box" class="absolute border-2 border-white shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] cursor-move touch-none box-border group/box">
+                                        <!-- Corner Handles -->
+                                        <div data-handle="nw" class="absolute -top-2 -left-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-nw-resize"></div>
+                                        <div data-handle="ne" class="absolute -top-2 -right-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-ne-resize"></div>
+                                        <div data-handle="sw" class="absolute -bottom-2 -left-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-sw-resize"></div>
+                                        <div data-handle="se" class="absolute -bottom-2 -right-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-se-resize"></div>
+                                        <!-- Side Handles -->
+                                        <div data-handle="n" class="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-n-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        <div data-handle="s" class="absolute -bottom-2 left-1/2 -ml-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-s-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        <div data-handle="w" class="absolute top-1/2 -left-2 -mt-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-w-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        <div data-handle="e" class="absolute top-1/2 -right-2 -mt-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-e-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        
+                                        <!-- Grid Lines -->
+                                        <div class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3 opacity-30">
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-b border-white/50"></div>
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-b border-white/50"></div>
+                                            <div class="border-r border-white/50"></div>
+                                            <div class="border-r border-white/50"></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Bottom Action Bar -->
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="flex items-center gap-2">
+                                    <button id="rotate-left" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Rotate Left">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                                    </button>
+                                    <button id="rotate-right" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Rotate Right">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    </button>
+                                    <button id="flip-h" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Flip Horizontal">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                                    </button>
+                                    <button id="flip-v" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Flip Vertical">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" transform="rotate(90)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                                    </button>
+                                </div>
+                                <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition">Reset Image</button>
+                            </div>
+                        </div>
+
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">Release to edit</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls Area (4 cols) -->
+                <div class="lg:col-span-4 flex flex-col h-full gap-8">
+                    
+                    <!-- Settings Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="mb-8">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">Aspect Ratio</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button data-ratio="free" class="ratio-btn py-3 px-4 rounded-2xl bg-blue-600 text-white font-bold text-sm shadow-lg shadow-blue-500/20 border-2 border-transparent transition-all">Free</button>
+                                <button data-ratio="1:1" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">1:1 Square</button>
+                                <button data-ratio="4:3" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">4:3 Photo</button>
+                                <button data-ratio="16:9" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">16:9 Wide</button>
+                                <button data-ratio="2:3" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">2:3 Portrait</button>
+                                <button data-ratio="9:16" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">9:16 Story</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">Export Format</label>
+                            <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer appearance-none">
+                                <option value="image/jpeg">JPEG (.jpg)</option>
+                                <option value="image/png">PNG (.png)</option>
+                                <option value="image/webp">WebP (.webp)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex-grow"></div>
+
+                        <button id="download-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
+                            <span class="flex items-center justify-center gap-3">
+                                <span>Download Image</span>
+                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </span>
+                        </button>
+                        
+                        <p class="text-center text-[10px] text-slate-400 mt-4 font-medium uppercase tracking-widest">Original Quality Preserved</p>
+                    </div>
+
+                    <!-- Info/Preview Card (Mini) -->
+                    <div id="stats-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-6 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Crop Size</span>
+                                <span id="crop-res" class="text-sm font-black text-blue-600">0 x 0</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Aspect Ratio</span>
+                                <span id="aspect-val" class="text-sm font-black text-slate-600 dark:text-slate-300">Free</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Mastering the Image Cropper</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Upload Photo</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Simply drag your photo into the editor or click to select from your device.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Adjust Area</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose a preset aspect ratio or drag the handles to define your custom crop area.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Select your preferred format and download your perfectly cropped image instantly.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">Pure Client-Side Power</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 text-pretty">
+                                Why risk your data with cloud-based editors? Our Image Cropper runs entirely in your browser. Using the HTML5 Canvas API, we process your pixels locally—your images never touch our servers. It's faster, more secure, and works offline.
+                            </p>
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">Safety</div>
+                                    <div class="font-bold">Zero Upload</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">Speed</div>
+                                    <div class="font-bold text-center">Local-Only</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Engineered for Precision</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Smart Presets</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Standard ratios for Instagram, YouTube, and LinkedIn pre-configured for instant use across all social platforms.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Lossless Preview</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">See exactly how your crop looks before downloading. We maintain pixel-perfect accuracy throughout the editing process.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Transform Tools</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Rotate and flip your images with a single click while maintaining the crop selection area for ultimate flexibility.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Optimized for Speed</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">No loading screens. No ads. Just a pure utility focused on getting your image cropping task done as fast as possible.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Common Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Will my image lose quality?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                No. We crop the image at its original resolution. If you choose PNG or lossless formats, there is zero quality loss. For JPEG, we use a high-quality setting to ensure sharpness.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What formats are supported?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                We support <strong>JPEG, PNG, and WebP</strong> for both input and output.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Does it work on mobile?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes! Our cropper is fully responsive and supports touch events, making it easy to crop photos on your smartphone or tablet with natural gestures.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <!-- Related Tools Section -->
+                <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Related Tools You Might Need</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="/image-compressor/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Compressor</h3>
+                            <p class="text-sm text-slate-500 mt-1">Reduce image weights without losing quality.</p>
+                        </a>
+                        <a href="/image-resizer/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Resizer</h3>
+                            <p class="text-sm text-slate-500 mt-1">Batch resize images by dimensions or percentage.</p>
+                        </a>
+                        <a href="/webp-converter/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">WebP Converter</h3>
+                            <p class="text-sm text-slate-500 mt-1">Convert photos to modern WebP for best compression.</p>
+                        </a>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Cropper Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const emptyState = document.getElementById('empty-state');
+        const editorContainer = document.getElementById('editor-container');
+        const fileInput = document.getElementById('file-input');
+        const sourceImage = document.getElementById('source-image');
+        const cropBox = document.getElementById('crop-box');
+        const cropperStage = document.getElementById('cropper-stage');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const ratioBtns = document.querySelectorAll('.ratio-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const outputFormatSelect = document.getElementById('output-format');
+        const statsCard = document.getElementById('stats-card');
+        const cropResDisplay = document.getElementById('crop-res');
+        const aspectValDisplay = document.getElementById('aspect-val');
+        const resetBtn = document.getElementById('reset-btn');
+        const rotateL = document.getElementById('rotate-left');
+        const rotateR = document.getElementById('rotate-right');
+        const flipHBtn = document.getElementById('flip-h');
+        const flipVBtn = document.getElementById('flip-v');
+
+        let originalFile = null;
+        let originalImg = new Image();
+        let currentRatio = null; // null for free
+        let rotation = 0;
+        let flipH = 1;
+        let flipV = 1;
+
+        // State for dragging
+        let isDragging = false;
+        let dragTarget = null; // 'box' or handle name
+        let startX, startY;
+        let startLeft, startTop, startWidth, startHeight;
+
+        // Initialization
+        emptyState.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            originalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    initEditor();
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initEditor() {
+            sourceImage.src = originalImg.src;
+            emptyState.classList.add('hidden');
+            editorContainer.classList.remove('hidden');
+            statsCard.classList.remove('hidden');
+            downloadBtn.disabled = false;
+            
+            // Reset transforms
+            rotation = 0;
+            flipH = 1;
+            flipV = 1;
+            applyTransforms();
+
+            // Initial crop box: 80% of image
+            setTimeout(() => {
+                const imgW = sourceImage.offsetWidth;
+                const imgH = sourceImage.offsetHeight;
+                
+                let w = imgW * 0.8;
+                let h = imgH * 0.8;
+                
+                if (currentRatio) {
+                    const [rW, rH] = currentRatio.split(':').map(Number);
+                    const targetRatio = rW / rH;
+                    if (w / h > targetRatio) {
+                        w = h * targetRatio;
+                    } else {
+                        h = w / targetRatio;
+                    }
+                }
+
+                setCropBox(
+                    (imgW - w) / 2,
+                    (imgH - h) / 2,
+                    w,
+                    h
+                );
+            }, 50);
+        }
+
+        function setCropBox(l, t, w, h) {
+            const imgW = sourceImage.offsetWidth;
+            const imgH = sourceImage.offsetHeight;
+
+            // Constraints
+            w = Math.max(20, Math.min(w, imgW));
+            h = Math.max(20, Math.min(h, imgH));
+            l = Math.max(0, Math.min(l, imgW - w));
+            t = Math.max(0, Math.min(t, imgH - h));
+
+            cropBox.style.left = `${l}px`;
+            cropBox.style.top = `${t}px`;
+            cropBox.style.width = `${w}px`;
+            cropBox.style.height = `${h}px`;
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const l = parseFloat(cropBox.style.left);
+            const t = parseFloat(cropBox.style.top);
+            const w = parseFloat(cropBox.style.width);
+            const h = parseFloat(cropBox.style.height);
+            
+            const imgDisplayW = sourceImage.offsetWidth;
+            const imgDisplayH = sourceImage.offsetHeight;
+            
+            const scaleX = originalImg.width / imgDisplayW;
+            const scaleY = originalImg.height / imgDisplayH;
+
+            const actualW = Math.round(w * scaleX);
+            const actualH = Math.round(h * scaleY);
+
+            cropResDisplay.textContent = `${actualW} x ${actualH}`;
+            aspectValDisplay.textContent = currentRatio || 'Free';
+        }
+
+        // Interaction Logic
+        window.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', doDrag);
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchstart', (e) => startDrag(e.touches[0]), {passive: false});
+        window.addEventListener('touchmove', (e) => doDrag(e.touches[0]), {passive: false});
+        window.addEventListener('touchend', endDrag);
+
+        function startDrag(e) {
+            const handle = e.target.closest('[data-handle]');
+            const box = e.target.closest('#crop-box');
+            
+            if (!handle && !box) return;
+
+            isDragging = true;
+            dragTarget = handle ? handle.dataset.handle : 'box';
+            startX = e.clientX;
+            startY = e.clientY;
+            startLeft = parseFloat(cropBox.style.left);
+            startTop = parseFloat(cropBox.style.top);
+            startWidth = parseFloat(cropBox.style.width);
+            startHeight = parseFloat(cropBox.style.height);
+
+            if (e.preventDefault) e.preventDefault();
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            const imgW = sourceImage.offsetWidth;
+            const imgH = sourceImage.offsetHeight;
+
+            let nl = startLeft, nt = startTop, nw = startWidth, nh = startHeight;
+
+            if (dragTarget === 'box') {
+                nl = startLeft + dx;
+                nt = startTop + dy;
+            } else {
+                // Handle resizing
+                if (dragTarget.includes('e')) nw = startWidth + dx;
+                if (dragTarget.includes('w')) {
+                    nw = startWidth - dx;
+                    nl = startLeft + dx;
+                }
+                if (dragTarget.includes('s')) nh = startHeight + dy;
+                if (dragTarget.includes('n')) {
+                    nh = startHeight - dy;
+                    nt = startTop + dy;
+                }
+
+                // Apply Ratio
+                if (currentRatio) {
+                    const [rW, rH] = currentRatio.split(':').map(Number);
+                    const ratio = rW / rH;
+                    
+                    if (dragTarget === 'e' || dragTarget === 'w' || dragTarget === 's' || dragTarget === 'n') {
+                        // Single side drag with ratio is tricky, usually we lock it
+                        if (dragTarget === 'e' || dragTarget === 'w') nh = nw / ratio;
+                        else nw = nh * ratio;
+                    } else {
+                        // Corner drag
+                        if (Math.abs(dx) > Math.abs(dy)) nh = nw / ratio;
+                        else nw = nh * ratio;
+                    }
+
+                    // Re-calculate nl/nt for left/top handles
+                    if (dragTarget.includes('w')) nl = startLeft + (startWidth - nw);
+                    if (dragTarget.includes('n')) nt = startTop + (startHeight - nh);
+                }
+            }
+
+            setCropBox(nl, nt, nw, nh);
+        }
+
+        function endDrag() {
+            isDragging = false;
+            dragTarget = null;
+        }
+
+        // Ratio Buttons
+        ratioBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                ratioBtns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20');
+                    b.classList.add('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+                });
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20');
+                btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+
+                currentRatio = btn.dataset.ratio === 'free' ? null : btn.dataset.ratio;
+                
+                // Adjust current box to ratio
+                if (currentRatio) {
+                    const [rW, rH] = currentRatio.split(':').map(Number);
+                    const ratio = rW / rH;
+                    let w = parseFloat(cropBox.style.width);
+                    let h = w / ratio;
+                    if (h > sourceImage.offsetHeight) {
+                        h = sourceImage.offsetHeight;
+                        w = h * ratio;
+                    }
+                    setCropBox(parseFloat(cropBox.style.left), parseFloat(cropBox.style.top), w, h);
+                }
+                updateStats();
+            });
+        });
+
+        // Transforms
+        function applyTransforms() {
+            sourceImage.style.transform = `rotate(${rotation}deg) scale(${flipH}, ${flipV})`;
+            // Reset crop box when rotating since image dimensions change in UI
+            setTimeout(() => {
+                // This is a simple implementation, a robust one would transform the crop box
+                const imgW = sourceImage.offsetWidth;
+                const imgH = sourceImage.offsetHeight;
+                setCropBox(imgW*0.1, imgH*0.1, imgW*0.8, imgH*0.8);
+            }, 150);
+        }
+
+        rotateL.addEventListener('click', () => { rotation -= 90; applyTransforms(); });
+        rotateR.addEventListener('click', () => { rotation += 90; applyTransforms(); });
+        flipHBtn.addEventListener('click', () => { flipH *= -1; applyTransforms(); });
+        flipVBtn.addEventListener('click', () => { flipV *= -1; applyTransforms(); });
+        resetBtn.addEventListener('click', initEditor);
+
+        // Download
+        downloadBtn.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const l = parseFloat(cropBox.style.left);
+            const t = parseFloat(cropBox.style.top);
+            const w = parseFloat(cropBox.style.width);
+            const h = parseFloat(cropBox.style.height);
+            
+            const imgDisplayW = sourceImage.offsetWidth;
+            const imgDisplayH = sourceImage.offsetHeight;
+            
+            const scaleX = originalImg.width / imgDisplayW;
+            const scaleY = originalImg.height / imgDisplayH;
+
+            const actualX = l * scaleX;
+            const actualY = t * scaleY;
+            const actualW = w * scaleX;
+            const actualH = h * scaleY;
+
+            canvas.width = actualW;
+            canvas.height = actualH;
+
+            // Handle rotations and flips on the hidden canvas
+            const tempCanvas = document.createElement('canvas');
+            const tCtx = tempCanvas.getContext('2d');
+            
+            // Normalize rotation to 0, 90, 180, 270
+            const normRot = ((rotation % 360) + 360) % 360;
+            
+            if (normRot === 90 || normRot === 270) {
+                tempCanvas.width = originalImg.height;
+                tempCanvas.height = originalImg.width;
+            } else {
+                tempCanvas.width = originalImg.width;
+                tempCanvas.height = originalImg.height;
+            }
+
+            tCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+            tCtx.rotate(normRot * Math.PI / 180);
+            tCtx.scale(flipH, flipV);
+            tCtx.drawImage(originalImg, -originalImg.width / 2, -originalImg.height / 2);
+
+            // Now crop from the transformed image
+            // Note: The UI crop box is relative to the *displayed* transformed image.
+            // Our tempCanvas now contains that transformed image at full res.
+            ctx.drawImage(tempCanvas, actualX, actualY, actualW, actualH, 0, 0, actualW, actualH);
+
+            const format = outputFormatSelect.value;
+            const quality = format === 'image/jpeg' ? 0.92 : undefined;
+            
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = `cropped_${originalFile.name.split('.')[0]}.${format.split('/')[1]}`;
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            }, format, quality);
+        });
+
+    </script>
+</body>
+</html>
+

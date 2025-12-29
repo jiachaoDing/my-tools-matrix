@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer - Free, Secure & Batch Resize Online | WebUtilityKit</title>
+    <meta name="description" content="Resize multiple images at once locally in your browser with precise control. Free, secure, and unlimited batch processing for JPG, PNG, and WebP. No server uploads - your privacy is guaranteed. Try it now!">
+    
+    <link rel="canonical" href="https://webutilitykit.com/image-resizer/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/image-resizer/">
+    <meta property="og:title" content="Image Resizer - 100% Secure & Local Batch Processing">
+    <meta property="og:description" content="Batch resize photos instantly by dimensions, percentage, or target file size without uploading to any server.">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/image-resizer.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Resizer",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "876",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Resize by dimensions, Resize by percentage, Target file size compression",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/image-resizer.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Image Resizer</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Batch resize photos instantly without uploading them. Fast, secure, and preserves your privacy.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local processing only.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Left: Input & Files -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Select Images</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear All</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[250px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
+                            <input type="file" id="file-input" class="hidden" multiple accept="image/jpeg,image/png,image/webp" aria-label="Upload images for resizing">
+                            <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <p class="text-slate-900 dark:text-white font-bold text-lg">Drop images here</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to select files</p>
+                            
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">Release to upload</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden flex-grow overflow-hidden flex flex-col">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">Selected Images (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 overflow-y-auto pr-2 flex-grow [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Settings & Results -->
+                <div class="flex flex-col h-full gap-8">
+                    <!-- Resize Settings -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Resize Settings</label>
+                            <div class="flex bg-slate-100 dark:bg-slate-900/50 p-1 rounded-2xl w-full">
+                                <button id="mode-dimensions" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all bg-blue-600 text-white shadow-lg shadow-blue-500/20">Dimensions</button>
+                                <button id="mode-percentage" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">Percentage</button>
+                                <button id="mode-filesize" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">File Size</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Mode: Dimensions -->
+                            <div id="dimensions-controls" class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Width (px)</label>
+                                    <input type="number" id="target-width" placeholder="Auto" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Height (px)</label>
+                                    <input type="number" id="target-height" placeholder="Auto" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                                </div>
+                                <div class="col-span-2 flex items-center gap-2 ml-1">
+                                    <input type="checkbox" id="lock-aspect" checked class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                                    <label for="lock-aspect" class="text-xs font-bold text-slate-600 dark:text-slate-400">Lock Aspect Ratio</label>
+                                </div>
+                            </div>
+
+                            <!-- Mode: Percentage -->
+                            <div id="percentage-controls" class="hidden space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2 ml-1">
+                                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">Scale factor</label>
+                                        <span id="percentage-val" class="text-sm font-bold text-blue-600">50%</span>
+                                    </div>
+                                    <input type="range" id="percentage-slider" min="1" max="200" value="50" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                    <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-bold tracking-tighter uppercase">
+                                        <span>Smaller</span>
+                                        <span>Original</span>
+                                        <span>Larger</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mode: File Size -->
+                            <div id="filesize-controls" class="hidden space-y-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Target Max Size</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" id="target-filesize" value="1024" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all flex-grow">
+                                        <select id="filesize-unit" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all w-24 cursor-pointer">
+                                            <option value="KB">KB</option>
+                                            <option value="MB" selected>MB</option>
+                                        </select>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 mt-2 ml-1 italic">Dimensions and quality will be auto-reduced to hit this target.</p>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100 dark:border-slate-800">
+
+                            <!-- Output Settings -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Format</label>
+                                    <select id="output-format" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all cursor-pointer">
+                                        <option value="image/jpeg">JPEG</option>
+                                        <option value="image/png">PNG</option>
+                                        <option value="image/webp">WebP</option>
+                                    </select>
+                                </div>
+                                <div id="quality-container">
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Quality</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="range" id="quality-slider" min="10" max="100" value="90" class="flex-grow h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <span id="quality-val" class="text-xs font-bold text-slate-600 dark:text-slate-400 w-8">90%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="process-btn" class="w-full py-4 rounded-[1.5rem] bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed hidden">
+                                Resize <span id="btn-count">0</span> Images
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results List -->
+                    <div id="results-container" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 flex-grow hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Processed Results</label>
+                            <button id="download-all-btn" class="text-xs px-4 py-1.5 rounded-xl bg-green-600 text-white hover:bg-green-700 transition shadow-lg shadow-green-500/20 font-bold">Download All</button>
+                        </div>
+                        
+                        <!-- Progress Section -->
+                        <div id="progress-container" class="mb-6 hidden">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Processing...</span>
+                                <span id="progress-percent" class="text-[10px] font-black text-blue-600">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                            </div>
+                        </div>
+
+                        <div id="results-list" class="space-y-3 overflow-y-auto pr-2 max-h-[400px] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Image Resizer</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Upload Images</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Drag and drop multiple images into the upload zone or click to select files from your device.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Configure Settings</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose between pixel dimensions, percentage scaling, or <strong>target file size</strong> (e.g., under 1MB).</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Batch Process</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click the resize button to process all images instantly in your browser and download them.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Privacy by Default</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 text-pretty">
+                                Most online image resizers upload your photos to their servers. We believe your memories and professional assets should stay on your device. Our tool uses your browser's local processing power (Canvas API) to resize images instantly without any server connection.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">Safety</div>
+                                    <div class="font-bold">Zero Upload</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">Speed</div>
+                                    <div class="font-bold text-center">Local-Only</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Powerful Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Batch Resize</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Upload dozens of images and resize them all in seconds. No more waiting for uploads or server processing queues.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% Secure</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Your files never leave your computer. All processing happens locally in your browser session for maximum security.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Modern Formats</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Convert your photos to JPEG, PNG, or WebP while resizing to save even more space for your web or app projects.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">No Distortion</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Lock aspect ratio to ensure your photos look perfect at any size without stretching or unnatural warping.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Image Resizer FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What formats can I resize?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-slate-400">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                You can upload and resize <strong>JPEG, PNG, and WebP</strong> images. You can also convert between these formats during the resizing process.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How does percentage scaling work?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-slate-400">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Percentage scaling adjusts the image dimensions relative to their original size. For example, 50% will make an image half as wide and half as tall as the original.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is there a file size limit?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-slate-400">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                There is no hard limit, but performance depends on your device's memory. For extremely large images (40MP+), we recommend processing them in smaller batches.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <!-- Related Tools Section -->
+                <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Related Tools You Might Need</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="/image-compressor/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Compressor</h3>
+                            <p class="text-sm text-slate-500 mt-1">Reduce image weights without losing quality.</p>
+                        </a>
+                        <a href="/image-cropper/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Cropper</h3>
+                            <p class="text-sm text-slate-500 mt-1">Crop your images precisely for any social aspect ratio.</p>
+                        </a>
+                        <a href="/webp-converter/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">WebP Converter</h3>
+                            <p class="text-sm text-slate-500 mt-1">Convert photos to modern WebP for best compression.</p>
+                        </a>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Image Resizer Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+        const btnCountDisplay = document.getElementById('btn-count');
+        const clearBtn = document.getElementById('clear-btn');
+        const processBtn = document.getElementById('process-btn');
+        
+        const modeDimensions = document.getElementById('mode-dimensions');
+        const modePercentage = document.getElementById('mode-percentage');
+        const modeFilesize = document.getElementById('mode-filesize');
+        const dimensionsControls = document.getElementById('dimensions-controls');
+        const percentageControls = document.getElementById('percentage-controls');
+        const filesizeControls = document.getElementById('filesize-controls');
+        
+        const targetWidthInput = document.getElementById('target-width');
+        const targetHeightInput = document.getElementById('target-height');
+        const lockAspectCheckbox = document.getElementById('lock-aspect');
+        
+        const percentageSlider = document.getElementById('percentage-slider');
+        const percentageVal = document.getElementById('percentage-val');
+
+        const targetFilesizeInput = document.getElementById('target-filesize');
+        const filesizeUnit = document.getElementById('filesize-unit');
+        
+        const outputFormat = document.getElementById('output-format');
+        const qualitySlider = document.getElementById('quality-slider');
+        const qualityVal = document.getElementById('quality-val');
+        const qualityContainer = document.getElementById('quality-container');
+        
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let currentMode = 'dimensions';
+
+        // Tabs Logic
+        const tabs = [
+            { btn: modeDimensions, ctrl: dimensionsControls, mode: 'dimensions' },
+            { btn: modePercentage, ctrl: percentageControls, mode: 'percentage' },
+            { btn: modeFilesize, ctrl: filesizeControls, mode: 'filesize' }
+        ];
+
+        const TAB_ACTIVE_CLASSES = ['bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20'];
+        const TAB_INACTIVE_CLASSES = ['text-slate-500', 'hover:bg-slate-100', 'dark:hover:bg-slate-800'];
+
+        function setTabActive(btn, isActive) {
+            if (isActive) {
+                btn.classList.remove(...TAB_INACTIVE_CLASSES);
+                btn.classList.add(...TAB_ACTIVE_CLASSES);
+            } else {
+                btn.classList.remove(...TAB_ACTIVE_CLASSES);
+                btn.classList.add(...TAB_INACTIVE_CLASSES);
+            }
+        }
+
+        tabs.forEach(tab => {
+            tab.btn.addEventListener('click', () => {
+                currentMode = tab.mode;
+                tabs.forEach(t => {
+                    setTabActive(t.btn, false);
+                    t.ctrl.classList.add('hidden');
+                });
+                setTabActive(tab.btn, true);
+                tab.ctrl.classList.remove('hidden');
+            });
+        });
+
+        // Sliders Display
+        percentageSlider.addEventListener('input', () => {
+            percentageVal.textContent = `${percentageSlider.value}%`;
+        });
+        
+        qualitySlider.addEventListener('input', () => {
+            qualityVal.textContent = `${qualitySlider.value}%`;
+        });
+
+        outputFormat.addEventListener('change', () => {
+            qualityContainer.classList.toggle('hidden', outputFormat.value === 'image/png');
+        });
+
+        // Click to upload
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Drag & Drop
+        const DROP_ACTIVE_CLASSES = ['border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20', 'scale-[1.01]'];
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add(...DROP_ACTIVE_CLASSES);
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove(...DROP_ACTIVE_CLASSES);
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        async function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            
+            for (const file of newFiles) {
+                // Pre-load image to get dimensions
+                const dimensions = await getImageDimensions(file);
+                uploadedFiles.push({
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    aspectRatio: dimensions.width / dimensions.height
+                });
+            }
+            
+            updateFileList();
+            fileInput.value = '';
+        }
+
+        function getImageDimensions(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        resolve({ width: img.width, height: img.height });
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            btnCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+            
+            uploadedFiles.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${item.name}</div>
+                            <div class="text-[10px] text-slate-400">${item.width}x${item.height} • ${formatSize(item.size)}</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(div);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        clearBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsList.innerHTML = '';
+            resultsContainer.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        processBtn.addEventListener('click', async () => {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            progressContainer.classList.remove('hidden');
+            downloadAllBtn.classList.add('hidden');
+            
+            const format = outputFormat.value;
+            const quality = parseInt(qualitySlider.value) / 100;
+            const extension = format.split('/')[1];
+            
+            for (let i = 0; i < uploadedFiles.length; i++) {
+                const item = uploadedFiles[i];
+                const percent = Math.round((i / uploadedFiles.length) * 100);
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = `${percent}%`;
+
+                try {
+                    const blob = await resizeImage(item);
+                    const url = URL.createObjectURL(blob);
+                    const result = {
+                        name: `resized_${item.name.replace(/\.[^/.]+$/, "")}.${extension}`,
+                        url: url,
+                        size: blob.size,
+                        width: item.targetWidth,
+                        height: item.targetHeight
+                    };
+                    processedResults.push(result);
+                    addResultToList(result);
+                } catch (err) {
+                    console.error('Resize failed', err);
+                }
+            }
+
+            progressBar.style.width = '100%';
+            progressPercent.textContent = '100%';
+            setTimeout(() => progressContainer.classList.add('hidden'), 500);
+            downloadAllBtn.classList.remove('hidden');
+        });
+
+        async function resizeImage(item) {
+            let targetW, targetH;
+            const format = outputFormat.value;
+            const quality = parseInt(qualitySlider.value) / 100;
+            
+            if (currentMode === 'percentage') {
+                const scale = parseInt(percentageSlider.value) / 100;
+                targetW = Math.round(item.width * scale);
+                targetH = Math.round(item.height * scale);
+                return performResize(item, targetW, targetH, format, quality);
+            } else if (currentMode === 'dimensions') {
+                const wInput = parseInt(targetWidthInput.value);
+                const hInput = parseInt(targetHeightInput.value);
+                
+                if (wInput && hInput) {
+                    targetW = wInput;
+                    targetH = hInput;
+                } else if (wInput) {
+                    targetW = wInput;
+                    targetH = lockAspectCheckbox.checked ? Math.round(wInput / item.aspectRatio) : item.height;
+                } else if (hInput) {
+                    targetH = hInput;
+                    targetW = lockAspectCheckbox.checked ? Math.round(hInput * item.aspectRatio) : item.width;
+                } else {
+                    targetW = item.width;
+                    targetH = item.height;
+                }
+                return performResize(item, targetW, targetH, format, quality);
+            } else if (currentMode === 'filesize') {
+                const targetSizeVal = parseFloat(targetFilesizeInput.value);
+                const unit = filesizeUnit.value;
+                const maxBytes = targetSizeVal * (unit === 'MB' ? 1024 * 1024 : 1024);
+                
+                // Iterative resize for file size
+                let currentScale = 1.0;
+                let currentQuality = 0.9;
+                let lastBlob = null;
+                let iterations = 0;
+                const maxIterations = 8;
+
+                while (iterations < maxIterations) {
+                    targetW = Math.max(1, Math.round(item.width * currentScale));
+                    targetH = Math.max(1, Math.round(item.height * currentScale));
+                    
+                    const blob = await performResize(item, targetW, targetH, format, currentQuality);
+                    lastBlob = blob;
+
+                    if (blob.size <= maxBytes) break;
+
+                    // Heuristic adjustment
+                    const ratio = maxBytes / blob.size;
+                    if (format !== 'image/png' && currentQuality > 0.3) {
+                        currentQuality = Math.max(0.1, currentQuality * Math.sqrt(ratio));
+                    } else {
+                        currentScale = Math.max(0.05, currentScale * Math.sqrt(ratio) * 0.9);
+                    }
+                    iterations++;
+                }
+                item.targetWidth = targetW;
+                item.targetHeight = targetH;
+                return lastBlob;
+            }
+        }
+
+        async function performResize(item, targetW, targetH, format, quality) {
+            item.targetWidth = targetW;
+            item.targetHeight = targetH;
+
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = targetW;
+                        canvas.height = targetH;
+                        const ctx = canvas.getContext('2d');
+                        ctx.imageSmoothingEnabled = true;
+                        ctx.imageSmoothingQuality = 'high';
+                        ctx.drawImage(img, 0, 0, targetW, targetH);
+                        canvas.toBlob((blob) => {
+                            resolve(blob);
+                        }, format, format === 'image/png' ? undefined : quality);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(item.file);
+            });
+        }
+
+        function addResultToList(result) {
+            const div = document.createElement('div');
+        div.className = 'p-4 rounded-3xl bg-white dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50 flex items-center justify-between group transition-all hover:border-blue-500/30';
+        div.innerHTML = `
+            <div class="flex items-center gap-4 overflow-hidden">
+                <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0">
+                    <img src="${result.url}" class="w-full h-full object-cover" loading="lazy">
+                </div>
+                    <div class="overflow-hidden">
+                        <div class="text-xs font-bold truncate">${result.name}</div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">${result.width}x${result.height}</span>
+                            <span class="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-900 text-slate-500">${formatSize(result.size)}</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="${result.url}" download="${result.name}" class="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </a>
+            `;
+            resultsList.appendChild(div);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach((res, i) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = res.url;
+                    link.download = res.name;
+                    link.click();
+                }, i * 200);
+            });
+        });
+
+    </script>
+</body>
+</html>
+

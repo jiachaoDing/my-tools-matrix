@@ -43,22 +43,26 @@ const toolsConfig = {
                 {
                     name: 'Image Resizer',
                     description: 'Resize images to custom dimensions.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/image-resizer/'
                 },
                 {
                     name: 'Image Cropper',
                     description: 'Crop images online.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/image-cropper/'
                 },
                 {
                     name: 'SVG to PNG',
                     description: 'Convert SVG files to PNG format.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/svg-to-png/'
                 },
                 {
                     name: 'ICO File Generator',
                     description: 'Generate favicon ICO files.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/ico-generator/'
                 },
                 {
                     name: 'Base64 Image Decoder',
@@ -68,7 +72,8 @@ const toolsConfig = {
                 {
                     name: 'Image to Base64',
                     description: 'Convert images to base64 strings.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/image-to-base64/'
                 },
                 {
                     name: 'Color Picker from Image',

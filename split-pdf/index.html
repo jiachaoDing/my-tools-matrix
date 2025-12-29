@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split PDF - Free & Secure Online PDF Splitter | WebUtilityKit</title>
+    <meta name="description" content="Fast, secure, and private online PDF splitter. Extract all pages or split by specific ranges. 100% local processing, your files never leave your device.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ Privacy-First Tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact Us">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Feedback</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle Theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Split PDF</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Split your PDF documents into independent files exactly how you need them. All processing happens locally in your browser for maximum security.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local Offline Processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div id="upload-container" class="transition-all duration-500">
+                <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 transition-all min-h-[400px]">
+                    <input type="file" id="file-input" class="hidden" accept="application/pdf">
+                    <div class="w-20 h-20 bg-blue-600 text-white rounded-[2rem] flex items-center justify-center mb-6 shadow-xl shadow-blue-500/30 group-hover:scale-110 transition-transform">
+                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Select PDF File</h3>
+                    <p class="text-slate-500 dark:text-slate-400">Drop PDF here or click to browse</p>
+                    <p class="mt-4 text-xs text-slate-400">Supports PDF files up to 100MB</p>
+                    <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-blue-500 border-dashed">
+                        <p class="text-blue-600 font-bold text-xl">Release to start processing</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor View (Hidden initially) -->
+            <div id="editor-container" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8 items-start animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <!-- File Preview Card -->
+                <div class="lg:col-span-1 bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm">
+                    <div class="flex items-center justify-between mb-6">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-slate-400">Current File</span>
+                        <button id="reset-btn" class="text-xs text-red-500 hover:text-red-600 font-medium">Change File</button>
+                    </div>
+                    <div class="flex items-center gap-4 mb-6 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center shrink-0">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 id="file-name" class="font-bold text-sm truncate">filename.pdf</h4>
+                            <p id="file-pages" class="text-xs text-slate-500">0 Pages</p>
+                        </div>
+                    </div>
+                    <div id="page-preview-grid" class="grid grid-cols-2 gap-2 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                        <!-- Page thumbnails would go here, but for simplicity we'll just show page numbers -->
+                    </div>
+                </div>
+
+                <!-- Settings Card -->
+                <div class="lg:col-span-2 space-y-6">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm">
+                        <div class="mb-8">
+                            <h3 class="text-xl font-bold mb-2">Split Settings</h3>
+                            <p class="text-sm text-slate-500">Choose your preferred split mode</p>
+                        </div>
+
+                        <div class="space-y-4">
+                            <!-- Mode 1: Every Page -->
+                            <label class="relative flex items-start gap-4 p-6 rounded-2xl border-2 cursor-pointer transition-all border-slate-100 dark:border-slate-800 hover:border-blue-500/30 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50/30 dark:has-[:checked]:bg-blue-900/20">
+                                <input type="radio" name="split-mode" value="all" class="mt-1 w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500" checked>
+                                <div>
+                                    <span class="block font-bold text-slate-900 dark:text-white">Split All Pages</span>
+                                    <span class="block text-sm text-slate-500 mt-1">Save every single page as a separate PDF file.</span>
+                                </div>
+                            </label>
+
+                            <!-- Mode 2: Range -->
+                            <label class="relative flex items-start gap-4 p-6 rounded-2xl border-2 cursor-pointer transition-all border-slate-100 dark:border-slate-800 hover:border-blue-500/30 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-50/30 dark:has-[:checked]:bg-blue-900/20">
+                                <input type="radio" name="split-mode" value="range" class="mt-1 w-4 h-4 text-blue-600 border-slate-300 focus:ring-blue-500">
+                                <div>
+                                    <span class="block font-bold text-slate-900 dark:text-white">Split by Page Ranges</span>
+                                    <span class="block text-sm text-slate-500 mt-1">Specify ranges to extract (e.g., 1-5, 8, 11-13).</span>
+                                    
+                                    <div id="range-input-wrapper" class="mt-4 hidden animate-in fade-in zoom-in-95 duration-200">
+                                        <input type="text" id="range-input" placeholder="e.g. 1-5, 8-10" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all outline-none">
+                                        <p class="text-[10px] text-slate-400 mt-2 px-1">Use commas to separate different files. For example, "1-2, 3-5" will generate two files.</p>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="mt-10">
+                            <button id="split-btn" class="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                Start Splitting PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Processing Status -->
+                    <div id="status-card" class="hidden p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm">
+                        <div class="flex items-center gap-6">
+                            <div id="status-spinner" class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                            <div id="status-success" class="hidden w-12 h-12 bg-green-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div class="flex-grow">
+                                <h4 id="status-title" class="text-lg font-bold">Splitting File...</h4>
+                                <p id="status-desc" class="text-sm text-slate-500 mt-1">This may take a few seconds, please do not close the page.</p>
+                                <div id="progress-bar-container" class="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                    <div id="progress-bar" class="w-0 h-full bg-blue-600 transition-all duration-300"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Area -->
+                    <div id="results-area" class="hidden space-y-4">
+                        <div class="flex items-center justify-between px-2">
+                            <h4 class="text-sm font-bold">Split Results</h4>
+                            <button id="download-all-btn" class="text-xs text-blue-600 hover:text-blue-700 font-bold uppercase tracking-wider">Download All (ZIP)</button>
+                        </div>
+                        <div id="results-list" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Result items will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to Split PDF Files</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Upload PDF</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Drag and drop your PDF into the upload zone or click the select button.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Select Mode</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose "Split All Pages" to extract every page, or enter specific page ranges.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Download Results</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Click the split button and processing starts instantly. Download your new PDFs once finished.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Why Local? -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Why Choose Local Processing?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Traditional PDF tools often require uploading files to a remote server. This is slow and poses significant privacy risks.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Files never leave your computer</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">No waiting for upload or download times</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">No file size limits, no watermarks</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Core Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Processing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Using advanced browser APIs, splitting happens almost instantly without server queues.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Absolute Privacy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your documents stay in your local storage. We cannot see, store, or share any of your data.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Will the quality decrease after splitting?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                No. The process extracts original pages directly without compression or re-rendering, so quality remains identical to the original.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can I split encrypted PDFs?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                For security reasons, we do not support password-protected PDFs. Please remove the password before splitting.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Local-first design. Built on Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <!-- jszip for "Download All" -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Tool Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const uploadContainer = document.getElementById('upload-container');
+        const editorContainer = document.getElementById('editor-container');
+        const fileNameEl = document.getElementById('file-name');
+        const filePagesEl = document.getElementById('file-pages');
+        const resetBtn = document.getElementById('reset-btn');
+        const splitBtn = document.getElementById('split-btn');
+        const rangeInputWrapper = document.getElementById('range-input-wrapper');
+        const rangeInput = document.getElementById('range-input');
+        const statusCard = document.getElementById('status-card');
+        const statusSpinner = document.getElementById('status-spinner');
+        const statusSuccess = document.getElementById('status-success');
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+        const progressBar = document.getElementById('progress-bar');
+        const resultsArea = document.getElementById('results-area');
+        const resultsList = document.getElementById('results-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let currentFile = null;
+        let pdfDoc = null;
+        let splitResults = []; // Array of { blob, name }
+
+        // Mode Switching
+        document.querySelectorAll('input[name="split-mode"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'range') {
+                    rangeInputWrapper.classList.remove('hidden');
+                } else {
+                    rangeInputWrapper.classList.add('hidden');
+                }
+            });
+        });
+
+        // Upload Handlers
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50');
+            document.getElementById('drop-overlay').classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+                document.getElementById('drop-overlay').classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        async function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') {
+                alert('Please select a valid PDF file');
+                return;
+            }
+
+            currentFile = file;
+            fileNameEl.textContent = file.name;
+            
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                pdfDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                const pageCount = pdfDoc.getPageCount();
+                filePagesEl.textContent = `${pageCount} Pages`;
+
+                uploadContainer.classList.add('hidden');
+                editorContainer.classList.remove('hidden');
+            } catch (err) {
+                console.error(err);
+                alert('Failed to read PDF file, please try again');
+            }
+        }
+
+        resetBtn.addEventListener('click', () => {
+            currentFile = null;
+            pdfDoc = null;
+            splitResults = [];
+            uploadContainer.classList.remove('hidden');
+            editorContainer.classList.add('hidden');
+            statusCard.classList.add('hidden');
+            resultsArea.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        splitBtn.addEventListener('click', async () => {
+            const mode = document.querySelector('input[name="split-mode"]:checked').value;
+            const pageCount = pdfDoc.getPageCount();
+            splitResults = [];
+
+            statusCard.classList.remove('hidden');
+            statusSpinner.classList.remove('hidden');
+            statusSuccess.classList.add('hidden');
+            statusTitle.textContent = 'Preparing Split...';
+            statusDesc.textContent = 'Processing your file, please wait.';
+            progressBar.style.width = '0%';
+            resultsArea.classList.add('hidden');
+            splitBtn.disabled = true;
+            splitBtn.classList.add('opacity-50');
+
+            try {
+                if (mode === 'all') {
+                    for (let i = 0; i < pageCount; i++) {
+                        const newPdf = await PDFLib.PDFDocument.create();
+                        const [copiedPage] = await newPdf.copyPages(pdfDoc, [i]);
+                        newPdf.addPage(copiedPage);
+                        const bytes = await newPdf.save();
+                        splitResults.push({
+                            blob: new Blob([bytes], { type: 'application/pdf' }),
+                            name: `${currentFile.name.replace('.pdf', '')}_page_${i + 1}.pdf`
+                        });
+                        progressBar.style.width = `${((i + 1) / pageCount) * 100}%`;
+                    }
+                } else {
+                    const ranges = rangeInput.value.split(',').map(r => r.trim()).filter(r => r);
+                    if (ranges.length === 0) throw new Error('Please enter valid page ranges');
+
+                    for (let i = 0; i < ranges.length; i++) {
+                        const range = ranges[i];
+                        const pagesToExtract = parseRange(range, pageCount);
+                        if (pagesToExtract.length === 0) continue;
+
+                        const newPdf = await PDFLib.PDFDocument.create();
+                        const copiedPages = await newPdf.copyPages(pdfDoc, pagesToExtract.map(p => p - 1));
+                        copiedPages.forEach(p => newPdf.addPage(p));
+                        const bytes = await newPdf.save();
+                        splitResults.push({
+                            blob: new Blob([bytes], { type: 'application/pdf' }),
+                            name: `${currentFile.name.replace('.pdf', '')}_part_${i + 1}.pdf`
+                        });
+                        progressBar.style.width = `${((i + 1) / ranges.length) * 100}%`;
+                    }
+                }
+
+                showResults();
+                statusSpinner.classList.add('hidden');
+                statusSuccess.classList.remove('hidden');
+                statusTitle.textContent = 'Split Complete!';
+                statusDesc.textContent = `Successfully generated ${splitResults.length} files.`;
+            } catch (err) {
+                console.error(err);
+                alert('Split failed: ' + err.message);
+                statusCard.classList.add('hidden');
+            } finally {
+                splitBtn.disabled = false;
+                splitBtn.classList.remove('opacity-50');
+            }
+        });
+
+        function parseRange(rangeStr, maxPages) {
+            const pages = [];
+            const parts = rangeStr.split('-');
+            if (parts.length === 1) {
+                const p = parseInt(parts[0]);
+                if (!isNaN(p) && p > 0 && p <= maxPages) pages.push(p);
+            } else if (parts.length === 2) {
+                const start = parseInt(parts[0]);
+                const end = parseInt(parts[1]);
+                if (!isNaN(start) && !isNaN(end)) {
+                    for (let i = Math.max(1, start); i <= Math.min(maxPages, end); i++) {
+                        pages.push(i);
+                    }
+                }
+            }
+            return pages;
+        }
+
+        function showResults() {
+            resultsList.innerHTML = '';
+            resultsArea.classList.remove('hidden');
+            
+            splitResults.forEach((res, idx) => {
+                const item = document.createElement('div');
+                item.className = 'bg-slate-50 dark:bg-slate-900/50 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex items-center justify-between gap-4 group hover:border-blue-500/30 transition-all';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="w-8 h-8 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-lg flex items-center justify-center shrink-0">
+                            <span class="text-[10px] font-bold">${idx + 1}</span>
+                        </div>
+                        <span class="text-xs font-medium truncate">${res.name}</span>
+                    </div>
+                    <button class="download-btn p-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 text-blue-600 hover:bg-blue-600 hover:text-white transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </button>
+                `;
+                
+                item.querySelector('.download-btn').onclick = () => {
+                    const url = URL.createObjectURL(res.blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = res.name;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+                
+                resultsList.appendChild(item);
+            });
+        }
+
+        downloadAllBtn.addEventListener('click', async () => {
+            if (splitResults.length === 0) return;
+            
+            const zip = new JSZip();
+            splitResults.forEach(res => {
+                zip.file(res.name, res.blob);
+            });
+            
+            const zipBlob = await zip.generateAsync({ type: 'blob' });
+            const url = URL.createObjectURL(zipBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `split_pdfs_${new Date().getTime()}.zip`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICO File Generator - Create Favicons Online | WebUtilityKit</title>
+    <meta name="description" content="Generate multi-size ICO files for your website favicon instantly. Convert PNG, JPG, or WebP to ICO locally in your browser. Secure and private.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">ICO File Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Create high-quality multi-size ICO favicons instantly. Local processing ensures your images stay private.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local-only conversion.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Left: Input Area -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Source Image</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 group">
+                            <input type="file" id="file-input" class="hidden" accept="image/png,image/jpeg,image/webp">
+                            <div class="bg-blue-600 text-white p-5 rounded-3xl mb-4 shadow-xl shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <p class="text-slate-900 dark:text-white font-bold text-lg">Drop your image here</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">PNG, JPG, or WebP</p>
+                            
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">Release to upload</p>
+                            </div>
+                        </div>
+
+                        <!-- Preview -->
+                        <div id="preview-container" class="mt-6 hidden">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">Preview Original</h4>
+                            <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="w-16 h-16 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden">
+                                    <img id="image-preview" src="" class="max-w-full max-h-full object-contain">
+                                </div>
+                                <div>
+                                    <div id="file-name" class="text-xs font-bold truncate max-w-[200px]">image.png</div>
+                                    <div id="file-info" class="text-[10px] text-slate-400 mt-0.5">0x0 • 0 KB</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Settings & Export -->
+                <div class="flex flex-col h-full gap-8">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 block">Included Sizes</label>
+                        
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="16" checked class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">16x16</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="32" checked class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">32x32</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="48" checked class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">48x48</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="64" class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">64x64</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="128" class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">128x128</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="256" class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">256x256</span>
+                            </label>
+                        </div>
+
+                        <button id="generate-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
+                            <span class="flex items-center justify-center gap-3">
+                                <span>Generate .ICO</span>
+                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div id="result-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Result</label>
+                            <span id="result-size" class="text-[10px] font-black uppercase text-blue-600">0 KB</span>
+                        </div>
+                        <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border-2 border-blue-500/10">
+                            <div class="w-16 h-16 bg-white dark:bg-slate-800 rounded-xl shadow-inner flex items-center justify-center p-2">
+                                <img id="result-preview" class="max-w-full max-h-full object-contain">
+                            </div>
+                            <div class="flex-grow">
+                                <div class="text-sm font-bold text-slate-900 dark:text-white mb-1">favicon.ico</div>
+                                <div id="result-details" class="text-[10px] text-slate-400 font-medium">Includes 3 sizes</div>
+                            </div>
+                            <a id="download-link" href="#" download="favicon.ico" class="p-4 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to Create an ICO Favicon</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Upload Image</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Select a square PNG, JPG, or WebP image. High-resolution source works best.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Sizes</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose the sizes to include. 16x16, 32x32, and 48x48 are recommended for maximum compatibility.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download ICO</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Generate your multi-size ICO file and download it for use as your website favicon.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">Why Multi-Size ICO?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                A single ICO file can contain multiple images of different sizes. This allows browsers to select the most appropriate resolution for different contexts—like the browser tab, taskbar, or desktop shortcut—ensuring your favicon always looks crisp.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Crisp Icons at any Scale</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Better Legacy Browser Support</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Professional Quality Favicons</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is an ICO file?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                An ICO (Icon) file is an image format primarily used for favicons in Microsoft Windows. It's unique because it acts as a container for multiple small images of different sizes and color depths.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Which sizes should I include?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                For a standard web favicon, 16x16, 32x32, and 48x48 are the most important. 16x16 is for browser tabs, while 32x32 and 48x48 are often used by Windows for taskbars and shortcuts.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === ICO Generator Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const fileNameDisplay = document.getElementById('file-name');
+        const fileInfoDisplay = document.getElementById('file-info');
+        const clearBtn = document.getElementById('clear-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultCard = document.getElementById('result-card');
+        const resultPreview = document.getElementById('result-preview');
+        const resultSize = document.getElementById('result-size');
+        const resultDetails = document.getElementById('result-details');
+        const downloadLink = document.getElementById('download-link');
+        const sizeCheckboxes = document.querySelectorAll('.size-checkbox');
+
+        let originalFile = null;
+        let originalImg = new Image();
+
+        // Custom checkbox styling
+        sizeCheckboxes.forEach(label => {
+            const input = label.querySelector('input');
+            const box = label.querySelector('.check-box');
+            const svg = box.querySelector('svg');
+
+            function updateUI() {
+                if (input.checked) {
+                    label.classList.add('border-blue-600', 'bg-blue-50/50', 'dark:bg-blue-900/30');
+                    box.classList.add('bg-blue-600', 'border-blue-600');
+                    svg.classList.replace('opacity-0', 'opacity-100');
+                } else {
+                    label.classList.remove('border-blue-600', 'bg-blue-50/50', 'dark:bg-blue-900/30');
+                    box.classList.remove('bg-blue-600', 'border-blue-600');
+                    svg.classList.replace('opacity-100', 'opacity-0');
+                }
+            }
+
+            input.addEventListener('change', updateUI);
+            updateUI(); // Initial
+        });
+
+        // Upload Logic
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            originalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    imagePreview.src = originalImg.src;
+                    fileNameDisplay.textContent = file.name;
+                    fileInfoDisplay.textContent = `${originalImg.width}x${originalImg.height} • ${formatSize(file.size)}`;
+                    previewContainer.classList.remove('hidden');
+                    generateBtn.disabled = false;
+                    resultCard.classList.add('hidden');
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        clearBtn.addEventListener('click', () => {
+            originalFile = null;
+            previewContainer.classList.add('hidden');
+            generateBtn.disabled = true;
+            resultCard.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        // ICO Generation Logic
+        generateBtn.addEventListener('click', async () => {
+            const sizes = Array.from(sizeCheckboxes)
+                .map(l => l.querySelector('input'))
+                .filter(i => i.checked)
+                .map(i => parseInt(i.value));
+
+            if (sizes.length === 0) return;
+
+            const iconData = await createIco(originalImg, sizes);
+            const blob = new Blob([iconData], { type: 'image/x-icon' });
+            const url = URL.createObjectURL(blob);
+
+            resultPreview.src = url;
+            resultSize.textContent = formatSize(blob.size);
+            resultDetails.textContent = `Includes ${sizes.length} size${sizes.length > 1 ? 's' : ''}`;
+            downloadLink.href = url;
+            resultCard.classList.remove('hidden');
+            
+            // Scroll to result
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        async function createIco(img, sizes) {
+            const header = new ArrayBuffer(6);
+            const view = new DataView(header);
+            view.setUint16(0, 0, true); // Reserved
+            view.setUint16(2, 1, true); // Type: ICO
+            view.setUint16(4, sizes.length, true); // Count
+
+            const directories = [];
+            const images = [];
+            let offset = 6 + sizes.length * 16;
+
+            for (const size of sizes) {
+                const pngData = await getPngData(img, size);
+                const dir = new ArrayBuffer(16);
+                const dView = new DataView(dir);
+                
+                dView.setUint8(0, size === 256 ? 0 : size); // Width
+                dView.setUint8(1, size === 256 ? 0 : size); // Height
+                dView.setUint8(2, 0); // Palette
+                dView.setUint8(3, 0); // Reserved
+                dView.setUint16(4, 1, true); // Planes
+                dView.setUint16(6, 32, true); // BPP
+                dView.setUint32(8, pngData.byteLength, true); // Size
+                dView.setUint32(12, offset, true); // Offset
+
+                directories.push(dir);
+                images.push(pngData);
+                offset += pngData.byteLength;
+            }
+
+            const totalSize = offset;
+            const final = new Uint8Array(totalSize);
+            final.set(new Uint8Array(header), 0);
+            
+            let currentPos = 6;
+            for (const dir of directories) {
+                final.set(new Uint8Array(dir), currentPos);
+                currentPos += 16;
+            }
+            for (const imgData of images) {
+                final.set(new Uint8Array(imgData), currentPos);
+                currentPos += imgData.byteLength;
+            }
+
+            return final.buffer;
+        }
+
+        function getPngData(img, size) {
+            return new Promise((resolve) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(img, 0, 0, size, size);
+                canvas.toBlob((blob) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.readAsArrayBuffer(blob);
+                }, 'image/png');
+            });
+        }
+    </script>
+</body>
+</html>
+

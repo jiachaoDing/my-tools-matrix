@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 to Image Decoder - Free & Secure Online | WebUtilityKit</title>
+    <meta name="description" content="Decode Base64 strings back to images (JPG, PNG, WebP, GIF). Secure, local processing in your browser. No server uploads.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Base64 to Image</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Decode Base64 strings into viewable and downloadable images instantly.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing only.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Left: Input Area -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Base64 String</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear</button>
+                        </div>
+
+                        <div class="flex-grow flex flex-col relative group">
+                            <textarea id="base64-input" 
+                                class="w-full flex-grow bg-slate-50/50 dark:bg-slate-900/50 border-2 border-slate-200 dark:border-slate-700 rounded-[2rem] p-6 text-sm font-mono focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all resize-none min-h-[300px]"
+                                placeholder="Paste your Base64 string here (with or without data:image/... prefix)"></textarea>
+                            
+                            <!-- Drop Zone Overlay -->
+                            <div id="drop-zone" class="absolute inset-0 pointer-events-none border-2 border-dashed border-transparent rounded-[2rem] flex flex-col items-center justify-center transition-all">
+                                <div id="drop-content" class="hidden opacity-0 flex flex-col items-center justify-center">
+                                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    </div>
+                                    <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">Drop image or text file</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button id="sample-btn" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">Try a sample</button>
+                            <span class="text-slate-300 dark:text-slate-600">|</span>
+                            <span id="char-count" class="text-[10px] font-black uppercase tracking-wider text-slate-400 self-center">0 characters</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Preview Area -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 min-h-[400px]">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Image Preview</label>
+                            <div id="image-info" class="hidden flex items-center gap-2">
+                                <span id="image-type" class="text-[10px] font-black uppercase tracking-widest bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-md">PNG</span>
+                                <span id="image-dim" class="text-[10px] font-black uppercase tracking-widest bg-slate-100 dark:bg-slate-900 text-slate-500 px-2 py-1 rounded-md">0 x 0</span>
+                            </div>
+                        </div>
+
+                        <div id="preview-container" class="flex-grow bg-slate-50/50 dark:bg-slate-900/50 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center relative overflow-hidden group">
+                            <!-- Placeholder -->
+                            <div id="preview-placeholder" class="flex flex-col items-center text-slate-300 dark:text-slate-700 transition-opacity">
+                                <svg class="w-20 h-20 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <p class="font-bold text-sm">Image will appear here</p>
+                            </div>
+
+                            <!-- Image -->
+                            <img id="image-preview" class="hidden max-w-full max-h-full object-contain p-4 select-none" alt="Base64 Preview">
+                            
+                            <!-- Error State -->
+                            <div id="error-state" class="hidden flex flex-col items-center text-red-500 p-8 text-center">
+                                <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                <p class="font-bold">Invalid Base64 string</p>
+                                <p class="text-xs mt-1 text-slate-500">Please check your input and try again.</p>
+                            </div>
+                        </div>
+
+                        <div id="actions-container" class="mt-8 hidden space-y-4">
+                            <button id="download-btn" class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 flex items-center justify-center gap-3 group">
+                                <span>Download Image</span>
+                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </button>
+                            <button id="copy-img-btn" class="w-full py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:border-blue-500/20 transition-all">Copy to Clipboard</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Decoder</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Paste String</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Paste your Base64 string into the input area. It can be a full Data URI or just the raw Base64 data.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Auto Preview</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">The tool automatically detects the image format and displays a preview. No button clicks needed.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Save Image</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Download the decoded image to your device or copy it directly to your clipboard.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Secure & Private</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Why upload sensitive data to a server? Our Base64 Decoder processes everything within your browser's secure sandbox. Your strings never leave your machine, making it safe for private assets and sensitive documentation.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1 text-center">Safety</div>
+                                    <div class="font-bold">Zero Server Load</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1 text-center">Privacy</div>
+                                    <div class="font-bold text-center">Local-Only</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Auto Format Detection</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">We automatically identify if your Base64 is a JPEG, PNG, GIF, WebP, or SVG and decode accordingly.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Copy to Clipboard</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Need the image in another app? Use the copy button to place the image directly onto your clipboard.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">One-Click Download</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Save your decoded images with appropriate file extensions instantly. High speed, zero delay.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">File Upload Support</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Don't have the string copied? Drag and drop a text file containing the Base64, and we'll decode it.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Base64 Decoder FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is Base64?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It's commonly used to embed images directly into HTML or CSS files.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is there a size limit?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                The limit depends on your browser's memory. For extremely large Base64 strings (over 50MB), your browser might become sluggish. We recommend using standard image files for very large assets.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Does it work offline?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes! Once the page is loaded, all processing happens locally in your browser. You can even use it without an internet connection.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Decoder Logic ===
+        const base64Input = document.getElementById('base64-input');
+        const imagePreview = document.getElementById('image-preview');
+        const previewPlaceholder = document.getElementById('preview-placeholder');
+        const errorState = document.getElementById('error-state');
+        const actionsContainer = document.getElementById('actions-container');
+        const downloadBtn = document.getElementById('download-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const charCount = document.getElementById('char-count');
+        const imageInfo = document.getElementById('image-info');
+        const imageType = document.getElementById('image-type');
+        const imageDim = document.getElementById('image-dim');
+        const dropZone = document.getElementById('drop-zone');
+        const dropContent = document.getElementById('drop-content');
+        const copyImgBtn = document.getElementById('copy-img-btn');
+
+        let currentMime = '';
+
+        function updateUI(state) {
+            // state: 'empty', 'loading', 'success', 'error'
+            previewPlaceholder.classList.toggle('hidden', state !== 'empty');
+            imagePreview.classList.toggle('hidden', state !== 'success');
+            errorState.classList.toggle('hidden', state !== 'error');
+            actionsContainer.classList.toggle('hidden', state !== 'success');
+            imageInfo.classList.toggle('hidden', state !== 'success');
+        }
+
+        function handleInput() {
+            const val = base64Input.value.trim();
+            charCount.textContent = `${val.length.toLocaleString()} characters`;
+            
+            if (!val) {
+                updateUI('empty');
+                return;
+            }
+
+            // Try to detect data URI
+            let src = val;
+            if (!val.startsWith('data:')) {
+                // Heuristic for raw base64
+                // PNG: iVBORw0KGgo...
+                // JPEG: /9j/4AAQSkZ...
+                // WebP: UklGR...
+                // SVG: PHN2Zy...
+                if (val.startsWith('iVBOR')) src = `data:image/png;base64,${val}`;
+                else if (val.startsWith('/9j/')) src = `data:image/jpeg;base64,${val}`;
+                else if (val.startsWith('UklGR')) src = `data:image/webp;base64,${val}`;
+                else if (val.startsWith('PHN2Zy')) src = `data:image/svg+xml;base64,${val}`;
+                else if (val.startsWith('R0lGO')) src = `data:image/gif;base64,${val}`;
+                else src = `data:image/png;base64,${val}`; // Fallback guess
+            }
+
+            imagePreview.onload = () => {
+                const match = src.match(/^data:(image\/[a-z+]+);base64/);
+                currentMime = match ? match[1] : 'image/png';
+                imageType.textContent = currentMime.split('/')[1].toUpperCase();
+                imageDim.textContent = `${imagePreview.naturalWidth} x ${imagePreview.naturalHeight}`;
+                updateUI('success');
+            };
+
+            imagePreview.onerror = () => {
+                updateUI('error');
+            };
+
+            imagePreview.src = src;
+        }
+
+        base64Input.addEventListener('input', handleInput);
+
+        clearBtn.addEventListener('click', () => {
+            base64Input.value = '';
+            handleInput();
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            // A simple 10x10 blue square PNG
+            base64Input.value = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSvIA6C0D76j7H4gAAAAASUVORK5CYII=';
+            handleInput();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            const ext = currentMime.split('/')[1].replace('xml+', '');
+            link.download = `decoded-image.${ext}`;
+            link.href = imagePreview.src;
+            link.click();
+        });
+
+        copyImgBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch(imagePreview.src);
+                const blob = await response.blob();
+                await navigator.clipboard.write([
+                    new ClipboardItem({ [blob.type]: blob })
+                ]);
+                const originalText = copyImgBtn.textContent;
+                copyImgBtn.textContent = 'Copied!';
+                copyImgBtn.classList.replace('text-slate-600', 'text-green-600');
+                setTimeout(() => {
+                    copyImgBtn.textContent = originalText;
+                    copyImgBtn.classList.replace('text-green-600', 'text-slate-600');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy image', err);
+                alert('Copying to clipboard failed. Your browser may not support this feature for this image type.');
+            }
+        });
+
+        // Drag & Drop for text files or images
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20');
+            dropContent.classList.remove('hidden');
+            dropContent.classList.add('opacity-100');
+        });
+
+        document.addEventListener('dragleave', (e) => {
+            if (e.relatedTarget === null) {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20');
+                dropContent.classList.add('hidden');
+                dropContent.classList.remove('opacity-100');
+            }
+        });
+
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20');
+            dropContent.classList.add('hidden');
+            dropContent.classList.remove('opacity-100');
+
+            const file = e.dataTransfer.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            if (file.type.startsWith('image/')) {
+                reader.onload = (event) => {
+                    base64Input.value = event.target.result;
+                    handleInput();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                reader.onload = (event) => {
+                    base64Input.value = event.target.result;
+                    handleInput();
+                };
+                reader.readAsText(file);
+            }
+        });
+
+    </script>
+</body>
+</html>
+

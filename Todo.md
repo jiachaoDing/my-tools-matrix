@@ -14,17 +14,17 @@
 
 > 这类工具极易传播，且因为你主打“本地处理、不上传服务器”，隐私优势巨大。
 
-1. **HEIC to JPG Converter** (`heic-to-jpg`) - *刚需，苹果用户痛点*[done]
-2. **PNG to JPG Converter** (`png-to-jpg`)[done]
-3. **JPG to PNG Converter** (`jpg-to-png`)[done]
-4. **WebP Converter** (`webp-converter`)[done]
-5. **Image Compressor** (`image-compressor`) - *使用浏览器 canvas 压缩*[done]
-6. **Image Resizer** (`image-resizer`)
-7. **Image Cropper** (`image-cropper`)
-8. **SVG to PNG** (`svg-to-png`)
-9. **ICO File Generator** (`ico-generator`) - *网站站长常用*
-10. **Base64 Image Decoder** (`base64-to-image`)
-11. **Image to Base64** (`image-to-base64`)
+1. **HEIC to JPG Converter** (`heic-to-jpg`) - *刚需，苹果用户痛点*[done]√
+2. **PNG to JPG Converter** (`png-to-jpg`)[done]√
+3. **JPG to PNG Converter** (`jpg-to-png`)[done]√
+4. **WebP Converter** (`webp-converter`)[done]√
+5. **Image Compressor** (`image-compressor`) - *使用浏览器 canvas 压缩*[done]√
+6. **Image Resizer** (`image-resizer`)[done]√
+7. **Image Cropper** (`image-cropper`)[done]
+8. **SVG to PNG** (`svg-to-png`)[done]
+9. **ICO File Generator** (`ico-generator`)[done]
+10. **Base64 Image Decoder** (`base64-to-image`)[done]
+11. **Image to Base64** (`image-to-base64`)[done]
 12. **Color Picker from Image** (`image-color-picker`)
 13. **YouTube Thumbnail Downloader** (`youtube-thumbnail-grabber`) - *仅抓取封面图，不涉及视频下载，合规*
 14. **Meme Generator** (`meme-generator`)
