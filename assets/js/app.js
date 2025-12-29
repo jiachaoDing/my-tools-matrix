@@ -1,7 +1,7 @@
 // assets/js/app.js
 
-// 1. 放在最外面，证明 app.js 被加载了
-console.log('🚀 App.js is running...');
+// // 1. 放在最外面，证明 app.js 被加载了
+// console.log('🚀 App.js is running...');
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
@@ -38,7 +38,7 @@ function injectRelatedTools() {
     })));
 
     const currentBrowserPath = normalizePath(window.location.pathname);
-    console.log('📍 Current Path:', currentBrowserPath);
+    // console.log('📍 Current Path:', currentBrowserPath);
 
     // 匹配逻辑
     const currentTool = allTools.find(t => normalizePath(t.url) === currentBrowserPath);
@@ -77,7 +77,7 @@ function injectRelatedTools() {
         recommendations = [...recommendations, ...fillers];
     }
 
-    console.log('✨ Recommendations generated:', recommendations.length);
+    // console.log('✨ Recommendations generated:', recommendations.length);
     
     // 渲染 (保持你之前漂亮的样式函数 renderTools 不变)
     renderTools(container, recommendations);

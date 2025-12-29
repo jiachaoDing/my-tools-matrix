@@ -785,4 +785,4 @@ window.toolsConfig = {
         }
     ]
 };
-console.log('✅ Config Loaded. Categories:', window.toolsConfig.categories.length);
+// console.log('✅ Config Loaded. Categories:', window.toolsConfig.categories.length);
