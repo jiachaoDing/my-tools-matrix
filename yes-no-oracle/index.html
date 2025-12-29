@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" class="">
 <head>
     <meta charset="UTF-8">
@@ -136,20 +136,6 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
-    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
-        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
-            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
-                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
-            </a>
-            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
-                <span class="hidden sm:inline italic">Ancient Wisdom, Modern Speed</span>
-                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
-                    <span id="theme-icon">🌗</span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
     <main class="flex-grow w-full py-12 px-4 sm:px-6">
         
         <div class="max-w-4xl mx-auto text-center mb-16">
@@ -383,19 +369,10 @@
             </article>
         </div>
       
-    </main>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="../assets/js/components.js"></script>
 
-    <footer class="border-t border-slate-200 dark:border-slate-800 py-12 px-4">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-black uppercase tracking-widest text-slate-400">
-            <div>&copy; 2025 WebUtilityKit.com</div>
-            <div class="flex gap-8">
-                <span>Zen Architecture</span>
-                <span>Client-Side Entropy</span>
-                <span>Zero Tracking</span>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Tool-specific Logic -->
 
     <script>
         const themeToggle = document.getElementById('theme-toggle');
