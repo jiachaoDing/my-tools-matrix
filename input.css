@@ -1,6 +1,8 @@
 /* 1. 导入 Tailwind 核心 (替代了以前的 @tailwind base/components/utilities) */
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* 2. 告诉 Tailwind 去哪里扫描 HTML 文件 */
 /* 注意：路径是相对于这个 css 文件的。如果 css 在 src 里，html 在根目录，就用 ../ */
 @source "./**/*.{html,js}";
