@@ -7,4 +7,35 @@
 /* 注意：路径是相对于这个 css 文件的。如果 css 在 src 里，html 在根目录，就用 ../ */
 @source "./**/*.{html,js}";
 
-/* 3. 如果你有自定义样式，写在下面，标准 CSS 即可 */
+/* 3. 如果你有自定义样式，写在下面，标准 CSS 即可 *//* 在 @layer components 中添加以下内容 */
+@layer components {
+    /* 通用自定义滚动条 - 可供所有工具使用 */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        @apply bg-slate-200 dark:bg-slate-800 rounded-full;
+    }
+
+    /* 针对 emoji-picker 的特定状态 */
+    .category-btn-active-pink {
+        @apply bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shadow-sm border border-pink-100 dark:border-pink-800/50;
+    }
+
+    /* 针对 special-symbols-picker 的特定状态 */
+    .category-btn-active-blue {
+        @apply bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm border border-blue-100/50 dark:border-blue-800/50;
+    }
+
+    /* 禁用所有过渡动画的类，用于优化主题切换性能 */
+    .no-transitions,
+    .no-transitions *,
+    .no-transitions *:before,
+    .no-transitions *:after {
+        transition: none !important;
+        animation: none !important;
+    }
+}

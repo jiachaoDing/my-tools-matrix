@@ -266,7 +266,7 @@
 
         function createTzCard(tz) {
             const card = document.createElement('div');
-            card.className = 'tz-card';
+            card.className = 'bg-slate-50 dark:bg-slate-900/50 p-6 rounded-3xl border border-slate-100 dark:border-slate-800 relative group transition-all hover:shadow-lg hover:border-blue-500/20';
             card.dataset.tz = tz;
             card.innerHTML = `
                 <div class="flex justify-between items-start">

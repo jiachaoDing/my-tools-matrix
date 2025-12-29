@@ -6,6 +6,7 @@
     <title>Loan Calculator - Accurate Mortgage & Car Loan Estimates | WebUtilityKit</title>
     <meta name="description" content="Calculate your monthly loan payments instantly. Accurate estimates for mortgages, car loans, and personal loans. 100% private and secure.">
     <link href="../assets/css/styles.css" rel="stylesheet">    <!-- Unified Component Management (Header + Footer + Theme) -->
+    
 
     <!-- Tool-specific Logic -->
 
@@ -32,39 +33,39 @@
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="space-y-6">
                             <div>
-                                <label class="input-label">Loan Amount</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Loan Amount</label>
                                 <div class="relative group">
-                                    <input type="number" id="amount-input" value="300000" min="0" step="1000" class="custom-input pl-12">
+                                    <input type="number" id="amount-input" value="300000" min="0" step="1000" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5 pl-12">
                                     <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
-                                    <span class="unit-badge">LOAN</span>
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">LOAN</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="input-label">Interest Rate (%)</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Interest Rate (%)</label>
                                 <div class="relative group">
-                                    <input type="number" id="rate-input" value="5.5" min="0" max="100" step="0.01" class="custom-input">
-                                    <span class="unit-badge">ANNUAL</span>
+                                    <input type="number" id="rate-input" value="5.5" min="0" max="100" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">ANNUAL</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="input-label">Loan Term</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Loan Term</label>
                                 <div class="flex gap-4">
                                     <div class="relative flex-grow group">
-                                        <input type="number" id="term-input" value="30" min="1" step="1" class="custom-input">
-                                        <span id="term-unit-badge" class="unit-badge">YEARS</span>
+                                        <input type="number" id="term-input" value="30" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5">
+                                        <span id="term-unit-badge" class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">YEARS</span>
                                     </div>
                                     <div class="flex flex-col p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
-                                        <button id="unit-years" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all active-tab">Y</button>
-                                        <button id="unit-months" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all inactive-tab mt-1">M</button>
+                                        <button id="unit-years" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-emerald-600 dark:text-emerald-400">Y</button>
+                                        <button id="unit-months" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mt-1">M</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="pt-4 space-y-4">
-                            <label class="input-label">Quick Presets</label>
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Quick Presets</label>
                             <div class="grid grid-cols-2 gap-3">
                                 <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-amount="30000" data-rate="6.5" data-term="5" data-unit="years">Car Loan (5y)</button>
                                 <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-amount="500000" data-rate="5.0" data-term="30" data-unit="years">Mortgage (30y)</button>

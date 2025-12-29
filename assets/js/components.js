@@ -133,6 +133,9 @@ function initTheme() {
     
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
+            // 性能优化：切换主题前暂时禁用所有过渡动画
+            html.classList.add('no-transitions');
+            
             const isDark = html.classList.toggle('dark');
             localStorage.theme = isDark ? 'dark' : 'light';
             
@@ -140,6 +143,14 @@ function initTheme() {
             if (themeIcon) {
                 themeIcon.textContent = isDark ? '🌙' : '☀️';
             }
+
+            // 强制重绘，确保样式立即应用后再移除禁用类
+            window.getComputedStyle(html).opacity;
+            
+            // 异步移除，给浏览器一点响应时间
+            requestAnimationFrame(() => {
+                html.classList.remove('no-transitions');
+            });
         });
     }
 }

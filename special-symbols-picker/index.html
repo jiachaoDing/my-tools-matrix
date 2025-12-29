@@ -42,8 +42,8 @@
                             </div>
                         </div>
 
-                        <div class="flex-grow overflow-y-auto pr-2 space-y-1" id="category-list">
-                            <button class="w-full text-left px-4 py-3 rounded-xl transition-all flex items-center gap-3 font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-blue-600 dark:hover:text-blue-400 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-sm border border-blue-100/50 dark:border-blue-800/50" data-category="recent">
+                        <div class="flex-grow overflow-y-auto pr-2 space-y-1 custom-scrollbar" id="category-list">
+                            <button class="w-full text-left px-4 py-3 rounded-xl transition-all flex items-center gap-3 font-medium text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-blue-600 dark:hover:text-blue-400 category-btn-active-blue" data-category="recent">
                                 <span class="text-lg">🕒</span>
                                 <span>Recently Used</span>
                             </button>
@@ -98,7 +98,7 @@
                 <!-- Right Pane: Symbol Grid (8 cols) -->
                 <div class="lg:col-span-8 flex flex-col">
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden">
-                        <div id="symbol-grid" class="flex-grow overflow-y-auto p-8 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 content-start">
+                        <div id="symbol-grid" class="flex-grow overflow-y-auto p-8 grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-4 content-start custom-scrollbar">
                             <!-- Symbols injected here -->
                         </div>
                         
@@ -501,7 +501,7 @@
         const searchInput = document.getElementById('symbol-search');
         const symbolGrid = document.getElementById('symbol-grid');
         const emptyState = document.getElementById('empty-state');
-        const categoryBtns = document.querySelectorAll('.category-btn');
+        const categoryBtns = document.querySelectorAll('[data-category]');
         const previewSection = document.getElementById('preview-section');
         const previewSymbol = document.getElementById('preview-symbol');
         const previewName = document.getElementById('preview-name');
@@ -520,8 +520,8 @@
             } else {
                 activeCategory = 'arrows';
                 categoryBtns.forEach(btn => {
-                    if (btn.dataset.category === 'arrows') btn.classList.add('active');
-                    else btn.classList.remove('active');
+                    if (btn.dataset.category === 'arrows') btn.classList.add('category-btn-active-blue');
+                    else btn.classList.remove('category-btn-active-blue');
                 });
             }
             
@@ -532,10 +532,10 @@
                 const query = e.target.value.toLowerCase().trim();
                 if (query) {
                     renderSearch(query);
-                    categoryBtns.forEach(btn => btn.classList.remove('active'));
+                    categoryBtns.forEach(btn => btn.classList.remove('category-btn-active-blue'));
                 } else {
                     categoryBtns.forEach(btn => {
-                        if (btn.dataset.category === activeCategory) btn.classList.add('active');
+                        if (btn.dataset.category === activeCategory) btn.classList.add('category-btn-active-blue');
                     });
                     renderSymbols();
                 }
@@ -546,8 +546,8 @@
                 btn.addEventListener('click', () => {
                     activeCategory = btn.dataset.category;
                     searchInput.value = '';
-                    categoryBtns.forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+                    categoryBtns.forEach(b => b.classList.remove('category-btn-active-blue'));
+                    btn.classList.add('category-btn-active-blue');
                     renderSymbols();
                 });
             });
@@ -601,7 +601,7 @@
             emptyState.classList.add('hidden');
             symbols.forEach(sym => {
                 const card = document.createElement('div');
-                card.className = 'symbol-card';
+                card.className = 'symbol-card aspect-square flex items-center justify-center text-3xl cursor-pointer rounded-2xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 hover:scale-125 hover:shadow-xl hover:shadow-blue-500/10 active:scale-95';
                 card.textContent = sym.char;
                 card.title = sym.name;
                 card.addEventListener('click', () => selectSymbol(sym));
