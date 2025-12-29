@@ -7,6 +7,9 @@
     <meta name="description" content="Get instant Yes or No answers inspired by I Ching wisdom. Modern, private decision maker. Processed locally in browser. Consult the oracle now!">
     <link rel="canonical" href="https://webutilitykit.com/yes-no-oracle/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -399,18 +402,7 @@
     <!-- Tool-specific Logic -->
 
     <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        function updateTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-            } else { html.classList.remove('dark'); }
-        }
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-        });
+
 
         // --- Oracle Logic ---
         const taiji = document.getElementById('taiji');

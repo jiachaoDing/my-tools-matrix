@@ -7,6 +7,9 @@
     <meta name="description" content="Generate cron expressions visually without memorizing syntax. Instant human-readable preview, supports all scheduling patterns. Try it now for free!">
     <link rel="canonical" href="https://webutilitykit.com/cron-generator/">
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -227,18 +230,7 @@
 
     <script>
         // Theme Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        function updateTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-            } else { html.classList.remove('dark'); }
-        }
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-        });
+
 
         // Cron Logic
         const inputs = {

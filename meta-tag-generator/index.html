@@ -7,6 +7,9 @@
     <meta name="description" content="Generate SEO meta tags, Open Graph, and Twitter Cards instantly. Free, real-time preview, improve search rankings. Start optimizing now!">
     <link rel="canonical" href="https://webutilitykit.com/meta-tag-generator/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -303,23 +306,7 @@
 
     <script>
         // Theme Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        function updateTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-                document.getElementById('theme-icon').textContent = '☀️';
-            } else { 
-                html.classList.remove('dark');
-                document.getElementById('theme-icon').textContent = '🌙';
-            }
-        }
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-            updateTheme();
-        });
+
 
         // Meta Tag Generator Logic
         const inputs = [

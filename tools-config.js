@@ -1,4 +1,4 @@
-const toolsConfig = {
+window.toolsConfig = {
     categories: [
         {
             id: 'images',
@@ -785,3 +785,4 @@ const toolsConfig = {
         }
     ]
 };
+console.log('✅ Config Loaded. Categories:', window.toolsConfig.categories.length);

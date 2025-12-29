@@ -7,6 +7,9 @@
     <meta name="description" content="Rotate PDF pages permanently online. Supports 90-degree clockwise, counter-clockwise, or 180-degree rotation. 100% local processing, secure and fast. Start rotating now!">
     <link rel="canonical" href="https://webutilitykit.com/rotate-pdf/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -154,18 +157,7 @@
     <script>
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        function updateTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-            } else { html.classList.remove('dark'); }
-        }
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-        });
+
 
         const dropZone = document.getElementById('drop-zone');
         const fileInput = document.getElementById('file-input');

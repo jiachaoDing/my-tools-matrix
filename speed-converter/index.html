@@ -7,6 +7,9 @@
     <meta name="description" content="Convert speed units instantly in your browser. Free, secure, and unlimited conversions. Processed locally. No software installation required. Start converting now!">
     <link rel="canonical" href="https://webutilitykit.com/speed-converter/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -152,18 +155,7 @@
     <!-- Tool-specific Logic -->
 
     <script>
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        function updateTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-            } else { html.classList.remove('dark'); }
-        }
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-        });
+
 
         const fromValue = document.getElementById('from-value');
         const toValue = document.getElementById('to-value');
