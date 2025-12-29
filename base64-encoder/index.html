@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Encoder/Decoder - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Convert text to Base64 format or decode Base64 strings back to plain text. 100% private, client-side processing. Secure and fast.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Base64 Encoder / Decoder</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Encode text into Base64 format or decode existing Base64 strings. All processing happens locally for maximum security.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                <!-- Input Section -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">Input Text / Base64</label>
+                        <button id="clear-btn" class="text-xs font-semibold text-slate-400 hover:text-rose-500 transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            Clear
+                        </button>
+                    </div>
+                    <div class="flex-grow min-h-[300px] relative group">
+                        <textarea id="input-text" 
+                            class="w-full h-full p-6 bg-white dark:bg-slate-800 rounded-[2rem] border-none focus:ring-4 focus:ring-emerald-500/10 text-slate-700 dark:text-slate-200 text-lg leading-relaxed placeholder:text-slate-400 transition-all resize-none outline-none shadow-sm"
+                            placeholder="Paste your text or Base64 string here..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button id="encode-btn" class="py-4 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg shadow-lg shadow-emerald-500/25 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            Encode
+                        </button>
+                        <button id="decode-btn" class="py-4 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg shadow-lg shadow-emerald-500/25 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            Decode
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">Result</label>
+                        <button id="copy-btn" class="text-xs font-semibold text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 00-2 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            Copy Result
+                        </button>
+                    </div>
+                    <div class="flex-grow min-h-[300px] relative">
+                        <textarea id="output-text" readonly
+                            class="w-full h-full p-6 bg-white dark:bg-slate-800/50 rounded-[2rem] border-none text-slate-600 dark:text-slate-400 text-lg leading-relaxed transition-all resize-none outline-none shadow-sm cursor-default"
+                            placeholder="Result will appear here..."></textarea>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span>Uses standard UTF-8 encoding for reliable multi-language support.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Base64 Encoder/Decoder</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Input Data</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Type or paste your text or Base64 string into the input area.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Method</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click "Encode" to convert text to Base64, or "Decode" for the reverse process.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Instant Result</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">The result is displayed immediately. Copy it to your clipboard with one click.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">What is Base64?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format. It is commonly used to embed images in HTML, transmit binary data over text-based protocols like email (MIME), or store complex data in a simple text format.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 text-slate-200">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">Aa</div>
+                                    <span>Uses 64 unique characters</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-slate-200">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">==</div>
+                                    <span>Pads results with '=' if needed</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
+                                <code class="text-emerald-400 text-sm break-all">SGVsbG8gV29ybGQh</code>
+                                <div class="text-xs text-slate-500 mt-2 text-center">("Hello World!" in Base64)</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why Use WebUtilityKit?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">UTF-8 Support</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">We handle multi-byte characters (emojis, foreign languages) correctly using modern browser standards.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Secure & Private</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Everything is processed on your device. No data is ever uploaded or stored on any server.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Base64 Converter FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-emerald-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is Base64 a form of encryption?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                No, Base64 is <strong>not</strong> encryption. It is an encoding scheme. Anyone can easily decode a Base64 string back to its original form. It should never be used for security or hiding data.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Does it support non-English characters?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes. Our tool uses UTF-8 encoding before converting to Base64, ensuring that all international characters and emojis are preserved correctly.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Base64 Utility Functions for UTF-8 ===
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
+
+        // === Tool Logic ===
+        const inputText = document.getElementById('input-text');
+        const outputText = document.getElementById('output-text');
+        const encodeBtn = document.getElementById('encode-btn');
+        const decodeBtn = document.getElementById('decode-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        encodeBtn.addEventListener('click', () => {
+            try {
+                const input = inputText.value;
+                if (!input) return;
+                outputText.value = utf8_to_b64(input);
+            } catch (e) {
+                outputText.value = "Error during encoding: " + e.message;
+            }
+        });
+
+        decodeBtn.addEventListener('click', () => {
+            try {
+                const input = inputText.value.trim();
+                if (!input) return;
+                outputText.value = b64_to_utf8(input);
+            } catch (e) {
+                outputText.value = "Error during decoding: Invalid Base64 sequence";
+            }
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (!outputText.value) return;
+            navigator.clipboard.writeText(outputText.value).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = `
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    Copied!
+                `;
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            });
+        });
+
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            outputText.value = '';
+        });
+    </script>
+</body>
+</html>
+

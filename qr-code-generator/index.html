@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator - Custom Colors & Logo | WebUtilityKit</title>
+    <meta name="description" content="Create professional QR codes with custom colors and your own logo. 100% private, browser-based generation. Download as PNG or SVG.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">QR Code Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Create beautiful, custom QR codes for your brand. Add logos, customize colors, and download instantly.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Generated locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Settings Panel -->
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm">
+                        <div class="p-6 border-b border-slate-200 dark:border-slate-700/50">
+                            <h2 class="font-bold flex items-center gap-2">
+                                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                Content & Settings
+                            </h2>
+                        </div>
+                        <div class="p-8 space-y-8">
+                            <!-- Text Input -->
+                            <div class="space-y-3">
+                                <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 italic">QR Content (URL or Text)</label>
+                                <textarea id="qr-text" 
+                                    placeholder="https://webutilitykit.com" 
+                                    class="w-full p-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition min-h-[120px] resize-none font-mono text-sm"
+                                ></textarea>
+                            </div>
+
+                            <!-- Visual Settings Grid -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-6">
+                                    <div class="space-y-3">
+                                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 italic">Colors</label>
+                                        <div class="flex flex-col gap-4">
+                                            <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+                                                <span class="text-xs font-medium">Foreground</span>
+                                                <input type="color" id="fg-color" value="#000000" class="w-10 h-10 rounded-lg cursor-pointer border-none bg-transparent">
+                                            </div>
+                                            <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-200 dark:border-slate-800">
+                                                <span class="text-xs font-medium">Background</span>
+                                                <input type="color" id="bg-color" value="#ffffff" class="w-10 h-10 rounded-lg cursor-pointer border-none bg-transparent">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 italic">Error Correction</label>
+                                        <select id="error-level" class="w-full p-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:outline-none text-sm">
+                                            <option value="L">Low (7%)</option>
+                                            <option value="M" selected>Medium (15%)</option>
+                                            <option value="Q">Quartile (25%)</option>
+                                            <option value="H">High (30%) - Best for logos</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-6">
+                                    <div class="space-y-3">
+                                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 italic">Add Logo (Optional)</label>
+                                        <div class="relative group">
+                                            <input type="file" id="logo-input" accept="image/*" class="hidden">
+                                            <label for="logo-input" class="flex flex-col items-center justify-center p-8 bg-slate-50 dark:bg-slate-900/50 border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[2rem] cursor-pointer hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-300 transition-all text-center">
+                                                <div id="logo-preview-container" class="mb-3 hidden">
+                                                    <img id="logo-preview" class="w-12 h-12 rounded-lg object-contain shadow-md">
+                                                </div>
+                                                <svg id="logo-icon" class="w-8 h-8 text-slate-400 mb-2 group-hover:text-blue-500 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                                <span class="text-xs font-bold text-slate-500 group-hover:text-blue-600">Upload Logo</span>
+                                            </label>
+                                            <button id="remove-logo" class="absolute top-2 right-2 p-1.5 bg-red-100 dark:bg-red-900/40 text-red-600 rounded-full hidden hover:scale-110 transition">
+                                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                            </button>
+                                        </div>
+                                        <p class="text-[10px] text-slate-500 text-center">Logos work best with "High" error correction.</p>
+                                    </div>
+
+                                    <div class="space-y-3">
+                                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 italic">Logo Size (%)</label>
+                                        <input type="range" id="logo-size" min="10" max="30" value="20" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <div class="flex justify-between text-[10px] text-slate-500 font-bold px-1">
+                                            <span>Small</span>
+                                            <span id="logo-size-value">20%</span>
+                                            <span>Large</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="lg:col-span-4 sticky top-6">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm p-8 flex flex-col items-center gap-8">
+                        <div class="relative group">
+                            <div class="absolute -inset-4 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 rounded-[3rem] blur-2xl group-hover:blur-3xl transition-all"></div>
+                            <div id="qr-container" class="relative bg-white p-6 rounded-[2.5rem] shadow-2xl shadow-slate-200/50 dark:shadow-none flex items-center justify-center w-full max-w-[320px] aspect-square mx-auto">
+                                <canvas id="qr-canvas" class="w-full h-full object-contain"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="w-full space-y-3">
+                            <button id="download-png" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5 transition active:scale-95 flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
+                                Download PNG
+                            </button>
+                            <p class="text-center text-[10px] text-slate-500 font-medium">Auto-updates as you change settings.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Create Your Custom QR Code</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Enter Content</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Type in your website URL, social media handle, or any text you want to encode.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Personalize</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Pick colors that match your brand and upload a logo to make your QR code unique.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Get your high-resolution PNG file ready for print or digital use instantly.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">QR Generator FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Will my QR code work with a logo?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes! QR codes have built-in error correction. By setting the error level to "High", you can cover up to 30% of the QR code with a logo and it will still be scanable.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Do these QR codes expire?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                No, these are "Static QR Codes". The information is encoded directly in the pattern, so they will work forever as long as the content (like a URL) is valid.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Tool Logic ===
+        const qrText = document.getElementById('qr-text');
+        const fgColor = document.getElementById('fg-color');
+        const bgColor = document.getElementById('bg-color');
+        const errorLevel = document.getElementById('error-level');
+        const logoInput = document.getElementById('logo-input');
+        const logoSizeInput = document.getElementById('logo-size');
+        const logoSizeValue = document.getElementById('logo-size-value');
+        const qrCanvas = document.getElementById('qr-canvas');
+        const downloadPngBtn = document.getElementById('download-png');
+        const logoPreviewContainer = document.getElementById('logo-preview-container');
+        const logoPreview = document.getElementById('logo-preview');
+        const logoIcon = document.getElementById('logo-icon');
+        const removeLogoBtn = document.getElementById('remove-logo');
+
+        let qr = null;
+        let logoImg = null;
+
+        function initQR() {
+            qr = new QRious({
+                element: qrCanvas,
+                size: 1000,
+                padding: 40
+            });
+            updateQR();
+        }
+
+        function updateQR() {
+            if (!qr) return;
+
+            qr.set({
+                value: qrText.value || 'https://webutilitykit.com',
+                foreground: fgColor.value,
+                background: bgColor.value,
+                level: errorLevel.value.toLowerCase()
+            });
+
+            // Draw logo if exists
+            if (logoImg) {
+                const ctx = qrCanvas.getContext('2d');
+                const size = qrCanvas.width;
+                const logoSizePercent = parseInt(logoSizeInput.value) / 100;
+                const logoSize = size * logoSizePercent;
+                const x = (size - logoSize) / 2;
+                const y = (size - logoSize) / 2;
+
+                // Add white background for logo area if needed
+                ctx.fillStyle = bgColor.value;
+                ctx.fillRect(x - 5, y - 5, logoSize + 10, logoSize + 10);
+                
+                ctx.drawImage(logoImg, x, y, logoSize, logoSize);
+            }
+        }
+
+        [qrText, fgColor, bgColor, errorLevel, logoSizeInput].forEach(el => {
+            el.addEventListener('input', () => {
+                if (el === logoSizeInput) {
+                    logoSizeValue.textContent = `${el.value}%`;
+                }
+                updateQR();
+            });
+        });
+
+        logoInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    logoImg = new Image();
+                    logoImg.onload = () => {
+                        logoPreview.src = event.target.result;
+                        logoPreviewContainer.classList.remove('hidden');
+                        logoIcon.classList.add('hidden');
+                        removeLogoBtn.classList.remove('hidden');
+                        updateQR();
+                    };
+                    logoImg.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        removeLogoBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoImg = null;
+            logoInput.value = '';
+            logoPreviewContainer.classList.add('hidden');
+            logoIcon.classList.remove('hidden');
+            removeLogoBtn.classList.add('hidden');
+            updateQR();
+        });
+
+        downloadPngBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = `qrcode-${new Date().getTime()}.png`;
+            link.href = qrCanvas.toDataURL('image/png');
+            link.click();
+        });
+
+        // Initialize
+        window.onload = initQR;
+    </script>
+</body>
+</html>
+

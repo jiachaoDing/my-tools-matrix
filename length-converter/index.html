@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Converter - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Convert between any length units including meters, kilometers, miles, feet, inches and more. 100% private, client-side conversion.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Length Converter</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instant conversion between metric and imperial length units. Precise, fast, and completely private.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-700/50">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
+                    <!-- From -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">From</label>
+                        <input type="number" id="from-value" value="1" step="any"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-2xl font-bold focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="from-unit" 
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="mm">Millimeters (mm)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="m" selected>Meters (m)</option>
+                            <option value="km">Kilometers (km)</option>
+                            <option value="in">Inches (in)</option>
+                            <option value="ft">Feet (ft)</option>
+                            <option value="yd">Yards (yd)</option>
+                            <option value="mi">Miles (mi)</option>
+                            <option value="nmi">Nautical Miles (nmi)</option>
+                        </select>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <button id="swap-btn" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 transition-all group mt-6 md:mt-10">
+                        <svg class="w-6 h-6 transform md:rotate-0 rotate-90 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </button>
+
+                    <!-- To -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">To</label>
+                        <input type="number" id="to-value" value="3.28084" step="any"
+                            class="w-full bg-blue-50 dark:bg-blue-900/20 border-none rounded-2xl px-6 py-4 text-2xl font-bold text-blue-600 dark:text-blue-400 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="to-unit" 
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="mm">Millimeters (mm)</option>
+                            <option value="cm">Centimeters (cm)</option>
+                            <option value="m">Meters (m)</option>
+                            <option value="km">Kilometers (km)</option>
+                            <option value="in">Inches (in)</option>
+                            <option value="ft" selected>Feet (ft)</option>
+                            <option value="yd">Yards (yd)</option>
+                            <option value="mi">Miles (mi)</option>
+                            <option value="nmi">Nautical Miles (nmi)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="conversion-formula" class="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/30 text-center text-slate-600 dark:text-slate-400 font-medium italic">
+                    1 Meter = 3.28084 Feet
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Length Converter</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Input Value</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Type the length value you want to convert in the "From" input field.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Units</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose your starting unit and the target unit from the dropdown menus.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Get Result</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">The converted value appears instantly in the "To" field as you type.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why use our Length Converter?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">High Precision</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">We use high-precision floating point math to ensure your conversions are accurate to many decimal places.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Private & Local</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your data never leaves your browser. All calculations are performed on your device, ensuring total privacy.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Length Converter FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is the difference between Metric and Imperial?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                The Metric system (meters, kilometers) is used globally and is based on multiples of 10. The Imperial system (inches, feet, miles) is used primarily in the US and is based on historical units.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Tool Logic ===
+        const fromValue = document.getElementById('from-value');
+        const toValue = document.getElementById('to-value');
+        const fromUnit = document.getElementById('from-unit');
+        const toUnit = document.getElementById('to-unit');
+        const swapBtn = document.getElementById('swap-btn');
+        const formulaDisplay = document.getElementById('conversion-formula');
+
+        const factors = {
+            mm: 0.001,
+            cm: 0.01,
+            m: 1,
+            km: 1000,
+            in: 0.0254,
+            ft: 0.3048,
+            yd: 0.9144,
+            mi: 1609.344,
+            nmi: 1852
+        };
+
+        const unitNames = {
+            mm: 'Millimeters',
+            cm: 'Centimeters',
+            m: 'Meters',
+            km: 'Kilometers',
+            in: 'Inches',
+            ft: 'Feet',
+            yd: 'Yards',
+            mi: 'Miles',
+            nmi: 'Nautical Miles'
+        };
+
+        function convert(source) {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+            
+            if (source === 'from') {
+                const val = parseFloat(fromValue.value);
+                if (isNaN(val)) { toValue.value = ''; return; }
+                const result = (val * factors[from]) / factors[to];
+                toValue.value = Number(result.toFixed(8)).toString();
+            } else {
+                const val = parseFloat(toValue.value);
+                if (isNaN(val)) { fromValue.value = ''; return; }
+                const result = (val * factors[to]) / factors[from];
+                fromValue.value = Number(result.toFixed(8)).toString();
+            }
+            updateFormula();
+        }
+
+        function updateFormula() {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+            const ratio = factors[from] / factors[to];
+            formulaDisplay.textContent = `1 ${unitNames[from].slice(0, -1)} = ${Number(ratio.toFixed(8))} ${unitNames[to]}`;
+        }
+
+        fromValue.addEventListener('input', () => convert('from'));
+        toValue.addEventListener('input', () => convert('to'));
+        fromUnit.addEventListener('change', () => convert('from'));
+        toUnit.addEventListener('change', () => convert('from'));
+
+        swapBtn.addEventListener('click', () => {
+            const tempUnit = fromUnit.value;
+            fromUnit.value = toUnit.value;
+            toUnit.value = tempUnit;
+            const tempVal = fromValue.value;
+            fromValue.value = toValue.value;
+            toValue.value = tempVal;
+            updateFormula();
+        });
+
+        updateFormula();
+    </script>
+</body>
+</html>
+

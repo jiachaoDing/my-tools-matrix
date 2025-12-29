@@ -123,6 +123,60 @@ const toolsConfig = {
                     url: '/rotate-image/'
                 },
                 {
+                    name: 'Image Converter Hub',
+                    description: 'Ultimate collection of privacy-first image conversion tools.',
+                    status: 'live',
+                    url: '/image-converter/'
+                },
+                {
+                    name: 'AVIF to JPG Converter',
+                    description: 'Convert next-gen AVIF images to standard JPG format.',
+                    status: 'live',
+                    url: '/avif-to-jpg/'
+                },
+                {
+                    name: 'AVIF to PNG Converter',
+                    description: 'Convert AVIF images to lossless PNG format.',
+                    status: 'live',
+                    url: '/avif-to-png/'
+                },
+                {
+                    name: 'WebP to JPG Converter',
+                    description: 'Convert modern WebP images to standard JPG format.',
+                    status: 'live',
+                    url: '/webp-to-jpg/'
+                },
+                {
+                    name: 'WebP to PNG Converter',
+                    description: 'Convert WebP images to lossless PNG format.',
+                    status: 'live',
+                    url: '/webp-to-png/'
+                },
+                {
+                    name: 'BMP to JPG Converter',
+                    description: 'Convert legacy BMP images to compressed JPG format.',
+                    status: 'live',
+                    url: '/bmp-to-jpg/'
+                },
+                {
+                    name: 'BMP to PNG Converter',
+                    description: 'Convert legacy BMP images to efficient PNG format.',
+                    status: 'live',
+                    url: '/bmp-to-png/'
+                },
+                {
+                    name: 'TIFF to JPG Converter',
+                    description: 'Convert professional TIFF images to standard JPG format.',
+                    status: 'live',
+                    url: '/tiff-to-jpg/'
+                },
+                {
+                    name: 'ICO to PNG Converter',
+                    description: 'Extract PNG images from ICO favicon files.',
+                    status: 'live',
+                    url: '/ico-to-png/'
+                },
+                {
                     name: 'GIF to MP4',
                     description: 'Convert GIF files to MP4 videos.',
                     status: 'coming-soon'
