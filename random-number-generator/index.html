@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator - Quick & Secure | WebUtilityKit</title>
+    <meta name="description" content="Generate random numbers instantly with our secure, privacy-first tool. Customize range, quantity, and sorting. No data leaves your device.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white text-pretty">Random Number Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">The fastest way to generate truly random numbers for giveaways, research, or games. 100% private and secure.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally in your browser.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Settings Panel -->
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-sm border border-slate-200/50 dark:border-slate-700/50">
+                        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Generator Settings
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Minimum</label>
+                                    <input type="number" id="min-val" value="1" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Maximum</label>
+                                    <input type="number" id="max-val" value="100" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Quantity (How many?)</label>
+                                <input type="number" id="count-val" value="1" min="1" max="1000" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition">
+                            </div>
+
+                            <div class="pt-2 space-y-3">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <div class="relative">
+                                        <input type="checkbox" id="unique-val" checked class="sr-only peer">
+                                        <div class="w-10 h-5 bg-slate-200 dark:bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </div>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Unique numbers only</span>
+                                </label>
+
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300">Sort results</label>
+                                    <div class="grid grid-cols-3 gap-2">
+                                        <button data-sort="none" class="sort-btn active px-3 py-2 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 bg-white dark:bg-slate-800 shadow-sm">None</button>
+                                        <button data-sort="asc" class="sort-btn px-3 py-2 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 bg-white dark:bg-slate-800 shadow-sm">Asc</button>
+                                        <button data-sort="desc" class="sort-btn px-3 py-2 text-xs font-bold rounded-lg border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all active:scale-95 bg-white dark:bg-slate-800 shadow-sm">Desc</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="generate-btn" class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/30 active:scale-[0.98] transition-all flex items-center justify-center gap-2 text-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Generate Numbers
+                        </button>
+                    </div>
+
+                    <div class="bg-blue-50 dark:bg-blue-900/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-800/50">
+                        <div class="flex gap-4">
+                            <div class="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-900 dark:text-blue-300 mb-1">Did you know?</h4>
+                                <p class="text-sm text-blue-700/80 dark:text-blue-400/80 leading-relaxed">This tool uses the browser's <code>crypto.getRandomValues()</code> API for high-quality, cryptographically secure randomness.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Panel -->
+                <div class="lg:col-span-7 h-full flex flex-col">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex-grow flex flex-col min-h-[500px]">
+                        <div class="flex items-center justify-between mb-8">
+                            <h2 class="text-xl font-bold flex items-center gap-2">
+                                <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                                Generated Results
+                            </h2>
+                            <div class="flex gap-2">
+                                <button id="copy-btn" class="hidden px-4 py-2 text-sm font-semibold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2v2h-2M9 14h3m-3 4h6"></path></svg>
+                                    Copy All
+                                </button>
+                                <button id="clear-btn" class="hidden px-4 py-2 text-sm font-semibold text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-xl hover:bg-red-100 dark:hover:bg-red-900/30 transition-colors flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Clear
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="results-container" class="flex-grow flex flex-col items-center justify-center text-center p-4">
+                            <div id="empty-state" class="space-y-4 opacity-50">
+                                <div class="w-20 h-20 bg-slate-100 dark:bg-slate-900 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                                    <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Ready to Generate</h3>
+                                <p class="text-slate-600 dark:text-slate-400 max-w-xs mx-auto">Set your range and click the generate button to start.</p>
+                            </div>
+                            
+                            <div id="results-list" class="hidden w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                                <!-- Numbers will be injected here -->
+                            </div>
+                        </div>
+                        
+                        <div id="history-section" class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-700 hidden">
+                            <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4">Recent History</h3>
+                            <div id="history-list" class="flex flex-wrap gap-2">
+                                <!-- History items -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Random Number Generator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Define Range</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Enter your minimum and maximum values. Our generator supports any integer range you need.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Set Options</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose how many numbers to generate, whether they should be unique, and how to sort them.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Get Results</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click generate to see your random numbers instantly. Copy them all with one click!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">True Randomness, Zero Latency</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Most generators use simple algorithms. We leverage the <code>Web Crypto API</code>, providing high-entropy random values directly from your operating system's entropy source. It's fast, secure, and works entirely offline.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Cryptographically Secure Engine</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Batch Generation up to 1,000 values</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Local-only processing for privacy</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-6xl font-black text-blue-500/40">73</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why use our generator?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Speed</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Generate thousands of numbers in milliseconds. No server wait times, just pure local performance.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Maximum Privacy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your generation parameters and results never leave your browser. Perfect for sensitive research or private giveaways.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Highly Versatile</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Use it for picking lottery numbers, board games, scientific sampling, or just settling an argument.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Beautiful UX</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">A clean, distraction-free interface designed for both desktop and mobile users with dark mode support.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Random Number FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Are these numbers truly random?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes. We use the <code>crypto.getRandomValues()</code> method, which provides cryptographically strong pseudo-random numbers. This is much more secure than the standard <code>Math.random()</code> used by most other websites.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is there a limit to how many numbers I can generate?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Currently, you can generate up to 1,000 numbers at once. This ensures the browser remains responsive while giving you plenty of data for most use cases.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can I use this offline?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Absolutely! Once the page is loaded, all calculations happen on your device. You don't need an active internet connection to generate numbers.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Tool Logic ===
+        const minInput = document.getElementById('min-val');
+        const maxInput = document.getElementById('max-val');
+        const countInput = document.getElementById('count-val');
+        const uniqueCheckbox = document.getElementById('unique-val');
+        const sortButtons = document.querySelectorAll('.sort-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const emptyState = document.getElementById('empty-state');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const historySection = document.getElementById('history-section');
+        const historyList = document.getElementById('history-list');
+
+        let currentSort = 'none';
+        let generatedNumbers = [];
+
+        // Sort buttons logic
+        sortButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                sortButtons.forEach(b => b.classList.remove('bg-blue-50', 'border-blue-500', 'text-blue-600', 'dark:bg-blue-900/20', 'dark:border-blue-400'));
+                btn.classList.add('bg-blue-50', 'border-blue-500', 'text-blue-600', 'dark:bg-blue-900/20', 'dark:border-blue-400');
+                currentSort = btn.dataset.sort;
+                if (generatedNumbers.length > 0) {
+                    renderResults();
+                }
+            });
+        });
+
+        // Initialize sort state visually
+        document.querySelector('[data-sort="none"]').click();
+
+        function secureRandom(min, max) {
+            const range = max - min + 1;
+            const bitsNeeded = Math.ceil(Math.log2(range));
+            const bytesNeeded = Math.ceil(bitsNeeded / 8);
+            const mask = (1 << bitsNeeded) - 1;
+            
+            const array = new Uint32Array(1);
+            let val;
+            do {
+                window.crypto.getRandomValues(array);
+                val = array[0] & mask;
+            } while (val >= range);
+            
+            return min + val;
+        }
+
+        function generate() {
+            const min = parseInt(minInput.value);
+            const max = parseInt(maxInput.value);
+            const count = parseInt(countInput.value);
+            const unique = uniqueCheckbox.checked;
+
+            if (isNaN(min) || isNaN(max)) {
+                alert('Please enter valid numbers for range.');
+                return;
+            }
+
+            if (min > max) {
+                alert('Minimum cannot be greater than maximum.');
+                return;
+            }
+
+            if (unique && (max - min + 1) < count) {
+                alert('Range is too small to generate ' + count + ' unique numbers.');
+                return;
+            }
+
+            const results = [];
+            if (unique && (max - min + 1) < 10000) {
+                // For small ranges, shuffle array for better performance and guaranteed uniqueness
+                const pool = [];
+                for (let i = min; i <= max; i++) pool.push(i);
+                for (let i = 0; i < count; i++) {
+                    const idx = secureRandom(0, pool.length - 1);
+                    results.push(pool.splice(idx, 1)[0]);
+                }
+            } else {
+                const seen = new Set();
+                while (results.length < count) {
+                    const num = secureRandom(min, max);
+                    if (!unique || !seen.has(num)) {
+                        results.push(num);
+                        if (unique) seen.add(num);
+                    }
+                }
+            }
+
+            generatedNumbers = results;
+            addToHistory(results);
+            renderResults();
+        }
+
+        function renderResults() {
+            let displayNumbers = [...generatedNumbers];
+            
+            if (currentSort === 'asc') {
+                displayNumbers.sort((a, b) => a - b);
+            } else if (currentSort === 'desc') {
+                displayNumbers.sort((a, b) => b - a);
+            }
+
+            emptyState.classList.add('hidden');
+            resultsList.classList.remove('hidden');
+            copyBtn.classList.remove('hidden');
+            clearBtn.classList.remove('hidden');
+            resultsContainer.classList.remove('items-center', 'justify-center', 'text-center');
+
+            resultsList.innerHTML = displayNumbers.map(num => `
+                <div class="p-4 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl flex items-center justify-center font-mono text-xl font-bold text-blue-600 dark:text-blue-400 hover:scale-105 transition-transform cursor-default">
+                    ${num}
+                </div>
+            `).join('');
+        }
+
+        function addToHistory(numbers) {
+            historySection.classList.remove('hidden');
+            const summary = numbers.length > 3 ? `${numbers.slice(0, 3).join(', ')}... (+${numbers.length - 3})` : numbers.join(', ');
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            
+            const historyItem = document.createElement('div');
+            historyItem.className = 'px-3 py-1.5 bg-slate-100 dark:bg-slate-700 rounded-lg text-xs font-medium text-slate-600 dark:text-slate-300 flex items-center gap-2 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors';
+            historyItem.innerHTML = `<span>${timestamp}</span><span class="opacity-50">|</span><span>${summary}</span>`;
+            
+            historyItem.onclick = () => {
+                generatedNumbers = numbers;
+                renderResults();
+            };
+
+            historyList.prepend(historyItem);
+            if (historyList.children.length > 5) {
+                historyList.lastElementChild.remove();
+            }
+        }
+
+        generateBtn.addEventListener('click', generate);
+
+        copyBtn.addEventListener('click', () => {
+            const text = generatedNumbers.join(', ');
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = `
+                    <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Copied!</span>
+                `;
+                setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+            });
+        });
+
+        clearBtn.addEventListener('click', () => {
+            generatedNumbers = [];
+            resultsList.innerHTML = '';
+            resultsList.classList.add('hidden');
+            emptyState.classList.remove('hidden');
+            copyBtn.classList.add('hidden');
+            clearBtn.classList.add('hidden');
+            resultsContainer.classList.add('items-center', 'justify-center', 'text-center');
+            historyList.innerHTML = '';
+            historySection.classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
+

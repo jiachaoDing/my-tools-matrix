@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo Blur Tool - Free & Secure Online Blur | WebUtilityKit</title>
+    <meta name="description" content="Blur images online instantly. Adjust blur intensity locally in your browser. Fast, secure, and private photo blurring tool for JPG, PNG, and WebP.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Photo Blur Tool</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Add a professional blur effect to your photos instantly. Simple, secure, and 100% private.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>Local Processing. Your photos never leave your device.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                
+                <!-- Left: Preview Area -->
+                <div class="lg:col-span-8 flex flex-col h-full min-h-[500px]">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+                        
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 transition-all cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
+                            <input type="file" id="file-input" class="hidden" accept="image/*">
+                            <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Upload your photo</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">Click or drag & drop image here</p>
+                        </div>
+
+                        <!-- Preview Area -->
+                        <div id="preview-container" class="hidden flex-grow flex items-center justify-center relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden">
+                            <canvas id="main-canvas" class="max-w-full max-h-full block shadow-2xl"></canvas>
+                        </div>
+
+                        <!-- Action Bar (Hidden initially) -->
+                        <div id="action-bar" class="hidden flex items-center justify-between mt-4 px-2">
+                            <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">Remove Photo</button>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">Live Preview</p>
+                        </div>
+
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">Release to add effect</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls Area -->
+                <div class="lg:col-span-4 flex flex-col h-full gap-8">
+                    
+                    <!-- Blur Settings Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 block">Blur Intensity</label>
+                        
+                        <div class="space-y-10">
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <span class="text-xs font-bold text-slate-500">Blur Radius</span>
+                                    <span id="blur-val" class="text-sm font-black text-blue-600 bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-lg">0px</span>
+                                </div>
+                                <input type="range" id="blur-slider" min="0" max="50" value="0" class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                <div class="flex justify-between mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-tighter">
+                                    <span>Sharp</span>
+                                    <span>Soft</span>
+                                    <span>Strong</span>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100 dark:border-slate-800">
+
+                            <div>
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 ml-1">Export Format</label>
+                                <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer appearance-none">
+                                    <option value="image/jpeg">JPEG (.jpg)</option>
+                                    <option value="image/png">PNG (.png)</option>
+                                    <option value="image/webp">WebP (.webp)</option>
+                                </select>
+                            </div>
+
+                            <button id="download-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
+                                <span class="flex items-center justify-center gap-3">
+                                    <span>Download Image</span>
+                                    <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Tips Card -->
+                    <div class="bg-blue-600 rounded-[2.5rem] p-8 text-white shadow-xl shadow-blue-500/20">
+                        <h4 class="text-lg font-bold mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Quick Tip
+                        </h4>
+                        <p class="text-blue-50/80 text-sm leading-relaxed">
+                            A blur radius of <strong>5-10px</strong> is usually perfect for a subtle background effect. Go over <strong>20px</strong> if you want to completely hide identifiable details.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to blur your photos</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Image</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Drag and drop your photo or click to browse. We support all common formats.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Adjust Intensity</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Use the slider to set the blur radius. Watch the preview update in real-time.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose your preferred format and save your edited photo instantly.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Professional Blurring Made Simple</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Response</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Our high-performance engine renders blur effects in real-time as you move the slider.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy Guaranteed</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your sensitive photos never leave your device. All calculations are performed locally.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Lossless Export</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Export your blurred images in PNG or high-quality JPEG to maintain maximum detail.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">No Registration</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Use the tool instantly without creating an account or paying any fees. Pure utility.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Photo Blur FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is the best blur level for privacy?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                To completely hide faces or sensitive text, we recommend a blur radius of at least <strong>25-30px</strong>. For aesthetic background blurs, 5-15px is usually ideal.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Does it support high-resolution photos?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes! Our tool processes images at their original resolution. For extremely large files (e.g., 40MP+), there might be a short delay during the initial processing depending on your device's memory.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is this tool free to use?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes, it is 100% free with no hidden costs, limits, or watermarks. We believe basic utility tools should be accessible to everyone.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Blur Tool Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const emptyState = document.getElementById('empty-state');
+        const previewContainer = document.getElementById('preview-container');
+        const actionBar = document.getElementById('action-bar');
+        const fileInput = document.getElementById('file-input');
+        const canvas = document.getElementById('main-canvas');
+        const ctx = canvas.getContext('2d');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const blurSlider = document.getElementById('blur-slider');
+        const blurVal = document.getElementById('blur-val');
+        const outputFormat = document.getElementById('output-format');
+
+        let originalImg = new Image();
+        let currentFile = null;
+
+        // Initialization
+        emptyState.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            currentFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    initCanvas();
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initCanvas() {
+            canvas.width = originalImg.width;
+            canvas.height = originalImg.height;
+            
+            emptyState.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+            actionBar.classList.remove('hidden');
+            downloadBtn.disabled = false;
+            
+            applyBlur();
+        }
+
+        function applyBlur() {
+            if (!originalImg.src) return;
+            const radius = parseInt(blurSlider.value);
+            blurVal.textContent = `${radius}px`;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.filter = `blur(${radius}px)`;
+            ctx.drawImage(originalImg, 0, 0);
+        }
+
+        blurSlider.addEventListener('input', applyBlur);
+
+        resetBtn.addEventListener('click', () => {
+            originalImg = new Image();
+            currentFile = null;
+            emptyState.classList.remove('hidden');
+            previewContainer.classList.add('hidden');
+            actionBar.classList.add('hidden');
+            downloadBtn.disabled = true;
+            fileInput.value = '';
+            blurSlider.value = 0;
+            blurVal.textContent = '0px';
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const format = outputFormat.value;
+            const extension = format.split('/')[1];
+            const link = document.createElement('a');
+            link.download = `blurred_${currentFile.name.split('.')[0]}.${extension}`;
+            link.href = canvas.toDataURL(format, 0.92);
+            link.click();
+        });
+
+    </script>
+</body>
+</html>
+

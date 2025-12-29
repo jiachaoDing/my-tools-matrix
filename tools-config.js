@@ -83,37 +83,44 @@ const toolsConfig = {
                 {
                     name: 'YouTube Thumbnail Downloader',
                     description: 'Download YouTube video thumbnails.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/youtube-thumbnail-grabber/'
                 },
                 {
                     name: 'Meme Generator',
                     description: 'Create memes online.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/meme-generator/'
                 },
                 {
                     name: 'Watermark Maker',
                     description: 'Add watermarks to images.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/add-watermark/'
                 },
                 {
                     name: 'Photo Blur Tool',
                     description: 'Blur parts of photos online.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/blur-image/'
                 },
                 {
                     name: 'Grayscale Image Converter',
                     description: 'Convert images to grayscale.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/grayscale-image/'
                 },
                 {
                     name: 'Flip Image',
                     description: 'Flip images horizontally or vertically.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/flip-image/'
                 },
                 {
                     name: 'Rotate Image',
                     description: 'Rotate images by any angle.',
-                    status: 'coming-soon'
+                    status: 'live',
+                    url: '/rotate-image/'
                 },
                 {
                     name: 'GIF to MP4',

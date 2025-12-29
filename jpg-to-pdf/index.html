@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to PDF - Convert Images to PDF Online for Free | WebUtilityKit</title>
+    <meta name="description" content="Convert your JPG and PNG images to a high-quality PDF document instantly. 100% secure, private, and local processing. No file limits, no watermarks.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <!-- pdf-lib for PDF generation -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- SortableJS for reordering images -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+        
+        .image-card {
+            aspect-ratio: 3/4;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .image-card:hover { transform: translateY(-4px); }
+        .sortable-ghost { opacity: 0.3; transform: scale(0.95); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ Privacy-First Tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle Theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JPG to PDF</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Convert multiple images into a single, professional PDF document. Reorder images and customize layout instantly.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            
+            <div id="empty-state" class="max-w-4xl mx-auto">
+                <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 transition-all min-h-[450px]">
+                    <input type="file" id="file-input" class="hidden" accept="image/jpeg,image/png,image/webp" multiple>
+                    <div class="w-24 h-24 bg-blue-600 text-white rounded-[2.5rem] flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Select Images</h3>
+                    <p class="text-slate-500 dark:text-slate-400">Drag & drop JPG, PNG, or WebP files here</p>
+                    <p class="mt-4 text-xs text-slate-400">Files are processed entirely on your device</p>
+                    
+                    <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-blue-500 border-dashed">
+                        <p class="text-blue-600 font-bold text-xl">Drop images to start</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor View -->
+            <div id="editor-view" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                    
+                    <!-- Sidebar Controls -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm sticky top-28">
+                            <h3 class="text-xl font-bold mb-6">PDF Settings</h3>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Page Size</label>
+                                    <select id="page-size" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm font-medium">
+                                        <option value="auto">Auto (Match Image)</option>
+                                        <option value="a4">A4 (210 x 297mm)</option>
+                                        <option value="letter">Letter (8.5 x 11in)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Orientation</label>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="orientation" value="portrait" class="hidden peer" checked>
+                                            <div class="p-3 text-center rounded-xl border border-slate-100 dark:border-slate-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition-all text-xs font-bold">Portrait</div>
+                                        </label>
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="orientation" value="landscape" class="hidden peer">
+                                            <div class="p-3 text-center rounded-xl border border-slate-100 dark:border-slate-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition-all text-xs font-bold">Landscape</div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Margins</label>
+                                    <select id="margin" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm font-medium">
+                                        <option value="none">No Margin</option>
+                                        <option value="small">Small (20px)</option>
+                                        <option value="large">Large (50px)</option>
+                                    </select>
+                                </div>
+
+                                <div class="pt-4">
+                                    <button id="convert-btn" class="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                        Generate PDF
+                                    </button>
+                                </div>
+
+                                <button id="reset-btn" class="w-full py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">Clear All</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Workspace -->
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="flex items-center justify-between px-4">
+                            <div class="flex items-center gap-4">
+                                <h3 class="text-xl font-bold">Image Sequence</h3>
+                                <span id="file-count-badge" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full text-xs font-black">0 IMAGES</span>
+                            </div>
+                            <button id="add-more-btn" class="flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                Add More
+                            </button>
+                        </div>
+
+                        <div id="image-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 min-h-[500px] p-4 bg-slate-100/50 dark:bg-slate-800/20 rounded-[3rem] border border-slate-200/50 dark:border-slate-700/30">
+                            <!-- Image cards will be injected here -->
+                        </div>
+
+                        <!-- Status Indicator -->
+                        <div id="status-card" class="hidden p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border border-blue-500/20 shadow-2xl shadow-blue-500/5">
+                            <div class="flex items-center gap-6">
+                                <div id="status-spinner" class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                <div id="status-success" class="hidden w-12 h-12 bg-green-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 id="status-title" class="text-lg font-bold">Generating PDF...</h4>
+                                    <p id="status-desc" class="text-sm text-slate-500 mt-1">Combining your images. Please don't close this tab.</p>
+                                    <div id="progress-bar-container" class="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div id="progress-bar" class="w-0 h-full bg-blue-600 transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                                <div id="download-area" class="hidden">
+                                    <button id="download-btn" class="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        Download PDF
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to Convert Images to PDF</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold mb-3">Upload Images</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Select multiple JPG, PNG, or WebP files from your device.</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold mb-3">Arrange & Settings</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Drag images to reorder them and choose your desired page layout.</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold mb-3">Get Your PDF</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Click generate and download your combined PDF document instantly.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Enterprise Security for Everyone</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Most online converters upload your personal photos to their servers. We don't. Your images never leave your browser, making this the most secure way to create PDFs.
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                                    <h4 class="font-bold text-blue-400 mb-1">Local Processing</h4>
+                                    <p class="text-xs text-slate-400">Zero data collection</p>
+                                </div>
+                                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                                    <h4 class="font-bold text-green-400 mb-1">No Limits</h4>
+                                    <p class="text-xs text-slate-400">No file size or count caps</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-72 h-72 relative">
+                                <div class="absolute inset-0 border-2 border-dashed border-blue-500/30 rounded-full animate-[spin_30s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center text-blue-500/20">
+                                    <svg class="w-40 h-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Which image formats are supported?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                We support JPG, JPEG, PNG, and WebP formats. All images will be automatically embedded into your PDF document.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can I change the order of images?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes! Simply drag and drop the image cards in the workspace to arrange them in the exact order you want them to appear in the PDF.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Privacy first. Client-side only.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === JPG to PDF Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const emptyState = document.getElementById('empty-state');
+        const editorView = document.getElementById('editor-view');
+        const imageGrid = document.getElementById('image-grid');
+        const fileCountBadge = document.getElementById('file-count-badge');
+        const addMoreBtn = document.getElementById('add-more-btn');
+        const convertBtn = document.getElementById('convert-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        
+        const statusCard = document.getElementById('status-card');
+        const statusSpinner = document.getElementById('status-spinner');
+        const statusSuccess = document.getElementById('status-success');
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+        const progressBar = document.getElementById('progress-bar');
+        const downloadArea = document.getElementById('download-area');
+        const downloadBtn = document.getElementById('download-btn');
+
+        let imageList = []; // Array of { id, file, previewUrl }
+        let generatedPdfUrl = null;
+
+        // Initialize Sortable
+        new Sortable(imageGrid, {
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            onEnd: () => {
+                const newOrder = Array.from(imageGrid.children).map(card => card.dataset.id);
+                imageList.sort((a, b) => newOrder.indexOf(a.id) - newOrder.indexOf(b.id));
+            }
+        });
+
+        // Event Listeners
+        dropZone.addEventListener('click', () => fileInput.click());
+        addMoreBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50');
+            document.getElementById('drop-overlay').classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+                document.getElementById('drop-overlay').classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const id = Math.random().toString(36).substr(2, 9);
+                    const previewUrl = URL.createObjectURL(file);
+                    imageList.push({ id, file, previewUrl });
+                }
+            });
+            updateUI();
+            fileInput.value = '';
+        }
+
+        function updateUI() {
+            if (imageList.length > 0) {
+                emptyState.classList.add('hidden');
+                editorView.classList.remove('hidden');
+            } else {
+                emptyState.classList.remove('hidden');
+                editorView.classList.add('hidden');
+            }
+
+            fileCountBadge.textContent = `${imageList.length} ${imageList.length === 1 ? 'IMAGE' : 'IMAGES'}`;
+            
+            // Re-render grid (only for new items or simplified)
+            imageGrid.innerHTML = '';
+            imageList.forEach((img) => {
+                const card = document.createElement('div');
+                card.className = 'image-card relative group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm cursor-move';
+                card.dataset.id = img.id;
+                card.innerHTML = `
+                    <img src="${img.previewUrl}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
+                        <p class="text-[10px] text-white/80 font-bold uppercase truncate w-full text-center mb-4 px-2">${img.file.name}</p>
+                        <button onclick="removeImage('${img.id}')" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all shadow-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="absolute top-2 left-2 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[10px] font-black text-white">#${imageList.indexOf(img) + 1}</div>
+                `;
+                imageGrid.appendChild(card);
+            });
+        }
+
+        window.removeImage = (id) => {
+            const img = imageList.find(i => i.id === id);
+            if (img) {
+                URL.revokeObjectURL(img.previewUrl);
+                imageList = imageList.filter(i => i.id !== id);
+                updateUI();
+            }
+        };
+
+        resetBtn.addEventListener('click', () => {
+            imageList.forEach(img => URL.revokeObjectURL(img.previewUrl));
+            imageList = [];
+            updateUI();
+            statusCard.classList.add('hidden');
+            downloadArea.classList.add('hidden');
+        });
+
+        convertBtn.addEventListener('click', async () => {
+            if (imageList.length === 0) return;
+
+            statusCard.classList.remove('hidden');
+            statusSpinner.classList.remove('hidden');
+            statusSuccess.classList.add('hidden');
+            downloadArea.classList.add('hidden');
+            statusTitle.textContent = 'Generating PDF...';
+            statusDesc.textContent = 'Creating your document from images.';
+            progressBar.style.width = '0%';
+            convertBtn.disabled = true;
+            convertBtn.classList.add('opacity-50');
+
+            try {
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const pageSize = document.getElementById('page-size').value;
+                const orientation = document.querySelector('input[name="orientation"]:checked').value;
+                const marginMode = document.getElementById('margin').value;
+                
+                const margin = marginMode === 'none' ? 0 : (marginMode === 'small' ? 20 : 50);
+
+                for (let i = 0; i < imageList.length; i++) {
+                    const imgObj = imageList[i];
+                    const arrayBuffer = await imgObj.file.arrayBuffer();
+                    let embeddedImg;
+                    
+                    if (imgObj.file.type === 'image/jpeg' || imgObj.file.type === 'image/jpg') {
+                        embeddedImg = await pdfDoc.embedJpg(arrayBuffer);
+                    } else if (imgObj.file.type === 'image/png') {
+                        embeddedImg = await pdfDoc.embedPng(arrayBuffer);
+                    } else {
+                        // WebP support via Canvas (browser specific)
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const tempImg = new Image();
+                        await new Promise((resolve) => {
+                            tempImg.onload = resolve;
+                            tempImg.src = imgObj.previewUrl;
+                        });
+                        canvas.width = tempImg.width;
+                        canvas.height = tempImg.height;
+                        ctx.drawImage(tempImg, 0, 0);
+                        const pngData = canvas.toDataURL('image/png').split(',')[1];
+                        embeddedImg = await pdfDoc.embedPng(Uint8Array.from(atob(pngData), c => c.charCodeAt(0)));
+                    }
+
+                    let pWidth, pHeight;
+                    if (pageSize === 'auto') {
+                        pWidth = embeddedImg.width + (margin * 2);
+                        pHeight = embeddedImg.height + (margin * 2);
+                    } else {
+                        // A4: 595.28 x 841.89 points
+                        // Letter: 612 x 792 points
+                        if (pageSize === 'a4') {
+                            pWidth = 595.28; pHeight = 841.89;
+                        } else {
+                            pWidth = 612; pHeight = 792;
+                        }
+                        if (orientation === 'landscape') {
+                            [pWidth, pHeight] = [pHeight, pWidth];
+                        }
+                    }
+
+                    const page = pdfDoc.addPage([pWidth, pHeight]);
+                    
+                    // Scale image to fit page minus margins
+                    const availableWidth = pWidth - (margin * 2);
+                    const availableHeight = pHeight - (margin * 2);
+                    const scale = Math.min(availableWidth / embeddedImg.width, availableHeight / embeddedImg.height);
+                    
+                    const drawWidth = embeddedImg.width * scale;
+                    const drawHeight = embeddedImg.height * scale;
+                    
+                    // Center the image
+                    const x = (pWidth - drawWidth) / 2;
+                    const y = (pHeight - drawHeight) / 2;
+
+                    page.drawImage(embeddedImg, {
+                        x, y,
+                        width: drawWidth,
+                        height: drawHeight
+                    });
+
+                    progressBar.style.width = `${((i + 1) / imageList.length) * 100}%`;
+                }
+
+                const pdfBytes = await pdfDoc.save();
+                if (generatedPdfUrl) URL.revokeObjectURL(generatedPdfUrl);
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                generatedPdfUrl = URL.createObjectURL(blob);
+
+                statusSpinner.classList.add('hidden');
+                statusSuccess.classList.remove('hidden');
+                downloadArea.classList.remove('hidden');
+                statusTitle.textContent = 'PDF Generated!';
+                statusDesc.textContent = `Successfully combined ${imageList.length} images.`;
+
+            } catch (err) {
+                console.error(err);
+                statusSpinner.classList.add('hidden');
+                statusTitle.textContent = 'Conversion Failed';
+                statusDesc.textContent = 'An error occurred. Please check your images.';
+            } finally {
+                convertBtn.disabled = false;
+                convertBtn.classList.remove('opacity-50');
+            }
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (generatedPdfUrl) {
+                const link = document.createElement('a');
+                link.href = generatedPdfUrl;
+                link.download = `converted_images_${new Date().getTime()}.pdf`;
+                link.click();
+            }
+        });
+
+    </script>
+</body>
+</html>
+

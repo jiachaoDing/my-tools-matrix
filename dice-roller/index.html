@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roller - Virtual 3D Dice | WebUtilityKit</title>
+    <meta name="description" content="Roll virtual 3D dice online. Support for D4, D6, D8, D10, D12, and D20. Perfect for board games, RPGs, and random decisions. Fast and secure.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <style>
+        .dice-container {
+            perspective: 1000px;
+            width: 120px;
+            height: 120px;
+            margin: 10px;
+        }
+        .dice {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform var(--roll-duration, 1.2s) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .die-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #1e293b;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+            backface-visibility: hidden;
+        }
+        /* D6 faces */
+        .die-face-1 { transform: rotateY(0deg) translateZ(60px); }
+        .die-face-2 { transform: rotateY(90deg) translateZ(60px); }
+        .die-face-3 { transform: rotateY(180deg) translateZ(60px); }
+        .die-face-4 { transform: rotateY(-90deg) translateZ(60px); }
+        .die-face-5 { transform: rotateX(90deg) translateZ(60px); }
+        .die-face-6 { transform: rotateX(-90deg) translateZ(60px); }
+
+        .dark .die-face {
+            background: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+
+        .dot-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            width: 80%;
+            height: 80%;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: currentColor;
+            border-radius: 50%;
+            align-self: center;
+            justify-self: center;
+        }
+
+        @keyframes roll-anim {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(720deg) rotateY(720deg) rotateZ(360deg); }
+        }
+
+        .rolling {
+            animation: roll-anim var(--roll-duration, 1.2s) ease-out forwards;
+        }
+
+        /* D6 face layouts */
+        .face-1 .dot:nth-child(1) { grid-area: 2 / 2; }
+        .face-2 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-2 .dot:nth-child(2) { grid-area: 3 / 3; }
+        .face-3 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-3 .dot:nth-child(2) { grid-area: 2 / 2; }
+        .face-3 .dot:nth-child(3) { grid-area: 3 / 3; }
+        .face-4 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-4 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face-4 .dot:nth-child(3) { grid-area: 3 / 1; }
+        .face-4 .dot:nth-child(4) { grid-area: 3 / 3; }
+        .face-5 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-5 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face-5 .dot:nth-child(3) { grid-area: 2 / 2; }
+        .face-5 .dot:nth-child(4) { grid-area: 3 / 1; }
+        .face-5 .dot:nth-child(5) { grid-area: 3 / 3; }
+        .face-6 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-6 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face-6 .dot:nth-child(3) { grid-area: 2 / 1; }
+        .face-6 .dot:nth-child(4) { grid-area: 2 / 3; }
+        .face-6 .dot:nth-child(5) { grid-area: 3 / 1; }
+        .face-6 .dot:nth-child(6) { grid-area: 3 / 3; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors overflow-x-hidden">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Dice Roller</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Roll virtual 3D dice for your next game night. Fully customizable, fair, and instant.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Random. Cryptographically Secure.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-4 sm:px-6 mx-auto mb-24">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch">
+                
+                <!-- Roll Zone -->
+                <div class="w-full lg:flex-1 bg-white dark:bg-slate-800 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-12 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center justify-center relative min-h-[500px] sm:min-h-[600px] transition-all">
+                    
+                    <!-- Advanced Controls -->
+                    <div class="w-full max-w-xl grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Dice Count</label>
+                            <div class="flex items-center bg-slate-50 dark:bg-slate-900 rounded-xl p-1 border border-slate-200 dark:border-slate-700">
+                                <button id="dec-count" class="w-8 h-8 flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                                </button>
+                                <input type="number" id="dice-count" value="1" min="1" max="12" class="flex-1 bg-transparent border-none text-center font-bold text-sm focus:ring-0">
+                                <button id="inc-count" class="w-8 h-8 flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Dice Type</label>
+                            <select id="dice-type" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all appearance-none cursor-pointer text-center">
+                                <option value="6">D6 (Classic)</option>
+                                <option value="4">D4 (Pyramid)</option>
+                                <option value="8">D8</option>
+                                <option value="10">D10</option>
+                                <option value="12">D12</option>
+                                <option value="20">D20</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Speed</label>
+                            <select id="roll-speed" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all appearance-none cursor-pointer text-center">
+                                <option value="2.0">Slow</option>
+                                <option value="1.2" selected>Normal</option>
+                                <option value="0.6">Fast</option>
+                                <option value="0.3">Instant</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">Total Goal</label>
+                            <input type="number" id="roll-target" placeholder="Any" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-center">
+                        </div>
+                    </div>
+                    
+                    <!-- Dice Area -->
+                    <div id="dice-area" class="flex flex-wrap items-center justify-center gap-6 mb-12 min-h-[140px] w-full">
+                        <!-- Dice will be generated here -->
+                    </div>
+
+                    <div class="text-center space-y-6 w-full px-4">
+                        <div id="result-text" class="h-12 flex items-center justify-center">
+                            <div id="total-result" class="text-4xl font-black text-slate-900 dark:text-white opacity-0 transition-all duration-300">Total: 0</div>
+                        </div>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button id="roll-btn" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-2xl shadow-lg shadow-blue-500/30 active:scale-95 transition-all text-xl flex items-center justify-center gap-3 group">
+                                <svg class="w-6 h-6 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                Roll Dice
+                            </button>
+                            <button id="clear-btn" class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold py-4 px-8 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all text-lg">
+                                Clear
+                            </button>
+                        </div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Press <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-md font-mono text-xs">Space</kbd> or click to roll</p>
+                    </div>
+                </div>
+
+                <!-- History Panel -->
+                <div class="w-full lg:w-96 flex flex-col gap-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex-grow flex flex-col">
+                        <h2 class="text-xl font-bold mb-8 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Roll History
+                        </h2>
+                        
+                        <div id="history-list" class="flex-grow space-y-4 overflow-y-auto pr-2 max-h-[400px]">
+                            <!-- History items -->
+                            <div id="history-empty" class="text-center py-12 opacity-40">
+                                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                <p class="text-sm">No rolls yet</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-700">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">Total Rolls</div>
+                                    <div id="stats-count" class="text-2xl font-black">0</div>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">Avg Sum</div>
+                                    <div id="stats-avg" class="text-2xl font-black">0</div>
+                                </div>
+                            </div>
+                            <button id="reset-history" class="w-full mt-4 py-3 text-sm font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Reset History
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Dice Roller</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Dice</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose how many dice you want to roll (up to 12) and the number of sides (D4 through D20).</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Custom Speed</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Adjust the roll speed from slow cinematic rolls to instant results for fast-paced gameplay.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Analyze Rolls</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Check the total sum instantly and review your roll history and average stats in the side panel.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Fairness Guaranteed</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Physical dice can have microscopic weight imbalances. Our digital dice use high-entropy random seeds generated by your system hardware, ensuring every side has an exactly equal probability. 
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Cryptographically strong randomness</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">3D visual feedback for immersive feel</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">No hidden weights or biased logic</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-7xl font-black text-blue-500/40">20</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Dice for Every Adventure</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">RPG Ready</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Full support for Dungeons & Dragons (D&D), Pathfinder, and other table-top RPG systems with specialized polyhedral dice.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Advanced Stats</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Track your average roll and total sums across your gaming session to identify your "lucky" streaks.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Keyboard Shortcuts</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Designed for efficiency. Use the Space bar to roll instantly, keeping your focus on the game.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Zero Tracking</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your rolls are private. We don't save your data to any server. Everything happens locally in your browser.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Dice Roller FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What dice types do you support?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                We support standard polyhedral dice including 4-sided (D4), 6-sided (D6), 8-sided (D8), 10-sided (D10), 12-sided (D12), and 20-sided (D20).
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How is the total calculated?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                The total is simply the sum of all visible faces after the dice finish rolling. We also keep a session-based history so you can see previous sums.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is the 3D animation accurate?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                For the classic D6, we show a full 3D rotating cube. For other polyhedral dice (D4, D20, etc.), we use a high-performance 2D-on-3D representation to ensure compatibility and speed across all devices while maintaining the immersive "roll" feel.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Tool Logic ===
+        const diceArea = document.getElementById('dice-area');
+        const rollBtn = document.getElementById('roll-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const diceCountInput = document.getElementById('dice-count');
+        const diceTypeSelect = document.getElementById('dice-type');
+        const rollSpeedSelect = document.getElementById('roll-speed');
+        const decCountBtn = document.getElementById('dec-count');
+        const incCountBtn = document.getElementById('inc-count');
+        const totalResult = document.getElementById('total-result');
+        const historyList = document.getElementById('history-list');
+        const historyEmpty = document.getElementById('history-empty');
+        const statsCountEl = document.getElementById('stats-count');
+        const statsAvgEl = document.getElementById('stats-avg');
+        const resetHistoryBtn = document.getElementById('reset-history');
+
+        let isRolling = false;
+        let rollHistory = [];
+        let totalSumAllRolls = 0;
+
+        // Init dice area
+        updateDiceDisplay();
+
+        // Control handlers
+        decCountBtn.addEventListener('click', () => {
+            diceCountInput.value = Math.max(1, parseInt(diceCountInput.value) - 1);
+            updateDiceDisplay();
+        });
+        incCountBtn.addEventListener('click', () => {
+            diceCountInput.value = Math.min(12, parseInt(diceCountInput.value) + 1);
+            updateDiceDisplay();
+        });
+        diceCountInput.addEventListener('change', updateDiceDisplay);
+        diceTypeSelect.addEventListener('change', updateDiceDisplay);
+
+        function updateDiceDisplay() {
+            const count = parseInt(diceCountInput.value) || 1;
+            const type = parseInt(diceTypeSelect.value);
+            diceArea.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                const diceContainer = document.createElement('div');
+                diceContainer.className = 'dice-container';
+                
+                if (type === 6) {
+                    // 3D Cube for D6
+                    diceContainer.innerHTML = `
+                        <div class="dice d6" id="dice-${i}">
+                            <div class="die-face die-face-1 face-1"><div class="dot-container"><div class="dot"></div></div></div>
+                            <div class="die-face die-face-2 face-2"><div class="dot-container"><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-3 face-3"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-4 face-4"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-5 face-5"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-6 face-6"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                        </div>
+                    `;
+                } else {
+                    // Stylized Polyhedral for others
+                    diceContainer.innerHTML = `
+                        <div class="dice poly" id="dice-${i}">
+                            <div class="die-face flex flex-col items-center justify-center border-4 border-blue-500/20" style="border-radius: ${type === 4 ? '4px' : '50%'}">
+                                <span class="text-xs font-bold text-blue-500/40 mb-1">D${type}</span>
+                                <span class="val">?</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                diceArea.appendChild(diceContainer);
+            }
+        }
+
+        async function roll() {
+            if (isRolling) return;
+            isRolling = true;
+            
+            const count = parseInt(diceCountInput.value) || 1;
+            const type = parseInt(diceTypeSelect.value);
+            const duration = parseFloat(rollSpeedSelect.value);
+            document.documentElement.style.setProperty('--roll-duration', `${duration}s`);
+            
+            rollBtn.disabled = true;
+            rollBtn.classList.add('opacity-50');
+            totalResult.style.opacity = '0';
+
+            const results = [];
+            const diceElements = document.querySelectorAll('.dice');
+            
+            // Randomly determine final rotation or value using Web Crypto
+            diceElements.forEach((el, idx) => {
+                const array = new Uint32Array(1);
+                window.crypto.getRandomValues(array);
+                const result = (array[0] % type) + 1;
+                results.push(result);
+                
+                el.classList.remove('rolling');
+                void el.offsetWidth; // Force reflow
+                el.classList.add('rolling');
+                
+                if (type === 6) {
+                    const rotations = {
+                        1: 'rotateY(0deg) rotateX(0deg)',
+                        2: 'rotateY(-90deg) rotateX(0deg)',
+                        3: 'rotateY(-180deg) rotateX(0deg)',
+                        4: 'rotateY(90deg) rotateX(0deg)',
+                        5: 'rotateX(-90deg) rotateY(0deg)',
+                        6: 'rotateX(90deg) rotateY(0deg)'
+                    };
+                    // Use a slightly longer timeout to ensure it captures the state after animation
+                    setTimeout(() => {
+                        el.style.transform = rotations[result];
+                        el.classList.remove('rolling');
+                    }, duration * 1000);
+                } else {
+                    const valEl = el.querySelector('.val');
+                    valEl.textContent = '?';
+                    setTimeout(() => {
+                        valEl.textContent = result;
+                        el.classList.remove('rolling');
+                    }, duration * 1000);
+                }
+            });
+
+            await new Promise(resolve => setTimeout(resolve, duration * 1000 + 50));
+            
+            const sum = results.reduce((a, b) => a + b, 0);
+            totalResult.textContent = `Total: ${sum}`;
+            totalResult.style.opacity = '1';
+            totalResult.classList.add('scale-110');
+            setTimeout(() => totalResult.classList.remove('scale-110'), 200);
+
+            addToHistory(results, sum, type);
+            
+            isRolling = false;
+            rollBtn.disabled = false;
+            rollBtn.classList.remove('opacity-50');
+        }
+
+        function addToHistory(results, sum, type) {
+            historyEmpty.classList.add('hidden');
+            
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const item = document.createElement('div');
+            item.className = 'p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 animate-[slideIn_0.3s_ease-out] group hover:border-blue-500/30 transition-all';
+            
+            const diceStr = results.map(r => `<span class="inline-flex items-center justify-center w-6 h-6 bg-white dark:bg-slate-800 rounded-md text-[10px] font-bold shadow-sm border border-slate-200 dark:border-slate-700">${r}</span>`).join(' ');
+            
+            item.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${timestamp} • D${type}</span>
+                    <span class="text-lg font-black text-blue-600 dark:text-blue-400">Sum: ${sum}</span>
+                </div>
+                <div class="flex flex-wrap gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                    ${diceStr}
+                </div>
+            `;
+            
+            historyList.prepend(item);
+            if (historyList.children.length > 21) historyList.lastElementChild.remove();
+            
+            rollHistory.push(sum);
+            totalSumAllRolls += sum;
+            updateStats();
+        }
+
+        function updateStats() {
+            statsCountEl.textContent = rollHistory.length;
+            const avg = rollHistory.length > 0 ? (totalSumAllRolls / rollHistory.length).toFixed(1) : 0;
+            statsAvgEl.textContent = avg;
+        }
+
+        rollBtn.addEventListener('click', roll);
+        clearBtn.addEventListener('click', () => {
+            totalResult.style.opacity = '0';
+            updateDiceDisplay();
+        });
+
+        resetHistoryBtn.addEventListener('click', () => {
+            rollHistory = [];
+            totalSumAllRolls = 0;
+            historyList.innerHTML = '<div id="history-empty" class="text-center py-12 opacity-40"><svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><p class="text-sm">No rolls yet</p></div>';
+            historyEmpty = document.getElementById('history-empty');
+            updateStats();
+        });
+
+        // Space to roll
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !isRolling) {
+                e.preventDefault();
+                roll();
+            }
+        });
+
+        // Animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+

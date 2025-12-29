@@ -25,14 +25,14 @@
 9. **ICO File Generator** (`ico-generator`)[done]
 10. **Base64 Image Decoder** (`base64-to-image`)[done]
 11. **Image to Base64** (`image-to-base64`)[done]
-12. **Color Picker from Image** (`image-color-picker`)
-13. **YouTube Thumbnail Downloader** (`youtube-thumbnail-grabber`) - *仅抓取封面图，不涉及视频下载，合规*
-14. **Meme Generator** (`meme-generator`)
-15. **Watermark Maker** (`add-watermark`)
-16. **Photo Blur Tool** (`blur-image`)
-17. **Grayscale Image Converter** (`grayscale-image`)
-18. **Flip Image** (`flip-image`)
-19. **Rotate Image** (`rotate-image`)
+12. **Color Picker from Image** (`image-color-picker`)[done]
+13. **YouTube Thumbnail Downloader** (`youtube-thumbnail-grabber`) - *仅抓取封面图，不涉及视频下载，合规*[done]
+14. **Meme Generator** (`meme-generator`)[done]
+15. **Watermark Maker** (`add-watermark`)[done]
+16. **Photo Blur Tool** (`blur-image`)[done]
+  17. **Grayscale Image Converter** (`grayscale-image`)[done]
+    18. **Flip Image** (`flip-image`)[done]
+  19. **Rotate Image** (`rotate-image`)[done]
 20. **GIF to MP4** (`gif-to-mp4`) - *需使用 ffmpeg.wasm，稍难但可行*
 
 ### 第二类：开发者与 Web 工具 (高粘性/高 CPM)
@@ -114,7 +114,7 @@
 > 使用 `pdf-lib` 等库实现纯前端处理，无需上传服务器。
 
 80. **Merge PDF** (`merge-pdf`)[done]
-81. **Split PDF** (`split-pdf`)
+81. **Split PDF** (`split-pdf`)[done]
 82. **JPG to PDF** (`jpg-to-pdf`)
 83. **PDF to JPG** (`pdf-to-jpg`) - *利用 PDF.js*
 84. **Extract Images from PDF** (`extract-pdf-images`)
@@ -124,9 +124,9 @@
 
 ### 第六类：趣味与随机类 (易产生社交分享)
 
-88. **Random Number Generator** (`random-number-generator`)
-89. **Coin Flipper** (`coin-flipper`)
-90. **Dice Roller** (`dice-roller`)
+88. **Random Number Generator** (`random-number-generator`)[done]
+89. **Coin Flipper** (`coin-flipper`)[dones]
+90. **Dice Roller** (`dice-roller`)[done]
 91. **Yes or No Oracle** (`yes-no-oracle`)
 92. **Wheel of Names** (`wheel-of-names`) - *转盘决定*
 93. **Rock Paper Scissors** (`rock-paper-scissors`)

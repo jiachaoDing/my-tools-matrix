@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Thumbnail Downloader - Get High-Quality Thumbnails | WebUtilityKit</title>
+    <meta name="description" content="Download YouTube video thumbnails in all available qualities (4K, HD, HQ, MQ). Simple, fast, and free online tool. Just paste the video URL.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">YouTube Thumbnail Downloader</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instantly grab high-quality thumbnails from any YouTube video. No sign-up, 100% free.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span>Instant Extraction. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <!-- Input Area -->
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50 mb-12">
+                <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex-grow relative">
+                        <input type="text" id="video-url" placeholder="Paste YouTube video URL here (e.g., https://www.youtube.com/watch?v=...)" 
+                               class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-2xl px-6 py-4 text-base focus:border-blue-500 outline-none transition-all dark:text-white pr-12">
+                        <button id="paste-btn" class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-500 transition-colors" title="Paste from clipboard">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                        </button>
+                    </div>
+                    <button id="grab-btn" class="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/25 whitespace-nowrap">Grab Thumbnails</button>
+                </div>
+                <div id="error-msg" class="mt-3 text-red-500 text-sm font-medium hidden">Please enter a valid YouTube URL.</div>
+            </div>
+
+            <!-- Results Area -->
+            <div id="results-area" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="grid grid-cols-1 gap-8">
+                    <!-- Max Res -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50 overflow-hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Maximum Quality</h3>
+                                <p class="text-sm text-slate-500 uppercase font-black tracking-widest mt-1">1280 x 720 (High Definition)</p>
+                            </div>
+                            <a id="dl-max" href="#" download class="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl transition-all shadow-lg shadow-green-500/20 flex items-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Download
+                            </a>
+                        </div>
+                        <div class="rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 aspect-video relative group">
+                            <img id="img-max" src="" alt="Max resolution" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-slate-900/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                                <span class="text-white font-bold px-4 py-2 bg-black/50 rounded-lg backdrop-blur-sm">Click Download to save</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Other Qualities Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- High Quality -->
+                        <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50 overflow-hidden">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Standard HD</h3>
+                                    <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">640 x 480</p>
+                                </div>
+                                <a id="dl-hq" href="#" download class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white text-xs font-bold rounded-lg hover:bg-blue-600 hover:text-white transition-all">Download</a>
+                            </div>
+                            <img id="img-hq" src="" alt="High quality" class="w-full rounded-xl aspect-video object-cover bg-slate-100 dark:bg-slate-900">
+                        </div>
+
+                        <!-- Medium Quality -->
+                        <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50 overflow-hidden">
+                            <div class="flex items-center justify-between mb-6">
+                                <div>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white">Medium Quality</h3>
+                                    <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mt-1">480 x 360</p>
+                                </div>
+                                <a id="dl-mq" href="#" download class="px-4 py-2 bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-white text-xs font-bold rounded-lg hover:bg-blue-600 hover:text-white transition-all">Download</a>
+                            </div>
+                            <img id="img-mq" src="" alt="Medium quality" class="w-full rounded-xl aspect-video object-cover bg-slate-100 dark:bg-slate-900">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to grab YouTube thumbnails</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Copy URL</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Open the YouTube video you want the thumbnail for and copy its address from the browser bar.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Paste & Grab</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Paste the link into our grabber above and hit the "Grab Thumbnails" button to fetch all sizes.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select & Save</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose the quality you need (we recommend Maximum for best results) and click Download.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">Why use our grabber?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Most websites use complicated scripts or require you to sign in. Our tool is built for speed. It directly accesses YouTube's image servers to provide you with the exact thumbnail you need in seconds. No tracking, no data storage, just pure utility.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Supports 4K/HD Thumbnails</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">No Watermarks or Compression</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Works with Shorts and Long Videos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">YouTube Thumbnail FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is it legal to download thumbnails?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Downloading thumbnails for personal use or reference is generally fine. However, if you plan to reuse them in your own content, ensure you have permission from the original creator or it falls under fair use.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is the highest quality available?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Maximum resolution is 1280x720 pixels. This is the source quality uploaded by creators. If a video is very old, the highest might be 640x480.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Does this work for YouTube Shorts?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes! Simply paste the Shorts URL, and we will extract the thumbnail exactly like a regular video.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Grabber Logic ===
+        const urlInput = document.getElementById('video-url');
+        const grabBtn = document.getElementById('grab-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const errorMsg = document.getElementById('error-msg');
+        const resultsArea = document.getElementById('results-area');
+
+        const imgMax = document.getElementById('img-max');
+        const imgHq = document.getElementById('img-hq');
+        const imgMq = document.getElementById('img-mq');
+
+        const dlMax = document.getElementById('dl-max');
+        const dlHq = document.getElementById('dl-hq');
+        const dlMq = document.getElementById('dl-mq');
+
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                urlInput.value = text;
+                grabBtn.click();
+            } catch (err) {}
+        });
+
+        grabBtn.addEventListener('click', () => {
+            const url = urlInput.value.trim();
+            const videoId = extractVideoId(url);
+
+            if (!videoId) {
+                errorMsg.classList.remove('hidden');
+                resultsArea.classList.add('hidden');
+                return;
+            }
+
+            errorMsg.classList.add('hidden');
+            
+            // Thumbnail URLs
+            const base = `https://img.youtube.com/vi/${videoId}`;
+            const max = `${base}/maxresdefault.jpg`;
+            const hq = `${base}/sddefault.jpg`;
+            const mq = `${base}/hqdefault.jpg`;
+
+            // Update UI
+            imgMax.src = max;
+            imgHq.src = hq;
+            imgMq.src = mq;
+
+            // Update Downloads (proxy via blob if possible to force download, but direct link is often blocked by CORS for cross-origin download attribute. We use standard link but title it well)
+            dlMax.href = max;
+            dlHq.href = hq;
+            dlMq.href = mq;
+
+            resultsArea.classList.remove('hidden');
+            resultsArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        function extractVideoId(url) {
+            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            const match = url.match(regExp);
+            if (match && match[7].length == 11) {
+                return match[7];
+            }
+            // Shorts check
+            if (url.includes('/shorts/')) {
+                const parts = url.split('/shorts/');
+                if (parts[1]) return parts[1].split(/[?#&]/)[0];
+            }
+            return null;
+        }
+
+        // Enter key support
+        urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') grabBtn.click();
+        });
+
+    </script>
+</body>
+</html>
+

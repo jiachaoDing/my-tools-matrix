@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip Image - Free & Secure Online Tool | WebUtilityKit</title>
+    <meta name="description" content="Flip images horizontally or vertically instantly. Batch process multiple photos locally in your browser. Fast, secure, and 100% private image mirroring tool.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white italic">Flip Image</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Batch flip your images horizontally or vertically in seconds. Professional mirroring tool that respects your privacy.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing only.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+                
+                <!-- Left: Input & Files -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Upload Images</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear All</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 group">
+                            <input type="file" id="file-input" class="hidden" multiple accept="image/*">
+                            <div class="bg-blue-600 text-white p-5 rounded-3xl mb-4 shadow-xl shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            </div>
+                            <p class="text-slate-900 dark:text-white font-bold text-lg">Drop images here</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to browse files</p>
+                            
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">Release to upload</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden flex-grow overflow-hidden flex flex-col">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">Selected Images (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 overflow-y-auto pr-2 flex-grow scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Settings & Results -->
+                <div class="flex flex-col h-full gap-8">
+                    <!-- Settings -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 block">Mirror Settings</label>
+                        
+                        <div class="space-y-8">
+                            <!-- Flip Direction -->
+                            <div>
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300 block mb-4 ml-1">Flip Direction</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <button id="flip-h-btn" class="flex flex-col items-center gap-3 p-6 rounded-3xl bg-blue-600 text-white shadow-xl shadow-blue-500/20 border-2 border-transparent transition-all group">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                                        <span class="text-sm font-bold">Horizontal</span>
+                                    </button>
+                                    <button id="flip-v-btn" class="flex flex-col items-center gap-3 p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 text-slate-500 dark:text-slate-400 border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all group">
+                                        <svg class="w-8 h-8 rotate-90" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                                        <span class="text-sm font-bold">Vertical</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Format Settings -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Output Format</label>
+                                    <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer">
+                                        <option value="original">Same as original</option>
+                                        <option value="image/jpeg">JPEG</option>
+                                        <option value="image/png">PNG</option>
+                                        <option value="image/webp">WebP</option>
+                                    </select>
+                                </div>
+                                <div id="quality-container">
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">Quality</label>
+                                    <div class="flex items-center gap-3 h-[42px]">
+                                        <input type="range" id="quality-slider" min="10" max="100" value="90" class="flex-grow h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <span id="quality-val" class="text-xs font-bold text-slate-600 dark:text-slate-400 w-8">90%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="process-btn" class="w-full py-4 rounded-[1.5rem] bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed hidden">
+                                Mirror <span id="btn-count">0</span> Images
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results List -->
+                    <div id="results-container" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 flex-grow hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Processed Results</label>
+                            <button id="download-all-btn" class="text-xs px-4 py-1.5 rounded-xl bg-green-600 text-white hover:bg-green-700 transition shadow-lg shadow-green-500/20 font-bold">Download All</button>
+                        </div>
+                        
+                        <!-- Progress Section -->
+                        <div id="progress-container" class="mb-6 hidden">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Processing...</span>
+                                <span id="progress-percent" class="text-[10px] font-black text-blue-600">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                            </div>
+                        </div>
+
+                        <div id="results-list" class="space-y-3 overflow-y-auto pr-2 max-h-[400px] scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to flip images in bulk</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Add Images</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Drag and drop one or more images into the upload zone or click to browse your device.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Choose Direction</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Select whether you want to flip your images horizontally (left-to-right) or vertically (top-to-bottom).</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Process & Save</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Click the Mirror button to process all images instantly. You can download them one by one or all at once.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Pixel-Perfect Mirroring</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                Whether you're fixing a selfie or creating a design pattern, our tool ensures your images are flipped with mathematical precision. We preserve the original resolution and offer high-quality encoding, all while keeping your data strictly local.
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1 text-center">Safety</div>
+                                    <div class="font-bold">Zero Upload</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1 text-center">Speed</div>
+                                    <div class="font-bold text-center">Instant</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Flip Image FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What's the difference between horizontal and vertical flip?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                A <strong>horizontal flip</strong> mirrors the image from left to right (useful for fixing mirror selfies). A <strong>vertical flip</strong> mirrors it from top to bottom (flipping it upside down).
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can I flip multiple images at once?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes! You can upload dozens of images at once and mirror them all with a single click. The tool processes them one by one in your browser.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is there a file size limit?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                No strict limit, but performance depends on your computer's memory. For very large images (4K+), we recommend processing them in smaller batches.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Flip Image Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+        const btnCountDisplay = document.getElementById('btn-count');
+        const clearBtn = document.getElementById('clear-btn');
+        const processBtn = document.getElementById('process-btn');
+        
+        const flipHBtn = document.getElementById('flip-h-btn');
+        const flipVBtn = document.getElementById('flip-v-btn');
+        const outputFormat = document.getElementById('output-format');
+        const qualitySlider = document.getElementById('quality-slider');
+        const qualityVal = document.getElementById('quality-val');
+        
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let flipMode = 'horizontal'; // horizontal or vertical
+
+        // Flip Mode Selection
+        function updateFlipButtons() {
+            const active = ['bg-blue-600', 'text-white', 'shadow-xl', 'shadow-blue-500/20'];
+            const inactive = ['bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-500', 'dark:text-slate-400'];
+            
+            if (flipMode === 'horizontal') {
+                flipHBtn.classList.remove(...inactive);
+                flipHBtn.classList.add(...active);
+                flipVBtn.classList.remove(...active);
+                flipVBtn.classList.add(...inactive);
+            } else {
+                flipVBtn.classList.remove(...inactive);
+                flipVBtn.classList.add(...active);
+                flipHBtn.classList.remove(...active);
+                flipHBtn.classList.add(...inactive);
+            }
+        }
+
+        flipHBtn.addEventListener('click', () => { flipMode = 'horizontal'; updateFlipButtons(); });
+        flipVBtn.addEventListener('click', () => { flipMode = 'vertical'; updateFlipButtons(); });
+
+        // Quality Slider
+        qualitySlider.addEventListener('input', () => {
+            qualityVal.textContent = `${qualitySlider.value}%`;
+        });
+
+        // Click to upload
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Drag & Drop
+        const DROP_ACTIVE_CLASSES = ['border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20', 'scale-[1.01]'];
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add(...DROP_ACTIVE_CLASSES);
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove(...DROP_ACTIVE_CLASSES);
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        async function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            for (const file of newFiles) {
+                const dimensions = await getImageDimensions(file);
+                uploadedFiles.push({
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    width: dimensions.width,
+                    height: dimensions.height
+                });
+            }
+            updateFileList();
+            fileInput.value = '';
+        }
+
+        function getImageDimensions(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => resolve({ width: img.width, height: img.height });
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            btnCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+            
+            uploadedFiles.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${item.name}</div>
+                            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">${item.width}x${item.height} • ${formatSize(item.size)}</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(div);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        clearBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsList.innerHTML = '';
+            resultsContainer.classList.add('hidden');
+        });
+
+        processBtn.addEventListener('click', async () => {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            progressContainer.classList.remove('hidden');
+            downloadAllBtn.classList.add('hidden');
+            
+            const quality = parseInt(qualitySlider.value) / 100;
+            
+            for (let i = 0; i < uploadedFiles.length; i++) {
+                const item = uploadedFiles[i];
+                const percent = Math.round((i / uploadedFiles.length) * 100);
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = `${percent}%`;
+
+                try {
+                    const format = outputFormat.value === 'original' ? item.type : outputFormat.value;
+                    const blob = await flipImage(item, format, quality);
+                    const url = URL.createObjectURL(blob);
+                    const extension = format.split('/')[1];
+                    const result = {
+                        name: `flipped_${item.name.split('.')[0]}.${extension}`,
+                        url: url,
+                        size: blob.size,
+                        width: item.width,
+                        height: item.height
+                    };
+                    processedResults.push(result);
+                    addResultToList(result);
+                } catch (err) {
+                    console.error('Flip failed', err);
+                }
+            }
+
+            progressBar.style.width = '100%';
+            progressPercent.textContent = '100%';
+            setTimeout(() => progressContainer.classList.add('hidden'), 500);
+            downloadAllBtn.classList.remove('hidden');
+        });
+
+        function flipImage(item, format, quality) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = item.width;
+                        canvas.height = item.height;
+                        const ctx = canvas.getContext('2d');
+                        
+                        if (flipMode === 'horizontal') {
+                            ctx.translate(item.width, 0);
+                            ctx.scale(-1, 1);
+                        } else {
+                            ctx.translate(0, item.height);
+                            ctx.scale(1, -1);
+                        }
+                        
+                        ctx.drawImage(img, 0, 0);
+                        canvas.toBlob((blob) => resolve(blob), format, quality);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(item.file);
+            });
+        }
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function addResultToList(result) {
+            const div = document.createElement('div');
+            div.className = 'p-4 rounded-3xl bg-white dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50 flex items-center justify-between group transition-all hover:border-blue-500/30';
+            div.innerHTML = `
+                <div class="flex items-center gap-4 overflow-hidden">
+                    <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0">
+                        <img src="${result.url}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="overflow-hidden text-left">
+                        <div class="text-xs font-bold truncate">${result.name}</div>
+                        <div class="flex gap-2 mt-1">
+                            <span class="text-[10px] font-black uppercase bg-blue-100 dark:bg-blue-900/30 text-blue-600 px-2 py-0.5 rounded-md">${result.width}x${result.height}</span>
+                            <span class="text-[10px] font-black uppercase bg-slate-100 dark:bg-slate-900 text-slate-500 px-2 py-0.5 rounded-md">${formatSize(result.size)}</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="${result.url}" download="${result.name}" class="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </a>
+            `;
+            resultsList.appendChild(div);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach((res, i) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = res.url;
+                    link.download = res.name;
+                    link.click();
+                }, i * 200);
+            });
+        });
+
+    </script>
+</body>
+</html>
+
