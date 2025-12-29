@@ -10,44 +10,9 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
     <!-- Figlet Library for Text to ASCII -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/figlet/1.6.0/figlet.min.js"></script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .pane-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .input-area {
-                @apply flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all;
-            }
-            .output-area {
-                @apply flex-grow w-full min-h-[400px] bg-slate-900 text-green-400 border-0 rounded-3xl p-6 text-xs font-mono overflow-auto whitespace-pre selection:bg-green-500/30;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-            .control-select {
-                @apply bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm outline-none focus:border-blue-500 transition-all cursor-pointer;
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -67,7 +32,7 @@
                 
                 <!-- Input Pane -->
                 <div class="flex flex-col h-full text-left">
-                    <div class="pane-container text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Input Text</label>
                             <div class="flex gap-2">
@@ -80,8 +45,8 @@
                             </div>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone flex-grow flex flex-col min-h-[400px]">
-                            <textarea id="text-input" class="input-area" placeholder="Enter text to stylize or drop files..."></textarea>
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[400px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="Enter text to stylize or drop files..."></textarea>
                             <input type="file" id="file-input" class="hidden" multiple accept=".txt,.md">
                             
                             <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
@@ -103,7 +68,7 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1 text-left">Select Font</label>
-                                    <select id="font-select" class="control-select w-full">
+                                    <select id="font-select" class="bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm outline-none focus:border-blue-500 transition-all cursor-pointer w-full">
                                         <option value="Standard">Standard</option>
                                         <option value="Slant">Slant</option>
                                         <option value="Shadow">Shadow</option>
@@ -130,7 +95,7 @@
 
                 <!-- Result Pane -->
                 <div class="flex flex-col h-full text-left">
-                    <div class="pane-container text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">ASCII Masterpiece</label>
                             <div class="flex gap-2">
@@ -138,7 +103,7 @@
                                 <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">Copy ASCII Art</button>
                             </div>
                         </div>
-                        <div id="ascii-output" class="output-area" tabindex="0">Art will appear here...</div>
+                        <div id="ascii-output" class="flex-grow w-full min-h-[400px] bg-slate-900 text-green-400 border-0 rounded-3xl p-6 text-xs font-mono overflow-auto whitespace-pre selection:bg-green-500/30" tabindex="0">Art will appear here...</div>
 
                         <!-- Processed Results List -->
                         <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6 text-left">

@@ -10,48 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
-            }
-            .mode-btn {
-                @apply flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300;
-            }
-            .mode-btn.active {
-                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400;
-            }
-            .mode-btn.inactive {
-                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300;
-            }
-            .control-btn {
-                @apply p-6 rounded-3xl transition-all duration-300 transform active:scale-95;
-            }
-            .progress-ring__circle {
-                transition: stroke-dashoffset 0.35s;
-                transform: rotate(-90deg);
-                transform-origin: 50% 50%;
-            }
-            .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-            .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-            .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-            .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -76,9 +35,9 @@
                         
                         <!-- Mode Toggle -->
                         <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] w-full max-w-sm border border-slate-200/50 dark:border-slate-800/50">
-                            <button id="mode-work" class="mode-btn active">Work</button>
-                            <button id="mode-short" class="mode-btn inactive">Short Break</button>
-                            <button id="mode-long" class="mode-btn inactive">Long Break</button>
+                            <button id="mode-work" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400">Work</button>
+                            <button id="mode-short" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Short Break</button>
+                            <button id="mode-long" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Long Break</button>
                         </div>
 
                         <!-- Main Display -->
@@ -117,7 +76,7 @@
                         </div>
                         
                         <div class="relative group mb-6">
-                            <input type="text" id="task-input" placeholder="What are you working on?" class="custom-input pr-14">
+                            <input type="text" id="task-input" placeholder="What are you working on?" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pr-14">
                             <button id="add-task" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
                                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                             </button>

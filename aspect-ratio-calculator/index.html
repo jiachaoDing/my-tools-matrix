@@ -10,42 +10,8 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .unit-badge { 
-                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
-            }
-            .preset-btn { 
-                @apply py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1; 
-            }
-            .active-preset {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-500/5;
-            }
-            .result-card {
-                @apply p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:border-blue-500/10;
-            }
-        }
-    </style>
+    
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -69,10 +35,10 @@
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="space-y-6">
                             <div>
-                                <label class="input-label">Width</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Width</label>
                                 <div class="relative group">
-                                    <input type="number" id="width-input" value="1920" min="1" step="1" class="custom-input">
-                                    <span class="unit-badge">PX</span>
+                                    <input type="number" id="width-input" value="1920" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">PX</span>
                                 </div>
                             </div>
 
@@ -85,58 +51,58 @@
                             </div>
 
                             <div>
-                                <label class="input-label">Height</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Height</label>
                                 <div class="relative group">
-                                    <input type="number" id="height-input" value="1080" min="1" step="1" class="custom-input">
-                                    <span class="unit-badge">PX</span>
+                                    <input type="number" id="height-input" value="1080" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">PX</span>
                                 </div>
                             </div>
 
                             <div class="pt-4 border-t border-slate-100 dark:border-slate-700">
-                                <label class="input-label">Custom Ratio (W:H)</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Custom Ratio (W:H)</label>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="relative group">
-                                        <input type="number" id="ratio-w" value="16" min="0.1" step="0.1" class="custom-input text-center">
+                                        <input type="number" id="ratio-w" value="16" min="0.1" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 text-center">
                                     </div>
                                     <div class="relative group">
-                                        <input type="number" id="ratio-h" value="9" min="0.1" step="0.1" class="custom-input text-center">
+                                        <input type="number" id="ratio-h" value="9" min="0.1" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 text-center">
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="pt-4 space-y-4">
-                            <label class="input-label">Quick Presets</label>
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Quick Presets</label>
                             <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
-                                <button class="preset-btn" data-w="16" data-h="9">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="16" data-h="9">
                                     <span class="font-black">16:9</span>
                                     <span class="text-[10px] text-slate-400 uppercase">HD</span>
                                 </button>
-                                <button class="preset-btn" data-w="4" data-h="3">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="4" data-h="3">
                                     <span class="font-black">4:3</span>
                                     <span class="text-[10px] text-slate-400 uppercase">TV</span>
                                 </button>
-                                <button class="preset-btn" data-w="1" data-h="1">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="1" data-h="1">
                                     <span class="font-black">1:1</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Square</span>
                                 </button>
-                                <button class="preset-btn" data-w="21" data-h="9">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="21" data-h="9">
                                     <span class="font-black">21:9</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Ultra</span>
                                 </button>
-                                <button class="preset-btn" data-w="9" data-h="16">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="9" data-h="16">
                                     <span class="font-black">9:16</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Mobile</span>
                                 </button>
-                                <button class="preset-btn" data-w="3" data-h="2">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="3" data-h="2">
                                     <span class="font-black">3:2</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Photo</span>
                                 </button>
-                                <button class="preset-btn" data-w="4" data-h="5">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="4" data-h="5">
                                     <span class="font-black">4:5</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Social</span>
                                 </button>
-                                <button class="preset-btn" data-w="2" data-h="1">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="2" data-h="1">
                                     <span class="font-black">2:1</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Cinema</span>
                                 </button>

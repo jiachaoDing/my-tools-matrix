@@ -10,42 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .pane-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .input-area {
-                @apply flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all;
-            }
-            .option-checkbox {
-                @apply w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer;
-            }
-            .stat-box {
-                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -65,7 +30,7 @@
                 
                 <!-- Input Pane -->
                 <div class="flex flex-col h-full">
-                    <div class="pane-container">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Original List</label>
                             <div class="flex gap-2">
@@ -78,8 +43,8 @@
                             </div>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone flex-grow flex flex-col min-h-[500px]">
-                            <textarea id="text-input" class="input-area" placeholder="Paste your list here or drop files..."></textarea>
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[500px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="Paste your list here or drop files..."></textarea>
                             <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md">
                             
                             <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
@@ -100,19 +65,19 @@
                             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Processing Options</h3>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="checkbox" id="case-sensitive" class="option-checkbox" checked>
+                                    <input type="checkbox" id="case-sensitive" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
                                     <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Case Sensitive</span>
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="checkbox" id="trim-lines" class="option-checkbox" checked>
+                                    <input type="checkbox" id="trim-lines" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
                                     <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Trim Whitespace</span>
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="checkbox" id="remove-empty" class="option-checkbox" checked>
+                                    <input type="checkbox" id="remove-empty" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
                                     <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Remove Empty Lines</span>
                                 </label>
                                 <label class="flex items-center gap-3 cursor-pointer group">
-                                    <input type="checkbox" id="sort-output" class="option-checkbox">
+                                    <input type="checkbox" id="sort-output" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer">
                                     <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Sort Alphabetically</span>
                                 </label>
                             </div>
@@ -122,13 +87,13 @@
 
                 <!-- Result Pane -->
                 <div class="flex flex-col h-full">
-                    <div class="pane-container">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Unique Result</label>
                             <button id="process-batch-btn" class="hidden text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">Process Batch</button>
                             <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">Copy Unique Lines</button>
                         </div>
-                        <textarea id="text-output" class="input-area" readonly placeholder="Result will appear here..."></textarea>
+                        <textarea id="text-output" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="Result will appear here..."></textarea>
 
                         <!-- Processed Results -->
                         <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">
@@ -143,11 +108,11 @@
                         </div>
                         
                         <div class="mt-6 grid grid-cols-2 gap-4">
-                            <div class="stat-box">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center">
                                 <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Duplicates Removed</div>
                                 <div id="stat-removed" class="text-2xl font-black text-blue-600 dark:text-blue-400">0</div>
                             </div>
-                            <div class="stat-box">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center">
                                 <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Unique Remaining</div>
                                 <div id="stat-remaining" class="text-2xl font-black text-slate-900 dark:text-white">0</div>
                             </div>

@@ -10,42 +10,8 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d', 800: '#9d174d', 900: '#831843', 950: '#500724',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .category-btn {
-                @apply p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px];
-            }
-            .category-btn.active {
-                @apply bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shadow-sm border border-pink-100 dark:border-pink-800/50;
-            }
-            .emoji-card {
-                @apply aspect-square flex items-center justify-center text-3xl cursor-pointer rounded-2xl transition-all hover:bg-white dark:hover:bg-slate-800 hover:scale-125 hover:shadow-xl hover:shadow-pink-500/10 active:scale-95;
-            }
-            .search-input {
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-medium text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5;
-            }
-        }
-        /* Custom scrollbar */
-        #emoji-grid::-webkit-scrollbar { width: 6px; }
-        #emoji-grid::-webkit-scrollbar-track { background: transparent; }
-        #emoji-grid::-webkit-scrollbar-thumb { 
-            @apply bg-slate-200 dark:bg-slate-800 rounded-full;
-        }
-    </style>
+    
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -71,7 +37,7 @@
                             <div>
                                 <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 block ml-1">Search Emojis</label>
                                 <div class="relative group">
-                                    <input type="text" id="emoji-search" placeholder="Type to search..." class="search-input">
+                                    <input type="text" id="emoji-search" placeholder="Type to search..." class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-medium text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5">
                                     <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-500 transition-colors">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                     </div>
@@ -81,43 +47,43 @@
                             <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
                                 <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 block ml-1">Categories</label>
                                 <div class="flex flex-wrap gap-2" id="category-list">
-                                    <button class="category-btn active" data-category="recent" title="Recent">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shadow-sm border border-pink-100 dark:border-pink-800/50" data-category="recent" title="Recent">
                                         <span class="text-xl">🕒</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Recent</span>
                                     </button>
-                                    <button class="category-btn" data-category="smileys" title="Smileys & Emotion">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="smileys" title="Smileys & Emotion">
                                         <span class="text-xl">😊</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Smileys</span>
                                     </button>
-                                    <button class="category-btn" data-category="people" title="People & Body">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="people" title="People & Body">
                                         <span class="text-xl">👋</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">People</span>
                                     </button>
-                                    <button class="category-btn" data-category="animals" title="Animals & Nature">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="animals" title="Animals & Nature">
                                         <span class="text-xl">🐶</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Animals</span>
                                     </button>
-                                    <button class="category-btn" data-category="food" title="Food & Drink">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="food" title="Food & Drink">
                                         <span class="text-xl">🍎</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Food</span>
                                     </button>
-                                    <button class="category-btn" data-category="activities" title="Activities">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="activities" title="Activities">
                                         <span class="text-xl">⚽</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Activity</span>
                                     </button>
-                                    <button class="category-btn" data-category="travel" title="Travel & Places">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="travel" title="Travel & Places">
                                         <span class="text-xl">🚀</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Travel</span>
                                     </button>
-                                    <button class="category-btn" data-category="objects" title="Objects">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="objects" title="Objects">
                                         <span class="text-xl">💡</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Objects</span>
                                     </button>
-                                    <button class="category-btn" data-category="symbols" title="Symbols">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="symbols" title="Symbols">
                                         <span class="text-xl">❤️</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Symbols</span>
                                     </button>
-                                    <button class="category-btn" data-category="flags" title="Flags">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px]" data-category="flags" title="Flags">
                                         <span class="text-xl">🚩</span>
                                         <span class="text-[9px] font-bold uppercase tracking-tighter">Flags</span>
                                     </button>

@@ -10,39 +10,8 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .unit-select { 
-                @apply absolute right-2 top-1/2 -translate-y-1/2 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl px-3 py-2 text-[10px] font-black text-slate-500 dark:text-slate-400 outline-none border border-slate-200/50 dark:border-slate-700/50 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-all; 
-            }
-            .preset-btn { 
-                @apply py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1; 
-            }
-            .active-preset {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 shadow-lg shadow-blue-500/5;
-            }
-        }
-    </style>
+    
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -66,10 +35,10 @@
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="space-y-6">
                             <div>
-                                <label class="input-label">File Size</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">File Size</label>
                                 <div class="relative group">
-                                    <input type="number" id="size-input" value="5" min="0" step="0.1" class="custom-input pr-24">
-                                    <select id="size-unit" class="unit-select">
+                                    <input type="number" id="size-input" value="5" min="0" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pr-24">
+                                    <select id="size-unit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl px-3 py-2 text-[10px] font-black text-slate-500 dark:text-slate-400 outline-none border border-slate-200/50 dark:border-slate-700/50 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
                                         <option value="MB">MB</option>
                                         <option value="GB" selected>GB</option>
                                         <option value="TB">TB</option>
@@ -78,10 +47,10 @@
                             </div>
 
                             <div>
-                                <label class="input-label">Download Speed</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Download Speed</label>
                                 <div class="relative group">
-                                    <input type="number" id="speed-input" value="100" min="0" step="1" class="custom-input pr-28">
-                                    <select id="speed-unit" class="unit-select">
+                                    <input type="number" id="speed-input" value="100" min="0" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pr-28">
+                                    <select id="speed-unit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl px-3 py-2 text-[10px] font-black text-slate-500 dark:text-slate-400 outline-none border border-slate-200/50 dark:border-slate-700/50 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
                                         <option value="Mbps" selected>Mbps</option>
                                         <option value="MB/s">MB/s</option>
                                         <option value="Gbps">Gbps</option>
@@ -91,29 +60,29 @@
                         </div>
 
                         <div class="pt-4 space-y-4">
-                            <label class="input-label">Speed Presets</label>
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Speed Presets</label>
                             <div class="grid grid-cols-3 gap-3">
-                                <button class="preset-btn" data-speed="10" data-unit="Mbps">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="10" data-unit="Mbps">
                                     <span class="font-black">10 Mbps</span>
                                     <span class="text-[10px] text-slate-400 uppercase">ADSL</span>
                                 </button>
-                                <button class="preset-btn" data-speed="100" data-unit="Mbps">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="100" data-unit="Mbps">
                                     <span class="font-black">100 Mbps</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Fiber</span>
                                 </button>
-                                <button class="preset-btn" data-speed="1" data-unit="Gbps">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="1" data-unit="Gbps">
                                     <span class="font-black">1 Gbps</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Gigabit</span>
                                 </button>
-                                <button class="preset-btn" data-speed="50" data-unit="Mbps">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="50" data-unit="Mbps">
                                     <span class="font-black">50 Mbps</span>
                                     <span class="text-[10px] text-slate-400 uppercase">4G/LTE</span>
                                 </button>
-                                <button class="preset-btn" data-speed="300" data-unit="Mbps">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="300" data-unit="Mbps">
                                     <span class="font-black">300 Mbps</span>
                                     <span class="text-[10px] text-slate-400 uppercase">5G</span>
                                 </button>
-                                <button class="preset-btn" data-speed="12.5" data-unit="MB/s">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="12.5" data-unit="MB/s">
                                     <span class="font-black">12.5 MB/s</span>
                                     <span class="text-[10px] text-slate-400 uppercase">Steam</span>
                                 </button>

@@ -10,36 +10,8 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd', 400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9', 800: '#5b21b6', 900: '#4c1d95', 950: '#2e1065',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .calc-card {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20;
-            }
-            .module-input { 
-                @apply bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full; 
-            }
-            .result-box {
-                @apply bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums;
-            }
-            .input-label { 
-                @apply text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block; 
-            }
-        }
-    </style>
+    
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -58,110 +30,110 @@
         <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-32 space-y-8">
             
             <!-- Module 1: What is X% of Y -->
-            <div class="calc-card">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
                         <div class="sm:col-span-1">
-                            <label class="input-label">Percentage</label>
-                            <input type="number" id="m1-x" value="15" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Percentage</label>
+                            <input type="number" id="m1-x" value="15" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">% of</div>
                         <div class="sm:col-span-1">
-                            <label class="input-label">Value</label>
-                            <input type="number" id="m1-y" value="100" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Value</label>
+                            <input type="number" id="m1-y" value="100" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">is</div>
                         <div class="sm:col-span-1 text-center">
-                            <label class="input-label">Result</label>
-                            <span id="m1-res" class="result-box">15</span>
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Result</label>
+                            <span id="m1-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">15</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Module 2: X is what % of Y -->
-            <div class="calc-card">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
                         <div class="sm:col-span-1">
-                            <label class="input-label">Value X</label>
-                            <input type="number" id="m2-x" value="25" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Value X</label>
+                            <input type="number" id="m2-x" value="25" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">is what % of</div>
                         <div class="sm:col-span-1">
-                            <label class="input-label">Value Y</label>
-                            <input type="number" id="m2-y" value="200" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Value Y</label>
+                            <input type="number" id="m2-y" value="200" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">?</div>
                         <div class="sm:col-span-1 text-center">
-                            <label class="input-label">Result (%)</label>
-                            <span id="m2-res" class="result-box">12.5</span>
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Result (%)</label>
+                            <span id="m2-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">12.5</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Module 3: Percentage Increase/Decrease from X to Y -->
-            <div class="calc-card">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
                         <div class="sm:col-span-1">
-                            <label class="input-label">From Value</label>
-                            <input type="number" id="m3-x" value="50" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">From Value</label>
+                            <input type="number" id="m3-x" value="50" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">to</div>
                         <div class="sm:col-span-1">
-                            <label class="input-label">To Value</label>
-                            <input type="number" id="m3-y" value="80" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">To Value</label>
+                            <input type="number" id="m3-y" value="80" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">is % change</div>
                         <div class="sm:col-span-1 text-center">
-                            <label class="input-label">Result (%)</label>
-                            <span id="m3-res" class="result-box text-green-600 dark:text-green-400">+60</span>
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Result (%)</label>
+                            <span id="m3-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums text-green-600 dark:text-green-400">+60</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Module 4: X + Y% -->
-            <div class="calc-card">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
                         <div class="sm:col-span-1">
-                            <label class="input-label">Initial Value</label>
-                            <input type="number" id="m4-x" value="100" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Initial Value</label>
+                            <input type="number" id="m4-x" value="100" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">+</div>
                         <div class="sm:col-span-1">
-                            <label class="input-label">Add %</label>
-                            <input type="number" id="m4-y" value="10" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Add %</label>
+                            <input type="number" id="m4-y" value="10" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">is</div>
                         <div class="sm:col-span-1 text-center">
-                            <label class="input-label">Final Value</label>
-                            <span id="m4-res" class="result-box">110</span>
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Final Value</label>
+                            <span id="m4-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">110</span>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Module 5: X - Y% -->
-            <div class="calc-card">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-6">
                     <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
                         <div class="sm:col-span-1">
-                            <label class="input-label">Initial Value</label>
-                            <input type="number" id="m5-x" value="100" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Initial Value</label>
+                            <input type="number" id="m5-x" value="100" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">-</div>
                         <div class="sm:col-span-1">
-                            <label class="input-label">Subtract %</label>
-                            <input type="number" id="m5-y" value="20" step="any" class="module-input">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Subtract %</label>
+                            <input type="number" id="m5-y" value="20" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
                         </div>
                         <div class="text-center font-bold text-slate-400 italic">is</div>
                         <div class="sm:col-span-1 text-center">
-                            <label class="input-label">Final Value</label>
-                            <span id="m5-res" class="result-box">80</span>
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Final Value</label>
+                            <span id="m5-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">80</span>
                         </div>
                     </div>
                 </div>

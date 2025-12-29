@@ -10,42 +10,8 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 300: '#7dd3fc', 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 800: '#075985', 900: '#0c4a6e', 950: '#082f49',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .unit-badge { 
-                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
-            }
-            .tip-btn { 
-                @apply py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all; 
-            }
-            .active-tip { 
-                @apply bg-sky-600 text-white border-sky-600 shadow-lg shadow-sky-500/20 hover:bg-sky-700 hover:border-sky-700; 
-            }
-            .result-card {
-                @apply p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:border-sky-500/10;
-            }
-        }
-    </style>
+    
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -69,37 +35,37 @@
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="space-y-6">
                             <div>
-                                <label class="input-label">Bill Amount</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Bill Amount</label>
                                 <div class="relative group">
-                                    <input type="number" id="bill-input" value="100" min="0" step="0.01" class="custom-input pl-12">
+                                    <input type="number" id="bill-input" value="100" min="0" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5 pl-12">
                                     <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
-                                    <span class="unit-badge">BILL</span>
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">BILL</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="input-label">Select Tip %</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Select Tip %</label>
                                 <div class="grid grid-cols-3 gap-3 mb-4">
-                                    <button class="tip-btn" data-percent="10">10%</button>
-                                    <button class="tip-btn active-tip" data-percent="15">15%</button>
-                                    <button class="tip-btn" data-percent="18">18%</button>
-                                    <button class="tip-btn" data-percent="20">20%</button>
-                                    <button class="tip-btn" data-percent="25">25%</button>
-                                    <button id="custom-tip-btn" class="tip-btn">Custom</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="10">10%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all bg-sky-600 text-white border-sky-600 shadow-lg shadow-sky-500/20 hover:bg-sky-700 hover:border-sky-700" data-percent="15">15%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="18">18%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="20">20%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="25">25%</button>
+                                    <button id="custom-tip-btn" class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all">Custom</button>
                                 </div>
                                 <div id="custom-tip-container" class="hidden">
                                     <div class="relative group">
-                                        <input type="number" id="custom-tip-input" value="15" min="0" max="100" step="0.1" class="custom-input">
-                                        <span class="unit-badge">%</span>
+                                        <input type="number" id="custom-tip-input" value="15" min="0" max="100" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">%</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="input-label">Number of People</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Number of People</label>
                                 <div class="relative group">
-                                    <input type="number" id="people-input" value="2" min="1" step="1" class="custom-input">
-                                    <span class="unit-badge">PEOPLE</span>
+                                    <input type="number" id="people-input" value="2" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">PEOPLE</span>
                                 </div>
                                 <div class="flex gap-2 mt-4">
                                     <button id="decrement-people" class="flex-1 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-lg font-black hover:bg-white dark:hover:bg-slate-800 transition-all">-</button>

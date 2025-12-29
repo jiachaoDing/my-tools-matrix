@@ -10,36 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .stat-card {
-                @apply bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md;
-            }
-            .stat-label {
-                @apply text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1;
-            }
-            .stat-value {
-                @apply text-3xl font-black text-slate-900 dark:text-white;
-            }
-            .limit-bar {
-                @apply h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2;
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -75,21 +46,21 @@
                 <div class="lg:col-span-5 space-y-6">
                     <!-- Top Main Stats -->
                     <div class="grid grid-cols-2 gap-4">
-                        <div class="stat-card">
-                            <div class="stat-label">Characters</div>
-                            <div id="count-chars" class="stat-value text-blue-600 dark:text-blue-400">0</div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Characters</div>
+                            <div id="count-chars" class="text-3xl font-black text-slate-900 dark:text-white text-blue-600 dark:text-blue-400">0</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Chars (No Space)</div>
-                            <div id="count-chars-no-space" class="stat-value">0</div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Chars (No Space)</div>
+                            <div id="count-chars-no-space" class="text-3xl font-black text-slate-900 dark:text-white">0</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Words</div>
-                            <div id="count-words" class="stat-value text-blue-600 dark:text-blue-400">0</div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Words</div>
+                            <div id="count-words" class="text-3xl font-black text-slate-900 dark:text-white text-blue-600 dark:text-blue-400">0</div>
                         </div>
-                        <div class="stat-card">
-                            <div class="stat-label">Sentences</div>
-                            <div id="count-sentences" class="stat-value">0</div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Sentences</div>
+                            <div id="count-sentences" class="text-3xl font-black text-slate-900 dark:text-white">0</div>
                         </div>
                     </div>
 
@@ -125,7 +96,7 @@
                                     <span class="font-semibold">Twitter / X</span>
                                     <span class="text-slate-500"><span id="limit-x">0</span>/280</span>
                                 </div>
-                                <div class="limit-bar">
+                                <div class="h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
                                     <div id="bar-x" class="h-full bg-blue-400 transition-all duration-300" style="width: 0%"></div>
                                 </div>
                             </div>
@@ -134,7 +105,7 @@
                                     <span class="font-semibold">SMS (Single)</span>
                                     <span class="text-slate-500"><span id="limit-sms">0</span>/160</span>
                                 </div>
-                                <div class="limit-bar">
+                                <div class="h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
                                     <div id="bar-sms" class="h-full bg-green-400 transition-all duration-300" style="width: 0%"></div>
                                 </div>
                             </div>
@@ -143,7 +114,7 @@
                                     <span class="font-semibold">LinkedIn Post</span>
                                     <span class="text-slate-500"><span id="limit-linkedin">0</span>/3000</span>
                                 </div>
-                                <div class="limit-bar">
+                                <div class="h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
                                     <div id="bar-linkedin" class="h-full bg-blue-600 transition-all duration-300" style="width: 0%"></div>
                                 </div>
                             </div>

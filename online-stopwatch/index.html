@@ -10,43 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .btn-primary {
-                @apply bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none;
-            }
-            .btn-secondary {
-                @apply bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98];
-            }
-            .stat-card {
-                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all;
-            }
-            .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-            .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-            .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-            .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -78,15 +42,15 @@
                             <div id="sw-display" class="text-7xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter tabular-nums leading-none">00:00.00</div>
                             
                             <div class="flex gap-4 w-full">
-                                <button id="sw-start-stop" class="flex-1 btn-primary flex items-center justify-center gap-3">
+                                <button id="sw-start-stop" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3">
                                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                     <span>Start</span>
                                 </button>
-                                <button id="sw-lap" class="flex-1 btn-secondary flex items-center justify-center gap-3" disabled>
+                                <button id="sw-lap" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98] flex items-center justify-center gap-3" disabled>
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     <span>Lap</span>
                                 </button>
-                                <button id="sw-reset" class="flex-1 btn-secondary flex items-center justify-center gap-3">
+                                <button id="sw-reset" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98] flex items-center justify-center gap-3">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                     <span>Reset</span>
                                 </button>
@@ -121,25 +85,25 @@
                             <!-- Timer Input (hidden when running) -->
                             <div id="tm-inputs" class="grid grid-cols-3 gap-4 w-full">
                                 <div>
-                                    <label class="input-label">HH</label>
-                                    <input type="number" id="tm-hr" value="0" min="0" max="99" class="custom-input" placeholder="00">
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">HH</label>
+                                    <input type="number" id="tm-hr" value="0" min="0" max="99" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5" placeholder="00">
                                 </div>
                                 <div>
-                                    <label class="input-label">MM</label>
-                                    <input type="number" id="tm-min" value="5" min="0" max="59" class="custom-input" placeholder="00">
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">MM</label>
+                                    <input type="number" id="tm-min" value="5" min="0" max="59" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5" placeholder="00">
                                 </div>
                                 <div>
-                                    <label class="input-label">SS</label>
-                                    <input type="number" id="tm-sec" value="0" min="0" max="59" class="custom-input" placeholder="00">
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">SS</label>
+                                    <input type="number" id="tm-sec" value="0" min="0" max="59" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5" placeholder="00">
                                 </div>
                             </div>
 
                             <div class="flex gap-4 w-full">
-                                <button id="tm-start-stop" class="flex-1 btn-primary flex items-center justify-center gap-3">
+                                <button id="tm-start-stop" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3">
                                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
                                     <span>Start</span>
                                 </button>
-                                <button id="tm-reset" class="flex-1 btn-secondary flex items-center justify-center gap-3">
+                                <button id="tm-reset" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98] flex items-center justify-center gap-3">
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                                     <span>Reset</span>
                                 </button>

@@ -10,45 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .pane-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .input-area {
-                @apply flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all;
-            }
-            .mode-btn {
-                @apply flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent;
-            }
-            .mode-btn-primary {
-                @apply bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20;
-            }
-            .mode-btn-secondary {
-                @apply bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -68,7 +30,7 @@
                 
                 <!-- Input Pane -->
                 <div class="flex flex-col h-full">
-                    <div class="pane-container">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Input List</label>
                             <div class="flex gap-2">
@@ -81,8 +43,8 @@
                             </div>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone flex-grow flex flex-col min-h-[500px]">
-                            <textarea id="text-input" class="input-area" placeholder="Enter text or drop files here..."></textarea>
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[500px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="Enter text or drop files here..."></textarea>
                             <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md">
                             
                             <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
@@ -100,28 +62,28 @@
                         </div>
                         
                         <div class="mt-6 grid grid-cols-2 gap-3">
-                            <button onclick="handleReverse('text')" class="mode-btn mode-btn-primary group">
+                            <button onclick="handleReverse('text')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20 group">
                                 <div class="flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                                     <span>Reverse Everything</span>
                                 </div>
                                 <span class="text-[10px] opacity-60 font-normal mt-1">"abc def" → "fed cba"</span>
                             </button>
-                            <button onclick="handleReverse('lines')" class="mode-btn mode-btn-primary group">
+                            <button onclick="handleReverse('lines')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20 group">
                                 <div class="flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                                     <span>Reverse Line Order</span>
                                 </div>
                                 <span class="text-[10px] opacity-60 font-normal mt-1">Swap top and bottom</span>
                             </button>
-                            <button onclick="handleReverse('chars-in-lines')" class="mode-btn mode-btn-secondary group">
+                            <button onclick="handleReverse('chars-in-lines')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800 group">
                                 <div class="flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 5L6 9l5 4m3-8l-5 4 5 4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                                     <span>Flip Each Line</span>
                                 </div>
                                 <span class="text-[10px] opacity-60 font-normal mt-1">"abc" → "cba" (per line)</span>
                             </button>
-                            <button onclick="handleReverse('words')" class="mode-btn mode-btn-secondary group">
+                            <button onclick="handleReverse('words')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800 group">
                                 <div class="flex items-center gap-2">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                                     <span>Reverse Words</span>
@@ -134,12 +96,12 @@
 
                 <!-- Output Pane -->
                 <div class="flex flex-col h-full">
-                    <div class="pane-container">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Reversed Result</label>
                             <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">Copy Result</button>
                         </div>
-                        <textarea id="text-output" class="input-area" readonly placeholder="Reversed text will appear here..."></textarea>
+                        <textarea id="text-output" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="Reversed text will appear here..."></textarea>
 
                         <!-- Processed Results List -->
                         <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">

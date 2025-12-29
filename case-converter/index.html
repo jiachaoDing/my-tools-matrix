@@ -10,42 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .action-card {
-                @apply flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer;
-            }
-            .action-label {
-                @apply text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors;
-            }
-            .action-preview {
-                @apply text-lg font-bold text-slate-700 dark:text-slate-300 truncate;
-            }
-            .btn-case {
-                @apply px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -78,7 +43,7 @@
                             </div>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone flex-grow flex flex-col min-h-[500px]">
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[500px]">
                             <textarea id="text-input" class="flex-grow w-full h-full bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-lg placeholder-slate-400 resize-none outline-none transition-all" placeholder="Enter text to convert or drop files here..."></textarea>
                             <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md">
                             
@@ -118,75 +83,75 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         
                         <!-- UPPERCASE -->
-                        <div class="action-card group" data-case="upper">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="upper">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">UPPERCASE</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">UPPERCASE</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-upper">PREVIEW TEXT</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-upper">PREVIEW TEXT</div>
                         </div>
 
                         <!-- lowercase -->
-                        <div class="action-card group" data-case="lower">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="lower">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">lowercase</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">lowercase</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-lower">preview text</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-lower">preview text</div>
                         </div>
 
                         <!-- Sentence case -->
-                        <div class="action-card group" data-case="sentence">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="sentence">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">Sentence case</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">Sentence case</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-sentence">Preview text.</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-sentence">Preview text.</div>
                         </div>
 
                         <!-- Title Case -->
-                        <div class="action-card group" data-case="title">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="title">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">Title Case</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">Title Case</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-title">Preview Text</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-title">Preview Text</div>
                         </div>
 
                         <!-- camelCase -->
-                        <div class="action-card group" data-case="camel">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="camel">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">camelCase</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">camelCase</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-camel">previewText</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-camel">previewText</div>
                         </div>
 
                         <!-- PascalCase -->
-                        <div class="action-card group" data-case="pascal">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="pascal">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">PascalCase</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">PascalCase</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-pascal">PreviewText</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-pascal">PreviewText</div>
                         </div>
 
                         <!-- snake_case -->
-                        <div class="action-card group" data-case="snake">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="snake">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">snake_case</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">snake_case</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-snake">preview_text</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-snake">preview_text</div>
                         </div>
 
                         <!-- kebab-case -->
-                        <div class="action-card group" data-case="kebab">
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="kebab">
                             <div class="flex justify-between items-start mb-1">
-                                <span class="action-label">kebab-case</span>
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">kebab-case</span>
                                 <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
                             </div>
-                            <div class="action-preview" id="preview-kebab">preview-text</div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-kebab">preview-text</div>
                         </div>
                     </div>
 
@@ -194,15 +159,15 @@
                     <div class="mt-8 p-8 rounded-[2.5rem] bg-slate-100 dark:bg-slate-800/30 border border-slate-200/50 dark:border-slate-800/50">
                         <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Mass Transformations</h3>
                         <div class="flex flex-wrap gap-3">
-                            <button class="btn-case" onclick="applyCase('upper')">UPPER CASE</button>
-                            <button class="btn-case" onclick="applyCase('lower')">lower case</button>
-                            <button class="btn-case" onclick="applyCase('sentence')">Sentence case</button>
-                            <button class="btn-case" onclick="applyCase('title')">Title Case</button>
-                            <button class="btn-case" onclick="applyCase('camel')">camelCase</button>
-                            <button class="btn-case" onclick="applyCase('pascal')">PascalCase</button>
-                            <button class="btn-case" onclick="applyCase('snake')">snake_case</button>
-                            <button class="btn-case" onclick="applyCase('kebab')">kebab-case</button>
-                            <button class="btn-case" onclick="applyCase('toggle')">tOGGLE cASE</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('upper')">UPPER CASE</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('lower')">lower case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('sentence')">Sentence case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('title')">Title Case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('camel')">camelCase</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('pascal')">PascalCase</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('snake')">snake_case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('kebab')">kebab-case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('toggle')">tOGGLE cASE</button>
                         </div>
                     </div>
                 </div>

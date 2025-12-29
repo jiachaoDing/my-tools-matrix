@@ -10,39 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .stat-card {
-                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40;
-            }
-            .checkbox-wrapper {
-                @apply flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent hover:border-blue-500/20 transition-all cursor-pointer;
-            }
-            .checkbox-wrapper.active {
-                @apply border-blue-500/30 bg-blue-50/30 dark:bg-blue-900/10;
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -65,16 +33,16 @@
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="space-y-6">
                             <div>
-                                <label class="input-label">Start Date</label>
-                                <input type="date" id="start-date" class="custom-input">
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Start Date</label>
+                                <input type="date" id="start-date" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
                             </div>
 
                             <div>
-                                <label class="input-label">End Date</label>
-                                <input type="date" id="end-date" class="custom-input">
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">End Date</label>
+                                <input type="date" id="end-date" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
                             </div>
 
-                            <label class="checkbox-wrapper group" id="include-end-wrapper">
+                            <label class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent hover:border-blue-500/20 transition-all cursor-pointer group" id="include-end-wrapper">
                                 <input type="checkbox" id="include-end" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
                                 <span class="font-bold text-slate-600 dark:text-slate-400 group-hover:text-blue-600 transition-colors">Include last day (Add 1 day)</span>
                             </label>
@@ -108,27 +76,27 @@
 
                             <!-- Conversion Grid -->
                             <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-                                <div class="stat-card">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
                                     <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Years</div>
                                     <div id="stat-years" class="text-xl font-bold">0</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
                                     <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Months</div>
                                     <div id="stat-months" class="text-xl font-bold">0</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
                                     <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Weeks</div>
                                     <div id="stat-weeks" class="text-xl font-bold">0</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
                                     <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Days</div>
                                     <div id="stat-days" class="text-xl font-bold">0</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
                                     <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Hours</div>
                                     <div id="stat-hours" class="text-xl font-bold text-sm">0</div>
                                 </div>
-                                <div class="stat-card">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
                                     <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">Total Minutes</div>
                                     <div id="stat-minutes" class="text-xl font-bold text-xs">0</div>
                                 </div>

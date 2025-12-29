@@ -10,48 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .tab-btn { 
-                @apply flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300; 
-            }
-            .active-tab { 
-                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400; 
-            }
-            .inactive-tab { 
-                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300; 
-            }
-            .unit-badge { 
-                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
-            }
-            .activity-card {
-                @apply p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20;
-            }
-            .activity-card.active {
-                @apply border-blue-500/50 bg-blue-50/50 dark:bg-blue-900/20 ring-4 ring-blue-500/5;
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -73,13 +32,13 @@
                 <div class="lg:col-span-5 flex flex-col">
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-6 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
-                            <button id="unit-metric" class="tab-btn active-tab">Metric (cm/kg)</button>
-                            <button id="unit-imperial" class="tab-btn inactive-tab ml-1">Imperial (in/lb)</button>
+                            <button id="unit-metric" class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400">Metric (cm/kg)</button>
+                            <button id="unit-imperial" class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 ml-1">Imperial (in/lb)</button>
                         </div>
 
                         <div class="space-y-4">
                             <div>
-                                <label class="input-label">Gender</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Gender</label>
                                 <div class="flex gap-4">
                                     <label class="flex-1 cursor-pointer">
                                         <input type="radio" name="gender" value="male" checked class="hidden peer">
@@ -94,57 +53,57 @@
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="input-label">Age</label>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Age</label>
                                     <div class="relative group">
-                                        <input type="number" id="age-input" value="25" class="custom-input">
-                                        <span class="unit-badge">YRS</span>
+                                        <input type="number" id="age-input" value="25" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">YRS</span>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="input-label">Height</label>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Height</label>
                                     <div class="relative group">
-                                        <input type="number" id="height-input" value="175" class="custom-input">
-                                        <span class="unit-badge unit-height">cm</span>
+                                        <input type="number" id="height-input" value="175" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-height">cm</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="input-label">Weight</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Weight</label>
                                 <div class="relative group">
-                                    <input type="number" id="weight-input" value="70" class="custom-input">
-                                    <span class="unit-badge unit-weight">kg</span>
+                                    <input type="number" id="weight-input" value="70" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-weight">kg</span>
                                 </div>
                             </div>
 
                             <div>
-                                <label class="input-label">Activity Level</label>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Activity Level</label>
                                 <div class="grid grid-cols-1 gap-2" id="activity-levels">
-                                    <div class="activity-card active" data-multiplier="1.2">
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20 border-blue-500/50 bg-blue-50/50 dark:bg-blue-900/20 ring-4 ring-blue-500/5" data-multiplier="1.2">
                                         <div class="flex justify-between items-center">
                                             <span class="font-bold text-sm">Sedentary</span>
                                             <span class="text-[10px] text-slate-400 font-bold uppercase">Little or no exercise</span>
                                         </div>
                                     </div>
-                                    <div class="activity-card" data-multiplier="1.375">
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.375">
                                         <div class="flex justify-between items-center">
                                             <span class="font-bold text-sm">Lightly Active</span>
                                             <span class="text-[10px] text-slate-400 font-bold uppercase">1-3 days/week</span>
                                         </div>
                                     </div>
-                                    <div class="activity-card" data-multiplier="1.55">
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.55">
                                         <div class="flex justify-between items-center">
                                             <span class="font-bold text-sm">Moderately Active</span>
                                             <span class="text-[10px] text-slate-400 font-bold uppercase">3-5 days/week</span>
                                         </div>
                                     </div>
-                                    <div class="activity-card" data-multiplier="1.725">
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.725">
                                         <div class="flex justify-between items-center">
                                             <span class="font-bold text-sm">Very Active</span>
                                             <span class="text-[10px] text-slate-400 font-bold uppercase">6-7 days/week</span>
                                         </div>
                                     </div>
-                                    <div class="activity-card" data-multiplier="1.9">
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.9">
                                         <div class="flex justify-between items-center">
                                             <span class="font-bold text-sm">Extra Active</span>
                                             <span class="text-[10px] text-slate-400 font-bold uppercase">Very heavy exercise</span>

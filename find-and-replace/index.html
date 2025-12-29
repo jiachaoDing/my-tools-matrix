@@ -10,42 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .pane-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .input-area {
-                @apply flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all;
-            }
-            .control-input {
-                @apply w-full bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-500 transition-all;
-            }
-            .option-checkbox {
-                @apply w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -65,7 +30,7 @@
                 
                 <!-- Input Pane -->
                 <div class="flex flex-col h-full">
-                    <div class="pane-container">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Source Content</label>
                             <div class="flex gap-2">
@@ -78,8 +43,8 @@
                             </div>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone flex-grow flex flex-col min-h-[400px]">
-                            <textarea id="text-input" class="input-area" placeholder="Enter text or drop files here..."></textarea>
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[400px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="Enter text or drop files here..."></textarea>
                             <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md,.html,.xml,.js,.css">
                             
                             <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
@@ -101,24 +66,24 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1">Find</label>
-                                    <input type="text" id="find-input" class="control-input" placeholder="Text to find...">
+                                    <input type="text" id="find-input" class="w-full bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-500 transition-all" placeholder="Text to find...">
                                 </div>
                                 <div>
                                     <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1">Replace With</label>
-                                    <input type="text" id="replace-input" class="control-input" placeholder="Replacement text...">
+                                    <input type="text" id="replace-input" class="w-full bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-500 transition-all" placeholder="Replacement text...">
                                 </div>
                             </div>
                             <div class="flex flex-wrap gap-4 pt-2">
                                 <label class="flex items-center gap-2 cursor-pointer group">
-                                    <input type="checkbox" id="match-case" class="option-checkbox">
+                                    <input type="checkbox" id="match-case" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900">
                                     <span class="text-xs font-bold text-slate-500 group-hover:text-blue-500 transition-colors">Match Case</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer group">
-                                    <input type="checkbox" id="whole-word" class="option-checkbox">
+                                    <input type="checkbox" id="whole-word" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900">
                                     <span class="text-xs font-bold text-slate-500 group-hover:text-blue-500 transition-colors">Whole Word</span>
                                 </label>
                                 <label class="flex items-center gap-2 cursor-pointer group">
-                                    <input type="checkbox" id="use-regex" class="option-checkbox">
+                                    <input type="checkbox" id="use-regex" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900">
                                     <span class="text-xs font-bold text-slate-500 group-hover:text-blue-500 transition-colors">Use Regex</span>
                                 </label>
                             </div>
@@ -128,7 +93,7 @@
 
                 <!-- Result Pane -->
                 <div class="flex flex-col h-full">
-                    <div class="pane-container">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Modified Result</label>
                             <div class="flex gap-2">
@@ -136,7 +101,7 @@
                                 <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">Copy Result</button>
                             </div>
                         </div>
-                        <textarea id="text-output" class="input-area" readonly placeholder="Transformation result..."></textarea>
+                        <textarea id="text-output" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="Transformation result..."></textarea>
 
                         <!-- Processed Results List -->
                         <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">

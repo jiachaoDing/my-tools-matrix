@@ -10,45 +10,8 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#fdf2f8', 100: '#fce7f3', 200: '#fbcfe8', 300: '#f9a8d4', 400: '#f472b6', 500: '#ec4899', 600: '#db2777', 700: '#be185d', 800: '#9d174d', 900: '#831843', 950: '#500724',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .custom-input { 
-                @apply w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5; 
-            }
-            .input-label { 
-                @apply text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1; 
-            }
-            .unit-badge { 
-                @apply absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50; 
-            }
-            .tab-btn { 
-                @apply flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300; 
-            }
-            .active-tab { 
-                @apply bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-pink-600 dark:text-pink-400; 
-            }
-            .inactive-tab { 
-                @apply text-slate-500 hover:text-slate-700 dark:hover:text-slate-300; 
-            }
-            .result-card {
-                @apply p-8 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:border-pink-500/10;
-            }
-        }
-    </style>
+    
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -71,35 +34,35 @@
                 <div class="lg:col-span-5 flex flex-col">
                     <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
-                            <button id="solve-cpm" class="tab-btn active-tab">Solve CPM</button>
-                            <button id="solve-cost" class="tab-btn inactive-tab ml-1">Solve Cost</button>
-                            <button id="solve-impr" class="tab-btn inactive-tab ml-1">Solve Impr</button>
+                            <button id="solve-cpm" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-pink-600 dark:text-pink-400">Solve CPM</button>
+                            <button id="solve-cost" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 ml-1">Solve Cost</button>
+                            <button id="solve-impr" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 ml-1">Solve Impr</button>
                         </div>
 
                         <div class="space-y-6">
                             <!-- Input 1 -->
                             <div id="group-1">
-                                <label id="label-1" class="input-label">Total Cost</label>
+                                <label id="label-1" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Total Cost</label>
                                 <div class="relative group">
-                                    <input type="number" id="input-1" value="500" min="0" step="0.01" class="custom-input pl-12">
+                                    <input type="number" id="input-1" value="500" min="0" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5 pl-12">
                                     <span id="prefix-1" class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
-                                    <span id="badge-1" class="unit-badge">COST</span>
+                                    <span id="badge-1" class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">COST</span>
                                 </div>
                             </div>
 
                             <!-- Input 2 -->
                             <div id="group-2">
-                                <label id="label-2" class="input-label">Total Impressions</label>
+                                <label id="label-2" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Total Impressions</label>
                                 <div class="relative group">
-                                    <input type="number" id="input-2" value="100000" min="0" step="1" class="custom-input">
+                                    <input type="number" id="input-2" value="100000" min="0" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5">
                                     <span id="prefix-2" class="hidden absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
-                                    <span id="badge-2" class="unit-badge">IMPR</span>
+                                    <span id="badge-2" class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">IMPR</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="pt-4 space-y-4">
-                            <label class="input-label">Quick Presets (Impressions)</label>
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">Quick Presets (Impressions)</label>
                             <div class="grid grid-cols-2 gap-3">
                                 <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-val="10000">10k</button>
                                 <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-val="1000000">1M</button>

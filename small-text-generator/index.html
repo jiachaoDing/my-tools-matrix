@@ -10,39 +10,7 @@
 
     <!-- Tool-specific Logic -->
 
-    <script>
-        tailwind.config = { 
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#eff6ff', 100: '#dbeafe', 200: '#bfdbfe', 300: '#93c5fd', 400: '#60a5fa', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8', 800: '#1e40af', 900: '#1e3a8a', 950: '#172554',
-                        },
-                    }
-                }
-            }
-        }
-    </script>
-    <style type="text/tailwindcss">
-        @layer components {
-            .pane-container {
-                @apply bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50;
-            }
-            .input-area {
-                @apply flex-grow w-full min-h-[450px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-sans placeholder-slate-400 resize-none outline-none transition-all;
-            }
-            .output-card {
-                @apply p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative;
-            }
-            .drop-zone {
-                @apply relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300;
-            }
-            .drop-zone.drag-over {
-                @apply border-blue-500 bg-blue-50/50 dark:bg-blue-900/20 scale-[1.01];
-            }
-        }
-    </style>
+    
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -62,7 +30,7 @@
                 
                 <!-- Input Pane -->
                 <div class="flex flex-col h-full text-left">
-                    <div class="pane-container text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left">
                         <div class="flex items-center justify-between mb-4">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Normal Text</label>
                             <div class="flex gap-2 text-left">
@@ -75,8 +43,8 @@
                             </div>
                         </div>
 
-                        <div id="drop-zone" class="drop-zone flex-grow flex flex-col min-h-[450px]">
-                            <textarea id="text-input" class="input-area" placeholder="Type your text here or drop text files..."></textarea>
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[450px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[450px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-sans placeholder-slate-400 resize-none outline-none transition-all" placeholder="Type your text here or drop text files..."></textarea>
                             <input type="file" id="file-input" class="hidden" multiple accept=".txt">
                             
                             <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
@@ -97,7 +65,7 @@
 
                 <!-- Result Pane -->
                 <div class="flex flex-col h-full text-left text-left">
-                    <div class="pane-container text-left text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left text-left">
                         <div class="flex items-center justify-between mb-6">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">Small Variations</label>
                             <button id="download-all-btn" class="hidden text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">Download All (Batch)</button>
@@ -105,7 +73,7 @@
 
                         <div class="space-y-6 flex-grow overflow-auto custom-scrollbar pr-2">
                             <!-- Small Caps -->
-                            <div class="output-card">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative">
                                 <div class="flex items-center justify-between mb-3 text-left">
                                     <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Small Caps</span>
                                     <button onclick="copyOutput('small-caps')" class="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase">Copy</button>
@@ -114,7 +82,7 @@
                             </div>
 
                             <!-- Superscript -->
-                            <div class="output-card">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative">
                                 <div class="flex items-center justify-between mb-3 text-left">
                                     <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Superscript</span>
                                     <button onclick="copyOutput('superscript')" class="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase">Copy</button>
@@ -123,7 +91,7 @@
                             </div>
 
                             <!-- Subscript -->
-                            <div class="output-card text-left">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative text-left">
                                 <div class="flex items-center justify-between mb-3">
                                     <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Subscript</span>
                                     <button onclick="copyOutput('subscript')" class="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase">Copy</button>
