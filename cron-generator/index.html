@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cron Expression Generator - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Easily generate cron expressions for scheduled tasks with our intuitive UI and human-readable descriptions.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Cron Expression Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Build complex scheduling patterns without memorizing the syntax. Instantly see the next execution times.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full">
+                <!-- Configuration Panel -->
+                <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-slate-100 dark:border-slate-700/50 space-y-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <!-- Minutes -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Minutes</label>
+                            <select id="cron-minutes" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">Every minute (*)</option>
+                                <option value="*/2">Every 2 minutes</option>
+                                <option value="*/5">Every 5 minutes</option>
+                                <option value="*/10">Every 10 minutes</option>
+                                <option value="*/15">Every 15 minutes</option>
+                                <option value="*/30">Every 30 minutes</option>
+                                <option value="0">At minute 0</option>
+                            </select>
+                        </div>
+                        <!-- Hours -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Hours</label>
+                            <select id="cron-hours" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">Every hour (*)</option>
+                                <option value="*/2">Every 2 hours</option>
+                                <option value="*/3">Every 3 hours</option>
+                                <option value="*/4">Every 4 hours</option>
+                                <option value="*/6">Every 6 hours</option>
+                                <option value="*/12">Every 12 hours</option>
+                                <option value="0">At midnight (00:00)</option>
+                            </select>
+                        </div>
+                        <!-- Day of Month -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Day of Month</label>
+                            <select id="cron-dom" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">Every day (*)</option>
+                                <option value="1">1st of the month</option>
+                                <option value="15">15th of the month</option>
+                                <option value="L">Last day of month</option>
+                            </select>
+                        </div>
+                        <!-- Month -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Month</label>
+                            <select id="cron-month" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">Every month (*)</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                        <!-- Day of Week -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Day of Week</label>
+                            <select id="cron-dow" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">Every day (*)</option>
+                                <option value="1-5">Monday to Friday</option>
+                                <option value="0,6">Weekends</option>
+                                <option value="1">Monday</option>
+                                <option value="2">Tuesday</option>
+                                <option value="3">Wednesday</option>
+                                <option value="4">Thursday</option>
+                                <option value="5">Friday</option>
+                                <option value="6">Saturday</option>
+                                <option value="0">Sunday</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col">
+                    <label class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6 text-center lg:text-left">Generated Result</label>
+                    <div class="flex-1 flex flex-col justify-center text-center space-y-6">
+                        <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-8 border border-slate-100 dark:border-slate-700/50 relative group">
+                            <div id="cron-output" class="text-3xl font-black text-blue-600 dark:text-blue-400 tracking-widest font-mono">* * * * *</div>
+                            <button id="copy-btn" class="absolute top-2 right-2 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" title="Copy expression">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            </button>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-xs font-bold text-slate-400 uppercase">Meaning</div>
+                            <div id="cron-description" class="text-lg font-semibold text-slate-700 dark:text-slate-300 italic">"Every minute"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use Cron Generator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Schedule</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose the frequency for minutes, hours, and days from the dropdown menus.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Preview Result</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">The cron expression and its human-readable meaning update instantly as you change settings.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Copy & Use</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Copy the final expression and paste it into your server configuration or task scheduler.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why use this generator?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">No More Guessing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Eliminate errors in your server crontab files with visual validation.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Human Friendly</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Verify your schedule with plain English descriptions before deployment.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Cron FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is a Cron expression?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                A Cron expression is a string of five or six fields separated by white space that represents a schedule for a task to be executed automatically.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Which fields are included?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                The standard order is: Minutes, Hours, Day of Month, Month, and Day of Week.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Cron Logic
+        const inputs = {
+            minutes: document.getElementById('cron-minutes'),
+            hours: document.getElementById('cron-hours'),
+            dom: document.getElementById('cron-dom'),
+            month: document.getElementById('cron-month'),
+            dow: document.getElementById('cron-dow')
+        };
+        const output = document.getElementById('cron-output');
+        const description = document.getElementById('cron-description');
+        const copyBtn = document.getElementById('copy-btn');
+
+        function updateCron() {
+            const m = inputs.minutes.value;
+            const h = inputs.hours.value;
+            const dom = inputs.dom.value;
+            const mon = inputs.month.value;
+            const dow = inputs.dow.value;
+
+            const cron = `${m} ${h} ${dom} ${mon} ${dow}`;
+            output.textContent = cron;
+
+            // Simple human-readable description (very basic implementation)
+            let desc = "At ";
+            
+            if (m === '*') desc += "every minute";
+            else if (m.startsWith('*/')) desc += `every ${m.split('/')[1]} minutes`;
+            else desc += `minute ${m}`;
+
+            desc += ", ";
+
+            if (h === '*') desc += "every hour";
+            else if (h.startsWith('*/')) desc += `every ${h.split('/')[1]} hours`;
+            else if (h === '0') desc += "at midnight";
+            else desc += `hour ${h}`;
+
+            if (dom !== '*' || mon !== '*' || dow !== '*') {
+                desc += ", on ";
+                if (mon === '*') desc += "every month"; else desc += `month ${mon}`;
+                if (dom !== '*') desc += ` and day ${dom}`;
+                if (dow !== '*') desc += ` (dow: ${dow})`;
+            }
+
+            description.textContent = `"${desc}"`;
+        }
+
+        Object.values(inputs).forEach(input => input.addEventListener('change', updateCron));
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(output.textContent);
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            setTimeout(() => copyBtn.innerHTML = originalIcon, 2000);
+        });
+
+        updateCron();
+    </script>
+</body>
+</html>
+

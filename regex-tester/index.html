@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Tester - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Test and debug your regular expressions in real-time with our powerful Regex Tester. Features include match highlighting, flag support, and detailed match information. 100% private and client-side.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Regex Tester</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instant regular expression testing and debugging. Privacy-first, runs entirely in your browser.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Panel: Input -->
+                <div class="space-y-6">
+                    <div class="p-6 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Regular Expression</label>
+                        <div class="relative flex items-center bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 focus-within:ring-2 focus-within:ring-blue-500/20 transition-all">
+                            <span class="pl-4 text-slate-400 font-mono text-lg">/</span>
+                            <input type="text" id="regex-input" 
+                                class="flex-grow bg-transparent border-none focus:ring-0 font-mono text-lg py-3 px-2 text-slate-900 dark:text-white" 
+                                placeholder="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
+                                value="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}">
+                            <span class="text-slate-400 font-mono text-lg">/</span>
+                            <input type="text" id="regex-flags" 
+                                class="w-20 bg-transparent border-none focus:ring-0 font-mono text-lg py-3 px-2 text-blue-600 dark:text-blue-400" 
+                                placeholder="flags"
+                                value="gm">
+                        </div>
+                        <div class="mt-3 flex flex-wrap gap-2">
+                            <span class="text-xs font-medium text-slate-500 uppercase tracking-wider">Common Flags:</span>
+                            <button class="flag-toggle text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" data-flag="g" title="Global match">g</button>
+                            <button class="flag-toggle text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" data-flag="i" title="Case-insensitive">i</button>
+                            <button class="flag-toggle text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" data-flag="m" title="Multiline">m</button>
+                            <button class="flag-toggle text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" data-flag="s" title="DotAll">s</button>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Test String</label>
+                        <div class="relative">
+                            <textarea id="test-string" 
+                                class="w-full h-64 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all font-mono p-4 text-slate-900 dark:text-white resize-none"
+                                placeholder="Paste text here to test your regex...">Contact us at support@webutilitykit.com or feedback@example.org. For general inquiries, try info@domain.co.uk.</textarea>
+                            <div id="highlight-layer" class="absolute inset-0 pointer-events-none p-4 font-mono text-transparent whitespace-pre-wrap break-all border border-transparent overflow-hidden" style="margin-top: 1px; margin-left: 1px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Results -->
+                <div class="space-y-6 flex flex-col">
+                    <div class="flex-grow p-6 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-lg font-bold text-slate-900 dark:text-white">Match Information</h2>
+                            <span id="match-count" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 text-xs font-bold rounded-full">0 matches</span>
+                        </div>
+                        <div id="results-list" class="space-y-3 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar">
+                            <p class="text-slate-500 dark:text-slate-400 text-sm italic">Enter a valid regex to see matches...</p>
+                        </div>
+                        <div id="error-message" class="hidden mt-4 p-4 bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm rounded-xl border border-red-100 dark:border-red-900/30">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Regex Tester</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Write Regex</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Enter your regular expression pattern and flags in the top input fields.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Data</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Paste the text you want to test against in the test string area.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">See Results</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Watch as matches are highlighted in real-time and details appear on the right.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Master Regular Expressions</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Regular expressions (Regex) are powerful tools for pattern matching and text manipulation. Whether you're validating emails, scraping data, or refactoring code, our tester provides the visual feedback you need to build patterns with confidence.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Real-time Syntax Highlighting</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Capture Group Support</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Instant Privacy (Local Processing)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center font-mono text-blue-500/40 text-4xl">
+                                    /pattern/g
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Regex Tester Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Live Testing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">See matches and groups update instantly as you modify your regex or test string.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Private & Secure</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your data never leaves your computer. All processing happens locally in your browser.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Regex FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What are regex flags?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Flags modify how the search is performed. Common ones include <strong>g</strong> (global - find all matches), <strong>i</strong> (case-insensitive), and <strong>m</strong> (multiline).
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How do I capture groups?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Use parentheses <code>(...)</code> to create capture groups. These allow you to isolate specific parts of a match, which are displayed in the results panel.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+        
+        #test-string {
+            background-color: transparent !important;
+            z-index: 10;
+        }
+        
+        #highlight-layer {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: transparent;
+            z-index: 0;
+        }
+        
+        .regex-match {
+            background-color: rgba(59, 130, 246, 0.2);
+            border-bottom: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 2px;
+        }
+        
+        .dark .regex-match {
+            background-color: rgba(59, 130, 246, 0.3);
+            border-bottom: 2px solid rgba(96, 165, 250, 0.6);
+        }
+    </style>
+
+    <script>
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+            } else { 
+                html.classList.remove('dark');
+                document.getElementById('theme-icon').textContent = '🌙';
+            }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+            updateTheme();
+        });
+
+        // Regex Tester Logic
+        const regexInput = document.getElementById('regex-input');
+        const regexFlags = document.getElementById('regex-flags');
+        const testString = document.getElementById('test-string');
+        const highlightLayer = document.getElementById('highlight-layer');
+        const resultsList = document.getElementById('results-list');
+        const matchCount = document.getElementById('match-count');
+        const errorMessage = document.getElementById('error-message');
+        const flagToggles = document.querySelectorAll('.flag-toggle');
+
+        function updateRegex() {
+            const pattern = regexInput.value;
+            const flags = regexFlags.value;
+            const text = testString.value;
+
+            errorMessage.classList.add('hidden');
+            resultsList.innerHTML = '';
+            highlightLayer.innerHTML = '';
+
+            if (!pattern) {
+                matchCount.textContent = '0 matches';
+                resultsList.innerHTML = '<p class="text-slate-500 dark:text-slate-400 text-sm italic">Enter a pattern to see matches...</p>';
+                return;
+            }
+
+            try {
+                const regex = new RegExp(pattern, flags);
+                let matches = [];
+                let match;
+                
+                if (flags.includes('g')) {
+                    while ((match = regex.exec(text)) !== null) {
+                        matches.push(match);
+                        if (match.index === regex.lastIndex) regex.lastIndex++; // Avoid infinite loops for zero-width matches
+                    }
+                } else {
+                    match = regex.exec(text);
+                    if (match) matches.push(match);
+                }
+
+                matchCount.textContent = `${matches.length} match${matches.length === 1 ? '' : 'es'}`;
+
+                if (matches.length > 0) {
+                    let highlightedText = '';
+                    let lastIndex = 0;
+
+                    matches.forEach((m, i) => {
+                        // Highlighting
+                        highlightedText += escapeHtml(text.substring(lastIndex, m.index));
+                        highlightedText += `<span class="regex-match">${escapeHtml(m[0])}</span>`;
+                        lastIndex = m.index + m[0].length;
+
+                        // Results Panel
+                        const matchDiv = document.createElement('div');
+                        matchDiv.className = 'p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 text-sm';
+                        
+                        let groupsHtml = '';
+                        if (m.length > 1) {
+                            groupsHtml = '<div class="mt-2 pl-3 border-l-2 border-blue-200 dark:border-blue-800 space-y-1">';
+                            for (let j = 1; j < m.length; j++) {
+                                groupsHtml += `<div class="text-xs text-slate-500"><span class="font-bold text-blue-500">Group ${j}:</span> ${escapeHtml(m[j] || 'null')}</div>`;
+                            }
+                            groupsHtml += '</div>';
+                        }
+
+                        matchDiv.innerHTML = `
+                            <div class="flex justify-between items-center mb-1">
+                                <span class="font-mono font-bold text-blue-600 dark:text-blue-400">Match ${i + 1}</span>
+                                <span class="text-xs text-slate-400">Index: ${m.index}</span>
+                            </div>
+                            <div class="font-mono text-slate-700 dark:text-slate-300 break-all">${escapeHtml(m[0])}</div>
+                            ${groupsHtml}
+                        `;
+                        resultsList.appendChild(matchDiv);
+                    });
+                    
+                    highlightedText += escapeHtml(text.substring(lastIndex));
+                    highlightLayer.innerHTML = highlightedText;
+                } else {
+                    highlightLayer.innerHTML = escapeHtml(text);
+                    resultsList.innerHTML = '<p class="text-slate-500 dark:text-slate-400 text-sm italic">No matches found.</p>';
+                }
+
+            } catch (e) {
+                errorMessage.textContent = e.message;
+                errorMessage.classList.remove('hidden');
+                matchCount.textContent = 'Invalid Regex';
+                highlightLayer.innerHTML = escapeHtml(text);
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function syncScroll() {
+            highlightLayer.scrollTop = testString.scrollTop;
+            highlightLayer.scrollLeft = testString.scrollLeft;
+        }
+
+        regexInput.addEventListener('input', updateRegex);
+        regexFlags.addEventListener('input', updateRegex);
+        testString.addEventListener('input', updateRegex);
+        testString.addEventListener('scroll', syncScroll);
+
+        flagToggles.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const flag = btn.getAttribute('data-flag');
+                let currentFlags = regexFlags.value;
+                if (currentFlags.includes(flag)) {
+                    regexFlags.value = currentFlags.replace(flag, '');
+                } else {
+                    regexFlags.value = currentFlags + flag;
+                }
+                updateRegex();
+            });
+        });
+
+        // Initialize
+        updateRegex();
+    </script>
+</body>
+</html>
+

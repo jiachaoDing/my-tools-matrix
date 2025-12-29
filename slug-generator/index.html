@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slug Generator - Clean & SEO Friendly URLs | WebUtilityKit</title>
+    <meta name="description" content="Convert any text into a clean, SEO-friendly URL slug. Perfect for blog posts, product pages, and technical documentation. Fast, simple, and 100% private.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Slug Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Transform your titles into URL-ready slugs instantly. Optimize your links for better SEO and readability.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
+                <div class="p-8 space-y-8">
+                    <!-- Input Section -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Your Text</label>
+                        <textarea id="slug-input" rows="4" 
+                            class="w-full bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 transition-all text-xl font-medium text-slate-900 dark:text-white placeholder-slate-400"
+                            placeholder="Enter your title or text here... (e.g., How to build a modern website in 2025!)"></textarea>
+                    </div>
+
+                    <!-- Configuration Section -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest">Separator</label>
+                            <select id="separator" class="w-full bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none">
+                                <option value="-">Hyphen (-)</option>
+                                <option value="_">Underscore (_)</option>
+                                <option value=".">Dot (.)</option>
+                                <option value="">None (Concatenate)</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest">Case</label>
+                            <select id="slug-case" class="w-full bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none">
+                                <option value="lowercase">Lowercase</option>
+                                <option value="uppercase">Uppercase</option>
+                                <option value="none">Original Case</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2 pt-6">
+                            <input type="checkbox" id="remove-numbers" class="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
+                            <label for="remove-numbers" class="text-sm font-medium text-slate-600 dark:text-slate-400 cursor-pointer">Remove Numbers</label>
+                        </div>
+                        <div class="flex items-center gap-2 pt-6">
+                            <input type="checkbox" id="remove-stop-words" class="w-4 h-4 text-blue-600 bg-slate-100 border-slate-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-slate-800 focus:ring-2 dark:bg-slate-700 dark:border-slate-600">
+                            <label for="remove-stop-words" class="text-sm font-medium text-slate-600 dark:text-slate-400 cursor-pointer">Trim Stop Words</label>
+                        </div>
+                    </div>
+
+                    <!-- Output Section -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">URL Slug</label>
+                        <div class="relative group">
+                            <div id="slug-output" class="w-full bg-slate-900 text-blue-400 rounded-2xl p-6 font-mono text-xl break-all min-h-[80px] border border-slate-800 flex items-center">
+                                slug-will-appear-here
+                            </div>
+                            <button id="copy-btn" class="absolute top-1/2 -translate-y-1/2 right-4 flex items-center gap-2 px-6 py-3 bg-white text-slate-900 rounded-xl hover:bg-slate-100 transition-all shadow-xl active:scale-95 group/btn">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span id="copy-text" class="font-bold">Copy Slug</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use Slug Generator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Paste Text</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Enter the title of your blog post or any text you want to convert into a URL.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Customize</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose your preferred separator, case, and filtering options like removing numbers.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Get Your Slug</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Instantly copy the generated slug to use in your website's permalink structure.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">SEO Friendly URLs</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                A clean URL structure is a vital part of Search Engine Optimization (SEO). Slugs that are readable and contain relevant keywords help search engines understand your content and improve your site's click-through rate.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Remove Special Characters</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Human-Readable Links</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Better Search Visibility</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative py-4 px-6 bg-blue-600/10 rounded-full border border-blue-500/20 text-blue-400 font-mono text-sm">
+                                example.com/how-to-optimize-urls
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Slug FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What are stop words?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Stop words are common words like "and", "the", "in", "of" that add little SEO value. Trimming them makes your slugs shorter and more focused on primary keywords.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Why use hyphens instead of underscores?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Google and other search engines treat hyphens as word separators, while underscores are often seen as part of a single word. Hyphens are generally better for SEO.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+            } else { 
+                html.classList.remove('dark');
+                document.getElementById('theme-icon').textContent = '🌙';
+            }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+            updateTheme();
+        });
+
+        // Slug Generator Logic
+        const slugInput = document.getElementById('slug-input');
+        const slugOutput = document.getElementById('slug-output');
+        const separatorSelect = document.getElementById('separator');
+        const caseSelect = document.getElementById('slug-case');
+        const removeNumbersCheck = document.getElementById('remove-numbers');
+        const removeStopWordsCheck = document.getElementById('remove-stop-words');
+
+        const stopWords = ['a', 'an', 'and', 'are', 'as', 'at', 'be', 'but', 'by', 'for', 'if', 'in', 'into', 'is', 'it', 'no', 'not', 'of', 'on', 'or', 'such', 'that', 'the', 'their', 'then', 'there', 'these', 'they', 'this', 'to', 'was', 'will', 'with'];
+
+        function generateSlug() {
+            let text = slugInput.value.trim();
+            if (!text) {
+                slugOutput.textContent = 'slug-will-appear-here';
+                slugOutput.classList.add('opacity-50');
+                return;
+            }
+            slugOutput.classList.remove('opacity-50');
+
+            // Handle Case
+            if (caseSelect.value === 'lowercase') text = text.toLowerCase();
+            if (caseSelect.value === 'uppercase') text = text.toUpperCase();
+
+            // Replace accented characters
+            text = text.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+
+            // Tokenize
+            let tokens = text.split(/\s+/);
+
+            // Filter tokens
+            tokens = tokens.map(token => {
+                let clean = token.replace(/[^a-zA-Z0-9]/g, '');
+                if (removeNumbersCheck.checked) clean = clean.replace(/[0-9]/g, '');
+                return clean;
+            }).filter(token => token.length > 0);
+
+            // Remove stop words
+            if (removeStopWordsCheck.checked) {
+                tokens = tokens.filter(token => !stopWords.includes(token.toLowerCase()));
+            }
+
+            const separator = separatorSelect.value;
+            slugOutput.textContent = tokens.join(separator);
+        }
+
+        [slugInput, separatorSelect, caseSelect, removeNumbersCheck, removeStopWordsCheck].forEach(el => {
+            el.addEventListener('input', generateSlug);
+        });
+
+        const copyBtn = document.getElementById('copy-btn');
+        const copyText = document.getElementById('copy-text');
+        copyBtn.addEventListener('click', () => {
+            const text = slugOutput.textContent;
+            if (text === 'slug-will-appear-here') return;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                copyText.textContent = 'Copied!';
+                setTimeout(() => { copyText.textContent = 'Copy Slug'; }, 2000);
+            });
+        });
+
+        // Initialize
+        generateSlug();
+    </script>
+</body>
+</html>
+

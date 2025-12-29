@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Card Generator - Optimize Your Tweets | WebUtilityKit</title>
+    <meta name="description" content="Create high-performance Twitter Card meta tags. Preview your tweets in real-time and ensure your content looks professional when shared on Twitter (X).">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Twitter Card Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Optimize your content for Twitter (X). Generate all required meta tags for beautiful, clickable tweet previews.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Panel: Form -->
+                <div class="space-y-6">
+                    <div class="p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+                            <span class="w-2 h-6 bg-sky-400 rounded-full"></span>
+                            Twitter Card Details
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Card Type</label>
+                                <select id="tw-card" class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-sky-500/20 transition-all text-slate-900 dark:text-white">
+                                    <option value="summary_large_image">Summary with Large Image</option>
+                                    <option value="summary">Summary Card</option>
+                                    <option value="app">App Card</option>
+                                    <option value="player">Player Card</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Twitter Handle (Creator)</label>
+                                <input type="text" id="tw-creator" placeholder="e.g. @WebUtilityKit" 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-sky-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Twitter Handle (Site)</label>
+                                <input type="text" id="tw-site" placeholder="e.g. @WebUtilityKit" 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-sky-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Title</label>
+                                <input type="text" id="tw-title" placeholder="e.g. Check out this new tool!" 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-sky-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Description</label>
+                                <textarea id="tw-description" rows="3" placeholder="A brief description for the tweet card..." 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-sky-500/20 transition-all text-slate-900 dark:text-white resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Image URL</label>
+                                <div class="space-y-3">
+                                    <div class="flex gap-2">
+                                        <input type="text" id="tw-image" placeholder="https://webutilitykit.com/assets/banner.jpg" 
+                                            class="flex-grow bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-sky-500/20 transition-all text-slate-900 dark:text-white">
+                                        <button id="upload-trigger" class="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        </button>
+                                        <input type="file" id="image-upload" accept="image/*" class="hidden">
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider self-center">Examples:</span>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-900/40 transition" 
+                                            data-url="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630">Tech</button>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-900/40 transition" 
+                                            data-url="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&h=630">Nature</button>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-sky-100 dark:hover:bg-sky-900/40 transition" 
+                                            data-url="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&h=630">Abstract</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Code & Preview -->
+                <div class="space-y-6 flex flex-col">
+                    <div class="p-8 bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 flex-grow min-w-0">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-bold text-white">Twitter Meta Tags</h2>
+                            <button id="copy-btn" class="flex items-center gap-2 px-4 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-xl transition-all shadow-lg active:scale-95 text-sm font-medium">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span>Copy Tags</span>
+                            </button>
+                        </div>
+                        <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
+                            <pre id="code-output" class="block w-full p-6 font-mono text-sm whitespace-pre-wrap break-all min-h-[300px] outline-none" style="color: #38bdf8 !important;"></pre>
+                        </div>
+                    </div>
+
+                    <div class="p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-lg font-bold mb-4 text-slate-900 dark:text-white">Twitter Preview</h2>
+                        <div id="preview-container" class="bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden max-w-md mx-auto transition-all">
+                            <!-- Large Image Layout -->
+                            <div id="layout-large" class="flex flex-col">
+                                <div class="aspect-video bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                    <img id="preview-image-large" src="" alt="Twitter Preview" class="w-full h-full object-cover hidden">
+                                    <svg id="placeholder-large" class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="p-4 space-y-1">
+                                    <div class="text-[12px] text-slate-500 flex items-center gap-1">
+                                        <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                                        <span id="preview-url">webutilitykit.com</span>
+                                    </div>
+                                    <div id="preview-title-large" class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">Post Title Preview</div>
+                                    <div id="preview-desc-large" class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-tight">This is how your description will look on Twitter (X).</div>
+                                </div>
+                            </div>
+                            <!-- Small Summary Layout -->
+                            <div id="layout-summary" class="hidden flex items-center p-3 gap-4 h-32">
+                                <div class="w-24 h-24 flex-shrink-0 bg-slate-200 dark:bg-slate-800 rounded-lg flex items-center justify-center overflow-hidden">
+                                    <img id="preview-image-summary" src="" alt="Twitter Preview" class="w-full h-full object-cover hidden">
+                                    <svg id="placeholder-summary" class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <div class="flex-grow min-w-0 space-y-1">
+                                    <div class="text-[11px] text-slate-500">webutilitykit.com</div>
+                                    <div id="preview-title-summary" class="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">Post Title Preview</div>
+                                    <div id="preview-desc-summary" class="text-[13px] text-slate-600 dark:text-slate-400 line-clamp-2 leading-tight">This is how your description will look on Twitter (X).</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use Twitter Card Generator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-500 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Pick Card Type</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose between "Summary with Large Image" for visual impact or a standard "Summary" card.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-500 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Fill in Content</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Add your Twitter handle, title, description, and a compelling image URL.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-500 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Insert Tags</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Copy the generated meta tags and paste them into your website's <code>&lt;head&gt;</code> section.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Tweet Like a Pro</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Twitter Cards allow you to attach rich photos, videos, and media experiences to Tweets, helping to drive traffic to your website. With professional card previews, your links become interactive billboards on the timeline.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">Increase Engagement & Shares</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">Custom Brand Attribution</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">Real-time Visual Feedback</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 w-full max-w-sm">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-8 h-8 bg-sky-500 rounded-full flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+                                    </div>
+                                    <div class="h-3 w-24 bg-white/20 rounded"></div>
+                                </div>
+                                <div class="h-32 w-full bg-white/10 rounded-lg mb-3"></div>
+                                <div class="h-4 w-3/4 bg-white/20 rounded mb-2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Twitter Card FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is "Summary with Large Image"?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                This card type features a large, full-width prominent image along side a title and description. It's designed to give the reader a rich photo experience, and clicking the image will take the user to your website.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How do I test my Twitter Cards?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Once you've added the tags to your site, you can use the official <strong>Twitter Card Validator</strong> tool to preview your card and ensure all tags are working correctly.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+            } else { 
+                html.classList.remove('dark');
+                document.getElementById('theme-icon').textContent = '🌙';
+            }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+            updateTheme();
+        });
+
+        // Twitter Card Logic
+        const inputs = ['tw-card', 'tw-creator', 'tw-site', 'tw-title', 'tw-description', 'tw-image'];
+        const imageUpload = document.getElementById('image-upload');
+        const uploadTrigger = document.getElementById('upload-trigger');
+        const exampleBtns = document.querySelectorAll('.example-img');
+
+        let localImageObjectURL = null;
+
+        function updateGenerator() {
+            const data = {};
+            inputs.forEach(id => {
+                data[id] = document.getElementById(id).value;
+            });
+
+            // Update Preview
+            const layoutLarge = document.getElementById('layout-large');
+            const layoutSummary = document.getElementById('layout-summary');
+            
+            const imageToShow = localImageObjectURL || data['tw-image'];
+
+            if (data['tw-card'] === 'summary_large_image' || data['tw-card'] === 'player') {
+                layoutLarge.classList.remove('hidden');
+                layoutSummary.classList.add('hidden');
+                document.getElementById('preview-title-large').textContent = data['tw-title'] || 'Post Title Preview';
+                document.getElementById('preview-desc-large').textContent = data['tw-description'] || 'This is how your description will look on Twitter (X).';
+                
+                const img = document.getElementById('preview-image-large');
+                const placeholder = document.getElementById('placeholder-large');
+                if (imageToShow) {
+                    img.src = imageToShow;
+                    img.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                } else {
+                    img.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                }
+            } else {
+                layoutLarge.classList.add('hidden');
+                layoutSummary.classList.remove('hidden');
+                document.getElementById('preview-title-summary').textContent = data['tw-title'] || 'Post Title Preview';
+                document.getElementById('preview-desc-summary').textContent = data['tw-description'] || 'This is how your description will look on Twitter (X).';
+                
+                const img = document.getElementById('preview-image-summary');
+                const placeholder = document.getElementById('placeholder-summary');
+                if (imageToShow) {
+                    img.src = imageToShow;
+                    img.classList.remove('hidden');
+                    placeholder.classList.add('hidden');
+                } else {
+                    img.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                }
+            }
+
+            // Generate Code
+            let htmlCode = `<!-- Twitter Card Tags -->\n`;
+            htmlCode += `<meta name="twitter:card" content="${data['tw-card']}">\n`;
+            if (data['tw-site']) htmlCode += `<meta name="twitter:site" content="${escapeHtml(data['tw-site'])}">\n`;
+            if (data['tw-creator']) htmlCode += `<meta name="twitter:creator" content="${escapeHtml(data['tw-creator'])}">\n`;
+            htmlCode += `<meta name="twitter:title" content="${escapeHtml(data['tw-title'])}">\n`;
+            htmlCode += `<meta name="twitter:description" content="${escapeHtml(data['tw-description'])}">\n`;
+            
+            const tagImageUrl = data['tw-image'] || (localImageObjectURL ? 'https://yourdomain.com/path-to-image.jpg' : '');
+            if (tagImageUrl) htmlCode += `<meta name="twitter:image" content="${escapeHtml(tagImageUrl)}">\n`;
+
+            document.getElementById('code-output').textContent = htmlCode;
+        }
+
+        uploadTrigger.addEventListener('click', () => imageUpload.click());
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (localImageObjectURL) URL.revokeObjectURL(localImageObjectURL);
+                localImageObjectURL = URL.createObjectURL(file);
+                document.getElementById('tw-image').value = '';
+                updateGenerator();
+            }
+        });
+
+        exampleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const url = btn.getAttribute('data-url');
+                document.getElementById('tw-image').value = url;
+                if (localImageObjectURL) {
+                    URL.revokeObjectURL(localImageObjectURL);
+                    localImageObjectURL = null;
+                }
+                updateGenerator();
+            });
+        });
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateGenerator);
+        });
+
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.addEventListener('click', () => {
+            const code = document.getElementById('code-output').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const span = copyBtn.querySelector('span');
+                const originalText = span.textContent;
+                span.textContent = 'Copied!';
+                setTimeout(() => { span.textContent = originalText; }, 2000);
+            });
+        });
+
+        // Initialize
+        const randomExample = exampleBtns[Math.floor(Math.random() * exampleBtns.length)];
+        if (randomExample) {
+            document.getElementById('tw-image').value = randomExample.getAttribute('data-url');
+        }
+        updateGenerator();
+    </script>
+</body>
+</html>
+

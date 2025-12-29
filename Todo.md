@@ -30,9 +30,9 @@
 14. **Meme Generator** (`meme-generator`)[done]
 15. **Watermark Maker** (`add-watermark`)[done]
 16. **Photo Blur Tool** (`blur-image`)[done]
-  17. **Grayscale Image Converter** (`grayscale-image`)[done]
-    18. **Flip Image** (`flip-image`)[done]
-  19. **Rotate Image** (`rotate-image`)[done]
+17. **Grayscale Image Converter** (`grayscale-image`)[done]
+18. **Flip Image** (`flip-image`)[done]
+19. **Rotate Image** (`rotate-image`)[done]
 20. **GIF to MP4** (`gif-to-mp4`) - *需使用 ffmpeg.wasm，稍难但可行*
 
 ### 第二类：开发者与 Web 工具 (高粘性/高 CPM)
@@ -44,26 +44,22 @@
 23. **CSV to JSON** (`csv-to-json`)[done] ✅
 24. **XML Formatter** (`xml-formatter`)[done] ✅
 25. **SQL Formatter** (`sql-formatter`)[done]
-26. **CSS Minifier** (`css-minifier`)
-27. **JavaScript Minifier** (`js-minifier`)
-28. **HTML Beautifier** (`html-beautifier`)
-29. **URL Encoder/Decoder** (`url-encoder-decoder`)
-30. **Base64 String Encoder** (`base64-encoder`)
-31. **MD5 Hash Generator** (`md5-generator`)
-32. **SHA-256 Hash Generator** (`sha256-generator`)
-33. **UUID/GUID Generator** (`uuid-generator`)
-34. **QR Code Generator** (`qr-code-generator`) - *必须支持自定义颜色/Logo*
-35. **User Agent Parser** (`user-agent-parser`)
-36. **What Is My IP** (`what-is-my-ip`) - *调用免费公网 IP API*
-37. **Cron Expression Generator** (`cron-generator`)
-38. **Regex Tester** (`regex-tester`) - *简单的正则匹配测试*
-39. **Lorem Ipsum Generator** (`lorem-ipsum`)
-40. **Meta Tag Generator** (`meta-tag-generator`)
-41. **Open Graph Generator** (`open-graph-generator`)
-42. **Twitter Card Generator** (`twitter-card-generator`)
-43. **Slug Generator** (`slug-generator`)
-44. **Htpasswd Generator** (`htpasswd-generator`)
-45. **Markdown to HTML** (`markdown-to-html`)
+29. **URL Encoder/Decoder** (`url-encoder-decoder`)[done]
+30. **Base64 String Encoder** (`base64-encoder`)[done]
+31. **MD5 Hash Generator** (`md5-generator`)[done]
+32. **SHA-256 Hash Generator** (`sha256-generator`)[done]
+33. **UUID/GUID Generator** (`uuid-generator`)[done]
+34. **QR Code Generator** (`qr-code-generator`) - *必须支持自定义颜色/Logo*[done]
+35. **User Agent Parser** (`user-agent-parser`)[done]
+36. **What Is My IP** (`what-is-my-ip`) - *调用免费公网 IP API*[done]
+37. **Cron Expression Generator** (`cron-generator`)[done]
+38. **Regex Tester** (`regex-tester`) - *简单的正则匹配测试*[done]
+39. **Lorem Ipsum Generator** (`lorem-ipsum`)[done]
+40. **Meta Tag Generator** (`meta-tag-generator`)[done]
+41. **Open Graph Generator** (`open-graph-generator`)[done]
+42. **Twitter Card Generator** (`twitter-card-generator`)[done]
+43. **Slug Generator** (`slug-generator`)[done]
+45. **Markdown to HTML** (`markdown-to-html`)[done]
 
 ### 第三类：文本与字符串工具 (长尾关键词丰富)
 
@@ -82,8 +78,6 @@
 56. **Emoji Picker** (`emoji-picker`)[done]
 57. **Upside Down Text** (`upside-down-text`)[done]
 58. **Small Text Generator** (`small-text-generator`)[done]
-59. **Invisible Character** (`invisible-character`) - *复制空白字符*
-60. **Random Word Generator** (`random-word-generator`)
 
 ### 第四类：生活与计算器 (刚需)
 
@@ -127,19 +121,19 @@
 88. **Random Number Generator** (`random-number-generator`)[done]
 89. **Coin Flipper** (`coin-flipper`)[dones]
 90. **Dice Roller** (`dice-roller`)[done]
-91. **Yes or No Oracle** (`yes-no-oracle`)
-92. **Wheel of Names** (`wheel-of-names`) - *转盘决定*
-93. **Rock Paper Scissors** (`rock-paper-scissors`)
-94. **List Randomizer** (`list-randomizer`)
-95. **Credit Card Validator** (`credit-card-validator`) - *验证 Luhn 算法，不存数据*
+91. **Yes or No Oracle** (`yes-no-oracle`)[done]
+92. **Wheel of Names** (`wheel-of-names`) - *转盘决定*[done]
+93. **Rock Paper Scissors** (`rock-paper-scissors`)[done]
+94. **List Randomizer** (`list-randomizer`)[done]
+95. **Credit Card Validator** (`credit-card-validator`) - *验证 Luhn 算法，不存数据*[done]
 
 ### 第七类：单位转换 (量大管饱)
 
-96. **Length Converter** (`length-converter`)
-97. **Weight Converter** (`weight-converter`)
-98. **Temperature Converter** (`temperature-converter`)
-99. **Digital Storage Converter** (`data-unit-converter`)
-100. **Speed Converter** (`speed-converter`)
+96. **Length Converter** (`length-converter`)[done]
+97. **Weight Converter** (`weight-converter`)[done]
+98. **Temperature Converter** (`temperature-converter`)[done]
+99. **Digital Storage Converter** (`data-unit-converter`)[done]
+100. **Speed Converter** (`speed-converter`)[done]
 
 ---
 

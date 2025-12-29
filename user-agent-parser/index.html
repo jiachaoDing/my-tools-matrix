@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Agent Parser - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Instant User Agent parser to identify browser, OS, engine, and device details locally.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">User Agent Parser</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Analyze any User Agent string to extract detailed information about the browser, operating system, and hardware device.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                <!-- Input Panel -->
+                <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm flex flex-col h-full border border-slate-100 dark:border-slate-700/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <label class="text-sm font-bold text-slate-400 uppercase tracking-wider">User Agent String</label>
+                        <button id="use-my-ua" class="text-xs font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300 flex items-center gap-1 transition-colors">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Use My Current UA
+                        </button>
+                    </div>
+                    <textarea id="ua-input" 
+                        class="flex-1 w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-2xl p-6 text-lg font-mono text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 resize-none min-h-[240px] transition-all"
+                        placeholder="Paste User Agent string here..."></textarea>
+                    <div class="mt-6 flex gap-4">
+                        <button id="parse-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98]">
+                            Parse User Agent
+                        </button>
+                        <button id="clear-btn" class="px-6 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">
+                            Clear
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Panel -->
+                <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm flex flex-col h-full border border-slate-100 dark:border-slate-700/50">
+                    <label class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6">Parsed Information</label>
+                    <div id="results-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
+                        <!-- Result Items -->
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50 group hover:border-blue-500/30 transition-all">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">Browser</div>
+                            <div id="res-browser" class="text-xl font-bold text-slate-900 dark:text-white">-</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50 group hover:border-blue-500/30 transition-all">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">Operating System</div>
+                            <div id="res-os" class="text-xl font-bold text-slate-900 dark:text-white">-</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50 group hover:border-blue-500/30 transition-all">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">Device Type</div>
+                            <div id="res-device" class="text-xl font-bold text-slate-900 dark:text-white">-</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50 group hover:border-blue-500/30 transition-all">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">Engine</div>
+                            <div id="res-engine" class="text-xl font-bold text-slate-900 dark:text-white">-</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50 group hover:border-blue-500/30 transition-all col-span-full">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">CPU Architecture</div>
+                            <div id="res-cpu" class="text-lg font-semibold text-slate-700 dark:text-slate-300">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use User Agent Parser</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Input UA</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Paste any User Agent string or click "Use My Current UA" to analyze your own browser.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Analyze</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Our algorithm scans the string for browser versions, OS details, and device patterns.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">View Details</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Instant results appear in the output panel, identifying the exact software and hardware.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Common Use Cases</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Web Development</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Debug cross-browser issues by identifying exactly which browser and version a user is using.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy Check</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">See exactly what information your browser reveals to websites you visit.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">User Agent FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is a User Agent?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                A User Agent is a string of text that your browser sends to every website you visit. it tells the website which browser you're using, your operating system, and other technical details so the site can display correctly.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is this parser safe to use?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes, completely. The parsing happens entirely in your browser using JavaScript. No data is sent to our servers, ensuring your privacy.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // Parser Logic
+        const uaInput = document.getElementById('ua-input');
+        const parseBtn = document.getElementById('parse-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const useMyUaBtn = document.getElementById('use-my-ua');
+
+        const results = {
+            browser: document.getElementById('res-browser'),
+            os: document.getElementById('res-os'),
+            device: document.getElementById('res-device'),
+            engine: document.getElementById('res-engine'),
+            cpu: document.getElementById('res-cpu')
+        };
+
+        function parseUA(ua) {
+            if (!ua) return;
+
+            // Simple Regex based parsing
+            let browser = "Unknown Browser";
+            let os = "Unknown OS";
+            let device = "Desktop";
+            let engine = "Unknown Engine";
+            let cpu = "Unknown CPU";
+
+            // Browser
+            if (ua.includes("Firefox/")) browser = "Firefox";
+            else if (ua.includes("Edg/")) browser = "Edge";
+            else if (ua.includes("Chrome/")) browser = "Chrome";
+            else if (ua.includes("Safari/")) browser = "Safari";
+            else if (ua.includes("MSIE") || ua.includes("Trident/")) browser = "Internet Explorer";
+            else if (ua.includes("Opera") || ua.includes("OPR/")) browser = "Opera";
+
+            // OS
+            if (ua.includes("Windows")) os = "Windows";
+            else if (ua.includes("Mac OS X")) os = "macOS";
+            else if (ua.includes("Android")) os = "Android";
+            else if (ua.includes("iPhone") || ua.includes("iPad")) os = "iOS";
+            else if (ua.includes("Linux")) os = "Linux";
+
+            // Device
+            if (ua.includes("Mobile")) device = "Mobile";
+            else if (ua.includes("iPad") || (ua.includes("Macintosh") && navigator.maxTouchPoints > 0)) device = "Tablet";
+
+            // Engine
+            if (ua.includes("AppleWebKit")) engine = "WebKit";
+            else if (ua.includes("Gecko") && !ua.includes("KHTML")) engine = "Gecko";
+            else if (ua.includes("Trident")) engine = "Trident";
+            else if (ua.includes("Presto")) engine = "Presto";
+
+            // CPU
+            if (ua.includes("x86_64") || ua.includes("Win64") || ua.includes("x64")) cpu = "x64 (64-bit)";
+            else if (ua.includes("arm64") || ua.includes("aarch64")) cpu = "ARM64";
+            else if (ua.includes("i686") || ua.includes("i386")) cpu = "x86 (32-bit)";
+
+            results.browser.textContent = browser;
+            results.os.textContent = os;
+            results.device.textContent = device;
+            results.engine.textContent = engine;
+            results.cpu.textContent = cpu;
+        }
+
+        parseBtn.addEventListener('click', () => parseUA(uaInput.value));
+        clearBtn.addEventListener('click', () => {
+            uaInput.value = '';
+            Object.values(results).forEach(el => el.textContent = '-');
+        });
+        useMyUaBtn.addEventListener('click', () => {
+            const originalContent = useMyUaBtn.innerHTML;
+            uaInput.value = navigator.userAgent;
+            parseUA(navigator.userAgent);
+            
+            // Visual feedback
+            useMyUaBtn.innerHTML = `
+                <svg class="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Loaded
+            `;
+            setTimeout(() => {
+                useMyUaBtn.innerHTML = originalContent;
+            }, 1500);
+        });
+
+        // Initialize with current UA
+        uaInput.value = navigator.userAgent;
+        parseUA(navigator.userAgent);
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Graph Generator - Create Rich Social Previews | WebUtilityKit</title>
+    <meta name="description" content="Generate high-quality Open Graph meta tags for Facebook, LinkedIn, and Discord. Preview your social cards in real-time and improve your website's social media appearance.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Open Graph Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Create beautiful social media previews. Generate Open Graph tags for Facebook, LinkedIn, Discord, and more.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Panel: Form -->
+                <div class="space-y-6">
+                    <div class="p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+                            <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                            Open Graph Details
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Title</label>
+                                <input type="text" id="og-title" placeholder="e.g. WebUtilityKit - 100+ Free Tools" 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Description</label>
+                                <textarea id="og-description" rows="3" placeholder="A brief description for social sharing..." 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Site Name</label>
+                                <input type="text" id="og-sitename" placeholder="e.g. WebUtilityKit" 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">URL</label>
+                                <input type="text" id="og-url" placeholder="https://webutilitykit.com" 
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Image URL</label>
+                                <div class="space-y-3">
+                                    <div class="flex gap-2">
+                                        <input type="text" id="og-image" placeholder="https://webutilitykit.com/assets/banner.jpg" 
+                                            class="flex-grow bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                                        <button id="upload-trigger" class="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        </button>
+                                        <input type="file" id="image-upload" accept="image/*" class="hidden">
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider self-center">Examples:</span>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" 
+                                            data-url="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630">Tech</button>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" 
+                                            data-url="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&h=630">Nature</button>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition" 
+                                            data-url="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&h=630">Abstract</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Type</label>
+                                <select id="og-type" class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                                    <option value="website">Website</option>
+                                    <option value="article">Article</option>
+                                    <option value="book">Book</option>
+                                    <option value="profile">Profile</option>
+                                    <option value="music.song">Music Song</option>
+                                    <option value="video.movie">Video Movie</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Code & Preview -->
+                <div class="space-y-6 flex flex-col">
+                    <div class="p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-lg font-bold mb-4 text-slate-900 dark:text-white">Social Preview</h2>
+                        <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden max-w-md mx-auto">
+                            <div id="preview-image-container" class="aspect-video bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                <img id="preview-image" src="" alt="Social Preview" class="w-full h-full object-cover hidden">
+                                <svg id="preview-placeholder" class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <div id="preview-sitename" class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">WEBSITE NAME</div>
+                                <div id="preview-title" class="text-lg font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">Post Title Preview</div>
+                                <div id="preview-description" class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">This is how your description will look on Facebook and other social platforms.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 flex-grow min-w-0">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-bold text-white">Open Graph Tags</h2>
+                            <button id="copy-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all shadow-lg active:scale-95 text-sm font-medium">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span>Copy Tags</span>
+                            </button>
+                        </div>
+                        <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
+                            <pre id="code-output" class="block w-full p-6 font-mono text-sm whitespace-pre-wrap break-all min-h-[300px] outline-none" style="color: #60a5fa !important;"></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use Open Graph Generator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Add Metadata</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Provide your site name, page title, and a compelling description for social shares.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Include Image</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Add an image URL (ideally 1200x630px) to make your social cards stand out visually.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Copy Code</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Copy the generated <code>&lt;meta&gt;</code> tags and paste them into your HTML head.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Social Media Optimization</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Open Graph meta tags allow you to control how your content looks when shared on social media. Without them, platforms might pick a random image or a generic description, potentially hurting your click-through rates.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Better CTR on Social Platforms</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Consistent Brand Appearance</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">Rich Media Sharing Previews</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 w-full max-w-sm">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full"></div>
+                                    <div class="h-3 w-24 bg-white/20 rounded"></div>
+                                </div>
+                                <div class="h-40 w-full bg-white/10 rounded-lg mb-3"></div>
+                                <div class="h-4 w-3/4 bg-white/20 rounded mb-2"></div>
+                                <div class="h-3 w-1/2 bg-white/10 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key OG Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Live Preview</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Visualize your social card instantly as you edit. Ensure your images and text align perfectly.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Client-Side Only</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your data stays on your machine. We never store or track the URLs and metadata you generate.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Open Graph FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is the ideal OG image size?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                The recommended size is <strong>1200 x 630 pixels</strong> for the best quality across Facebook, LinkedIn, and Discord. The minimum size is 600 x 315 pixels.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Which platforms use Open Graph?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Facebook, LinkedIn, Discord, Slack, and WhatsApp primarily use Open Graph. Twitter also supports OG tags if its own Twitter Card tags are missing.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Logic
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+            } else { 
+                html.classList.remove('dark');
+                document.getElementById('theme-icon').textContent = '🌙';
+            }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+            updateTheme();
+        });
+
+        // OG Generator Logic
+        const inputs = ['og-title', 'og-description', 'og-sitename', 'og-url', 'og-image', 'og-type'];
+        const imageUpload = document.getElementById('image-upload');
+        const uploadTrigger = document.getElementById('upload-trigger');
+        const exampleBtns = document.querySelectorAll('.example-img');
+
+        let localImageObjectURL = null;
+
+        function updateGenerator() {
+            const data = {};
+            inputs.forEach(id => {
+                data[id] = document.getElementById(id).value;
+            });
+
+            // Update Preview
+            document.getElementById('preview-title').textContent = data['og-title'] || 'Post Title Preview';
+            document.getElementById('preview-description').textContent = data['og-description'] || 'This is how your description will look on Facebook and other social platforms.';
+            document.getElementById('preview-sitename').textContent = (data['og-sitename'] || 'WEBSITE NAME').toUpperCase();
+            
+            const img = document.getElementById('preview-image');
+            const placeholder = document.getElementById('preview-placeholder');
+            
+            const imageToShow = localImageObjectURL || data['og-image'];
+            
+            if (imageToShow) {
+                img.src = imageToShow;
+                img.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            } else {
+                img.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+            }
+
+            // Generate Tags
+            let htmlCode = `<!-- Open Graph / Facebook -->\n`;
+            htmlCode += `<meta property="og:type" content="${data['og-type']}">\n`;
+            htmlCode += `<meta property="og:url" content="${escapeHtml(data['og-url'])}">\n`;
+            htmlCode += `<meta property="og:title" content="${escapeHtml(data['og-title'])}">\n`;
+            htmlCode += `<meta property="og:description" content="${escapeHtml(data['og-description'])}">\n`;
+            
+            // If we have a local upload but no URL, suggest a placeholder
+            const tagImageUrl = data['og-image'] || (localImageObjectURL ? 'https://yourdomain.com/path-to-image.jpg' : '');
+            htmlCode += `<meta property="og:image" content="${escapeHtml(tagImageUrl)}">\n`;
+            
+            if (data['og-sitename']) htmlCode += `<meta property="og:site_name" content="${escapeHtml(data['og-sitename'])}">\n`;
+
+            document.getElementById('code-output').textContent = htmlCode;
+        }
+
+        uploadTrigger.addEventListener('click', () => imageUpload.click());
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (localImageObjectURL) URL.revokeObjectURL(localImageObjectURL);
+                localImageObjectURL = URL.createObjectURL(file);
+                // Clear URL input when uploading
+                document.getElementById('og-image').value = '';
+                updateGenerator();
+            }
+        });
+
+        exampleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const url = btn.getAttribute('data-url');
+                document.getElementById('og-image').value = url;
+                if (localImageObjectURL) {
+                    URL.revokeObjectURL(localImageObjectURL);
+                    localImageObjectURL = null;
+                }
+                updateGenerator();
+            });
+        });
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateGenerator);
+        });
+
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.addEventListener('click', () => {
+            const code = document.getElementById('code-output').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const span = copyBtn.querySelector('span');
+                const originalText = span.textContent;
+                span.textContent = 'Copied!';
+                setTimeout(() => { span.textContent = originalText; }, 2000);
+            });
+        });
+
+        // Initialize
+        const randomExample = exampleBtns[Math.floor(Math.random() * exampleBtns.length)];
+        if (randomExample) {
+            document.getElementById('og-image').value = randomExample.getAttribute('data-url');
+        }
+        updateGenerator();
+    </script>
+</body>
+</html>
+
