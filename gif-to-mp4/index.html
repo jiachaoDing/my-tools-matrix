@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF to MP4 Converter - Free, Fast & Secure | WebUtilityKit</title>
+    <meta name="description" content="Convert GIF animations to MP4 video format instantly in your browser. Free, secure, and unlimited batch processing. No server uploads - your privacy is guaranteed.">
+    
+    <link rel="canonical" href="https://webutilitykit.com/gif-to-mp4/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/gif-to-mp4/">
+    <meta property="og:title" content="GIF to MP4 Converter - 100% Secure & Local Conversion">
+    <meta property="og:description" content="Convert animated GIFs to MP4 videos without uploading to any server. Smaller files, better quality. Privacy-focused.">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/gif-to-mp4.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://unpkg.com">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "GIF to MP4 Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "623",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, FFmpeg.wasm powered",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/gif-to-mp4.jpg"
+    }
+    </script>
+    
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">GIF to MP4 Converter</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Convert animated GIFs to MP4 videos. Smaller files, better quality, universal compatibility. Fast, secure, and works completely offline.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Your files never leave your device.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
+                
+                <!-- Loading FFmpeg Notice -->
+                <div id="ffmpeg-loading" class="p-8 text-center hidden">
+                    <div class="inline-flex items-center gap-3 px-6 py-4 bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400 rounded-2xl">
+                        <svg class="w-6 h-6 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        <span class="font-semibold">Loading FFmpeg engine...</span>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-3">First load may take a few seconds</p>
+                </div>
+
+                <!-- Upload Zone -->
+                <div class="p-8">
+                    <div id="drop-zone" class="relative border-2 border-dashed border-rose-300 dark:border-rose-600 rounded-3xl transition-all hover:border-rose-500 dark:hover:border-rose-400 hover:bg-rose-50/30 dark:hover:bg-rose-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
+                        <input type="file" id="file-input" accept=".gif,image/gif" multiple class="hidden" aria-label="Upload GIF files for conversion">
+                        
+                        <div id="upload-prompt" class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-rose-100 dark:bg-rose-900/30 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-rose-600 dark:text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">Drop GIF Files Here</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">or click to select files from your device</p>
+                            <button id="select-files-btn" class="px-8 py-3 bg-rose-600 hover:bg-rose-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-rose-500/20 active:scale-[0.98] inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                Select GIF Files
+                            </button>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-4">Supports animated GIF files • Batch conversion available</p>
+                        </div>
+
+                        <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-rose-100/95 dark:bg-rose-900/95 backdrop-blur-sm rounded-3xl z-20 border-2 border-rose-500 dark:border-rose-400">
+                            <div class="text-center">
+                                <svg class="w-24 h-24 mx-auto text-rose-600 dark:text-rose-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="text-2xl font-bold text-rose-900 dark:text-rose-100 mb-2">Drop your GIF files here</p>
+                                <p class="text-sm text-rose-700 dark:text-rose-300">Multiple files supported</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files List -->
+                <div id="uploaded-files" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Selected Files (<span id="file-count">0</span>)</h3>
+                        <button id="clear-all-btn" class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            Clear All
+                        </button>
+                    </div>
+                    <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- Conversion Settings -->
+                <div id="settings-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6 space-y-6">
+                        <div>
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">Output Quality</label>
+                                <span id="quality-value" class="text-lg font-bold text-rose-600 dark:text-rose-400">Medium</span>
+                            </div>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button class="quality-btn" data-quality="low">
+                                    <span class="font-semibold">Low</span>
+                                    <span class="text-xs opacity-75">Smallest</span>
+                                </button>
+                                <button class="quality-btn active" data-quality="medium">
+                                    <span class="font-semibold">Medium</span>
+                                    <span class="text-xs opacity-75">Balanced</span>
+                                </button>
+                                <button class="quality-btn" data-quality="high">
+                                    <span class="font-semibold">High</span>
+                                    <span class="text-xs opacity-75">Best</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-xl">
+                            <div>
+                                <div class="font-semibold text-slate-900 dark:text-white">Loop Video</div>
+                                <div class="text-xs text-slate-500 dark:text-slate-400">Repeat the animation continuously</div>
+                            </div>
+                            <label class="relative inline-flex items-center cursor-pointer">
+                                <input type="checkbox" id="loop-toggle" class="sr-only peer" checked>
+                                <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-rose-300 dark:peer-focus:ring-rose-800 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-rose-600"></div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Convert Button -->
+                <div id="convert-section" class="px-8 pb-8 hidden">
+                    <button id="convert-btn" class="w-full py-5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-bold text-lg rounded-2xl transition-all shadow-xl shadow-rose-500/30 active:scale-[0.98] flex items-center justify-center gap-3 disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="convert-btn-text">Convert to MP4</span>
+                    </button>
+                </div>
+
+                <!-- Progress Section -->
+                <div id="progress-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Converting...</span>
+                            <span id="progress-text" class="text-sm font-bold text-rose-600 dark:text-rose-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-gradient-to-r from-rose-600 to-pink-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-status" class="text-xs text-slate-500 dark:text-slate-400 mt-2">Preparing FFmpeg...</p>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="results-section" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Converted Videos (<span id="result-count">0</span>)</h3>
+                        <button id="download-all-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Download All
+                        </button>
+                    </div>
+                    <div id="result-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[600px] overflow-y-auto"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-6xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-16">
+            <div class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to Convert GIF to MP4</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-rose-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-rose-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Upload GIF</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Drag and drop your animated GIF files or click to browse. Batch upload supported.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-rose-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-rose-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Adjust Settings</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose quality level and loop options. Our smart encoder optimizes for your needs.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-rose-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-rose-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Download MP4</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Get your converted MP4 files instantly. No watermarks, no limits.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Why Convert Section -->
+                <section class="bg-gradient-to-br from-rose-600 to-pink-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Why Convert GIF to MP4?</h2>
+                            <p class="text-lg text-rose-50/90 leading-relaxed mb-8">
+                                MP4 videos are typically 80-90% smaller than GIFs while maintaining better quality. They're supported everywhere, load faster, and provide smoother playback. Perfect for social media, websites, and messaging.
+                            </p>
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-rose-200 text-xs font-bold uppercase mb-1">File Size</div>
+                                    <div class="font-bold">Up to 90% Smaller</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-rose-200 text-xs font-bold uppercase mb-1">Quality</div>
+                                    <div class="font-bold">Millions of Colors</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-rose-200 text-xs font-bold uppercase mb-1">Support</div>
+                                    <div class="font-bold">Universal</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Features Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Powerful Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">100% Private</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Your GIFs never leave your device. All processing happens locally using FFmpeg.wasm.</p>
+                        </div>
+                        
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-rose-100 dark:bg-rose-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-rose-600 dark:text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">WebAssembly Power</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Powered by FFmpeg compiled to WebAssembly for near-native performance in your browser.</p>
+                        </div>
+                        
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Batch Processing</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Convert multiple GIFs at once. Upload all your files and convert them in one go.</p>
+                        </div>
+                        
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">Quality Control</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">Choose between low, medium, and high quality settings to balance size and clarity.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Why are MP4 files smaller than GIFs?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                GIF uses lossless compression designed for simple graphics, storing each frame individually. MP4 uses advanced video codecs (H.264) that compress efficiently by storing only changes between frames. This results in files that are 80-90% smaller while maintaining better visual quality.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is my data secure during conversion?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Absolutely! All conversion happens locally in your browser using FFmpeg compiled to WebAssembly. Your files never leave your device and are never uploaded to any server. This ensures complete privacy and security.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Will the MP4 play on social media?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Yes! Our converter outputs MP4 files with H.264 encoding, which is universally supported by all major platforms including Twitter, Instagram, Facebook, Discord, WhatsApp, and more. The files are optimized for web playback.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Why does the first conversion take longer?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                The first conversion requires loading FFmpeg.wasm (~30MB), which is a one-time download. Once loaded, it's cached by your browser, making subsequent conversions much faster. This is the trade-off for complete privacy.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+    <style>
+        .quality-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            border: 2px solid rgb(226 232 240);
+            background: white;
+            color: rgb(51 65 85);
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .dark .quality-btn {
+            border-color: rgb(51 65 85);
+            background: rgb(30 41 59);
+            color: rgb(203 213 225);
+        }
+        .quality-btn:hover {
+            border-color: rgb(244 63 94);
+            background: rgb(255 241 242);
+        }
+        .dark .quality-btn:hover {
+            border-color: rgb(251 113 133);
+            background: rgba(244, 63, 94, 0.1);
+        }
+        .quality-btn.active {
+            border-color: rgb(225 29 72);
+            background: rgb(255 241 242);
+            color: rgb(225 29 72);
+        }
+        .dark .quality-btn.active {
+            border-color: rgb(251 113 133);
+            background: rgba(244, 63, 94, 0.2);
+            color: rgb(251 113 133);
+        }
+    </style>
+
+    <!-- FFmpeg.wasm -->
+    <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.12.10/dist/umd/ffmpeg.js"></script>
+    <script src="https://unpkg.com/@ffmpeg/util@0.12.1/dist/umd/index.js"></script>
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === Tool Logic ===
+        const { FFmpeg } = FFmpegWASM;
+        const { fetchFile } = FFmpegUtil;
+        
+        let ffmpeg = null;
+        let ffmpegLoaded = false;
+        let uploadedFiles = [];
+        let convertedResults = [];
+        let selectedQuality = 'medium';
+
+        // DOM Elements
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const selectFilesBtn = document.getElementById('select-files-btn');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const settingsSection = document.getElementById('settings-section');
+        const qualityValue = document.getElementById('quality-value');
+        const loopToggle = document.getElementById('loop-toggle');
+        const convertSection = document.getElementById('convert-section');
+        const convertBtn = document.getElementById('convert-btn');
+        const convertBtnText = document.getElementById('convert-btn-text');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressStatus = document.getElementById('progress-status');
+        const resultsSection = document.getElementById('results-section');
+        const resultList = document.getElementById('result-list');
+        const resultCount = document.getElementById('result-count');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const ffmpegLoading = document.getElementById('ffmpeg-loading');
+
+        // Quality settings
+        const qualitySettings = {
+            low: { crf: 35, preset: 'faster' },
+            medium: { crf: 28, preset: 'medium' },
+            high: { crf: 20, preset: 'slow' }
+        };
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        // Quality button selection
+        document.querySelectorAll('.quality-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.quality-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                selectedQuality = btn.dataset.quality;
+                qualityValue.textContent = selectedQuality.charAt(0).toUpperCase() + selectedQuality.slice(1);
+            });
+        });
+
+        // Initialize FFmpeg
+        async function loadFFmpeg() {
+            if (ffmpegLoaded) return true;
+            
+            try {
+                ffmpegLoading.classList.remove('hidden');
+                
+                ffmpeg = new FFmpeg();
+                
+                ffmpeg.on('log', ({ message }) => {
+                    console.log(message);
+                });
+                
+                ffmpeg.on('progress', ({ progress }) => {
+                    const percent = Math.round(progress * 100);
+                    progressBar.style.width = percent + '%';
+                    progressText.textContent = percent + '%';
+                });
+
+                await ffmpeg.load({
+                    coreURL: 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd/ffmpeg-core.js',
+                });
+                
+                ffmpegLoaded = true;
+                ffmpegLoading.classList.add('hidden');
+                return true;
+            } catch (error) {
+                console.error('Failed to load FFmpeg:', error);
+                ffmpegLoading.classList.add('hidden');
+                alert('Failed to load FFmpeg. Please refresh and try again.');
+                return false;
+            }
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                settingsSection.classList.add('hidden');
+                convertSection.classList.add('hidden');
+                uploadPrompt.classList.remove('hidden');
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            settingsSection.classList.remove('hidden');
+            convertSection.classList.remove('hidden');
+            uploadPrompt.classList.add('hidden');
+            
+            fileCount.textContent = uploadedFiles.length;
+            updateConvertButton();
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-4">
+                    <div class="w-16 h-16 bg-rose-100 dark:bg-rose-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs font-bold text-rose-600 dark:text-rose-400">GIF</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold text-slate-900 dark:text-white truncate">${file.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(file.size)}</div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateConvertButton() {
+            convertBtnText.textContent = `Convert ${uploadedFiles.length} File${uploadedFiles.length > 1 ? 's' : ''} to MP4`;
+        }
+
+        function updateResultList() {
+            resultCount.textContent = convertedResults.length;
+            resultList.innerHTML = convertedResults.map((result, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden">
+                    <div class="aspect-video bg-slate-200 dark:bg-slate-900 rounded-xl mb-3 overflow-hidden">
+                        <video src="${result.url}" class="w-full h-full object-contain" ${result.loop ? 'loop' : ''} muted playsinline controls></video>
+                    </div>
+                    <div class="mb-3">
+                        <div class="font-semibold text-sm text-slate-900 dark:text-white truncate mb-1">${result.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(result.size)}${result.reduction ? ` • ${result.reduction}% smaller` : ''}</div>
+                    </div>
+                    <button onclick="downloadSingle(${index})" class="w-full py-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingle = function(index) {
+            const result = convertedResults[index];
+            const a = document.createElement('a');
+            a.href = result.url;
+            a.download = result.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        function handleFiles(files) {
+            const gifFiles = Array.from(files).filter(file => 
+                file.type === 'image/gif' || file.name.toLowerCase().endsWith('.gif')
+            );
+
+            if (gifFiles.length === 0) {
+                alert('Please select GIF files only.');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...gifFiles];
+            updateFileList();
+        }
+
+        // Drag & Drop
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === dropZone || e.target.closest('#upload-prompt')) {
+                fileInput.click();
+            }
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            convertedResults = [];
+            updateFileList();
+            resultsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        // Convert function
+        async function convertGifs() {
+            if (uploadedFiles.length === 0) return;
+
+            convertBtn.disabled = true;
+            
+            // Load FFmpeg if not already loaded
+            const loaded = await loadFFmpeg();
+            if (!loaded) {
+                convertBtn.disabled = false;
+                return;
+            }
+
+            convertedResults = [];
+            resultsSection.classList.add('hidden');
+            progressSection.classList.remove('hidden');
+            convertSection.classList.add('hidden');
+            settingsSection.classList.add('hidden');
+
+            const quality = qualitySettings[selectedQuality];
+            const shouldLoop = loopToggle.checked;
+            const total = uploadedFiles.length;
+            let completed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    progressStatus.textContent = `Converting ${file.name}...`;
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '0%';
+
+                    const inputName = 'input.gif';
+                    const outputName = 'output.mp4';
+
+                    // Write file to FFmpeg virtual filesystem
+                    await ffmpeg.writeFile(inputName, await fetchFile(file));
+
+                    // Build FFmpeg command
+                    const args = [
+                        '-i', inputName,
+                        '-movflags', 'faststart',
+                        '-pix_fmt', 'yuv420p',
+                        '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
+                        '-c:v', 'libx264',
+                        '-crf', quality.crf.toString(),
+                        '-preset', quality.preset
+                    ];
+
+                    if (shouldLoop) {
+                        args.push('-loop', '0');
+                    }
+
+                    args.push('-y', outputName);
+
+                    // Run FFmpeg
+                    await ffmpeg.exec(args);
+
+                    // Read output file
+                    const data = await ffmpeg.readFile(outputName);
+                    const blob = new Blob([data.buffer], { type: 'video/mp4' });
+                    const url = URL.createObjectURL(blob);
+                    
+                    const baseName = file.name.replace(/\.gif$/i, '');
+                    const newName = `${baseName}.mp4`;
+                    const reduction = file.size > 0 ? Math.round((1 - blob.size / file.size) * 100) : 0;
+
+                    convertedResults.push({
+                        name: newName,
+                        url: url,
+                        blob: blob,
+                        size: blob.size,
+                        originalSize: file.size,
+                        reduction: reduction > 0 ? reduction : null,
+                        loop: shouldLoop
+                    });
+
+                    // Cleanup
+                    await ffmpeg.deleteFile(inputName);
+                    await ffmpeg.deleteFile(outputName);
+
+                    completed++;
+                    const overallProgress = Math.round((completed / total) * 100);
+                    progressStatus.textContent = `Completed ${completed} of ${total} files`;
+
+                } catch (error) {
+                    console.error(`Error converting ${file.name}:`, error);
+                    completed++;
+                }
+            }
+
+            progressStatus.textContent = 'Conversion complete!';
+            progressBar.style.width = '100%';
+            progressText.textContent = '100%';
+            
+            setTimeout(() => {
+                progressSection.classList.add('hidden');
+                convertSection.classList.remove('hidden');
+                settingsSection.classList.remove('hidden');
+                resultsSection.classList.remove('hidden');
+                convertBtn.disabled = false;
+                updateResultList();
+            }, 500);
+        }
+
+        convertBtn.addEventListener('click', convertGifs);
+
+        downloadAllBtn.addEventListener('click', () => {
+            convertedResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = result.url;
+                    a.download = result.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>
+

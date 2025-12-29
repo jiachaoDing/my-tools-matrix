@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Extract Images from PDF - Free Online PDF Image Extractor | WebUtilityKit</title>
+    <meta name="description" content="Extract all embedded images from PDF files instantly. Free, secure, and 100% local processing. Download images as PNG or ZIP batch export.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ Privacy-First Tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact Us</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle Theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Extract Images from PDF</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Pull all embedded images from your PDF documents. Photos, graphics, logos—extract them all in original quality.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally in your browser.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-rose-500 hover:bg-rose-50/30 dark:hover:bg-rose-900/10 transition-all min-h-[400px]">
+                <input type="file" id="file-input" class="hidden" accept=".pdf">
+                <div class="w-24 h-24 bg-rose-600 text-white rounded-[2.5rem] flex items-center justify-center mb-8 shadow-2xl shadow-rose-500/40 group-hover:scale-110 transition-transform">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Select PDF File</h3>
+                <p class="text-slate-500 dark:text-slate-400">Drag & drop or click to select your PDF file</p>
+                <p class="mt-4 text-xs text-slate-400">Supports PDF files containing embedded images</p>
+                
+                <div id="drop-overlay" class="absolute inset-0 bg-rose-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-rose-500 border-dashed">
+                    <p class="text-rose-600 font-bold text-xl">Release to extract images</p>
+                </div>
+            </div>
+
+            <!-- Result Area -->
+            <div id="result-area" class="hidden mt-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div id="file-info" class="flex-grow flex items-center gap-4">
+                            <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 id="filename" class="font-bold text-slate-900 dark:text-white">filename.pdf</h4>
+                                <p id="filesize" class="text-sm text-slate-500 uppercase tracking-wider">0 KB • 0 PAGES</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button id="extract-btn" class="px-8 py-3 bg-rose-600 text-white font-bold rounded-xl hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/25">
+                                Extract Images
+                            </button>
+                            <button id="reset-btn" class="p-3 text-slate-400 hover:text-red-500 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div id="progress-container" class="hidden mt-8">
+                        <div class="flex items-center justify-between mb-2">
+                            <span id="progress-text" class="text-sm font-medium text-slate-600 dark:text-slate-400">Scanning page 1 / 10...</span>
+                            <span id="progress-percent" class="text-sm font-bold text-rose-600">10%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="w-0 h-full bg-rose-600 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div id="stats-bar" class="hidden flex items-center justify-center gap-8 py-4 px-8 bg-rose-50 dark:bg-rose-900/20 rounded-2xl border border-rose-100 dark:border-rose-900/30">
+                    <div class="text-center">
+                        <p id="stats-count" class="text-3xl font-black text-rose-600">0</p>
+                        <p class="text-xs text-slate-500 uppercase tracking-wider">Images Found</p>
+                    </div>
+                    <div class="w-px h-12 bg-rose-200 dark:bg-rose-800"></div>
+                    <div class="text-center">
+                        <p id="stats-size" class="text-3xl font-black text-rose-600">0 KB</p>
+                        <p class="text-xs text-slate-500 uppercase tracking-wider">Total Size</p>
+                    </div>
+                </div>
+
+                <!-- Preview Grid -->
+                <div id="preview-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- Preview items will be injected here -->
+                </div>
+
+                <!-- No Images Found -->
+                <div id="no-images" class="hidden text-center py-16">
+                    <div class="w-20 h-20 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <svg class="w-10 h-10 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">No Images Found</h3>
+                    <p class="text-slate-500 dark:text-slate-400 max-w-md mx-auto">This PDF doesn't contain any extractable embedded images. It might be a text-only document or use vector graphics.</p>
+                </div>
+
+                <!-- Actions -->
+                <div id="batch-actions" class="hidden flex justify-center py-8">
+                    <button id="download-zip" class="px-10 py-4 bg-green-600 text-white font-black text-lg rounded-[2rem] hover:bg-green-700 transition-all shadow-2xl shadow-green-500/30 flex items-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download All (ZIP)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to Extract Images from PDF</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold mb-3">Upload PDF</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Drag and drop your PDF file or click to browse. All processing happens locally.</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold mb-3">Extract Images</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Click the extract button to scan all pages and pull out every embedded image.</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold mb-3">Download</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Save individual images or batch download everything as a ZIP archive.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Original Quality Extraction</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Unlike screenshot tools, our extractor pulls the actual embedded image data from your PDF. This means you get the original resolution and quality—not a compressed screen capture.
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-rose-500 rounded-full"></div>
+                                    <span class="text-slate-200">Extract photos, logos, and graphics</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-rose-500 rounded-full"></div>
+                                    <span class="text-slate-200">Preserve original image dimensions</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-rose-500 rounded-full"></div>
+                                    <span class="text-slate-200">Export as high-quality PNG files</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-rose-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-rose-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why Use Our PDF Image Extractor?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Processing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Extraction happens in your browser. No upload queues, no waiting—just instant results.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Complete Privacy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your PDF never leaves your device. No server uploads, no data collection, no tracking.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Batch Export</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Download all extracted images at once in a convenient ZIP file. Perfect for large PDFs.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">High Quality Output</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Images are extracted with original quality. No recompression or quality loss.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What types of images can be extracted?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Our tool extracts raster images embedded in PDFs, including JPEG, PNG, and other bitmap formats. This includes photos, scanned images, and raster graphics. Vector graphics (like charts or icons drawn with lines) are not extractable as images.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Why are no images found in my PDF?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Some PDFs contain only text or vector graphics which cannot be extracted as images. Additionally, PDFs created by scanning documents may store content differently. If your PDF appears to have images but none are found, the visuals might be vector-based illustrations.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is there a file size limit?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Since all processing happens locally in your browser, the limit depends on your device's memory. Most modern devices can handle PDFs up to 100MB or more without issues. For very large files, processing may take longer.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What format are the extracted images?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                All extracted images are saved as PNG files to ensure maximum compatibility and quality preservation. PNG is a lossless format that maintains image quality regardless of how many times you save or edit the file.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Privacy First. Client-side only.</div>
+        </div>
+    </footer>
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const resultArea = document.getElementById('result-area');
+        const filenameLabel = document.getElementById('filename');
+        const filesizeLabel = document.getElementById('filesize');
+        const previewGrid = document.getElementById('preview-grid');
+        const extractBtn = document.getElementById('extract-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressPercent = document.getElementById('progress-percent');
+        const downloadZipBtn = document.getElementById('download-zip');
+        const batchActions = document.getElementById('batch-actions');
+        const statsBar = document.getElementById('stats-bar');
+        const statsCount = document.getElementById('stats-count');
+        const statsSize = document.getElementById('stats-size');
+        const noImages = document.getElementById('no-images');
+
+        let currentFile = null;
+        let pdfBytes = null;
+        let pdfDoc = null;
+        let extractedImages = [];
+
+        dropZone.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+        dropZone.ondragover = (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-rose-500', 'bg-rose-50/50', 'dark:bg-rose-900/20');
+            document.getElementById('drop-overlay').classList.replace('opacity-0', 'opacity-100');
+        };
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('border-rose-500', 'bg-rose-50/50', 'dark:bg-rose-900/20');
+                document.getElementById('drop-overlay').classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.ondrop = (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        };
+
+        async function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') {
+                alert('Please select a valid PDF file');
+                return;
+            }
+            currentFile = file;
+            filenameLabel.textContent = file.name;
+            filesizeLabel.textContent = `${(file.size / 1024).toFixed(1)} KB`;
+
+            try {
+                pdfBytes = await file.arrayBuffer();
+                // Configure PDF.js to better handle image extraction
+                pdfDoc = await pdfjsLib.getDocument({ 
+                    data: pdfBytes,
+                    // Disable certain optimizations that might interfere with image extraction
+                    isEvalSupported: false,
+                    disableFontFace: true,
+                    // Try to get raw image data when possible
+                    useSystemFonts: false
+                }).promise;
+                filesizeLabel.textContent += ` • ${pdfDoc.numPages} PAGES`;
+                
+                dropZone.classList.add('hidden');
+                resultArea.classList.remove('hidden');
+                previewGrid.innerHTML = '';
+                extractedImages = [];
+                batchActions.classList.add('hidden');
+                statsBar.classList.add('hidden');
+                noImages.classList.add('hidden');
+            } catch (err) {
+                alert('Failed to read PDF: ' + err.message);
+                console.error(err);
+            }
+        }
+
+        // Helper to convert image data to canvas
+        function imageDataToCanvas(imgData) {
+            if (!imgData) return null;
+            
+            const width = imgData.width;
+            const height = imgData.height;
+            
+            if (!width || !height || width < 1 || height < 1) return null;
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = width;
+            canvas.height = height;
+            const ctx = canvas.getContext('2d');
+            
+            // Handle ImageBitmap
+            if (imgData.bitmap) {
+                ctx.drawImage(imgData.bitmap, 0, 0);
+                return canvas;
+            }
+            
+            // Handle HTMLImageElement or other drawable objects
+            if (imgData instanceof HTMLImageElement || imgData instanceof HTMLCanvasElement) {
+                ctx.drawImage(imgData, 0, 0, width, height);
+                return canvas;
+            }
+            
+            // Handle raw pixel data
+            if (!imgData.data) return null;
+            
+            const data = imgData.data;
+            const pixelCount = width * height;
+            const imageDataObj = ctx.createImageData(width, height);
+            
+            // Check data type and length to determine format
+            const dataLen = data.length || data.byteLength;
+            const bytesPerPixel = dataLen / pixelCount;
+            
+            try {
+                if (Math.abs(bytesPerPixel - 4) < 0.1) {
+                    // RGBA format
+                    for (let i = 0; i < pixelCount * 4; i++) {
+                        imageDataObj.data[i] = data[i] || 0;
+                    }
+                } else if (Math.abs(bytesPerPixel - 3) < 0.1) {
+                    // RGB format
+                    for (let i = 0; i < pixelCount; i++) {
+                        const srcIdx = i * 3;
+                        const dstIdx = i * 4;
+                        imageDataObj.data[dstIdx] = data[srcIdx] || 0;
+                        imageDataObj.data[dstIdx + 1] = data[srcIdx + 1] || 0;
+                        imageDataObj.data[dstIdx + 2] = data[srcIdx + 2] || 0;
+                        imageDataObj.data[dstIdx + 3] = 255;
+                    }
+                } else if (Math.abs(bytesPerPixel - 1) < 0.1) {
+                    // Grayscale format
+                    for (let i = 0; i < pixelCount; i++) {
+                        const val = data[i] || 0;
+                        const dstIdx = i * 4;
+                        imageDataObj.data[dstIdx] = val;
+                        imageDataObj.data[dstIdx + 1] = val;
+                        imageDataObj.data[dstIdx + 2] = val;
+                        imageDataObj.data[dstIdx + 3] = 255;
+                    }
+                } else if (Math.abs(bytesPerPixel - 2) < 0.1) {
+                    // Grayscale + Alpha
+                    for (let i = 0; i < pixelCount; i++) {
+                        const srcIdx = i * 2;
+                        const dstIdx = i * 4;
+                        const val = data[srcIdx] || 0;
+                        imageDataObj.data[dstIdx] = val;
+                        imageDataObj.data[dstIdx + 1] = val;
+                        imageDataObj.data[dstIdx + 2] = val;
+                        imageDataObj.data[dstIdx + 3] = data[srcIdx + 1] || 255;
+                    }
+                } else {
+                    // Unknown format - try best effort
+                    const minLen = Math.min(dataLen, pixelCount * 4);
+                    for (let i = 0; i < minLen; i++) {
+                        imageDataObj.data[i] = data[i] || 0;
+                    }
+                    // Fill remaining alpha
+                    for (let i = 3; i < pixelCount * 4; i += 4) {
+                        if (imageDataObj.data[i] === 0) imageDataObj.data[i] = 255;
+                    }
+                }
+                
+                ctx.putImageData(imageDataObj, 0, 0);
+                return canvas;
+            } catch (err) {
+                console.error('Error converting image data:', err);
+                return null;
+            }
+        }
+
+        // Extract images using PDF.js - render first to ensure objects are loaded
+        async function extractImagesFromPage(page, pageNum) {
+            const images = [];
+            const scale = 1; // Use scale 1 for extraction
+            const viewport = page.getViewport({ scale });
+            
+            // Create an offscreen canvas and render the page first
+            // This ensures all image objects are loaded
+            const renderCanvas = document.createElement('canvas');
+            renderCanvas.width = viewport.width;
+            renderCanvas.height = viewport.height;
+            const renderCtx = renderCanvas.getContext('2d');
+            
+            // Render the page to load all resources
+            await page.render({
+                canvasContext: renderCtx,
+                viewport: viewport
+            }).promise;
+            
+            // Now get the operator list
+            const opList = await page.getOperatorList();
+            const OPS = pdfjsLib.OPS;
+            
+            // Track processed images to avoid duplicates
+            const processedImages = new Set();
+            
+            // Find all image operations
+            for (let i = 0; i < opList.fnArray.length; i++) {
+                const op = opList.fnArray[i];
+                
+                // Check for image paint operations (multiple op codes)
+                const isImageOp = op === OPS.paintImageXObject || 
+                                  op === OPS.paintJpegXObject || 
+                                  op === OPS.paintImageXObjectRepeat ||
+                                  op === 85 || op === 82 || op === 88;
+                
+                if (isImageOp && opList.argsArray[i]) {
+                    const imgName = opList.argsArray[i][0];
+                    
+                    if (!imgName || processedImages.has(imgName)) continue;
+                    processedImages.add(imgName);
+                    
+                    try {
+                        // Try multiple ways to get the image data
+                        let imgData = null;
+                        
+                        // Method 1: Direct access via _objs Map
+                        if (page.objs._objs && page.objs._objs.has(imgName)) {
+                            const obj = page.objs._objs.get(imgName);
+                            imgData = obj?.data || obj;
+                        }
+                        
+                        // Method 2: Use get with callback
+                        if (!imgData) {
+                            imgData = await new Promise((resolve) => {
+                                const timeout = setTimeout(() => resolve(null), 2000);
+                                try {
+                                    page.objs.get(imgName, (data) => {
+                                        clearTimeout(timeout);
+                                        resolve(data);
+                                    });
+                                } catch (e) {
+                                    clearTimeout(timeout);
+                                    resolve(null);
+                                }
+                            });
+                        }
+                        
+                        // Method 3: Check commonObjs
+                        if (!imgData && page.commonObjs) {
+                            try {
+                                if (page.commonObjs._objs && page.commonObjs._objs.has(imgName)) {
+                                    const obj = page.commonObjs._objs.get(imgName);
+                                    imgData = obj?.data || obj;
+                                }
+                            } catch (e) {}
+                        }
+                        
+                        if (imgData && imgData.width > 10 && imgData.height > 10) {
+                            const canvas = imageDataToCanvas(imgData);
+                            if (canvas) {
+                                images.push({
+                                    canvas,
+                                    width: imgData.width,
+                                    height: imgData.height,
+                                    pageNum
+                                });
+                            }
+                        }
+                    } catch (err) {
+                        console.log('Could not extract image:', imgName, err.message);
+                    }
+                }
+            }
+            
+            return images;
+        }
+
+        // Alternative: Render page and extract visible content areas
+        async function renderPageAsImage(page, pageNum) {
+            const scale = 2;
+            const viewport = page.getViewport({ scale });
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            
+            await page.render({
+                canvasContext: ctx,
+                viewport: viewport
+            }).promise;
+            
+            return {
+                canvas,
+                width: viewport.width,
+                height: viewport.height,
+                pageNum,
+                isFullPage: true
+            };
+        }
+
+        extractBtn.onclick = async () => {
+            if (!pdfDoc) return;
+            
+            extractBtn.disabled = true;
+            extractBtn.classList.add('opacity-50');
+            progressContainer.classList.remove('hidden');
+            previewGrid.innerHTML = '';
+            extractedImages = [];
+            batchActions.classList.add('hidden');
+            statsBar.classList.add('hidden');
+            noImages.classList.add('hidden');
+
+            const totalPages = pdfDoc.numPages;
+            let imageIndex = 0;
+            let totalSize = 0;
+            const allImages = [];
+
+            // First pass: try to extract embedded images
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                progressText.textContent = `Scanning page ${pageNum} / ${totalPages} for embedded images...`;
+                const percent = Math.round((pageNum / totalPages) * 50);
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = `${percent}%`;
+
+                try {
+                    const page = await pdfDoc.getPage(pageNum);
+                    const pageImages = await extractImagesFromPage(page, pageNum);
+                    allImages.push(...pageImages);
+                } catch (err) {
+                    console.warn('Error scanning page:', pageNum, err);
+                }
+            }
+
+            // If no embedded images found, render pages as fallback
+            if (allImages.length === 0) {
+                const renderFullPages = confirm('No embedded images detected in this PDF.\n\nWould you like to render each page as an image instead?\n\nClick OK to render pages, or Cancel to abort.');
+                
+                if (renderFullPages) {
+                    for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+                        progressText.textContent = `Rendering page ${pageNum} / ${totalPages}...`;
+                        const percent = 50 + Math.round((pageNum / totalPages) * 50);
+                        progressBar.style.width = `${percent}%`;
+                        progressPercent.textContent = `${percent}%`;
+
+                        try {
+                            const page = await pdfDoc.getPage(pageNum);
+                            const pageImage = await renderPageAsImage(page, pageNum);
+                            allImages.push(pageImage);
+                        } catch (err) {
+                            console.warn('Error rendering page:', pageNum, err);
+                        }
+                    }
+                }
+            }
+
+            // Process all collected images
+            for (const img of allImages) {
+                imageIndex++;
+                const dataUrl = img.canvas.toDataURL('image/png');
+                const blobSize = Math.round((dataUrl.length - 22) * 0.75); // Approximate size
+                totalSize += blobSize;
+                
+                const imgName = img.isFullPage 
+                    ? `page_${img.pageNum}.png` 
+                    : `image_${imageIndex}_page${img.pageNum}.png`;
+                
+                extractedImages.push({ 
+                    name: imgName, 
+                    url: dataUrl,
+                    width: img.width,
+                    height: img.height,
+                    size: blobSize,
+                    isFullPage: img.isFullPage
+                });
+
+                // Create preview card
+                const card = document.createElement('div');
+                card.className = 'group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm animate-in fade-in zoom-in duration-300';
+                card.innerHTML = `
+                    <img src="${dataUrl}" class="w-full aspect-square object-cover bg-slate-100 dark:bg-slate-800">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <a href="${dataUrl}" download="${imgName}" class="p-2 bg-white text-slate-900 rounded-lg hover:bg-rose-600 hover:text-white transition-all shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        </a>
+                    </div>
+                    <div class="absolute bottom-2 right-2 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[10px] font-black text-white">${img.width}×${img.height}</div>
+                    <div class="absolute top-2 left-2 px-2 py-1 ${img.isFullPage ? 'bg-blue-600/90' : 'bg-rose-600/90'} backdrop-blur-md rounded text-[10px] font-black text-white">${img.isFullPage ? 'Page ' + img.pageNum : 'p.' + img.pageNum}</div>
+                `;
+                previewGrid.appendChild(card);
+            }
+
+            extractBtn.disabled = false;
+            extractBtn.classList.remove('opacity-50');
+            progressContainer.classList.add('hidden');
+
+            if (extractedImages.length > 0) {
+                statsBar.classList.remove('hidden');
+                statsCount.textContent = extractedImages.length;
+                statsSize.textContent = formatSize(totalSize);
+                batchActions.classList.remove('hidden');
+            } else {
+                noImages.classList.remove('hidden');
+            }
+        };
+
+        function formatSize(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+        }
+
+        downloadZipBtn.onclick = async () => {
+            if (extractedImages.length === 0) return;
+            
+            downloadZipBtn.disabled = true;
+            downloadZipBtn.textContent = 'Creating ZIP...';
+            
+            const zip = new JSZip();
+            extractedImages.forEach(img => {
+                const base64Data = img.url.split(',')[1];
+                zip.file(img.name, base64Data, { base64: true });
+            });
+
+            const content = await zip.generateAsync({ type: 'blob' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = `${currentFile.name.replace('.pdf', '')}_images.zip`;
+            link.click();
+            URL.revokeObjectURL(link.href);
+            
+            downloadZipBtn.disabled = false;
+            downloadZipBtn.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg> Download All (ZIP)`;
+        };
+
+        resetBtn.onclick = () => {
+            currentFile = null;
+            pdfDoc = null;
+            extractedImages = [];
+            dropZone.classList.remove('hidden');
+            resultArea.classList.add('hidden');
+            fileInput.value = '';
+        };
+    </script>
+</body>
+</html>
+

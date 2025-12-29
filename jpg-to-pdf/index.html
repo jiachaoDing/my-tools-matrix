@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JPG to PDF - Convert Images to PDF Online for Free | WebUtilityKit</title>
-    <meta name="description" content="Convert your JPG and PNG images to a high-quality PDF document instantly. 100% secure, private, and local processing. No file limits, no watermarks.">
+    <meta name="description" content="Convert your JPG, PNG, and WebP images to a high-quality PDF document instantly. 100% secure, private, and local processing. No file limits, no watermarks.">
     <link href="../assets/css/styles.css" rel="stylesheet">
     <!-- pdf-lib for PDF generation -->
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
@@ -38,7 +38,7 @@
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
-                    <span class="hidden md:inline">Contact</span>
+                    <span class="hidden md:inline">Contact Us</span>
                 </a>
                 <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                     <span id="theme-icon">🌗</span>
@@ -52,10 +52,10 @@
         
         <div class="max-w-4xl mx-auto text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JPG to PDF</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Convert multiple images into a single, professional PDF document. Reorder images and customize layout instantly.</p>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Merge multiple images into a professional PDF document. Reorder images and customize layout instantly.</p>
             <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                <span>100% Private. Local processing.</span>
+                <span>100% Secure. Processed in local browser.</span>
             </div>
         </div>
 
@@ -68,11 +68,11 @@
                         <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                     </div>
                     <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Select Images</h3>
-                    <p class="text-slate-500 dark:text-slate-400">Drag & drop JPG, PNG, or WebP files here</p>
+                    <p class="text-slate-500 dark:text-slate-400">Drag & drop JPG, PNG or WebP files here</p>
                     <p class="mt-4 text-xs text-slate-400">Files are processed entirely on your device</p>
                     
                     <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-blue-500 border-dashed">
-                        <p class="text-blue-600 font-bold text-xl">Drop images to start</p>
+                        <p class="text-blue-600 font-bold text-xl">Release to start upload</p>
                     </div>
                 </div>
             </div>
@@ -114,8 +114,8 @@
                                     <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">Margins</label>
                                     <select id="margin" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm font-medium">
                                         <option value="none">No Margin</option>
-                                        <option value="small">Small (20px)</option>
-                                        <option value="large">Large (50px)</option>
+                                        <option value="small">Narrow (20px)</option>
+                                        <option value="large">Wide (50px)</option>
                                     </select>
                                 </div>
 
@@ -135,7 +135,7 @@
                     <div class="lg:col-span-3 space-y-6">
                         <div class="flex items-center justify-between px-4">
                             <div class="flex items-center gap-4">
-                                <h3 class="text-xl font-bold">Image Sequence</h3>
+                                <h3 class="text-xl font-bold">Image Order</h3>
                                 <span id="file-count-badge" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full text-xs font-black">0 IMAGES</span>
                             </div>
                             <button id="add-more-btn" class="flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-all">
@@ -157,7 +157,7 @@
                                 </div>
                                 <div class="flex-grow">
                                     <h4 id="status-title" class="text-lg font-bold">Generating PDF...</h4>
-                                    <p id="status-desc" class="text-sm text-slate-500 mt-1">Combining your images. Please don't close this tab.</p>
+                                    <p id="status-desc" class="text-sm text-slate-500 mt-1">Combining your images. Please do not close this tab.</p>
                                     <div id="progress-bar-container" class="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
                                         <div id="progress-bar" class="w-0 h-full bg-blue-600 transition-all duration-300"></div>
                                     </div>
@@ -184,7 +184,7 @@
                         <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl transition-all group">
                             <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
                             <h3 class="text-xl font-bold mb-3">Upload Images</h3>
-                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Select multiple JPG, PNG, or WebP files from your device.</p>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Select multiple JPG, PNG or WebP files from your device.</p>
                         </div>
                         <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl transition-all group">
                             <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
@@ -193,7 +193,7 @@
                         </div>
                         <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl transition-all group">
                             <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
-                            <h3 class="text-xl font-bold mb-3">Get Your PDF</h3>
+                            <h3 class="text-xl font-bold mb-3">Get PDF</h3>
                             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">Click generate and download your combined PDF document instantly.</p>
                         </div>
                     </div>
@@ -264,7 +264,7 @@
     <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
         <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div>&copy; 2025 WebUtilityKit.com</div>
-            <div class="text-slate-500 dark:text-slate-400">Privacy first. Client-side only.</div>
+            <div class="text-slate-500 dark:text-slate-400">Privacy First. Client-side only.</div>
         </div>
     </footer>
 
@@ -362,7 +362,7 @@
 
             fileCountBadge.textContent = `${imageList.length} ${imageList.length === 1 ? 'IMAGE' : 'IMAGES'}`;
             
-            // Re-render grid (only for new items or simplified)
+            // Re-render grid
             imageGrid.innerHTML = '';
             imageList.forEach((img) => {
                 const card = document.createElement('div');
@@ -430,7 +430,6 @@
                     } else if (imgObj.file.type === 'image/png') {
                         embeddedImg = await pdfDoc.embedPng(arrayBuffer);
                     } else {
-                        // WebP support via Canvas (browser specific)
                         const canvas = document.createElement('canvas');
                         const ctx = canvas.getContext('2d');
                         const tempImg = new Image();
@@ -450,8 +449,6 @@
                         pWidth = embeddedImg.width + (margin * 2);
                         pHeight = embeddedImg.height + (margin * 2);
                     } else {
-                        // A4: 595.28 x 841.89 points
-                        // Letter: 612 x 792 points
                         if (pageSize === 'a4') {
                             pWidth = 595.28; pHeight = 841.89;
                         } else {
@@ -463,8 +460,6 @@
                     }
 
                     const page = pdfDoc.addPage([pWidth, pHeight]);
-                    
-                    // Scale image to fit page minus margins
                     const availableWidth = pWidth - (margin * 2);
                     const availableHeight = pHeight - (margin * 2);
                     const scale = Math.min(availableWidth / embeddedImg.width, availableHeight / embeddedImg.height);
@@ -472,7 +467,6 @@
                     const drawWidth = embeddedImg.width * scale;
                     const drawHeight = embeddedImg.height * scale;
                     
-                    // Center the image
                     const x = (pWidth - drawWidth) / 2;
                     const y = (pHeight - drawHeight) / 2;
 
@@ -494,7 +488,7 @@
                 statusSuccess.classList.remove('hidden');
                 downloadArea.classList.remove('hidden');
                 statusTitle.textContent = 'PDF Generated!';
-                statusDesc.textContent = `Successfully combined ${imageList.length} images.`;
+                statusDesc.textContent = `Successfully merged ${imageList.length} images.`;
 
             } catch (err) {
                 console.error(err);
@@ -519,4 +513,3 @@
     </script>
 </body>
 </html>
-

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unlock PDF - Remove Password Protection Free | WebUtilityKit</title>
+    <meta name="description" content="Remove password protection from PDF files online for free. Unlock your PDF documents instantly. 100% client-side processing - your files never leave your browser.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <header class="border-b border-slate-200/70 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <nav class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between gap-4">
+            <a href="/" class="flex items-center gap-2 text-xl font-bold tracking-tight text-blue-600 dark:text-blue-400">
+                WebUtilityKit<span class="text-slate-400 font-normal">.com</span>
+            </a>
+            <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
+                <span class="hidden sm:inline">100+ privacy-first tools</span>
+                <a href="mailto:yinb9933@gmail.com" 
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+                   title="Contact us for feedback or suggestions">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <span class="hidden md:inline">Contact</span>
+                </a>
+                <button id="theme-toggle" class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+                    <span id="theme-icon">🌗</span>
+                    <span class="hidden sm:inline">Toggle theme</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Unlock PDF</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Remove password protection from your PDF files. Enter the password to unlock and download an unprotected copy.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl p-8 md:p-10">
+                
+                <!-- Drop Zone -->
+                <div id="drop-zone" class="relative border-2 border-dashed border-slate-300 dark:border-slate-600 rounded-2xl p-12 text-center cursor-pointer hover:border-sky-500 dark:hover:border-sky-400 transition-colors group">
+                    <input type="file" id="file-input" accept=".pdf" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" />
+                    <div id="drop-overlay" class="absolute inset-0 bg-sky-500/10 dark:bg-sky-500/20 rounded-2xl flex items-center justify-center opacity-0 pointer-events-none transition-opacity">
+                        <span class="text-sky-600 dark:text-sky-400 font-semibold text-lg">Drop PDF here</span>
+                    </div>
+                    <svg class="w-16 h-16 mx-auto text-slate-400 dark:text-slate-500 mb-4 group-hover:text-sky-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                    </svg>
+                    <p class="text-slate-600 dark:text-slate-400 mb-2">Drag & drop your locked PDF file here</p>
+                    <p class="text-slate-500 dark:text-slate-500 text-sm">or click to browse</p>
+                </div>
+
+                <!-- Selected File Info -->
+                <div id="file-info" class="hidden mt-6 p-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-red-100 dark:bg-red-900/30 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-red-600 dark:text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p id="file-name" class="font-medium text-slate-900 dark:text-white truncate max-w-xs"></p>
+                                <p id="file-size" class="text-sm text-slate-500 dark:text-slate-400"></p>
+                            </div>
+                        </div>
+                        <button id="remove-file" class="p-2 text-slate-400 hover:text-red-500 transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PDF Status -->
+                <div id="pdf-status" class="hidden mt-6">
+                    <!-- Locked Status -->
+                    <div id="status-locked" class="hidden p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-amber-600 dark:text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-amber-800 dark:text-amber-300">PDF is Password Protected</p>
+                                <p class="text-sm text-amber-600 dark:text-amber-400">Enter the password below to unlock</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Not Locked Status -->
+                    <div id="status-unlocked" class="hidden p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-blue-800 dark:text-blue-300">PDF is Not Password Protected</p>
+                                <p class="text-sm text-blue-600 dark:text-blue-400">This PDF can be opened without a password</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Password Section -->
+                <div id="password-section" class="hidden mt-8 space-y-6">
+                    <h3 class="text-lg font-semibold text-slate-900 dark:text-white flex items-center gap-2">
+                        <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+                        </svg>
+                        Enter PDF Password
+                    </h3>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                            Password
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="pdf-password" placeholder="Enter the PDF password" 
+                                   class="w-full px-4 py-3 bg-slate-50 dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-transparent transition pr-12" />
+                            <button type="button" id="toggle-password" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300">
+                                <svg class="w-5 h-5 eye-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                </svg>
+                                <svg class="w-5 h-5 eye-off-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                                </svg>
+                            </button>
+                        </div>
+                        <p id="password-error" class="hidden mt-2 text-sm text-red-500">Incorrect password. Please try again.</p>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div id="action-buttons" class="hidden mt-8 flex flex-col sm:flex-row gap-4">
+                    <button id="unlock-btn" class="flex-1 flex items-center justify-center gap-2 px-6 py-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>Unlock PDF</span>
+                    </button>
+                    <button id="clear-btn" class="flex items-center justify-center gap-2 px-6 py-4 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 font-semibold rounded-xl transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                        </svg>
+                        <span>Clear</span>
+                    </button>
+                </div>
+
+                <!-- Progress -->
+                <div id="progress-section" class="hidden mt-6">
+                    <div class="flex items-center justify-between mb-2">
+                        <span id="progress-status" class="text-sm text-slate-600 dark:text-slate-400">Processing...</span>
+                        <span id="progress-text" class="text-sm font-medium text-slate-900 dark:text-white">0%</span>
+                    </div>
+                    <div class="h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-sky-500 transition-all duration-300 rounded-full" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Result -->
+                <div id="result-section" class="hidden mt-8">
+                    <div class="p-6 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-2xl">
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-green-100 dark:bg-green-900/30 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold text-green-800 dark:text-green-300">PDF Unlocked Successfully!</p>
+                                <p class="text-sm text-green-600 dark:text-green-400">Password protection has been removed</p>
+                            </div>
+                        </div>
+                        <button id="download-btn" class="w-full flex items-center justify-center gap-2 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-colors">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                            </svg>
+                            <span>Download Unlocked PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Error -->
+                <div id="error-section" class="hidden mt-6">
+                    <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <p id="error-message" class="text-red-700 dark:text-red-300 text-sm"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to Unlock Your PDF</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Upload PDF</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Drag and drop your password-protected PDF file or click to browse.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Enter Password</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Type in the password that was used to protect the PDF document.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click unlock and download your PDF without password protection.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">When Do You Need to Unlock a PDF?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Sometimes you need to remove password protection from your own documents for easier sharing or editing. Our tool helps you unlock PDFs when you know the password but want a copy without protection.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">Share documents without passwords</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">Edit previously protected files</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">Archive documents without restrictions</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-sky-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-sky-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why Use Our PDF Unlocker?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Complete Privacy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your PDF and password never leave your browser. Everything is processed locally.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Password Required</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">You must know the correct password. We don't bypass or crack encryption.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Quality Preserved</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">All pages, images, and formatting are maintained in the unlocked version.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Processing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">No uploads or waiting. Unlock your PDF in seconds right in your browser.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Can I unlock a PDF without knowing the password?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                <strong>No.</strong> This tool requires you to know the correct password. We do not bypass, crack, or break PDF encryption. This tool is designed for legitimate use cases where you know the password but want to create an unprotected copy.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is my password and PDF secure?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                <strong>Absolutely.</strong> Your PDF file and password never leave your device. All processing happens entirely in your browser using JavaScript. We don't have any servers that handle your documents or passwords.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What types of PDF protection can be removed?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                This tool can remove <strong>user password protection</strong> (the password required to open the PDF). Once you provide the correct password, we create a new PDF without any password requirements.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How do I add password protection back?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                You can use our <a href="/protect-pdf" class="text-sky-600 dark:text-sky-400 hover:underline">Protect PDF</a> tool to add password protection to any PDF document, including ones you've previously unlocked.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+        </div>
+      
+    </main>
+
+    <footer class="border-t border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-slate-900/80 backdrop-blur">
+        <div class="max-w-7xl mx-auto px-4 py-8 text-sm text-slate-600 dark:text-slate-400 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>&copy; 2025 WebUtilityKit.com</div>
+            <div class="text-slate-500 dark:text-slate-400">Client-side by design. Built for Cloudflare Pages.</div>
+        </div>
+    </footer>
+
+
+    <script>
+        // === Theme Logic ===
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        function updateTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                html.classList.add('dark');
+            } else { html.classList.remove('dark'); }
+        }
+        updateTheme();
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
+        });
+
+        // === PDF.js Setup ===
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const { jsPDF } = window.jspdf;
+
+        // === DOM Elements ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const fileInfo = document.getElementById('file-info');
+        const fileName = document.getElementById('file-name');
+        const fileSize = document.getElementById('file-size');
+        const removeFile = document.getElementById('remove-file');
+        const pdfStatus = document.getElementById('pdf-status');
+        const statusLocked = document.getElementById('status-locked');
+        const statusUnlocked = document.getElementById('status-unlocked');
+        const passwordSection = document.getElementById('password-section');
+        const pdfPassword = document.getElementById('pdf-password');
+        const togglePassword = document.getElementById('toggle-password');
+        const passwordError = document.getElementById('password-error');
+        const actionButtons = document.getElementById('action-buttons');
+        const unlockBtn = document.getElementById('unlock-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressStatus = document.getElementById('progress-status');
+        const resultSection = document.getElementById('result-section');
+        const downloadBtn = document.getElementById('download-btn');
+        const errorSection = document.getElementById('error-section');
+        const errorMessage = document.getElementById('error-message');
+
+        let selectedFile = null;
+        let fileArrayBuffer = null;
+        let unlockedPdfBlob = null;
+        let isPasswordProtected = false;
+
+        // Format file size
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // Toggle password visibility
+        togglePassword.addEventListener('click', () => {
+            const eyeIcon = togglePassword.querySelector('.eye-icon');
+            const eyeOffIcon = togglePassword.querySelector('.eye-off-icon');
+            
+            if (pdfPassword.type === 'password') {
+                pdfPassword.type = 'text';
+                eyeIcon.classList.add('hidden');
+                eyeOffIcon.classList.remove('hidden');
+            } else {
+                pdfPassword.type = 'password';
+                eyeIcon.classList.remove('hidden');
+                eyeOffIcon.classList.add('hidden');
+            }
+        });
+
+        // Drag and drop handlers
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                dropOverlay.classList.add('opacity-100');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('opacity-0', 'pointer-events-none');
+                dropOverlay.classList.remove('opacity-100');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFile(files[0]);
+            }
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFile(e.target.files[0]);
+            }
+        });
+
+        async function handleFile(file) {
+            if (file.type !== 'application/pdf') {
+                showError('Please select a valid PDF file.');
+                return;
+            }
+
+            selectedFile = file;
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+            
+            fileInfo.classList.remove('hidden');
+            errorSection.classList.add('hidden');
+            resultSection.classList.add('hidden');
+
+            // Read file and check if it's password protected
+            fileArrayBuffer = await file.arrayBuffer();
+            await checkPasswordProtection();
+        }
+
+        async function checkPasswordProtection() {
+            try {
+                // Try to load without password
+                const loadingTask = pdfjsLib.getDocument({ data: fileArrayBuffer.slice(0) });
+                await loadingTask.promise;
+                
+                // PDF is not password protected
+                isPasswordProtected = false;
+                pdfStatus.classList.remove('hidden');
+                statusLocked.classList.add('hidden');
+                statusUnlocked.classList.remove('hidden');
+                passwordSection.classList.add('hidden');
+                actionButtons.classList.add('hidden');
+                
+            } catch (error) {
+                if (error.name === 'PasswordException') {
+                    // PDF is password protected
+                    isPasswordProtected = true;
+                    pdfStatus.classList.remove('hidden');
+                    statusLocked.classList.remove('hidden');
+                    statusUnlocked.classList.add('hidden');
+                    passwordSection.classList.remove('hidden');
+                    actionButtons.classList.remove('hidden');
+                } else {
+                    showError('Failed to read PDF file. The file may be corrupted.');
+                }
+            }
+        }
+
+        removeFile.addEventListener('click', clearAll);
+        clearBtn.addEventListener('click', clearAll);
+
+        function clearAll() {
+            selectedFile = null;
+            fileArrayBuffer = null;
+            unlockedPdfBlob = null;
+            isPasswordProtected = false;
+            fileInput.value = '';
+            pdfPassword.value = '';
+            
+            fileInfo.classList.add('hidden');
+            pdfStatus.classList.add('hidden');
+            passwordSection.classList.add('hidden');
+            actionButtons.classList.add('hidden');
+            progressSection.classList.add('hidden');
+            resultSection.classList.add('hidden');
+            errorSection.classList.add('hidden');
+            passwordError.classList.add('hidden');
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorSection.classList.remove('hidden');
+            progressSection.classList.add('hidden');
+        }
+
+        function updateProgress(percent, status) {
+            progressBar.style.width = percent + '%';
+            progressText.textContent = Math.round(percent) + '%';
+            if (status) {
+                progressStatus.textContent = status;
+            }
+        }
+
+        pdfPassword.addEventListener('input', () => {
+            passwordError.classList.add('hidden');
+        });
+
+        unlockBtn.addEventListener('click', async () => {
+            if (!selectedFile || !fileArrayBuffer) {
+                showError('Please select a PDF file first.');
+                return;
+            }
+
+            const password = pdfPassword.value;
+            if (!password) {
+                showError('Please enter the PDF password.');
+                return;
+            }
+
+            try {
+                unlockBtn.disabled = true;
+                progressSection.classList.remove('hidden');
+                resultSection.classList.add('hidden');
+                errorSection.classList.add('hidden');
+                passwordError.classList.add('hidden');
+                updateProgress(5, 'Verifying password...');
+
+                // Try to load PDF with password
+                let pdfDoc;
+                try {
+                    const loadingTask = pdfjsLib.getDocument({ 
+                        data: fileArrayBuffer.slice(0),
+                        password: password 
+                    });
+                    pdfDoc = await loadingTask.promise;
+                } catch (error) {
+                    if (error.name === 'PasswordException') {
+                        passwordError.classList.remove('hidden');
+                        progressSection.classList.add('hidden');
+                        unlockBtn.disabled = false;
+                        return;
+                    }
+                    throw error;
+                }
+
+                updateProgress(20, 'Reading PDF...');
+
+                const numPages = pdfDoc.numPages;
+                
+                // Get first page to determine dimensions
+                const firstPage = await pdfDoc.getPage(1);
+                const viewport = firstPage.getViewport({ scale: 1 });
+                
+                // Create new jsPDF document without encryption
+                const isLandscape = viewport.width > viewport.height;
+                const doc = new jsPDF({
+                    orientation: isLandscape ? 'landscape' : 'portrait',
+                    unit: 'pt',
+                    format: [viewport.width, viewport.height]
+                });
+
+                // Render each page
+                for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+                    updateProgress(20 + (pageNum / numPages) * 70, `Processing page ${pageNum} of ${numPages}...`);
+                    
+                    const page = await pdfDoc.getPage(pageNum);
+                    const pageViewport = page.getViewport({ scale: 2 }); // Higher scale for better quality
+                    
+                    // Create canvas for rendering
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = pageViewport.height;
+                    canvas.width = pageViewport.width;
+
+                    // Render page to canvas
+                    await page.render({
+                        canvasContext: context,
+                        viewport: pageViewport
+                    }).promise;
+
+                    // Convert canvas to image
+                    const imgData = canvas.toDataURL('image/jpeg', 0.95);
+                    
+                    // Add new page if not first page
+                    if (pageNum > 1) {
+                        const currentPageViewport = page.getViewport({ scale: 1 });
+                        const currentIsLandscape = currentPageViewport.width > currentPageViewport.height;
+                        doc.addPage([currentPageViewport.width, currentPageViewport.height], currentIsLandscape ? 'landscape' : 'portrait');
+                    }
+
+                    // Get current page dimensions
+                    const currentPageViewport = page.getViewport({ scale: 1 });
+                    
+                    // Add image to PDF
+                    doc.addImage(imgData, 'JPEG', 0, 0, currentPageViewport.width, currentPageViewport.height, undefined, 'FAST');
+                }
+
+                updateProgress(95, 'Generating unlocked PDF...');
+
+                // Generate the unlocked PDF
+                unlockedPdfBlob = doc.output('blob');
+
+                updateProgress(100, 'Complete!');
+
+                // Show success
+                setTimeout(() => {
+                    progressSection.classList.add('hidden');
+                    resultSection.classList.remove('hidden');
+                }, 300);
+                
+            } catch (error) {
+                console.error('Unlock error:', error);
+                showError('Failed to unlock PDF. ' + (error.message || 'Please check the password and try again.'));
+            } finally {
+                unlockBtn.disabled = false;
+            }
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (!unlockedPdfBlob) return;
+
+            const url = URL.createObjectURL(unlockedPdfBlob);
+            const a = document.createElement('a');
+            
+            // Generate filename
+            const originalName = selectedFile.name.replace(/\.pdf$/i, '');
+            a.href = url;
+            a.download = `${originalName}_unlocked.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        });
+    </script>
+</body>
+</html>
+

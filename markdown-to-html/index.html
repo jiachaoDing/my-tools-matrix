@@ -3,11 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Markdown to HTML Converter - Free Online Markdown Parser | WebUtilityKit</title>
-    <meta name="description" content="Convert Markdown to clean, semantic HTML instantly. Privacy-focused, local processing with real-time preview and bulk file support. No server uploads.">
+    <title>Markdown to HTML Converter - Multi-Theme & Secure | WebUtilityKit</title>
+    <meta name="description" content="Convert Markdown to HTML with beautiful theme selection. Real-time preview, code highlighting, and privacy-first local processing.">
     <link href="../assets/css/styles.css" rel="stylesheet">
-    <!-- Marked.js for Markdown parsing -->
+    <!-- Marked.js for Parsing -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- Highlight.js for Code Blocks -->
+    <link rel="stylesheet" id="hljs-theme" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/highlight.min.js"></script>
+    <style>
+        /* Theme Definitions for Preview */
+        .theme-github { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+        .theme-modern { font-family: 'Inter', system-ui, sans-serif; color: #334155; }
+        .theme-modern h1, .theme-modern h2 { color: #0f172a; border-bottom: none !important; }
+        .theme-classic { font-family: Georgia, serif; line-height: 1.8; color: #2d3748; }
+        .theme-classic h1, .theme-classic h2, .theme-classic h3 { font-family: 'Playfair Display', serif; }
+        .theme-minimal { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #1a202c; }
+        .theme-minimal h1, .theme-minimal h2, .theme-minimal h3 { border-bottom: none !important; text-transform: uppercase; letter-spacing: 0.1em; }
+
+        /* Dark Mode Theme Adjustments */
+        .dark .theme-github { color: #e2e8f0; }
+        .dark .theme-github h1, .dark .theme-github h2 { color: #f8fafc; }
+        .dark .theme-modern { color: #cbd5e1; }
+        .dark .theme-modern h1, .dark .theme-modern h2 { color: #f8fafc; }
+        .dark .theme-classic { color: #e2e8f0; }
+        .dark .theme-minimal { color: #e2e8f0; }
+
+        /* Typography Override for Preview Area (Fixing headings) */
+        #output-preview h1 { font-size: 2.25rem; font-weight: 800; margin-bottom: 1.5rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; color: inherit; }
+        #output-preview h2 { font-size: 1.875rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.3rem; color: inherit; }
+        #output-preview h3 { font-size: 1.5rem; font-weight: 700; margin-top: 1.5rem; margin-bottom: 0.8rem; color: inherit; }
+        #output-preview h4 { font-size: 1.25rem; font-weight: 700; margin-top: 1.2rem; margin-bottom: 0.6rem; color: inherit; }
+        #output-preview p { margin-bottom: 1rem; line-height: 1.7; color: inherit; }
+        #output-preview ul, #output-preview ol { margin-bottom: 1rem; padding-left: 1.5rem; }
+        #output-preview ul { list-style-type: disc; }
+        #output-preview ol { list-style-type: decimal; }
+        #output-preview li { margin-bottom: 0.4rem; }
+        #output-preview blockquote { border-left: 4px solid #e2e8f0; padding-left: 1rem; color: #64748b; font-style: italic; margin: 1.5rem 0; }
+        #output-preview code { background: #f1f5f9; padding: 0.2rem 0.4rem; rounded: 0.375rem; font-size: 0.875rem; color: #ef4444; }
+        #output-preview pre { background: #1e293b; padding: 1.5rem; border-radius: 1rem; margin: 1.5rem 0; overflow-x: auto; }
+        #output-preview pre code { background: transparent; padding: 0; color: inherit; }
+        #output-preview table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+        #output-preview th, #output-preview td { border: 1px solid #e2e8f0; padding: 0.75rem; text-align: left; }
+        #output-preview th { background: #f8fafc; font-weight: 700; }
+        #output-preview img { max-width: 100%; height: auto; border-radius: 0.75rem; margin: 1.5rem 0; }
+        #output-preview hr { border: 0; border-top: 2px solid #e2e8f0; margin: 2rem 0; }
+
+        /* Dark Mode Adjustments */
+        .dark #output-preview h1, .dark #output-preview h2 { border-color: #334155; }
+        .dark #output-preview blockquote { border-color: #334155; color: #94a3b8; }
+        .dark #output-preview code { background: #1e293b; color: #f87171; }
+        .dark #output-preview th, .dark #output-preview td { border-color: #334155; }
+        .dark #output-preview th { background: #0f172a; }
+        .dark #output-preview hr { border-color: #334155; }
+
+        /* Custom scrollbar for better look */
+        #markdown-input::-webkit-scrollbar, #output-preview::-webkit-scrollbar { width: 6px; }
+        #markdown-input::-webkit-scrollbar-thumb, #output-preview::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        .dark #markdown-input::-webkit-scrollbar-thumb, .dark #output-preview::-webkit-scrollbar-thumb { background: #334155; }
+        
+        /* Ensure textarea and preview take full height */
+        .editor-container { min-height: 700px; height: 700px; }
+    </style>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -19,8 +76,7 @@
             <div class="flex items-center gap-3 text-sm text-slate-600 dark:text-slate-300">
                 <span class="hidden sm:inline">100+ privacy-first tools</span>
                 <a href="mailto:yinb9933@gmail.com" 
-                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-                   title="Contact us for feedback or suggestions">
+                   class="flex items-center gap-2 rounded-lg border border-slate-200 dark:border-slate-700 px-3 py-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                     </svg>
@@ -38,86 +94,119 @@
         
         <div class="max-w-4xl mx-auto text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Markdown to HTML</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Instant, secure Markdown conversion. Write, preview, and export clean HTML code without leaving your browser.</p>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Beautiful, themed Markdown rendering. Instant preview with zero server calls.</p>
             <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                <span>100% Secure. Processed locally.</span>
+                <span>100% Secure. Local processing.</span>
             </div>
         </div>
 
         <div id="tool-wrapper" class="w-full max-w-[1600px] px-6 mx-auto mb-24">
-            <div class="flex flex-col lg:flex-row gap-6 h-[700px]">
+            
+            <!-- Toolbar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6 bg-white dark:bg-slate-800/50 p-4 rounded-3xl border border-slate-200 dark:border-slate-700/50 shadow-sm">
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Preview Theme:</label>
+                        <select id="theme-selector" class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-1.5 text-sm font-medium focus:ring-2 focus:ring-blue-500/20 outline-none transition cursor-pointer">
+                            <option value="theme-github">GitHub Style</option>
+                            <option value="theme-modern">Modern Sans</option>
+                            <option value="theme-classic">Classic Serif</option>
+                            <option value="theme-minimal">Minimalist Mono</option>
+                        </select>
+                    </div>
+                    <div class="h-6 w-px bg-slate-200 dark:bg-slate-700"></div>
+                    <label class="flex items-center gap-2 cursor-pointer group">
+                        <div class="relative">
+                            <input type="checkbox" id="gfm-check" class="sr-only peer" checked>
+                            <div class="w-8 h-4 bg-slate-200 dark:bg-slate-700 rounded-full peer peer-checked:bg-blue-600 transition-colors"></div>
+                            <div class="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-500 group-hover:text-slate-700 dark:group-hover:text-slate-300 transition">GFM (Tables/Lists)</span>
+                    </label>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button id="clear-btn" class="px-4 py-2 text-xs font-bold text-slate-500 hover:text-red-500 transition-colors">Clear All</button>
+                    <label class="cursor-pointer px-4 py-2 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all">
+                        <input type="file" id="file-input" class="hidden" accept=".md,.markdown,.txt" multiple>
+                        Import .md
+                    </label>
+                </div>
+            </div>
+
+            <!-- Main Editor Area -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
                 <!-- Input Section -->
-                <div class="flex-1 flex flex-col bg-white dark:bg-slate-800/50 rounded-[2rem] border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm">
-                    <div class="p-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20">
+                <div class="flex flex-col bg-white dark:bg-slate-800/50 rounded-[2.5rem] border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm editor-container">
+                    <div class="p-5 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20 flex-shrink-0">
                         <span class="text-sm font-bold italic text-slate-900 dark:text-white flex items-center gap-2">
                             <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
-                            Markdown Input
+                            Markdown Editor
                         </span>
-                        <div class="flex items-center gap-2">
-                            <button id="clear-btn" class="text-xs font-bold text-slate-400 hover:text-red-500 transition">Clear</button>
-                            <label class="cursor-pointer text-xs font-bold text-blue-600 hover:text-blue-700 transition">
-                                <input type="file" id="file-input" class="hidden" accept=".md,.markdown,.txt" multiple>
-                                Import Files
-                            </label>
-                        </div>
+                        <span id="char-count" class="text-[10px] font-mono text-slate-400">0 characters</span>
                     </div>
-                    <div id="drop-zone" class="flex-grow relative group">
-                        <textarea id="markdown-input" placeholder="# Start typing Markdown...
+                    <div id="drop-zone" class="flex-1 relative overflow-hidden bg-transparent">
+                        <textarea id="markdown-input" spellcheck="false" placeholder="# Markdown Title
 
-- Use lists
-- **Bold text**
-- [Links](https://webutilitykit.com)
-- `Inline code`
-- And more!" class="absolute inset-0 w-full h-full p-8 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300"></textarea>
+## Subtitle
+Try **bold**, *italic*, or `code`.
+
+- List item 1
+- List item 2
+
+```javascript
+console.log('Hello WebUtilityKit!');
+```
+
+| Syntax | Description |
+| ----------- | ----------- |
+| Header | Title |
+| Paragraph | Text |" class="w-full h-full p-10 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300 outline-none"></textarea>
+                        
                         <!-- Drag & Drop Overlay -->
-                        <div id="drop-overlay" class="hidden absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] border-4 border-dashed border-blue-500 flex flex-col items-center justify-center gap-4 z-10 pointer-events-none rounded-[2rem]">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center shadow-xl">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        <div id="drop-overlay" class="hidden absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] border-4 border-dashed border-blue-500 flex flex-col items-center justify-center gap-4 z-20 pointer-events-none rounded-[2.5rem]">
+                            <div class="w-20 h-20 bg-blue-600 text-white rounded-[2rem] flex items-center justify-center shadow-2xl">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
                             </div>
-                            <span class="text-xl font-bold text-blue-600">Drop your files here</span>
+                            <span class="text-2xl font-bold text-blue-600">Drop Markdown Files</span>
                         </div>
-                    </div>
-                    <div id="uploaded-files-container" class="hidden p-4 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-700/50">
-                        <div class="flex items-center justify-between mb-2">
-                            <span id="file-count" class="text-xs font-bold text-slate-500 italic">0 files uploaded</span>
-                        </div>
-                        <div id="file-list" class="flex flex-wrap gap-2"></div>
                     </div>
                 </div>
 
                 <!-- Output Section -->
-                <div class="flex-1 flex flex-col bg-white dark:bg-slate-800/50 rounded-[2rem] border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm">
-                    <div class="p-4 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20">
-                        <div class="flex p-1 bg-slate-200/50 dark:bg-slate-800 rounded-xl">
-                            <button id="tab-preview" class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm">Preview</button>
-                            <button id="tab-html" class="px-4 py-1.5 text-xs font-bold rounded-lg transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">HTML Source</button>
+                <div class="flex flex-col bg-white dark:bg-slate-800/50 rounded-[2.5rem] border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm editor-container">
+                    <div class="p-5 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between bg-slate-50/50 dark:bg-slate-900/20 flex-shrink-0">
+                        <div class="flex p-1 bg-slate-200/50 dark:bg-slate-800 rounded-2xl">
+                            <button id="tab-preview" class="px-5 py-2 text-xs font-bold rounded-xl transition-all bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm">Visual Preview</button>
+                            <button id="tab-html" class="px-5 py-2 text-xs font-bold rounded-xl transition-all text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white">HTML Code</button>
                         </div>
                         <div class="flex items-center gap-2">
-                            <button id="copy-btn" class="flex items-center gap-2 px-3 py-1.5 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all group">
-                                <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                            <button id="copy-btn" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/30 transition-all">
+                                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
                                 <span>Copy</span>
                             </button>
-                            <button id="download-btn" class="flex items-center gap-2 px-3 py-1.5 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition-all shadow-md shadow-blue-500/20">
-                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
-                                <span>Export</span>
+                            <button id="download-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
+                                <span>Download</span>
                             </button>
                         </div>
                     </div>
-                    <div class="flex-grow relative">
-                        <div id="output-preview" class="absolute inset-0 p-8 overflow-y-auto prose prose-slate dark:prose-invert max-w-none">
+                    <div class="flex-1 relative overflow-hidden bg-white dark:bg-slate-900/40">
+                        <div id="output-preview" class="w-full h-full p-10 overflow-y-auto prose prose-slate dark:prose-invert max-w-none theme-github">
                             <!-- Preview Content -->
                         </div>
-                        <textarea id="output-html" class="hidden absolute inset-0 w-full h-full p-8 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300" readonly></textarea>
-                    </div>
-                    <div id="batch-results-container" class="hidden p-4 bg-slate-50 dark:bg-slate-900/40 border-t border-slate-200 dark:border-slate-700/50">
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="text-xs font-bold text-slate-500 italic">Batch Results</span>
-                            <button id="download-all-btn" class="text-xs font-bold text-blue-600 hover:text-blue-700 transition">Download All (.zip-style)</button>
-                        </div>
-                        <div id="results-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                        <textarea id="output-html" class="hidden w-full h-full p-10 bg-transparent border-none focus:ring-0 resize-none font-mono text-sm leading-relaxed text-slate-700 dark:text-slate-300 outline-none" readonly></textarea>
                     </div>
                 </div>
+            </div>
+
+            <!-- Batch Queue (only visible when files imported) -->
+            <div id="batch-container" class="hidden mt-8 p-6 bg-white dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-sm font-bold text-slate-900 dark:text-white italic">Imported Files Queue</h3>
+                    <button id="download-all" class="text-xs font-bold text-blue-600 hover:text-blue-700 transition">Download All as ZIP-style</button>
+                </div>
+                <div id="batch-list" class="flex flex-wrap gap-3"></div>
             </div>
         </div>
 
@@ -127,37 +216,37 @@
                 
                 <!-- How to Use -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Mastering Markdown to HTML</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use the Markdown Converter</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
                             <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Content</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Paste your Markdown text or drag and drop multiple `.md` files into the editor.</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Write or Import</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Type directly in the editor or drag-and-drop your .md files. Everything stays local.</p>
                         </div>
                         <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
                             <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Instant Preview</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">See your changes reflected in real-time. Switch between rendered preview and HTML source.</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Choose Theme</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Switch between GitHub, Modern, or Classic styles to see how your content looks.</p>
                         </div>
                         <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
                             <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Export Results</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Copy individual results to your clipboard or download all converted files as a batch.</p>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Copy or Export</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Grab the raw HTML code or download a complete .html file ready for the web.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Feature Grid -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Why WebUtilityKit Markdown?</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Professional Features</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
                             <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
                                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">High-Speed Parsing</h3>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Powered by the lightning-fast Marked engine, handling even massive documents in milliseconds.</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Syntax Highlighting</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Automatic language detection and beautiful code block styling for 100+ languages.</p>
                             </div>
                         </div>
                         <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
@@ -165,39 +254,10 @@
                                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Private & Local</h3>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Your content never touches a server. All conversion happens entirely within your browser's memory.</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">GFM Supported</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Full support for GitHub Flavored Markdown including tables, task lists, and strikethroughs.</p>
                             </div>
                         </div>
-                    </div>
-                </section>
-
-                <!-- FAQ -->
-                <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Markdown FAQ</h2>
-                    <div class="max-w-3xl mx-auto space-y-4">
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">What Markdown flavors are supported?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
-                                We support standard GFM (GitHub Flavored Markdown), which includes tables, task lists, and strikethroughs alongside standard Markdown syntax.
-                            </div>
-                        </details>
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">Can I batch process multiple files?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
-                                Yes! Simply drag multiple `.md` files into the input area or use the "Import Files" button. Each file will be converted and made available for download.
-                            </div>
-                        </details>
                     </div>
                 </section>
             </article>
@@ -231,99 +291,86 @@
         const markdownInput = document.getElementById('markdown-input');
         const outputPreview = document.getElementById('output-preview');
         const outputHtml = document.getElementById('output-html');
+        const themeSelector = document.getElementById('theme-selector');
+        const gfmCheck = document.getElementById('gfm-check');
+        const charCount = document.getElementById('char-count');
+        const clearBtn = document.getElementById('clear-btn');
         const tabPreview = document.getElementById('tab-preview');
         const tabHtml = document.getElementById('tab-html');
         const copyBtn = document.getElementById('copy-btn');
         const downloadBtn = document.getElementById('download-btn');
-        const clearBtn = document.getElementById('clear-btn');
         const fileInput = document.getElementById('file-input');
         const dropZone = document.getElementById('drop-zone');
         const dropOverlay = document.getElementById('drop-overlay');
-        const uploadedFilesContainer = document.getElementById('uploaded-files-container');
-        const fileCount = document.getElementById('file-count');
-        const fileList = document.getElementById('file-list');
-        const batchResultsContainer = document.getElementById('batch-results-container');
-        const resultsList = document.getElementById('results-list');
-        const downloadAllBtn = document.getElementById('download-all-btn');
+        const batchContainer = document.getElementById('batch-container');
+        const batchList = document.getElementById('batch-list');
+        const downloadAllBtn = document.getElementById('download-all');
 
-        let activeTab = 'preview';
         let uploadedFiles = [];
-        let convertedResults = [];
 
-        // Configure Marked
-        marked.setOptions({
-            gfm: true,
-            breaks: true,
-            headerIds: true,
-            mangle: false
-        });
+        // Configure Marked with highlight.js
+        function configureMarked() {
+            marked.setOptions({
+                gfm: gfmCheck.checked,
+                breaks: true,
+                highlight: function(code, lang) {
+                    const language = hljs.getLanguage(lang) ? lang : 'plaintext';
+                    return hljs.highlight(code, { language }).value;
+                },
+                langPrefix: 'hljs language-',
+            });
+        }
 
         function updateOutput() {
+            configureMarked();
             const md = markdownInput.value;
-            const html = marked.parse(md);
-            outputPreview.innerHTML = html;
-            outputHtml.value = html;
+            const htmlResult = marked.parse(md);
+            outputPreview.innerHTML = htmlResult;
+            outputHtml.value = htmlResult;
+            charCount.textContent = `${md.length.toLocaleString()} characters`;
+            
+            // Re-apply highlighting to dynamic content
+            outputPreview.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightElement(block);
+            });
         }
 
         markdownInput.addEventListener('input', updateOutput);
+        gfmCheck.addEventListener('change', updateOutput);
+        
+        themeSelector.addEventListener('change', (e) => {
+            outputPreview.className = `w-full h-full p-10 overflow-y-auto prose prose-slate dark:prose-invert max-w-none ${e.target.value}`;
+        });
 
-        // Tab Switching
         tabPreview.addEventListener('click', () => {
-            activeTab = 'preview';
             tabPreview.classList.add('bg-white', 'dark:bg-slate-700', 'text-blue-600', 'dark:text-blue-400', 'shadow-sm');
-            tabPreview.classList.remove('text-slate-500', 'dark:text-slate-400');
             tabHtml.classList.remove('bg-white', 'dark:bg-slate-700', 'text-blue-600', 'dark:text-blue-400', 'shadow-sm');
-            tabHtml.classList.add('text-slate-500', 'dark:text-slate-400');
             outputPreview.classList.remove('hidden');
             outputHtml.classList.add('hidden');
         });
 
         tabHtml.addEventListener('click', () => {
-            activeTab = 'html';
             tabHtml.classList.add('bg-white', 'dark:bg-slate-700', 'text-blue-600', 'dark:text-blue-400', 'shadow-sm');
-            tabHtml.classList.remove('text-slate-500', 'dark:text-slate-400');
             tabPreview.classList.remove('bg-white', 'dark:bg-slate-700', 'text-blue-600', 'dark:text-blue-400', 'shadow-sm');
-            tabPreview.classList.add('text-slate-500', 'dark:text-slate-400');
             outputHtml.classList.remove('hidden');
             outputPreview.classList.add('hidden');
         });
 
-        // Copy Functionality
         copyBtn.addEventListener('click', async () => {
-            const textToCopy = activeTab === 'preview' ? outputPreview.innerText : outputHtml.value;
-            if (!textToCopy) return;
-
+            const isPreview = !outputPreview.classList.contains('hidden');
+            const text = isPreview ? outputPreview.innerText : outputHtml.value;
+            if (!text) return;
             try {
-                await navigator.clipboard.writeText(textToCopy);
-                const originalContent = copyBtn.innerHTML;
-                copyBtn.innerHTML = `<svg class="w-3.5 h-3.5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span>Copied!</span>`;
-                copyBtn.classList.add('bg-green-50', 'dark:bg-green-900/20', 'border-green-200', 'dark:border-green-800');
-                setTimeout(() => {
-                    copyBtn.innerHTML = originalContent;
-                    copyBtn.classList.remove('bg-green-50', 'dark:bg-green-900/20', 'border-green-200', 'dark:border-green-800');
-                }, 2000);
-            } catch (err) {
-                console.error('Failed to copy: ', err);
-            }
+                await navigator.clipboard.writeText(text);
+                const original = copyBtn.innerHTML;
+                copyBtn.innerHTML = `<span>Copied!</span>`;
+                setTimeout(() => copyBtn.innerHTML = original, 2000);
+            } catch (err) {}
         });
 
-        // Download Functionality
         downloadBtn.addEventListener('click', () => {
-            const htmlContent = outputHtml.value;
-            if (!htmlContent) return;
-            
-            const fullHtml = `<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Converted Markdown</title>
-</head>
-<body>
-${htmlContent}
-</body>
-</html>`;
-
-            const blob = new Blob([fullHtml], { type: 'text/html' });
+            if (!outputHtml.value) return;
+            const blob = new Blob([outputHtml.value], { type: 'text/html' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -332,156 +379,81 @@ ${htmlContent}
             URL.revokeObjectURL(url);
         });
 
-        // Clear Functionality
         clearBtn.addEventListener('click', () => {
             markdownInput.value = '';
             uploadedFiles = [];
-            convertedResults = [];
+            batchContainer.classList.add('hidden');
             updateOutput();
-            updateFileList();
-            updateResultsList();
-            uploadedFilesContainer.classList.add('hidden');
-            batchResultsContainer.classList.add('hidden');
         });
 
-        // Drag and Drop Logic
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropOverlay.classList.remove('hidden');
-            }, false);
+        // Drag & Drop
+        dropZone.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.remove('hidden');
+        });
+        dropOverlay.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.add('hidden');
+        });
+        dropZone.addEventListener('dragover', (e) => e.preventDefault());
+        dropZone.addEventListener('drop', async (e) => {
+            e.preventDefault();
+            dropOverlay.classList.add('hidden');
+            handleFiles(e.dataTransfer.files);
         });
 
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                dropOverlay.classList.add('hidden');
-            }, false);
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            const files = e.dataTransfer.files;
-            handleFiles(files);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
 
         async function handleFiles(files) {
             if (files.length === 0) return;
             
-            uploadedFilesContainer.classList.remove('hidden');
-            batchResultsContainer.classList.remove('hidden');
-
+            batchContainer.classList.remove('hidden');
             for (const file of files) {
                 const text = await file.text();
-                const htmlContent = marked.parse(text);
-                const result = {
-                    name: file.name.replace(/\.[^/.]+$/, "") + ".html",
-                    content: htmlContent,
-                    id: Date.now() + Math.random()
-                };
+                uploadedFiles.push({ name: file.name, content: text });
                 
-                uploadedFiles.push(file);
-                convertedResults.push(result);
-                
-                // If it's the first or only file, also put it in the editor
+                // If it's the only file or first, put in editor
                 if (uploadedFiles.length === 1) {
                     markdownInput.value = text;
                     updateOutput();
                 }
             }
-            
-            updateFileList();
-            updateResultsList();
+            renderQueue();
         }
 
-        function updateFileList() {
-            fileCount.textContent = `${uploadedFiles.length} file${uploadedFiles.length === 1 ? '' : 's'} uploaded`;
-            fileList.innerHTML = '';
-            uploadedFiles.forEach((file, index) => {
-                const badge = document.createElement('div');
-                badge.className = 'px-3 py-1 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full text-[10px] font-bold text-slate-600 dark:text-slate-300 flex items-center gap-2';
-                badge.innerHTML = `
-                    <span class="truncate max-w-[100px]">${file.name}</span>
-                    <button onclick="removeFile(${index})" class="text-slate-400 hover:text-red-500 transition-colors">
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
-                `;
-                fileList.appendChild(badge);
+        function renderQueue() {
+            batchList.innerHTML = '';
+            uploadedFiles.forEach((f, i) => {
+                const el = document.createElement('div');
+                el.className = 'px-3 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 rounded-full text-[10px] font-bold text-blue-600 flex items-center gap-2';
+                el.innerHTML = `<span>${f.name}</span><button onclick="removeQueued(${i})">×</button>`;
+                batchList.appendChild(el);
             });
         }
 
-        window.removeFile = (index) => {
-            uploadedFiles.splice(index, 1);
-            convertedResults.splice(index, 1);
-            updateFileList();
-            updateResultsList();
-            if (uploadedFiles.length === 0) {
-                uploadedFilesContainer.classList.add('hidden');
-                batchResultsContainer.classList.add('hidden');
-            }
+        window.removeQueued = (i) => {
+            uploadedFiles.splice(i, 1);
+            if (uploadedFiles.length === 0) batchContainer.classList.add('hidden');
+            renderQueue();
         };
 
-        function updateResultsList() {
-            resultsList.innerHTML = '';
-            convertedResults.forEach((res) => {
-                const item = document.createElement('div');
-                item.className = 'flex items-center justify-between p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs';
-                item.innerHTML = `
-                    <span class="font-bold text-slate-700 dark:text-slate-300 truncate">${res.name}</span>
-                    <div class="flex items-center gap-2">
-                        <button onclick="copyResult('${res.id}')" class="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors" title="Copy HTML">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
-                        </button>
-                        <button onclick="downloadResult('${res.id}')" class="p-1.5 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors" title="Download HTML">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
-                        </button>
-                    </div>
-                `;
-                resultsList.appendChild(item);
-            });
-        }
-
-        window.copyResult = (id) => {
-            const res = convertedResults.find(r => r.id == id);
-            if (res) {
-                navigator.clipboard.writeText(res.content);
-            }
-        };
-
-        window.downloadResult = (id) => {
-            const res = convertedResults.find(r => r.id == id);
-            if (res) {
-                const fullHtml = `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${res.name}</title></head><body>${res.content}</body></html>`;
-                const blob = new Blob([fullHtml], { type: 'text/html' });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                a.download = res.name;
-                a.click();
-                URL.revokeObjectURL(url);
-            }
-        };
-
-        // For "Download All", since we can't easily create a ZIP in vanilla JS without a library,
-        // we'll trigger multiple downloads or alert the user. Given the "No Node/npm" rule, 
-        // I'll stick to triggering sequential downloads as a simple solution.
         downloadAllBtn.addEventListener('click', () => {
-            convertedResults.forEach((res, index) => {
+            uploadedFiles.forEach((f, i) => {
                 setTimeout(() => {
-                    window.downloadResult(res.id);
-                }, index * 200);
+                    const html = marked.parse(f.content);
+                    const blob = new Blob([html], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = f.name.replace('.md', '.html');
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }, i * 200);
             });
         });
 
-        // Initialize with default content
+        // Init
         updateOutput();
-
     </script>
 </body>
 </html>
-

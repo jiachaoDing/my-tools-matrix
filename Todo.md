@@ -109,10 +109,10 @@
 
 80. **Merge PDF** (`merge-pdf`)[done]
 81. **Split PDF** (`split-pdf`)[done]
-82. **JPG to PDF** (`jpg-to-pdf`)
-83. **PDF to JPG** (`pdf-to-jpg`) - *利用 PDF.js*
-84. **Extract Images from PDF** (`extract-pdf-images`)
-85. **Rotate PDF** (`rotate-pdf`)
+82. **JPG to PDF** (`jpg-to-pdf`)[done]
+83. **PDF to JPG** (`pdf-to-jpg`) - *利用 PDF.js*[done]
+84. **Extract Images from PDF** (`extract-pdf-images`)[done]
+85. **Rotate PDF** (`rotate-pdf`)[done]
 86. **Protect PDF** (`protect-pdf`) - *加密码*
 87. **Unlock PDF** (`unlock-pdf`) - *移除密码（需知原密码）*
 
