@@ -1,0 +1,504 @@
+﻿==================== Batch 1/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@add-watermark/index.html
+@age-calculator/index.html
+@ascii-art/index.html
+@aspect-ratio-calculator/index.html
+@avif-to-jpg/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√add-watermark optimized
+√age-calculator optimized
+√ascii-art optimized
+√aspect-ratio-calculator optimized
+√avif-to-jpg optimized
+
+
+==================== Batch 2/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@avif-to-png/index.html
+@base64-encoder/index.html
+@base64-to-image/index.html
+@binary-to-text/index.html
+@blur-image/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√avif-to-png optimized
+√base64-encoder optimized
+√base64-to-image optimized
+√binary-to-text optimized
+√blur-image optimized
+
+
+==================== Batch 3/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@bmi-calculator/index.html
+@bmp-to-jpg/index.html
+@bmp-to-png/index.html
+@bmr-calculator/index.html
+@body-fat-calculator/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√bmi-calculator optimized
+√bmp-to-jpg optimized
+√bmp-to-png optimized
+√bmr-calculator optimized
+√body-fat-calculator optimized
+
+
+==================== Batch 4/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@case-converter/index.html
+@character-counter/index.html
+@coin-flipper/index.html
+@cpm-calculator/index.html
+@credit-card-validator/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√case-converter optimized
+√character-counter optimized
+√coin-flipper optimized
+√cpm-calculator optimized
+√credit-card-validator optimized
+
+
+==================== Batch 5/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@cron-generator/index.html
+@csv-to-json/index.html
+@data-unit-converter/index.html
+@days-between-dates/index.html
+@dice-roller/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√cron-generator optimized
+√csv-to-json optimized
+√data-unit-converter optimized
+√days-between-dates optimized
+√dice-roller optimized
+
+
+==================== Batch 6/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@discount-calculator/index.html
+@download-time-calculator/index.html
+@emoji-picker/index.html
+@extract-pdf-images/index.html
+@find-and-replace/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√discount-calculator optimized
+√download-time-calculator optimized
+√emoji-picker optimized
+√extract-pdf-images optimized
+√find-and-replace optimized
+
+
+==================== Batch 7/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@flip-image/index.html
+@gif-to-mp4/index.html
+@grayscale-image/index.html
+@heic-to-jpg/index.html
+@ico-generator/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√flip-image optimized
+√gif-to-mp4 optimized
+√grayscale-image optimized
+√heic-to-jpg optimized
+√ico-generator optimized
+
+
+==================== Batch 8/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@ico-to-png/index.html
+@image-color-picker/index.html
+@image-compressor/index.html
+@image-converter/index.html
+@image-cropper/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√ico-to-png optimized
+√image-color-picker optimized
+√image-compressor optimized
+√image-converter optimized
+√image-cropper optimized
+
+
+==================== Batch 9/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@image-resizer/index.html
+@image-to-base64/index.html
+@jpg-to-pdf/index.html
+@jpg-to-png/index.html
+@json-formatter/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√image-resizer optimized
+√image-to-base64 optimized
+√jpg-to-pdf optimized
+√jpg-to-png optimized
+√json-formatter optimized
+
+
+==================== Batch 10/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@json-to-csv/index.html
+@length-converter/index.html
+@list-randomizer/index.html
+@loan-calculator/index.html
+@lorem-ipsum/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√json-to-csv optimized
+√length-converter optimized
+√list-randomizer optimized
+√loan-calculator optimized
+√lorem-ipsum optimized
+
+
+==================== Batch 11/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@markdown-to-html/index.html
+@md5-generator/index.html
+@meme-generator/index.html
+@merge-pdf/index.html
+@meta-tag-generator/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√markdown-to-html optimized
+√md5-generator optimized
+√meme-generator optimized
+√merge-pdf optimized
+√meta-tag-generator optimized
+
+
+==================== Batch 12/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@online-stopwatch/index.html
+@open-graph-generator/index.html
+@password-generator/index.html
+@password-strength/index.html
+@pdf-to-jpg/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√online-stopwatch optimized
+√open-graph-generator optimized
+√password-generator optimized
+√password-strength optimized
+√pdf-to-jpg optimized
+
+
+==================== Batch 13/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@percentage-calculator/index.html
+@photo-grid-maker/index.html
+@png-to-jpg/index.html
+@pomodoro-timer/index.html
+@protect-pdf/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√percentage-calculator optimized
+√photo-grid-maker optimized
+√png-to-jpg optimized
+√pomodoro-timer optimized
+√protect-pdf optimized
+
+
+==================== Batch 14/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@qr-code-generator/index.html
+@random-number-generator/index.html
+@regex-tester/index.html
+@remove-duplicate-lines/index.html
+@reverse-text/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√qr-code-generator optimized
+√random-number-generator optimized
+√regex-tester optimized
+√remove-duplicate-lines optimized
+√reverse-text optimized
+
+
+==================== Batch 15/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@rock-paper-scissors/index.html
+@rotate-image/index.html
+@rotate-pdf/index.html
+@sales-tax-calculator/index.html
+@sha256-generator/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√rock-paper-scissors optimized
+√rotate-image optimized
+√rotate-pdf optimized
+√sales-tax-calculator optimized
+√sha256-generator optimized
+
+
+==================== Batch 16/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@slug-generator/index.html
+@small-text-generator/index.html
+@sort-text/index.html
+@special-symbols-picker/index.html
+@speed-converter/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√slug-generator optimized
+√small-text-generator optimized
+√sort-text optimized
+√special-symbols-picker optimized
+√speed-converter optimized
+
+
+==================== Batch 17/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@split-pdf/index.html
+@sql-formatter/index.html
+@svg-to-png/index.html
+@temperature-converter/index.html
+@text-to-binary/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√split-pdf optimized
+√sql-formatter optimized
+√svg-to-png optimized
+√temperature-converter optimized
+√text-to-binary optimized
+
+
+==================== Batch 18/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@tiff-to-jpg/index.html
+@time-zone-converter/index.html
+@tip-calculator/index.html
+@twitter-card-generator/index.html
+@unix-timestamp/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√tiff-to-jpg optimized
+√time-zone-converter optimized
+√tip-calculator optimized
+√twitter-card-generator optimized
+√unix-timestamp optimized
+
+
+==================== Batch 19/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@unlock-pdf/index.html
+@upside-down-text/index.html
+@url-encoder-decoder/index.html
+@user-agent-parser/index.html
+@uuid-generator/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√unlock-pdf optimized
+√upside-down-text optimized
+√url-encoder-decoder optimized
+√user-agent-parser optimized
+√uuid-generator optimized
+
+
+==================== Batch 20/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@webp-converter/index.html
+@webp-to-jpg/index.html
+@webp-to-png/index.html
+@weight-converter/index.html
+@what-is-my-ip/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√webp-converter optimized
+√webp-to-jpg optimized
+√webp-to-png optimized
+√weight-converter optimized
+√what-is-my-ip optimized
+
+
+==================== Batch 21/21 ====================
+
+Please apply the SEO configuration from @SEO_RULES.md to the following tools:
+
+@wheel-of-names/index.html
+@word-counter/index.html
+@xml-formatter/index.html
+@yes-no-oracle/index.html
+@youtube-thumbnail-grabber/index.html
+
+**Action Requirements:**
+1. **REPLACE** existing <title> and <meta name="description"> with the optimized versions.
+2. **ENSURE** <link rel="canonical" ...> is present (add if missing).
+3. **ADD** the JSON-LD script block before </head>.
+4. **CHECK** that CSS link is /assets/css/styles.css (fix if it's CDN).
+
+[Output Format] Only output modification confirmation, do not repeat file content:
+√wheel-of-names optimized
+√word-counter optimized
+√xml-formatter optimized
+√yes-no-oracle optimized
+√youtube-thumbnail-grabber optimized
+
+

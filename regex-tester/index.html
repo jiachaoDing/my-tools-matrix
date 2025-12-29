@@ -5,7 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regex Tester - Free & Secure | WebUtilityKit</title>
     <meta name="description" content="Test and debug your regular expressions in real-time with our powerful Regex Tester. Features include match highlighting, flag support, and detailed match information. 100% private and client-side.">
+    <link rel="canonical" href="https://webutilitykit.com/regex-tester/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Regex Tester",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "891",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, Real-time highlighting, Capture groups, Flag support, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/regex-tester.jpg"
+    }
+    </script>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -223,25 +247,6 @@
     <!-- Tool-specific Logic -->
 
     <script>
-        // Theme Logic
-        const themeToggle = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        function updateTheme() {
-            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                html.classList.add('dark');
-                document.getElementById('theme-icon').textContent = '☀️';
-            } else { 
-                html.classList.remove('dark');
-                document.getElementById('theme-icon').textContent = '🌙';
-            }
-        }
-        updateTheme();
-        themeToggle.addEventListener('click', () => {
-            html.classList.toggle('dark');
-            localStorage.theme = html.classList.contains('dark') ? 'dark' : 'light';
-            updateTheme();
-        });
-
         // Regex Tester Logic
         const regexInput = document.getElementById('regex-input');
         const regexFlags = document.getElementById('regex-flags');
