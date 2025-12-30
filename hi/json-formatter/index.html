@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON फॉर्मेटर और वैलिडेटर - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="JSON डेटा को तुरंत फॉर्मेट, वैलिडेट और ब्यूटिफाई करें। सिंटैक्स हाइलाइटिंग, एरर डिटेक्शन और मिनिफिकेशन के साथ सुरक्षित क्लाइंट-साइड प्रसंस्करण।">
+
+    <link rel="canonical" href="https://webutilitykit.com/hi/json-formatter/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/json-formatter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/json-formatter/" />
+
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "JSON Formatter & Validator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "891",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/json-formatter.jpg"
+    }
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JSON फॉर्मेटर और वैलिडेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">रीयल-टाइम एरर डिटेक्शन और सिंटैक्स हाइलाइटिंग के साथ अपनी JSON डेटा को तुरंत फॉर्मेट और वैलिडेट करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+                <!-- Input Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">इनपुट JSON</label>
+                                <div class="flex gap-2">
+                                    <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        फाइलें अपलोड करें
+                                    </button>
+                                    <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                        पेस्ट करें
+                                    </button>
+                                    <button id="clear-input-btn" class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        साफ करें
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Drag & Drop Zone -->
+                            <div id="drop-zone" class="relative flex-1 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-2xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30">
+                                <input type="file" id="file-input" accept=".json,.txt" multiple class="hidden">
+                                <textarea
+                                    id="json-input"
+                                    class="absolute inset-0 w-full h-full p-6 pt-14 text-sm font-mono bg-transparent border-0 focus:ring-0 resize-none placeholder-slate-400 transition z-10"
+                                    placeholder='{"name": "example", "data": [1, 2, 3]}'
+                                ></textarea>
+                                <!-- Drop Zone Hint -->
+                                <div class="absolute top-3 left-0 right-0 text-center pointer-events-none z-0">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        यहाँ क्लिक करें या JSON फाइलें ड्रॉप करें, या नीचे टेक्स्ट पेस्ट करें
+                                    </div>
+                                </div>
+                                <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-2xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                                    <div class="text-center">
+                                        <svg class="w-20 h-20 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">फाइलें यहाँ ड्रॉप करें</p>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">एकाधिक .json या .txt फाइलें समर्थित</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Uploaded Files List -->
+                            <div id="uploaded-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">अपलोड की गई फाइलें</span>
+                                    <span id="file-count" class="text-xs text-slate-600 dark:text-slate-400"></span>
+                                </div>
+                                <div id="file-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div id="input-status" class="mt-4 flex items-center gap-2 text-sm font-medium hidden">
+                                <svg id="status-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                <span id="status-text"></span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="p-6 pt-0 flex flex-col gap-3">
+                            <button id="format-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                <span id="format-btn-text">JSON फॉर्मेट करें</span>
+                            </button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button id="minify-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    मिनिफाई करें
+                                </button>
+                                <button id="sample-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    सैंपल
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label for="json-output" class="text-sm font-semibold uppercase tracking-wider text-slate-500">फॉर्मेटेड आउटपुट</label>
+                                <div class="flex gap-2">
+                                    <button id="copy-btn" class="text-xs px-3 py-1.5 rounded-lg bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        कॉपी करें
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea
+                                id="json-output"
+                                class="flex-1 w-full min-h-[500px] p-6 text-sm font-mono bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-green-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
+                                placeholder="फॉर्मेटेड JSON यहाँ दिखाई देगा..."
+                                readonly
+                            ></textarea>
+
+                            <!-- Processed Files List -->
+                            <div id="processed-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">प्रोसेस की गई फाइलें</span>
+                                    <button id="download-all-btn" class="text-xs px-3 py-1 rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        सभी को डाउनलोड करें
+                                    </button>
+                                </div>
+                                <div id="processed-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="mt-4 grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">आकार</div>
+                                    <div id="stat-size" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0 B</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">लाइनें</div>
+                                    <div id="stat-lines" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">कीज़</div>
+                                    <div id="stat-keys" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Validation Result -->
+                        <div class="p-6 pt-0">
+                            <div id="validation-result" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900/50 hidden">
+                                <div class="flex items-start gap-3">
+                                    <svg id="validation-icon" class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                    <div class="flex-1">
+                                        <div id="validation-title" class="font-semibold text-sm mb-1"></div>
+                                        <div id="validation-message" class="text-xs text-slate-600 dark:text-slate-400"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">JSON फॉर्मेटर और वैलिडेटर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">JSON पेस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी JSON डेटा को इनपुट एरिया में कॉपी और पेस्ट करें। आप उदाहरण डेटा लोड करने के लिए "सैंपल" बटन का भी उपयोग कर सकते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फॉर्मेट या मिनिफाई करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">प्रॉपर इंडेंटेशन और स्पेसिंग के साथ JSON को ब्यूटिफाई करने के लिए "JSON फॉर्मेट करें" पर क्लिक करें, या प्रोडक्शन के लिए व्हाइटस्पेस हटाने के लिए "मिनिफाई करें" पर क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कॉपी या डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">फॉर्मेटेड आउटपुट को कॉपी करने के लिए "कॉपी करें" बटन का उपयोग करें, या इसे अपने कंप्यूटर पर .json फाइल के रूप में सेव करने के लिए "डाउनलोड" का उपयोग करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Key Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">शक्तिशाली विशेषताएँ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-900/20 dark:to-blue-800/10 border border-blue-200/50 dark:border-blue-800/30">
+                            <div class="w-14 h-14 bg-blue-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">रीयल-टाइम वैलिडेशन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">लाइन नंबरों के साथ सहायक एरर मैसेज प्राप्त करते हुए सिंटैक्स एरर को तुरंत डिटेक्ट करें।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-900/20 dark:to-green-800/10 border border-green-200/50 dark:border-green-800/30">
+                            <div class="w-14 h-14 bg-green-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">100% गोपनीयता</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">सभी फॉर्मेटिंग और वैलिडेशन आपके ब्राउज़र में स्थानीय रूप से होता है। आपका JSON डेटा आपके डिवाइस से कभी नहीं निकलता।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-900/20 dark:to-purple-800/10 border border-purple-200/50 dark:border-purple-800/30">
+                            <div class="w-14 h-14 bg-purple-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फॉर्मेट और मिनिफाई</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">प्रॉपर इंडेंटेशन और स्पेसिंग के साथ JSON को ब्यूटिफाई करें, या प्रोडक्शन के लिए फाइल साइज़ कम करने के लिए इसे मिनिफाई करें।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-gradient-to-br from-orange-50 to-orange-100/50 dark:from-orange-900/20 dark:to-orange-800/10 border border-orange-200/50 dark:border-orange-800/30">
+                            <div class="w-14 h-14 bg-orange-600 text-white rounded-2xl flex items-center justify-center mb-6 shadow-lg">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">बिजली की तरह तेज़</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">अपलोड या डाउनलोड देरी के बिना बड़ी JSON फाइलों को तुरंत प्रोसेस करें। एक बार लोड होने पर पूरी तरह से ऑफलाइन काम करता है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Use Cases -->
+                <section class="bg-gradient-to-br from-slate-50 to-slate-100/50 dark:from-slate-800/50 dark:to-slate-800/20 rounded-[3rem] p-12 border border-slate-200/50 dark:border-slate-700/30">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">परफेक्ट फॉर</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+                        <div class="bg-white dark:bg-slate-800/60 p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
+                            <div class="text-4xl mb-4">👨‍💻</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">डेवलपर्स</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">API रिस्पॉन्स और कॉन्फिगरेशन फाइलों को जल्दी डिबग करें।</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/60 p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
+                            <div class="text-4xl mb-4">🧪</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">QA इंजीनियर्स</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">टेस्ट डेटा को वैलिडेट करें और JSON स्ट्रक्चर्स की तुलना करें।</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/60 p-6 rounded-3xl border border-slate-200 dark:border-slate-700">
+                            <div class="text-4xl mb-4">📊</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">डेटा एनालिस्ट्स</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400">विश्लेषण के लिए JSON डेटासेट को क्लीन और फॉर्मेट करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">JSON क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                JSON (JavaScript Object Notation) एक हल्का डेटा फॉर्मेट है जो मनुष्यों के लिए पढ़ना और लिखना आसान है, और मशीनों के लिए पार्स करना और जनरेट करना आसान है। यह APIs, कॉन्फिगरेशन फाइलों, और डेटा एक्सचेंज के लिए व्यापक रूप से उपयोग किया जाता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">फाइल साइज़ की कोई सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                कोई हार्ड लिमिट नहीं है, लेकिन बहुत बड़ी फाइलें (10MB से अधिक) आपके ब्राउज़र को धीमा कर सकती हैं क्योंकि सभी प्रसंस्करण स्थानीय रूप से होता है। सबसे अच्छी परफॉरमेंस के लिए, हम 5MB से कम फाइलें सुझाते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं संवेदनशील डेटा के साथ इसका उपयोग कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                बिल्कुल! आपका डेटा आपके ब्राउज़र से कभी नहीं निकलता। सभी फॉर्मेटिंग और वैलिडेशन आपके डिवाइस पर स्थानीय रूप से होता है, जिससे यह गोपनीय या संवेदनशील जानकारी के लिए सुरक्षित बन जाता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">फॉर्मेट और मिनिफाई के बीच क्या अंतर है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                फॉर्मेट इंडेंटेशन और लाइन ब्रेक जोड़ता है ताकि JSON मानव-पठनीय बन जाए। मिनिफाई सभी अनावश्यक व्हाइटस्पेस को हटाता है ताकि फाइल साइज़ कम हो जाए, जो बैंडविड्थ महत्वपूर्ण होने पर प्रोडक्शन एनवायरनमेंट के लिए आदर्श है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const jsonInput = document.getElementById('json-input');
+        const jsonOutput = document.getElementById('json-output');
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const processedFilesSection = document.getElementById('processed-files');
+        const processedList = document.getElementById('processed-list');
+
+        const uploadBtn = document.getElementById('upload-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const clearInputBtn = document.getElementById('clear-input-btn');
+        const formatBtn = document.getElementById('format-btn');
+        const formatBtnText = document.getElementById('format-btn-text');
+        const minifyBtn = document.getElementById('minify-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        const inputStatus = document.getElementById('input-status');
+        const statusIcon = document.getElementById('status-icon');
+        const statusText = document.getElementById('status-text');
+
+        const validationResult = document.getElementById('validation-result');
+        const validationIcon = document.getElementById('validation-icon');
+        const validationTitle = document.getElementById('validation-title');
+        const validationMessage = document.getElementById('validation-message');
+
+        const statSize = document.getElementById('stat-size');
+        const statLines = document.getElementById('stat-lines');
+        const statKeys = document.getElementById('stat-keys');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let currentMode = 'format'; // 'format' or 'minify'
+
+        // Sample data
+        const sampleData = {
+            "user": {
+                "id": 12345,
+                "name": "John Doe",
+                "email": "john.doe@example.com",
+                "isActive": true,
+                "roles": ["admin", "user"],
+                "metadata": {
+                    "createdAt": "2025-01-15T10:30:00Z",
+                    "lastLogin": "2025-12-28T08:15:00Z"
+                }
+            }
+        };
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function showValidation(type, title, message) {
+            validationResult.classList.remove('hidden');
+            validationResult.classList.remove('bg-green-50', 'dark:bg-green-900/20', 'bg-red-50', 'dark:bg-red-900/20');
+
+            if (type === 'success') {
+                validationResult.classList.add('bg-green-50', 'dark:bg-green-900/20');
+                validationIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                validationIcon.classList.add('text-green-600', 'dark:text-green-400');
+                validationIcon.classList.remove('text-red-600', 'dark:text-red-400');
+                validationTitle.classList.add('text-green-700', 'dark:text-green-400');
+                validationTitle.classList.remove('text-red-700', 'dark:text-red-400');
+            } else {
+                validationResult.classList.add('bg-red-50', 'dark:bg-red-900/20');
+                validationIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                validationIcon.classList.add('text-red-600', 'dark:text-red-400');
+                validationIcon.classList.remove('text-green-600', 'dark:text-green-400');
+                validationTitle.classList.add('text-red-700', 'dark:text-red-400');
+                validationTitle.classList.remove('text-green-700', 'dark:text-green-400');
+            }
+
+            validationTitle.textContent = title;
+            validationMessage.textContent = message;
+        }
+
+        function hideValidation() {
+            validationResult.classList.add('hidden');
+        }
+
+        function updateStats(text) {
+            const bytes = new Blob([text]).size;
+            statSize.textContent = formatBytes(bytes);
+            statLines.textContent = text.split('\n').length.toLocaleString();
+
+            let keyCount = 0;
+            try {
+                const obj = JSON.parse(text);
+                function countKeys(obj) {
+                    let count = 0;
+                    for (let key in obj) {
+                        count++;
+                        if (typeof obj[key] === 'object' && obj[key] !== null) {
+                            count += countKeys(obj[key]);
+                        }
+                    }
+                    return count;
+                }
+                keyCount = countKeys(obj);
+            } catch (e) {}
+            statKeys.textContent = keyCount.toLocaleString();
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                fileList.innerHTML = '';
+                formatBtnText.textContent = 'JSON फॉर्मेट करें';
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            fileCount.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''}`;
+            formatBtnText.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''} प्रोसेस करें`;
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="font-medium truncate">${file.name}</span>
+                        <span class="text-slate-500 dark:text-slate-400">(${formatBytes(file.size)})</span>
+                    </div>
+                    <button onclick="removeFile(${index})" class="ml-2 p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400 transition">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateProcessedList() {
+            if (processedResults.length === 0) {
+                processedFilesSection.classList.add('hidden');
+                return;
+            }
+
+            processedFilesSection.classList.remove('hidden');
+            processedList.innerHTML = processedResults.map((result, index) => `
+                <div class="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 ${result.success ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            ${result.success ?
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' :
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium truncate">${result.fileName}</div>
+                            ${result.success ?
+                                `<div class="text-slate-500 dark:text-slate-400">${formatBytes(result.size)}</div>` :
+                                `<div class="text-red-600 dark:text-red-400">${result.error}</div>`}
+                        </div>
+                    </div>
+                    ${result.success ? `
+                        <button onclick="downloadSingleFile(${index})" class="ml-2 px-2 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded transition flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            डाउनलोड करें
+                        </button>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingleFile = function(index) {
+            const result = processedResults[index];
+            if (result && result.success) {
+                const blob = new Blob([result.content], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = result.fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file =>
+                file.type === 'application/json' || file.name.endsWith('.json') || file.name.endsWith('.txt')
+            );
+
+            if (newFiles.length === 0) {
+                showValidation('error', 'गलत फाइलें', 'कृपया केवल JSON या टेक्स्ट फाइलें अपलोड करें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...newFiles];
+            updateFileList();
+            jsonInput.value = ''; // Clear textarea when files are uploaded
+            hideValidation();
+        }
+
+        // Upload button handler
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Drag & Drop handlers - Click on empty area to upload
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === jsonInput) return;
+            fileInput.click();
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const files = e.dataTransfer.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = ''; // Reset input to allow re-selecting the same file
+        });
+
+        function processJSON(jsonStr, mode) {
+            try {
+                const parsed = JSON.parse(jsonStr);
+                return {
+                    success: true,
+                    content: mode === 'format' ? JSON.stringify(parsed, null, 2) : JSON.stringify(parsed)
+                };
+            } catch (e) {
+                return {
+                    success: false,
+                    error: e.message
+                };
+            }
+        }
+
+        async function processFiles(mode) {
+            if (uploadedFiles.length === 0) {
+                // Process textarea content
+                const input = jsonInput.value.trim();
+                if (!input) {
+                    showValidation('error', 'खाली इनपुट', 'कृपया JSON डेटा पेस्ट करें या फाइलें अपलोड करें।');
+                    return;
+                }
+
+                const result = processJSON(input, mode);
+                if (result.success) {
+                    jsonOutput.value = result.content;
+                    showValidation('success', 'वैध JSON', `आपका JSON सफलतापूर्वक ${mode === 'format' ? 'फॉर्मेट' : 'मिनिफाई'} किया गया है।`);
+                    updateStats(result.content);
+                } else {
+                    showValidation('error', 'अवैध JSON', `पार्स एरर: ${result.error}`);
+                    jsonOutput.value = '';
+                    updateStats('');
+                }
+                return;
+            }
+
+            // Process uploaded files
+            processedResults = [];
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    const result = processJSON(content, mode);
+
+                    if (result.success) {
+                        processedResults.push({
+                            fileName: file.name.replace(/\.(json|txt)$/, '') + (mode === 'format' ? '_formatted.json' : '_minified.json'),
+                            content: result.content,
+                            size: new Blob([result.content]).size,
+                            success: true
+                        });
+                    } else {
+                        processedResults.push({
+                            fileName: file.name,
+                            error: result.error,
+                            success: false
+                        });
+                    }
+                } catch (error) {
+                    processedResults.push({
+                        fileName: file.name,
+                        error: error.message,
+                        success: false
+                    });
+                }
+            }
+
+            updateProcessedList();
+
+            const successCount = processedResults.filter(r => r.success).length;
+            const failCount = processedResults.length - successCount;
+
+            if (successCount > 0) {
+                showValidation('success', 'प्रोसेसिंग पूर्ण',
+                    `सफलतापूर्वक ${successCount} फाइल${successCount > 1 ? 'ें' : ''} प्रोसेस की गई${failCount > 0 ? `, ${failCount} विफल` : ''}।`);
+
+                // Show first result in output
+                const firstSuccess = processedResults.find(r => r.success);
+                if (firstSuccess) {
+                    jsonOutput.value = firstSuccess.content;
+                    updateStats(firstSuccess.content);
+                }
+            } else {
+                showValidation('error', 'प्रोसेसिंग विफल', 'सभी फाइलें प्रोसेस करने में विफल रहीं।');
+            }
+        }
+
+        formatBtn.addEventListener('click', () => {
+            currentMode = 'format';
+            processFiles('format');
+        });
+
+        minifyBtn.addEventListener('click', () => {
+            currentMode = 'minify';
+            processFiles('minify');
+        });
+
+        downloadAllBtn.addEventListener('click', () => {
+            const successResults = processedResults.filter(r => r.success);
+            if (successResults.length === 0) return;
+
+            if (successResults.length === 1) {
+                downloadSingleFile(processedResults.findIndex(r => r.success));
+                return;
+            }
+
+            // For multiple files, download each one
+            successResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const blob = new Blob([result.content], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = result.fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, index * 100);
+            });
+        });
+
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                jsonInput.value = text;
+                hideValidation();
+            } catch (err) {
+                console.error('पेस्ट करने में त्रुटि:', err);
+            }
+        });
+
+        clearInputBtn.addEventListener('click', () => {
+            jsonInput.value = '';
+            jsonOutput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            updateProcessedList();
+            hideValidation();
+            updateStats('');
+            fileInput.value = ''; // Reset file input
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            jsonInput.value = JSON.stringify(sampleData, null, 2);
+            uploadedFiles = [];
+            updateFileList();
+            hideValidation();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const output = jsonOutput.value;
+            if (!output) {
+                showValidation('error', 'कॉपी करने के लिए कुछ नहीं', 'पहले JSON फॉर्मेट या मिनिफाई करें।');
+                return;
+            }
+
+            navigator.clipboard.writeText(output).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> कॉपी हो गया!';
+                copyBtn.classList.remove('bg-green-50', 'text-green-600');
+                copyBtn.classList.add('bg-green-600', 'text-white');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('bg-green-600', 'text-white');
+                    copyBtn.classList.add('bg-green-50', 'text-green-600');
+                }, 2000);
+            });
+        });
+
+        // Auto-validate textarea input
+        let validationTimeout;
+        jsonInput.addEventListener('input', () => {
+            clearTimeout(validationTimeout);
+            validationTimeout = setTimeout(() => {
+                const input = jsonInput.value.trim();
+                if (input && uploadedFiles.length === 0) {
+                    try {
+                        JSON.parse(input);
+                        inputStatus.classList.remove('hidden');
+                        inputStatus.classList.remove('text-red-600');
+                        inputStatus.classList.add('text-green-600');
+                        statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                        statusText.textContent = 'वैध JSON';
+                    } catch (e) {
+                        inputStatus.classList.remove('hidden');
+                        inputStatus.classList.remove('text-green-600');
+                        inputStatus.classList.add('text-red-600');
+                        statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                        statusText.textContent = 'अवैध JSON';
+                    }
+                } else {
+                    inputStatus.classList.add('hidden');
+                }
+            }, 500);
+        });
+
+        // Initialize
+        updateStats('');
+    </script>
+</body>
+</html>

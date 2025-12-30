@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Randomizer (लिस्ट रैंडमाइज़र) - फ्री शफल टूल | WebUtilityKit</title>
+    <meta name="description" content="अपनी किसी भी लिस्ट को इंस्टेंटली शफल करें। ड्रॉइंग्स, टीम्स, और टास्क्स के लिए परफेक्ट। 100% प्राइवेट, कोई साइनअप आवश्यक नहीं। अभी रैंडमाइज़ करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/list-randomizer/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/list-randomizer/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/list-randomizer/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "List Randomizer",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "398",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/list-randomizer.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">लिस्ट रैंडमाइज़र</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">आइटम्स की किसी भी लिस्ट को इंस्टेंटली शफल करें। चाहे नाम हों, टास्क हों, या नंबर, एक क्लिक से रैंडम ऑर्डर प्राप्त करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया गया।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-[600px]">
+                <!-- Input Section -->
+                <div class="flex flex-col h-full bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-700/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">ओरिजिनल लिस्ट</h3>
+                        <div class="flex gap-2">
+                            <button id="clear-input" class="text-xs font-bold uppercase text-rose-500 hover:text-rose-600 transition">सभी साफ़ करें</button>
+                        </div>
+                    </div>
+                    <textarea id="list-input" class="w-full flex-grow bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 focus:ring-2 focus:ring-blue-500 outline-none transition resize-none font-mono text-sm leading-relaxed" placeholder="यहाँ आइटम्स इनपुट करें, हर लाइन में एक...&#10;आइटम 1&#10;आइटम 2&#10;आइटम 3..."></textarea>
+                    <button id="randomize-btn" class="mt-6 w-full py-4 bg-blue-600 hover:bg-blue-700 text-white text-lg font-bold rounded-2xl shadow-xl shadow-blue-500/20 transition-all active:scale-[0.98]">
+                        लिस्ट शफल करें
+                    </button>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-700/50">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold">रैंडमाइज़्ड रिजल्ट</h3>
+                        <div id="item-count" class="text-xs font-bold uppercase text-slate-400">0 आइटम</div>
+                    </div>
+                    <textarea id="list-output" readonly class="w-full flex-grow bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-6 focus:ring-2 focus:ring-blue-500 outline-none transition resize-none font-mono text-sm leading-relaxed" placeholder="रैंडमाइज़्ड लिस्ट यहाँ दिखाई देगी..."></textarea>
+                    <button id="copy-btn" class="mt-6 w-full py-4 bg-slate-900 dark:bg-slate-700 hover:bg-slate-800 dark:hover:bg-slate-600 text-white text-lg font-bold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                        क्लिपबोर्ड में कॉपी करें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">अपनी लिस्ट को कैसे रैंडमाइज़ करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">अपने आइटम्स इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">बाएँ टेक्स्ट बॉक्स में अपनी लिस्ट पेस्ट या टाइप करें। सुनिश्चित करें कि हर आइटम अपनी लाइन में हो।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">शफल करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">"लिस्ट शफल करें" बटन पर क्लिक करें। हमारा एल्गोरिदम आपके आइटम्स को इंस्टेंटली रैंडमली रीऑर्डर कर देगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">रिजल्ट कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रैंडमाइज़्ड लिस्ट दाएँ ओर दिखाई देती है। कॉपी बटन का उपयोग करके इसे अपने प्रोजेक्ट या उपयोग के लिए सेव करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">फिशर-येट्स शफल</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                हमारा रैंडमाइज़र इंडस्ट्री-स्टैंडर्ड फिशर-येट्स एल्गोरिदम का उपयोग करता है, जो सुनिश्चित करता है कि आपकी लिस्ट के हर संभावित परम्यूटेशन को समान रूप से संभावना हो। यह अनबायस्ड शफलिंग के लिए गोल्ड स्टैंडर्ड है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">अनबायस्ड रैंडम ऑर्डर</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">हजारों आइटम्स सपोर्ट करता है</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">इंस्टेंट क्लाइंट-साइड प्रोसेसिंग</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">लिस्ट साइज़ की कोई लिमिट है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हमारा टूल हजारों आइटम्स वाली लिस्ट्स को आसानी से हैंडल कर सकता है। आपके ब्राउज़र की मेमोरी ही एकमात्र लिमिटेशन है, लेकिन ज्यादातर रोजमर्रा के इस्तेमाल के लिए, यह प्रभावी रूप से अनलिमिटेड है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरा डेटा सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                बिल्कुल। सभी शफलिंग आपके डिवाइस पर ही होती है। आपकी लिस्ट आइटम्स कभी भी किसी सर्वर पर अपलोड नहीं होती या स्टोर नहीं होती, जिससे आपके ब्राउज़र सेशन के बाहर कहीं भी जाने से बचाव होता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Randomizer Logic ===
+        const inputEl = document.getElementById('list-input');
+        const outputEl = document.getElementById('list-output');
+        const randomizeBtn = document.getElementById('randomize-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-input');
+        const countEl = document.getElementById('item-count');
+
+        randomizeBtn.addEventListener('click', () => {
+            const items = inputEl.value.split('\n').map(i => i.trim()).filter(i => i !== '');
+            if (items.length === 0) return;
+
+            const shuffled = shuffle(items);
+            outputEl.value = shuffled.join('\n');
+            countEl.textContent = `${shuffled.length} आइटम`;
+
+            // Visual feedback
+            outputEl.classList.add('ring-2', 'ring-blue-500');
+            setTimeout(() => outputEl.classList.remove('ring-2', 'ring-blue-500'), 500);
+        });
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        copyBtn.addEventListener('click', () => {
+            if (!outputEl.value) return;
+            navigator.clipboard.writeText(outputEl.value);
+            const originalText = copyBtn.innerHTML;
+            copyBtn.innerHTML = 'कॉपी हो गया!';
+            setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+        });
+
+        clearBtn.addEventListener('click', () => {
+            inputEl.value = '';
+            outputEl.value = '';
+            countEl.textContent = '0 आइटम';
+        });
+    </script>
+</body>
+</html>

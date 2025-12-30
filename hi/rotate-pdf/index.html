@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF पेज रोटेट करें (Rotate PDF Pages) - मुफ्त | WebUtilityKit</title>
+    <meta name="description" content="PDF पेज को स्थायी रूप से रोटेट करें। 90 डिग्री दक्षिणावर्त, वामावर्त, या 180 डिग्री रोटेशन का समर्थन। 100% स्थानीय प्रसंस्करण, सुरक्षित और तेज़। अभी रोटेट करना शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/rotate-pdf/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/rotate-pdf/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/rotate-pdf/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Rotate PDF",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "412",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/rotate-pdf.jpg"
+}
+</script>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">PDF रोटेट करें</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी PDF पेज की दिशा ठीक करें। सभी पेज के बल्क रोटेशन या व्यक्तिगत पेज के मैन्युअल रोटेशन का समर्थन। सब कुछ स्थानीय रूप से संसाधित होता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। आपकी फाइलें कभी अपलोड नहीं होती।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 transition-all min-h-[400px]">
+                <input type="file" id="file-input" class="hidden" accept=".pdf">
+                <div class="w-24 h-24 bg-blue-600 text-white rounded-[2.5rem] flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.586L15 4.414V19a1 1 0 01-1 1H4v-2h8V6.414l-4.293 4.293L7.293 10.293l4.293-4.293V10H10V4h6z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">PDF फाइल चुनें</h3>
+                <p class="text-slate-500 dark:text-slate-400">खींचें और छोड़ें या अपनी PDF फाइल चुनने के लिए क्लिक करें</p>
+
+                <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-blue-500 border-dashed">
+                    <p class="text-blue-600 font-bold text-xl">पेज रोटेट करने के लिए तैयार</p>
+                </div>
+            </div>
+
+            <!-- Editor Area -->
+            <div id="editor-area" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Sidebar -->
+                    <div class="lg:w-1/4 space-y-6">
+                        <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50 sticky top-28">
+                            <h3 class="text-xl font-bold mb-6">बल्क एक्शन</h3>
+                            <div class="grid grid-cols-2 gap-3 mb-8">
+                                <button onclick="rotateAll(90)" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl hover:bg-blue-600 hover:text-white transition-all flex flex-col items-center gap-2">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.586L15 4.414V19a1 1 0 01-1 1H4v-2h8V6.414l-4.293 4.293L7.293 10.293l4.293-4.293V10H10V4h6z"></path></svg>
+                                    <span class="text-xs font-bold">दक्षिणावर्त</span>
+                                </button>
+                                <button onclick="rotateAll(-90)" class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl hover:bg-blue-600 hover:text-white transition-all flex flex-col items-center gap-2">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="transform: scaleX(-1);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.586L15 4.414V19a1 1 0 01-1 1H4v-2h8V6.414l-4.293 4.293L7.293 10.293l4.293-4.293V10H10V4h6z"></path></svg>
+                                    <span class="text-xs font-bold">वामावर्त</span>
+                                </button>
+                            </div>
+
+                            <button id="save-btn" class="w-full py-4 bg-blue-600 text-white font-black text-lg rounded-2xl hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                                सहेजें और डाउनलोड करें
+                            </button>
+
+                            <button id="reset-btn" class="w-full mt-4 py-3 text-slate-400 hover:text-red-500 text-sm font-bold transition-colors">एक और फाइल चुनें</button>
+                        </div>
+                    </div>
+
+                    <!-- Page Grid -->
+                    <div class="lg:w-3/4">
+                        <div id="page-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 p-6 bg-slate-100/50 dark:bg-slate-800/20 rounded-[3rem] border border-slate-200/50 dark:border-slate-700/30">
+                            <!-- Page items will be injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">PDF रोटेट का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">अपनी PDF अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपनी PDF फाइल को खींचें और छोड़ें या ब्राउज़ करने के लिए क्लिक करें। सभी मानक PDF फॉर्मेट समर्थित हैं, और फाइलें पूरी तरह से निजी आपकी डिवाइस पर रहती हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">पेज रोटेट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">एक क्लिक में सभी पेज रोटेट करने के लिए बल्क रोटेशन बटन का उपयोग करें, या पूर्वावलोकन के साथ व्यक्तिगत पेज को दक्षिणावर्त या वामावर्त मैन्युअल रूप से समायोजित करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">परिणाम डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">डाउनलोड करने के लिए सहेजें और डाउनलोड करें पर क्लिक करें। रोटेशन स्थायी रूप से फाइल संरचना में लागू हो जाता है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">मुख्य विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% निजी और सुरक्षित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपकी PDF फाइलें कभी भी आपके ब्राउज़र से बाहर नहीं जातीं। सभी रोटेशन प्रसंस्करण आपकी डिवाइस पर स्थानीय रूप से शून्य सर्वर अपलोड के साथ होता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.586m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्थायी रोटेशन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">साधारण दर्शकों के विपरीत, हम वास्तविक PDF संरचना को संशोधित करते हैं ताकि रोटेशन किसी भी PDF रीडर में स्थायी हो।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तत्काल पूर्वावलोकन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सहेजने से पहले सभी पेज के थंबनेल देखें और वास्तविक रोटेशन पूर्वावलोकन के साथ। दृश्य पुष्टि सुनिश्चित परिणाम देती है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बल्क और व्यक्तिगत नियंत्रण</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक क्लिक में सभी पेज रोटेट करें या मिश्रित अभिविन्यास दस्तावेजों और स्कैन की गई फाइलों के लिए व्यक्तिगत पेज को ठीक करें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">इस टूल का उपयोग करते समय मेरी PDF फाइल सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, बिल्कुल। आपकी PDF फाइलें JavaScript और सर्वर अपलोड के बिना आपके ब्राउज़र में संसाधित होती हैं। फाइल शुरू से अंत तक आपकी डिवाइस पर रहती है, जो पूर्ण गोपनीयता और सुरक्षा सुनिश्चित करती है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या रोटेशन PDF में स्थायी होगा?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, हम pdf-lib का उपयोग करके वास्तविक PDF फाइल संरचना को संशोधित करते हैं, न कि केवल प्रदर्शन अभिविन्यास। जब आप रोटेट किए गए PDF को Adobe Acrobat, Preview, Chrome आदि में खोलते हैं, तो रोटेशन स्थायी होगा।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं सभी पेज रोटेट कर सकता हूं या केवल व्यक्तिगत पेज?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                आपके पास पूर्ण नियंत्रण है। सभी पेज को एक साथ रोटेट करने के लिए बल्क रोटेशन बटन का उपयोग करें, या विशिष्ट पेज को समायोजित करने के लिए व्यक्तिगत पेज थंबनेल पर रोटेशन बटन क्लिक करें। मिश्रित अभिविन्यास वाले दस्तावेजों के लिए परफेक्ट।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या कोई फाइल आकार सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                चूंकि प्रसंस्करण पूरी तरह से आपके ब्राउज़र में होता है, एकमात्र सीमा आपकी डिवाइस की उपलब्ध मेमोरी है। अधिकांश आधुनिक ब्राउज़र बिना किसी समस्या के सैकड़ों मेगाबाइट तक के PDF को संभाल सकते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const editorArea = document.getElementById('editor-area');
+        const pageGrid = document.getElementById('page-grid');
+        const saveBtn = document.getElementById('save-btn');
+        const resetBtn = document.getElementById('reset-btn');
+
+        let currentFile = null;
+        let pdfDoc = null;
+        let pageRotations = []; // Array of degrees
+
+        dropZone.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+        dropZone.ondragover = (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50');
+            document.getElementById('drop-overlay').classList.replace('opacity-0', 'opacity-100');
+        };
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+                document.getElementById('drop-overlay').classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.ondrop = (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        };
+
+        async function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') return;
+            currentFile = file;
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                const pdfjsDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+                dropZone.classList.add('hidden');
+                editorArea.classList.remove('hidden');
+                pageGrid.innerHTML = '';
+                pageRotations = new Array(pdfjsDoc.numPages).fill(0);
+
+                for (let i = 1; i <= pdfjsDoc.numPages; i++) {
+                    const page = await pdfjsDoc.getPage(i);
+                    const viewport = page.getViewport({ scale: 0.3 });
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+                    const card = document.createElement('div');
+                    card.className = 'group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center p-4 transition-all duration-300';
+                    card.id = `page-card-${i-1}`;
+                    card.innerHTML = `
+                        <div class="relative w-full aspect-[3/4] flex items-center justify-center mb-4 overflow-hidden rounded-lg bg-slate-50 dark:bg-slate-800">
+                            <img src="${canvas.toDataURL()}" class="max-w-full max-h-full transition-transform duration-300" id="preview-${i-1}">
+                        </div>
+                        <div class="flex items-center justify-between w-full">
+                            <span class="text-xs font-black text-slate-400">पेज ${i}</span>
+                            <div class="flex gap-1">
+                                <button onclick="rotatePage(${i-1}, -90)" class="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 rounded-lg transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="transform: scaleX(-1);"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.586L15 4.414V19a1 1 0 01-1 1H4v-2h8V6.414l-4.293 4.293L7.293 10.293l4.293-4.293V10H10V4h6z"></path></svg>
+                                </button>
+                                <button onclick="rotatePage(${i-1}, 90)" class="p-2 hover:bg-blue-100 dark:hover:bg-blue-900/40 text-blue-600 rounded-lg transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.586L15 4.414V19a1 1 0 01-1 1H4v-2h8V6.414l-4.293 4.293L7.293 10.293l4.293-4.293V10H10V4h6z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                    pageGrid.appendChild(card);
+                }
+            } catch (err) {
+                alert('PDF पार्स करने में विफल');
+                console.error(err);
+            }
+        }
+
+        window.rotatePage = (index, degrees) => {
+            pageRotations[index] = (pageRotations[index] + degrees) % 360;
+            const img = document.getElementById(`preview-${index}`);
+            img.style.transform = `rotate(${pageRotations[index]}deg)`;
+        };
+
+        window.rotateAll = (degrees) => {
+            pageRotations = pageRotations.map(r => (r + degrees) % 360);
+            pageRotations.forEach((r, i) => {
+                const img = document.getElementById(`preview-${i}`);
+                if (img) img.style.transform = `rotate(${r}deg)`;
+            });
+        };
+
+        saveBtn.onclick = async () => {
+            if (!currentFile) return;
+
+            saveBtn.disabled = true;
+            saveBtn.innerHTML = 'प्रसंस्करण जारी...';
+
+            try {
+                const arrayBuffer = await currentFile.arrayBuffer();
+                const pdfLibDoc = await PDFLib.PDFDocument.load(arrayBuffer);
+                const pages = pdfLibDoc.getPages();
+
+                pages.forEach((page, i) => {
+                    const currentRotation = page.getRotation().angle || 0;
+                    page.setRotation(PDFLib.degrees(currentRotation + pageRotations[i]));
+                });
+
+                const pdfBytes = await pdfLibDoc.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `rotated_${currentFile.name}`;
+                link.click();
+            } catch (err) {
+                alert('सहेजने में विफल');
+                console.error(err);
+            } finally {
+                saveBtn.disabled = false;
+                saveBtn.innerHTML = `
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                    सहेजें और डाउनलोड करें
+                `;
+            }
+        };
+
+        resetBtn.onclick = () => {
+            currentFile = null;
+            pageRotations = [];
+            dropZone.classList.remove('hidden');
+            editorArea.classList.add('hidden');
+            fileInput.value = '';
+        };
+
+    </script>
+</body>
+</html>

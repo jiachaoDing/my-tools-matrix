@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF फाइलें मर्ज करें (Merge PDF Files) - मुफ्त & असीमित | WebUtilityKit</title>
+    <meta name="description" content="एक से अधिक PDF फाइलों को तत्काल मर्ज करें। मुफ्त, सुरक्षित, और असीमित मर्जिंग। सर्वर अपलोड आवश्यक नहीं। अभी मर्ज करना शुरू करें! PDF merge online, free PDF combiner, merge PDF files">
+    <link rel="canonical" href="https://webutilitykit.com/hi/merge-pdf/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/merge-pdf/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/merge-pdf/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Merge PDF",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1247",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Unlimited files, Drag to reorder, Batch processing, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/merge-pdf.jpg"
+    }
+    </script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+    <!-- pdf-lib for client-side PDF manipulation -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- SortableJS for reordering files -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">PDF मर्ज करें</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">एक से अधिक PDF दस्तावेज़ों को एक ही फाइल में तत्काल मिलाएं। आपकी फाइलें आपके डिवाइस से कभी नहीं जातीं।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। लोकल प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Upload Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">PDF फाइलें चुनें</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सभी साफ़ करें</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 group">
+                            <input type="file" id="file-input" class="hidden" multiple accept="application/pdf">
+                            <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </div>
+                            <p class="text-slate-900 dark:text-white font-bold text-lg">यहाँ PDF ड्रॉप करें</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">या फाइलें चुनने के लिए क्लिक करें</p>
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg text-left">अपलोड करने के लिए रिलीज़ करें</p>
+                            </div>
+                        </div>
+
+                        <div id="file-list-container" class="mt-8 hidden flex-grow">
+                            <div class="flex items-center justify-between mb-4 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400">फाइलें रिऑर्डर करें (<span id="file-count">0</span>)</h4>
+                                <span class="text-[10px] font-bold text-blue-500 uppercase tracking-wider">सॉर्ट करने के लिए ड्रैग करें</span>
+                            </div>
+                            <div id="file-list" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action/Result Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">मर्ज एक्शन</label>
+                        </div>
+
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center text-center opacity-40 grayscale py-12">
+                            <svg class="w-20 h-20 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <p class="text-lg font-medium">मर्ज करना शुरू करने के लिए<br>कम से कम दो PDF फाइलें जोड़ें</p>
+                        </div>
+
+                        <div id="active-state" class="hidden flex-grow flex flex-col gap-6">
+                            <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <h3 class="text-xl font-bold mb-2">मर्ज करने के लिए तैयार</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm mb-8">हम आपके दस्तावेज़ों को बाईं ओर दिखाई देने वाले क्रम में मिलाएंगे।</p>
+
+                                <button id="merge-btn" class="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path></svg>
+                                    मर्ज करें & डाउनलोड करें
+                                </button>
+                            </div>
+
+                            <div id="status-card" class="hidden p-6 rounded-[2rem] bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/30">
+                                <div class="flex items-center gap-4">
+                                    <div id="status-spinner" class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                    <div id="status-success" class="hidden w-10 h-10 bg-green-500 text-white rounded-full flex items-center justify-center">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h4 id="status-title" class="text-sm font-bold text-slate-900 dark:text-white">फाइलें मर्ज हो रही हैं...</h4>
+                                        <p id="status-desc" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">आपके PDF को लोकल रूप से मिलाया जा रहा है। इसमें कुछ समय लग सकता है।</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer Info -->
+                        <div class="mt-auto pt-8">
+                            <div class="flex items-center gap-4 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                </div>
+                                <div class="text-left text-left text-left text-left text-left">
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">प्राइवेसी नोट</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">आपकी PDF फाइलें अपलोड नहीं की जातीं। मर्जिंग पूरी तरह से आपके ब्राउज़र की मेमोरी में होती है।</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 text-left">
+            <article class="space-y-24 text-left text-left text-left text-left text-left">
+
+                <!-- Section 1: How to use -->
+                <section class="text-left text-left">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center text-left text-left">PDF फाइलें कैसे मिलाएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left text-left text-left text-left">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फाइलें अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-left">अपने कंप्यूटर से PDF दस्तावेज़ों को ड्रैग एंड ड्रॉप करें या फाइलें चुनने के लिए सिलेक्शन बॉक्स पर क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">ऑर्डर सॉर्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-left">फाइल कार्ड को ड्रैग करके उन्हें एक्सैक्ट ऑर्डर में व्यवस्थित करें जिसमें आप उन्हें मर्ज किए गए दस्तावेज़ में दिखाना चाहते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">मर्ज करें & सेव करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-left">"मर्ज करें & डाउनलोड करें" बटन पर क्लिक करें। प्रोसेसिंग लोकल रूप से होती है, और आपकी नई PDF तत्काल सेव हो जाती है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Features Grid -->
+                <section class="text-left text-left text-left">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center text-left text-left">प्राइवेसी और स्पीड के लिए डिज़ाइन किया गया</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-left text-left">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6 text-left">एंटरप्राइज़-ग्रेड सुरक्षा</h3>
+                            <div class="space-y-4 text-left">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl text-left">
+                                    <span class="font-medium text-left">शून्य अपलोड</span>
+                                    <span class="font-bold text-blue-500 text-left">क्लाइंट-साइड</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500 text-left">
+                                    <span class="font-medium text-left">प्राइवेट डेटा</span>
+                                    <span class="font-bold text-green-500 text-left text-left text-left">लोकल रहता है</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500 text-left">
+                                    <span class="font-medium text-left">मेमोरी में ही</span>
+                                    <span class="font-bold text-orange-500 text-left text-left text-left">कोई स्टोरेज नहीं</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6 text-left text-left text-left">वर्कफ़्लो एफिशिएंसी</h3>
+                            <div class="space-y-4 text-left text-left">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl text-left text-left text-left">
+                                    <span class="font-medium text-left text-left">असीमित फाइलें</span>
+                                    <span class="font-bold text-slate-400 text-left text-left text-left">कोई लिमिट नहीं</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500 text-left text-left text-left">
+                                    <span class="font-medium text-left text-left text-left">विज़ुअल रिऑर्डरिंग</span>
+                                    <span class="font-bold text-purple-500 text-left text-left text-left text-left">इंट्यूटिव</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500 text-left text-left text-left">
+                                    <span class="font-medium text-left text-left text-left">इंस्टेंट डाउनलोड</span>
+                                    <span class="font-bold text-red-500 text-left text-left">ब्लेज़िंग फास्ट</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: FAQ -->
+                <section class="text-left text-left text-left">
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic text-left text-left text-left">एक्सपर्ट Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4 text-left text-left text-left">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left text-left text-left">
+                                <span class="text-xl text-left text-left text-left">फाइल साइज़ की कोई लिमिट है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left text-left text-left text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left text-left text-left">
+                                तकनीकी रूप से कोई हार्ड लिमिट नहीं है। हालांकि, चूंकि सभी प्रोसेसिंग आपके ब्राउज़र की RAM में होती है, बहुत बड़ी फाइलों (जैसे सैकड़ों मेगाबाइट्स) को मर्ज करने के लिए आपके डिवाइस की उपलब्ध मेमोरी पर निर्भर करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left text-left text-left">
+                                <span class="text-xl text-left text-left text-left">क्या मैं पासवर्ड-प्रोटेक्टेड PDF को मर्ज कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left text-left text-left text-left text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left text-left text-left">
+                                नहीं, एन्क्रिप्टेड या पासवर्ड-प्रोटेक्टेड फाइलें सुरक्षा कारणों से मर्ज नहीं की जा सकतीं। कृपया पहले अपने दस्तावेज़ों से पासवर्ड हटा लें।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left text-left text-left">
+                                <span class="text-xl text-left text-left text-left text-left">क्या मेरे लिंक और बुकमार्क बरकरार रहेंगे?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left text-left text-left text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left text-left text-left">
+                                अधिकांश पेज के भीतर हाइपरलिंक बरकरार रहते हैं। हालांकि, अलग-अलग दस्तावेज़ों से ग्लोबल बुकमार्क (आउटलाइंस) अंतिम आउटपुट फाइल में स्वचालित रूप से एकल आउटलाइन में मर्ज नहीं हो सकते।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Merge PDF Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+        const clearBtn = document.getElementById('clear-btn');
+        const emptyState = document.getElementById('empty-state');
+        const activeState = document.getElementById('active-state');
+        const mergeBtn = document.getElementById('merge-btn');
+
+        const statusCard = document.getElementById('status-card');
+        const statusSpinner = document.getElementById('status-spinner');
+        const statusSuccess = document.getElementById('status-success');
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+
+        let uploadedFiles = []; // Array of { file, id }
+
+        // Click to upload
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Drag & Drop
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('drag-over');
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type === 'application/pdf') {
+                    uploadedFiles.push({
+                        file: file,
+                        id: Math.random().toString(36).substr(2, 9)
+                    });
+                }
+            });
+            updateUI();
+            fileInput.value = '';
+        }
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function updateUI() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+
+            if (uploadedFiles.length > 0) {
+                fileListContainer.classList.remove('hidden');
+                emptyState.classList.add('hidden');
+                activeState.classList.remove('hidden');
+            } else {
+                fileListContainer.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                activeState.classList.add('hidden');
+            }
+
+            uploadedFiles.forEach((fileObj, index) => {
+                const item = document.createElement('div');
+                item.className = 'file-item text-left';
+                item.dataset.id = fileObj.id;
+                item.innerHTML = `
+                    <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0 text-left text-left">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </div>
+                    <div class="overflow-hidden flex-grow text-left text-left text-left text-left text-left">
+                        <div class="text-xs font-bold truncate text-left text-left text-left text-left">${fileObj.file.name}</div>
+                        <div class="flex items-center gap-2 mt-1 text-left text-left text-left text-left text-left">
+                            <span class="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 text-left text-left text-left text-left">${formatSize(fileObj.file.size)}</span>
+                        </div>
+                    </div>
+                    <button onclick="removeFile('${fileObj.id}')" class="p-2 text-slate-400 hover:text-red-500 transition text-left text-left text-left text-left">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
+
+            // Initialize/Update Sortable
+            if (uploadedFiles.length > 1) {
+                new Sortable(fileList, {
+                    animation: 150,
+                    onEnd: (evt) => {
+                        const newOrder = Array.from(fileList.children).map(item => item.dataset.id);
+                        uploadedFiles.sort((a, b) => newOrder.indexOf(a.id) - newOrder.indexOf(b.id));
+                    }
+                });
+            }
+        }
+
+        window.removeFile = (id) => {
+            uploadedFiles = uploadedFiles.filter(f => f.id !== id);
+            updateUI();
+        };
+
+        clearBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            updateUI();
+            statusCard.classList.add('hidden');
+        });
+
+        mergeBtn.addEventListener('click', async () => {
+            if (uploadedFiles.length < 2) return;
+
+            statusCard.classList.remove('hidden');
+            statusSpinner.classList.remove('hidden');
+            statusSuccess.classList.add('hidden');
+            statusTitle.textContent = 'फाइलें मर्ज हो रही हैं...';
+            statusDesc.textContent = 'आपके PDF को लोकल रूप से मिलाया जा रहा है। इसमें कुछ समय लग सकता है।';
+            mergeBtn.disabled = true;
+            mergeBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            try {
+                const mergedPdf = await PDFLib.PDFDocument.create();
+
+                for (const fileObj of uploadedFiles) {
+                    const arrayBuffer = await fileObj.file.arrayBuffer();
+                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+
+                const mergedPdfBytes = await mergedPdf.save();
+                const blob = new Blob([mergedPdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `merged_document_${new Date().getTime()}.pdf`;
+                link.click();
+
+                statusSpinner.classList.add('hidden');
+                statusSuccess.classList.remove('hidden');
+                statusTitle.textContent = 'सफलतापूर्वक मर्ज हो गया!';
+                statusDesc.textContent = 'आपका संयुक्त PDF डाउनलोड हो गया है।';
+
+            } catch (err) {
+                console.error(err);
+                statusSpinner.classList.add('hidden');
+                statusTitle.textContent = 'मर्ज विफल';
+                statusDesc.textContent = 'मर्जिंग के दौरान एक त्रुटि हुई। कृपया सुनिश्चित करें कि फाइलें दूषित नहीं हैं।';
+            } finally {
+                mergeBtn.disabled = false;
+                mergeBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            }
+        });
+
+    </script>
+</body>
+</html>

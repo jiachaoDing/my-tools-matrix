@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to PDF (JPG से PDF) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="अपनी JPG, PNG और WebP छवियों को उच्च-गुणवत्ता वाला PDF दस्तावेज़ में तुरंत परिवर्तित करें। 100% सुरक्षित, निजी, और स्थानीय प्रसंस्करण। कोई फाइल सीमाएं नहीं, कोई वॉटरमार्क नहीं।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/jpg-to-pdf/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/jpg-to-pdf/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/jpg-to-pdf/" />
+
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "JPG to PDF Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "623",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/jpg-to-pdf.jpg"
+    }
+    </script>
+    <!-- pdf-lib for PDF generation -->
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <!-- SortableJS for reordering images -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #475569; }
+
+        .image-card {
+            aspect-ratio: 3/4;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .image-card:hover { transform: translateY(-4px); }
+        .sortable-ghost { opacity: 0.3; transform: scale(0.95); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JPG से PDF</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">एकाधिक छवियों को एक पेशेवर PDF दस्तावेज़ में मर्ज करें। छवियों को पुनः व्यवस्थित करें और लेआउट को तुरंत अनुकूलित करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय ब्राउज़र में प्रसंस्कृत।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+
+            <div id="empty-state" class="max-w-4xl mx-auto">
+                <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 transition-all min-h-[450px]">
+                    <input type="file" id="file-input" class="hidden" accept="image/jpeg,image/png,image/webp" multiple>
+                    <div class="w-24 h-24 bg-blue-600 text-white rounded-[2.5rem] flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">छवियाँ चुनें</h3>
+                    <p class="text-slate-500 dark:text-slate-400">यहाँ JPG, PNG या WebP फाइलें खींचें और छोड़ें</p>
+                    <p class="mt-4 text-xs text-slate-400">फाइलें आपके डिवाइस पर ही प्रोसेस होती हैं</p>
+
+                    <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-blue-500 border-dashed">
+                        <p class="text-blue-600 font-bold text-xl">छोड़ने के लिए रिलीज़ करें</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Editor View -->
+            <div id="editor-view" class="hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+
+                    <!-- Sidebar Controls -->
+                    <div class="lg:col-span-1 space-y-6">
+                        <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm sticky top-28">
+                            <h3 class="text-xl font-bold mb-6">PDF सेटिंग्स</h3>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">पेज साइज</label>
+                                    <select id="page-size" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm font-medium">
+                                        <option value="auto">ऑटो (छवि से मेल करें)</option>
+                                        <option value="a4">A4 (210 x 297mm)</option>
+                                        <option value="letter">Letter (8.5 x 11in)</option>
+                                    </select>
+                                </div>
+
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">ओरिएंटेशन</label>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="orientation" value="portrait" class="hidden peer" checked>
+                                            <div class="p-3 text-center rounded-xl border border-slate-100 dark:border-slate-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition-all text-xs font-bold">पोर्ट्रेट</div>
+                                        </label>
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="orientation" value="landscape" class="hidden peer">
+                                            <div class="p-3 text-center rounded-xl border border-slate-100 dark:border-slate-800 peer-checked:bg-blue-600 peer-checked:text-white peer-checked:border-blue-600 transition-all text-xs font-bold">लैंडस्केप</div>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 block mb-3">मार्जिन</label>
+                                    <select id="margin" class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 outline-none focus:ring-2 focus:ring-blue-500/20 transition-all text-sm font-medium">
+                                        <option value="none">कोई मार्जिन नहीं</option>
+                                        <option value="small">नैरो (20px)</option>
+                                        <option value="large">वाइड (50px)</option>
+                                    </select>
+                                </div>
+
+                                <div class="pt-4">
+                                    <button id="convert-btn" class="w-full py-4 rounded-2xl bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition-all shadow-xl shadow-blue-500/25 flex items-center justify-center gap-3">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                                        PDF जनरेट करें
+                                    </button>
+                                </div>
+
+                                <button id="reset-btn" class="w-full py-3 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 text-sm font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all">सभी को साफ करें</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Workspace -->
+                    <div class="lg:col-span-3 space-y-6">
+                        <div class="flex items-center justify-between px-4">
+                            <div class="flex items-center gap-4">
+                                <h3 class="text-xl font-bold">छवि क्रम</h3>
+                                <span id="file-count-badge" class="px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400 rounded-full text-xs font-black">0 छवियाँ</span>
+                            </div>
+                            <button id="add-more-btn" class="flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-all">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                और जोड़ें
+                            </button>
+                        </div>
+
+                        <div id="image-grid" class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6 min-h-[500px] p-4 bg-slate-100/50 dark:bg-slate-800/20 rounded-[3rem] border border-slate-200/50 dark:border-slate-700/30">
+                            <!-- Image cards will be injected here -->
+                        </div>
+
+                        <!-- Status Indicator -->
+                        <div id="status-card" class="hidden p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border border-blue-500/20 shadow-2xl shadow-blue-500/5">
+                            <div class="flex items-center gap-6">
+                                <div id="status-spinner" class="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                <div id="status-success" class="hidden w-12 h-12 bg-green-500 text-white rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div class="flex-grow">
+                                    <h4 id="status-title" class="text-lg font-bold">PDF जनरेट हो रहा है...</h4>
+                                    <p id="status-desc" class="text-sm text-slate-500 mt-1">आपकी छवियों से दस्तावेज़ बनाया जा रहा है। कृपया इस टैब को बंद न करें।</p>
+                                    <div id="progress-bar-container" class="mt-4 w-full h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                                        <div id="progress-bar" class="w-0 h-full bg-blue-600 transition-all duration-300"></div>
+                                    </div>
+                                </div>
+                                <div id="download-area" class="hidden">
+                                    <button id="download-btn" class="px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-all flex items-center gap-2">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        PDF डाउनलोड करें
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">छवियों को PDF में कैसे बदलें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">छवियाँ अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">अपने डिवाइस से एकाधिक JPG, PNG या WebP फाइलें चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">व्यवस्थित करें और सेटिंग्स</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">छवियों को पुनः व्यवस्थित करने के लिए ड्रैग करें और अपने वांछित पेज लेआउट को चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">PDF प्राप्त करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">जनरेट पर क्लिक करें और अपना संयुक्त PDF दस्तावेज़ तुरंत डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">सभी के लिए एंटरप्राइज़ सुरक्षा</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                अधिकांश ऑनलाइन कन्वर्टर आपकी व्यक्तिगत फोटो को अपने सर्वर पर अपलोड करते हैं। हम ऐसा नहीं करते। आपकी छवियाँ आपके ब्राउज़र से कभी नहीं निकलतीं, जिससे यह PDF बनाने का सबसे सुरक्षित तरीका बन जाता है।
+                            </p>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                                    <h4 class="font-bold text-blue-400 mb-1">स्थानीय प्रसंस्करण</h4>
+                                    <p class="text-xs text-slate-400">शून्य डेटा संग्रहण</p>
+                                </div>
+                                <div class="p-4 bg-white/5 rounded-2xl border border-white/10">
+                                    <h4 class="font-bold text-green-400 mb-1">कोई सीमाएं नहीं</h4>
+                                    <p class="text-xs text-slate-400">फाइल आकार या संख्या पर कोई कैप नहीं</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-72 h-72 relative">
+                                <div class="absolute inset-0 border-2 border-dashed border-blue-500/30 rounded-full animate-[spin_30s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center text-blue-500/20">
+                                    <svg class="w-40 h-40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन सी छवि प्रारूप समर्थित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हम JPG, JPEG, PNG, और WebP प्रारूपों का समर्थन करते हैं। सभी छवियाँ स्वचालित रूप से आपके PDF दस्तावेज़ में एम्बेड की जाएँगी।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं छवियों का क्रम बदल सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ! कार्यक्षेत्र में छवि कार्डों को खींचकर और छोड़कर उन्हें PDF में दिखाई देने वाले सटीक क्रम में व्यवस्थित करें।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === JPG to PDF Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const emptyState = document.getElementById('empty-state');
+        const editorView = document.getElementById('editor-view');
+        const imageGrid = document.getElementById('image-grid');
+        const fileCountBadge = document.getElementById('file-count-badge');
+        const addMoreBtn = document.getElementById('add-more-btn');
+        const convertBtn = document.getElementById('convert-btn');
+        const resetBtn = document.getElementById('reset-btn');
+
+        const statusCard = document.getElementById('status-card');
+        const statusSpinner = document.getElementById('status-spinner');
+        const statusSuccess = document.getElementById('status-success');
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+        const progressBar = document.getElementById('progress-bar');
+        const downloadArea = document.getElementById('download-area');
+        const downloadBtn = document.getElementById('download-btn');
+
+        let imageList = []; // Array of { id, file, previewUrl }
+        let generatedPdfUrl = null;
+
+        // Initialize Sortable
+        new Sortable(imageGrid, {
+            animation: 150,
+            ghostClass: 'sortable-ghost',
+            onEnd: () => {
+                const newOrder = Array.from(imageGrid.children).map(card => card.dataset.id);
+                imageList.sort((a, b) => newOrder.indexOf(a.id) - newOrder.indexOf(b.id));
+            }
+        });
+
+        // Event Listeners
+        dropZone.addEventListener('click', () => fileInput.click());
+        addMoreBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50');
+            document.getElementById('drop-overlay').classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+                document.getElementById('drop-overlay').classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    const id = Math.random().toString(36).substr(2, 9);
+                    const previewUrl = URL.createObjectURL(file);
+                    imageList.push({ id, file, previewUrl });
+                }
+            });
+            updateUI();
+            fileInput.value = '';
+        }
+
+        function updateUI() {
+            if (imageList.length > 0) {
+                emptyState.classList.add('hidden');
+                editorView.classList.remove('hidden');
+            } else {
+                emptyState.classList.remove('hidden');
+                editorView.classList.add('hidden');
+            }
+
+            fileCountBadge.textContent = `${imageList.length} ${imageList.length === 1 ? 'छवि' : 'छवियाँ'}`;
+
+            // Re-render grid
+            imageGrid.innerHTML = '';
+            imageList.forEach((img) => {
+                const card = document.createElement('div');
+                card.className = 'image-card relative group bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm cursor-move';
+                card.dataset.id = img.id;
+                card.innerHTML = `
+                    <img src="${img.previewUrl}" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center p-4">
+                        <p class="text-[10px] text-white/80 font-bold uppercase truncate w-full text-center mb-4 px-2">${img.file.name}</p>
+                        <button onclick="removeImage('${img.id}')" class="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-all shadow-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                        </button>
+                    </div>
+                    <div class="absolute top-2 left-2 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[10px] font-black text-white">#${imageList.indexOf(img) + 1}</div>
+                `;
+                imageGrid.appendChild(card);
+            });
+        }
+
+        window.removeImage = (id) => {
+            const img = imageList.find(i => i.id === id);
+            if (img) {
+                URL.revokeObjectURL(img.previewUrl);
+                imageList = imageList.filter(i => i.id !== id);
+                updateUI();
+            }
+        };
+
+        resetBtn.addEventListener('click', () => {
+            imageList.forEach(img => URL.revokeObjectURL(img.previewUrl));
+            imageList = [];
+            updateUI();
+            statusCard.classList.add('hidden');
+            downloadArea.classList.add('hidden');
+        });
+
+        convertBtn.addEventListener('click', async () => {
+            if (imageList.length === 0) return;
+
+            statusCard.classList.remove('hidden');
+            statusSpinner.classList.remove('hidden');
+            statusSuccess.classList.add('hidden');
+            downloadArea.classList.add('hidden');
+            statusTitle.textContent = 'PDF जनरेट हो रहा है...';
+            statusDesc.textContent = 'आपकी छवियों से दस्तावेज़ बनाया जा रहा है।';
+            progressBar.style.width = '0%';
+            convertBtn.disabled = true;
+            convertBtn.classList.add('opacity-50');
+
+            try {
+                const pdfDoc = await PDFLib.PDFDocument.create();
+                const pageSize = document.getElementById('page-size').value;
+                const orientation = document.querySelector('input[name="orientation"]:checked').value;
+                const marginMode = document.getElementById('margin').value;
+
+                const margin = marginMode === 'none' ? 0 : (marginMode === 'small' ? 20 : 50);
+
+                for (let i = 0; i < imageList.length; i++) {
+                    const imgObj = imageList[i];
+                    const arrayBuffer = await imgObj.file.arrayBuffer();
+                    let embeddedImg;
+
+                    if (imgObj.file.type === 'image/jpeg' || imgObj.file.type === 'image/jpg') {
+                        embeddedImg = await pdfDoc.embedJpg(arrayBuffer);
+                    } else if (imgObj.file.type === 'image/png') {
+                        embeddedImg = await pdfDoc.embedPng(arrayBuffer);
+                    } else {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const tempImg = new Image();
+                        await new Promise((resolve) => {
+                            tempImg.onload = resolve;
+                            tempImg.onerror = reject;
+                            tempImg.src = imgObj.previewUrl;
+                        });
+                        canvas.width = tempImg.width;
+                        canvas.height = tempImg.height;
+                        ctx.drawImage(tempImg, 0, 0);
+                        const pngData = canvas.toDataURL('image/png').split(',')[1];
+                        embeddedImg = await pdfDoc.embedPng(Uint8Array.from(atob(pngData), c => c.charCodeAt(0)));
+                    }
+
+                    let pWidth, pHeight;
+                    if (pageSize === 'auto') {
+                        pWidth = embeddedImg.width + (margin * 2);
+                        pHeight = embeddedImg.height + (margin * 2);
+                    } else {
+                        if (pageSize === 'a4') {
+                            pWidth = 595.28; pHeight = 841.89;
+                        } else {
+                            pWidth = 612; pHeight = 792;
+                        }
+                        if (orientation === 'landscape') {
+                            [pWidth, pHeight] = [pHeight, pWidth];
+                        }
+                    }
+
+                    const page = pdfDoc.addPage([pWidth, pHeight]);
+                    const availableWidth = pWidth - (margin * 2);
+                    const availableHeight = pHeight - (margin * 2);
+                    const scale = Math.min(availableWidth / embeddedImg.width, availableHeight / embeddedImg.height);
+
+                    const drawWidth = embeddedImg.width * scale;
+                    const drawHeight = embeddedImg.height * scale;
+
+                    const x = (pWidth - drawWidth) / 2;
+                    const y = (pHeight - drawHeight) / 2;
+
+                    page.drawImage(embeddedImg, {
+                        x, y,
+                        width: drawWidth,
+                        height: drawHeight
+                    });
+
+                    progressBar.style.width = `${((i + 1) / imageList.length) * 100}%`;
+                }
+
+                const pdfBytes = await pdfDoc.save();
+                if (generatedPdfUrl) URL.revokeObjectURL(generatedPdfUrl);
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                generatedPdfUrl = URL.createObjectURL(blob);
+
+                statusSpinner.classList.add('hidden');
+                statusSuccess.classList.remove('hidden');
+                downloadArea.classList.remove('hidden');
+                statusTitle.textContent = 'PDF तैयार!';
+                statusDesc.textContent = `${imageList.length} छवियाँ सफलतापूर्वक मर्ज की गईं।`;
+
+            } catch (err) {
+                console.error(err);
+                statusSpinner.classList.add('hidden');
+                statusTitle.textContent = 'कन्वर्जन विफल';
+                statusDesc.textContent = 'एक त्रुटि हुई। कृपया अपनी छवियाँ जांचें।';
+            } finally {
+                convertBtn.disabled = false;
+                convertBtn.classList.remove('opacity-50');
+            }
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (generatedPdfUrl) {
+                const link = document.createElement('a');
+                link.href = generatedPdfUrl;
+                link.download = `converted_images_${new Date().getTime()}.pdf`;
+                link.click();
+            }
+        });
+
+    </script>
+</body>
+</html>

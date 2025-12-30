@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पासवर्ड जनरेटर (Password Generator) - मुफ्त सुरक्षित पासवर्ड | WebUtilityKit</title>
+    <meta name="description" content="तुरंत क्रिप्टोग्राफ़िक रूप से सुरक्षित पासवर्ड जनरेट करें। लंबाई, प्रतीक, संख्याएँ और केस को अनुकूलित करें। ब्राउज़र में स्थानीय रूप से संसाधित। अभी मजबूत पासवर्ड बनाएँ!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/password-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/password-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/password-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Password Generator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "851",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, Web Crypto API, No server upload, Password history, Batch generation, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/password-generator.jpg"
+}
+    </script>
+
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
+        input[type="range"] { -webkit-appearance: none; appearance: none; background: transparent; cursor: pointer; }
+        input[type="range"]::-webkit-slider-runnable-track { background: #dfe7ef; height: 6px; border-radius: 3px; }
+        .dark input[type="range"]::-webkit-slider-runnable-track { background: #334155; }
+        input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; margin-top: -5px; background-color: #3b82f6; height: 16px; width: 16px; border-radius: 50%; border: 2px solid white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">पासवर्ड जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने ब्राउज़र में स्थानीय रूप से मजबूत, क्रिप्टोग्राफ़िक रूप से सुरक्षित पासवर्ड बनाएँ। कोई भी डेटा कभी आपकी डिवाइस नहीं छोड़ता।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                <!-- Left Pane: Configuration (4 cols) -->
+                <div class="lg:col-span-5 flex flex-col gap-6">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-8 space-y-8 h-full">
+                        <div>
+                            <div class="flex justify-between items-center mb-4">
+                                <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">पासवर्ड लंबाई</label>
+                                <span id="length-val" class="text-2xl font-bold text-blue-600 dark:text-blue-400">16</span>
+                            </div>
+                            <input type="range" id="length-slider" min="4" max="64" value="16" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer">
+                            <div class="flex justify-between mt-2 text-xs text-slate-400">
+                                <span>4</span>
+                                <span>64</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4">
+                            <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider block mb-2">विकल्प</label>
+
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg">ABC</span>
+                                    <span class="font-medium">बड़े अक्षर</span>
+                                </div>
+                                <input type="checkbox" id="include-upper" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            </label>
+
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg">abc</span>
+                                    <span class="font-medium">छोटे अक्षर</span>
+                                </div>
+                                <input type="checkbox" id="include-lower" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            </label>
+
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg">123</span>
+                                    <span class="font-medium">संख्याएँ</span>
+                                </div>
+                                <input type="checkbox" id="include-numbers" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            </label>
+
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg">#$&</span>
+                                    <span class="font-medium">प्रतीक</span>
+                                </div>
+                                <input type="checkbox" id="include-symbols" checked class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            </label>
+
+                            <label class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors group">
+                                <div class="flex items-center gap-3">
+                                    <span class="text-lg">Ø/1</span>
+                                    <span class="font-medium">समान को बाहर करें (i, l, 1, o, 0)</span>
+                                </div>
+                                <input type="checkbox" id="exclude-similar" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Result & History (8 cols) -->
+                <div class="lg:col-span-7 flex flex-col gap-6 h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-8 flex flex-col h-full min-h-[500px]">
+                        <div class="flex-grow flex flex-col">
+                            <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider block mb-4">जनरेट किया गया पासवर्ड</label>
+
+                            <div class="relative group">
+                                <div id="password-display" class="w-full bg-slate-50 dark:bg-slate-900/50 p-6 rounded-2xl font-mono text-2xl md:text-3xl break-all min-h-[100px] flex items-center justify-center text-center border-2 border-transparent group-hover:border-blue-500/20 transition-all">
+                                    जनरेट करने के लिए क्लिक करें
+                                </div>
+                                <button id="copy-btn" class="absolute top-4 right-4 p-2 bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 opacity-0 group-hover:opacity-100 transition-opacity hover:text-blue-600 dark:hover:text-blue-400" title="क्लिपबोर्ड में कॉपी करें">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                </button>
+                            </div>
+
+                            <div class="mt-6 space-y-2">
+                                <div class="flex justify-between items-center text-sm font-medium">
+                                    <span class="text-slate-500">सुरक्षा ताकत</span>
+                                    <span id="strength-label" class="text-slate-400">अभी तक जनरेट नहीं</span>
+                                </div>
+                                <div class="h-2 w-full bg-slate-100 dark:bg-slate-900/50 rounded-full overflow-hidden">
+                                    <div id="strength-bar" class="h-full w-0 transition-all duration-500"></div>
+                                </div>
+                            </div>
+
+                            <div class="mt-12 flex-grow">
+                                <div class="flex justify-between items-center mb-4">
+                                    <label class="text-sm font-semibold text-slate-500 uppercase tracking-wider">इतिहास</label>
+                                    <button id="clear-history" class="text-xs text-slate-400 hover:text-red-500 transition-colors">इतिहास साफ़ करें</button>
+                                </div>
+                                <div id="history-list" class="space-y-2 max-h-[180px] overflow-y-auto custom-scrollbar pr-2">
+                                    <p class="text-sm text-slate-400 text-center py-4 italic">अभी तक कोई पासवर्ड जनरेट नहीं किया गया</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button id="generate-btn" class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-3 text-lg">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            सुरक्षित पासवर्ड जनरेट करें
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to Use (Steps) -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अपना सुरक्षित पासवर्ड कैसे जनरेट करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">1</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">लंबाई निर्धारित करें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">4 से 64 वर्णों के बीच चुनें। अधिकतम सुरक्षा के लिए 16+ अनुशंसित है।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">2</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">विकल्प चुनें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">साइट की आवश्यकताओं को पूरा करने के लिए बड़े अक्षर, छोटे अक्षर, संख्याएँ और प्रतीक टॉगल करें।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">3</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">भ्रम से बचें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">अस्पष्ट वर्णों जैसे '1', 'l', 'o', और '0' को हटाने के लिए 'समान को बाहर करें' का उपयोग करें।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">4</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">जनरेट करें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">एक अद्वितीय, क्रिप्टोग्राफ़िक रूप से सुरक्षित पासवर्ड बनाने के लिए बटन पर क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">5</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">कॉपी करें और उपयोग करें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">पासवर्ड या कॉपी आइकन पर क्लिक करके इसे सुरक्षित रूप से अपने क्लिपबोर्ड में स्थानांतरित करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Security Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 max-w-2xl">
+                        <h2 class="text-3xl font-bold mb-6 italic">एंट्रॉपी ही राजा है</h2>
+                        <p class="text-lg text-blue-50 leading-relaxed mb-8 text-pretty">
+                            एक कमज़ोर पासवर्ड आपके डिजिटल जीवन की सबसे बड़ी कमज़ोरी है। हमारा जनरेटर सिर्फ यादृच्छिक अक्षर नहीं चुनता; यह Web Crypto API के माध्यम से सच्ची क्रिप्टोग्राफ़िक एंट्रॉपी सुनिश्चित करता है। इसका मतलब है कि आपका पासवर्ड न केवल यादृच्छिक है, बल्कि गणितीय रूप से अप्रत्याशित भी है।
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">कोई सर्वर अपलोड नहीं</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">शून्य लॉग</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">100% क्लाइंट-साइड</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Key Features (Grid) -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">आपकी गोपनीयता के लिए तैयार</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्थानीय क्रिप्टोग्राफी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">हम <code>Math.random()</code> के बजाय <code>Web Crypto API</code> का उपयोग करते हैं, जो प्रत्येक जनरेट किए गए वर्ण के लिए सच्ची क्रिप्टोग्राफ़िक सुरक्षा प्रदान करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all">
+                            <div class="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट इतिहास</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">वर्तमान सत्र में अपने जनरेट किए गए पासवर्ड ट्रैक करें। इतिहास अस्थायी है और आप रिफ्रेश या टैब बंद करने पर तुरंत मिट जाता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता प्रथम</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">कोई ट्रैकिंग, कोई कुकीज़, कोई सर्वर-साइड स्टोरेज। आपकी सुरक्षा हमारी एकमात्र प्राथमिकता है, जिसका अर्थ है शून्य डेटा कभी आपकी डिवाइस नहीं छोड़ता।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all">
+                            <div class="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">शून्य विलंबता</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">अनुकूलित JavaScript के साथ त्वरित पीढ़ी। प्रारंभिक लोड के बाद उपकरण ऑफलाइन काम करता है, जिससे आपको जब भी आवश्यकता हो गति सुनिश्चित होती है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">क्या ये पासवर्ड संग्रहीत किए जाते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed pl-1">
+                                नहीं। आपका इतिहास केवल वर्तमान सत्र की मेमोरी में रखा जाता है और आप पृष्ठ रिफ्रेश करने पर मिट जाता है। हमारे पास कोई डेटाबेस या कोई ट्रैकिंग तंत्र नहीं है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">पासवर्ड को "मजबूत" क्या बनाता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed pl-1">
+                                एक मजबूत पासवर्ड में आमतौर पर कम से कम 12 वर्ण होते हैं, जिसमें बड़े अक्षर, छोटे अक्षर, संख्याएँ और विशेष प्रतीक का मिश्रण शामिल होता है। यादृच्छिकता "ब्रूट-फोर्स" हमलों को रोकने की कुंजी है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">क्या मैं इसे ऑफलाइन इस्तेमाल कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed pl-1">
+                                हाँ! पृष्ठ लोड होने के बाद, पीढ़ी तर्क पूरी तरह से स्थानीय है। आप इंटरनेट से डिस्कनेक्ट कर सकते हैं और यह अभी भी पूरी तरह से काम करेगा।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Password Logic ===
+        const lengthSlider = document.getElementById('length-slider');
+        const lengthVal = document.getElementById('length-val');
+        const includeUpper = document.getElementById('include-upper');
+        const includeLower = document.getElementById('include-lower');
+        const includeNumbers = document.getElementById('include-numbers');
+        const includeSymbols = document.getElementById('include-symbols');
+        const excludeSimilar = document.getElementById('exclude-similar');
+        const passwordDisplay = document.getElementById('password-display');
+        const generateBtn = document.getElementById('generate-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const strengthBar = document.getElementById('strength-bar');
+        const strengthLabel = document.getElementById('strength-label');
+        const historyList = document.getElementById('history-list');
+        const clearHistoryBtn = document.getElementById('clear-history');
+
+        let passwordHistory = [];
+
+        lengthSlider.addEventListener('input', () => {
+            lengthVal.textContent = lengthSlider.value;
+            generatePassword(false); // Update preview but don't add to history
+        });
+
+        const charSets = {
+            upper: "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
+            lower: "abcdefghijklmnopqrstuvwxyz",
+            numbers: "0123456789",
+            symbols: "!@#$%^&*()_+-=[]{}|;:,.<>?"
+        };
+
+        function generatePassword(addToHistory = true) {
+            let charset = "";
+            if (includeUpper.checked) charset += charSets.upper;
+            if (includeLower.checked) charset += charSets.lower;
+            if (includeNumbers.checked) charset += charSets.numbers;
+            if (includeSymbols.checked) charset += charSets.symbols;
+
+            if (excludeSimilar.checked) {
+                charset = charset.replace(/[il1Lo0O]/g, '');
+            }
+
+            if (charset === "") {
+                passwordDisplay.textContent = "कम से कम एक विकल्प चुनें";
+                passwordDisplay.classList.add('text-red-500');
+                updateStrength(0);
+                return;
+            }
+
+            passwordDisplay.classList.remove('text-red-500');
+            const length = parseInt(lengthSlider.value);
+            let password = "";
+
+            // Web Crypto API for secure randomness
+            const randomValues = new Uint32Array(length);
+            window.crypto.getRandomValues(randomValues);
+
+            for (let i = 0; i < length; i++) {
+                password += charset.charAt(randomValues[i] % charset.length);
+            }
+
+            passwordDisplay.textContent = password;
+            updateStrength(calculateStrength(password, charset.length));
+
+            if (addToHistory) {
+                updateHistory(password);
+            }
+        }
+
+        function calculateStrength(password, charsetSize) {
+            // Entropy calculation: L * log2(R)
+            const entropy = password.length * Math.log2(charsetSize);
+            if (entropy < 40) return 1; // Weak
+            if (entropy < 60) return 2; // Medium
+            if (entropy < 80) return 3; // Strong
+            return 4; // Very Strong
+        }
+
+        function updateStrength(level) {
+            const colors = {
+                0: 'bg-slate-200',
+                1: 'bg-red-500',
+                2: 'bg-yellow-500',
+                3: 'bg-blue-500',
+                4: 'bg-green-500'
+            };
+            const labels = {
+                0: 'अभी तक जनरेट नहीं',
+                1: 'कमज़ोर (कम एंट्रॉपी)',
+                2: 'मध्यम',
+                3: 'मजबूत',
+                4: 'अत्यधिक सुरक्षित'
+            };
+
+            strengthBar.className = `h-full transition-all duration-500 ${colors[level]}`;
+            strengthBar.style.width = `${(level / 4) * 100}%`;
+            strengthLabel.textContent = labels[level];
+            strengthLabel.className = `text-sm font-medium ${level > 0 ? 'text-slate-600 dark:text-slate-300' : 'text-slate-400'}`;
+        }
+
+        function updateHistory(pw) {
+            passwordHistory.unshift(pw);
+            if (passwordHistory.length > 10) passwordHistory.pop();
+            renderHistory();
+        }
+
+        function renderHistory() {
+            if (passwordHistory.length === 0) {
+                historyList.innerHTML = '<p class="text-sm text-slate-400 text-center py-4 italic">अभी तक कोई पासवर्ड जनरेट नहीं किया गया</p>';
+                return;
+            }
+
+            historyList.innerHTML = passwordHistory.map(pw => `
+                <div class="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl group hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                    <span class="font-mono text-sm truncate pr-4 text-slate-600 dark:text-slate-400">${pw}</span>
+                    <button onclick="copyToClipboard('${pw}', this)" class="p-1.5 text-slate-400 hover:text-blue-500 transition-colors" title="कॉपी करें">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.copyToClipboard = (text, btn) => {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+                setTimeout(() => btn.innerHTML = originalContent, 2000);
+            });
+        };
+
+        copyBtn.addEventListener('click', () => {
+            const pw = passwordDisplay.textContent;
+            if (pw && pw !== "जनरेट करने के लिए क्लिक करें" && pw !== "कम से कम एक विकल्प चुनें") {
+                copyToClipboard(pw, copyBtn);
+            }
+        });
+
+        passwordDisplay.addEventListener('click', () => {
+            const pw = passwordDisplay.textContent;
+            if (pw && pw !== "जनरेट करने के लिए क्लिक करें" && pw !== "कम से कम एक विकल्प चुनें") {
+                copyToClipboard(pw, copyBtn);
+            }
+        });
+
+        generateBtn.addEventListener('click', () => generatePassword(true));
+        clearHistoryBtn.addEventListener('click', () => {
+            passwordHistory = [];
+            renderHistory();
+        });
+
+        // Initialize with a password
+        generatePassword(false);
+
+    </script>
+</body>
+</html>

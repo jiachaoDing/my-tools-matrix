@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बॉडी फैट कैलकुलेटर (Body Fat Calculator) - U.S. Navy Method | WebUtilityKit</title>
+    <meta name="description" content="U.S. Navy method का उपयोग करके अपनी बॉडी फैट परसेंटेज की गणना करें। साइंटिफिक एक्युरेसी के साथ मीट्रिक और इंपीरियल सपोर्ट। 100% प्राइवेट और सुरक्षित।">
+    <link rel="canonical" href="https://webutilitykit.com/body-fat-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/body-fat-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/body-fat-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <script src="/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "बॉडी फैट कैलकुलेटर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "623",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "U.S. Navy method, Lean body mass calculation, Body fat categories, Metric and Imperial units, Client-side processing",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/body-fat-calculator.jpg"
+    }
+    </script>
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">बॉडी फैट कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">साइंटिफिक U.S. Navy Method का उपयोग करके अपनी बॉडी फैट परसेंटेज का अनुमान लगाएं। महंगे स्कैन की जरूरत नहीं, फिर भी काफी सटीक।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. लोकल प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Inputs (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-6 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="unit-metric" class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400">मीट्रिक (cm/kg)</button>
+                            <button id="unit-imperial" class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 ml-1">इंपीरियल (in/lb)</button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">लिंग</label>
+                                <div class="flex gap-4">
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="male" checked class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">पुरुष</div>
+                                    </label>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="female" class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">महिला</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">ऊंचाई</label>
+                                    <div class="relative group">
+                                        <input type="number" id="height-input" value="175" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-height">cm</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">गर्दन</label>
+                                    <div class="relative group">
+                                        <input type="number" id="neck-input" value="38" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-height">cm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">कमर</label>
+                                <div class="relative group">
+                                    <input type="number" id="waist-input" value="85" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-height">cm</span>
+                                </div>
+                            </div>
+
+                            <div id="hip-container" class="hidden">
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">कूल्हे (केवल महिलाएं)</label>
+                                <div class="relative group">
+                                    <input type="number" id="hip-input" value="95" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-height">cm</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">वजन (वैकल्पिक)</label>
+                                <div class="relative group">
+                                    <input type="number" id="weight-input" value="75" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-weight">kg</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">गणना किए गए रिजल्ट्स</label>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                            <!-- Large BF% Result -->
+                            <div class="text-center relative">
+                                <div id="bf-result" class="text-8xl font-black text-slate-900 dark:text-white leading-none">18.4<span class="text-4xl text-blue-500">%</span></div>
+                                <div class="text-sm font-bold text-slate-400 uppercase mt-4 tracking-widest">बॉडी फैट परसेंटेज</div>
+                                <!-- Visual Gauge Sub-indicator -->
+                                <div class="w-64 h-2 bg-slate-100 dark:bg-slate-900/50 rounded-full mt-6 mx-auto overflow-hidden">
+                                    <div id="bf-progress" class="h-full bg-blue-500 transition-all duration-1000" style="width: 18.4%"></div>
+                                </div>
+                            </div>
+
+                            <div id="category-badge" class="px-8 py-4 rounded-3xl font-bold text-xl transition-all duration-500 bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400">
+                                फिटनेस कैटेगरी
+                            </div>
+
+                            <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">लीन बॉडी मास</div>
+                                    <div id="lean-mass" class="text-2xl font-bold text-slate-800 dark:text-white">61.2 kg</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">बॉडी फैट मास</div>
+                                    <div id="fat-mass" class="text-2xl font-bold text-slate-800 dark:text-white">13.8 kg</div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="w-full p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-900/20">
+                                <div class="flex gap-4">
+                                    <div class="text-blue-500">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p id="health-tip" class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        आपका बॉडी फैट आदर्श फिटनेस रेंज में है। यह अच्छी कार्डियोवस्कुलर हेल्थ और एथलेटिक परफॉर्मेंस से जुड़ा है।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सटीक मेजरमेंट पाने के लिए कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">गर्दन का मेजरमेंट</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">पुरुषों के लिए एडम्स एप्पल के ठीक नीचे मापें, महिलाओं के लिए सबसे पतली जगह। टेप को लेवल रखें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कमर और कूल्हे</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">पुरुषों के लिए नाभि पर मापें। महिलाओं को कमर की सबसे पतली जगह और कूल्हों की सबसे चौड़ी जगह मापें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">इनपुट और विश्लेषण करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कैलकुलेटर में अपने वैल्यू डालें। हम U.S. Navy फॉर्मूला का उपयोग करके आपके अनुमान को तुरंत प्रदान करेंगे।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why the Navy Method? -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">परिधि का विज्ञान</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                U.S. Navy Health Research Center द्वारा विकसित, यह महंगे DXA स्कैन या हाइड्रोस्टैटिक वेटिंग के बिना बॉडी फैट का अनुमान लगाने का सबसे विश्वसनीय तरीकों में से एक है। यह साधारण टेप मेजरमेंट्स का उपयोग करके डेंसिटी को गणना करता है और आश्चर्यजनक सटीकता के साथ काम करता है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">मेथड</div>
+                                    <div class="font-bold">U.S. Navy स्टैंडर्ड</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">एक्युरेसी</div>
+                                    <div class="font-bold">+/- 3-4% वेरिएंस</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Ideal Body Fat Chart -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">बॉडी फैट क्लासीफिकेशंस (ACE)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">पुरुष</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">एसेंशियल फैट</span>
+                                    <span class="font-bold text-slate-400">2 - 5%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">एथलीट्स</span>
+                                    <span class="font-bold text-green-500">6 - 13%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                    <span class="font-medium">फिटनेस</span>
+                                    <span class="font-bold text-blue-500">14 - 17%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">औसत</span>
+                                    <span class="font-bold text-orange-500">18 - 24%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">मोटापा</span>
+                                    <span class="font-bold text-red-500">25%+</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-pink-600 mb-6">महिलाएं</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">एसेंशियल फैट</span>
+                                    <span class="font-bold text-slate-400">10 - 13%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">एथलीट्स</span>
+                                    <span class="font-bold text-green-500">14 - 20%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                    <span class="font-medium">फिटनेस</span>
+                                    <span class="font-bold text-blue-500">21 - 24%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">औसत</span>
+                                    <span class="font-bold text-orange-500">25 - 31%</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">मोटापा</span>
+                                    <span class="font-bold text-red-500">32%+</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">एक्सपर्ट Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कब मापना चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                कॉन्सिस्टेंसी के लिए सुबह में मापें जब आप जागें और बाथरूम इस्तेमाल करें, लेकिन खाना खाने से पहले। आपका बॉडी वॉटर कंटेंट दिन भर में बदलता है, जो मेजरमेंट को थोड़ा प्रभावित कर सकता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">यह मेथड कितना सटीक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हालांकि कोई फॉर्मूला परफेक्ट नहीं है, Navy मेथड "टेप मेजरमेंट" मेथड्स में सबसे सटीक माना जाता है। यह आमतौर पर महंगे DEXA स्कैन रिजल्ट्स से 3-4% के अंदर रहता है, जो समय के साथ प्रोग्रेस ट्रैक करने के लिए एक उत्कृष्ट टूल बनाता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Body Fat Calculator Logic ===
+        const unitMetric = document.getElementById('unit-metric');
+        const unitImperial = document.getElementById('unit-imperial');
+        const heightInput = document.getElementById('height-input');
+        const neckInput = document.getElementById('neck-input');
+        const waistInput = document.getElementById('waist-input');
+        const hipInput = document.getElementById('hip-input');
+        const weightInput = document.getElementById('weight-input');
+        const hipContainer = document.getElementById('hip-container');
+
+        const bfResult = document.getElementById('bf-result');
+        const bfProgress = document.getElementById('bf-progress');
+        const categoryBadge = document.getElementById('category-badge');
+        const leanMassDisplay = document.getElementById('lean-mass');
+        const fatMassDisplay = document.getElementById('fat-mass');
+        const healthTip = document.getElementById('health-tip');
+
+        let isMetric = true;
+
+        function updateUIUnits() {
+            const heightUnits = document.querySelectorAll('.unit-height');
+            const weightUnits = document.querySelectorAll('.unit-weight');
+
+            if (isMetric) {
+                heightUnits.forEach(u => u.textContent = 'cm');
+                weightUnits.forEach(u => u.textContent = 'kg');
+                unitMetric.classList.add('active-tab');
+                unitMetric.classList.remove('inactive-tab');
+                unitImperial.classList.remove('active-tab');
+                unitImperial.classList.add('inactive-tab');
+            } else {
+                heightUnits.forEach(u => u.textContent = 'in');
+                weightUnits.forEach(u => u.textContent = 'lb');
+                unitImperial.classList.add('active-tab');
+                unitImperial.classList.remove('inactive-tab');
+                unitMetric.classList.remove('active-tab');
+                unitMetric.classList.add('inactive-tab');
+            }
+            calculateBF();
+        }
+
+        unitMetric.addEventListener('click', () => {
+            if (!isMetric) {
+                isMetric = true;
+                // Convert values
+                heightInput.value = (parseFloat(heightInput.value) * 2.54).toFixed(1);
+                neckInput.value = (parseFloat(neckInput.value) * 2.54).toFixed(1);
+                waistInput.value = (parseFloat(waistInput.value) * 2.54).toFixed(1);
+                hipInput.value = (parseFloat(hipInput.value) * 2.54).toFixed(1);
+                weightInput.value = (parseFloat(weightInput.value) / 2.20462).toFixed(1);
+                updateUIUnits();
+            }
+        });
+
+        unitImperial.addEventListener('click', () => {
+            if (isMetric) {
+                isMetric = false;
+                // Convert values
+                heightInput.value = (parseFloat(heightInput.value) / 2.54).toFixed(1);
+                neckInput.value = (parseFloat(neckInput.value) / 2.54).toFixed(1);
+                waistInput.value = (parseFloat(waistInput.value) / 2.54).toFixed(1);
+                hipInput.value = (parseFloat(hipInput.value) / 2.54).toFixed(1);
+                weightInput.value = (parseFloat(weightInput.value) * 2.20462).toFixed(1);
+                updateUIUnits();
+            }
+        });
+
+        function calculateBF() {
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            let height = parseFloat(heightInput.value) || 0;
+            let neck = parseFloat(neckInput.value) || 0;
+            let waist = parseFloat(waistInput.value) || 0;
+            let hip = parseFloat(hipInput.value) || 0;
+            let weight = parseFloat(weightInput.value) || 0;
+
+            if (height <= 0 || neck <= 0 || waist <= 0) return;
+
+            // Normalize to metric for formula
+            let h = isMetric ? height : height * 2.54;
+            let n = isMetric ? neck : neck * 2.54;
+            let w = isMetric ? waist : waist * 2.54;
+            let hp = isMetric ? hip : hip * 2.54;
+
+            let bf = 0;
+            if (gender === 'male') {
+                hipContainer.classList.add('hidden');
+                // Male formula
+                bf = 495 / (1.0324 - 0.19077 * Math.log10(w - n) + 0.15456 * Math.log10(h)) - 450;
+            } else {
+                hipContainer.classList.remove('hidden');
+                // Female formula
+                bf = 495 / (1.29579 - 0.35004 * Math.log10(w + hp - n) + 0.22100 * Math.log10(h)) - 450;
+            }
+
+            bf = Math.max(0, bf);
+            bfResult.innerHTML = `${bf.toFixed(1)}<span class="text-4xl text-blue-500">%</span>`;
+            bfProgress.style.width = `${Math.min(100, bf)}%`;
+
+            updateCategory(bf, gender);
+
+            if (weight > 0) {
+                const fatMass = (weight * (bf / 100)).toFixed(1);
+                const leanMass = (weight - fatMass).toFixed(1);
+                const weightUnit = isMetric ? 'kg' : 'lb';
+                fatMassDisplay.textContent = `${fatMass} ${weightUnit}`;
+                leanMassDisplay.textContent = `${leanMass} ${weightUnit}`;
+            } else {
+                fatMassDisplay.textContent = '-';
+                leanMassDisplay.textContent = '-';
+            }
+        }
+
+        function updateCategory(bf, gender) {
+            let cat = "";
+            let color = "";
+            let tip = "";
+
+            if (gender === 'male') {
+                if (bf < 6) { cat = "एसेंशियल फैट"; color = "bg-slate-100 text-slate-600"; tip = "आपका बॉडी फैट एसेंशियल लेवल पर है। प्रोफेशनल एथलीट्स अक्सर इस रेंज को मेंटेन करते हैं।"; }
+                else if (bf < 14) { cat = "एथलीट्स"; color = "bg-green-100 text-green-600"; tip = "फिजिकल कंडीशन का पीक। परफॉर्मेंस और वैस्कुलैरिटी के लिए आदर्श।"; }
+                else if (bf < 18) { cat = "फिटनेस"; color = "bg-blue-100 text-blue-600"; tip = "बहुत स्वस्थ और लीन एथलेटिक लुक। लॉन्जेविटी के साथ असोसिएटेड।"; }
+                else if (bf < 25) { cat = "औसत"; color = "bg-orange-100 text-orange-600"; tip = "अधिकांश पुरुषों के लिए औसत रेंज। स्वस्थ, लेकिन इंप्रूवमेंट के लिए जगह है।"; }
+                else { cat = "मोटापा"; color = "bg-red-100 text-red-600"; tip = "कार्डियोवस्कुलर इश्यूज के लिए हायर रिस्क। बॉडी कंपोजिशन मैनेजमेंट के लिए प्रोफेशनल से कंसल्ट करें।"; }
+            } else {
+                if (bf < 14) { cat = "एसेंशियल फैट"; color = "bg-slate-100 text-slate-600"; tip = "आपका बॉडी फैट एसेंशियल लेवल पर है। महिलाओं को हार्मोनल हेल्थ के लिए ज्यादा बॉडी फैट की जरूरत होती है।"; }
+                else if (bf < 21) { cat = "एथलीट्स"; color = "bg-green-100 text-green-600"; tip = "एक्सेलेंट फिटनेस लेवल। हाईली एक्टिव महिलाओं और एथलीट्स में कॉमन।"; }
+                else if (bf < 25) { cat = "फिटनेस"; color = "bg-blue-100 text-blue-600"; tip = "फिट और स्वस्थ के रूप में डिफाइन किया गया। हेल्थ और अपीयरेंस का ग्रेट बैलेंस।"; }
+                else if (bf < 32) { cat = "औसत"; color = "bg-orange-100 text-orange-600"; tip = "अधिकांश महिलाओं के लिए स्वस्थ रेंज। नॉर्मल बायोलॉजिकल वैरिएशंस के अंदर।"; }
+                else { cat = "मोटापा"; color = "bg-red-100 text-red-600"; tip = "हेल्थ रिस्क्स बढ़ गए हैं। बॉडी कंपोजिशन मैनेजमेंट के लिए प्रोफेशनल से कंसल्ट करें।"; }
+            }
+
+            categoryBadge.textContent = cat;
+            categoryBadge.className = `px-8 py-4 rounded-3xl font-bold text-xl transition-all duration-500 ${color}`;
+            healthTip.textContent = tip;
+        }
+
+        [heightInput, neckInput, waistInput, hipInput, weightInput].forEach(el => el.addEventListener('input', calculateBF));
+        document.querySelectorAll('input[name="gender"]').forEach(el => el.addEventListener('change', calculateBF));
+
+        // Init
+        updateUIUnits();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebP कन्वर्टर (WebP Converter) - मुफ्त, सुरक्षित और बैच | WebUtilityKit</title>
+    <meta name="description" content="WebP से या WebP में इमेजेज को तुरंत कन्वर्ट करें। छोटी फाइल साइज़, बेहतर क्वालिटी। फास्ट, सुरक्षित, और ऑफलाइन काम करता है। अभी ट्राई करें!">
+    
+    <link rel="canonical" href="https://webutilitykit.com/hi/webp-converter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/webp-converter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/webp-converter/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/hi/webp-converter/">
+    <meta property="og:title" content="WebP कन्वर्टर - 100% सुरक्षित और स्थानीय इमेज कन्वर्जन">
+    <meta property="og:description" content="सर्वर पर अपलोड किए बिना WebP फॉर्मेट में या से इमेजेज को बैच कन्वर्ट करें। आधुनिक, फास्ट, और प्राइवेसी-फोकस्ड।">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/webp-converter.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "WebP Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "812",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Modern WebP support",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/webp-converter.jpg"
+    }
+    </script>
+    
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">WebP कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">WebP फॉर्मेट में या से इमेजेज कन्वर्ट करें। छोटी फाइल साइज़, बेहतर क्वालिटी। फास्ट, सुरक्षित, और ऑफलाइन काम करता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>आपकी इमेजेज कभी भी आपके डिवाइस से बाहर नहीं जातीं।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
+                
+                <!-- Upload Zone -->
+                <div class="p-8">
+                    <div id="drop-zone" class="relative border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-3xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
+                        <input type="file" id="file-input" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" multiple class="hidden" aria-label="WebP कन्वर्जन के लिए इमेजेज अपलोड करें">
+                        
+                        <div id="upload-prompt" class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">यहाँ इमेजेज ड्रॉप करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">या अपनी डिवाइस से फाइलें चुनने के लिए क्लिक करें</p>
+                            <button id="select-files-btn" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                इमेजेज चुनें
+                            </button>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-4">JPG, PNG, WebP • बैच कन्वर्जन उपलब्ध</p>
+                        </div>
+
+                        <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-3xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                            <div class="text-center">
+                                <svg class="w-24 h-24 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">यहाँ अपनी इमेजेज ड्रॉप करें</p>
+                                <p class="text-sm text-blue-700 dark:text-blue-300">एकाधिक फाइलें सपोर्टेड</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files List -->
+                <div id="uploaded-files" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">चुनी गई फाइलें (<span id="file-count">0</span>)</h3>
+                        <button id="clear-all-btn" class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            सभी क्लियर करें
+                        </button>
+                    </div>
+                    <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- Conversion Settings -->
+                <div id="settings-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6 space-y-6">
+                        <div>
+                            <label class="text-sm font-bold text-slate-700 dark:text-slate-300 mb-3 block">में कन्वर्ट करें</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button class="convert-format-btn active" data-format="webp">
+                                    <span class="font-semibold">WebP</span>
+                                    <span class="text-xs opacity-75">आधुनिक</span>
+                                </button>
+                                <button class="convert-format-btn" data-format="jpg">
+                                    <span class="font-semibold">JPG</span>
+                                    <span class="text-xs opacity-75">सार्वभौमिक</span>
+                                </button>
+                                <button class="convert-format-btn" data-format="png">
+                                    <span class="font-semibold">PNG</span>
+                                    <span class="text-xs opacity-75">बिना हानि</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="quality-control">
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300">क्वालिटी</label>
+                                <span id="quality-value" class="text-lg font-bold text-blue-600 dark:text-blue-400">85%</span>
+                            </div>
+                            <input type="range" id="quality-slider" min="50" max="100" value="85" class="w-full h-3 bg-slate-200 dark:bg-slate-800 rounded-full appearance-none cursor-pointer slider">
+                            <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mt-2">
+                                <span>छोटी फाइल</span>
+                                <span>सर्वोत्तम क्वालिटी</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Convert Button -->
+                <div id="convert-section" class="px-8 pb-8 hidden">
+                    <button id="convert-btn" class="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="convert-btn-text">इमेजेज कन्वर्ट करें</span>
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progress-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">कन्वर्ट हो रहा है...</span>
+                            <span id="progress-text" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-status" class="text-xs text-slate-500 dark:text-slate-400 mt-2">तैयार हो रहा है...</p>
+                    </div>
+                </div>
+
+                <!-- Converted Results -->
+                <div id="results-section" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">कन्वर्ट की गई इमेजेज (<span id="result-count">0</span>)</h3>
+                        <button id="download-all-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            सभी डाउनलोड करें
+                        </button>
+                    </div>
+                    <div id="result-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-16">
+            <div class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">WebP कन्वर्टर का इस्तेमाल कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">इमेजेज अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">JPG, PNG, या WebP फाइलें ड्रैग एंड ड्रॉप करें। एकाधिक फाइलों के लिए बैच कन्वर्जन।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फॉर्मेट चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टारगेट फॉर्मेट चुनें (WebP, JPG, या PNG) और आवश्यकतानुसार क्वालिटी सेटिंग्ज़ एडजस्ट करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">परिणामों का प्रीव्यू करें और व्यक्तिगत रूप से या एक क्लिक से सभी डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why WebP -->
+                <section class="bg-gradient-to-br from-blue-600 to-purple-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">WebP क्यों?</h2>
+                            <p class="text-lg text-blue-50/90 leading-relaxed mb-8">
+                                WebP Google द्वारा विकसित एक आधुनिक इमेज फॉर्मेट है जो बेहतर कम्प्रेशन प्रदान करता है—आमतौर पर JPG से 25-35% छोटी फाइलें उसी क्वालिटी पर। यह PNG की तरह ट्रांसपेरेंसी सपोर्ट करता है और एनिमेशन भी शामिल कर सकता है। फास्टर वेबसाइट्स और आधुनिक ऐप्स के लिए परफेक्ट।
+                            </p>
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1">फाइल साइज़</div>
+                                    <div class="font-bold">25-35% छोटी</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1">सपोर्ट</div>
+                                    <div class="font-bold">97% ब्राउज़र</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1">फीचर्स</div>
+                                    <div class="font-bold">अल्फा + लॉसी</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Key Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">पावरफुल फीचर्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-green-100 dark:bg-green-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">100% प्राइवेट</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">आपकी इमेजेज आपके डिवाइस से बाहर नहीं जातीं। सभी प्रोसेसिंग आपके ब्राउज़र में स्थानीय रूप से होती है।</p>
+                        </div>
+                        
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">अल्ट्रा फास्ट</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">एक सेकंड में एकाधिक इमेजेज कन्वर्ट करें, कोई अपलोड या डाउनलोड देरी नहीं।</p>
+                        </div>
+                        
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">द्विदिश</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">छोटी फाइलों के लिए WebP में या संगतता के लिए WebP से JPG/PNG में आसानी से कन्वर्ट करें।</p>
+                        </div>
+                        
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 hover:shadow-xl transition-all">
+                            <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 rounded-2xl flex items-center justify-center mb-6">
+                                <svg class="w-7 h-7 text-orange-600 dark:text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-3">क्वालिटी कंट्रोल</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">50% से 100% तक क्वालिटी सेटिंग्ज़ फाइन-ट्यून करें ताकि परफेक्ट रिजल्ट मिलें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">WebP क्या है और मुझे इसका इस्तेमाल क्यों करना चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                WebP एक आधुनिक इमेज फॉर्मेट है जो बेहतर कम्प्रेशन प्रदान करता है—आमतौर पर JPG से 25-35% छोटी फाइलें उसी क्वालिटी पर। यह ट्रांसपेरेंसी सपोर्ट करता है, लॉसी और लॉसलेस कम्प्रेशन, और अब 97% ब्राउज़र द्वारा सपोर्टेड है। फास्टर वेबसाइट्स और ऐप्स के लिए परफेक्ट।
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कन्वर्जन के दौरान मेरी इमेजेज सुरक्षित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                बिल्कुल! सभी कन्वर्जन आपके ब्राउज़र में Canvas API का इस्तेमाल करके स्थानीय रूप से होती है। कोई भी इमेज सर्वर पर अपलोड नहीं की जाती, जिससे पूरी प्राइवेसी और सुरक्षा सुनिश्चित रहती है।
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं WebP को वापस JPG या PNG में कन्वर्ट कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ! यह टूल दोनों तरफ काम करता है। आप छोटी फाइलों के लिए JPG/PNG से WebP में या पुरानी सिस्टम या ऐप्लिकेशन्स के साथ संगतता के लिए WebP से JPG/PNG में कन्वर्ट कर सकते हैं जो अभी तक WebP सपोर्ट नहीं करतीं।
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या सभी ब्राउज़र WebP सपोर्ट करते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                WebP अब Chrome, Firefox, Edge, Safari (iOS 14+), और Opera सहित 97% ब्राउज़र द्वारा सपोर्टेड है। केवल बहुत पुराने ब्राउज़र सपोर्ट नहीं करते, जिससे आधुनिक वेब इस्तेमाल के लिए WebP सुरक्षित है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const selectFilesBtn = document.getElementById('select-files-btn');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const settingsSection = document.getElementById('settings-section');
+        const qualityControl = document.getElementById('quality-control');
+        const qualitySlider = document.getElementById('quality-slider');
+        const qualityValue = document.getElementById('quality-value');
+        const convertSection = document.getElementById('convert-section');
+        const convertBtn = document.getElementById('convert-btn');
+        const convertBtnText = document.getElementById('convert-btn-text');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressStatus = document.getElementById('progress-status');
+        const resultsSection = document.getElementById('results-section');
+        const resultList = document.getElementById('result-list');
+        const resultCount = document.getElementById('result-count');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let convertedResults = [];
+        let targetFormat = 'webp';
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        qualitySlider.addEventListener('input', (e) => {
+            qualityValue.textContent = e.target.value + '%';
+        });
+
+        // Format selection
+        document.querySelectorAll('.convert-format-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.convert-format-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                targetFormat = btn.dataset.format;
+                
+                // Show/hide quality control based on format
+                if (targetFormat === 'png') {
+                    qualityControl.classList.add('hidden');
+                } else {
+                    qualityControl.classList.remove('hidden');
+                }
+                
+                updateConvertButton();
+            });
+        });
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                settingsSection.classList.add('hidden');
+                convertSection.classList.add('hidden');
+                uploadPrompt.classList.remove('hidden');
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            settingsSection.classList.remove('hidden');
+            convertSection.classList.remove('hidden');
+            uploadPrompt.classList.add('hidden');
+            
+            fileCount.textContent = uploadedFiles.length;
+            updateConvertButton();
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => {
+                const ext = file.name.split('.').pop().toUpperCase();
+                return `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-4">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400">${ext}</span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold text-slate-900 dark:text-white truncate">${file.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(file.size)}</div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `}).join('');
+        }
+
+        function updateConvertButton() {
+            const formatName = targetFormat.toUpperCase();
+            convertBtnText.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''} को ${formatName} में कन्वर्ट करें`;
+        }
+
+        function updateResultList() {
+            resultCount.textContent = convertedResults.length;
+            resultList.innerHTML = convertedResults.map((result, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden group">
+                    <div class="aspect-square bg-slate-200 dark:bg-slate-900 rounded-xl mb-3 overflow-hidden">
+                        <img src="${result.url}" alt="${result.name}" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="mb-3">
+                        <div class="font-semibold text-sm text-slate-900 dark:text-white truncate mb-1">${result.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(result.size)} ${result.reduction ? `• ${result.reduction}% छोटी` : ''}</div>
+                    </div>
+                    <button onclick="downloadSingle(${index})" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        डाउनलोड
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingle = function(index) {
+            const result = convertedResults[index];
+            const a = document.createElement('a');
+            a.href = result.url;
+            a.download = result.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        function handleFiles(files) {
+            const imageFiles = Array.from(files).filter(file => 
+                file.type.startsWith('image/') && 
+                (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/webp')
+            );
+
+            if (imageFiles.length === 0) {
+                alert('कृपया केवल JPG, PNG, या WebP फाइलें चुनें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...imageFiles];
+            updateFileList();
+        }
+
+        // Drag & Drop
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === dropZone || e.target.closest('#upload-prompt')) {
+                fileInput.click();
+            }
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            convertedResults = [];
+            updateFileList();
+            resultsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        // Convert function
+        async function convertImages() {
+            if (uploadedFiles.length === 0) return;
+
+            convertedResults = [];
+            resultsSection.classList.add('hidden');
+            progressSection.classList.remove('hidden');
+            convertSection.classList.add('hidden');
+            settingsSection.classList.add('hidden');
+
+            const quality = qualitySlider.value / 100;
+            const total = uploadedFiles.length;
+            let completed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    progressStatus.textContent = `${file.name} कन्वर्ट हो रहा है...`;
+                    
+                    const img = new Image();
+                    const reader = new FileReader();
+                    
+                    await new Promise((resolve, reject) => {
+                        reader.onload = (e) => {
+                            img.onload = () => resolve();
+                            img.onerror = reject;
+                            img.src = e.target.result;
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    
+                    // For JPG output, fill with white background
+                    if (targetFormat === 'jpg') {
+                        ctx.fillStyle = '#FFFFFF';
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    }
+                    
+                    ctx.drawImage(img, 0, 0);
+
+                    const mimeType = targetFormat === 'webp' ? 'image/webp' : 
+                                   targetFormat === 'jpg' ? 'image/jpeg' : 'image/png';
+                    const useQuality = targetFormat !== 'png';
+
+                    await new Promise((resolve) => {
+                        canvas.toBlob((blob) => {
+                            const url = URL.createObjectURL(blob);
+                            const baseName = file.name.replace(/\.[^.]+$/, '');
+                            const newName = `${baseName}.${targetFormat}`;
+                            const reduction = file.size > 0 ? Math.round((1 - blob.size / file.size) * 100) : 0;
+
+                            convertedResults.push({
+                                name: newName,
+                                url: url,
+                                blob: blob,
+                                size: blob.size,
+                                reduction: reduction > 0 ? reduction : null
+                            });
+
+                            completed++;
+                            const progress = Math.round((completed / total) * 100);
+                            progressBar.style.width = progress + '%';
+                            progressText.textContent = progress + '%';
+                            
+                            resolve();
+                        }, mimeType, useQuality ? quality : undefined);
+                    });
+
+                } catch (error) {
+                    console.error(`Error converting ${file.name}:`, error);
+                    completed++;
+                }
+            }
+
+            progressStatus.textContent = 'कन्वर्जन पूरा हुआ!';
+            setTimeout(() => {
+                progressSection.classList.add('hidden');
+                convertSection.classList.remove('hidden');
+                settingsSection.classList.remove('hidden');
+                resultsSection.classList.remove('hidden');
+                updateResultList();
+            }, 500);
+        }
+
+        convertBtn.addEventListener('click', convertImages);
+
+        downloadAllBtn.addEventListener('click', () => {
+            convertedResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = result.url;
+                    a.download = result.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

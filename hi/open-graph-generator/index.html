@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Graph जनरेटर (Open Graph Generator) - मुफ्त सोशल मीडिया प्रीव्यू टूल | WebUtilityKit</title>
+    <meta name="description" content="Facebook, LinkedIn और Twitter के लिए Open Graph मेटा टैग बनाएं। लाइव प्रीव्यू, तुरंत जनरेशन, और सुरक्षित क्लाइंट-साइड प्रोसेसिंग। अभी CTR बढ़ाएं!">
+    <link rel="canonical" href="https://webutilitykit.com/open-graph-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/open-graph-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/open-graph-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Open Graph जनरेटर",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "487",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, Live preview, Social media optimization, No server upload, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/open-graph-generator.jpg"
+}
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Open Graph जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">सुंदर सोशल मीडिया प्रीव्यू बनाएं। Facebook, LinkedIn, Discord और अधिक के लिए Open Graph टैग जनरेट करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Left Panel: Form -->
+                <div class="space-y-6">
+                    <div class="p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-xl font-bold mb-6 text-slate-900 dark:text-white flex items-center gap-2">
+                            <span class="w-2 h-6 bg-blue-600 rounded-full"></span>
+                            Open Graph विवरण
+                        </h2>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">शीर्षक</label>
+                                <input type="text" id="og-title" placeholder="उदाहरण: WebUtilityKit - 100+ मुफ्त टूल"
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">विवरण</label>
+                                <textarea id="og-description" rows="3" placeholder="सोशल शेयरिंग के लिए संक्षिप्त विवरण..."
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white resize-none"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">साइट नाम</label>
+                                <input type="text" id="og-sitename" placeholder="उदाहरण: WebUtilityKit"
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">URL</label>
+                                <input type="text" id="og-url" placeholder="https://webutilitykit.com"
+                                    class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">इमेज URL</label>
+                                <div class="space-y-3">
+                                    <div class="flex gap-2">
+                                        <input type="text" id="og-image" placeholder="https://webutilitykit.com/assets/banner.jpg"
+                                            class="flex-grow bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                                        <button id="upload-trigger" class="px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all flex-shrink-0">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        </button>
+                                        <input type="file" id="image-upload" accept="image/*" class="hidden">
+                                    </div>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wider self-center">उदाहरण:</span>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition"
+                                            data-url="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&h=630">टेक</button>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition"
+                                            data-url="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=1200&h=630">प्रकृति</button>
+                                        <button class="example-img text-xs px-2 py-1 rounded bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition"
+                                            data-url="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&w=1200&h=630">अमूर्त</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">प्रकार</label>
+                                <select id="og-type" class="w-full bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-700 px-4 py-2.5 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-900 dark:text-white">
+                                    <option value="website">वेबसाइट</option>
+                                    <option value="article">लेख</option>
+                                    <option value="book">किताब</option>
+                                    <option value="profile">प्रोफाइल</option>
+                                    <option value="music.song">संगीत गीत</option>
+                                    <option value="video.movie">वीडियो फिल्म</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel: Code & Preview -->
+                <div class="space-y-6 flex flex-col">
+                    <div class="p-8 bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700">
+                        <h2 class="text-lg font-bold mb-4 text-slate-900 dark:text-white">सोशल प्रीव्यू</h2>
+                        <div class="bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden max-w-md mx-auto">
+                            <div id="preview-image-container" class="aspect-video bg-slate-200 dark:bg-slate-800 flex items-center justify-center overflow-hidden">
+                                <img id="preview-image" src="" alt="Social Preview" class="w-full h-full object-cover hidden">
+                                <svg id="preview-placeholder" class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div class="p-4 space-y-2">
+                                <div id="preview-sitename" class="text-[10px] uppercase tracking-wider text-slate-500 font-bold">वेबसाइट नाम</div>
+                                <div id="preview-title" class="text-lg font-bold text-slate-900 dark:text-white line-clamp-1 leading-tight">पोस्ट शीर्षक प्रीव्यू</div>
+                                <div id="preview-description" class="text-sm text-slate-600 dark:text-slate-400 line-clamp-2 leading-snug">यह आपके विवरण का Facebook और अन्य सोशल प्लेटफॉर्म पर कैसे दिखेगा।</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-8 bg-slate-900 rounded-3xl shadow-2xl border border-slate-800 flex-grow min-w-0">
+                        <div class="flex items-center justify-between mb-6">
+                            <h2 class="text-lg font-bold text-white">Open Graph टैग</h2>
+                            <button id="copy-btn" class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl transition-all shadow-lg active:scale-95 text-sm font-medium">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span>टैग कॉपी करें</span>
+                            </button>
+                        </div>
+                        <div class="bg-slate-950 rounded-2xl border border-slate-800 overflow-hidden">
+                            <pre id="code-output" class="block w-full p-6 font-mono text-sm whitespace-pre-wrap break-all min-h-[300px] outline-none" style="color: #60a5fa !important;"></pre>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Open Graph जनरेटर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">मेटाडेटा जोड़ें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी साइट का नाम, पेज शीर्षक और सोशल शेयर के लिए एक आकर्षक विवरण प्रदान करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">इमेज शामिल करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने सोशल कार्ड को विज़ुअली आकर्षक बनाने के लिए एक इमेज URL (आदर्श रूप से 1200x630px) जोड़ें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कोड कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">जनरेटेड <code>&lt;meta&gt;</code> टैग कॉपी करें और उन्हें अपने HTML हेड में पेस्ट करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">सोशल मीडिया ऑप्टिमाइज़ेशन</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Open Graph मेटा टैग आपको यह नियंत्रित करने देते हैं कि आपकी सामग्री सोशल मीडिया पर साझा होने पर कैसी दिखती है। बिना उनके, प्लेटफॉर्म एक यादृच्छिक इमेज या सामान्य विवरण चुन सकते हैं, जो संभावित रूप से आपके क्लिक-थ्रू दर को नुकसान पहुंचा सकता है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">सोशल प्लेटफॉर्म पर बेहतर CTR</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">संगत ब्रांड उपस्थिति</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">रिच मीडिया शेयरिंग प्रीव्यू</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative p-6 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10 w-full max-w-sm">
+                                <div class="flex items-center gap-3 mb-4">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full"></div>
+                                    <div class="h-3 w-24 bg-white/20 rounded"></div>
+                                </div>
+                                <div class="h-40 w-full bg-white/10 rounded-lg mb-3"></div>
+                                <div class="h-4 w-3/4 bg-white/20 rounded mb-2"></div>
+                                <div class="h-3 w-1/2 bg-white/10 rounded"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">मुख्य OG विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">लाइव प्रीव्यू</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एडिट करते समय अपने सोशल कार्ड को तुरंत विज़ुअलाइज़ करें। सुनिश्चित करें कि आपकी इमेज और टेक्स्ट पूरी तरह से अलाइन हों।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">क्लाइंट-साइड केवल</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका डेटा आपके मशीन पर रहता है। हम उन URL और मेटाडेटा को स्टोर या ट्रैक नहीं करते जिन्हें आप जनरेट करते हैं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Open Graph FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">OG इमेज का आदर्श आकार क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                अनुशंसित आकार <strong>1200 x 630 पिक्सल</strong> है सर्वोत्तम गुणवत्ता के लिए Facebook, LinkedIn और Discord पर। न्यूनतम आकार 600 x 315 पिक्सल है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से प्लेटफॉर्म Open Graph का उपयोग करते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Facebook, LinkedIn, Discord, Slack और WhatsApp मुख्य रूप से Open Graph का उपयोग करते हैं। Twitter भी OG टैग का समर्थन करता है यदि इसके अपने Twitter Card टैग अनुपलब्ध हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // Theme Logic
+
+
+        // OG Generator Logic
+        const inputs = ['og-title', 'og-description', 'og-sitename', 'og-url', 'og-image', 'og-type'];
+        const imageUpload = document.getElementById('image-upload');
+        const uploadTrigger = document.getElementById('upload-trigger');
+        const exampleBtns = document.querySelectorAll('.example-img');
+
+        let localImageObjectURL = null;
+
+        function updateGenerator() {
+            const data = {};
+            inputs.forEach(id => {
+                data[id] = document.getElementById(id).value;
+            });
+
+            // Update Preview
+            document.getElementById('preview-title').textContent = data['og-title'] || 'पोस्ट शीर्षक प्रीव्यू';
+            document.getElementById('preview-description').textContent = data['og-description'] || 'यह आपके विवरण का Facebook और अन्य सोशल प्लेटफॉर्म पर कैसे दिखेगा।';
+            document.getElementById('preview-sitename').textContent = (data['og-sitename'] || 'वेबसाइट नाम').toUpperCase();
+
+            const img = document.getElementById('preview-image');
+            const placeholder = document.getElementById('preview-placeholder');
+
+            const imageToShow = localImageObjectURL || data['og-image'];
+
+            if (imageToShow) {
+                img.src = imageToShow;
+                img.classList.remove('hidden');
+                placeholder.classList.add('hidden');
+            } else {
+                img.classList.add('hidden');
+                placeholder.classList.remove('hidden');
+            }
+
+            // Generate Tags
+            let htmlCode = `<!-- Open Graph / Facebook -->\n`;
+            htmlCode += `<meta property="og:type" content="${data['og-type']}">\n`;
+            htmlCode += `<meta property="og:url" content="${escapeHtml(data['og-url'])}">\n`;
+            htmlCode += `<meta property="og:title" content="${escapeHtml(data['og-title'])}">\n`;
+            htmlCode += `<meta property="og:description" content="${escapeHtml(data['og-description'])}">\n`;
+
+            // If we have a local upload but no URL, suggest a placeholder
+            const tagImageUrl = data['og-image'] || (localImageObjectURL ? 'https://yourdomain.com/path-to-image.jpg' : '');
+            htmlCode += `<meta property="og:image" content="${escapeHtml(tagImageUrl)}">\n`;
+
+            if (data['og-sitename']) htmlCode += `<meta property="og:site_name" content="${escapeHtml(data['og-sitename'])}">\n`;
+
+            document.getElementById('code-output').textContent = htmlCode;
+        }
+
+        uploadTrigger.addEventListener('click', () => imageUpload.click());
+
+        imageUpload.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) {
+                if (localImageObjectURL) URL.revokeObjectURL(localImageObjectURL);
+                localImageObjectURL = URL.createObjectURL(file);
+                // Clear URL input when uploading
+                document.getElementById('og-image').value = '';
+                updateGenerator();
+            }
+        });
+
+        exampleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const url = btn.getAttribute('data-url');
+                document.getElementById('og-image').value = url;
+                if (localImageObjectURL) {
+                    URL.revokeObjectURL(localImageObjectURL);
+                    localImageObjectURL = null;
+                }
+                updateGenerator();
+            });
+        });
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text || '';
+            return div.innerHTML;
+        }
+
+        inputs.forEach(id => {
+            document.getElementById(id).addEventListener('input', updateGenerator);
+        });
+
+        const copyBtn = document.getElementById('copy-btn');
+        copyBtn.addEventListener('click', () => {
+            const code = document.getElementById('code-output').textContent;
+            navigator.clipboard.writeText(code).then(() => {
+                const span = copyBtn.querySelector('span');
+                const originalText = span.textContent;
+                span.textContent = 'कॉपी हो गया!';
+                setTimeout(() => { span.textContent = originalText; }, 2000);
+            });
+        });
+
+        // Initialize
+        const randomExample = exampleBtns[Math.floor(Math.random() * exampleBtns.length)];
+        if (randomExample) {
+            document.getElementById('og-image').value = randomExample.getAttribute('data-url');
+        }
+        updateGenerator();
+    </script>
+</body>
+</html>

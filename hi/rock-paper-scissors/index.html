@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>रॉक पेपर सिसर गेम (Rock Paper Scissors Game) - मुफ्त ऑनलाइन प्ले | WebUtilityKit</title>
+    <meta name="description" content="रॉक पेपर सिसर को ऑनलाइन प्ले करें। हमारे एआई के खिलाफ एक निष्पक्ष प्रतियोगी खेलें। 100% निजी, ब्राउज़र में स्थानीय रूप से प्रोसेस किया गया। अभी प्ले करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/rock-paper-scissors/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/rock-paper-scissors/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/rock-paper-scissors/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Rock Paper Scissors",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "523",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/rock-paper-scissors.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">रॉक पेपर सिसर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">हमारे एआई में संभावना और रणनीति के क्लासिक गेम में चुनौती दें। क्या आप 10 जीत के स्ट्रेक तक पहुंच सकते हैं?</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया गया।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[3rem] p-8 md:p-12 border border-slate-100 dark:border-slate-700/50">
+                <!-- Scoreboard -->
+                <div class="flex items-center justify-center gap-8 mb-12">
+                    <div class="text-center">
+                        <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">खिलाड़ी</div>
+                        <div id="player-score" class="text-5xl font-black text-blue-600">0</div>
+                    </div>
+                    <div class="text-2xl font-bold text-slate-300">:</div>
+                    <div class="text-center">
+                        <div class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">कंप्यूटर</div>
+                        <div id="computer-score" class="text-5xl font-black text-rose-500">0</div>
+                    </div>
+                </div>
+
+                <!-- Game Area -->
+                <div class="flex flex-col items-center">
+                    <div id="game-status" class="text-2xl font-bold text-slate-900 dark:text-white mb-8 h-8">अपना मोव चुनें!</div>
+
+                    <div class="grid grid-cols-2 gap-8 w-full max-w-lg mb-12">
+                        <!-- Player Hand -->
+                        <div class="flex flex-col items-center">
+                            <div class="text-xs font-bold uppercase text-slate-400 mb-4">आप</div>
+                            <div id="player-hand" class="w-32 h-32 md:w-40 md:h-40 bg-slate-100 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-6xl md:text-7xl shadow-inner transition-all duration-300">?</div>
+                        </div>
+                        <!-- AI Hand -->
+                        <div class="flex flex-col items-center">
+                            <div class="text-xs font-bold uppercase text-slate-400 mb-4">कंप्यूटर</div>
+                            <div id="computer-hand" class="w-32 h-32 md:w-40 md:h-40 bg-slate-100 dark:bg-slate-800 rounded-3xl flex items-center justify-center text-6xl md:text-7xl shadow-inner transition-all duration-300">?</div>
+                        </div>
+                    </div>
+
+                    <!-- Choices -->
+                    <div class="grid grid-cols-3 gap-4 w-full max-w-md">
+                        <button data-choice="rock" class="choice-btn group flex flex-col items-center p-6 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-[2rem] hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all active:scale-95">
+                            <span class="text-4xl mb-2">✊</span>
+                            <span class="text-sm font-bold text-slate-500 group-hover:text-blue-600">रॉक</span>
+                        </button>
+                        <button data-choice="paper" class="choice-btn group flex flex-col items-center p-6 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-[2rem] hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all active:scale-95">
+                            <span class="text-4xl mb-2">✋</span>
+                            <span class="text-sm font-bold text-slate-500 group-hover:text-blue-600">पेपर</span>
+                        </button>
+                        <button data-choice="scissors" class="choice-btn group flex flex-col items-center p-6 bg-white dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 rounded-[2rem] hover:border-blue-500 hover:shadow-xl hover:shadow-blue-500/10 transition-all active:scale-95">
+                            <span class="text-4xl mb-2">✌️</span>
+                            <span class="text-sm font-bold text-slate-500 group-hover:text-blue-600">सिसर</span>
+                        </button>
+                    </div>
+
+                    <button id="reset-game" class="mt-12 text-sm font-medium text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition underline underline-offset-4">स्कोर रीसेट करें</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">कैसे खेलें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">अपना मोव चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रॉक, पेपर या सिसर चुनें। रॉक सिसर को हराता है, सिसर पेपर को हराते हैं, और पेपर रॉक को हराता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">एआई जवाब देता है</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कंप्यूटर तुरंत एक यादृच्छिक चयन करेगा। हमारा एआई 100% निष्पक्ष है और धोखा नहीं देता!</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">स्कोर देखें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">गेम का परिणाम घोषित किया जाता है, और स्कोरबोर्ड स्वचालित रूप से अपडेट हो जाता है। एआई को हराने की कोशिश करें!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">गेम की मनोविज्ञान</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                रॉक पेपर सिसर सिर्फ भाग्य से ज्यादा है। जबकि हमारा एआई शुद्ध यादृच्छिकता का उपयोग करता है, मानव प्रतियोगी अक्सर पूर्वानुमानित पैटर्न का पालन करते हैं। यह ऑनलाइन संस्करण आपके त्वरित निर्णय लेने की प्रैक्टिस के लिए परफेक्ट है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">तत्काल फीडबैक और एनीमेशन</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">सतत सत्र स्कोरिंग</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">डार्क मोड ऑप्टिमाइज्ड</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <span class="text-7xl">🎮</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Game Logic ===
+        const choices = ['rock', 'paper', 'scissors'];
+        const emojis = { rock: '✊', paper: '✋', scissors: '✌️' };
+        let playerScore = 0;
+        let computerScore = 0;
+
+        const playerHandEl = document.getElementById('player-hand');
+        const computerHandEl = document.getElementById('computer-hand');
+        const statusEl = document.getElementById('game-status');
+        const playerScoreEl = document.getElementById('player-score');
+        const computerScoreEl = document.getElementById('computer-score');
+        const resetBtn = document.getElementById('reset-game');
+
+        document.querySelectorAll('.choice-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const playerChoice = btn.getAttribute('data-choice');
+                playGame(playerChoice);
+            });
+        });
+
+        function playGame(playerChoice) {
+            // Shake effect
+            playerHandEl.classList.add('animate-bounce');
+            computerHandEl.classList.add('animate-bounce');
+            statusEl.textContent = 'प्रतीक्षा करें...';
+
+            setTimeout(() => {
+                playerHandEl.classList.remove('animate-bounce');
+                computerHandEl.classList.remove('animate-bounce');
+
+                const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+                playerHandEl.textContent = emojis[playerChoice];
+                computerHandEl.textContent = emojis[computerChoice];
+
+                const result = getResult(playerChoice, computerChoice);
+
+                if (result === 'win') {
+                    playerScore++;
+                    statusEl.textContent = 'आप जीते! 🎉';
+                    statusEl.className = 'text-2xl font-bold text-green-500 mb-8 h-8';
+                } else if (result === 'lose') {
+                    computerScore++;
+                    statusEl.textContent = 'कंप्यूटर जीता! 🤖';
+                    statusEl.className = 'text-2xl font-bold text-rose-500 mb-8 h-8';
+                } else {
+                    statusEl.textContent = "यह ड्रॉ है! 🤝";
+                    statusEl.className = 'text-2xl font-bold text-slate-500 mb-8 h-8';
+                }
+
+                playerScoreEl.textContent = playerScore;
+                computerScoreEl.textContent = computerScore;
+            }, 500);
+        }
+
+        function getResult(player, computer) {
+            if (player === computer) return 'draw';
+            if (
+                (player === 'rock' && computer === 'scissors') ||
+                (player === 'paper' && computer === 'rock') ||
+                (player === 'scissors' && computer === 'paper')
+            ) {
+                return 'win';
+            }
+            return 'lose';
+        }
+
+        resetBtn.addEventListener('click', () => {
+            playerScore = 0;
+            computerScore = 0;
+            playerScoreEl.textContent = '0';
+            computerScoreEl.textContent = '0';
+            playerHandEl.textContent = '?';
+            computerHandEl.textContent = '?';
+            statusEl.textContent = 'अपना मोव चुनें!';
+            statusEl.className = 'text-2xl font-bold text-slate-900 dark:text-white mb-8 h-8';
+        });
+    </script>
+</body>
+</html>

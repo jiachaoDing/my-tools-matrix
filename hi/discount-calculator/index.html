@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>डिस्काउंट कैलकुलेटर (Discount Calculator) - सेल्स टैक्स और सेविंग्स | WebUtilityKit</title>
+    <meta name="description" content="डिस्काउंट, सेल्स टैक्स और अंतिम कीमतें तुरंत कैलकुलेट करें। शॉपिंग, सेल्स विश्लेषण और बिजनेस प्राइसिंग के लिए मुफ्त कैलकुलेटर। कोई अपलोड आवश्यक नहीं।">
+    <link rel="canonical" href="https://webutilitykit.com/discount-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/discount-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/discount-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Discount Calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "523",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Real-time calculation, Dark mode support"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">डिस्काउंट कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी कुल बचत, सेल्स टैक्स और अंतिम कीमत तुरंत कैलकुलेट करें। शॉपिंग, सेल्स विश्लेषण और बिजनेस प्राइसिंग के लिए परफेक्ट।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Configuration (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">मूल कीमत</label>
+                                <div class="relative group">
+                                    <input type="number" id="price-input" value="100" min="0" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pl-12">
+                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">USD</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-center mb-3">
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest ml-1">डिस्काउंट प्रतिशत</label>
+                                    <span id="discount-val" class="text-xl font-black text-blue-600 dark:text-blue-400">20%</span>
+                                </div>
+                                <div class="space-y-4">
+                                    <input type="range" id="discount-slider" min="0" max="100" value="20">
+                                    <div class="relative group">
+                                        <input type="number" id="discount-input" value="20" min="0" max="100" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">% OFF</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">सेल्स टैक्स</label>
+                                    <div class="relative group">
+                                        <input type="number" id="tax-input" value="0" min="0" max="100" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">% TAX</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">एक्स्ट्रा ऑफ ($)</label>
+                                    <div class="relative group">
+                                        <input type="number" id="extra-input" value="0" min="0" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">CASH</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-10">बचत ब्रेकडाउन</label>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                            <!-- Hero Final Price -->
+                            <div class="text-center relative">
+                                <div class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mb-4">आपको सिर्फ इतना देना है</div>
+                                <div id="final-price" class="text-8xl font-black text-slate-900 dark:text-white leading-none tracking-tighter tabular-nums">$80.00</div>
+                                <div class="mt-6 flex items-center justify-center gap-2">
+                                    <span class="w-12 h-1 bg-green-500 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-green-500/30 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-green-500/30 rounded-full"></span>
+                                </div>
+                            </div>
+
+                            <div class="w-full space-y-4">
+                                <!-- Savings Card -->
+                                <div class="p-8 rounded-[2rem] bg-green-600 text-white shadow-xl shadow-green-500/20 relative overflow-hidden group transition-all hover:scale-[1.02]">
+                                    <div class="absolute right-0 top-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-125 transition-transform"></div>
+                                    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                        <div>
+                                            <div class="text-xs font-bold text-green-200 uppercase tracking-widest mb-1 italic">कुल बचत</div>
+                                            <div id="total-savings" class="text-5xl font-black tracking-tight">$20.00</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs font-bold text-green-200 uppercase tracking-widest mb-1 italic">मूल पर से</div>
+                                            <div id="savings-percent" class="text-2xl font-black">20.00%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                        <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-widest">टैक्स राशि</div>
+                                        <div id="tax-amount" class="text-2xl font-bold text-slate-800 dark:text-white">$0.00</div>
+                                    </div>
+                                    <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                        <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-widest">टैक्स से पहले कीमत</div>
+                                        <div id="pre-tax-price" class="text-2xl font-bold text-slate-800 dark:text-white">$80.00</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="w-full p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-900/20">
+                                <div class="flex gap-4">
+                                    <div class="text-blue-500 mt-1">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        बचत टिप: टैक्स के बाद <strong>अंतिम कीमत</strong> कैलकुलेट करें ताकि आप अपनी सच्ची खर्च राशि जान सकें।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">स्मार्ट शॉपिंग रणनीतियाँ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कीमत दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टैग पर दिखाई जाने वाली मूल कीमत टाइप करके शुरू करें। हमारा टूल सटीक सटीकता के लिए दशमलव मूल्यों का समर्थन करता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">डिस्काउंट लागू करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">तेज़ समायोजन के लिए स्लाइडर का उपयोग करें या सटीक प्रतिशत टाइप करें। आप कैश ऑफ कूपन के लिए निश्चित राशि ($) भी जोड़ सकते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कुल समीक्षा करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सेल्स टैक्स सहित अपनी आउट-ऑफ-पॉकेट अंतिम लागत देखें। सभी ब्रेकडाउन टाइप करते समय रीयल-टाइम में कैलकुलेट किए जाते हैं।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Precision Matters -->
+                <section class="bg-slate-900 dark:bg-blue-600 rounded-[3.5rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">पारदर्शी प्राइसिंग</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                रिटेलर्स अक्सर टैक्स या जटिल डिस्काउंट स्ट्रक्चर के बिना कीमतें प्रदर्शित करते हैं। हमारा कैलकुलेटर <strong>गणितीय स्पष्टता</strong> प्रदान करता है कि नेस्टेड कैलकुलेशन हैंडल करके—डिस्काउंट पहले लागू करके और डिस्काउंटेड सबटोटल पर टैक्स कैलकुलेट करके, मानक चेकआउट लॉजिक को मिरर करता है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">मानक</div>
+                                    <div class="font-bold">डिस्काउंट फिर टैक्स</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">सटीकता</div>
+                                    <div class="font-bold">2-दशमलव सटीकता</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">शॉपिंग FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या टैक्स डिस्काउंट से पहले या बाद में लिया जाता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                अधिकांश क्षेत्रों में, सेल्स टैक्स रजिस्टर पर भुगतान की जाने वाली अंतिम डिस्काउंटेड कीमत (आपकी असली कीमत) पर लागू किया जाता है। हमारा टूल इस मानक लॉजिक का पालन करता है: [कीमत - डिस्काउंट] + [डिस्काउंटेड कीमत पर टैक्स]।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">स्टैक्ड डिस्काउंट कैसे काम करते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                स्टैक्ड डिस्काउंट अक्सर क्रमिक रूप से लागू होते हैं। जटिल स्टैक कैलकुलेट करने के लिए, हमारी "एक्स्ट्रा ऑफ" फील्ड का उपयोग फिक्स्ड डॉलर राशियों के लिए करें या अंतिम मूल्य एक बार घटाएं और इसे फिर से चलाएं दूसरे प्रतिशत के लिए।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Discount Logic ===
+        const priceInput = document.getElementById('price-input');
+        const discountSlider = document.getElementById('discount-slider');
+        const discountInput = document.getElementById('discount-input');
+        const discountValDisplay = document.getElementById('discount-val');
+        const taxInput = document.getElementById('tax-input');
+        const extraInput = document.getElementById('extra-input');
+
+        const finalPriceEl = document.getElementById('final-price');
+        const totalSavingsEl = document.getElementById('total-savings');
+        const savingsPercentEl = document.getElementById('savings-percent');
+        const taxAmountEl = document.getElementById('tax-amount');
+        const preTaxPriceEl = document.getElementById('pre-tax-price');
+
+        function calculate() {
+            const originalPrice = parseFloat(priceInput.value) || 0;
+            const discountPercent = parseFloat(discountInput.value) || 0;
+            const taxPercent = parseFloat(taxInput.value) || 0;
+            const extraOff = parseFloat(extraInput.value) || 0;
+
+            // 1. Calculate percentage discount
+            const discountAmount = originalPrice * (discountPercent / 100);
+
+            // 2. Subtotal after percentage discount
+            let discountedPrice = originalPrice - discountAmount;
+
+            // 3. Apply extra cash off
+            discountedPrice = Math.max(0, discountedPrice - extraOff);
+
+            // 4. Calculate Tax
+            const taxAmount = discountedPrice * (taxPercent / 100);
+
+            // 5. Final Price
+            const finalPrice = discountedPrice + taxAmount;
+
+            // 6. Total Savings
+            const totalSavings = originalPrice - discountedPrice;
+            const totalSavingsPercent = originalPrice > 0 ? (totalSavings / originalPrice) * 100 : 0;
+
+            // Update UI
+            finalPriceEl.textContent = `$${finalPrice.toFixed(2)}`;
+            totalSavingsEl.textContent = `$${totalSavings.toFixed(2)}`;
+            savingsPercentEl.textContent = `${totalSavingsPercent.toFixed(2)}%`;
+            taxAmountEl.textContent = `$${taxAmount.toFixed(2)}`;
+            preTaxPriceEl.textContent = `$${discountedPrice.toFixed(2)}`;
+            discountValDisplay.textContent = `${discountPercent}%`;
+        }
+
+        // Sync Slider and Input
+        discountSlider.addEventListener('input', () => {
+            discountInput.value = discountSlider.value;
+            calculate();
+        });
+
+        discountInput.addEventListener('input', () => {
+            discountSlider.value = discountInput.value;
+            calculate();
+        });
+
+        [priceInput, taxInput, extraInput].forEach(el => {
+            el.addEventListener('input', calculate);
+        });
+
+        // Initialize
+        calculate();
+
+    </script>
+</body>
+</html>

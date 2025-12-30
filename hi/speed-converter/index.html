@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>स्पीड कन्वर्टर (Speed Converter) - मुफ्त | WebUtilityKit</title>
+    <meta name="description" content="गति इकाइयों को तुरंत कन्वर्ट करें। मुफ्त, सुरक्षित, और असीमित रूपांतरण। स्थानीय रूप से संसाधित। कोई सॉफ्टवेयर इंस्टॉलेशन आवश्यक नहीं। अभी कन्वर्ट करना शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/speed-converter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/speed-converter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/speed-converter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Speed Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "756",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/speed-converter.jpg"
+}
+</script></head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">स्पीड कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">ड्राइविंग, नौकायन, या विज्ञान के लिए सटीक और तेज़ गति रूपांतरण। पूरी तरह से निजी।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-700/50">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
+                    <!-- From -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">से</label>
+                        <input type="number" id="from-value" value="60" step="any"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-2xl font-bold focus:ring-2 focus:ring-rose-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="from-unit"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-rose-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="mph" selected>Miles per hour (mph)</option>
+                            <option value="kmh">Kilometers per hour (km/h)</option>
+                            <option value="ms">Meters per second (m/s)</option>
+                            <option value="kn">Knots (kn)</option>
+                            <option value="fps">Feet per second (fps)</option>
+                        </select>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <button id="swap-btn" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-rose-600 hover:text-white dark:hover:bg-rose-500 transition-all group mt-6 md:mt-10">
+                        <svg class="w-6 h-6 transform md:rotate-0 rotate-90 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </button>
+
+                    <!-- To -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">को</label>
+                        <input type="number" id="to-value" value="96.5606" step="any"
+                            class="w-full bg-rose-50 dark:bg-rose-900/20 border-none rounded-2xl px-6 py-4 text-2xl font-bold text-rose-600 dark:text-rose-400 focus:ring-2 focus:ring-rose-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="to-unit"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-rose-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="mph">Miles per hour (mph)</option>
+                            <option value="kmh" selected>Kilometers per hour (km/h)</option>
+                            <option value="ms">Meters per second (m/s)</option>
+                            <option value="kn">Knots (kn)</option>
+                            <option value="fps">Feet per second (fps)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="conversion-formula" class="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/30 text-center text-slate-600 dark:text-slate-400 font-medium italic">
+                    60 mph = 96.56 km/h
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">स्पीड कन्वर्टर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-rose-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-rose-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">गति दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">जिस गति को आप कन्वर्ट करना चाहते हैं उसे दर्ज करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-rose-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-rose-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">इकाइयाँ चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">से और को इकाइयाँ चुनें (जैसे mph से km/h)।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-rose-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-rose-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">परिणाम देखें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">परिणाम टाइप करते समय तुरंत अपडेट होता है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">यात्रा-तैयार सुविधाएँ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">रीयल-टाइम सिंक</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">दोनों इनपुट सिंक्रनाइज़ हैं। किसी भी पक्ष को बदलने से दूसरा पक्ष तुरंत अपडेट हो जाता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% निजी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कोई सर्वर नहीं, कोई ट्रैकिंग नहीं। आपके रूपांतरण आपके ब्राउज़र में ही किए जाते हैं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+
+    <script>
+
+
+        const fromValue = document.getElementById('from-value');
+        const toValue = document.getElementById('to-value');
+        const fromUnit = document.getElementById('from-unit');
+        const toUnit = document.getElementById('to-unit');
+        const swapBtn = document.getElementById('swap-btn');
+        const formulaDisplay = document.getElementById('conversion-formula');
+
+        // Factors to meters per second (m/s)
+        const factors = {
+            ms: 1,
+            kmh: 1 / 3.6,
+            mph: 0.44704,
+            kn: 0.514444444444,
+            fps: 0.3048
+        };
+
+        const unitNames = {
+            ms: 'm/s',
+            kmh: 'km/h',
+            mph: 'mph',
+            kn: 'knots',
+            fps: 'fps'
+        };
+
+        function convert(source) {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+
+            if (source === 'from') {
+                const val = parseFloat(fromValue.value);
+                if (isNaN(val)) { toValue.value = ''; return; }
+                const result = (val * factors[from]) / factors[to];
+                toValue.value = Number(result.toFixed(6)).toString();
+            } else {
+                const val = parseFloat(toValue.value);
+                if (isNaN(val)) { fromValue.value = ''; return; }
+                const result = (val * factors[to]) / factors[from];
+                fromValue.value = Number(result.toFixed(6)).toString();
+            }
+            updateFormula();
+        }
+
+        function updateFormula() {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+            const val = parseFloat(fromValue.value) || 0;
+            const result = (val * factors[from]) / factors[to];
+            formulaDisplay.textContent = `${val} ${unitNames[from]} = ${Number(result.toFixed(4))} ${unitNames[to]}`;
+        }
+
+        fromValue.addEventListener('input', () => convert('from'));
+        toValue.addEventListener('input', () => convert('to'));
+        fromUnit.addEventListener('change', () => convert('from'));
+        toUnit.addEventListener('change', () => convert('from'));
+
+        swapBtn.addEventListener('click', () => {
+            const tempUnit = fromUnit.value;
+            fromUnit.value = toUnit.value;
+            toUnit.value = tempUnit;
+            const tempVal = fromValue.value;
+            fromValue.value = toValue.value;
+            toValue.value = tempVal;
+            updateFormula();
+        });
+
+        updateFormula();
+    </script>
+</body>
+</html>

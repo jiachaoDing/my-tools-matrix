@@ -2,7 +2,7 @@
 # Batch generate SEO optimization prompts
 
 # Configuration
-$batchSize = 5  # Number of files per batch
+$batchSize = 3  # Number of files per batch
 $outputFile = "seo-prompts-batch.txt"
 
 # Scan all tool folders

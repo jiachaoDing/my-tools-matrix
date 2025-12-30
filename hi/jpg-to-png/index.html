@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPG to PNG कन्वर्टर (JPG से PNG) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="JPG को PNG में तुरंत कन्वर्ट करें। मुफ्त, सुरक्षित, और बिना किसी सर्वर अपलोड के। कोई फ़ाइल सीमाएं नहीं, कोई वॉटरमार्क नहीं। आज़माएं!">
+
+    <link rel="canonical" href="https://webutilitykit.com/hi/jpg-to-png/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/jpg-to-png/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/jpg-to-png/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/hi/jpg-to-png/">
+    <meta property="og:title" content="JPG to PNG कन्वर्टर - 100% सुरक्षित और स्थानीय">
+    <meta property="og:description" content="कोई सर्वर अपलोड किए बिना JPG छवियों को PNG में बैच कन्वर्ट करें। तेज़, मुफ्त, और गोपनीयता-केंद्रित।">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/jpg-to-png.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "JPG to PNG Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@ratingValue": "4.9",
+        "ratingCount": "756",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Lossless PNG output",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/jpg-to-png.jpg"
+    }
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JPG से PNG कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">JPG/JPEG छवियों को PNG प्रारूप में कन्वर्ट करें, उच्च गुणवत्ता के लिए। तेज़, सुरक्षित, और आपके ब्राउज़र में पूरी तरह से ऑफलाइन काम करता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। आपकी छवियाँ आपके डिवाइस से कभी नहीं निकलतीं।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
+
+                <!-- Upload Zone -->
+                <div class="p-8">
+                    <div id="drop-zone" class="relative border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-3xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
+                        <input type="file" id="file-input" accept=".jpg,.jpeg,image/jpeg" multiple class="hidden" aria-label="JPG छवियाँ अपलोड करें">
+
+                        <div id="upload-prompt" class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">यहाँ JPG छवियाँ ड्रॉप करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">या अपने डिवाइस से फाइलें चुनने के लिए क्लिक करें</p>
+                            <button id="select-files-btn" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                JPG फाइलें चुनें
+                            </button>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-4">.jpg और .jpeg फाइलें समर्थित • बैच कन्वर्जन उपलब्ध</p>
+                        </div>
+
+                        <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-3xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                            <div class="text-center">
+                                <svg class="w-24 h-24 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">अपनी JPG फाइलें यहाँ ड्रॉप करें</p>
+                                <p class="text-sm text-blue-700 dark:text-blue-300">एकाधिक फाइलें समर्थित</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files List -->
+                <div id="uploaded-files" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">चयनित फाइलें (<span id="file-count">0</span>)</h3>
+                        <button id="clear-all-btn" class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            सभी को साफ करें
+                        </button>
+                    </div>
+                    <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- Convert Button -->
+                <div id="convert-section" class="px-8 pb-8 hidden">
+                    <button id="convert-btn" class="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="convert-btn-text">PNG में कन्वर्ट करें</span>
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progress-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">कन्वर्ट हो रहा है...</span>
+                            <span id="progress-text" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-status" class="text-xs text-slate-500 dark:text-slate-400 mt-2">तैयार हो रहा है...</p>
+                    </div>
+                </div>
+
+                <!-- Converted Results -->
+                <div id="results-section" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">कन्वर्ट की गई छवियाँ (<span id="result-count">0</span>)</h3>
+                        <button id="download-all-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            सभी को डाउनलोड करें
+                        </button>
+                    </div>
+                    <div id="result-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">JPG से PNG कन्वर्टर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">JPG छवियाँ अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपलोड एरिया में अपनी JPG या JPEG फाइलें ड्रैग और ड्रॉप करें, या अपने डिवाइस से छवियाँ चुनने के लिए ब्राउज़ करें। बैच अपलोड समर्थित है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">PNG में कन्वर्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">"PNG में कन्वर्ट करें" बटन पर क्लिक करके लॉसलेस कन्वर्जन प्रोसेस शुरू करें। सभी प्रसंस्करण आपके ब्राउज़र में स्थानीय रूप से होता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">PNG फाइलें डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कन्वर्ट की गई PNG छवियों का पूर्वावलोकन करें और उन्हें व्यक्तिगत रूप से डाउनलोड करें या सभी फाइलों को एक साथ डाउनलोड करने के लिए "सभी को डाउनलोड करें" बटन का उपयोग करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रमुख विशेषताएँ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">लॉसलेस गुणवत्ता</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">PNG प्रारूप आपकी मूल JPG छवि का हर पिक्सेल संरक्षित रखता है। ग्राफिक्स, लोगो, स्क्रीनशॉट, और आगे की संपादन की आवश्यकता वाली छवियों के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">पूर्ण गोपनीयता</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">क्लाइंट-साइड JavaScript का उपयोग करके सभी छवि कन्वर्जन आपके ब्राउज़र में ही होता है। आपका डेटा हमारे सर्वर पर कभी नहीं जाता—अधिकतम गोपनीयता और सुरक्षा सुनिश्चित करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">असीमित बैच कन्वर्जन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कोई प्रतिबंधों के साथ एक साथ कई JPG फाइलों को PNG में कन्वर्ट करें। एक सत्र में 10, 100, या 1000+ छवियाँ प्रोसेस करें—पूरी तरह से मुफ्त और कोई फाइल आकार सीमा नहीं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बिजली की तरह तेज़ गति</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कोई अपलोड या डाउनलोड देरी नहीं। चूंकि सब कुछ स्थानीय रूप से चलता है, कन्वर्जन गति केवल आपके डिवाइस की प्रोसेसिंग पावर तक सीमित है—आमतौर पर सेकंडों में पूरा होता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">JPG को PNG में कब कन्वर्ट करना चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                जब आपको लॉसलेस गुणवत्ता, पारदर्शिता समर्थन की आवश्यकता हो, आगे संपादन की योजना हो, या टेक्स्ट या तेज़ किनारों वाले ग्राफिक्स से निपट रहे हों तो JPG को PNG में कन्वर्ट करें। PNG लोगो, स्क्रीनशॉट, आरेख, और गुणवत्ता संरक्षण महत्वपूर्ण होने वाली किसी भी छवि के लिए आदर्श है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या PNG मूल JPG से बड़ा होगा?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, PNG फाइलें आमतौर पर बड़ी होती हैं क्योंकि वे लॉसलेस कम्प्रेशन का उपयोग करती हैं। जबकि JPG छोटे फाइल आकार के लिए कुछ गुणवत्ता का त्याग करता है, PNG हर विवरण को संरक्षित रखता है। आकार में वृद्धि छवि जटिलता पर निर्भर करती है—फोटो 2-5x बड़े हो सकते हैं, जबकि ठोस रंगों वाले ग्राफिक्स समान आकार में रह सकते हैं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या JPG को PNG में कन्वर्ट करने से गुणवत्ता में सुधार होता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                नहीं, कन्वर्जन JPG कम्प्रेशन में पहले से खोई हुई गुणवत्ता को बहाल नहीं कर सकता। हालाँकि, PNG में कन्वर्ट करने से यदि आप छवि को कई बार संपादित करने की योजना बना रहे हैं तो आगे की गुणवत्ता हानि से बचा जा सकता है। PNG का लॉसलेस प्रारूप सुनिश्चित करता है कि बाद के सेव JPG की तरह गुणवत्ता को कम नहीं करेंगे।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह कन्वर्टर वाकई मुफ्त है और कोई सीमाएं नहीं हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, पूरी तरह से मुफ्त और कोई प्रतिबंध नहीं। चूंकि सभी प्रसंस्करण आपके ब्राउज़र में होता है, हमें उपयोगकर्ताओं को पास करने के लिए कोई सर्वर लागत नहीं है। आप जब चाहें उतनी छवियाँ, इतनी बार कन्वर्ट कर सकते हैं। कोई पंजीकरण, सब्स्क्रिप्शन, या छिपी हुई फीस—कभी नहीं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const selectFilesBtn = document.getElementById('select-files-btn');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const convertSection = document.getElementById('convert-section');
+        const convertBtn = document.getElementById('convert-btn');
+        const convertBtnText = document.getElementById('convert-btn-text');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressStatus = document.getElementById('progress-status');
+        const resultsSection = document.getElementById('results-section');
+        const resultList = document.getElementById('result-list');
+        const resultCount = document.getElementById('result-count');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let convertedResults = [];
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                convertSection.classList.add('hidden');
+                uploadPrompt.classList.remove('hidden');
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            convertSection.classList.remove('hidden');
+            uploadPrompt.classList.add('hidden');
+
+            fileCount.textContent = uploadedFiles.length;
+            convertBtnText.textContent = `PNG में ${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''} कन्वर्ट करें`;
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-4">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold text-slate-900 dark:text-white truncate">${file.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(file.size)}</div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateResultList() {
+            resultCount.textContent = convertedResults.length;
+            resultList.innerHTML = convertedResults.map((result, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden group">
+                    <div class="aspect-square bg-slate-200 dark:bg-slate-900 rounded-xl mb-3 overflow-hidden">
+                        <img src="${result.url}" alt="${result.name}" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="mb-3">
+                        <div class="font-semibold text-sm text-slate-900 dark:text-white truncate mb-1">${result.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(result.size)}</div>
+                    </div>
+                    <button onclick="downloadSingle(${index})" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        डाउनलोड करें
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingle = function(index) {
+            const result = convertedResults[index];
+            const a = document.createElement('a');
+            a.href = result.url;
+            a.download = result.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        function handleFiles(files) {
+            const jpgFiles = Array.from(files).filter(file =>
+                file.type === 'image/jpeg' ||
+                file.name.toLowerCase().endsWith('.jpg') ||
+                file.name.toLowerCase().endsWith('.jpeg')
+            );
+
+            if (jpgFiles.length === 0) {
+                alert('कृपया केवल JPG या JPEG फाइलें चुनें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...jpgFiles];
+            updateFileList();
+        }
+
+        // Drag & Drop
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === dropZone || e.target.closest('#upload-prompt')) {
+                fileInput.click();
+            }
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            convertedResults = [];
+            updateFileList();
+            resultsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        // Convert function
+        async function convertToPNG() {
+            if (uploadedFiles.length === 0) return;
+
+            convertedResults = [];
+            resultsSection.classList.add('hidden');
+            progressSection.classList.remove('hidden');
+            convertSection.classList.add('hidden');
+
+            const total = uploadedFiles.length;
+            let completed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    progressStatus.textContent = `${file.name} कन्वर्ट हो रहा है...`;
+
+                    const img = new Image();
+                    const reader = new FileReader();
+
+                    await new Promise((resolve, reject) => {
+                        reader.onload = (e) => {
+                            img.onload = () => resolve();
+                            img.onerror = reject;
+                            img.src = e.target.result;
+                        };
+                        reader.onerror = reject;
+                        reader.readAsDataURL(file);
+                    });
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    await new Promise((resolve) => {
+                        canvas.toBlob((blob) => {
+                            const url = URL.createObjectURL(blob);
+                            const newName = file.name.replace(/\.(jpg|jpeg)$/i, '.png');
+
+                            convertedResults.push({
+                                name: newName,
+                                url: url,
+                                blob: blob,
+                                size: blob.size
+                            });
+
+                            completed++;
+                            const progress = Math.round((completed / total) * 100);
+                            progressBar.style.width = progress + '%';
+                            progressText.textContent = progress + '%';
+
+                            resolve();
+                        }, 'image/png');
+                    });
+
+                } catch (error) {
+                    console.error(`${file.name} कन्वर्ट करने में त्रुटि:`, error);
+                    completed++;
+                }
+            }
+
+            progressStatus.textContent = 'कन्वर्जन पूरा हुआ!';
+            setTimeout(() => {
+                progressSection.classList.add('hidden');
+                convertSection.classList.remove('hidden');
+                resultsSection.classList.remove('hidden');
+                updateResultList();
+            }, 500);
+        }
+
+        convertBtn.addEventListener('click', convertToPNG);
+
+        downloadAllBtn.addEventListener('click', () => {
+            convertedResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = result.url;
+                    a.download = result.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

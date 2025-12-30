@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऑनलाइन स्टॉपवॉच (Online Stopwatch) - मुफ्त टाइमर & लैप ट्रैकर | WebUtilityKit</title>
+    <meta name="description" content="सटीक ऑनलाइन स्टॉपवॉच मिलीसेकंड सटीकता के साथ और काउंटडाउन टाइमर। लैप ट्रैक करें, कस्टम टाइमर सेट करें, सभी ब्राउज़र में स्थानीय रूप से संसाधित। अभी टाइमिंग शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/online-stopwatch/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/online-stopwatch/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/online-stopwatch/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ऑनलाइन स्टॉपवॉच & टाइमर",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "623",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, Millisecond precision, Lap tracking, Countdown timer, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/online-stopwatch.jpg"
+}
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">स्टॉपवॉच & टाइमर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10">प्रोडक्टिविटी, एक्सरसाइज़ और फोकस के लिए प्रोफेशनल टाइमिंग टूल। सटीक, सुंदर, और पूरी तरह से निजी।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Stopwatch (6 cols) -->
+                <div class="lg:col-span-6 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50 flex flex-col">
+                        <div class="flex justify-between items-center">
+                            <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">उच्च-सटीक स्टॉपवॉच</label>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-[10px] font-black rounded-lg uppercase">1/100सेकंड</span>
+                        </div>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-10 py-10">
+                            <!-- Large Stopwatch Display -->
+                            <div id="sw-display" class="text-7xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter tabular-nums leading-none">00:00.00</div>
+
+                            <div class="flex gap-4 w-full">
+                                <button id="sw-start-stop" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                    <span>शुरू करें</span>
+                                </button>
+                                <button id="sw-lap" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98] flex items-center justify-center gap-3" disabled>
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <span>लैप</span>
+                                </button>
+                                <button id="sw-reset" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98] flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                    <span>रीसेट</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Lap List -->
+                        <div class="border-t border-slate-100 dark:border-slate-700/50 pt-6">
+                            <div class="flex justify-between items-center mb-4 px-2">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">लैप इतिहास</span>
+                                <span id="sw-lap-count" class="text-xs font-bold text-blue-500">0 लैप</span>
+                            </div>
+                            <div id="sw-laps" class="space-y-2 max-h-[200px] overflow-y-auto pr-2 custom-scrollbar">
+                                <div class="text-center py-8 text-slate-400 italic text-sm">कोई लैप रिकॉर्ड नहीं</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Timer (6 cols) -->
+                <div class="lg:col-span-6 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50 flex flex-col">
+                        <div class="flex justify-between items-center">
+                            <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">काउंटडाउन टाइमर</label>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-[10px] font-black rounded-lg uppercase">अलर्ट सक्षम</span>
+                        </div>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-10 py-10">
+                            <!-- Large Timer Display -->
+                            <div id="tm-display" class="text-7xl md:text-8xl font-black text-slate-900 dark:text-white tracking-tighter tabular-nums leading-none">00:00:00</div>
+
+                            <!-- Timer Input (hidden when running) -->
+                            <div id="tm-inputs" class="grid grid-cols-3 gap-4 w-full">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">घंटे</label>
+                                    <input type="number" id="tm-hr" value="0" min="0" max="99" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5" placeholder="00">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">मिनट</label>
+                                    <input type="number" id="tm-min" value="5" min="0" max="59" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5" placeholder="00">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">सेकंड</label>
+                                    <input type="number" id="tm-sec" value="0" min="0" max="59" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-center text-2xl shadow-sm focus:shadow-md focus:shadow-blue-500/5" placeholder="00">
+                                </div>
+                            </div>
+
+                            <div class="flex gap-4 w-full">
+                                <button id="tm-start-stop" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                    <span>शुरू करें</span>
+                                </button>
+                                <button id="tm-reset" class="flex-1 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 font-bold py-4 rounded-2xl transition-all hover:bg-slate-200 dark:hover:bg-slate-700 active:scale-[0.98] flex items-center justify-center gap-3">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                    <span>रीसेट</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Presets -->
+                        <div class="border-t border-slate-100 dark:border-slate-700/50 pt-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest block mb-4 px-2">त्वरित प्रीसेट</label>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <button class="tm-preset py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-time="60">1 मिनट</button>
+                                <button class="tm-preset py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-time="300">5 मिनट</button>
+                                <button class="tm-preset py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-time="600">10 मिनट</button>
+                                <button class="tm-preset py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-time="1500">25 मिनट</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">अपने टाइमिंग को मास्टर करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center font-bold text-lg">1</div>
+                                स्टॉपवॉच का उपयोग
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">स्पोर्ट्स, कुकींग या टास्क टाइमिंग के लिए परफेक्ट। काउंटर शुरू करें और मुख्य घड़ी को रोके बिना स्प्लिट टाइम रिकॉर्ड करने के लिए <strong>लैप</strong> बटन का उपयोग करें। सभी लैप आपके वर्तमान सेशन में रिकॉर्ड किए जाते हैं।</p>
+                            <ul class="space-y-2 text-sm font-medium text-slate-500">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> 1/100वें सेकंड की सटीकता</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> अनंत लैप रिकॉर्डिंग</li>
+                            </ul>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-3">
+                                <div class="w-10 h-10 bg-green-600 text-white rounded-xl flex items-center justify-center font-bold text-lg">2</div>
+                                टाइमर का उपयोग
+                            </h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">घंटे, मिनट और सेकंड फील्ड का उपयोग करके एक अवधि सेट करें, या <strong>त्वरित प्रीसेट</strong> चुनें। एक बार शुरू करने पर, यह शून्य तक काउंटडाउन करेगा और समय समाप्त होने पर आपको सूचित करेगा।</p>
+                            <ul class="space-y-2 text-sm font-medium text-slate-500">
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> ऑडियो नोटिफिकेशन</li>
+                                <li class="flex items-center gap-2"><svg class="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg> विज़ुअल प्रोग्रेस ट्रैकिंग</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Accuracy Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">घड़ी-सुरक्षित प्रदर्शन</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                हमारे टूल साधारण अंतरालों पर निर्भर नहीं करते जो समय के साथ बहक सकते हैं। हम अवधियों की गणना <strong>सिस्टम क्लॉक डेल्टा</strong> का उपयोग करके करते हैं, जो सुनिश्चित करता है कि भले ही आपका ब्राउज़र टैब निष्क्रिय हो, आपका टाइमिंग मिलीसेकंड तक सटीक बना रहे।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">सटीकता</div>
+                                    <div class="font-bold">±10ms सटीकता</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">इंजन</div>
+                                    <div class="font-bold">डेल्टा-टाइम लॉजिक</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_30s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Cards -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">फोकस और प्रवाह के लिए बनाया गया</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">शून्य-विलंब इंटरैक्शन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">माउस और टच दोनों के लिए डिज़ाइन किए गए रिस्पॉन्सिव कंट्रोल। बिना किसी देरी के शुरू, रोकें और रीसेट करें, जो आपको हर मोमेंट को सटीक रूप से कैप्चर करने की अनुमति देता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट साउंड अलर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारा टाइमर आधुनिक वेब ऑडियो सिंथेसाइज़्ड बीप का उपयोग करता है, इसलिए कोई बाहरी ऑडियो फाइल डाउनलोड नहीं की जाती। यह ऑफलाइन काम करता है और अंतिम सेकंड तक शांत रहता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता केंद्रित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम आपके सेशन को ट्रैक नहीं करते। आपके स्टॉपवॉच डेटा और टाइमर सेटिंग आपके कंप्यूटर से बाहर नहीं जाते। हम टूल प्रदान करते हैं, न कि निगरानी।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">डार्क मोड ऑप्टिमाइज़्ड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रात के काम या जिम सेशन के लिए परफेक्ट। हमारा इंटरफेस आंखों की थकान को कम करने के लिए हल्के और गहरे थीम के बीच निर्बाध रूप से स्विच करता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">प्रोडक्टिविटी FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">यदि मैं टैब स्विच करता हूं तो क्या यह काम करेगा?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ। गणना लॉजिक शुरुआती सिस्टम समय और वर्तमान सिस्टम समय के बीच के अंतर का उपयोग करता है। भले ही ब्राउज़र पृष्ठभूमि टैब को थ्रॉटल कर दे, लेकिन वापस आने पर समय पूरी तरह सिंक हो जाएगा।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">पोमोडोरो प्रीसेट क्या हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम आम उत्पादकता ब्लॉक जैसे 25 मिनट (मानक फोकस ब्लॉक) शामिल करते हैं। इससे आपको हर बार मैन्युअल रूप से अवधि टाइप किए बिना गहरी-कार्य सेशन शुरू करने की अनुमति मिलती है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Stopwatch Logic ===
+        let swStartTime = 0;
+        let swElapsedTime = 0;
+        let swInterval = null;
+        let swLaps = [];
+
+        const swDisplay = document.getElementById('sw-display');
+        const swStartStopBtn = document.getElementById('sw-start-stop');
+        const swLapBtn = document.getElementById('sw-lap');
+        const swResetBtn = document.getElementById('sw-reset');
+        const swLapsContainer = document.getElementById('sw-laps');
+        const swLapCount = document.getElementById('sw-lap-count');
+
+        function formatTime(ms, includeMs = true) {
+            let h = Math.floor(ms / 3600000);
+            let m = Math.floor((ms % 3600000) / 60000);
+            let s = Math.floor((ms % 60000) / 1000);
+            let msPart = Math.floor((ms % 1000) / 10);
+
+            let res = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            if (h > 0) res = `${String(h).padStart(2, '0')}:${res}`;
+            if (includeMs) res += `.${String(msPart).padStart(2, '0')}`;
+            return res;
+        }
+
+        function updateSwDisplay() {
+            const now = Date.now();
+            swElapsedTime = now - swStartTime;
+            swDisplay.textContent = formatTime(swElapsedTime);
+            swInterval = requestAnimationFrame(updateSwDisplay);
+        }
+
+        swStartStopBtn.addEventListener('click', () => {
+            if (swInterval) {
+                // Stop
+                cancelAnimationFrame(swInterval);
+                swInterval = null;
+                swStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg><span>शुरू करें</span>`;
+                swLapBtn.disabled = true;
+            } else {
+                // Start
+                swStartTime = Date.now() - swElapsedTime;
+                updateSwDisplay();
+                swStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg><span>रोकें</span>`;
+                swLapBtn.disabled = false;
+            }
+        });
+
+        swLapBtn.addEventListener('click', () => {
+            swLaps.unshift(swElapsedTime);
+            renderLaps();
+        });
+
+        swResetBtn.addEventListener('click', () => {
+            cancelAnimationFrame(swInterval);
+            swInterval = null;
+            swElapsedTime = 0;
+            swLaps = [];
+            swDisplay.textContent = "00:00.00";
+            swStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg><span>शुरू करें</span>`;
+            swLapBtn.disabled = true;
+            renderLaps();
+        });
+
+        function renderLaps() {
+            swLapCount.textContent = `${swLaps.length} लैप`;
+            if (swLaps.length === 0) {
+                swLapsContainer.innerHTML = `<div class="text-center py-8 text-slate-400 italic text-sm">कोई लैप रिकॉर्ड नहीं</div>`;
+                return;
+            }
+            swLapsContainer.innerHTML = swLaps.map((lap, index) => {
+                const diff = index < swLaps.length - 1 ? lap - swLaps[index+1] : lap;
+                return `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-transparent hover:border-blue-500/10 transition-all group">
+                        <div class="flex items-center gap-4">
+                            <span class="text-[10px] font-black text-slate-400 uppercase tracking-tighter w-8">#${swLaps.length - index}</span>
+                            <span class="font-bold text-slate-700 dark:text-slate-200">${formatTime(lap)}</span>
+                        </div>
+                        <span class="text-xs font-bold text-blue-500">+${formatTime(diff)}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // === Timer Logic ===
+        let tmTotalTime = 0; // ms
+        let tmRemainingTime = 0; // ms
+        let tmEndTime = 0;
+        let tmInterval = null;
+
+        const tmDisplay = document.getElementById('tm-display');
+        const tmInputs = document.getElementById('tm-inputs');
+        const tmHr = document.getElementById('tm-hr');
+        const tmMin = document.getElementById('tm-min');
+        const tmSec = document.getElementById('tm-sec');
+        const tmStartStopBtn = document.getElementById('tm-start-stop');
+        const tmResetBtn = document.getElementById('tm-reset');
+        const tmPresets = document.querySelectorAll('.tm-preset');
+
+        function updateTmDisplay() {
+            const now = Date.now();
+            tmRemainingTime = Math.max(0, tmEndTime - now);
+
+            let h = Math.floor(tmRemainingTime / 3600000);
+            let m = Math.floor((tmRemainingTime % 3600000) / 60000);
+            let s = Math.ceil((tmRemainingTime % 60000) / 1000);
+
+            // Adjust for ceil rounding
+            if (s === 60) { m++; s = 0; }
+            if (m === 60) { h++; m = 0; }
+
+            tmDisplay.textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+            if (tmRemainingTime <= 0) {
+                // Timer Finished
+                cancelAnimationFrame(tmInterval);
+                tmInterval = null;
+                tmStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg><span>शुरू करें</span>`;
+                tmInputs.classList.remove('hidden');
+                playAlert();
+                alert("समय समाप्त!");
+            } else {
+                tmInterval = requestAnimationFrame(updateTmDisplay);
+            }
+        }
+
+        tmStartStopBtn.addEventListener('click', () => {
+            if (tmInterval) {
+                // Pause
+                cancelAnimationFrame(tmInterval);
+                tmInterval = null;
+                tmStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg><span>फिर से शुरू करें</span>`;
+            } else {
+                // Start
+                if (tmRemainingTime <= 0) {
+                    const h = parseInt(tmHr.value) || 0;
+                    const m = parseInt(tmMin.value) || 0;
+                    const s = parseInt(tmSec.value) || 0;
+                    tmRemainingTime = (h * 3600000) + (m * 60000) + (s * 1000);
+                }
+
+                if (tmRemainingTime <= 0) return;
+
+                tmEndTime = Date.now() + tmRemainingTime;
+                tmInputs.classList.add('hidden');
+                tmInterval = requestAnimationFrame(updateTmDisplay);
+                tmStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg><span>रोकें</span>`;
+            }
+        });
+
+        tmResetBtn.addEventListener('click', () => {
+            cancelAnimationFrame(tmInterval);
+            tmInterval = null;
+            tmRemainingTime = 0;
+            tmDisplay.textContent = "00:00:00";
+            tmInputs.classList.remove('hidden');
+            tmStartStopBtn.innerHTML = `<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg><span>शुरू करें</span>`;
+        });
+
+        tmPresets.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const totalSeconds = parseInt(btn.dataset.time);
+                tmHr.value = Math.floor(totalSeconds / 3600);
+                tmMin.value = Math.floor((totalSeconds % 3600) / 60);
+                tmSec.value = totalSeconds % 60;
+                tmRemainingTime = totalSeconds * 1000;
+                tmDisplay.textContent = `${String(tmHr.value).padStart(2, '0')}:${String(tmMin.value).padStart(2, '0')}:${String(tmSec.value).padStart(2, '0')}`;
+            });
+        });
+
+        function playAlert() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1);
+                osc.start();
+                osc.stop(ctx.currentTime + 1);
+            } catch (e) { console.error("Audio alert failed", e); }
+        }
+
+    </script>
+</body>
+</html>

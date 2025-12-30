@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEIC से JPG कन्वर्टर (HEIC to JPG Converter) - मुफ्त & सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="HEIC से JPG में तुरंत कन्वर्ट करें। मुफ्त, सुरक्षित, और अनलिमिटेड बैच प्रोसेसिंग। कोई सर्वर अपलोड नहीं - आपकी गोपनीयता की गारंटी। HEIC to JPG converter online मुफ्त में इस्तेमाल करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/heic-to-jpg/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/heic-to-jpg/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/heic-to-jpg/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/hi/heic-to-jpg/">
+    <meta property="og:title" content="HEIC से JPG कन्वर्टर - 100% सुरक्षित & स्थानीय">
+    <meta property="og:description" content="iPhone HEIC फोटो को सर्वर अपलोड किए बिना JPG में बैच कन्वर्ट करें। तेज, मुफ्त, और गोपनीयता-केंद्रित।">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/heic-to-jpg.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HEIC से JPG कन्वर्टर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "842",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, High-quality JPG output",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/heic-to-jpg.jpg"
+    }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">HEIC से JPG कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">iPhone HEIC फोटो को JPG फॉर्मेट में तुरंत कन्वर्ट करें। तेज, सुरक्षित, और आपके ब्राउज़र में पूरी तरह ऑफलाइन काम करता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। आपकी फोटो कभी आपके डिवाइस से बाहर नहीं जातीं।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
+
+                <!-- Upload Zone -->
+                <div class="p-8">
+                    <div id="drop-zone" class="relative border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-3xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
+                        <input type="file" id="file-input" accept=".heic,.heif" multiple class="hidden" aria-label="HEIC फाइलें अपलोड करें">
+
+                        <div id="upload-prompt" class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">HEIC फोटो यहाँ ड्रॉप करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">या अपने डिवाइस से फाइलें चुनने के लिए क्लिक करें</p>
+                            <button id="select-files-btn" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                HEIC फाइलें चुनें
+                            </button>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-4">.heic और .heif फाइलें सपोर्टेड • बैच कन्वर्जन उपलब्ध</p>
+                        </div>
+
+                        <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-3xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                            <div class="text-center">
+                                <svg class="w-24 h-24 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">अपनी HEIC फाइलें यहाँ ड्रॉप करें</p>
+                                <p class="text-sm text-blue-700 dark:text-blue-300">एकाधिक फाइलें सपोर्टेड</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files List -->
+                <div id="uploaded-files" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">चुनी गई फाइलें (<span id="file-count">0</span>)</h3>
+                        <button id="clear-all-btn" class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            सभी हटाएं
+                        </button>
+                    </div>
+                    <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- Convert Button -->
+                <div id="convert-section" class="px-8 pb-8 hidden">
+                    <button id="convert-btn" class="w-full py-5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-lg rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="convert-btn-text">JPG में कन्वर्ट करें</span>
+                    </button>
+                </div>
+
+                <!-- Progress Bar -->
+                <div id="progress-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">कन्वर्ट हो रहा है...</span>
+                            <span id="progress-text" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-gradient-to-r from-blue-600 to-purple-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                        <p id="progress-status" class="text-xs text-slate-500 dark:text-slate-400 mt-2">तैयार हो रहा है...</p>
+                    </div>
+                </div>
+
+                <!-- Converted Results -->
+                <div id="results-section" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">कन्वर्टेड इमेजेस (<span id="result-count">0</span>)</h3>
+                        <button id="download-all-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            सभी डाउनलोड करें
+                        </button>
+                    </div>
+                    <div id="result-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-6xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-16">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">HEIC से JPG कन्वर्ट करने का तरीका</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फोटो अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी HEIC फाइलें ड्रैग एंड ड्रॉप करें या अपने iPhone, iPad, या Mac से चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">तुरंत कन्वर्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">"JPG में कन्वर्ट करें" पर क्लिक करें और अपनी फोटो को सेकंड में ट्रांसफॉर्म होते देखें—सभी स्थानीय रूप से।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">JPG डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">प्रिव्यू करें और अलग-अलग इमेजेस डाउनलोड करें या सभी कन्वर्टेड JPG को एक साथ ग्रब करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why HEIC to JPG -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">HEIC कन्वर्ट क्यों करें?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                HEIC (High Efficiency Image Container) Apple का डिफॉल्ट फोटो फॉर्मेट है—स्पेस सेव करने के लिए बढ़िया, लेकिन यूनिवर्सल रूप से सपोर्टेड नहीं। JPG में कन्वर्ट करने से सभी डिवाइस, प्लेटफॉर्म और ऐप्स पर यूनिवर्सल कंपेटिबिलिटी मिलती है बिना क्वॉलिटी खोए।
+                            </p>
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">गोपनीयता</div>
+                                    <div class="font-bold">100% ऑफलाइन</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">स्पीड</div>
+                                    <div class="font-bold">तेज</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">क्वॉलिटी</div>
+                                    <div class="font-bold">प्रिजर्व्ड</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Key Features Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारे कन्वर्टर को क्यों चुनें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% प्राइवेट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपकी फोटो आपके डिवाइस से बाहर नहीं जातीं। सब कुछ आपके ब्राउज़र में सुरक्षित JavaScript तकनीक का इस्तेमाल करके होता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बिजली की तरह तेज</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ कई HEIC फाइलें सेकंड में कन्वर्ट करें। कोई नेटवर्क लेटेंसी, कोई अपलोड कतारें, सिर्फ शुद्ध स्थानीय स्पीड।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बैच कन्वर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ दर्जनों इमेजेस प्रोसेस करें। उन्हें एक क्लिक में बैच एक्सपोर्ट के रूप में सुविधाजनक तरीके से डाउनलोड करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">हाई क्वॉलिटी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारा कन्वर्टर इमेज क्वॉलिटी को प्रिजर्व रखता है जबकि वेब के लिए ऑप्टिमाइज़्ड फाइल साइज बनाए रखता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">HEIC क्या है और मुझे इसे कन्वर्ट क्यों करना चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                HEIC Apple का आधुनिक इमेज फॉर्मेट है जो स्पेस बचाता है लेकिन हर जगह सपोर्टेड नहीं है। JPG में कन्वर्ट करने से आपकी फोटो सभी डिवाइस, वेबसाइट और ऐप्स पर काम करती हैं—Windows PCs, Android फोन, सोशल मीडिया, और बहुत कुछ।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कन्वर्जन के दौरान मेरी फोटो सुरक्षित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                बिल्कुल! सभी कन्वर्जन आपके ब्राउज़र में JavaScript का इस्तेमाल करके स्थानीय रूप से होता है। आपकी फोटो किसी भी सर्वर पर अपलोड नहीं होतीं, जिससे पूरी गोपनीयता और सुरक्षा सुनिश्चित होती है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं एक साथ कई HEIC फाइलें कन्वर्ट कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ! आप एक साथ कई HEIC फाइलें चुन या ड्रॉप कर सकते हैं। हमारा टूल उन्हें सभी बैच मोड में कन्वर्ट करेगा और आपको उन्हें अलग-अलग या एक साथ डाउनलोड करने देगा।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const selectFilesBtn = document.getElementById('select-files-btn');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const convertSection = document.getElementById('convert-section');
+        const convertBtn = document.getElementById('convert-btn');
+        const convertBtnText = document.getElementById('convert-btn-text');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressStatus = document.getElementById('progress-status');
+        const resultsSection = document.getElementById('results-section');
+        const resultList = document.getElementById('result-list');
+        const resultCount = document.getElementById('result-count');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let convertedResults = [];
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                convertSection.classList.add('hidden');
+                uploadPrompt.classList.remove('hidden');
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            convertSection.classList.remove('hidden');
+            uploadPrompt.classList.add('hidden');
+
+            fileCount.textContent = uploadedFiles.length;
+            convertBtnText.textContent = `Convert ${uploadedFiles.length} File${uploadedFiles.length > 1 ? 's' : ''} to JPG`;
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-4">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0">
+                        <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold text-slate-900 dark:text-white truncate">${file.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(file.size)}</div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 hover:bg-red-100 dark:hover:bg-red-900/30 rounded-lg text-red-600 dark:text-red-400 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateResultList() {
+            resultCount.textContent = convertedResults.length;
+            resultList.innerHTML = convertedResults.map((result, index) => `
+                <div class="relative p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl overflow-hidden group">
+                    <div class="aspect-square bg-slate-200 dark:bg-slate-900 rounded-xl mb-3 overflow-hidden">
+                        <img src="${result.url}" alt="${result.name}" class="w-full h-full object-cover" loading="lazy">
+                    </div>
+                    <div class="mb-3">
+                        <div class="font-semibold text-sm text-slate-900 dark:text-white truncate mb-1">${result.name}</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400">${formatBytes(result.size)}</div>
+                    </div>
+                    <button onclick="downloadSingle(${index})" class="w-full py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        डाउनलोड करें
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingle = function(index) {
+            const result = convertedResults[index];
+            const a = document.createElement('a');
+            a.href = result.url;
+            a.download = result.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        };
+
+        function handleFiles(files) {
+            const heicFiles = Array.from(files).filter(file =>
+                file.name.toLowerCase().endsWith('.heic') ||
+                file.name.toLowerCase().endsWith('.heif')
+            );
+
+            if (heicFiles.length === 0) {
+                alert('कृपया HEIC या HEIF फाइलें ही चुनें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...heicFiles];
+            updateFileList();
+        }
+
+        // Drag & Drop
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === dropZone || e.target.closest('#upload-prompt')) {
+                fileInput.click();
+            }
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            convertedResults = [];
+            updateFileList();
+            resultsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        // Convert function
+        async function convertToJPG() {
+            if (uploadedFiles.length === 0) return;
+
+            convertedResults = [];
+            resultsSection.classList.add('hidden');
+            progressSection.classList.remove('hidden');
+            convertSection.classList.add('hidden');
+
+            const total = uploadedFiles.length;
+            let completed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    progressStatus.textContent = `${file.name} कन्वर्ट हो रहा है...`;
+
+                    const jpegBlob = await heic2any({
+                        blob: file,
+                        toType: 'image/jpeg',
+                        quality: 0.9
+                    });
+
+                    const blob = Array.isArray(jpegBlob) ? jpegBlob[0] : jpegBlob;
+                    const url = URL.createObjectURL(blob);
+                    const newName = file.name.replace(/\.(heic|heif)$/i, '.jpg');
+
+                    convertedResults.push({
+                        name: newName,
+                        url: url,
+                        blob: blob,
+                        size: blob.size
+                    });
+
+                    completed++;
+                    const progress = Math.round((completed / total) * 100);
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+
+                } catch (error) {
+                    console.error(`Error converting ${file.name}:`, error);
+                    completed++;
+                }
+            }
+
+            progressStatus.textContent = 'कन्वर्जन पूरा हुआ!';
+            setTimeout(() => {
+                progressSection.classList.add('hidden');
+                convertSection.classList.remove('hidden');
+                resultsSection.classList.remove('hidden');
+                updateResultList();
+            }, 500);
+        }
+
+        convertBtn.addEventListener('click', convertToJPG);
+
+        downloadAllBtn.addEventListener('click', () => {
+            convertedResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = result.url;
+                    a.download = result.name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

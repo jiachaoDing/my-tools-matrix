@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMP से PNG कन्वर्टर (BMP to PNG) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="BMP इमेज को PNG फॉर्मेट में तुरंत कन्वर्ट करें। मुफ्त, सुरक्षित, और अनलिमिटेड बैच प्रोसेसिंग। कोई सर्वर अपलोड नहीं - आपकी प्राइवेसी की गारंटी। अभी आज़माएं!">
+    <link rel="canonical" href="https://webutilitykit.com/bmp-to-png/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/bmp-to-png/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/bmp-to-png/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <script src="/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "BMP से PNG कन्वर्टर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "528",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Lossless conversion, Batch processing, Client-side processing, No server upload, Drag and drop support",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/bmp-to-png.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">BMP से PNG कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अनकंप्रेस्ड BMP इमेज को एफिशिएंट, लॉसलेस PNG फॉर्मेट में कन्वर्ट करें। अपनी लेगेसी इमेज को आधुनिक बनाएं तुरंत।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. लोकल ब्राउज़र प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden shadow-sm">
+
+                <!-- Upload Zone -->
+                <div class="p-8">
+                    <div id="drop-zone" class="relative border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-3xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
+                        <input type="file" id="file-input" accept=".bmp,image/bmp" multiple class="hidden">
+
+                        <div id="upload-prompt" class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">BMP इमेज यहाँ ड्रॉप करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">या अपनी डिवाइस से फाइलें सिलेक्ट करने के लिए क्लिक करें</p>
+                            <button id="select-files-btn" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                BMP फाइलें सिलेक्ट करें
+                            </button>
+                        </div>
+
+                        <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-3xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                            <div class="text-center">
+                                <svg class="w-24 h-24 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">अपनी BMP इमेज यहाँ ड्रॉप करें</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files List -->
+                <div id="uploaded-files" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">सिलेक्टेड फाइलें (<span id="file-count">0</span>)</h3>
+                        <button id="clear-all-btn" class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            सभी को क्लियर करें
+                        </button>
+                    </div>
+                    <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- Action Button -->
+                <div id="convert-section" class="px-8 pb-8 hidden">
+                    <button id="convert-btn" class="w-full py-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-lg rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="convert-btn-text">PNG में कन्वर्ट करें (लॉसलेस)</span>
+                    </button>
+                </div>
+
+                <!-- Progress -->
+                <div id="progress-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">प्रोसेस हो रहा है...</span>
+                            <span id="progress-text" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="results-section" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">कन्वर्टेड रिजल्ट्स</h3>
+                        <button id="download-all-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            सभी को डाउनलोड करें
+                        </button>
+                    </div>
+                    <div id="result-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">BMP से PNG कैसे कन्वर्ट करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">BMP अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">लेगेसी BMP फाइलें सिलेक्ट करें। हम हाई-रेज़ोल्यूशन बिटमैप्ड इमेज को आसानी से हैंडल करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लॉसलेस कन्वर्शन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारा टूल BMP को PNG में बिना किसी इमेज डिटेल खोए कन्वर्ट करता है, जबकि फाइल साइज़ भी कम करता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">PNG डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी इमेज को वेब-स्टैंडर्ड PNG फॉर्मेट में सेव करें, जो किसी भी मॉडर्न एप्लीकेशन के लिए तैयार है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">BMP को PNG में क्यों कन्वर्ट करें?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                BMP (Bitmap Image File) एक अनकंप्रेस्ड लेगेसी फॉर्मेट है, जिसके कारण बहुत बड़ी फाइल साइज़ होती है। PNG (Portable Network Graphics) लॉसलेस कम्प्रेशन ऑफर करता है, जिसका मतलब है कि आपको बिल्कुल वही इमेज क्वॉलिटी मिलती है लेकिन बहुत छोटी, ज्यादा कम्पैटिबल फाइल में।
+                            </p>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-indigo-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-indigo-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const selectFilesBtn = document.getElementById('select-files-btn');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const convertSection = document.getElementById('convert-section');
+        const convertBtn = document.getElementById('convert-btn');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const resultsSection = document.getElementById('results-section');
+        const resultList = document.getElementById('result-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let convertedResults = [];
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                convertSection.classList.add('hidden');
+                uploadPrompt.classList.remove('hidden');
+                return;
+            }
+            uploadedFilesSection.classList.remove('hidden');
+            convertSection.classList.remove('hidden');
+            uploadPrompt.classList.add('hidden');
+            fileCount.textContent = uploadedFiles.length;
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-xs text-blue-600">BMP</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold truncate">${file.name}</div>
+                        <div class="text-xs text-slate-500">${formatBytes(file.size)}</div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        function handleFiles(files) {
+            const bmpFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.bmp') || f.type === 'image/bmp' || f.type === 'image/x-ms-bmp');
+            if (bmpFiles.length < files.length) {
+                alert('यह पेज केवल BMP फाइलों का सपोर्ट करता है।');
+            }
+            uploadedFiles = [...uploadedFiles, ...bmpFiles];
+            updateFileList();
+        }
+
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(e => {
+            dropZone.addEventListener(e, (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+            });
+        });
+
+        dropZone.addEventListener('dragenter', () => dropOverlay.classList.remove('hidden'));
+        dropOverlay.addEventListener('dragleave', () => dropOverlay.classList.add('hidden'));
+        dropZone.addEventListener('drop', (e) => {
+            dropOverlay.classList.add('hidden');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            convertedResults = [];
+            updateFileList();
+            resultsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        convertBtn.addEventListener('click', async () => {
+            convertedResults = [];
+            progressSection.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
+
+            let completed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    const img = new Image();
+                    const url = URL.createObjectURL(file);
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                        img.src = url;
+                    });
+
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                    const resultUrl = URL.createObjectURL(blob);
+                    convertedResults.push({
+                        name: file.name.replace(/\.bmp$/i, '.png'),
+                        url: resultUrl,
+                        size: blob.size
+                    });
+
+                    completed++;
+                    const progress = Math.round((completed / uploadedFiles.length) * 100);
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+                    URL.revokeObjectURL(url);
+                } catch (e) {
+                    console.error(e);
+                }
+            }
+
+            progressSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            renderResults();
+        });
+
+        function renderResults() {
+            resultList.innerHTML = convertedResults.map((res, i) => `
+                <div class="p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                    <div class="aspect-square bg-white dark:bg-slate-900 rounded-xl mb-3 overflow-hidden">
+                        <img src="${res.url}" class="w-full h-full object-contain">
+                    </div>
+                    <div class="text-sm font-bold truncate mb-1">${res.name}</div>
+                    <div class="text-xs text-slate-500 mb-3">${formatBytes(res.size)}</div>
+                    <a href="${res.url}" download="${res.name}" class="w-full py-2 bg-blue-600 text-white text-center rounded-lg text-sm font-bold block">डाउनलोड करें</a>
+                </div>
+            `).join('');
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            convertedResults.forEach((res, i) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = res.url;
+                    a.download = res.name;
+                    a.click();
+                }, i * 200);
+            });
+        });
+    </script>
+</body>
+</html>

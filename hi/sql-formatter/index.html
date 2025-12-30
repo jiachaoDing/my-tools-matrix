@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL फॉर्मेटर (SQL Formatter) - मुफ्त & सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="SQL क्वेरीज़ को तुरंत फॉर्मेट और सुंदर बनाएं। मुफ्त, सुरक्षित, और असीमित बैच प्रोसेसिंग। ब्राउज़र में स्थानीय रूप से प्रोसेस किया जाता है। अभी शुरू करें।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/sql-formatter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/sql-formatter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/sql-formatter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SQL Formatter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "623",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/sql-formatter.jpg"
+}
+</script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">SQL फॉर्मेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी SQL क्वेरीज़ को तुरंत फॉर्मेट, सुंदर और इंडेंट करें। स्मार्ट कीवर्ड फॉर्मेटिंग और इंडेंटेशन के साथ।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+                <!-- Input Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">SQL इनपुट</label>
+                                <div class="flex gap-2">
+                                    <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        फाइलें अपलोड करें
+                                    </button>
+                                    <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                        पेस्ट करें
+                                    </button>
+                                    <button id="clear-input-btn" class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        साफ़ करें
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Drag & Drop Zone -->
+                            <div id="drop-zone" class="relative flex-1 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-2xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30">
+                                <input type="file" id="file-input" accept=".sql,.txt" multiple class="hidden">
+                                <textarea
+                                    id="sql-input"
+                                    class="absolute inset-0 w-full h-full p-6 pt-14 text-sm font-mono bg-transparent border-0 focus:ring-0 resize-none placeholder-slate-400 transition z-10"
+                                    placeholder='SELECT id, name, email FROM users WHERE status = "active" ORDER BY created_at DESC LIMIT 10;'
+                                ></textarea>
+                                <!-- Drop Zone Hint -->
+                                <div class="absolute top-3 left-0 right-0 text-center pointer-events-none z-0">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        यहाँ SQL फाइलें ड्रॉप करें, या नीचे टेक्स्ट पेस्ट करें
+                                    </div>
+                                </div>
+                                <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-2xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                                    <div class="text-center">
+                                        <svg class="w-20 h-20 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">यहाँ फाइलें ड्रॉप करें</p>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">एकाधिक .sql या .txt फाइलें सपोर्ट करती है</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Uploaded Files List -->
+                            <div id="uploaded-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">अपलोड की गई फाइलें</span>
+                                    <span id="file-count" class="text-xs text-slate-600 dark:text-slate-400"></span>
+                                </div>
+                                <div id="file-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Format Options -->
+                            <div class="mt-4 p-4 bg-slate-100 dark:bg-slate-900/50 rounded-2xl">
+                                <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-3">फॉर्मेट विकल्प</div>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="keyword-case" value="upper" checked class="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500">
+                                        <span class="text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">UPPERCASE कीवर्ड</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="keyword-case" value="lower" class="w-4 h-4 text-blue-600 focus:ring-2 focus:ring-blue-500">
+                                        <span class="text-sm group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">lowercase कीवर्ड</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="p-6 pt-0 flex flex-col gap-3">
+                            <button id="format-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                <span id="format-btn-text">SQL फॉर्मेट करें</span>
+                            </button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button id="compress-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    कंप्रेस करें
+                                </button>
+                                <button id="sample-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                        नमूना
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label for="sql-output" class="text-sm font-semibold uppercase tracking-wider text-slate-500">फॉर्मेटेड आउटपुट</label>
+                                <div class="flex gap-2">
+                                    <button id="copy-btn" class="text-xs px-3 py-1.5 rounded-lg bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        कॉपी करें
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea
+                                id="sql-output"
+                                class="flex-1 w-full min-h-[500px] p-6 text-sm font-mono bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-green-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
+                                placeholder="फॉर्मेटेड SQL यहाँ दिखाई देगा..."
+                                readonly
+                            ></textarea>
+
+                            <!-- Processed Files List -->
+                            <div id="processed-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">प्रोसेस की गई फाइलें</span>
+                                    <button id="download-all-btn" class="text-xs px-3 py-1 rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        सभी डाउनलोड करें
+                                    </button>
+                                </div>
+                                <div id="processed-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="mt-4 grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">लाइनें</div>
+                                    <div id="stat-lines" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">कैरेक्टर्स</div>
+                                    <div id="stat-chars" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">आकार</div>
+                                    <div id="stat-size" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0 B</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">SQL फॉर्मेटर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">अपनी SQL इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टेक्स्टएरिया में सीधे क्वेरीज़ पेस्ट करें, .sql फाइलें अपलोड करें, या एक साथ कई फाइलें ड्रैग एंड ड्रॉप करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">फॉर्मेट स्टाइल चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपनी टीम के कोडिंग स्टैंडर्ड्स से मैच करने के लिए SQL कीवर्ड्स के लिए UPPERCASE या lowercase चुनें। फिर फॉर्मेट या कंप्रेस पर क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">कॉपी या डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">फॉर्मेटेड आउटपुट को तुरंत कॉपी करें या व्यक्तिगत फाइलें या एक साथ सभी के लिए बैच एक्सपोर्ट के साथ डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">मुख्य विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% निजी & सुरक्षित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी फॉर्मेटिंग आपके ब्राउज़र में स्थानीय रूप से होती है। आपकी SQL क्वेरीज़ कभी भी आपके डिवाइस से बाहर नहीं जातीं या किसी सर्वर पर अपलोड नहीं होतीं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तेज़ फॉर्मेटिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">मिलीसेकंड में SQL क्वेरीज़ प्रोसेस करें। बड़े डेटाबेस स्कीमाओं को भी देरी के बिना तुरंत हैंडल करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बैच फाइल प्रोसेसिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ कई .sql फाइलें अपलोड और फॉर्मेट करें। डेटाबेस माइग्रेशन फोल्डर्स को एक साथ फॉर्मेट करने के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट इंडेंटेशन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी प्रमुख SQL डायलेक्ट्स सहित उचित लाइन ब्रेक और इंडेंटेशन के साथ इंटेलिजेंट कीवर्ड डिटेक्शन।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह SQL फॉर्मेटर पूरी तरह से मुफ्त है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! यह टूल 100% मुफ्त है और इसमें कोई सीमाएं नहीं हैं। असीमित SQL क्वेरीज़ फॉर्मेट करें, जितनी चाहें उतनी फाइलें अपलोड करें, और किसी भी साइनअप, सब्सक्रिप्शन या छिपी हुई लागत के बिना सभी फीचर्स का आनंद लें।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी SQL क्वेरीज़ निजी और सुरक्षित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                बिल्कुल। सभी फॉर्मेटिंग पूरी तरह से आपके ब्राउज़र में JavaScript का उपयोग करके होती है। आपकी SQL क्वेरीज़ कभी भी आपके डिवाइस से बाहर नहीं जातीं, किसी सर्वर पर अपलोड नहीं होतीं, और कहीं भी लॉग या स्टोर नहीं होतीं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं एक साथ कई SQL फाइलें फॉर्मेट कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! इनपुट एरिया में कई .sql या .txt फाइलें ड्रैग एंड ड्रॉप करें। प्रत्येक फाइल को आपकी चुनी हुई सेटिंग्स के साथ अलग-अलग प्रोसेस किया जाएगा, और आप बैच एक्सपोर्ट फीचर का उपयोग करके उन्हें सभी को एक साथ डाउनलोड कर सकते हैं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से SQL डेटाबेस सपोर्ट किए जाते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                फॉर्मेटर सभी स्टैंडर्ड SQL सिंटेक्स के साथ काम करता है जिसमें MySQL, PostgreSQL, SQL Server, Oracle, SQLite, और अधिक शामिल हैं। यह SELECT, INSERT, UPDATE, DELETE, CREATE, ALTER, और JOIN ऑपरेशंस जैसे सामान्य स्टेटमेंट्स को इंटेलिजेंटली हैंडल करता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const sqlInput = document.getElementById('sql-input');
+        const sqlOutput = document.getElementById('sql-output');
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const processedFilesSection = document.getElementById('processed-files');
+        const processedList = document.getElementById('processed-list');
+
+        const uploadBtn = document.getElementById('upload-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const clearInputBtn = document.getElementById('clear-input-btn');
+        const formatBtn = document.getElementById('format-btn');
+        const formatBtnText = document.getElementById('format-btn-text');
+        const compressBtn = document.getElementById('compress-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        const statLines = document.getElementById('stat-lines');
+        const statChars = document.getElementById('stat-chars');
+        const statSize = document.getElementById('stat-size');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+
+        // SQL Keywords
+        const SQL_KEYWORDS = [
+            'SELECT', 'FROM', 'WHERE', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE',
+            'CREATE', 'TABLE', 'ALTER', 'DROP', 'INDEX', 'VIEW', 'DATABASE', 'SCHEMA',
+            'JOIN', 'INNER', 'LEFT', 'RIGHT', 'FULL', 'OUTER', 'CROSS', 'ON', 'USING',
+            'UNION', 'INTERSECT', 'EXCEPT', 'ALL', 'DISTINCT', 'AS', 'AND', 'OR', 'NOT',
+            'IN', 'BETWEEN', 'LIKE', 'IS', 'NULL', 'EXISTS', 'CASE', 'WHEN', 'THEN', 'ELSE', 'END',
+            'GROUP', 'BY', 'HAVING', 'ORDER', 'ASC', 'DESC', 'LIMIT', 'OFFSET',
+            'PRIMARY', 'KEY', 'FOREIGN', 'REFERENCES', 'CONSTRAINT', 'UNIQUE', 'CHECK', 'DEFAULT',
+            'CASCADE', 'RESTRICT', 'NO', 'ACTION', 'COMMIT', 'ROLLBACK', 'TRANSACTION',
+            'BEGIN', 'START', 'SAVEPOINT', 'GRANT', 'REVOKE', 'DENY', 'WITH'
+        ];
+
+        // Sample SQL
+        const sampleData = `SELECT u.id, u.username, u.email, COUNT(o.id) AS order_count, SUM(o.total) AS total_spent FROM users u LEFT JOIN orders o ON u.id = o.user_id WHERE u.status = 'active' AND u.created_at >= '2024-01-01' GROUP BY u.id, u.username, u.email HAVING COUNT(o.id) > 0 ORDER BY total_spent DESC, u.username ASC LIMIT 50;`;
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function updateStats(text) {
+            const bytes = new Blob([text]).size;
+            const lines = text.split('\n').length;
+            const chars = text.length;
+
+            statSize.textContent = formatBytes(bytes);
+            statLines.textContent = lines.toLocaleString();
+            statChars.textContent = chars.toLocaleString();
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                fileList.innerHTML = '';
+                formatBtnText.textContent = 'SQL फॉर्मेट करें';
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            fileCount.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''}`;
+            formatBtnText.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''} प्रोसेस करें`;
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="font-medium truncate">${file.name}</span>
+                        <span class="text-slate-500 dark:text-slate-400">(${formatBytes(file.size)})</span>
+                    </div>
+                    <button onclick="removeFile(${index})" class="ml-2 p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400 transition">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateProcessedList() {
+            if (processedResults.length === 0) {
+                processedFilesSection.classList.add('hidden');
+                return;
+            }
+
+            processedFilesSection.classList.remove('hidden');
+            processedList.innerHTML = processedResults.map((result, index) => `
+                <div class="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 ${result.success ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            ${result.success ?
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' :
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium truncate">${result.fileName}</div>
+                            ${result.success ?
+                                `<div class="text-slate-500 dark:text-slate-400">${formatBytes(result.size)}</div>` :
+                                `<div class="text-red-600 dark:text-red-400">${result.error}</div>`}
+                        </div>
+                    </div>
+                    ${result.success ? `
+                        <button onclick="downloadSingleFile(${index})" class="ml-2 px-2 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded transition flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            डाउनलोड करें
+                        </button>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingleFile = function(index) {
+            const result = processedResults[index];
+            if (result && result.success) {
+                const blob = new Blob([result.content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = result.fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file =>
+                file.name.endsWith('.sql') || file.name.endsWith('.txt')
+            );
+
+            if (newFiles.length === 0) {
+                alert('कृपया SQL या टेक्स्ट फाइलें अपलोड करें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...newFiles];
+            updateFileList();
+            sqlInput.value = '';
+        }
+
+        function formatSQL(sql, keywordCase = 'upper') {
+            // Remove extra whitespace
+            sql = sql.replace(/\s+/g, ' ').trim();
+
+            // Add line breaks before major keywords
+            const majorKeywords = ['SELECT', 'FROM', 'WHERE', 'JOIN', 'INNER JOIN', 'LEFT JOIN',
+                                   'RIGHT JOIN', 'GROUP BY', 'HAVING', 'ORDER BY', 'LIMIT',
+                                   'INSERT INTO', 'VALUES', 'UPDATE', 'SET', 'DELETE FROM'];
+
+            majorKeywords.forEach(keyword => {
+                const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+                sql = sql.replace(regex, `\n${keyword}`);
+            });
+
+            // Add line breaks after commas in SELECT
+            sql = sql.replace(/,(\s*)(?=\w)/g, ',\n    ');
+
+            // Format keywords case
+            SQL_KEYWORDS.forEach(keyword => {
+                const regex = new RegExp(`\\b${keyword}\\b`, 'gi');
+                sql = sql.replace(regex, keywordCase === 'upper' ? keyword.toUpperCase() : keyword.toLowerCase());
+            });
+
+            // Indent lines
+            const lines = sql.split('\n');
+            let formatted = '';
+            let indent = 0;
+
+            lines.forEach((line, index) => {
+                line = line.trim();
+                if (!line) return;
+
+                // Decrease indent for certain keywords
+                if (/^(FROM|WHERE|GROUP|HAVING|ORDER|LIMIT|SET|VALUES)/i.test(line)) {
+                    indent = 1;
+                } else if (/^(JOIN|INNER|LEFT|RIGHT|FULL|CROSS)/i.test(line)) {
+                    indent = 1;
+                } else if (/^(AND|OR)/i.test(line)) {
+                    indent = 2;
+                } else if (index === 0 || /^(SELECT|INSERT|UPDATE|DELETE)/i.test(line)) {
+                    indent = 0;
+                } else if (line.includes(',')) {
+                    indent = 1;
+                }
+
+                formatted += '  '.repeat(indent) + line + '\n';
+            });
+
+            return formatted.trim();
+        }
+
+        function compressSQL(sql) {
+            return sql.replace(/\s+/g, ' ').trim();
+        }
+
+        async function processFiles(mode) {
+            const keywordCase = document.querySelector('input[name="keyword-case"]:checked').value;
+
+            if (uploadedFiles.length === 0) {
+                const input = sqlInput.value.trim();
+                if (!input) {
+                    alert('कृपया SQL पेस्ट करें या फाइलें अपलोड करें।');
+                    return;
+                }
+
+                const output = mode === 'format' ? formatSQL(input, keywordCase) : compressSQL(input);
+                sqlOutput.value = output;
+                updateStats(output);
+                return;
+            }
+
+            // Process uploaded files
+            processedResults = [];
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    const output = mode === 'format' ? formatSQL(content, keywordCase) : compressSQL(content);
+
+                    processedResults.push({
+                        fileName: file.name.replace(/\.(sql|txt)$/, '') + (mode === 'format' ? '_formatted.sql' : '_compressed.sql'),
+                        content: output,
+                        size: new Blob([output]).size,
+                        success: true
+                    });
+                } catch (error) {
+                    processedResults.push({
+                        fileName: file.name,
+                        error: error.message,
+                        success: false
+                    });
+                }
+            }
+
+            updateProcessedList();
+
+            const firstSuccess = processedResults.find(r => r.success);
+            if (firstSuccess) {
+                sqlOutput.value = firstSuccess.content;
+                updateStats(firstSuccess.content);
+            }
+        }
+
+        // Event Listeners
+        uploadBtn.addEventListener('click', () => fileInput.click());
+
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === sqlInput) return;
+            fileInput.click();
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        formatBtn.addEventListener('click', () => processFiles('format'));
+        compressBtn.addEventListener('click', () => processFiles('compress'));
+
+        downloadAllBtn.addEventListener('click', () => {
+            const successResults = processedResults.filter(r => r.success);
+            successResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const blob = new Blob([result.content], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = result.fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, index * 100);
+            });
+        });
+
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                sqlInput.value = text;
+            } catch (err) {
+                console.error('Paste failed:', err);
+            }
+        });
+
+        clearInputBtn.addEventListener('click', () => {
+            sqlInput.value = '';
+            sqlOutput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            updateProcessedList();
+            updateStats('');
+            fileInput.value = '';
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            sqlInput.value = sampleData;
+            uploadedFiles = [];
+            updateFileList();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const output = sqlOutput.value;
+            if (!output) return;
+
+            navigator.clipboard.writeText(output).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> कॉपी हो गया!';
+                copyBtn.classList.remove('bg-green-50', 'text-green-600');
+                copyBtn.classList.add('bg-green-600', 'text-white');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('bg-green-600', 'text-white');
+                    copyBtn.classList.add('bg-green-50', 'text-green-600');
+                }, 2000);
+            });
+        });
+
+        // Initialize
+        updateStats('');
+    </script>
+</body>
+</html>

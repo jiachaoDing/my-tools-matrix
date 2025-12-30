@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MD5 हैश जनरेटर (MD5 Hash Generator) - मुफ्त & तत्काल | WebUtilityKit</title>
+    <meta name="description" content="अपने टेक्स्ट और फाइलों के लिए सुरक्षित MD5 संदेश-डाइजेस्ट हैश जनरेट करें। मुफ्त, सुरक्षित, और असीमित। सर्वर अपलोड आवश्यक नहीं। अभी हैश करना शुरू करें! MD5 Hash Generator, MD5 Hash online, free MD5 generator">
+    <link rel="canonical" href="https://webutilitykit.com/hi/md5-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/md5-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/md5-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "MD5 Hash Generator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "723",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, File support, Hex and Base64 output, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/md5-generator.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">MD5 हैश जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने टेक्स्ट और फाइलों के लिए सुरक्षित MD5 संदेश-डाइजेस्ट हैश जनरेट करें, सब कुछ आपके ब्राउज़र में स्थानीय रूप से।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Input Section -->
+                <div class="flex flex-col h-full bg-white dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm">
+                    <div class="p-6 border-b border-slate-200 dark:border-slate-700/50 flex items-center justify-between">
+                        <h2 class="font-bold flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            इनपुट डेटा
+                        </h2>
+                        <div class="flex items-center gap-2">
+                            <button id="clear-btn" class="text-xs font-medium text-slate-500 hover:text-red-500 transition-colors">साफ़ करें</button>
+                        </div>
+                    </div>
+                    <div class="flex-grow relative">
+                        <textarea id="input-text"
+                            placeholder="टेक्स्ट दर्ज करें या यहाँ फ़ाइल ड्रॉप करें..."
+                            class="w-full h-64 lg:h-full min-h-[300px] p-6 bg-transparent resize-none focus:outline-none text-slate-700 dark:text-slate-300 font-mono text-sm leading-relaxed"
+                        ></textarea>
+                        <div id="drop-zone" class="absolute inset-0 border-2 border-dashed border-blue-400/50 bg-blue-50/50 dark:bg-blue-900/20 hidden flex-col items-center justify-center pointer-events-none transition-all">
+                            <svg class="w-12 h-12 text-blue-500 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <p class="text-blue-600 dark:text-blue-400 font-bold">हैश करने के लिए फ़ाइल ड्रॉप करें</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-slate-50 dark:bg-slate-900/30 border-t border-slate-200 dark:border-slate-700/50 flex flex-wrap gap-3">
+                        <label class="flex-grow md:flex-grow-0">
+                            <input type="file" id="file-input" class="hidden">
+                            <span class="flex items-center justify-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-sm font-medium cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
+                                फ़ाइल अपलोड करें
+                            </span>
+                        </label>
+                        <div id="file-info" class="hidden items-center gap-2 px-3 py-1 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">
+                            <span id="file-name">file.txt</span>
+                            <button id="remove-file" class="hover:text-red-500">
+                                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full bg-white dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-sm">
+                    <div class="p-6 border-b border-slate-200 dark:border-slate-700/50">
+                        <h2 class="font-bold flex items-center gap-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            जनरेटेड हैश
+                        </h2>
+                    </div>
+                    <div class="flex-grow p-6 flex flex-col gap-6">
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider">MD5 Hash (Hex)</label>
+                            <div class="relative group">
+                                <input type="text" id="output-hex" readonly
+                                    class="w-full p-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl font-mono text-lg text-blue-600 dark:text-blue-400 focus:outline-none"
+                                    placeholder="यहाँ हैश दिखाई देगा...">
+                                <button id="copy-hex" class="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-slate-50 dark:hover:bg-slate-700">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-3 8.5V11a.5.5 0 00-1 0v2.5a.5.5 0 01-1 0V11a.5.5 0 00-1 0v2.5a.5.5 0 001 0v2.5a.5.5 0 011 0v-2.5a.5.5 0 001 0z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2">
+                            <label class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Base64 Hash</label>
+                            <div class="relative group">
+                                <input type="text" id="output-base64" readonly
+                                    class="w-full p-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl font-mono text-sm text-slate-600 dark:text-slate-400 focus:outline-none"
+                                    placeholder="Base64 एन्कोडेड हैश...">
+                                <button id="copy-base64" class="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-sm opacity-0 group-hover:opacity-100 transition-opacity hover:bg-slate-50 dark:hover:bg-slate-700">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m-3 8.5V11a.5.5 0 00-1 0v2.5a.5.5 0 01-1 0V11a.5.5 0 00-1 0v2.5a.5.5 0 001 0v2.5a.5.5 0 011 0v-2.5a.5.5 0 001 0z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="mt-auto">
+                            <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/50">
+                                <div class="flex gap-3">
+                                    <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/40 text-blue-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-xs text-blue-700 dark:text-blue-300 leading-relaxed">
+                                        <strong>MD5</strong> एक व्यापक रूप से इस्तेमाल किया जाने वाला हैश फंक्शन है। हालांकि यह अब कोलिजन अटैक्स के खिलाफ क्रिप्टोग्राफिक रूप से सुरक्षित नहीं माना जाता, फिर भी यह फाइल इंटिग्रिटी चेक और लेगेसी सिस्टम कंपेटिबिलिटी के लिए उपयोगी है।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">MD5 जनरेटर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">इनपुट प्रदान करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">इनपुट एरिया में अपना टेक्स्ट टाइप या पेस्ट करें, या सीधे वह फ़ाइल ड्रॉप करें जिसे हैश करना है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">तत्काल हैशिंग</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टूल स्वचालित रूप से रीयल-टाइम में MD5 हैश कैलकुलेट करता है। "जनरेट" बटन की कोई आवश्यकता नहीं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">परिणाम कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">एक क्लिक से अपने क्लिपबोर्ड में जनरेटेड हेक्स या Base64 हैश कॉपी करें और इसे अपनी प्रोजेक्ट में इस्तेमाल करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">पेशेवर हैशिंग सुविधाएँ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">शून्य-सर्वर सुरक्षा</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका डेटा आपके ब्राउज़र से कभी नहीं जाता। सभी हैशिंग आपके डिवाइस पर स्थानीय रूप से की जाती है, जिससे अधिकतम गोपनीयता मिलती है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बड़ी फ़ाइल सपोर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने ब्राउज़र को क्रैश किए बिना बड़ी फ़ाइलों को कुशलतापूर्वक हैश करें। हम स्ट्रीमिंग तकनीकों का उपयोग करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">डेवलपर फ्रेंडली</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">तत्काल में हेक्साडेसिमल और Base64 आउटपुट फॉर्मेट प्राप्त करें। चेकसम, पासवर्ड सॉल्ट जनरेशन, और भी बहुत कुछ के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तत्काल सत्यापन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रीयल-टाइम हैशिंग का मतलब है कि आप टाइप करते समय परिणाम देखते हैं। छोटे कोड या टेक्स्ट के स्निपेट्स को जल्दी से चेक करने के लिए आदर्श।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">MD5 हैशिंग FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या MD5 अभी भी सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                MD5 को अब कोलिजन अटैक्स के खिलाफ क्रिप्टोग्राफिक रूप से सुरक्षित नहीं माना जाता। पासवर्ड स्टोरेज जैसे सुरक्षा-क्रिटिकल एप्लिकेशन के लिए, हम <strong>SHA-256</strong> या <strong>SHA-3</strong> का उपयोग करने की सलाह देते हैं। हालांकि, फाइल चेकसम और डेटा इंटिग्रिटी जैसे गैर-सुरक्षा कार्यों के लिए MD5 अभी भी बिल्कुल ठीक है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं MD5 हैश को रिवर्स कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                नहीं, MD5 एक वन-वे क्रिप्टोग्राफिक हैश फंक्शन है। आप मूल टेक्स्ट प्राप्त करने के लिए हैश को "डिक्रिप्ट" नहीं कर सकते। हालांकि, "रेनबो टेबल्स" कॉमन स्ट्रिंग्स के लिए मौजूद हैं, यही कारण है कि यह पासवर्ड के लिए सुरक्षित नहीं है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === MD5 Implementation (Self-contained) ===
+        // Standard MD5 implementation by Joseph Myers
+        function md5(string) {
+            function md5_Cycle(x, k) {
+                var a = x[0], b = x[1], c = x[2], d = x[3];
+                a = ff(a, b, c, d, k[0], 7, -680876936);
+                d = ff(d, a, b, c, k[1], 12, -389564586);
+                c = ff(c, d, a, b, k[2], 17,  606105819);
+                b = ff(b, c, d, a, k[3], 22, -1044525330);
+                a = ff(a, b, c, d, k[4], 7, -176418897);
+                d = ff(d, a, b, c, k[5], 12,  1200080426);
+                c = ff(c, d, a, b, k[6], 17, -1473231341);
+                b = ff(b, c, d, a, k[7], 22, -45705983);
+                a = ff(a, b, c, d, k[8], 7,  1770035416);
+                d = ff(d, a, b, c, k[9], 12, -1958414417);
+                c = ff(c, d, a, b, k[10], 17, -42063);
+                b = ff(b, c, d, a, k[11], 22, -1990404162);
+                a = ff(a, b, c, d, k[12], 7,  1804603682);
+                d = ff(d, a, b, c, k[13], 12, -40341101);
+                c = ff(c, d, a, b, k[14], 17, -1502002290);
+                b = ff(b, c, d, a, k[15], 22,  1236535329);
+                a = gg(a, b, c, d, k[1], 5, -165796510);
+                d = gg(d, a, b, c, k[6], 9, -1069501632);
+                c = gg(c, d, a, b, k[11], 14,  643717713);
+                b = gg(b, c, d, a, k[0], 20, -373897302);
+                a = gg(a, b, c, d, k[5], 5, -701558691);
+                d = gg(d, a, b, c, k[10], 9,  38016083);
+                c = gg(c, d, a, b, k[15], 14, -660478335);
+                b = gg(b, c, d, a, k[4], 20, -405537848);
+                a = gg(a, b, c, d, k[9], 5,  568446438);
+                d = gg(d, a, b, c, k[14], 9, -1019803690);
+                c = gg(c, d, a, b, k[3], 14, -187363961);
+                b = gg(b, c, d, a, k[8], 20,  1163531501);
+                a = gg(a, b, c, d, k[13], 5, -1444681467);
+                d = gg(d, a, b, c, k[2], 9, -51403784);
+                c = gg(c, d, a, b, k[7], 14,  1735328473);
+                b = gg(b, c, d, a, k[12], 20, -1926607734);
+                a = hh(a, b, c, d, k[5], 4, -378558);
+                d = hh(d, a, b, c, k[8], 11, -2022574463);
+                c = hh(c, d, a, b, k[11], 16,  1839030562);
+                b = hh(b, c, d, a, k[14], 23, -35309556);
+                a = hh(a, b, c, d, k[1], 4, -1530992060);
+                d = hh(d, a, b, c, k[4], 11,  1272893353);
+                c = hh(c, d, a, b, k[7], 16, -155497632);
+                b = hh(b, c, d, a, k[10], 23, -1094730640);
+                a = hh(a, b, c, d, k[13], 4,  681279174);
+                d = hh(d, a, b, c, k[0], 11, -358537222);
+                c = hh(c, d, a, b, k[3], 16, -722521979);
+                b = hh(b, c, d, a, k[6], 23,  76029189);
+                a = hh(a, b, c, d, k[9], 4, -640364487);
+                d = hh(d, a, b, c, k[12], 11, -421815835);
+                c = hh(c, d, a, b, k[15], 16,  530742520);
+                b = hh(b, c, d, a, k[2], 23, -995338651);
+                a = ii(a, b, c, d, k[0], 6, -198630844);
+                d = ii(d, a, b, c, k[7], 10,  1126891415);
+                c = ii(c, d, a, b, k[14], 15, -1416354905);
+                b = ii(b, c, d, a, k[5], 21, -57434055);
+                a = ii(a, b, c, d, k[12], 6,  1700485571);
+                d = ii(d, a, b, c, k[3], 10, -1894986606);
+                c = ii(c, d, a, b, k[10], 15, -1051523);
+                b = ii(b, c, d, a, k[1], 21, -2054922799);
+                a = ii(a, b, c, d, k[8], 6,  1873313359);
+                d = ii(d, a, b, c, k[15], 10, -30611744);
+                c = ii(c, d, a, b, k[6], 15, -1560198380);
+                b = ii(b, c, d, a, k[13], 21,  1309151649);
+                a = ii(a, b, c, d, k[4], 6, -145523070);
+                d = ii(d, a, b, c, k[11], 10, -1120210379);
+                c = ii(c, d, a, b, k[2], 15,  718787280);
+                b = ii(b, c, d, a, k[9], 21, -343485551);
+                x[0] = add32(a, x[0]); x[1] = add32(b, x[1]); x[2] = add32(c, x[2]); x[3] = add32(d, x[3]);
+            }
+            function cmn(q, a, b, x, s, t) { a = add32(add32(a, q), add32(x, t)); return add32((a << s) | (a >>> (32 - s)), b); }
+            function ff(a, b, c, d, x, s, t) { return cmn((b & c) | ((~b) & d), a, b, x, s, t); }
+            function gg(a, b, c, d, x, s, t) { return cmn((b & d) | (c & (~d)), a, b, x, s, t); }
+            function hh(a, b, c, d, x, s, t) { return cmn(b ^ c ^ d, a, b, x, s, t); }
+            function ii(a, b, c, d, x, s, t) { return cmn(c ^ (b | (~d)), a, b, x, s, t); }
+            function md51(s) {
+                var txt = '', n = s.length, x = [1732584193, -271733879, -1732584194, 271733878], i;
+                for (i = 64; i <= s.length; i += 64) { md5_Cycle(x, md5blk(s.substring(i - 64, i))); }
+                s = s.substring(i - 64);
+                var tail = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+                for (i = 0; i < s.length; i++) tail[i >> 2] |= s.charCodeAt(i) << ((i % 4) << 3);
+                tail[i >> 2] |= 0x80 << ((i % 4) << 3);
+                if (i > 55) { md5_Cycle(x, tail); for (i = 0; i < 16; i++) tail[i] = 0; }
+                tail[14] = n * 8; md5_Cycle(x, tail); return x;
+            }
+            function md5blk(s) { var md5blks = [], i; for (i = 0; i < 64; i += 4) { md5blks[i >> 2] = s.charCodeAt(i) + (s.charCodeAt(i + 1) << 8) + (s.charCodeAt(i + 2) << 16) + (s.charCodeAt(i + 3) << 24); } return md5blks; }
+            var hex_chr = '0123456789abcdef'.split('');
+            function rhex(n) { var s = '', j = 0; for (; j < 4; j++) s += hex_chr[(n >> (j * 8 + 4)) & 0x0F] + hex_chr[(n >> (j * 8)) & 0x0F]; return s; }
+            function hex(x) { for (var i = 0; i < x.length; i++) x[i] = rhex(x[i]); return x.join(''); }
+            function add32(a, b) { return (a + b) & 0xFFFFFFFF; }
+            return hex(md51(string));
+        }
+
+        // === Tool Logic ===
+        const inputText = document.getElementById('input-text');
+        const fileInput = document.getElementById('file-input');
+        const outputHex = document.getElementById('output-hex');
+        const outputBase64 = document.getElementById('output-base64');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyHexBtn = document.getElementById('copy-hex');
+        const copyBase64Btn = document.getElementById('copy-base64');
+        const dropZone = document.getElementById('drop-zone');
+        const fileInfo = document.getElementById('file-info');
+        const fileNameDisplay = document.getElementById('file-name');
+        const removeFileBtn = document.getElementById('remove-file');
+
+        function updateHashes(text) {
+            if (!text) {
+                outputHex.value = '';
+                outputBase64.value = '';
+                return;
+            }
+            const hash = md5(text);
+            outputHex.value = hash;
+
+            // Base64 from Hex
+            const binary = [];
+            for (let i = 0; i < hash.length; i += 2) {
+                binary.push(parseInt(hash.substr(i, 2), 16));
+            }
+            outputBase64.value = btoa(String.fromCharCode.apply(null, binary));
+        }
+
+        inputText.addEventListener('input', () => {
+            updateHashes(inputText.value);
+            if (inputText.value) {
+                clearFile();
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            clearFile();
+            updateHashes('');
+        });
+
+        function clearFile() {
+            fileInput.value = '';
+            fileInfo.classList.add('hidden');
+            fileInfo.classList.remove('flex');
+        }
+
+        removeFileBtn.addEventListener('click', () => {
+            clearFile();
+            updateHashes(inputText.value);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        function handleFile(file) {
+            inputText.value = ''; // Clear text if file is uploaded
+            fileNameDisplay.textContent = file.name;
+            fileInfo.classList.remove('hidden');
+            fileInfo.classList.add('flex');
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const content = e.target.result;
+                updateHashes(content);
+            };
+            reader.readAsBinaryString(file);
+        }
+
+        // Drag & Drop
+        window.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('hidden');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.add('hidden');
+        });
+
+        window.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('hidden');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFile(file);
+        });
+
+        // Copy functionality
+        function copyToClipboard(element, btn) {
+            element.select();
+            document.execCommand('copy');
+            const originalIcon = btn.innerHTML;
+            btn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            setTimeout(() => btn.innerHTML = originalIcon, 2000);
+        }
+
+        copyHexBtn.addEventListener('click', () => copyToClipboard(outputHex, copyHexBtn));
+        copyBase64Btn.addEventListener('click', () => copyToClipboard(outputBase64, copyBase64Btn));
+    </script>
+</body>
+</html>

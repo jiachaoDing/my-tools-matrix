@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICO से PNG कन्वर्टर (ICO to PNG Converter) - मुफ्त & सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="ICO फैविकॉन फाइलों को PNG फॉर्मेट में तुरंत कन्वर्ट करें। मुफ्त, सुरक्षित, और अनलिमिटेड बैच प्रोसेसिंग। ICO to PNG converter online मुफ्त में इस्तेमाल करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/ico-to-png/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/ico-to-png/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/ico-to-png/" />
+
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ICO से PNG कन्वर्टर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "567",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/ico-to-png.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">ICO से PNG कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">ICO फैविकॉन फाइलों से उच्च-क्वॉलिटी PNG इमेजेस निकालें। वेब डेवलपर्स और डिजाइनर्स के लिए परफेक्ट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% प्राइवेट। लोकल ब्राउज़र प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden shadow-sm">
+
+                <!-- Upload Zone -->
+                <div class="p-8">
+                    <div id="drop-zone" class="relative border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-3xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30 min-h-[320px] flex items-center justify-center">
+                        <input type="file" id="file-input" accept=".ico" multiple class="hidden">
+                        <div id="upload-prompt" class="text-center p-8">
+                            <div class="w-24 h-24 mx-auto mb-6 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center">
+                                <svg class="w-12 h-12 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3">ICO फाइलें यहाँ ड्रॉप करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">या अपने डिवाइस से फाइलें चुनने के लिए क्लिक करें</p>
+                            <button id="select-files-btn" class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] inline-flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                ICO फाइलें चुनें
+                            </button>
+                        </div>
+
+                        <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-3xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                            <div class="text-center">
+                                <svg class="w-24 h-24 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">अपनी ICO फाइलें यहाँ ड्रॉप करें</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Uploaded Files List -->
+                <div id="uploaded-files" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">चुनी गई फाइलें (<span id="file-count">0</span>)</h3>
+                        <button id="clear-all-btn" class="text-sm px-4 py-2 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            सभी हटाएं
+                        </button>
+                    </div>
+                    <div id="file-list" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- Action Button -->
+                <div id="convert-section" class="px-8 pb-8 hidden">
+                    <button id="convert-btn" class="w-full py-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-bold text-lg rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-[0.98] flex items-center justify-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        <span id="convert-btn-text">PNG निकालें</span>
+                    </button>
+                </div>
+
+                <!-- Progress -->
+                <div id="progress-section" class="px-8 pb-8 hidden">
+                    <div class="bg-slate-100 dark:bg-slate-900/50 rounded-2xl p-6">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">प्रोसेस हो रहा है...</span>
+                            <span id="progress-text" class="text-sm font-bold text-blue-600 dark:text-blue-400">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-800 rounded-full h-3 overflow-hidden">
+                            <div id="progress-bar" class="h-full bg-blue-600 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results -->
+                <div id="results-section" class="px-8 pb-8 hidden">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white">निकाले गए PNG</h3>
+                        <button id="download-all-btn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-xl transition-all flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            सभी डाउनलोड करें
+                        </button>
+                    </div>
+                    <div id="result-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">ICO से PNG कन्वर्टर का इस्तेमाल कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">ICO फाइलें अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी ICO फैविकॉन फाइलें अपलोड एरिया में ड्रैग एंड ड्रॉप करें या अपने कंप्यूटर से चुनें। मल्टीपल फाइल सेलेक्शन सपोर्टेड है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">PNG इमेजेस निकालें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">"PNG निकालें" बटन पर क्लिक करें और देखें कि आपकी ICO फाइलें सेकंड में कैसे ट्रांसफॉर्म हो जाती हैं। टूल हर फैविकॉन फाइल से सबसे अच्छी लेयर निकालेगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">रिजल्ट डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">निकाले गए PNG इमेजेस को डाइमेंशन और फाइल साइज के साथ प्रिव्यू करें। इंडिविजुअल फाइलें डाउनलोड करें या "सभी डाउनलोड करें" से बैच एक्सपोर्ट करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">मुख्य फीचर्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">क्लाइंट-साइड प्रोसेसिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी एक्सट्रैक्शन आपके ब्राउज़र में स्थानीय रूप से होता है। आपकी ICO फाइलें आपके डिवाइस से बाहर नहीं जातीं, जिससे पूरी गोपनीयता और सुरक्षा सुनिश्चित होती है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बैच एक्सट्रैक्शन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ कई ICO फाइलों से PNG इमेजेस निकालें। कई प्रोजेक्ट में फैविकॉन फाइलों को मैनेज करने वाले वेब डेवलपर्स के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">हाई-क्वॉलिटी आउटपुट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपकी ICO फाइल में उपलब्ध सबसे अच्छी लेयर को एक्सट्रैक्ट करता है, ट्रांसपेरेंसी और कलर एक्यूरेसी को प्रिजर्व रखता है, जो प्रोफेशनल-क्वॉलिटी PNG इमेजेस के लिए परफेक्ट है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ज़ीरो सेटअप रिक्वायर्ड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कोई सॉफ्टवेयर इंस्टॉलेशन या रजिस्ट्रेशन नहीं। Windows, Mac, Linux, और मोबाइल प्लेटफॉर्म पर किसी भी आधुनिक वेब ब्राउज़र में तुरंत काम करता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">ICO फाइल क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                ICO Microsoft Windows में आइकॉन के लिए इस्तेमाल होने वाला इमेज फॉर्मेट है। यह आमतौर पर वेबसाइट फैविकॉन के लिए इस्तेमाल होता है (ब्राउज़र टैब में दिखने वाला छोटा आइकॉन)। ICO फाइलें अलग-अलग रेजोल्यूशन की कई इमेज लेयर्स को कंटेन कर सकती हैं, और यह टूल उच्चतम क्वॉलिटी लेयर को PNG इमेज के रूप में एक्सट्रैक्ट करता है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं ICO फाइल की सभी लेयर्स एक्सट्रैक्ट कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                यह ब्राउज़र-बेस्ड टूल ICO फाइलों से प्राइमरी (आमतौर पर सबसे बड़ी और उच्चतम क्वॉलिटी) लेयर को एक्सट्रैक्ट करता है। जबकि ICO फाइलें कई रेजोल्यूशन (16x16, 32x32, 48x48, आदि) को कंटेन कर सकती हैं, ब्राउज़र आमतौर पर उपलब्ध सबसे अच्छी वर्जन को रेंडर करते हैं, जो यह कन्वर्टर एक्सट्रैक्ट करता है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">PNG आउटपुट में ट्रांसपेरेंसी प्रिजर्व रहती है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! PNG फॉर्मेट ट्रांसपेरेंसी को पूरी तरह सपोर्ट करता है, और यह कन्वर्टर आपकी ICO फाइलों से सभी अल्फा चैनल जानकारी को प्रिजर्व रखता है। निकाली गई PNG में आपकी ओरिजिनल आइकॉन से समान ट्रांसपेरेंसी डेटा होगा, जिससे यह डिजाइन प्रोजेक्ट में इस्तेमाल करने या फैविकॉन सोर्स फाइल के रूप में परफेक्ट बन जाती है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">ICO को PNG में कन्वर्ट क्यों करें?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                PNG अधिक यूनिवर्सल फॉर्मेट है जो सभी इमेज एडिटर और प्लेटफॉर्म द्वारा सपोर्टेड है। ICO को PNG में कन्वर्ट करने से आप स्टैंडर्ड डिजाइन सॉफ्टवेयर में फैविकॉन ग्राफिक्स को एडिट कर सकते हैं, प्रेजेंटेशन में इस्तेमाल कर सकते हैं, या ICO फॉर्मेट सपोर्ट न करने वाले प्लेटफॉर्म पर शेयर कर सकते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadPrompt = document.getElementById('upload-prompt');
+        const selectFilesBtn = document.getElementById('select-files-btn');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const clearAllBtn = document.getElementById('clear-all-btn');
+        const convertSection = document.getElementById('convert-section');
+        const convertBtn = document.getElementById('convert-btn');
+        const progressSection = document.getElementById('progress-section');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const resultsSection = document.getElementById('results-section');
+        const resultList = document.getElementById('result-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let convertedResults = [];
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                convertSection.classList.add('hidden');
+                uploadPrompt.classList.remove('hidden');
+                return;
+            }
+            uploadedFilesSection.classList.remove('hidden');
+            convertSection.classList.remove('hidden');
+            uploadPrompt.classList.add('hidden');
+            fileCount.textContent = uploadedFiles.length;
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl flex items-center gap-4">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center flex-shrink-0 font-bold text-xs text-blue-600">ICO</div>
+                    <div class="flex-1 min-w-0">
+                        <div class="font-semibold truncate">${file.name}</div>
+                        <div class="text-xs text-slate-500">${formatBytes(file.size)}</div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        function handleFiles(files) {
+            const icoFiles = Array.from(files).filter(f => f.name.toLowerCase().endsWith('.ico'));
+            if (icoFiles.length < files.length) {
+                alert('कृपया सिर्फ ICO फाइलें ही चुनें।');
+            }
+            uploadedFiles = [...uploadedFiles, ...icoFiles];
+            updateFileList();
+        }
+
+        selectFilesBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(e => {
+            dropZone.addEventListener(e, (evt) => {
+                evt.preventDefault();
+                evt.stopPropagation();
+            });
+        });
+
+        dropZone.addEventListener('dragenter', () => dropOverlay.classList.remove('hidden'));
+        dropOverlay.addEventListener('dragleave', () => dropOverlay.classList.add('hidden'));
+        dropZone.addEventListener('drop', (e) => {
+            dropOverlay.classList.add('hidden');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        clearAllBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            convertedResults = [];
+            updateFileList();
+            resultsSection.classList.add('hidden');
+            progressSection.classList.add('hidden');
+        });
+
+        convertBtn.addEventListener('click', async () => {
+            convertedResults = [];
+            progressSection.classList.remove('hidden');
+            resultsSection.classList.add('hidden');
+
+            let completed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    const img = new Image();
+                    const url = URL.createObjectURL(file);
+                    await new Promise((resolve, reject) => {
+                        img.onload = resolve;
+                        img.onerror = reject;
+                        img.src = url;
+                    });
+
+                    // We can't easily extract ALL layers from ICO with just <img> and <canvas>
+                    // Browsers usually render the largest/best one.
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+
+                    const blob = await new Promise(resolve => canvas.toBlob(resolve, 'image/png'));
+                    const resultUrl = URL.createObjectURL(blob);
+                    convertedResults.push({
+                        name: file.name.replace(/\.ico$/i, '.png'),
+                        url: resultUrl,
+                        size: blob.size,
+                        width: img.width,
+                        height: img.height
+                    });
+
+                    completed++;
+                    const progress = Math.round((completed / uploadedFiles.length) * 100);
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+                    URL.revokeObjectURL(url);
+                } catch (e) {
+                    console.error('ICO प्रोसेस करने में एरर:', e);
+                }
+            }
+
+            progressSection.classList.add('hidden');
+            resultsSection.classList.remove('hidden');
+            renderResults();
+        });
+
+        function renderResults() {
+            resultList.innerHTML = convertedResults.map((res, i) => `
+                <div class="p-4 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                    <div class="aspect-square bg-white dark:bg-slate-900 rounded-xl mb-3 overflow-hidden flex items-center justify-center p-4">
+                        <img src="${res.url}" class="max-w-full max-h-full object-contain">
+                    </div>
+                    <div class="text-sm font-bold truncate mb-1">${res.name}</div>
+                    <div class="text-xs text-slate-500 mb-3">${res.width}x${res.height} • ${formatBytes(res.size)}</div>
+                    <a href="${res.url}" download="${res.name}" class="w-full py-2 bg-blue-600 text-white text-center rounded-lg text-sm font-bold block">PNG डाउनलोड करें</a>
+                </div>
+            `).join('');
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            convertedResults.forEach((res, i) => {
+                setTimeout(() => {
+                    const a = document.createElement('a');
+                    a.href = res.url;
+                    a.download = res.name;
+                    a.click();
+                }, i * 200);
+            });
+        });
+    </script>
+</body>
+</html>

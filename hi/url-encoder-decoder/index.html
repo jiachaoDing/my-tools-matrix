@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL एन्कोडर डिकोडर (URL Encoder Decoder) - मुफ्त और सुरक्षित ऑनलाइन टूल | WebUtilityKit</title>
+    <meta name="description" content="टेक्स्ट को URL-फ्रेंडली फॉर्मेट में कन्वर्ट करें या पर्सेंट-एन्कोडेड URL को डिकोड करें। विशेष कैरेक्टर्स और पैरामीटर्स को तुरंत हैंडल करें। ब्राउज़र में स्थानीय रूप से प्रोसेस किया जाता है। अभी आज़माएं!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/url-encoder-decoder/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/url-encoder-decoder/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/url-encoder-decoder/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "URL एन्कोडर डिकोडर",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "489",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/url-encoder-decoder.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">URL एन्कोडर / डिकोडर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">टेक्स्ट को URL-फ्रेंडली फॉर्मेट में कन्वर्ट करें या पर्सेंट-एन्कोडेड URL को डिकोड करें। तेज़, सुरक्षित, और पूरी तरह से क्लाइंट-साइड।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                <!-- Input Section -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">इनपुट टेक्स्ट / URL</label>
+                        <button id="clear-btn" class="text-xs font-semibold text-slate-400 hover:text-rose-500 transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            क्लियर
+                        </button>
+                    </div>
+                    <div class="flex-grow min-h-[300px] relative group">
+                        <textarea id="input-text"
+                            class="w-full h-full p-6 bg-white dark:bg-slate-800 rounded-[2rem] border-none focus:ring-4 focus:ring-blue-500/10 text-slate-700 dark:text-slate-200 text-lg leading-relaxed placeholder:text-slate-400 transition-all resize-none outline-none shadow-sm"
+                            placeholder="यहाँ अपना टेक्स्ट या URL पेस्ट करें..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button id="encode-btn" class="py-4 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-500/25 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            एन्कोड करें
+                        </button>
+                        <button id="decode-btn" class="py-4 px-8 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg shadow-lg shadow-blue-500/25 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            डिकोड करें
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">रिजल्ट</label>
+                        <button id="copy-btn" class="text-xs font-semibold text-slate-400 hover:text-blue-500 transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 00-2 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            रिजल्ट कॉपी करें
+                        </button>
+                    </div>
+                    <div class="flex-grow min-h-[300px] relative">
+                        <textarea id="output-text" readonly
+                            class="w-full h-full p-6 bg-white dark:bg-slate-800/50 rounded-[2rem] border-none text-slate-600 dark:text-slate-400 text-lg leading-relaxed transition-all resize-none outline-none shadow-sm cursor-default"
+                            placeholder="रिजल्ट यहाँ दिखाई देगा..."></textarea>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                        <span>मानक <code>encodeURIComponent</code> और <code>decodeURIComponent</code> मेथड्स का उपयोग करता है।</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">URL एन्कोडर/डिकोडर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">कंटेंट पेस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">बाएं इनपुट बॉक्स में वह टेक्स्ट या URL दर्ज करें जिसे आप प्रोसेस करना चाहते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">एक्शन चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">"एन्कोड" पर क्लिक करें टेक्स्ट को URL-सेफ बनाने के लिए, या "डिकोड" पर्सेंट-एन्कोडेड डेटा को पढ़ने के लिए।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">रिजल्ट कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">रिजल्ट तुरंत जनरेट होता है। इसे सेव करने के लिए कॉपी बटन का उपयोग करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">URL एन्कोडिंग क्यों?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                URL में केवल US-ASCII कैरेक्टर सेट के सीमित कैरेक्टर्स शामिल हो सकते हैं। इस सेट से बाहर के कैरेक्टर्स (जैसे स्पेस, इमोजी, या विशेष सिंबल) को इंटरनेट पर सही ढंग से ट्रांसमिट करने के लिए एन्कोड किए जाने चाहिए।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 text-slate-200">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">%20</div>
+                                    <span>स्पेस %20 बन जाता है</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-slate-200">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400 font-bold">&amp;</div>
+                                    <span>&amp; जैसे विशेष कैरेक्टर्स %26 बन जाते हैं</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
+                                <code class="text-blue-400 text-sm break-all">https://example.com/?q=hello%20world%21</code>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रमुख फीचर्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तुरंत कन्वर्जन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">नेटिव ब्राउज़र APIs का उपयोग करके लाइटनिंग फास्ट एन्कोडिंग और डिकोडिंग। कोई लेटेंसी नहीं, सिर्फ रिजल्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता गारंटीड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका डेटा आपके डिवाइस से नहीं निकलता। सभी प्रोसेसिंग आपके ब्राउज़र सेशन में स्थानीय रूप से की जाती है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">URL एन्कोडर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से कैरेक्टर्स एन्कोड किए जाते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                स्पेस, <code>/</code>, <code>:</code>, <code>&amp;</code>, <code>=</code>, <code>?</code> जैसे कैरेक्टर्स को एन्कोड किया जाता है यदि वे डेटा वैल्यूज़ का हिस्सा हैं ताकि उन्हें URL सिंटैक्स से गलती से न मिलाया जाए।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह संवेदनशील डेटा के लिए सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ। चूंकि सभी प्रोसेसिंग आपके ब्राउज़र में स्थानीय रूप से होती है, कोई जानकारी हमारे सर्वर पर नहीं भेजी जाती। हालांकि, किसी भी वेब पेज पर संवेदनशील जानकारी के साथ हमेशा सावधान रहें।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        // ... existing code ...
+</script>
+</body>
+</html>

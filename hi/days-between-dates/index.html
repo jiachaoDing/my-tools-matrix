@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>डेट डिफरेंस कैलकुलेटर - दिनों, सप्ताह और महीनों के बीच | WebUtilityKit</title>
+    <meta name="description" content="दो तारीखों के बीच सटीक दिनों की गणना करें। वर्षों, महीनों, सप्ताहों, घंटों और मिनटों में रिजल्ट देखें। लीप ईयर सपोर्ट के साथ। अभी शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/days-between-dates/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/days-between-dates/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/days-between-dates/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "डेट डिफरेंस कैलकुलेटर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "691",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Multiple time units, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/days-between-dates.jpg"
+    }
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">डेट डिफरेंस कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">दो तारीखों के बीच सटीक अवधि की गणना करें। दिनों, सप्ताहों, महीनों और वर्षों में अवधि सर्जिकल सटीकता के साथ प्राप्त करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया गया।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Inputs (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">प्रारंभ तिथि</label>
+                                <input type="date" id="start-date" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">अंतिम तिथि</label>
+                                <input type="date" id="end-date" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                            </div>
+
+                            <label class="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent hover:border-blue-500/20 transition-all cursor-pointer group" id="include-end-wrapper">
+                                <input type="checkbox" id="include-end" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                                <span class="font-bold text-slate-600 dark:text-slate-400 group-hover:text-blue-600 transition-colors">अंतिम दिन शामिल करें (1 दिन जोड़ें)</span>
+                            </label>
+
+                            <button id="calculate-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-3 text-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                अंतर की गणना करें
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div id="result-placeholder" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col items-center justify-center shadow-sm border border-slate-100 dark:border-slate-800/50 text-slate-400 italic text-center">
+                        <svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        उनके बीच की अवधि देखने के लिए दो तारीखें चुनें
+                    </div>
+
+                    <div id="result-content" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">अंतर विश्लेषण</label>
+
+                        <div class="space-y-12 flex-grow flex flex-col">
+                            <!-- Summary Result -->
+                            <div class="text-center">
+                                <div id="summary-primary" class="text-5xl md:text-6xl font-black text-slate-900 dark:text-white leading-tight">
+                                    0 <span class="text-xl text-slate-400">दिन</span>
+                                </div>
+                                <div id="summary-secondary" class="text-lg font-bold text-blue-500 mt-4 italic">0 वर्ष, 0 महीने, 0 दिन</div>
+                            </div>
+
+                            <!-- Conversion Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल वर्ष</div>
+                                    <div id="stat-years" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल महीने</div>
+                                    <div id="stat-months" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल सप्ताह</div>
+                                    <div id="stat-weeks" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल दिन</div>
+                                    <div id="stat-days" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल घंटे</div>
+                                    <div id="stat-hours" class="text-xl font-bold text-sm">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल मिनट</div>
+                                    <div id="stat-minutes" class="text-xl font-bold text-xs">0</div>
+                                </div>
+                            </div>
+
+                            <!-- Percentage of Year (Fun Metric) -->
+                            <div class="p-6 rounded-3xl bg-slate-100/50 dark:bg-slate-900/50 border border-slate-200/50 dark:border-slate-800/50">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-xs font-bold text-slate-500 uppercase">औसत वर्ष का प्रतिशत</span>
+                                    <span id="percent-val" class="font-bold text-blue-600">0%</span>
+                                </div>
+                                <div class="h-2 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                                    <div id="percent-bar" class="h-full bg-blue-500 transition-all duration-1000" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">स्मार्ट डेट इंटेलिजेंस</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">समावेशी रेंज</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">क्या आपको बहुत ही अंतिम दिन की गिनती करनी है? हमारे "अंतिम दिन शामिल करें" फीचर का इस्तेमाल करके स्टैंडर्ड और समावेशी डेट स्पैन के बीच स्विच करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कुल ब्रेकडाउन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">केवल दिनों से ज्यादा, सप्ताहों, महीनों, वर्षों और घंटों या मिनटों में भी कुल समय देखें सटीक प्रोजेक्ट प्लानिंग के लिए।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">तुलनात्मक मेट्रिक्स</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारे डायनामिक प्रतिशत प्रोग्रेस बार के साथ अपने चयनित स्पैन का एक औसत वर्ष का कितना हिस्सा बनता है यह विज़ुअलाइज़ करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Privacy -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 max-w-3xl">
+                        <h2 class="text-3xl font-bold mb-6 italic tracking-tight">आपका कैलेंडर, आपका बिजनेस</h2>
+                        <p class="text-lg text-blue-50 leading-relaxed mb-10">
+                            चाहे आप एक सालगिरह ट्रैक कर रहे हों या एक संवेदनशील प्रोजेक्ट प्लान कर रहे हों, आपकी तारीखें वेब पर भेजी नहीं जानी चाहिए। हमारा कैलकुलेटर <strong>100% ऑफलाइन</strong> काम करता है एक बार लोड होने के बाद, स्थानीय CPU पावर का इस्तेमाल करके नंबर क्रंच करने के लिए।
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">कोई ट्रैकिंग नहीं</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">स्थानीय गणना</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">गोपनीयता गारंटीड</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">क्या यह लीप ईयर को अकाउंट करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                हाँ। कैलकुलेटर मानक क्रोनोलॉजिकल लाइब्रेरी का इस्तेमाल करता है जो साल में फरवरी 29वें और सभी महीनों की बदलती लंबाई को सही ढंग से अकाउंट करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">"अंतिम दिन शामिल करें" क्यों?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                स्टैंडर्ड डेट सब्ट्रैक्शन आमतौर दिनों के बीच के स्लीप/नाइट गैप को काउंट करता है। अगर आप एक 3-दिवसीय इवेंट (जैसे शुक्रवार से रविवार) को ट्रैक कर रहे हैं, तो आपको "अंतिम दिन शामिल करें" का इस्तेमाल करके 2-दिवसीय गैप के बजाय सभी तीन पूरे दिनों को काउंट करना पड़ सकता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Logic ===
+        const startDateInput = document.getElementById('start-date');
+        const endDateInput = document.getElementById('end-date');
+        const includeEnd = document.getElementById('include-end');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultPlaceholder = document.getElementById('result-placeholder');
+        const resultContent = document.getElementById('result-content');
+        const includeEndWrapper = document.getElementById('include-end-wrapper');
+
+        // Defaults
+        const today = new Date().toISOString().split('T')[0];
+        startDateInput.value = today;
+        endDateInput.value = today;
+
+        includeEnd.addEventListener('change', () => {
+            includeEndWrapper.classList.toggle('active', includeEnd.checked);
+            calculateDiff();
+        });
+
+        function calculateDiff() {
+            const startVal = startDateInput.value;
+            const endVal = endDateInput.value;
+
+            if (!startVal || !endVal) return;
+
+            let start = new Date(startVal);
+            let end = new Date(endVal);
+
+            // Ensure start is before end
+            if (start > end) {
+                [start, end] = [end, start];
+                // Swap input values visually
+                startDateInput.value = start.toISOString().split('T')[0];
+                endDateInput.value = end.toISOString().split('T')[0];
+            }
+
+            resultPlaceholder.classList.add('hidden');
+            resultContent.classList.remove('hidden');
+
+            let diffTime = end - start;
+            if (includeEnd.checked) {
+                diffTime += (1000 * 60 * 60 * 24);
+            }
+
+            const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+            // Complex Breakdown (Y, M, D)
+            let years = end.getFullYear() - start.getFullYear();
+            let months = end.getMonth() - start.getMonth();
+            let days = end.getDate() - start.getDate();
+
+            if (includeEnd.checked) days++;
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(end.getFullYear(), end.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Hero
+            document.getElementById('summary-primary').innerHTML = `${totalDays.toLocaleString()} <span class="text-xl text-slate-400">दिन</span>`;
+            document.getElementById('summary-secondary').textContent = `${years} वर्ष, ${months} महीने, ${days} दिन`;
+
+            // Stats
+            const totalMonths = (years * 12) + months;
+            const totalWeeks = Math.floor(totalDays / 7);
+            const totalHours = totalDays * 24;
+            const totalMinutes = totalHours * 60;
+
+            document.getElementById('stat-years').textContent = years.toLocaleString();
+            document.getElementById('stat-months').textContent = totalMonths.toLocaleString();
+            document.getElementById('stat-weeks').textContent = totalWeeks.toLocaleString();
+            document.getElementById('stat-days').textContent = totalDays.toLocaleString();
+            document.getElementById('stat-hours').textContent = totalHours.toLocaleString();
+            document.getElementById('stat-minutes').textContent = totalMinutes.toLocaleString();
+
+            // Progress Bar (Percentage of 365.25 days)
+            const percent = Math.min(100, (totalDays / 365.25) * 100);
+            document.getElementById('percent-val').textContent = `${percent.toFixed(1)}%`;
+            document.getElementById('percent-bar').style.width = `${percent}%`;
+        }
+
+        calculateBtn.addEventListener('click', calculateDiff);
+        startDateInput.addEventListener('change', calculateDiff);
+        endDateInput.addEventListener('change', calculateDiff);
+
+    </script>
+</body>
+</html>

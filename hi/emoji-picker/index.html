@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emoji Picker (इमोजी पिकर) - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Emoji picker में आसानी से emoji खोजें और कॉपी करें। Search, categories और recent favorites के साथ। Free, secure और 100% client-side। Registration की कोई आवश्यकता नहीं।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/emoji-picker/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/emoji-picker/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/emoji-picker/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Emoji Picker",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "892",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, One-click copy, Search functionality, Category browsing, Dark mode"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Emoji Picker</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Emoji को तुरंत खोजें और कॉपी करें। नाम से खोजें, कैटेगरी ब्राउज़ करें, या हाल ही के पसंदीदा को चुनें।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Controls (5 cols) -->
+                <div class="lg:col-span-4 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 block ml-1">Emoji खोजें</label>
+                                <div class="relative group">
+                                    <input type="text" id="emoji-search" placeholder="लिखकर खोजें..." class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-pink-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-medium text-lg shadow-sm focus:shadow-md focus:shadow-pink-500/5">
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-pink-500 transition-colors">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                                <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4 block ml-1">श्रेणियाँ</label>
+                                <div class="flex flex-wrap gap-1" id="category-list">
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent category-btn-active-pink" data-category="recent" title="हालिया">
+                                        <span class="text-xl">🕒</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">हालिया</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="smileys" title="Smileys & Emotion">
+                                        <span class="text-xl">😊</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Smileys</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="people" title="People & Body">
+                                        <span class="text-xl">👋</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">People</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="animals" title="Animals & Nature">
+                                        <span class="text-xl">🐶</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Animals</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="food" title="Food & Drink">
+                                        <span class="text-xl">🍎</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Food</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="activities" title="Activities">
+                                        <span class="text-xl">⚽</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Activity</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="travel" title="Travel & Places">
+                                        <span class="text-xl">🚀</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Travel</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="objects" title="Objects">
+                                        <span class="text-xl">💡</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Objects</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="symbols" title="Symbols">
+                                        <span class="text-xl">⚡</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Symbols</span>
+                                    </button>
+                                    <button class="p-3 rounded-xl transition-all hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 flex flex-col items-center gap-1 min-w-[64px] border border-transparent" data-category="flags" title="Flags">
+                                        <span class="text-xl">🏁</span>
+                                        <span class="text-[9px] font-bold uppercase tracking-tighter">Flags</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">कॉपी मोड</span>
+                                    <div class="flex gap-2">
+                                        <button id="copy-mode-emoji" class="px-3 py-1.5 text-xs rounded-lg bg-pink-600 text-white font-bold transition-all">Emoji</button>
+                                        <button id="copy-mode-code" class="px-3 py-1.5 text-xs rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">Code</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-8 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-1">Emoji परिणाम</h3>
+                                <p id="emoji-count" class="text-sm text-slate-500 dark:text-slate-400">0 emoji मिले</p>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <button id="clear-recent" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">हालिया साफ करें</button>
+                            </div>
+                        </div>
+
+                        <div id="emoji-grid" class="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-3 flex-grow overflow-y-auto custom-scrollbar">
+                            <!-- Emoji items will be populated here -->
+                        </div>
+
+                        <!-- No Results State -->
+                        <div id="no-results" class="hidden flex flex-col items-center justify-center flex-grow text-center py-12">
+                            <div class="w-24 h-24 bg-slate-100 dark:bg-slate-900/50 rounded-full flex items-center justify-center mb-6">
+                                <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.29-.978-5.5-2.5"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">कोई emoji नहीं मिला</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">अलग खोज शब्द आजमाएं</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase">अपनी भावनाओं को व्यक्त करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">खोजें या ब्राउज़ करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">सर्च बार में कीवर्ड टाइप करें या कैटेगरी के माध्यम से अपनी मूड के लिए सही emoji ढूंढें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">क्लिक करके चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">किसी भी emoji पर क्लिक करें ताकि उसके नाम और official Unicode point के साथ बड़ा preview देखें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-pink-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-pink-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-pink-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">तत्काल कॉपी</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Emoji अपने आप आपके clipboard में कॉपी हो जाता है। कहीं भी paste करें—social media, chats, या documents!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Why it matters -->
+                <section class="bg-pink-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">आधुनिक संचार</h2>
+                            <p class="text-lg text-pink-50/80 leading-relaxed mb-8 italic">
+                                Emojis डिजिटल युग की universal language हैं। वे text में emotional nuance जोड़ते हैं, space बचा देते हैं, और text को personality देते हैं। हमारा picker emoji library का पूरा standard collection access करने का सबसे तेज़ तरीका है बिना browser छोड़े।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-pink-200 text-[10px] font-black uppercase mb-1 italic">Library</div>
+                                    <div class="font-bold">1,000+ Emojis</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-pink-200 text-[10px] font-black uppercase mb-1 italic">Privacy</div>
+                                    <div class="font-bold">Local History</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_50s_linear_infinite]">
+                                <span class="text-7xl">🔥</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest">Picker Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-pink-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-pink-100 dark:bg-pink-900/30 text-pink-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="text-2xl">🕒</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Smart History</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">आपके हाल ही के इस्तेमाल किए गए emojis को automatically याद रखता है, ताकि आपके favorites हमेशा एक click दूर रहें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-pink-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <span class="text-2xl">🔍</span>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">Instant Search</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">Lightning-fast search आपकी typing के साथ names और keywords के माध्यम से filter करता है। मिलीसेकंड में सही चीज ढूंढें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter">Emoji FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-pink-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">Unicode Emojis क्या हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                Emojis Unicode Standard का हिस्सा हैं, जिसका मतलब है कि उन्हें specific code points assign किए गए हैं। इससे यह सुनिश्चित होता है कि वे सभी devices और operating systems पर consistent दिखें, हालांकि visual design अलग-अलग हो सकता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-pink-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">क्या ये emojis इस्तेमाल करने के लिए free हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                हाँ! Emojis modern systems की एक standard feature हैं। आप उन्हें किसी भी text field में इस्तेमाल कर सकते हैं जो Unicode support करता है, जो कि लगभग सभी modern websites और apps हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tool-specific initialization
+        });
+    </script>
+</body>
+</html>

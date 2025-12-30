@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>डाइस रोलर (Dice Roller) - 3D D4, D6, D8, D20 D&D & RPG के लिए | WebUtilityKit</title>
+    <meta name="description" content="ऑनलाइन 3D पासा रोल करें डी एंड डी और आरपीजी के लिए। क्रिप्टोग्राफिक यादृच्छिकता के साथ। इतिहास और औसत ट्रैक करें। पासा रोल करें मुफ्त!">
+    <link rel="canonical" href="https://webutilitykit.com/dice-roller/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/dice-roller/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/dice-roller/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Dice Roller",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "934",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Multiple dice types, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/dice-roller.jpg"
+    }
+    </script>
+    <style>
+        .dice-container {
+            perspective: 1000px;
+            width: 120px;
+            height: 120px;
+            margin: 10px;
+        }
+        .dice {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform var(--roll-duration, 1.2s) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .die-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            color: #1e293b;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+            backface-visibility: hidden;
+        }
+        /* D6 faces */
+        .die-face-1 { transform: rotateY(0deg) translateZ(60px); }
+        .die-face-2 { transform: rotateY(90deg) translateZ(60px); }
+        .die-face-3 { transform: rotateY(180deg) translateZ(60px); }
+        .die-face-4 { transform: rotateY(-90deg) translateZ(60px); }
+        .die-face-5 { transform: rotateX(90deg) translateZ(60px); }
+        .die-face-6 { transform: rotateX(-90deg) translateZ(60px); }
+
+        .dark .die-face {
+            background: #1e293b;
+            border-color: #334155;
+            color: #f1f5f9;
+        }
+
+        .dot-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            width: 80%;
+            height: 80%;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background: currentColor;
+            border-radius: 50%;
+            align-self: center;
+            justify-self: center;
+        }
+
+        @keyframes roll-anim {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg); }
+            100% { transform: rotateX(720deg) rotateY(720deg) rotateZ(360deg); }
+        }
+
+        .rolling {
+            animation: roll-anim var(--roll-duration, 1.2s) ease-out forwards;
+        }
+
+        /* D6 face layouts */
+        .face-1 .dot:nth-child(1) { grid-area: 2 / 2; }
+        .face-2 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-2 .dot:nth-child(2) { grid-area: 3 / 3; }
+        .face-3 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-3 .dot:nth-child(2) { grid-area: 2 / 2; }
+        .face-3 .dot:nth-child(3) { grid-area: 3 / 3; }
+        .face-4 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-4 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face-4 .dot:nth-child(3) { grid-area: 3 / 1; }
+        .face-4 .dot:nth-child(4) { grid-area: 3 / 3; }
+        .face-5 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-5 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face-5 .dot:nth-child(3) { grid-area: 2 / 2; }
+        .face-5 .dot:nth-child(4) { grid-area: 3 / 1; }
+        .face-5 .dot:nth-child(5) { grid-area: 3 / 3; }
+        .face-6 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face-6 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face-6 .dot:nth-child(3) { grid-area: 2 / 1; }
+        .face-6 .dot:nth-child(4) { grid-area: 2 / 3; }
+        .face-6 .dot:nth-child(5) { grid-area: 3 / 1; }
+        .face-6 .dot:nth-child(6) { grid-area: 3 / 3; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors overflow-x-hidden">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">डाइस रोलर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने अगले गेम नाइट के लिए वर्चुअल 3D पासा रोल करें। पूरी तरह से अनुकूलन योग्य, निष्पक्ष, और त्वरित।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% यादृच्छिक. क्रिप्टोग्राफिक रूप से सुरक्षित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-4 sm:px-6 mx-auto mb-24">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch">
+
+                <!-- Roll Zone -->
+                <div class="w-full lg:flex-1 bg-white dark:bg-slate-800 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-12 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center justify-center relative min-h-[500px] sm:min-h-[600px] transition-all">
+
+                    <!-- Advanced Controls -->
+                    <div class="w-full max-w-xl grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">पासा संख्या</label>
+                            <div class="flex items-center bg-slate-50 dark:bg-slate-900 rounded-xl p-1 border border-slate-200 dark:border-slate-700">
+                                <button id="dec-count" class="w-8 h-8 flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                                </button>
+                                <input type="number" id="dice-count" value="1" min="1" max="12" class="flex-1 bg-transparent border-none text-center font-bold text-sm focus:ring-0">
+                                <button id="inc-count" class="w-8 h-8 flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">पासा प्रकार</label>
+                            <select id="dice-type" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all appearance-none cursor-pointer text-center">
+                                <option value="6">D6 (क्लासिक)</option>
+                                <option value="4">D4 (पिरामिड)</option>
+                                <option value="8">D8</option>
+                                <option value="10">D10</option>
+                                <option value="12">D12</option>
+                                <option value="20">D20</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">गति</label>
+                            <select id="roll-speed" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all appearance-none cursor-pointer text-center">
+                                <option value="2.0">धीमी</option>
+                                <option value="1.2" selected>सामान्य</option>
+                                <option value="0.6">तेज</option>
+                                <option value="0.3">तत्काल</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider text-center">कुल लक्ष्य</label>
+                            <input type="number" id="roll-target" placeholder="कोई भी" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-center">
+                        </div>
+                    </div>
+
+                    <!-- Dice Area -->
+                    <div id="dice-area" class="flex flex-wrap items-center justify-center gap-6 mb-12 min-h-[140px] w-full">
+                        <!-- Dice will be generated here -->
+                    </div>
+
+                    <div class="text-center space-y-6 w-full px-4">
+                        <div id="result-text" class="h-12 flex items-center justify-center">
+                            <div id="total-result" class="text-4xl font-black text-slate-900 dark:text-white opacity-0 transition-all duration-300">कुल: 0</div>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button id="roll-btn" class="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-2xl shadow-lg shadow-blue-500/30 active:scale-95 transition-all text-xl flex items-center justify-center gap-3 group">
+                                <svg class="w-6 h-6 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                पासा रोल करें
+                            </button>
+                            <button id="clear-btn" class="bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold py-4 px-8 rounded-2xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-all text-lg">
+                                साफ करें
+                            </button>
+                        </div>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">रोल करने के लिए <kbd class="px-2 py-1 bg-slate-100 dark:bg-slate-700 rounded-md font-mono text-xs">Space</kbd> दबाएं या क्लिक करें</p>
+                    </div>
+                </div>
+
+                <!-- History Panel -->
+                <div class="w-full lg:w-96 flex flex-col gap-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex-grow flex flex-col">
+                        <h2 class="text-xl font-bold mb-8 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            रोल इतिहास
+                        </h2>
+
+                        <div id="history-list" class="flex-grow space-y-4 overflow-y-auto pr-2 max-h-[400px]">
+                            <!-- History items -->
+                            <div id="history-empty" class="text-center py-12 opacity-40">
+                                <svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                <p class="text-sm">अभी तक कोई रोल नहीं</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-8 border-t border-slate-100 dark:border-slate-700">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">कुल रोल</div>
+                                    <div id="stats-count" class="text-2xl font-black">0</div>
+                                </div>
+                                <div class="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl">
+                                    <div class="text-xs font-bold text-slate-400 uppercase mb-1">औसत योग</div>
+                                    <div id="stats-avg" class="text-2xl font-black">0</div>
+                                </div>
+                            </div>
+                            <button id="reset-history" class="w-full mt-4 py-3 text-sm font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                इतिहास रीसेट करें
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">डाइस रोलर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">पासा चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">उतनी पासा संख्या चुनें जितने रोल करना चाहते हैं (12 तक) और पक्षों की संख्या (D4 से D20 तक)।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">गति अनुकूलित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">धीमी सिनेमेटिक रोल से लेकर त्वरित परिणामों तक रोल गति समायोजित करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">रोल विश्लेषण करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">तत्काल कुल योग देखें और साइड पैनल में अपने रोल इतिहास और औसत आंकड़े समीक्षा करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">निष्पक्षता की गारंटी</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                भौतिक पासा में सूक्ष्म भार असंतुलन हो सकता है। हमारे डिजिटल पासा आपके सिस्टम हार्डवेयर द्वारा उत्पन्न उच्च-एंट्रॉपी यादृच्छिक बीज का उपयोग करते हैं, जो सुनिश्चित करता है कि हर पक्ष बिल्कुल समान संभावना वाला हो।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">क्रिप्टोग्राफिक रूप से मजबूत यादृच्छिकता</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">इमर्सिव फील के लिए 3D विजुअल फीडबैक</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">कोई छिपी हुई भार या पूर्वाग्रहपूर्ण लॉजिक नहीं</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-7xl font-black text-blue-500/40">20</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हर एडवेंचर के लिए पासा</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">RPG तैयार</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">डनजन्स एंड ड्रेगन्स (D&D), पाथफाइंडर और अन्य टेबल-टॉप RPG सिस्टम के लिए विशेष बहुभुजीय पासा का पूरा समर्थन।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">उन्नत आंकड़े</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने गेमिंग सेशन के दौरान अपने औसत रोल और कुल योग ट्रैक करें ताकि आप अपनी "लucky" लकी स्ट्रीक्स की पहचान कर सकें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">कीबोर्ड शॉर्टकट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">दक्षता के लिए डिज़ाइन किया गया। Space बार का उपयोग करके तत्काल रोल करें, अपना ध्यान गेम पर रखें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">शून्य ट्रैकिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपके रोल निजी हैं। हम किसी सर्वर पर आपका डेटा सेव नहीं करते। सब कुछ आपके ब्राउज़र में स्थानीय रूप से होता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">डाइस रोलर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">आप कौन से पासा प्रकारों का समर्थन करते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम मानक बहुभुजीय पासा का समर्थन करते हैं जिसमें 4-पक्षीय (D4), 6-पक्षीय (D6), 8-पक्षीय (D8), 10-पक्षीय (D10), 12-पक्षीय (D12), और 20-पक्षीय (D20) शामिल हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कुल की गणना कैसे की जाती है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कुल बस रोल खत्म होने के बाद सभी दिखाई देने वाली फेस का योग है। हम सत्र-आधारित इतिहास भी रखते हैं ताकि आप पिछले योग देख सकें।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">3D एनीमेशन कितना सटीक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                क्लासिक D6 के लिए, हम एक पूरा 3D रोटेटिंग क्यूब दिखाते हैं। अन्य बहुभुजीय पासा (D4, D20, आदि) के लिए, हम सभी उपकरणों पर अनुकूलता और गति सुनिश्चित करने के लिए उच्च-प्रदर्शन 2D-ऑन-3D प्रतिनिधित्व का उपयोग करते हैं, जबकि इमर्सिव "रोल" फील बनाए रखते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const diceArea = document.getElementById('dice-area');
+        const rollBtn = document.getElementById('roll-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const diceCountInput = document.getElementById('dice-count');
+        const diceTypeSelect = document.getElementById('dice-type');
+        const rollSpeedSelect = document.getElementById('roll-speed');
+        const decCountBtn = document.getElementById('dec-count');
+        const incCountBtn = document.getElementById('inc-count');
+        const totalResult = document.getElementById('total-result');
+        const historyList = document.getElementById('history-list');
+        const historyEmpty = document.getElementById('history-empty');
+        const statsCountEl = document.getElementById('stats-count');
+        const statsAvgEl = document.getElementById('stats-avg');
+        const resetHistoryBtn = document.getElementById('reset-history');
+
+        let isRolling = false;
+        let rollHistory = [];
+        let totalSumAllRolls = 0;
+
+        // Init dice area
+        updateDiceDisplay();
+
+        // Control handlers
+        decCountBtn.addEventListener('click', () => {
+            diceCountInput.value = Math.max(1, parseInt(diceCountInput.value) - 1);
+            updateDiceDisplay();
+        });
+        incCountBtn.addEventListener('click', () => {
+            diceCountInput.value = Math.min(12, parseInt(diceCountInput.value) + 1);
+            updateDiceDisplay();
+        });
+        diceCountInput.addEventListener('change', updateDiceDisplay);
+        diceTypeSelect.addEventListener('change', updateDiceDisplay);
+
+        function updateDiceDisplay() {
+            const count = parseInt(diceCountInput.value) || 1;
+            const type = parseInt(diceTypeSelect.value);
+            diceArea.innerHTML = '';
+
+            for (let i = 0; i < count; i++) {
+                const diceContainer = document.createElement('div');
+                diceContainer.className = 'dice-container';
+
+                if (type === 6) {
+                    // 3D Cube for D6
+                    diceContainer.innerHTML = `
+                        <div class="dice d6" id="dice-${i}">
+                            <div class="die-face die-face-1 face-1"><div class="dot-container"><div class="dot"></div></div></div>
+                            <div class="die-face die-face-2 face-2"><div class="dot-container"><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-3 face-3"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-4 face-4"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-5 face-5"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                            <div class="die-face die-face-6 face-6"><div class="dot-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>
+                        </div>
+                    `;
+                } else {
+                    // Stylized Polyhedral for others
+                    diceContainer.innerHTML = `
+                        <div class="dice poly" id="dice-${i}">
+                            <div class="die-face flex flex-col items-center justify-center border-4 border-blue-500/20" style="border-radius: ${type === 4 ? '4px' : '50%'}">
+                                <span class="text-xs font-bold text-blue-500/40 mb-1">D${type}</span>
+                                <span class="val">?</span>
+                            </div>
+                        </div>
+                    `;
+                }
+                diceArea.appendChild(diceContainer);
+            }
+        }
+
+        async function roll() {
+            if (isRolling) return;
+            isRolling = true;
+
+            const count = parseInt(diceCountInput.value) || 1;
+            const type = parseInt(diceTypeSelect.value);
+            const duration = parseFloat(rollSpeedSelect.value);
+            document.documentElement.style.setProperty('--roll-duration', `${duration}s`);
+
+            rollBtn.disabled = true;
+            rollBtn.classList.add('opacity-50');
+            totalResult.style.opacity = '0';
+
+            const results = [];
+            const diceElements = document.querySelectorAll('.dice');
+
+            // Randomly determine final rotation or value using Web Crypto
+            diceElements.forEach((el, idx) => {
+                const array = new Uint32Array(1);
+                window.crypto.getRandomValues(array);
+                const result = (array[0] % type) + 1;
+                results.push(result);
+
+                el.classList.remove('rolling');
+                void el.offsetWidth; // Force reflow
+                el.classList.add('rolling');
+
+                if (type === 6) {
+                    const rotations = {
+                        1: 'rotateY(0deg) rotateX(0deg)',
+                        2: 'rotateY(-90deg) rotateX(0deg)',
+                        3: 'rotateY(-180deg) rotateX(0deg)',
+                        4: 'rotateY(90deg) rotateX(0deg)',
+                        5: 'rotateX(-90deg) rotateY(0deg)',
+                        6: 'rotateX(90deg) rotateY(0deg)'
+                    };
+                    // Use a slightly longer timeout to ensure it captures the state after animation
+                    setTimeout(() => {
+                        el.style.transform = rotations[result];
+                        el.classList.remove('rolling');
+                    }, duration * 1000);
+                } else {
+                    const valEl = el.querySelector('.val');
+                    valEl.textContent = '?';
+                    setTimeout(() => {
+                        valEl.textContent = result;
+                        el.classList.remove('rolling');
+                    }, duration * 1000);
+                }
+            });
+
+            await new Promise(resolve => setTimeout(resolve, duration * 1000 + 50));
+
+            const sum = results.reduce((a, b) => a + b, 0);
+            totalResult.textContent = `कुल: ${sum}`;
+            totalResult.style.opacity = '1';
+            totalResult.classList.add('scale-110');
+            setTimeout(() => totalResult.classList.remove('scale-110'), 200);
+
+            addToHistory(results, sum, type);
+
+            isRolling = false;
+            rollBtn.disabled = false;
+            rollBtn.classList.remove('opacity-50');
+        }
+
+        function addToHistory(results, sum, type) {
+            historyEmpty.classList.add('hidden');
+
+            const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const item = document.createElement('div');
+            item.className = 'p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 animate-[slideIn_0.3s_ease-out] group hover:border-blue-500/30 transition-all';
+
+            const diceStr = results.map(r => `<span class="inline-flex items-center justify-center w-6 h-6 bg-white dark:bg-slate-800 rounded-md text-[10px] font-bold shadow-sm border border-slate-200 dark:border-slate-700">${r}</span>`).join(' ');
+
+            item.innerHTML = `
+                <div class="flex items-center justify-between mb-2">
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${timestamp} • D${type}</span>
+                    <span class="text-lg font-black text-blue-600 dark:text-blue-400">योग: ${sum}</span>
+                </div>
+                <div class="flex flex-wrap gap-1.5 opacity-80 group-hover:opacity-100 transition-opacity">
+                    ${diceStr}
+                </div>
+            `;
+
+            historyList.prepend(item);
+            if (historyList.children.length > 21) historyList.lastElementChild.remove();
+
+            rollHistory.push(sum);
+            totalSumAllRolls += sum;
+            updateStats();
+        }
+
+        function updateStats() {
+            statsCountEl.textContent = rollHistory.length;
+            const avg = rollHistory.length > 0 ? (totalSumAllRolls / rollHistory.length).toFixed(1) : 0;
+            statsAvgEl.textContent = avg;
+        }
+
+        rollBtn.addEventListener('click', roll);
+        clearBtn.addEventListener('click', () => {
+            totalResult.style.opacity = '0';
+            updateDiceDisplay();
+        });
+
+        resetHistoryBtn.addEventListener('click', () => {
+            rollHistory = [];
+            totalSumAllRolls = 0;
+            historyList.innerHTML = '<div id="history-empty" class="text-center py-12 opacity-40"><svg class="w-12 h-12 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg><p class="text-sm">अभी तक कोई रोल नहीं</p></div>';
+            historyEmpty = document.getElementById('history-empty');
+            updateStats();
+        });
+
+        // Space to roll
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && !isRolling) {
+                e.preventDefault();
+                roll();
+            }
+        });
+
+        // Animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { opacity: 0; transform: translateY(-10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

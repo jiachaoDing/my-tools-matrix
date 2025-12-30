@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Validator (क्रेडिट कार्ड वैलिडेटर) - Luhn Algorithm चेकर | WebUtilityKit</title>
+    <meta name="description" content="Luhn algorithm से किसी भी क्रेडिट कार्ड नंबर को तुरंत वैलिडेट करें। Visa, Mastercard, Amex चेक करें। 100% प्राइवेट, कोई डेटा स्टोर या ट्रांसमिट नहीं।">
+    <link rel="canonical" href="https://webutilitykit.com/credit-card-validator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/credit-card-validator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/credit-card-validator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Credit Card Validator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "728",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Luhn algorithm validation, Network detection, Real-time checking, Zero data transmission, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/credit-card-validator.jpg"
+}
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Credit Card Validator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Luhn algorithm का उपयोग करके किसी भी क्रेडिट कार्ड नंबर को तुरंत सत्यापित करें। तेज़, सुरक्षित, और पूरी तरह से प्राइवेट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रोसेसिंग। हम कभी कार्ड डेटा स्टोर या ट्रांसमिट नहीं करते।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-3xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/40 rounded-[3rem] p-8 md:p-12 border border-slate-100 dark:border-slate-700/50">
+                <div class="space-y-8">
+                    <!-- Card Input -->
+                    <div>
+                        <label for="card-number" class="block text-sm font-bold text-slate-500 uppercase tracking-widest mb-3 px-1">कार्ड नंबर</label>
+                        <div class="relative">
+                            <input type="text" id="card-number"
+                                class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-slate-100 dark:border-slate-700 rounded-2xl px-6 py-5 text-2xl font-mono tracking-wider focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 outline-none transition"
+                                placeholder="0000 0000 0000 0000" maxlength="23">
+                            <div id="card-type-icon" class="absolute right-6 top-1/2 -translate-y-1/2 text-2xl"></div>
+                        </div>
+                    </div>
+
+                    <!-- Validation Status -->
+                    <div id="status-card" class="hidden rounded-2xl p-6 border-2 transition-all">
+                        <div class="flex items-center gap-4">
+                            <div id="status-icon" class="w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-sm"></div>
+                            <div>
+                                <h3 id="status-title" class="font-bold text-lg"></h3>
+                                <p id="status-desc" class="text-sm opacity-80"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Details Grid -->
+                    <div id="details-grid" class="hidden grid grid-cols-2 gap-4">
+                        <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-slate-100 dark:border-slate-700">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">कार्ड नेटवर्क</div>
+                            <div id="detail-network" class="text-lg font-bold text-slate-700 dark:text-slate-200">अज्ञात</div>
+                        </div>
+                        <div class="bg-slate-50 dark:bg-slate-900/40 p-5 rounded-2xl border border-slate-100 dark:border-slate-700">
+                            <div class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Luhn चेक</div>
+                            <div id="detail-luhn" class="text-lg font-bold text-slate-700 dark:text-slate-200">लंबित</div>
+                        </div>
+                    </div>
+
+                    <button id="clear-btn" class="w-full py-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 font-medium transition">एंट्री साफ़ करें</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">यह कैसे काम करता है</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">नंबर दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपना क्रेडिट कार्ड नंबर टाइप करें। टूल इसे आसानी से पढ़ने के लिए स्वचालित रूप से स्पेस के साथ फॉर्मेट करेगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">नेटवर्क डिटेक्शन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम तुरंत पहचानते हैं कि कार्ड नेटवर्क क्या है (Visa, Mastercard, Amex, आदि) शुरुआती अंकों के आधार पर।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Luhn वैलिडेशन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Luhn algorithm (Mod 10) रीयल-टाइम में चलता है यह जांचने के लिए कि क्या कार्ड नंबर गणितीय चेकसम नियमों का पालन करता है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-green-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">गोपनीयता प्रथम वैलिडेशन</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                कार्ड नंबर वैलिडेट करना संवेदनशील हो सकता है। यही कारण है कि हमारा वैलिडेटर आपके ब्राउज़र में पूरी तरह से काम करता है। कोई डेटा कभी आपके डिवाइस से बाहर नहीं जाता, और हम कभी दर्ज किए गए नंबरों को स्टोर या ट्रैक नहीं करते।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span class="text-slate-200">शून्य डेटा ट्रांसमिशन</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span class="text-slate-200">कोई कुकीज़ या ट्रैकिंग नहीं</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                    <span class="text-slate-200">शुद्ध गणितीय वैलिडेशन</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-green-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-green-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic text-pretty">Luhn Algorithm क्या है?</h2>
+                    <div class="max-w-3xl mx-auto p-10 bg-slate-50 dark:bg-slate-800/20 rounded-[2.5rem] border border-slate-100 dark:border-slate-700/50">
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg mb-6 text-pretty">
+                            Luhn algorithm, जिसे "modulus 10" या "mod 10" algorithm भी कहा जाता है, एक सरल चेकसम फॉर्मूला है जिसका उपयोग विभिन्न पहचान संख्याओं जैसे क्रेडिट कार्ड नंबर और IMEI नंबर को वैलिडेट करने के लिए किया जाता है।
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-lg text-pretty">
+                            इसे गलतियों से बचाने के लिए डिज़ाइन किया गया था, जैसे कोई अंक गलत टाइप करना। यह <strong>नहीं</strong> एक सुरक्षा उपाय है और जानबूझकर धोखाधड़ी का पता नहीं लगा सकता या यह सत्यापित नहीं कर सकता कि कार्ड वास्तव में सक्रिय है या उसमें फंड हैं।
+                        </p>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Validator Logic ===
+        const cardInput = document.getElementById('card-number');
+        const cardIcon = document.getElementById('card-type-icon');
+        const statusCard = document.getElementById('status-card');
+        const statusIcon = document.getElementById('status-icon');
+        const statusTitle = document.getElementById('status-title');
+        const statusDesc = document.getElementById('status-desc');
+        const detailsGrid = document.getElementById('details-grid');
+        const detailNetwork = document.getElementById('detail-network');
+        const detailLuhn = document.getElementById('detail-luhn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        const cardTypes = [
+            { name: 'Visa', pattern: /^4/, icon: '💳' },
+            { name: 'Mastercard', pattern: /^5[1-5]/, icon: '💳' },
+            { name: 'Amex', pattern: /^3[47]/, icon: '💳' },
+            { name: 'Discover', pattern: /^6(?:011|5)/, icon: '💳' },
+            { name: 'JCB', pattern: /^(?:2131|1800|35)/, icon: '💳' },
+            { name: 'Diners', pattern: /^3(?:0[0-5]|[68])/, icon: '💳' }
+        ];
+
+        cardInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || '';
+            e.target.value = formatted;
+
+            validateCard(value);
+        });
+
+        function validateCard(number) {
+            if (number.length < 1) {
+                resetUI();
+                return;
+            }
+
+            // Detect Network
+            let network = 'अज्ञात';
+            for (let type of cardTypes) {
+                if (type.pattern.test(number)) {
+                    network = type.name;
+                    break;
+                }
+            }
+            detailNetwork.textContent = network;
+
+            // Luhn Check
+            const isValid = luhnCheck(number);
+            const isComplete = number.length >= 13;
+
+            statusCard.classList.remove('hidden');
+            detailsGrid.classList.remove('hidden');
+
+            if (isValid && isComplete) {
+                statusCard.className = 'rounded-2xl p-6 border-2 border-green-500/20 bg-green-500/5 text-green-700 dark:text-green-400';
+                statusIcon.className = 'w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-sm bg-green-500 text-white';
+                statusIcon.innerHTML = '✓';
+                statusTitle.textContent = 'मान्य कार्ड नंबर';
+                statusDesc.textContent = 'यह नंबर Luhn चेकसम वैलिडेशन पास करता है।';
+                detailLuhn.textContent = 'पास';
+                detailLuhn.className = 'text-lg font-bold text-green-600';
+            } else if (!isValid && isComplete) {
+                statusCard.className = 'rounded-2xl p-6 border-2 border-rose-500/20 bg-rose-500/5 text-rose-700 dark:text-rose-400';
+                statusIcon.className = 'w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-sm bg-rose-500 text-white';
+                statusIcon.innerHTML = '✕';
+                statusTitle.textContent = 'अमान्य कार्ड नंबर';
+                statusDesc.textContent = 'यह नंबर Luhn चेकसम वैलिडेशन में विफल रहा।';
+                detailLuhn.textContent = 'विफल';
+                detailLuhn.className = 'text-lg font-bold text-rose-600';
+            } else {
+                statusCard.className = 'rounded-2xl p-6 border-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/40 text-slate-500 dark:text-slate-400';
+                statusIcon.className = 'w-12 h-12 rounded-full flex items-center justify-center text-2xl shadow-sm bg-slate-200 dark:bg-slate-700 text-slate-400';
+                statusIcon.innerHTML = '?';
+                statusTitle.textContent = 'और टाइप करें...';
+                statusDesc.textContent = 'पूर्ण वैलिडेशन के लिए कम से कम 13 अंक दर्ज करें।';
+                detailLuhn.textContent = 'लंबित';
+                detailLuhn.className = 'text-lg font-bold text-slate-400';
+            }
+        }
+
+        function luhnCheck(num) {
+            let sum = 0;
+            let shouldDouble = false;
+            for (let i = num.length - 1; i >= 0; i--) {
+                let digit = parseInt(num.charAt(i));
+                if (shouldDouble) {
+                    if ((digit *= 2) > 9) digit -= 9;
+                }
+                sum += digit;
+                shouldDouble = !shouldDouble;
+            }
+            return (sum % 10) === 0;
+        }
+
+        function resetUI() {
+            statusCard.classList.add('hidden');
+            detailsGrid.classList.add('hidden');
+            cardIcon.textContent = '';
+            detailNetwork.textContent = 'अज्ञात';
+            detailLuhn.textContent = 'लंबित';
+        }
+
+        clearBtn.addEventListener('click', () => {
+            cardInput.value = '';
+            resetUI();
+        });
+    </script>
+</body>
+</html>

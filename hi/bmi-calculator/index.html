@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI कैलकुलेटर (BMI Calculator) - सटीक स्वास्थ्य और वजन विश्लेषण | WebUtilityKit</title>
+    <meta name="description" content="अपना बॉडी मास इंडेक्स (BMI) तुरंत कैलकुलेट करें। मीट्रिक और इम्पीरियल यूनिट का समर्थन। WHO मानकों के आधार पर व्यक्तिगत स्वास्थ्य अंतर्दृष्टि प्राप्त करें। 100% निजी।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/bmi-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/bmi-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/bmi-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "BMI कैलकुलेटर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "742",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "रीयल-टाइम कैलकुलेशन, WHO मानक, मीट्रिक और इम्पीरियल यूनिट, आदर्श वजन मार्गदर्शन, क्लाइंट-साइड प्रोसेसिंग",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/bmi-calculator.jpg"
+    }
+    </script>
+
+
+    <!-- Tool-specific Logic -->
+
+    <style>
+        .range-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 18px; height: 18px; background: #3b82f6; cursor: pointer; border-radius: 50%; border: 3px solid white; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+        .bmi-indicator { transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">BMI कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी ऊंचाई के सापेक्ष अपने शरीर के वजन का त्वरित मूल्यांकन करें। सटीक, विश्वसनीय BMI परिणाम और व्यक्तिगत स्वास्थ्य वर्गीकरण प्राप्त करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Input (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1 bg-slate-100 dark:bg-slate-900/50 rounded-2xl">
+                            <button id="unit-metric" class="flex-1 py-2 text-sm font-bold rounded-xl transition-all bg-white dark:bg-slate-800 shadow-sm text-blue-600 dark:text-blue-400">मीट्रिक (cm/kg)</button>
+                            <button id="unit-imperial" class="flex-1 py-2 text-sm font-bold rounded-xl transition-all text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">इम्पीरियल (in/lb)</button>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Gender selection -->
+                            <div class="space-y-3">
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">लिंग</label>
+                                <div class="flex gap-4">
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="male" checked class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">पुरुष</div>
+                                    </label>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="female" class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">महिला</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Height -->
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">ऊंचाई</label>
+                                    <span id="height-display" class="text-xl font-bold text-blue-600 dark:text-blue-400">170 <span class="text-sm font-normal text-slate-400">cm</span></span>
+                                </div>
+                                <input type="range" id="height-range" min="100" max="250" value="170" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer range-slider">
+                                <div id="imperial-height-inputs" class="hidden grid grid-cols-2 gap-4 mt-2">
+                                    <div class="relative">
+                                        <input type="number" id="height-ft" placeholder="ft" class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent focus:border-blue-500/20 rounded-xl px-4 py-3 outline-none transition-all font-bold">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">FT</span>
+                                    </div>
+                                    <div class="relative">
+                                        <input type="number" id="height-in" placeholder="in" class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent focus:border-blue-500/20 rounded-xl px-4 py-3 outline-none transition-all font-bold">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">IN</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Weight -->
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">वजन</label>
+                                    <span id="weight-display" class="text-xl font-bold text-blue-600 dark:text-blue-400">70 <span class="text-sm font-normal text-slate-400">kg</span></span>
+                                </div>
+                                <input type="range" id="weight-range" min="30" max="200" value="70" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer range-slider">
+                                <div id="imperial-weight-input" class="hidden mt-2">
+                                    <div class="relative">
+                                        <input type="number" id="weight-lb" placeholder="lb" class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent focus:border-blue-500/20 rounded-xl px-4 py-3 outline-none transition-all font-bold">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">LB</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Age -->
+                            <div class="space-y-3">
+                                <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">उम्र</label>
+                                <div class="relative">
+                                    <input type="number" id="age-input" value="25" class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent focus:border-blue-500/20 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg">
+                                    <span class="absolute right-6 top-1/2 -translate-y-1/2 text-sm font-bold text-slate-400 uppercase">साल</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">गणना परिणाम</label>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-10">
+                            <!-- Circular Result Gauge -->
+                            <div class="relative flex items-center justify-center">
+                                <svg class="w-64 h-64 transform -rotate-90">
+                                    <circle cx="128" cy="128" r="110" stroke-width="20" stroke="currentColor" fill="transparent" class="text-slate-100 dark:text-slate-900/50" />
+                                    <circle id="bmi-progress" cx="128" cy="128" r="110" stroke-width="20" stroke-dasharray="691" stroke-dashoffset="691" stroke-linecap="round" stroke="currentColor" fill="transparent" class="text-blue-500 transition-all duration-1000 ease-out" />
+                                </svg>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                    <div id="bmi-score" class="text-6xl font-black text-slate-900 dark:text-white leading-none">24.2</div>
+                                    <div class="text-sm font-bold text-slate-400 uppercase mt-2 tracking-widest">आपका BMI</div>
+                                </div>
+                            </div>
+
+                            <div id="bmi-category-badge" class="px-8 py-3 rounded-2xl font-bold text-lg transition-all duration-500 scale-100">
+                                सामान्य वजन
+                            </div>
+
+                            <div class="w-full space-y-6">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                    <h3 class="font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        स्वास्थ्य अंतर्दृष्टि
+                                    </h3>
+                                    <p id="health-insight" class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        आप अपनी ऊंचाई के लिए स्वस्थ वजन सीमा में हैं। स्वस्थ सीमा बनाए रखने के लिए संतुलित आहार और नियमित शारीरिक गतिविधि बनाए रखें।
+                                    </p>
+                                </div>
+
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-slate-900/30 text-center">
+                                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">स्वस्थ सीमा</div>
+                                        <div class="text-sm font-bold text-slate-700 dark:text-slate-300">18.5 - 24.9</div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl bg-slate-100/50 dark:bg-slate-900/30 text-center">
+                                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">आदर्श वजन</div>
+                                        <div id="ideal-weight-val" class="text-sm font-bold text-slate-700 dark:text-slate-300">53.5 - 72.0 kg</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अपना BMI कैलकुलेट कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">1</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">यूनिट चुनें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">मीट्रिक (kg/cm) या इम्पीरियल (lb/in) प्रणाली के बीच चयन करें।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">2</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">विवरण दर्ज करें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">उच्च सटीकता के लिए अपना लिंग, ऊंचाई, वजन और उम्र दर्ज करें।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">3</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">गेज की समीक्षा करें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">WHO-मानक रंग-कोडित गेज पर आप कहाँ आते हैं, यह देखें।</p>
+                        </div>
+                        <div class="relative p-6 rounded-3xl bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-xl shadow-lg shadow-blue-500/30">4</div>
+                            <h3 class="font-bold text-slate-900 dark:text-white mt-4 mb-2">सलाह पढ़ें</h3>
+                            <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">अपने वर्तमान वर्गीकरण और आदर्श सीमा पर व्यक्तिगत प्रतिक्रिया पढ़ें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: WHO Categories -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 max-w-3xl">
+                        <h2 class="text-3xl font-bold mb-6 italic tracking-tight">BMI श्रेणियों को समझना</h2>
+                        <p class="text-lg text-blue-50 leading-relaxed mb-10">
+                            बॉडी मास इंडेक्स (BMI) वजन की समस्याओं की पहचान करने के लिए इस्तेमाल किया जाने वाला एक स्क्रीनिंग टूल है। हालांकि यह शरीर की चर्बी को सीधे नहीं मापता, यह शरीर की चर्बी के प्रत्यक्ष उपायों से अच्छी तरह सहसंबद्ध है।
+                        </p>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                                <div class="text-xs font-bold text-blue-200 uppercase mb-1">कम वजन</div>
+                                <div class="font-bold">< 18.5</div>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                                <div class="text-xs font-bold text-blue-200 uppercase mb-1">सामान्य</div>
+                                <div class="font-bold">18.5 – 24.9</div>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                                <div class="text-xs font-bold text-blue-200 uppercase mb-1">अधिक वजन</div>
+                                <div class="font-bold">25.0 – 29.9</div>
+                            </div>
+                            <div class="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/20">
+                                <div class="text-xs font-bold text-blue-200 uppercase mb-1">मोटापा</div>
+                                <div class="font-bold">30.0 +</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">आपके बेहतर स्वास्थ्य के लिए विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">रीयल-टाइम कैलकुलेशन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">कैलकुलेट बटन पर क्लिक करने की कोई आवश्यकता नहीं। जैसे ही आप स्लाइडर एडजस्ट करते हैं या वैल्यू टाइप करते हैं, हमारा इंजन आपके BMI और अंतर्दृष्टि को तुरंत अपडेट करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">WHO मानक</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">हम वर्गीकरण के लिए विश्व स्वास्थ्य संगठन के आधिकारिक मानकों का उपयोग करते हैं, यह सुनिश्चित करते हुए कि आपके परिणाम वैश्विक स्वास्थ्य दिशानिर्देशों का पालन करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">आदर्श वजन मार्गदर्शन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">केवल एक स्कोर से अधिक, हम आपकी विशिष्ट ऊंचाई के आधार पर आपके आदर्श वजन सीमा की गणना करते हैं, जिससे आपको यथार्थवादी स्वास्थ्य लक्ष्य निर्धारित करने में मदद मिलती है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/20 border border-transparent hover:border-blue-500/20 transition-all group">
+                            <div class="flex-shrink-0 w-12 h-12 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">यूनिट लचीलापन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed">मीट्रिक और इम्पीरियल प्रणालियों के बीच आसानी से स्विच करें। हम सभी रूपांतरणों को पृष्ठभूमि में संभालते हैं, एक सहज अनुभव के लिए।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">BMI क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                बॉडी मास इंडेक्स (BMI) व्यक्ति के वजन को किलोग्राम में उसके ऊंचाई के मीटर में वर्ग से विभाजित करके प्राप्त किया जाता है। यह वजन श्रेणी-कम वजन, स्वस्थ वजन, अधिक वजन और मोटापा के लिए एक सस्ता और आसान स्क्रीनिंग विधि है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">क्या BMI हर किसी के लिए सटीक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                BMI एक सामान्य संकेतक है और एथलीटों या उच्च मांसपेशी द्रव्यमान वाले व्यक्तियों के लिए सटीक नहीं हो सकता, क्योंकि मांसपेशी वसा से अधिक वजनदार होती है। यह बुजुर्गों या गर्भवती महिलाओं में शरीर की चर्बी को भी सटीक रूप से प्रतिबिंबित नहीं कर सकता।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">मुझे अपना BMI कितनी बार जांचना चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                अधिकांश वयस्कों के लिए मासिक रूप से अपना BMI जांचना और समय के साथ अपने वजन के रुझानों को ट्रैक करने के लिए अपने नियमित स्वास्थ्य जांच के हिस्से के रूप में पर्याप्त है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === BMI Calculator Logic ===
+        const unitMetric = document.getElementById('unit-metric');
+        const unitImperial = document.getElementById('unit-imperial');
+        const heightRange = document.getElementById('height-range');
+        const weightRange = document.getElementById('weight-range');
+        const heightDisplay = document.getElementById('height-display');
+        const weightDisplay = document.getElementById('weight-display');
+        const heightFt = document.getElementById('height-ft');
+        const heightIn = document.getElementById('height-in');
+        const weightLb = document.getElementById('weight-lb');
+        const ageInput = document.getElementById('age-input');
+        const imperialHeightInputs = document.getElementById('imperial-height-inputs');
+        const imperialWeightInput = document.getElementById('imperial-weight-input');
+        const bmiScoreDisplay = document.getElementById('bmi-score');
+        const bmiProgress = document.getElementById('bmi-progress');
+        const bmiCategoryBadge = document.getElementById('bmi-category-badge');
+        const healthInsight = document.getElementById('health-insight');
+        const idealWeightVal = document.getElementById('ideal-weight-val');
+
+        let isMetric = true;
+
+        function updateUnits() {
+            if (isMetric) {
+                unitMetric.classList.add('bg-white', 'dark:bg-slate-800', 'shadow-sm', 'text-blue-600', 'dark:text-blue-400');
+                unitMetric.classList.remove('text-slate-500');
+                unitImperial.classList.remove('bg-white', 'dark:bg-slate-800', 'shadow-sm', 'text-blue-600', 'dark:text-blue-400');
+                unitImperial.classList.add('text-slate-500');
+                heightRange.classList.remove('hidden');
+                weightRange.classList.remove('hidden');
+                imperialHeightInputs.classList.add('hidden');
+                imperialWeightInput.classList.add('hidden');
+            } else {
+                unitImperial.classList.add('bg-white', 'dark:bg-slate-800', 'shadow-sm', 'text-blue-600', 'dark:text-blue-400');
+                unitImperial.classList.remove('text-slate-500');
+                unitMetric.classList.remove('bg-white', 'dark:bg-slate-800', 'shadow-sm', 'text-blue-600', 'dark:text-blue-400');
+                unitMetric.classList.add('text-slate-500');
+                heightRange.classList.add('hidden');
+                weightRange.classList.add('hidden');
+                imperialHeightInputs.classList.remove('hidden');
+                imperialWeightInput.classList.remove('hidden');
+
+                // Set initial values for imperial
+                const cm = parseInt(heightRange.value);
+                const kg = parseInt(weightRange.value);
+                const totalInches = cm / 2.54;
+                heightFt.value = Math.floor(totalInches / 12);
+                heightIn.value = Math.round(totalInches % 12);
+                weightLb.value = Math.round(kg * 2.20462);
+            }
+            calculateBMI();
+        }
+
+        unitMetric.addEventListener('click', () => { isMetric = true; updateUnits(); });
+        unitImperial.addEventListener('click', () => { isMetric = false; updateUnits(); });
+
+        function calculateBMI() {
+            let heightCm, weightKg;
+
+            if (isMetric) {
+                heightCm = parseInt(heightRange.value);
+                weightKg = parseInt(weightRange.value);
+                heightDisplay.innerHTML = `${heightCm} <span class="text-sm font-normal text-slate-400">cm</span>`;
+                weightDisplay.innerHTML = `${weightKg} <span class="text-sm font-normal text-slate-400">kg</span>`;
+            } else {
+                const ft = parseInt(heightFt.value) || 0;
+                const inches = parseInt(heightIn.value) || 0;
+                const totalInches = (ft * 12) + inches;
+                heightCm = totalInches * 2.54;
+                weightKg = (parseInt(weightLb.value) || 0) / 2.20462;
+                heightDisplay.innerHTML = `${ft}'${inches}" <span class="text-sm font-normal text-slate-400">in</span>`;
+                weightDisplay.innerHTML = `${weightLb.value || 0} <span class="text-sm font-normal text-slate-400">lb</span>`;
+            }
+
+            if (heightCm > 0 && weightKg > 0) {
+                const heightM = heightCm / 100;
+                const bmi = weightKg / (heightM * heightM);
+                const bmiFixed = bmi.toFixed(1);
+
+                bmiScoreDisplay.textContent = bmiFixed;
+                updateVisuals(bmi);
+                updateIdealWeight(heightM);
+            }
+        }
+
+        function updateVisuals(bmi) {
+            // Gauge logic: 691 is circumference (2 * PI * 110)
+            // Range 15 (min) to 40 (max)
+            const minBmi = 10;
+            const maxBmi = 45;
+            const percentage = Math.min(Math.max((bmi - minBmi) / (maxBmi - minBmi), 0), 1);
+            const offset = 691 - (691 * percentage);
+            bmiProgress.style.strokeDashoffset = offset;
+
+            let category = "";
+            let colorClass = "";
+            let insight = "";
+
+            if (bmi < 18.5) {
+                category = "कम वजन";
+                colorClass = "bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400";
+                insight = "आपका BMI कम वजन श्रेणी में सुझाव देता है। संतुलित पोषण योजना पर चर्चा करने के लिए स्वास्थ्य देखभाल पेशेवर से परामर्श करने पर विचार करें।";
+                bmiProgress.style.stroke = "#3b82f6"; // Blue
+            } else if (bmi >= 18.5 && bmi <= 24.9) {
+                category = "सामान्य वजन";
+                colorClass = "bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400";
+                insight = "अच्छी खबर! आप अपनी ऊंचाई के लिए स्वस्थ वजन सीमा में हैं। आहार और व्यायाम का संतुलित जीवनशैली बनाए रखें।";
+                bmiProgress.style.stroke = "#22c55e"; // Green
+            } else if (bmi >= 25 && bmi <= 29.9) {
+                category = "अधिक वजन";
+                colorClass = "bg-orange-100 text-orange-600 dark:bg-orange-900/30 dark:text-orange-400";
+                insight = "आपका BMI अधिक वजन श्रेणी में है। अपने आहार और दैनिक गतिविधि में छोटे, निरंतर बदलाव आपको स्वस्थ सीमा तक पहुंचा सकते हैं।";
+                bmiProgress.style.stroke = "#f97316"; // Orange
+            } else {
+                category = "मोटापा";
+                colorClass = "bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400";
+                insight = "आपका BMI मोटापा श्रेणी में है। हम आपके स्वास्थ्य लक्ष्यों की ओर टिकाऊ मार्ग खोजने के लिए स्वास्थ्य सेवा प्रदाता से बात करने की सलाह देते हैं।";
+                bmiProgress.style.stroke = "#ef4444"; // Red
+            }
+
+            bmiCategoryBadge.textContent = category;
+            bmiCategoryBadge.className = `px-8 py-3 rounded-2xl font-bold text-lg transition-all duration-500 ${colorClass}`;
+            healthInsight.textContent = insight;
+        }
+
+        function updateIdealWeight(heightM) {
+            const minKg = (18.5 * heightM * heightM).toFixed(1);
+            const maxKg = (24.9 * heightM * heightM).toFixed(1);
+
+            if (isMetric) {
+                idealWeightVal.textContent = `${minKg} - ${maxKg} kg`;
+            } else {
+                const minLb = (minKg * 2.20462).toFixed(1);
+                const maxLb = (maxKg * 2.20462).toFixed(1);
+                idealWeightVal.textContent = `${minLb} - ${maxLb} lb`;
+            }
+        }
+
+        heightRange.addEventListener('input', calculateBMI);
+        weightRange.addEventListener('input', calculateBMI);
+        heightFt.addEventListener('input', calculateBMI);
+        heightIn.addEventListener('input', calculateBMI);
+        weightLb.addEventListener('input', calculateBMI);
+        ageInput.addEventListener('input', calculateBMI);
+        document.querySelectorAll('input[name="gender"]').forEach(radio => radio.addEventListener('change', calculateBMI));
+
+        // Initialize
+        calculateBMI();
+
+    </script>
+</body>
+</html>

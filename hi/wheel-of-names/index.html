@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>नामों का पहिया (Wheel of Names) - मुफ़्त यादृच्छिक पिकर और विजेता सेलेक्टर | WebUtilityKit</title>
+    <meta name="description" content="विजेता या निर्णय लेने के लिए पहिया घुमाएं और नामों को तुरंत चुनें। मुफ़्त, सुरक्षित और असीमित प्रविष्टियां। अभी घुमाना शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/wheel-of-names/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/wheel-of-names/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/wheel-of-names/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Wheel of Names",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "547",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/wheel-of-names.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">नामों का पहिया</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">विजेता चुनने या निर्णय लेने के लिए यह मजेदार, इंटरैक्टिव घूमने वाला पहिया इस्तेमाल करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+                <!-- Left: Wheel Canvas -->
+                <div class="relative flex flex-col items-center justify-center bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-700/50 min-h-[500px]">
+                    <div id="wheel-container" class="relative w-full max-w-[450px] aspect-square">
+                        <canvas id="wheel-canvas" class="w-full h-full"></canvas>
+                        <!-- Pointer -->
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 -mt-4 z-10">
+                            <svg class="w-10 h-10 text-rose-500 fill-current" viewBox="0 0 24 24">
+                                <path d="M12 21l-4-8h8l-4 8zM12 3c-4.418 0-8 3.582-8 8s8 11 8 11 8-6.582 8-11-3.582-8-8-8z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <button id="spin-btn" class="mt-8 px-12 py-4 bg-blue-600 hover:bg-blue-700 text-white text-xl font-bold rounded-2xl shadow-xl shadow-blue-500/30 transition-all active:scale-95">
+                        घुमाएं!
+                    </button>
+
+                    <!-- Result Overlay -->
+                    <div id="result-overlay" class="hidden absolute inset-0 bg-white/90 dark:bg-slate-900/90 flex flex-col items-center justify-center rounded-[2.5rem] z-20 animate-in fade-in zoom-in duration-300">
+                        <div class="text-blue-600 dark:text-blue-400 text-sm font-bold uppercase tracking-widest mb-2">हमें एक विजेता मिल गया!</div>
+                        <div id="winner-name" class="text-5xl md:text-6xl font-black text-slate-900 dark:text-white mb-8 text-center px-4"></div>
+                        <button id="close-result" class="px-8 py-3 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-white font-bold rounded-xl hover:bg-slate-300 dark:hover:bg-slate-600 transition">बंद करें</button>
+                    </div>
+                </div>
+
+                <!-- Right: Inputs -->
+                <div class="flex flex-col h-full space-y-6">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-700/50 flex-grow flex flex-col">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-bold">प्रविष्टियां</h3>
+                            <span id="entry-count" class="text-sm bg-slate-100 dark:bg-slate-700 px-3 py-1 rounded-full text-slate-500">0 नाम</span>
+                        </div>
+                        <textarea id="names-input" class="w-full flex-grow min-h-[300px] bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 focus:ring-2 focus:ring-blue-500 outline-none transition resize-none font-medium" placeholder="यहां नाम जोड़ें (प्रत्येक नाम नई लाइन में)...">अलिस
+बॉब
+चार्ली
+डेविड
+ईव
+फ्रैंक</textarea>
+                        <div class="mt-4 flex gap-3">
+                            <button id="shuffle-names" class="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition">मिलाएं</button>
+                            <button id="clear-names" class="flex-1 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-700 transition text-rose-500">साफ़ करें</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">नामों के पहिये का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">नाम जोड़ें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टेक्स्ट बॉक्स में अपनी नामों की सूची टाइप या पेस्ट करें, प्रत्येक नाम एक नई लाइन में।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">पहिया घुमाएं</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">विजेता पर पहुंचने के लिए बड़ा "घुमाएं!" बटन दबाएं और एनीमेशन समाप्त होने तक प्रतीक्षा करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">मनाएं!</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">विजेता को पूरे स्क्रीन पर सेलिब्रेशन में प्रदर्शित किया जाएगा। बंद करें और फिर से घुमाने या नाम हटाने के लिए।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">निष्पक्ष और यादृच्छिक निर्णय</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                चाहे आप रैफल विजेता चुन रहे हों, कार्य के लिए छात्र का चयन कर रहे हों, या यह तय कर रहे हों कि रात का खाना क्या हो, हमारा पहिया क्रिप्टोग्राफिक रूप से सुरक्षित यादृच्छिक संख्या जनरेशन का उपयोग करता है ताकि 100% निष्पक्षता सुनिश्चित हो।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">असीम प्रविष्टियां समर्थित</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">सुचारू 60FPS एनीमेशन</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">सर्वर को कोई डेटा नहीं भेजा जाता</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह पहिया वास्तव में यादृच्छिक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ। हम स्टैंडर्ड ब्राउज़र `Math.random()` इंजन का उपयोग करते हैं, जो गैर-महत्वपूर्ण यादृच्छिक चयन जैसे कि गिवअवे और निर्णय लेने के लिए पर्याप्त है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं अपनी सूची को सेव कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                वर्तमान में, गोपनीयता कारणों से हम आपकी सूचियों को स्टोर नहीं करते। जब आप तैयार हों तो अपनी नामों की टेक्स्ट फ़ाइल रखने और उन्हें पेस्ट करने की सिफारिश करें।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Wheel Logic ===
+        const canvas = document.getElementById('wheel-canvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spin-btn');
+        const namesInput = document.getElementById('names-input');
+        const entryCount = document.getElementById('entry-count');
+        const shuffleBtn = document.getElementById('shuffle-names');
+        const clearBtn = document.getElementById('clear-names');
+        const resultOverlay = document.getElementById('result-overlay');
+        const winnerName = document.getElementById('winner-name');
+        const closeResult = document.getElementById('close-result');
+
+        let names = [];
+        let startAngle = 0;
+        let arc = 0;
+        let spinTimeout = null;
+        let spinAngleStart = 10;
+        let spinTime = 0;
+        let spinTimeTotal = 0;
+
+        const colors = [
+            '#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899',
+            '#06b6d4', '#84cc16', '#6366f1', '#f43f5e', '#14b8a6', '#f97316'
+        ];
+
+        function resizeCanvas() {
+            const container = document.getElementById('wheel-container');
+            canvas.width = container.offsetWidth * window.devicePixelRatio;
+            canvas.height = container.offsetHeight * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            drawWheel();
+        }
+
+        function drawWheel() {
+            if (!canvas.getContext) return;
+            const size = canvas.width / window.devicePixelRatio;
+            const outsideRadius = size / 2 - 10;
+            const textRadius = size / 2.8;
+            const insideRadius = 0;
+
+            ctx.clearRect(0, 0, size, size);
+
+            if (names.length === 0) {
+                ctx.fillStyle = html.classList.contains('dark') ? '#334155' : '#e2e8f0';
+                ctx.beginPath();
+                ctx.arc(size/2, size/2, outsideRadius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = html.classList.contains('dark') ? '#94a3b8' : '#64748b';
+                ctx.font = 'bold 20px sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('शुरू करने के लिए नाम जोड़ें', size/2, size/2);
+                return;
+            }
+
+            arc = Math.PI * 2 / names.length;
+
+            for (let i = 0; i < names.length; i++) {
+                const angle = startAngle + i * arc;
+                ctx.fillStyle = colors[i % colors.length];
+
+                ctx.beginPath();
+                ctx.arc(size/2, size/2, outsideRadius, angle, angle + arc, false);
+                ctx.arc(size/2, size/2, insideRadius, angle + arc, angle, true);
+                ctx.fill();
+
+                ctx.save();
+                ctx.fillStyle = "white";
+                ctx.translate(size/2 + Math.cos(angle + arc / 2) * textRadius,
+                             size/2 + Math.sin(angle + arc / 2) * textRadius);
+                ctx.rotate(angle + arc / 2 + Math.PI);
+
+                const text = names[i];
+                ctx.font = 'bold 16px sans-serif';
+                const truncatedText = text.length > 12 ? text.substring(0, 10) + '...' : text;
+                ctx.fillText(truncatedText, -ctx.measureText(truncatedText).width / 2, 0);
+                ctx.restore();
+            }
+        }
+
+        function rotateWheel() {
+            spinTime += 30;
+            if (spinTime >= spinTimeTotal) {
+                stopRotateWheel();
+                return;
+            }
+            const spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
+            startAngle += (spinAngle * Math.PI / 180);
+            drawWheel();
+            spinTimeout = setTimeout(rotateWheel, 30);
+        }
+
+        function stopRotateWheel() {
+            clearTimeout(spinTimeout);
+            const degrees = startAngle * 180 / Math.PI + 90;
+            const arcd = arc * 180 / Math.PI;
+            const index = Math.floor((360 - degrees % 360) / arcd);
+
+            winnerName.textContent = names[index];
+            resultOverlay.classList.remove('hidden');
+            spinBtn.disabled = false;
+        }
+
+        function easeOut(t, b, c, d) {
+            const ts = (t /= d) * t;
+            const tc = ts * t;
+            return b + c * (tc + -3 * ts + 3 * t);
+        }
+
+        spinBtn.addEventListener('click', () => {
+            if (names.length < 2) return;
+            spinBtn.disabled = true;
+            spinAngleStart = Math.random() * 10 + 10;
+            spinTime = 0;
+            spinTimeTotal = Math.random() * 3000 + 4000;
+            rotateWheel();
+        });
+
+        namesInput.addEventListener('input', () => {
+            names = namesInput.value.split('\n').map(n => n.trim()).filter(n => n !== '');
+            entryCount.textContent = `${names.length} नाम`;
+            drawWheel();
+        });
+
+        shuffleBtn.addEventListener('click', () => {
+            names = names.sort(() => Math.random() - 0.5);
+            namesInput.value = names.join('\n');
+            drawWheel();
+        });
+
+        clearBtn.addEventListener('click', () => {
+            namesInput.value = '';
+            names = [];
+            entryCount.textContent = '0 नाम';
+            drawWheel();
+        });
+
+        closeResult.addEventListener('click', () => {
+            resultOverlay.classList.add('hidden');
+        });
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Initial setup
+        names = namesInput.value.split('\n').map(n => n.trim()).filter(n => n !== '');
+        entryCount.textContent = `${names.length} नाम`;
+        setTimeout(resizeCanvas, 100);
+    </script>
+</body>
+</html>

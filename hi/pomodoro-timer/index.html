@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodoro Timer (पोमोडोरो टाइमर) - फोकस और उत्पादकता टूल | WebUtilityKit</title>
+    <meta name="description" content="मास्टर डीप वर्क Pomodoro Timer के साथ। 25-मिनट फोकस सेशन, बिल्ट-इन टास्क मैनेजर, और सेशन ट्रैकिंग। 100% प्राइवेट, कोई साइनअप नहीं। अभी शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/pomodoro-timer/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/pomodoro-timer/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/pomodoro-timer/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Pomodoro Timer",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "891",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, Task management, Session tracking, Dark mode, Audio alerts",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/pomodoro-timer.jpg"
+    }
+    </script>
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Pomodoro Timer</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने फोकस को मास्टर करें गहरी कार्य चक्रों के साथ। न्यूनतावादी के लिए डिजाइन किया गया जो समय और गोपनीयता पर मूल्य देते हैं।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: The Timer (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-10 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50 flex flex-col items-center justify-center">
+
+                        <!-- Mode Toggle -->
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] w-full max-w-sm border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="mode-work" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400">कार्य</button>
+                            <button id="mode-short" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">छोटा ब्रेक</button>
+                            <button id="mode-long" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">लंबा ब्रेक</button>
+                        </div>
+
+                        <!-- Main Display -->
+                        <div class="relative flex items-center justify-center">
+                            <svg class="w-72 h-72 md:w-80 md:h-80">
+                                <circle class="text-slate-100 dark:text-slate-900/50" stroke-width="8" stroke="currentColor" fill="transparent" r="140" cx="50%" cy="50%"/>
+                                <circle id="progress-circle" class="progress-ring__circle text-blue-600 dark:text-blue-400" stroke-width="8" stroke-dasharray="880" stroke-dashoffset="0" stroke-linecap="round" stroke="currentColor" fill="transparent" r="140" cx="50%" cy="50%"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center text-center">
+                                <div id="time-display" class="text-7xl md:text-8xl font-black text-slate-900 dark:text-white leading-none tracking-tighter tabular-nums">25:00</div>
+                                <div id="mode-status" class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mt-4">गहरी कार्य</div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="flex gap-6 w-full max-w-sm">
+                            <button id="pomo-start-pause" class="flex-[2] bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-[2rem] shadow-xl shadow-blue-500/20 flex items-center justify-center gap-3 text-xl transition-all active:scale-95">
+                                <svg id="play-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                                <svg id="pause-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+                                <span id="btn-text">फोकस शुरू करें</span>
+                            </button>
+                            <button id="pomo-reset" class="flex-1 bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold rounded-[2rem] flex items-center justify-center transition-all hover:bg-slate-200 dark:hover:bg-slate-800 active:scale-95">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Tasks & Stats (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col gap-8">
+                    <!-- Task Management -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50 flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-6">
+                            <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">फोकस कार्य</label>
+                            <span id="task-count" class="text-xs font-bold text-blue-500 bg-blue-50 dark:bg-blue-900/20 px-2 py-1 rounded-lg">0 कार्य</span>
+                        </div>
+
+                        <div class="relative group mb-6">
+                            <input type="text" id="task-input" placeholder="आप क्या काम कर रहे हैं?" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-4 py-3 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pr-14">
+                            <button id="add-task" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-blue-600 text-white rounded-xl flex items-center justify-center hover:bg-blue-700 transition-colors shadow-lg shadow-blue-500/20">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </button>
+                        </div>
+
+                        <div id="task-list" class="space-y-3 flex-grow overflow-y-auto max-h-[300px] pr-2 custom-scrollbar">
+                            <!-- Tasks appear here -->
+                            <div id="task-empty" class="text-center py-12 text-slate-400 italic text-sm">
+                                इस सेशन के लिए कोई कार्य नहीं जोड़ा गया
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-6">आज की प्रगति</label>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-tighter">पूर्ण सेशन</div>
+                                <div id="stat-sessions" class="text-3xl font-black text-blue-600 dark:text-blue-400">0</div>
+                            </div>
+                            <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-tighter">फोकस समय (मिनट)</div>
+                                <div id="stat-time" class="text-3xl font-black text-green-600 dark:text-green-400">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">अपने प्रवाह को मास्टर करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कार्य निर्धारित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">बड़े प्रोजेक्ट्स को छोटे कार्यों में तोड़कर कार्य सूची में जोड़ें। फोकस की कुंजी है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">25 मिनट फोकस करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टाइमर समाप्त होने तक गहरी कार्य में व्यस्त रहें। कोई ईमेल, कोई सोशल मीडिया—बस कार्य।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">विश्राम करें और दोहराएं</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">चार कार्य सेशन के बाद लंबे 15-मिनट ब्रेक से खुद को पुरस्कृत करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it works -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">गहरी फोकस की विज्ञान</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                Pomodoro Technique को 1980 के दशक के अंत में Francesco Cirillo द्वारा विकसित किया गया था। समय पर टाइमर का उपयोग करके काम को अंतरालों में तोड़ने से—परंपरागत रूप से 25 मिनट लंबाई में—आपका दिमाग अधिक प्रभावी ढंग से फोकस करने के लिए प्रशिक्षित होता है और बर्नआउट के लक्षणों से लड़ता है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">प्रभाव</div>
+                                    <div class="font-bold">उच्च गुणवत्ता वाला कार्य</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">लाभ</div>
+                                    <div class="font-bold">कम मानसिक थकान</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">विकर्षण-मुक्त कार्य के लिए इंजीनियर्ड</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">एकीकृत कार्य</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">बस घड़ी देखने से मत रुकें। इस टूल के भीतर अपनी प्रगति को सीधे ट्रैक करें। पूर्ण कार्य और सेशन स्वचालित रूप से आपकी दैनिक लक्ष्य के लिए गणना किए जाते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट ध्वनि अलर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारा अलार्म सिंथेटाइज्ड वेब ऑडियो बीप का उपयोग करता है। यह बड़े MP3 फाइलों को लोड किए बिना तुरंत काम करता है और ऑफलाइन मोड में भी कार्यात्मक रहता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">जीरो-सर्वर पॉलिसी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपके फोकस सेशन और कार्य सूचियाँ निजी हैं। हम अपने सर्वर पर कुछ भी स्टोर नहीं करते। आपका डेटा आपके ब्राउज़र की स्थानीय मेमोरी में रहता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">उच्च-प्रदर्शन इंजन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अनुकूलित JavaScript सुनिश्चित करता है कि टाइमर आपके टैब स्विच करने या कंप्यूटर के स्लीप होने पर भी मिलीसेकंड तक सटीक बना रहे।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Pomodoro FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">यदि कार्य जल्दी समाप्त हो जाए तो क्या करें?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                यदि टाइमर समाप्त होने से पहले आप समाप्त कर लें, तो Cirillo "ओवरलर्निंग" का सुझाव देते हैं—अपने काम की समीक्षा करें, यह नोट करें कि आपने क्या सीखा, या अंतराल पूरा होने तक कार्य में सुधार करें।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">ब्रेक लेना ठीक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                जबकि लुभावना है, ब्रेक छोड़ना अक्सर दीर्घकालिक थकान का कारण बनता है। तकनीक अगले कार्य अंतराल के लिए दिमाग को ताजा रखने के लिए "विश्राम" अवधि पर निर्भर करती है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Pomodoro Logic ===
+        const MODES = {
+            work: { time: 25 * 60, label: 'गहरी कार्य', status: 'फोकसिंग' },
+            short: { time: 5 * 60, label: 'छोटा ब्रेक', status: 'विश्राम' },
+            long: { time: 15 * 60, label: 'लंबा ब्रेक', status: 'पुनर्प्राप्ति' }
+        };
+
+        let currentMode = 'work';
+        let timeLeft = MODES.work.time;
+        let isRunning = false;
+        let timerInterval = null;
+        let sessionsCompleted = 0;
+        let totalFocusMinutes = 0;
+
+        const timeDisplay = document.getElementById('time-display');
+        const modeStatus = document.getElementById('mode-status');
+        const progressCircle = document.getElementById('progress-circle');
+        const startPauseBtn = document.getElementById('pomo-start-pause');
+        const btnText = document.getElementById('btn-text');
+        const playIcon = document.getElementById('play-icon');
+        const pauseIcon = document.getElementById('pause-icon');
+        const resetBtn = document.getElementById('pomo-reset');
+
+        const modeBtns = {
+            work: document.getElementById('mode-work'),
+            short: document.getElementById('mode-short'),
+            long: document.getElementById('mode-long')
+        };
+
+        const taskInput = document.getElementById('task-input');
+        const addTaskBtn = document.getElementById('add-task');
+        const taskList = document.getElementById('task-list');
+        const taskEmpty = document.getElementById('task-empty');
+        const taskCount = document.getElementById('task-count');
+        const statSessions = document.getElementById('stat-sessions');
+        const statTime = document.getElementById('stat-time');
+
+        const radius = 140;
+        const circumference = 2 * Math.PI * radius;
+
+        function updateDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const timeStr = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            timeDisplay.textContent = timeStr;
+            document.title = `${timeStr} - ${MODES[currentMode].label} | WebUtilityKit`;
+
+            const offset = circumference - (timeLeft / MODES[currentMode].time) * circumference;
+            progressCircle.style.strokeDashoffset = offset;
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            timeLeft = MODES[mode].time;
+            isRunning = false;
+            clearInterval(timerInterval);
+
+            Object.keys(modeBtns).forEach(key => {
+                modeBtns[key].className = `mode-btn ${key === mode ? 'active' : 'inactive'}`;
+            });
+
+            modeStatus.textContent = MODES[mode].label;
+            btnText.textContent = mode === 'work' ? 'फोकस शुरू करें' : 'ब्रेक शुरू करें';
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+
+            updateDisplay();
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                // Pause
+                isRunning = false;
+                clearInterval(timerInterval);
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+                btnText.textContent = 'फिर से शुरू करें';
+            } else {
+                // Start
+                isRunning = true;
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+                btnText.textContent = 'रोकें';
+                
+                timerInterval = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft < 0) {
+                        finishCycle();
+                    }
+                    updateDisplay();
+                }, 1000);
+            }
+        }
+
+        function finishCycle() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            playAlert();
+            
+            if (currentMode === 'work') {
+                sessionsCompleted++;
+                totalFocusMinutes += 25;
+                updateStats();
+                setMode('short');
+            } else {
+                setMode('work');
+            }
+            alert(`${MODES[currentMode].label} चक्र समाप्त!`);
+        }
+
+        function resetTimer() {
+            setMode(currentMode);
+        }
+
+        function updateStats() {
+            statSessions.textContent = sessionsCompleted;
+            statTime.textContent = totalFocusMinutes;
+        }
+
+        function playAlert() {
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(880, ctx.currentTime);
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 1);
+                osc.start();
+                osc.stop(ctx.currentTime + 1);
+            } catch (e) { console.error(e); }
+        }
+
+        // Task Management
+        let tasks = JSON.parse(localStorage.getItem('pomo-tasks') || '[]');
+
+        function saveTasks() {
+            localStorage.setItem('pomo-tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        function renderTasks() {
+            if (tasks.length === 0) {
+                taskEmpty.classList.remove('hidden');
+                taskList.innerHTML = '';
+            } else {
+                taskEmpty.classList.add('hidden');
+                taskList.innerHTML = tasks.map((task, i) => `
+                    <div class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-transparent hover:border-blue-500/10 group transition-all">
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" ${task.done ? 'checked' : ''} onclick="toggleTask(${i})" class="w-5 h-5 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer">
+                            <span class="font-bold text-sm ${task.done ? 'line-through text-slate-400' : 'text-slate-700 dark:text-slate-200'}">${task.text}</span>
+                        </div>
+                        <button onclick="deleteTask(${i})" class="text-slate-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-all">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            taskCount.textContent = `${tasks.length} कार्य${tasks.length === 1 ? '' : ''}`;
+        }
+
+        window.toggleTask = (i) => {
+            tasks[i].done = !tasks[i].done;
+            saveTasks();
+        };
+
+        window.deleteTask = (i) => {
+            tasks.splice(i, 1);
+            saveTasks();
+        };
+
+        addTaskBtn.addEventListener('click', () => {
+            const text = taskInput.value.trim();
+            if (text) {
+                tasks.push({ text, done: false });
+                taskInput.value = '';
+                saveTasks();
+            }
+        });
+
+        taskInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addTaskBtn.click();
+        });
+
+        // Init
+        modeBtns.work.addEventListener('click', () => setMode('work'));
+        modeBtns.short.addEventListener('click', () => setMode('short'));
+        modeBtns.long.addEventListener('click', () => setMode('long'));
+        startPauseBtn.addEventListener('click', toggleTimer);
+        resetBtn.addEventListener('click', resetTimer);
+
+        setMode('work');
+        renderTasks();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>यूनिक्स टाइमस्टैम्प कन्वर्टर (Unix Timestamp Converter) - एपॉक टाइम कन्वर्टर | WebUtilityKit</title>
+    <meta name="description" content="यूनिक्स टाइमस्टैम्प को मानव-पठनीय तारीखों में और इसके विपरीत कन्वर्ट करें। सेकंड और मिलीसेकंड का समर्थन करने वाला रीयल-टाइम एपॉक क्लॉक। 100% निजी और क्लाइंट-साइड।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/unix-timestamp/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/unix-timestamp/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/unix-timestamp/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Unix Timestamp Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "756",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/unix-timestamp.jpg"
+}
+</script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">यूनिक्स टाइमस्टैम्प कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-10">डेवलपर्स के लिए आवश्यक टूल। माइक्रो-सटीकता के साथ यूनिक्स एपॉक समय और मानव-पठनीय तारीखों के बीच कन्वर्ट करें।</p>
+
+            <!-- Hero Live Clock -->
+            <div id="hero-clock" class="mb-12">
+                <div id="current-unix" class="text-6xl md:text-7xl font-black text-blue-600 dark:text-blue-400 tracking-tighter tabular-nums leading-none mb-4 cursor-pointer hover:scale-105 transition-transform" title="कॉपी करने के लिए क्लिक करें">0000000000</div>
+                <div class="flex items-center justify-center gap-3">
+                    <span class="text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em]">वर्तमान यूनिक्स एपॉक</span>
+                    <div id="copy-feedback" class="hidden text-[10px] bg-green-500 text-white px-2 py-0.5 rounded-md animate-bounce">कॉपी हो गया</div>
+                </div>
+            </div>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Convert Unix to Date (6 cols) -->
+                <div class="lg:col-span-6 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">यूनिक्स टाइमस्टैम्प से तारीख</label>
+                                <div class="relative group">
+                                    <input type="text" id="unix-input" placeholder="यूनिक्स टाइमस्टैम्प दर्ज करें..." class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <div class="absolute right-4 top-1/2 -translate-y-1/2 flex gap-2">
+                                        <button id="paste-unix" class="p-2 text-slate-400 hover:text-blue-500 transition-colors" title="क्लिपबोर्ड से पेस्ट करें">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="unit" value="s" checked class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                        <span class="text-xs font-bold text-slate-500 group-hover:text-slate-700">सेकंड (s)</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer group">
+                                        <input type="radio" name="unit" value="ms" class="w-4 h-4 text-blue-600 focus:ring-blue-500">
+                                        <span class="text-xs font-bold text-slate-500 group-hover:text-slate-700">मिलीसेकंड (ms)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div id="unix-results" class="space-y-4 pt-4">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative">
+                                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">स्थानीय समय</label>
+                                    <div id="local-res" class="text-xl font-bold text-slate-800 dark:text-white">---</div>
+                                    <button onclick="copyText('local-res')" class="absolute right-4 bottom-4 p-1.5 hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-all">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    </button>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative">
+                                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">UTC / GMT</label>
+                                    <div id="utc-res" class="text-xl font-bold text-slate-800 dark:text-white">---</div>
+                                    <button onclick="copyText('utc-res')" class="absolute right-4 bottom-4 p-1.5 hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-all">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    </button>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative">
+                                    <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest block mb-2">सापेक्ष समय</label>
+                                    <div id="rel-res" class="text-xl font-bold text-blue-600 dark:text-blue-400">---</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Convert Date to Unix (6 cols) -->
+                <div class="lg:col-span-6 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">तारीख से यूनिक्स टाइमस्टैम्प</label>
+                                <input type="datetime-local" id="date-input" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                <div class="mt-3 flex items-center justify-between">
+                                    <button id="set-now-input" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline uppercase tracking-widest">अभी सेट करें</button>
+                                    <div class="text-[10px] text-slate-400 font-bold uppercase tracking-widest" id="browser-tz">टाइमज़ोन: ---</div>
+                                </div>
+                            </div>
+
+                            <div id="date-results" class="space-y-4 pt-4">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">यूनिक्स सेकंड</label>
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-[10px] font-black uppercase tracking-tighter border border-blue-200/50 dark:border-blue-800/50">सेकंड</span>
+                                    </div>
+                                    <div id="res-s" class="text-3xl font-black text-slate-800 dark:text-white tracking-tight">---</div>
+                                    <button onclick="copyText('res-s')" class="absolute right-4 bottom-4 p-2 bg-slate-100 dark:bg-slate-800 rounded-xl opacity-0 group-hover:opacity-100 transition-all hover:text-blue-500">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    </button>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group border-blue-500/20">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest">यूनिक्स मिलीसेकंड</label>
+                                        <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg text-[10px] font-black uppercase tracking-tighter border border-blue-200/50 dark:border-blue-800/50">ms</span>
+                                    </div>
+                                    <div id="res-ms" class="text-3xl font-black text-blue-600 dark:text-blue-400 tracking-tight">---</div>
+                                    <button onclick="copyText('res-ms')" class="absolute right-4 bottom-4 p-2 bg-slate-100 dark:bg-slate-800 rounded-xl opacity-0 group-hover:opacity-100 transition-all hover:text-blue-500">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">यूनिक्स टाइमस्टैम्प को कैसे कन्वर्ट करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">टाइमस्टैम्प से तारीख</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">बाएँ पैन में कोई भी यूनिक्स टाइमस्टैम्प पेस्ट करें। हम तुरंत स्थानीय समय, UTC और सापेक्ष समय दिखाएँगे (जैसे, "5 घंटे पहले")।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">तारीख से टाइमस्टैम्प</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">दाएँ पैन में ब्राउज़र के मूल पिकर का उपयोग करके कोई भी तारीख और समय चुनें। हम सेकंड और मिलीसेकंड दोनों में एपॉक मूल्य प्रदान करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लाइव एपॉक</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">शीर्ष पर मौजूद हीरो क्लॉक रीयल-टाइम में वर्तमान यूनिक्स टाइमस्टैम्प दिखाता है। वर्तमान एपॉक को तुरंत कॉपी करने के लिए बस इसे क्लिक करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">1970 का ज़ीरो आवर</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                यूनिक्स टाइमस्टैम्प (एपॉक समय) 1 जनवरी, 1970 को 00:00:00 UTC से बीते हुए सेकंड की संख्या है। यह वैश्विक मानक है जिसका उपयोग डेटाबेस और सिस्टम में समय संग्रहीत करने के लिए किया जाता है, जो समय क्षेत्रों से स्वतंत्र है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">एपॉक प्रारंभ</div>
+                                    <div class="font-bold">जनवरी 1, 1970</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">मानक</div>
+                                    <div class="font-bold">POSIX समय</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_20s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Cards -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">डेवलपर उत्पादकता के लिए बनाया गया</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">द्विदिश सटीकता</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">चाहे आप संख्या से शुरू करें या तारीख से, हमारा टूल कोई कॉन्फ़िगरेशन की आवश्यकता के बिना कन्वर्ज़न को संभालता है। सेकंड और मिलीसेकंड के बीच निर्बाध रूप से स्विच करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता प्रथम</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपके टाइमस्टैम्प और तारीखें सर्वर पर कभी नहीं भेजी जातीं। सभी गणना आपके ब्राउज़र में स्थानीय संसाधनों का उपयोग करके की जाती है, जिससे आपका डेटा 100% निजी रहता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">सापेक्ष समय विश्लेषण</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">प्रत्येक कन्वर्ज़न के लिए समय-समय से पहले या बाद में कितना समय बीता है, यह तुरंत देखें। हम हर कन्वर्ज़न के लिए एक मानव-अनुकूल "पहले" स्ट्रिंग प्रदान करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">DST जागरूक</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कन्वर्ज़न स्वचालित रूप से आपके स्थानीय सिस्टम की डेलाइट सेविंग टाइम सेटिंग्स को ध्यान में रखते हैं, आपके ब्राउज़र के लोकल के आधार पर सटीक स्थानीय समय प्रदान करते हैं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">एपॉक FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"Year 2038 Problem" क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                जनवरी 19, 2038 को, 32-बिट साइन किए गए पूर्णांकों के रूप में संग्रहीत यूनिक्स टाइमस्टैम्प ओवरफ्लो हो जाएँगे। आधुनिक सिस्टम ज्यादातर 64-बिट पूर्णांकों में स्थानांतरित हो गए हैं, जो अरबों वर्षों तक भविष्य में तारीखों को संग्रहीत कर सकते हैं, जिससे यह समस्या प्रभावी रूप से हल हो जाती है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">सेकंड बनाम मिलीसेकंड?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                मानक यूनिक्स टाइमस्टैम्प सेकंड में होते हैं (10 अंक)। JavaScript और कई आधुनिक API मिलीसेकंड (13 अंक) का उपयोग करते हैं। हमारा टूल दोनों प्रारूपों का समर्थन करता है और जब संभव हो तो उन्हें स्वचालित रूप से पता लगाता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Unix Converter Logic ===
+        const currentUnixEl = document.getElementById('current-unix');
+        const copyFeedback = document.getElementById('copy-feedback');
+        const unixInput = document.getElementById('unix-input');
+        const dateInput = document.getElementById('date-input');
+        const browserTzEl = document.getElementById('browser-tz');
+        const localRes = document.getElementById('local-res');
+        const utcRes = document.getElementById('utc-res');
+        const relRes = document.getElementById('rel-res');
+        const resS = document.getElementById('res-s');
+        const resMs = document.getElementById('res-ms');
+        const setNowBtn = document.getElementById('set-now-input');
+        const pasteUnixBtn = document.getElementById('paste-unix');
+
+        // Update Hero Clock
+        function updateHero() {
+            const now = Math.floor(Date.now() / 1000);
+            currentUnixEl.textContent = now;
+        }
+        setInterval(updateHero, 1000);
+        updateHero();
+
+        currentUnixEl.addEventListener('click', () => {
+            navigator.clipboard.writeText(currentUnixEl.textContent).then(() => {
+                copyFeedback.classList.remove('hidden');
+                setTimeout(() => copyFeedback.classList.add('hidden'), 2000);
+            });
+        });
+
+        // Init TZ info
+        browserTzEl.textContent = `टाइमज़ोन: ${Intl.DateTimeFormat().resolvedOptions().timeZone}`;
+
+        // Unix to Date logic
+        function convertUnix() {
+            let val = unixInput.value.trim();
+            if (!val) {
+                localRes.textContent = "---";
+                utcRes.textContent = "---";
+                relRes.textContent = "---";
+                return;
+            }
+
+            const unit = document.querySelector('input[name="unit"]:checked').value;
+            let ms = parseInt(val);
+            if (unit === 's') ms *= 1000;
+
+            if (isNaN(ms)) return;
+
+            const date = new Date(ms);
+            if (isNaN(date.getTime())) {
+                localRes.textContent = "अमान्य टाइमस्टैम्प";
+                return;
+            }
+
+            localRes.textContent = date.toString();
+            utcRes.textContent = date.toUTCString();
+            relRes.textContent = timeAgo(date);
+        }
+
+        // Date to Unix logic
+        function convertDate() {
+            const val = dateInput.value;
+            if (!val) {
+                resS.textContent = "---";
+                resMs.textContent = "---";
+                return;
+            }
+
+            const date = new Date(val);
+            const ms = date.getTime();
+            const s = Math.floor(ms / 1000);
+
+            resS.textContent = s.toLocaleString();
+            resMs.textContent = ms.toLocaleString();
+
+            // Allow clicking the numbers themselves to copy the raw value
+            resS.dataset.raw = s;
+            resMs.dataset.raw = ms;
+        }
+
+        function timeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            const interval = Math.floor(Math.abs(seconds) / 31536000);
+            const prefix = seconds > 0 ? "" : "में ";
+            const suffix = seconds > 0 ? " पहले" : "";
+
+            if (interval >= 1) return prefix + interval + " साल" + (interval > 1 ? "" : "") + suffix;
+            const months = Math.floor(Math.abs(seconds) / 2592000);
+            if (months >= 1) return prefix + months + " महीना" + (months > 1 ? "े" : "") + suffix;
+            const days = Math.floor(Math.abs(seconds) / 86400);
+            if (days >= 1) return prefix + days + " दिन" + (days > 1 ? "" : "") + suffix;
+            const hours = Math.floor(Math.abs(seconds) / 3600);
+            if (hours >= 1) return prefix + hours + " घंटा" + (hours > 1 ? "े" : "") + suffix;
+            const minutes = Math.floor(Math.abs(seconds) / 60);
+            if (minutes >= 1) return prefix + minutes + " मिनट" + (minutes > 1 ? "" : "") + suffix;
+            return "अभी";
+        }
+
+        window.copyText = (id) => {
+            const el = document.getElementById(id);
+            const text = el.dataset.raw || el.textContent;
+            navigator.clipboard.writeText(text);
+        };
+
+        function setNowInput() {
+            const now = new Date();
+            const offset = now.getTimezoneOffset() * 60000;
+            const localISOTime = (new Date(now - offset)).toISOString().slice(0, -1);
+            dateInput.value = localISOTime.slice(0, 16);
+            convertDate();
+        }
+
+        unixInput.addEventListener('input', convertUnix);
+        document.querySelectorAll('input[name="unit"]').forEach(r => r.addEventListener('change', convertUnix));
+        dateInput.addEventListener('input', convertDate);
+        setNowBtn.addEventListener('click', setNowInput);
+
+        pasteUnixBtn.addEventListener('click', async () => {
+            const text = await navigator.clipboard.readText();
+            unixInput.value = text;
+            convertUnix();
+        });
+
+        // Init defaults
+        setNowInput();
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ऋण कैलकुलेटर (Loan Calculator) - मुफ्त मॉर्गेज अनुमान | WebUtilityKit</title>
+    <meta name="description" content="मॉर्गेज, कार लोन या व्यक्तिगत ऋण के लिए मासिक भुगतान की तुरंत गणना करें। मुफ्त, सटीक, और पूरी तरह से निजी। कोई साइनअप नहीं। अभी गणना करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/loan-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/loan-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/loan-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Loan Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "823",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/loan-calculator.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">ऋण कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">मॉर्गेज, कार लोन या व्यक्तिगत ऋण के लिए मासिक भुगतान और कुल ब्याज की तुरंत गणना करें।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Configuration (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">ऋण राशि</label>
+                                <div class="relative group">
+                                    <input type="number" id="amount-input" value="300000" min="0" step="1000" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5 pl-12">
+                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">LOAN</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">ब्याज दर (%)</label>
+                                <div class="relative group">
+                                    <input type="number" id="rate-input" value="5.5" min="0" max="100" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">ANNUAL</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">ऋण अवधि</label>
+                                <div class="flex gap-4">
+                                    <div class="relative flex-grow group">
+                                        <input type="number" id="term-input" value="30" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-emerald-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-emerald-500/5">
+                                        <span id="term-unit-badge" class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">YEARS</span>
+                                    </div>
+                                    <div class="flex flex-col p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-2xl border border-slate-200/50 dark:border-slate-800/50">
+                                        <button id="unit-years" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-emerald-600 dark:text-emerald-400">Y</button>
+                                        <button id="unit-months" class="px-4 py-2 text-[10px] font-black rounded-lg transition-all text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 mt-1">M</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-4">
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">तेज़ प्रीसेट</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-amount="30000" data-rate="6.5" data-term="5" data-unit="years">कार लोन (5 साल)</button>
+                                <button class="preset-btn py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-amount="500000" data-rate="5.0" data-term="30" data-unit="years">मॉर्गेज (30 साल)</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-emerald-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-emerald-500/20 relative overflow-hidden text-white">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-emerald-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label class="text-xs font-bold text-emerald-200 uppercase tracking-[0.2em] block mb-12">मासिक भुगतान</label>
+
+                            <div class="flex-grow space-y-12">
+                                <!-- Hero Results -->
+                                <div class="text-center sm:text-left">
+                                    <div class="flex items-baseline gap-2 justify-center sm:justify-start">
+                                        <span class="text-emerald-200 text-3xl font-black italic">$</span>
+                                        <span id="monthly-payment" class="text-8xl font-black tracking-tighter tabular-nums">1,703.37</span>
+                                    </div>
+                                    <div class="mt-4 flex items-center justify-center sm:justify-start gap-2">
+                                        <span class="w-12 h-1 bg-white rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-emerald-200 text-[10px] font-black uppercase mb-1 tracking-widest">कुल ब्याज</div>
+                                        <div id="total-interest" class="text-3xl font-black tracking-tight tabular-nums">$313,213</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-emerald-200 text-[10px] font-black uppercase mb-1 tracking-widest">कुल भुगतान</div>
+                                        <div id="total-payment" class="text-3xl font-black tracking-tight tabular-nums">$613,213</div>
+                                    </div>
+                                </div>
+
+                                <!-- Interest Visualization -->
+                                <div class="w-full space-y-4">
+                                    <div class="flex justify-between text-[10px] font-black uppercase tracking-widest text-emerald-200">
+                                        <span>मूलधन</span>
+                                        <span>ब्याज</span>
+                                    </div>
+                                    <div class="h-4 w-full bg-white/10 rounded-full overflow-hidden flex">
+                                        <div id="principal-bar" class="h-full bg-white transition-all duration-1000" style="width: 50%"></div>
+                                        <div id="interest-bar" class="h-full bg-emerald-400/50 transition-all duration-1000" style="width: 50%"></div>
+                                    </div>
+                                    <div class="flex justify-between text-sm font-bold">
+                                        <span id="principal-percent">49%</span>
+                                        <span id="interest-percent">51%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-emerald-200/80 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>अनुमान निश्चित ब्याज दर के साथ पूरी अवधि के लिए किए गए हैं।</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">अपना ऋण कैसे गणना करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">राशि दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कुल मूलधन राशि दर्ज करें जिसे आप उधार लेना चाहते हैं (जैसे, मॉर्गेज के लिए $300,000)।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">ब्याज और अवधि निर्धारित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">वार्षिक ब्याज दर और ऋण की अवधि वर्षों या महीनों में दर्ज करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">परिणाम देखें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">तुरंत अपना मासिक भुगतान और ऋण की पूरी अवधि में आप कितना कुल ब्याज चुकाएंगे, देखें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Financial Tip -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">ब्याज का प्रभाव</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                30 साल के मॉर्गेज जैसे दीर्घकालिक ऋणों में, ब्याज दर में मात्र 0.5% का अंतर आप हजारों डॉलर बचा या खर्च कर सकता है। विभिन्न परिदृश्यों की तुलना करने और अपने बजट के लिए सबसे उपयुक्त विकल्प खोजने के लिए इस उपकरण का उपयोग करें।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                                    <span class="text-slate-200">कम दर = कम कुल ब्याज</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-emerald-500 rounded-full"></div>
+                                    <span class="text-slate-200">कम अवधि = अधिक मासिक, कम कुल</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-emerald-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-emerald-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">स्पष्टता और गोपनीयता के लिए निर्मित</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तुरंत गणना</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कोई बटन दबाए बिना, हर पैरामीटर बदलने पर परिणाम तुरंत अपडेट होते हैं। सिर्फ तत्काल वित्तीय प्रतिक्रिया।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% सुरक्षित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका वित्तीय डेटा आपके डिवाइस पर रहता है। हम सर्वर अपलोड किए बिना स्थानीय ब्राउज़र प्रोसेसिंग का उपयोग करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">दृश्य विभाजन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारे गतिशील प्रगति बार विज़ुअलाइज़ेशन के साथ मूलधन बनाम ब्याज का अनुपात समझें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">लचीली अवधियाँ</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">वर्षों या महीनों में ऋण की गणना करें। 30 साल के मॉर्गेज और 36 महीने के कार लोन दोनों के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">ऋण संबंधी अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-emerald-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">आप किस फॉर्मूला का उपयोग करते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम मानक एमॉर्टाइज़ेशन फॉर्मूला का उपयोग करते हैं: <strong>M = P [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]</strong>, जहां M मासिक भुगतान है, P मूलधन है, i मासिक ब्याज दर है, और n महीनों की संख्या है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-emerald-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या इसमें टैक्स और इंश्योरेंस शामिल हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                नहीं। यह मूलधन और ब्याज की एक बुनियादी कैलकुलेटर है। इसमें प्रॉपर्टी टैक्स, होमओनर्स इंश्योरेंस, या प्राइवेट मॉर्गेज इंश्योरेंस (PMI) शामिल नहीं है, जो आमतौर पर बैंक के कोट में शामिल होते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Loan Calculator Logic ===
+        const amountInput = document.getElementById('amount-input');
+        const rateInput = document.getElementById('rate-input');
+        const termInput = document.getElementById('term-input');
+        const unitYearsBtn = document.getElementById('unit-years');
+        const unitMonthsBtn = document.getElementById('unit-months');
+        const termUnitBadge = document.getElementById('term-unit-badge');
+
+        const monthlyPaymentEl = document.getElementById('monthly-payment');
+        const totalInterestEl = document.getElementById('total-interest');
+        const totalPaymentEl = document.getElementById('total-payment');
+        const principalBar = document.getElementById('principal-bar');
+        const interestBar = document.getElementById('interest-bar');
+        const principalPercentEl = document.getElementById('principal-percent');
+        const interestPercentEl = document.getElementById('interest-percent');
+
+        let termUnit = 'years';
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            }).format(num);
+        }
+
+        function calculate() {
+            const principal = parseFloat(amountInput.value) || 0;
+            const annualRate = parseFloat(rateInput.value) || 0;
+            const termValue = parseFloat(termInput.value) || 0;
+
+            const monthlyRate = annualRate / 100 / 12;
+            const numberOfMonths = termUnit === 'years' ? termValue * 12 : termValue;
+
+            let monthlyPayment = 0;
+            if (principal > 0 && numberOfMonths > 0) {
+                if (monthlyRate === 0) {
+                    monthlyPayment = principal / numberOfMonths;
+                } else {
+                    const x = Math.pow(1 + monthlyRate, numberOfMonths);
+                    monthlyPayment = (principal * x * monthlyRate) / (x - 1);
+                }
+            }
+
+            const totalPayment = monthlyPayment * numberOfMonths;
+            const totalInterest = totalPayment - principal;
+
+            // Update UI
+            monthlyPaymentEl.textContent = formatCurrency(monthlyPayment);
+            totalInterestEl.textContent = '$' + formatCurrency(Math.max(0, totalInterest)).split('.')[0];
+            totalPaymentEl.textContent = '$' + formatCurrency(totalPayment).split('.')[0];
+
+            // Update Visuals
+            if (totalPayment > 0) {
+                const principalRatio = (principal / totalPayment) * 100;
+                const interestRatio = 100 - principalRatio;
+
+                principalBar.style.width = principalRatio + '%';
+                interestBar.style.width = interestRatio + '%';
+                principalPercentEl.textContent = Math.round(principalRatio) + '%';
+                interestPercentEl.textContent = Math.round(interestRatio) + '%';
+            } else {
+                principalBar.style.width = '50%';
+                interestBar.style.width = '50%';
+                principalPercentEl.textContent = '50%';
+                interestPercentEl.textContent = '50%';
+            }
+        }
+
+        function setTermUnit(unit) {
+            termUnit = unit;
+            if (unit === 'years') {
+                unitYearsBtn.classList.add('active-tab');
+                unitYearsBtn.classList.remove('inactive-tab');
+                unitMonthsBtn.classList.add('inactive-tab');
+                unitMonthsBtn.classList.remove('active-tab');
+                termUnitBadge.textContent = 'YEARS';
+            } else {
+                unitMonthsBtn.classList.add('active-tab');
+                unitMonthsBtn.classList.remove('inactive-tab');
+                unitYearsBtn.classList.add('inactive-tab');
+                unitYearsBtn.classList.remove('active-tab');
+                termUnitBadge.textContent = 'MONTHS';
+            }
+            calculate();
+        }
+
+        amountInput.addEventListener('input', calculate);
+        rateInput.addEventListener('input', calculate);
+        termInput.addEventListener('input', calculate);
+        unitYearsBtn.addEventListener('click', () => setTermUnit('years'));
+        unitMonthsBtn.addEventListener('click', () => setTermUnit('months'));
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                amountInput.value = btn.dataset.amount;
+                rateInput.value = btn.dataset.rate;
+                termInput.value = btn.dataset.term;
+                setTermUnit(btn.dataset.unit);
+            });
+        });
+
+        // Init
+        calculate();
+
+    </script>
+</body>
+</html>

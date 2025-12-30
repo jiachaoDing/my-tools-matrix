@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UUID जनरेटर (UUID Generator) - मुफ्त v4 GUID क्रिएटर ऑनलाइन | WebUtilityKit</title>
+    <meta name="description" content="क्रिप्टोग्राफिक रूप से सुरक्षित UUID v4 आइडेंटिफायर तुरंत जनरेट करें। मुफ्त, असीमित, और ब्राउज़र में स्थानीय रूप से प्रोसेस किया जाता है। कोई अपलोड नहीं। अभी जनरेट करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/uuid-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/uuid-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/uuid-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "UUID Generator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "712",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/uuid-generator.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">UUID/GUID जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">क्रिप्टोग्राफिक रूप से सुरक्षित रैंडम UUID v4 आइडेंटिफायर तुरंत जनरेट करें। सर्वर कॉल नहीं, 100% प्राइवेट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से जनरेट किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800/50 rounded-3xl border border-slate-200 dark:border-slate-700/50 overflow-hidden shadow-xl shadow-slate-200/50 dark:shadow-none">
+                <div class="grid grid-cols-1 lg:grid-cols-12">
+                    <!-- Controls -->
+                    <div class="lg:col-span-4 p-10 border-b lg:border-b-0 lg:border-r border-slate-200 dark:border-slate-700/50 space-y-8">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-900 dark:text-white mb-4 italic">UUIDs की संख्या</label>
+                            <input type="number" id="count" min="1" max="1000" value="1" 
+                                class="w-full p-4 bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-800 rounded-2xl focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition">
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <label class="block text-sm font-bold text-slate-900 dark:text-white mb-2 italic">फॉर्मेटिंग विकल्प</label>
+                            
+                            <div class="grid grid-cols-1 gap-3">
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/30 cursor-pointer group hover:border-blue-200 dark:hover:border-blue-800 transition-all">
+                                    <span class="text-xs font-bold text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition">अपरकेस</span>
+                                    <div class="relative">
+                                        <input type="checkbox" id="uppercase" class="sr-only peer">
+                                        <div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full peer peer-checked:bg-blue-600 transition-colors"></div>
+                                        <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+                                    </div>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/30 cursor-pointer group hover:border-blue-200 dark:hover:border-blue-800 transition-all">
+                                    <span class="text-xs font-bold text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition">हाइफ़न हटाएं</span>
+                                    <div class="relative">
+                                        <input type="checkbox" id="no-hyphens" class="sr-only peer">
+                                        <div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full peer peer-checked:bg-blue-600 transition-colors"></div>
+                                        <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+                                    </div>
+                                </label>
+
+                                <label class="flex items-center justify-between p-3 rounded-xl border border-slate-100 dark:border-slate-700/50 bg-slate-50/50 dark:bg-slate-900/30 cursor-pointer group hover:border-blue-200 dark:hover:border-blue-800 transition-all">
+                                    <span class="text-xs font-bold text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition">{ } ब्रेसेज़ जोड़ें</span>
+                                    <div class="relative">
+                                        <input type="checkbox" id="braces" class="sr-only peer">
+                                        <div class="w-10 h-6 bg-slate-200 dark:bg-slate-700 rounded-full peer peer-checked:bg-blue-600 transition-colors"></div>
+                                        <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-4 shadow-sm"></div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button id="generate-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5 transition active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            नए UUIDs जनरेट करें
+                        </button>
+                    </div>
+
+                    <!-- Result Area -->
+                    <div class="lg:col-span-8 p-8 lg:p-12 flex flex-col gap-6 bg-slate-50/50 dark:bg-slate-900/20">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <h2 class="text-xl font-bold italic tracking-tight text-slate-900 dark:text-white">जनरेट किए गए परिणाम</h2>
+                            <div class="flex items-center gap-2">
+                                <button id="copy-all" class="flex-1 sm:flex-none px-4 py-2.5 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                    सभी कॉपी करें
+                                </button>
+                                <button id="download-txt" class="flex-1 sm:flex-none px-4 py-2.5 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
+                                    <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    डाउनलोड
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex-grow relative group min-h-[450px]">
+                            <div id="output-container" 
+                                class="absolute inset-0 p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-2xl overflow-y-auto shadow-inner grid grid-cols-1 md:grid-cols-2 gap-3 content-start transition-colors"
+                            >
+                                <!-- UUIDs will be injected here -->
+                            </div>
+                            <div class="absolute inset-y-0 right-0 w-1 bg-gradient-to-l from-slate-200/50 to-transparent pointer-events-none rounded-r-2xl"></div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-4 bg-blue-50 dark:bg-blue-900/30 border border-blue-100 dark:border-blue-800/50 rounded-2xl">
+                            <svg class="w-5 h-5 text-blue-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <p class="text-xs text-blue-800 dark:text-blue-300 leading-relaxed">
+                                <strong>सुरक्षित जनरेशन:</strong> ये V4 UUIDs ब्राउज़र के क्रिप्टोग्राफिक रूप से मजबूत <code>crypto.getRandomValues()</code> API का इस्तेमाल करके स्थानीय रूप से जनरेट किए जाते हैं।
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">UUIDs कैसे जनरेट करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">मात्रा चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">एक ही बैच में 1 से 1,000 तक कितने यूनिक UUIDs चाहिए, यह तय करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">विकल्प सेट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपरकेस टॉगल करें, हाइफ़न हटाएं, या उन्हें कर्ली ब्रेसिज़ में रैप करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">तुरंत एक्सपोर्ट</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">क्लिपबोर्ड पर कॉपी करें या एक क्लिक से अपने प्रोजेक्ट के लिए क्लीन टेक्स्ट फाइल डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रोफेशनल UUID फीचर्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">RFC 4122 कम्प्लाइंट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी UUIDs वर्जन 4 स्टैंडर्ड का पालन करके जनरेट किए जाते हैं, जो 122 बिट्स की रैंडोमनेस और स्टैंडर्ड कम्प्लायंस सुनिश्चित करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">हाई एंट्रॉपी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम ब्राउज़र के <code>crypto.randomUUID()</code> या <code>getRandomValues()</code> का इस्तेमाल करते हैं जो क्रिप्टोग्राफिक रूप से मजबूत यूनिकनेस के लिए है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">UUID जनरेटर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">UUID v4 क्या होता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                एक यूनिवर्सली यूनिक आइडेंटिफायर (UUID) वर्जन 4 एक 128-बिट नंबर है जिसका इस्तेमाल कंप्यूटर सिस्टम में जानकारी की पहचान करने के लिए किया जाता है। वर्जन 4 विशेष रूप से रैंडम नंबर्स से जनरेट किया जाता है।
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कोलिज़न की संभावना कितनी है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कोलिज़न (दो लोगों द्वारा एक ही UUID जनरेट करने) की संभावना इतनी कम है कि यह व्यावहारिक रूप से जीरो है। आपको हर सेकंड में अरबों UUIDs जनरेट करने होंगे और कई सालों तक ऐसा करते रहना होगा ताकि एक ही कोलिज़न की 50% संभावना हो।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+      
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const countInput = document.getElementById('count');
+        const uppercaseCheck = document.getElementById('uppercase');
+        const noHyphensCheck = document.getElementById('no-hyphens');
+        const bracesCheck = document.getElementById('braces');
+        const generateBtn = document.getElementById('generate-btn');
+        const outputContainer = document.getElementById('output-container');
+        const copyAllBtn = document.getElementById('copy-all');
+        const downloadTxtBtn = document.getElementById('download-txt');
+
+        let generatedUuids = [];
+
+        function generateUUID() {
+            let uuid = "";
+            if (typeof crypto.randomUUID === 'function') {
+                uuid = crypto.randomUUID();
+            } else {
+                // Fallback for older browsers
+                uuid = ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+                    (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+                );
+            }
+
+            if (noHyphensCheck.checked) {
+                uuid = uuid.replace(/-/g, '');
+            }
+            if (uppercaseCheck.checked) {
+                uuid = uuid.toUpperCase();
+            }
+            if (bracesCheck.checked) {
+                uuid = `{${uuid}}`;
+            }
+            return uuid;
+        }
+
+        function refreshUUIDs() {
+            const count = Math.min(Math.max(parseInt(countInput.value) || 1, 1), 1000);
+            generatedUuids = [];
+            outputContainer.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                const uuid = generateUUID();
+                generatedUuids.push(uuid);
+                
+                const el = document.createElement('div');
+                el.className = 'p-3 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl font-mono text-xs text-blue-600 dark:text-blue-400 flex items-center justify-between group/item hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all cursor-pointer active:scale-[0.98]';
+                el.onclick = () => copySingle(uuid, el);
+                el.innerHTML = `
+                    <span class="truncate pointer-events-none">${uuid}</span>
+                    <div class="flex items-center gap-2 pointer-events-none">
+                        <span class="copy-status hidden text-[10px] text-green-600 font-bold uppercase tracking-wider">कॉपी हो गया!</span>
+                        <svg class="w-3.5 h-3.5 opacity-0 group-hover/item:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                    </div>
+                `;
+                outputContainer.appendChild(el);
+            }
+        }
+
+        async function copyToClipboard(text, btn, hasText = false) {
+            try {
+                if (navigator.clipboard && window.isSecureContext) {
+                    await navigator.clipboard.writeText(text);
+                } else {
+                    const textArea = document.createElement("textarea");
+                    textArea.value = text;
+                    textArea.style.position = "fixed";
+                    textArea.style.left = "-9999px";
+                    textArea.style.top = "0";
+                    document.body.appendChild(textArea);
+                    textArea.focus();
+                    textArea.select();
+                    document.execCommand('copy');
+                    textArea.remove();
+                }
+                
+                // Feedback
+                const originalHTML = btn.innerHTML;
+                
+                if (hasText) {
+                    const successSVG = `<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>`;
+                    btn.innerHTML = `${successSVG} <span class="text-green-500">कॉपी हो गया!</span>`;
+                    btn.classList.add('border-green-200', 'bg-green-50');
+                    setTimeout(() => {
+                        btn.innerHTML = originalHTML;
+                        btn.classList.remove('border-green-200', 'bg-green-50');
+                    }, 2000);
+                } else {
+                    // Single card feedback
+                    const statusText = btn.querySelector('.copy-status');
+                    const svgIcon = btn.querySelector('svg');
+                    
+                    if (statusText && svgIcon) {
+                        statusText.classList.remove('hidden');
+                        svgIcon.classList.add('hidden');
+                        btn.classList.add('border-green-400', 'bg-green-50', 'dark:bg-green-900/20');
+                        
+                        setTimeout(() => {
+                            statusText.classList.add('hidden');
+                            svgIcon.classList.remove('hidden');
+                            btn.classList.remove('border-green-400', 'bg-green-50', 'dark:bg-green-900/20');
+                        }, 1000);
+                    }
+                }
+            } catch (err) {
+                console.error('Copy failed:', err);
+            }
+        }
+
+        window.copySingle = (text, btn) => {
+            copyToClipboard(text, btn, false);
+        };
+
+        copyAllBtn.addEventListener('click', () => {
+            const text = generatedUuids.join('\n');
+            if (!text) return;
+            copyToClipboard(text, copyAllBtn, true);
+        });
+
+        downloadTxtBtn.addEventListener('click', () => {
+            if (generatedUuids.length === 0) return;
+            const blob = new Blob([generatedUuids.join('\n')], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `uuids-${new Date().getTime()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            // Feedback for download too
+            const originalHTML = downloadTxtBtn.innerHTML;
+            downloadTxtBtn.innerHTML = `<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> <span class="text-green-500">हो गया!</span>`;
+            setTimeout(() => downloadTxtBtn.innerHTML = originalHTML, 2000);
+        });
+
+        // Initialize with one UUID
+        refreshUUIDs();
+    </script>
+</body>
+</html>

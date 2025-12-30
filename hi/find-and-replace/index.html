@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find and Replace Text (टेक्स्ट ढूंढें और बदलें) - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Text patterns को instantly find and replace करें regex support के साथ। Batch mode में multiple files process करें। Free, secure, और 100% local। Upload की कोई आवश्यकता नहीं।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/find-and-replace/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/find-and-replace/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/find-and-replace/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Find and Replace Text Tool",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "748",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Regex support, Batch processing, Dark mode"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6 text-center">
+
+        <div class="max-w-4xl mx-auto mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Find and Replace</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Powerful text transformation tool. Text या multiple files में patterns को instantly search and replace करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24 text-left">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Source Content</label>
+                            <div class="flex gap-2">
+                                <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5 font-bold">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    Upload
+                                </button>
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition">Paste</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear All</button>
+                            </div>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[400px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="यहां text डालें या files drop करें..."></textarea>
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md,.html,.xml,.js,.css">
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">अपनी files यहाँ drop करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">Uploaded Files (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+
+                        <!-- Controls -->
+                        <div class="mt-6 space-y-4 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1">Find</label>
+                                    <input type="text" id="find-input" class="w-full bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-500 transition-all" placeholder="खोजने के लिए text...">
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1">Replace With</label>
+                                    <input type="text" id="replace-input" class="w-full bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-blue-500 transition-all" placeholder="Replacement text...">
+                                </div>
+                            </div>
+                            <div class="flex flex-wrap gap-4 pt-2">
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="checkbox" id="match-case" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900">
+                                    <span class="text-xs font-bold text-slate-500 group-hover:text-blue-500 transition-colors">Match Case</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="checkbox" id="whole-word" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900">
+                                    <span class="text-xs font-bold text-slate-500 group-hover:text-blue-500 transition-colors">Whole Word</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="checkbox" id="use-regex" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500 dark:border-slate-700 dark:bg-slate-900">
+                                    <span class="text-xs font-bold text-slate-500 group-hover:text-blue-500 transition-colors">Use Regex</span>
+                                </label>
+                            </div>
+                            <div class="flex gap-3 pt-4">
+                                <button id="process-btn" class="flex-1 px-6 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25">
+                                    Transform करें
+                                </button>
+                                <button id="copy-result-btn" class="px-6 py-3 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">
+                                    Copy करें
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Transformation Result</label>
+                            <button id="download-all-btn" class="text-xs px-3 py-1.5 rounded-xl bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition font-bold hidden">
+                                Download All
+                            </button>
+                        </div>
+
+                        <div id="result-stats" class="mb-4 hidden">
+                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-xl p-4">
+                                <div class="grid grid-cols-3 gap-4 text-center">
+                                    <div>
+                                        <div class="text-lg font-bold text-slate-900 dark:text-white" id="replacements-count">0</div>
+                                        <div class="text-xs text-slate-500 uppercase tracking-wider">Replacements</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-lg font-bold text-slate-900 dark:text-white" id="files-processed">0</div>
+                                        <div class="text-xs text-slate-500 uppercase tracking-wider">Files Processed</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-lg font-bold text-slate-900 dark:text-white" id="processing-time">0ms</div>
+                                        <div class="text-xs text-slate-500 uppercase tracking-wider">Processing Time</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <textarea id="text-output" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="Transformation result..."></textarea>
+
+                        <!-- Processed Files List -->
+                        <div id="processed-files-container" class="mt-6 hidden">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">Processed Files</h4>
+                            <div id="processed-files-list" class="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Find and Replace का इस्तेमाल कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Source</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपना text directly paste करें या multiple files upload करें। हम zero server lag के साथ massive datasets support करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Pattern Define करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Search करने के लिए text या regex pattern डालें, और इसे replace करने के लिए new content। जरूरत के अनुसार modifiers set करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Transform & Save करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Real-time preview को update होते हुए देखें। Result copy करें या processed files को batch में download करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Privacy Callout -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Enterprise Privacy, Local Speed</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                जब आप अपने browser में process कर सकते हैं तो sensitive documents को server पर क्यों upload करें? हमारा Find and Replace engine completely आपके device पर चलता है, यह सुनिश्चित करता है कि आपका intellectual property और data कभी आपके computer से बाहर न जाए।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Architecture</div>
+                                    <div class="font-bold">Client-Side Only</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Encryption</div>
+                                    <div class="font-bold">No Server Contact</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Advanced Text Engine</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">Logical Modifiers</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Regular Expressions</span>
+                                    <span class="font-bold text-blue-500">Regex Support</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Case Sensitivity</span>
+                                    <span class="font-bold text-green-500">A vs a</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">Whole Word Match</span>
+                                    <span class="font-bold text-orange-500">Exact Match</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">Batch Processing</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Multi-File Upload</span>
+                                    <span class="font-bold text-slate-400">Up to 100MB</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500">
+                                    <span class="font-medium">Batch Download</span>
+                                    <span class="font-bold text-purple-500">ZIP-less Export</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">Progress Tracking</span>
+                                    <span class="font-bold text-red-500">Live Status</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह \n या \t जैसे escape sequences support करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                हाँ! जब "Use Regex" enabled होता है, तो आप सभी standard regular expression escape sequences इस्तेमाल कर सकते हैं, जिसमें newlines (\n), tabs (\t), और more complex patterns शामिल हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"Whole Word Match" क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                अगर आप "cat" को whole word match के साथ search करते हैं, तो यह "caterpillar" या "concatenate" को ignore कर देगा। यह सिर्फ spaces या punctuation से घिरे exact word "cat" को ही replace करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मैं एक साथ कितनी files process कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                Technically, files की संख्या पर कोई hard limit नहीं है। Tool को memory manage करने के लिए files को sequentially process करने के लिए optimized किया गया है। Large individual files (50MB से ज्यादा) processing के दौरान आपके browser को थोड़ा slow कर सकती हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Find and Replace Logic ===
+        const textInput = document.getElementById('text-input');
+        const textOutput = document.getElementById('text-output');
+        const findInput = document.getElementById('find-input');
+        const replaceInput = document.getElementById('replace-input');
+
+        const matchCase = document.getElementById('match-case');
+        const wholeWord = document.getElementById('whole-word');
+        const useRegex = document.getElementById('use-regex');
+        const processBtn = document.getElementById('process-btn');
+        const copyResultBtn = document.getElementById('copy-result-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const resultStats = document.getElementById('result-stats');
+        const replacementsCount = document.getElementById('replacements-count');
+        const filesProcessed = document.getElementById('files-processed');
+        const processingTime = document.getElementById('processing-time');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const processedFilesContainer = document.getElementById('processed-files-container');
+        const processedFilesList = document.getElementById('processed-files-list');
+
+        let uploadedFiles = [];
+        let processedFiles = [];
+
+        // === Tool Logic ===
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tool-specific initialization
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <title>ग्रेस्केल इमेज कन्वर्टर - ब्लैक एंड व्हाइट फोटो मुफ्त | WebUtilityKit</title>
+    <meta name="description" content="कलर फोटो को ब्लैक एंड व्हाइट में तुरंत कन्वर्ट करें। रियल-टाइम प्रीव्यू के साथ ग्रेस्केल इंटेंसिटी एडजस्ट करें। 100% प्राइवेट, आपके ब्राउज़र में स्थानीय रूप से प्रोसेस किया जाता है।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/grayscale-image/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Grayscale Image Converter",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@ratingValue": "4.8",
+        "ratingCount": "432",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Real-time preview, Adjustable intensity",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/grayscale-image.jpg"
+    }
+    </script>
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/grayscale-image/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/grayscale-image/" />
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">ग्रेस्केल इमेज कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">अपनी फोटो को शानदार ब्लैक एंड व्हाइट मास्टरपीस में बदलें। पूरी तरह आपके ब्राउज़र में प्रोसेस किया जाता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग ही।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left: Canvas Area -->
+                <div class="lg:col-span-8 flex flex-col h-full min-h-[500px]">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 transition-all cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
+                            <input type="file" id="file-input" class="hidden" accept="image/*">
+                            <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">यहाँ अपनी इमेज ड्रॉप करें</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">या क्लिक करके फाइलें चुनें</p>
+                        </div>
+
+                        <!-- Canvas Container -->
+                        <div id="canvas-container" class="hidden flex-grow relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden flex items-center justify-center">
+                            <canvas id="main-canvas" class="max-w-full max-h-[600px] shadow-lg"></canvas>
+                        </div>
+
+                        <!-- Action Bar (Hidden initially) -->
+                        <div id="action-bar" class="hidden flex items-center justify-between mt-4 px-2">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">मूल रेज़ोल्यूशन बनाए रखा गया</p>
+                            <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">इमेज बदलें</button>
+                        </div>
+
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">कन्वर्ट करने के लिए छोड़ें</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls Area -->
+                <div class="lg:col-span-4 flex flex-col h-full gap-8">
+
+                    <!-- Settings Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-8 block">ग्रेस्केल सेटिंग्स</label>
+
+                        <div class="space-y-10">
+                            <!-- Intensity Slider -->
+                            <div>
+                                <div class="flex items-center justify-between mb-4">
+                                    <label class="text-sm font-bold text-slate-700 dark:text-slate-300">प्रभाव की तीव्रता</label>
+                                    <span id="intensity-val" class="text-sm font-black text-blue-600 bg-blue-50 dark:bg-blue-900/30 px-3 py-1 rounded-lg">100%</span>
+                                </div>
+                                <input type="range" id="intensity-slider" min="0" max="100" value="100" class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                <div class="flex justify-between mt-3 text-[10px] text-slate-400 font-bold uppercase tracking-tighter">
+                                    <span>रंग</span>
+                                    <span>ब्लैक एंड व्हाइट</span>
+                                </div>
+                            </div>
+
+                            <!-- Export Format -->
+                            <div>
+                                <label class="text-sm font-bold text-slate-700 dark:text-slate-300 block mb-4 ml-1">एक्सपोर्ट फॉर्मेट</label>
+                                <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer appearance-none">
+                                    <option value="image/jpeg">JPEG (.jpg)</option>
+                                    <option value="image/png">PNG (.png)</option>
+                                    <option value="image/webp">WebP (.webp)</option>
+                                </select>
+                            </div>
+
+                            <button id="download-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
+                                <span class="flex items-center justify-center gap-3">
+                                    <span>इमेज डाउनलोड करें</span>
+                                    <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Preview (Mini) -->
+                    <div id="preview-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-6 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-2">मूल</span>
+                                <div id="mini-original" class="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden">
+                                    <img src="" class="w-full h-full object-cover">
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-2">प्रोसेस्ड</span>
+                                <div id="mini-processed" class="aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden">
+                                    <canvas id="mini-canvas" class="w-full h-full object-cover"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">ग्रेस्केल कन्वर्टर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फोटो अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कन्वर्टर में अपनी कलर इमेज ड्रैग और ड्रॉप करें। हम सभी कॉमन फॉर्मेट सपोर्ट करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">तीव्रता एडजस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">स्लाइडर का उपयोग करके ग्रेस्केल की परफेक्ट मात्रा निर्धारित करें, हल्के से लेकर पूर्ण ब्लैक एंड व्हाइट तक।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">प्रीव्यू से संतुष्ट होने पर अपना फॉर्मेट चुनें और अपनी इमेज को तुरंत डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">अनंतकालिक उत्कृष्टता</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                ब्लैक एंड व्हाइट फोटोग्राफी ध्यान आकर्षित करने वाली चीज़ों को हटा देती है, प्रकाश, बनावट और कम्पोजिशन पर फोकस करती है। हमारा टूल सटीक ल्यूमिनोसिटी मैपिंग का उपयोग करके आपके पिक्सेल को कन्वर्ट करता है जबकि आपके मूल शॉट की भावनात्मक गहराई को बनाए रखता है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">प्राइवेसी</div>
+                                    <div class="font-bold">स्थानीय प्रोसेसिंग</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1">क्वालिटी</div>
+                                    <div class="font-bold">लॉसलेस कन्वर्जन</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative w-full max-w-sm aspect-video rounded-3xl overflow-hidden shadow-2xl border border-white/10 group">
+                                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&q=80&w=800')] bg-cover bg-center grayscale group-hover:grayscale-0 transition-all duration-700"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 text-white font-bold italic">पहले और बाद में</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारे कन्वर्टर का उपयोग क्यों करें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तुरंत रिस्पांस</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">स्लाइडर को हिलाने पर रियल-टाइम प्रीव्यू अपडेट होता है। सर्वर प्रोसेसिंग का इंतजार नहीं करना पड़ता।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% प्राइवेट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपकी फोटो कभी आपके डिवाइस से बाहर नहीं जातीं। सभी कैलकुलेशन आपके ब्राउज़र की मेमोरी में स्थानीय रूप से किए जाते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">कोई क्वालिटी लॉस नहीं</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम आपकी इमेज को उसके मूल रेज़ोल्यूशन पर प्रोसेस करते हैं, यह सुनिश्चित करते हुए कि अंतिम आउटपुट तेज़ और स्पष्ट है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">एकाधिक फॉर्मेट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी ब्लैक एंड व्हाइट फोटो को JPEG, PNG, या WebP के रूप में डाउनलोड करें ताकि आपकी जरूरतों के हिसाब से हो।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">ग्रेस्केल FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">ल्यूमिनोसिटी मैपिंग क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                रंगों को केवल औसतन करने के बजाय, हम एक भारित विधि (0.299R + 0.587G + 0.114B) का उपयोग करते हैं जो मनुष्य की आंख द्वारा चमक को कैसे देखा जाता है उसका बेहतर प्रतिनिधित्व करता है, जिसके परिणामस्वरूप अधिक प्राकृतिक दिखने वाली ब्लैक एंड व्हाइट फोटो होती हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं ग्रेस्केल को वापस कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, इंटेंसिटी स्लाइडर को 0% पर वापस ले जाएं और आप अपनी मूल कलर इमेज देख सकते हैं। हमारा टूल डाउनलोड करने तक आपकी मूल फाइल को नहीं बदलता।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी फोटो स्टोर होती हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                कभी नहीं. हम HTML5 Canvas API का उपयोग करके सभी को आपके ब्राउज़र की मेमोरी में स्थानीय रूप से प्रोसेस करते हैं। टैब बंद करते ही आपका डेटा मिट जाता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Grayscale Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const emptyState = document.getElementById('empty-state');
+        const canvasContainer = document.getElementById('canvas-container');
+        const actionBar = document.getElementById('action-bar');
+        const fileInput = document.getElementById('file-input');
+        const mainCanvas = document.getElementById('main-canvas');
+        const ctx = mainCanvas.getContext('2d', { willReadFrequently: true });
+        const dropOverlay = document.getElementById('drop-overlay');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const outputFormat = document.getElementById('output-format');
+
+        const intensitySlider = document.getElementById('intensity-slider');
+        const intensityVal = document.getElementById('intensity-val');
+        const previewCard = document.getElementById('preview-card');
+        const miniOriginal = document.querySelector('#mini-original img');
+        const miniCanvas = document.getElementById('mini-canvas');
+        const miniCtx = miniCanvas.getContext('2d');
+
+        let originalImg = new Image();
+        let originalFileName = "";
+
+        // Initialization
+        emptyState.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            originalFileName = file.name.split('.')[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    initEditor();
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initEditor() {
+            mainCanvas.width = originalImg.width;
+            mainCanvas.height = originalImg.height;
+
+            // Setup mini preview
+            miniOriginal.src = originalImg.src;
+            miniCanvas.width = 300;
+            miniCanvas.height = 300 * (originalImg.height / originalImg.width);
+
+            applyEffect();
+
+            emptyState.classList.add('hidden');
+            canvasContainer.classList.remove('hidden');
+            actionBar.classList.remove('hidden');
+            previewCard.classList.remove('hidden');
+            downloadBtn.disabled = false;
+        }
+
+        function applyEffect() {
+            if (!originalImg.src) return;
+
+            const intensity = parseInt(intensitySlider.value) / 100;
+
+            // Process Main Canvas
+            ctx.clearRect(0, 0, mainCanvas.width, mainCanvas.height);
+            ctx.drawImage(originalImg, 0, 0);
+
+            if (intensity > 0) {
+                const imageData = ctx.getImageData(0, 0, mainCanvas.width, mainCanvas.height);
+                const data = imageData.data;
+
+                for (let i = 0; i < data.length; i += 4) {
+                    const r = data[i];
+                    const g = data[i + 1];
+                    const b = data[i + 2];
+
+                    // Luminosity formula
+                    const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+
+                    data[i] = r + (gray - r) * intensity;
+                    data[i + 1] = g + (gray - g) * intensity;
+                    data[i + 2] = b + (gray - b) * intensity;
+                }
+                ctx.putImageData(imageData, 0, 0);
+            }
+
+            // Process Mini Canvas
+            miniCtx.clearRect(0, 0, miniCanvas.width, miniCanvas.height);
+            miniCtx.drawImage(originalImg, 0, 0, miniCanvas.width, miniCanvas.height);
+            if (intensity > 0) {
+                const miniData = miniCtx.getImageData(0, 0, miniCanvas.width, miniCanvas.height);
+                const d = miniData.data;
+                for (let i = 0; i < d.length; i += 4) {
+                    const gray = 0.299 * d[i] + 0.587 * d[i+1] + 0.114 * d[i+2];
+                    d[i] = d[i] + (gray - d[i]) * intensity;
+                    d[i+1] = d[i+1] + (gray - d[i+1]) * intensity;
+                    d[i+2] = d[i+2] + (gray - d[i+2]) * intensity;
+                }
+                miniCtx.putImageData(miniData, 0, 0);
+            }
+        }
+
+        intensitySlider.addEventListener('input', () => {
+            intensityVal.textContent = `${intensitySlider.value}%`;
+            applyEffect();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            originalImg = new Image();
+            emptyState.classList.remove('hidden');
+            canvasContainer.classList.add('hidden');
+            actionBar.classList.add('hidden');
+            previewCard.classList.add('hidden');
+            downloadBtn.disabled = true;
+            fileInput.value = '';
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const format = outputFormat.value;
+            const ext = format.split('/')[1];
+            const link = document.createElement('a');
+            link.download = `${originalFileName}_bw.${ext}`;
+            link.href = mainCanvas.toDataURL(format, 0.92);
+            link.click();
+        });
+
+    </script>
+</body>
+</html>

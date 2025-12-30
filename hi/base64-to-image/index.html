@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 से इमेज डिकोडर (Base64 to Image Decoder) - ऑटो फ़ॉर्मेट डिटेक्शन | WebUtilityKit</title>
+    <meta name="description" content="Base64 से इमेज को तुरंत डिकोड करें। JPG, PNG, WebP, GIF फ़ॉर्मेट को ऑटो-डिटेक्ट करता है। 100% निजी ब्राउज़र प्रोसेसिंग। एक-क्लिक डाउनलोड। अभी शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/base64-to-image/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/base64-to-image/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/base64-to-image/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Base64 to Image Decoder",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "692",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Auto format detection, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/base64-to-image.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Base64 से इमेज</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Base64 स्ट्रिंग को देखने योग्य और डाउनलोड करने योग्य इमेज में तुरंत डिकोड करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग ही।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Left: Input Area -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Base64 स्ट्रिंग</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">साफ़ करें</button>
+                        </div>
+
+                        <div class="flex-grow flex flex-col relative group">
+                            <textarea id="base64-input"
+                                class="w-full flex-grow bg-slate-50/50 dark:bg-slate-900/50 border-2 border-slate-200 dark:border-slate-700 rounded-[2rem] p-6 text-sm font-mono focus:ring-4 focus:ring-blue-500/10 focus:border-blue-500 outline-none transition-all resize-none min-h-[300px]"
+                                placeholder="अपनी Base64 स्ट्रिंग यहां पेस्ट करें (data:image/... प्रीफिक्स के साथ या बिना)"></textarea>
+
+                            <!-- Drop Zone Overlay -->
+                            <div id="drop-zone" class="absolute inset-0 pointer-events-none border-2 border-dashed border-transparent rounded-[2rem] flex flex-col items-center justify-center transition-all">
+                                <div id="drop-content" class="hidden opacity-0 flex flex-col items-center justify-center">
+                                    <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    </div>
+                                    <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">इमेज या टेक्स्ट फ़ाइल ड्रॉप करें</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex flex-wrap gap-3">
+                            <button id="sample-btn" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">एक सैंपल आज़माएं</button>
+                            <span class="text-slate-300 dark:text-slate-600">|</span>
+                            <span id="char-count" class="text-[10px] font-black uppercase tracking-wider text-slate-400 self-center">0 वर्ण</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Preview Area -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 min-h-[400px]">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">इमेज पूर्वावलोकन</label>
+                            <div id="image-info" class="hidden flex items-center gap-2">
+                                <span id="image-type" class="text-[10px] font-black uppercase tracking-widest bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-2 py-1 rounded-md">PNG</span>
+                                <span id="image-dim" class="text-[10px] font-black uppercase tracking-widest bg-slate-100 dark:bg-slate-900 text-slate-500 px-2 py-1 rounded-md">0 x 0</span>
+                            </div>
+                        </div>
+
+                        <div id="preview-container" class="flex-grow bg-slate-50/50 dark:bg-slate-900/50 rounded-[2rem] border-2 border-dashed border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center relative overflow-hidden group">
+                            <!-- Placeholder -->
+                            <div id="preview-placeholder" class="flex flex-col items-center text-slate-300 dark:text-slate-700 transition-opacity">
+                                <svg class="w-20 h-20 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                <p class="font-bold text-sm">इमेज यहां दिखाई देगी</p>
+                            </div>
+
+                            <!-- Image -->
+                            <img id="image-preview" class="hidden max-w-full max-h-full object-contain p-4 select-none" alt="Base64 पूर्वावलोकन">
+
+                            <!-- Error State -->
+                            <div id="error-state" class="hidden flex flex-col items-center text-red-500 p-8 text-center">
+                                <svg class="w-12 h-12 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                <p class="font-bold">अमान्य Base64 स्ट्रिंग</p>
+                                <p class="text-xs mt-1 text-slate-500">कृपया अपना इनपुट जांचें और पुनः प्रयास करें।</p>
+                            </div>
+                        </div>
+
+                        <div id="actions-container" class="mt-8 hidden space-y-4">
+                            <button id="download-btn" class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 flex items-center justify-center gap-3 group">
+                                <span>इमेज डाउनलोड करें</span>
+                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </button>
+                            <button id="copy-img-btn" class="w-full py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:border-blue-500/20 transition-all">क्लिपबोर्ड में कॉपी करें</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">डिकोडर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">स्ट्रिंग पेस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी Base64 स्ट्रिंग को इनपुट एरिया में पेस्ट करें। यह पूर्ण Data URI या सिर्फ रॉ Base64 डेटा हो सकता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">ऑटो पूर्वावलोकन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टूल स्वचालित रूप से इमेज फ़ॉर्मेट का पता लगाता है और एक पूर्वावलोकन प्रदर्शित करता है। कोई बटन क्लिक की आवश्यकता नहीं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">इमेज सेव करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने डिकोडेड इमेज को अपने डिवाइस में सेव करें या इसे सीधे अपनी क्लिपबोर्ड में कॉपी करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">सुरक्षित और निजी</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                संवेदनशील डेटा को सर्वर पर अपलोड क्यों करें? हमारा Base64 डिकोडर आपके ब्राउज़र की सुरक्षित सैंडबॉक्स में सब कुछ प्रोसेस करता है। आपकी स्ट्रिंग कभी आपके मशीन से बाहर नहीं निकलती, जिससे यह निजी एसेट और संवेदनशील दस्तावेजों के लिए सुरक्षित है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1 text-center">सुरक्षा</div>
+                                    <div class="font-bold">ज़ीरो सर्वर लोड</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1 text-center">गोपनीयता</div>
+                                    <div class="font-bold text-center">स्थानीय-केवल</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रमुख विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ऑटो फ़ॉर्मेट डिटेक्शन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम स्वचालित रूप से पता लगाते हैं कि आपका Base64 JPEG, PNG, GIF, WebP, या SVG है और तदनुसार डिकोड करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 00-2 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">क्लिपबोर्ड में कॉपी करें</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">किसी अन्य ऐप में इमेज की आवश्यकता है? क्लिपबोर्ड बटन का उपयोग करके इमेज को सीधे अपनी क्लिपबोर्ड में रखें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">एक-क्लिक डाउनलोड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">उपयुक्त फ़ाइल एक्सटेंशन के साथ अपने डिकोडेड इमेज को तुरंत सेव करें। उच्च गति, शून्य देरी।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">फ़ाइल अपलोड सपोर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Base64 को कॉपी नहीं किया है? Base64 युक्त टेक्स्ट फ़ाइल को ड्रॉप करें, और हम इसे डिकोड कर देंगे।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Base64 डिकोडर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Base64 क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Base64 एक बाइनरी-टू-टेक्स्ट एन्कोडिंग स्कीम है जो बाइनरी डेटा को ASCII स्ट्रिंग फ़ॉर्मेट में प्रस्तुत करता है। यह सामान्यतः HTML या CSS फ़ाइलों में इमेज को सीधे एम्बेड करने के लिए उपयोग किया जाता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या कोई साइज़ लिमिट है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                सीमा आपके ब्राउज़र की मेमोरी पर निर्भर करती है। अत्यंत बड़ी Base64 स्ट्रिंग के लिए (50MB से अधिक), आपका ब्राउज़र सुस्त हो सकता है। हम अत्यंत बड़े एसेट के लिए मानक इमेज फ़ाइलों की सिफारिश करते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह ऑफ़लाइन काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ! पेज लोड होने के बाद, सभी प्रोसेसिंग आपके ब्राउज़र में स्थानीय रूप से होती है। आप इंटरनेट कनेक्शन के बिना भी इसका उपयोग कर सकते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Decoder Logic ===
+        const base64Input = document.getElementById('base64-input');
+        const imagePreview = document.getElementById('image-preview');
+        const previewPlaceholder = document.getElementById('preview-placeholder');
+        const errorState = document.getElementById('error-state');
+        const actionsContainer = document.getElementById('actions-container');
+        const downloadBtn = document.getElementById('download-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const charCount = document.getElementById('char-count');
+        const imageInfo = document.getElementById('image-info');
+        const imageType = document.getElementById('image-type');
+        const imageDim = document.getElementById('image-dim');
+        const dropZone = document.getElementById('drop-zone');
+        const dropContent = document.getElementById('drop-content');
+        const copyImgBtn = document.getElementById('copy-img-btn');
+
+        let currentMime = '';
+
+        function updateUI(state) {
+            // state: 'empty', 'loading', 'success', 'error'
+            previewPlaceholder.classList.toggle('hidden', state !== 'empty');
+            imagePreview.classList.toggle('hidden', state !== 'success');
+            errorState.classList.toggle('hidden', state !== 'error');
+            actionsContainer.classList.toggle('hidden', state !== 'success');
+            imageInfo.classList.toggle('hidden', state !== 'success');
+        }
+
+        function handleInput() {
+            const val = base64Input.value.trim();
+            charCount.textContent = `${val.length.toLocaleString()} वर्ण`;
+
+            if (!val) {
+                updateUI('empty');
+                return;
+            }
+
+            // Try to detect data URI
+            let src = val;
+            if (!val.startsWith('data:')) {
+                // Heuristic for raw base64
+                // PNG: iVBORw0KGgo...
+                // JPEG: /9j/4AAQSkZ...
+                // WebP: UklGR...
+                // SVG: PHN2Zy...
+                if (val.startsWith('iVBOR')) src = `data:image/png;base64,${val}`;
+                else if (val.startsWith('/9j/')) src = `data:image/jpeg;base64,${val}`;
+                else if (val.startsWith('UklGR')) src = `data:image/webp;base64,${val}`;
+                else if (val.startsWith('PHN2Zy')) src = `data:image/svg+xml;base64,${val}`;
+                else if (val.startsWith('R0lGO')) src = `data:image/gif;base64,${val}`;
+                else src = `data:image/png;base64,${val}`; // Fallback guess
+            }
+
+            imagePreview.onload = () => {
+                const match = src.match(/^data:(image\/[a-z+]+);base64/);
+                currentMime = match ? match[1] : 'image/png';
+                imageType.textContent = currentMime.split('/')[1].toUpperCase();
+                imageDim.textContent = `${imagePreview.naturalWidth} x ${imagePreview.naturalHeight}`;
+                updateUI('success');
+            };
+
+            imagePreview.onerror = () => {
+                updateUI('error');
+            };
+
+            imagePreview.src = src;
+        }
+
+        base64Input.addEventListener('input', handleInput);
+
+        clearBtn.addEventListener('click', () => {
+            base64Input.value = '';
+            handleInput();
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            // A simple 10x10 blue square PNG
+            base64Input.value = 'iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFUlEQVR42mNkYPhfz0AEYBxVSvIA6C0D76j7H4gAAAAASUVORK5CYII=';
+            handleInput();
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            const ext = currentMime.split('/')[1].replace('xml+', '');
+            link.download = `decoded-image.${ext}`;
+            link.href = imagePreview.src;
+            link.click();
+        });
+
+        copyImgBtn.addEventListener('click', async () => {
+            try {
+                const response = await fetch(imagePreview.src);
+                const blob = await response.blob();
+                await navigator.clipboard.write([
+                    new ClipboardItem({ [blob.type]: blob })
+                ]);
+                const originalText = copyImgBtn.textContent;
+                copyImgBtn.textContent = 'कॉपी हो गया!';
+                copyImgBtn.classList.replace('text-slate-600', 'text-green-600');
+                setTimeout(() => {
+                    copyImgBtn.textContent = originalText;
+                    copyImgBtn.classList.replace('text-green-600', 'text-slate-600');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy image', err);
+                alert('क्लिपबोर्ड में कॉपी करना विफल रहा। आपका ब्राउज़र इस इमेज टाइप के लिए इस फीचर का सपोर्ट नहीं कर सकता।');
+            }
+        });
+
+        // Drag & Drop for text files or images
+        document.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20');
+            dropContent.classList.remove('hidden');
+            dropContent.classList.add('opacity-100');
+        });
+
+        document.addEventListener('dragleave', (e) => {
+            if (e.relatedTarget === null) {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20');
+                dropContent.classList.add('hidden');
+                dropContent.classList.remove('opacity-100');
+            }
+        });
+
+        document.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20');
+            dropContent.classList.add('hidden');
+            dropContent.classList.remove('opacity-100');
+
+            const file = e.dataTransfer.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            if (file.type.startsWith('image/')) {
+                reader.onload = (event) => {
+                    base64Input.value = event.target.result;
+                    handleInput();
+                };
+                reader.readAsDataURL(file);
+            } else {
+                reader.onload = (event) => {
+                    base64Input.value = event.target.result;
+                    handleInput();
+                };
+                reader.readAsText(file);
+            }
+        });
+
+    </script>
+</body>
+</html>

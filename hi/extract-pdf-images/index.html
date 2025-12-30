@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF से Images Extract करें (PDF इमेज एक्सट्रैक्टर) - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="PDF से images को instantly extract करें। Photos, graphics, logos—सब कुछ original quality में। Free, secure, और batch download के साथ ZIP में। Upload की कोई आवश्यकता नहीं।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/extract-pdf-images/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/extract-pdf-images/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/extract-pdf-images/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "PDF Image Extractor",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "671",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Original quality preservation, Batch export, ZIP download"
+    }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">PDF से Images Extract करें</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने PDF documents से सभी embedded images को खींचें। Photos, graphics, logos—सब कुछ original quality में।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. आपके browser में locally processed.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-rose-500 hover:bg-rose-50/30 dark:hover:bg-rose-900/10 transition-all min-h-[400px]">
+                <input type="file" id="file-input" class="hidden" accept=".pdf">
+                <div class="w-24 h-24 bg-rose-600 text-white rounded-[2.5rem] flex items-center justify-center mb-8 shadow-2xl shadow-rose-500/40 group-hover:scale-110 transition-transform">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">PDF File चुनें</h3>
+                <p class="text-slate-500 dark:text-slate-400">अपनी PDF file को drag & drop करें या click करके select करें</p>
+                <p class="mt-4 text-xs text-slate-400">Embedded images वाली PDF files support करता है</p>
+
+                <div id="drop-overlay" class="absolute inset-0 bg-rose-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-rose-500 border-dashed">
+                    <p class="text-rose-600 font-bold text-xl">छोड़ें और images extract करें</p>
+                </div>
+            </div>
+
+            <!-- Result Area -->
+            <div id="result-area" class="hidden mt-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div id="file-info" class="flex-grow flex items-center gap-4">
+                            <div class="w-12 h-12 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 id="filename" class="font-bold text-slate-900 dark:text-white">filename.pdf</h4>
+                                <p id="filesize" class="text-sm text-slate-500 uppercase tracking-wider">0 KB • 0 PAGES</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button id="extract-btn" class="px-8 py-3 bg-rose-600 text-white font-bold rounded-xl hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/25">
+                                Images Extract करें
+                            </button>
+                            <button id="reset-btn" class="p-3 text-slate-400 hover:text-red-500 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div id="progress-container" class="hidden mt-8">
+                        <div class="flex items-center justify-between mb-2">
+                            <span id="progress-text" class="text-sm font-medium text-slate-600 dark:text-slate-400">पेज 1 / 10 स्कैन कर रहे हैं...</span>
+                            <span id="progress-percent" class="text-sm font-bold text-rose-600">10%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="w-0 h-full bg-rose-600 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Images Grid -->
+                <div id="images-container" class="hidden">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex flex-col md:flex-row items-center justify-between mb-6">
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white">Extracted Images (<span id="image-count">0</span>)</h3>
+                            <div class="flex gap-3">
+                                <button id="download-all-btn" class="px-6 py-2 bg-rose-600 text-white font-bold rounded-xl hover:bg-rose-700 transition-all shadow-lg shadow-rose-500/25">
+                                    सभी Download करें (ZIP)
+                                </button>
+                                <button id="clear-results-btn" class="px-6 py-2 bg-slate-100 dark:bg-slate-900 text-slate-600 dark:text-slate-400 font-bold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 transition-all">
+                                    Clear Results
+                                </button>
+                            </div>
+                        </div>
+                        <div id="images-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+                    </div>
+                </div>
+
+                <!-- No Images Found -->
+                <div id="no-images-message" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50 text-center">
+                    <div class="w-16 h-16 bg-slate-100 dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">कोई Images नहीं मिलीं</h3>
+                    <p class="text-slate-500 dark:text-slate-400">इस PDF में कोई extractable images नहीं हैं। यह सिर्फ text या vector graphics हो सकता है।</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">PDF से Images कैसे Extract करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold mb-3">PDF Upload करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">अपनी PDF file को drag and drop करें या browse करने के लिए click करें। सभी processing locally होता है।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold mb-3">Images Extract करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">सभी pages को scan करने और हर embedded image को बाहर निकालने के लिए extract button पर click करें।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-rose-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold mb-3">Download करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Individual images को save करें या सब कुछ एक साथ ZIP archive के रूप में download करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Original Quality Extraction</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Screenshot tools के विपरीत, हमारा extractor आपके PDF से actual embedded image data को खींचता है। इसका मतलब है कि आपको original resolution और quality मिलती है—नहीं कोई compressed screen capture।
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-rose-500 rounded-full"></div>
+                                    <span class="text-slate-200">Photos, logos, और graphics extract करें</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-rose-500 rounded-full"></div>
+                                    <span class="text-slate-200">Original image dimensions preserve करें</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-rose-500 rounded-full"></div>
+                                    <span class="text-slate-200">High-quality PNG files के रूप में export करें</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-rose-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-rose-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारे PDF Image Extractor का इस्तेमाल क्यों करें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-rose-100 dark:bg-rose-900/30 text-rose-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instant Processing</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Extraction आपके browser में होती है। कोई upload queues नहीं, कोई waiting नहीं—बस instant results।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Complete Privacy</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपकी PDF कभी आपके device से बाहर नहीं जाती। कोई server uploads नहीं, कोई data collection नहीं, कोई tracking नहीं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Batch Export</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी extracted images को एक साथ convenient ZIP file में download करें। Large PDFs के लिए perfect।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-rose-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">High Quality Output</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Images original quality के साथ extract होती हैं। कोई recompression नहीं या quality loss नहीं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से प्रकार की images extract की जा सकती हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हमारा tool PDFs में embedded raster images को extract करता है, जिसमें JPEG, PNG, और अन्य bitmap formats शामिल हैं। इसमें photos, scanned images, और raster graphics शामिल हैं। Vector graphics (जैसे lines से बने charts या icons) images के रूप में extractable नहीं हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मेरी PDF में कोई images क्यों नहीं मिलीं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कुछ PDFs में सिर्फ text या vector graphics होते हैं जिन्हें images के रूप में extract नहीं किया जा सकता। इसके अलावा, scanned documents से बनाई गई PDFs content को अलग तरीके से store करती हैं। अगर आपकी PDF में images दिखती हैं लेकिन कोई नहीं मिलीं, तो visuals vector-based illustrations हो सकते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या कोई file size limit है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                चूंकि सभी processing आपके browser में locally होती है, limit आपके device's memory पर निर्भर करती है। ज्यादातर modern devices 100MB या उससे ज्यादा PDFs को बिना किसी issue के handle कर सकते हैं। बहुत बड़ी files के लिए processing ज्यादा समय ले सकता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-rose-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Extracted images किस format में हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                सभी extracted images PNG files के रूप में save होती हैं ताकि maximum compatibility और quality preservation सुनिश्चित हो। PNG एक lossless format है जो image quality को maintain करता है चाहे आप कितनी बार save या edit करें।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        document.addEventListener('DOMContentLoaded', () => {
+            // Tool-specific initialization
+        });
+    </script>
+</body>
+</html>

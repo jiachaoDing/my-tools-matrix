@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>आयतन अनुपात कैलकुलेटर (Aspect Ratio Calculator) - तेज़ और सटीक स्केलिंग | WebUtilityKit</title>
+    <meta name="description" content="आयतन अनुपात की गणना करें, छवियों को सटीक रूप से स्केल करें, या आयाम ज्ञात करें। कस्टम अनुपात और सामान्य प्रीसेट जैसे 16:9, 4:3, और 1:1 का समर्थन करता है। 100% सुरक्षित।">
+    <link rel="canonical" href="https://webutilitykit.com/aspect-ratio-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/aspect-ratio-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/aspect-ratio-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Aspect Ratio Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "345",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/aspect-ratio-calculator.jpg"
+}
+    </script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">आयतन अनुपात कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">आयाम ज्ञात करें, अनुपात खोजें, या छवियों को सही ढंग से स्केल करें। डिज़ाइनर, फोटोग्राफर, और वीडियो एडिटर के लिए आवश्यक उपकरण।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Input Section (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">चौड़ाई</label>
+                                <div class="relative group">
+                                    <input type="number" id="width-input" value="1920" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">PX</span>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-center py-2">
+                                <button id="lock-btn" class="p-3 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-blue-500 transition-all group" title="अनुपात लॉक करें">
+                                    <svg id="lock-icon" class="w-6 h-6 text-slate-400 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path id="lock-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">ऊँचाई</label>
+                                <div class="relative group">
+                                    <input type="number" id="height-input" value="1080" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">PX</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-700">
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">कस्टम अनुपात (W:H)</label>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="relative group">
+                                        <input type="number" id="ratio-w" value="16" min="0.1" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 text-center">
+                                    </div>
+                                    <div class="relative group">
+                                        <input type="number" id="ratio-h" value="9" min="0.1" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 text-center">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-4">
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">त्वरित प्रीसेट</label>
+                            <div class="grid grid-cols-3 sm:grid-cols-4 gap-3">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="16" data-h="9">
+                                    <span class="font-black">16:9</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">HD</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="4" data-h="3">
+                                    <span class="font-black">4:3</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">TV</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="1" data-h="1">
+                                    <span class="font-black">1:1</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">वर्ग</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="21" data-h="9">
+                                    <span class="font-black">21:9</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">अल्ट्रा</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="9" data-h="16">
+                                    <span class="font-black">9:16</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">मोबाइल</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="3" data-h="2">
+                                    <span class="font-black">3:2</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">फोटो</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="4" data-h="5">
+                                    <span class="font-black">4:5</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">सोशल</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-w="2" data-h="1">
+                                    <span class="font-black">2:1</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">सिनेमा</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visualization Section (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-blue-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-blue-500/20 relative overflow-hidden text-white">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-blue-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label class="text-xs font-bold text-blue-200 uppercase tracking-[0.2em] block mb-12 italic">दृश्य पैमाना और अनुपात</label>
+
+                            <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                                <!-- Aspect Ratio Box -->
+                                <div class="relative w-full aspect-video flex items-center justify-center transition-all duration-500 overflow-hidden rounded-3xl bg-white/10 backdrop-blur-md border border-white/20 shadow-inner" id="visual-container">
+                                    <div id="visual-box" class="bg-white rounded-xl shadow-2xl transition-all duration-500 flex items-center justify-center relative group">
+                                        <div class="absolute inset-0 bg-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                        <span id="visual-label" class="text-blue-600 font-black text-2xl drop-shadow-sm">16:9</span>
+                                        <!-- Measure lines -->
+                                        <div class="absolute -top-6 left-0 right-0 h-px bg-white/40 flex justify-between px-1">
+                                            <div class="w-px h-2 bg-white/40"></div>
+                                            <div id="label-w" class="text-[10px] font-bold text-white/60 -mt-2">1920px</div>
+                                            <div class="w-px h-2 bg-white/40"></div>
+                                        </div>
+                                        <div class="absolute top-0 bottom-0 -right-6 w-px bg-white/40 flex flex-col justify-between py-1">
+                                            <div class="h-px w-2 bg-white/40"></div>
+                                            <div id="label-h" class="text-[10px] font-bold text-white/60 origin-left rotate-90 ml-2">1080px</div>
+                                            <div class="h-px w-2 bg-white/40"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-blue-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">सर्वोत्तम अनुपात</div>
+                                        <div id="simple-ratio" class="text-3xl font-black tracking-tight tabular-nums">16 : 9</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20">
+                                        <div class="text-blue-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">दशमलव अनुपात</div>
+                                        <div id="decimal-ratio" class="text-3xl font-black tracking-tight tabular-nums">1.778</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-blue-200/80 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>अनुपात = चौड़ाई / ऊँचाई। सर्वोत्तम अनुपात GCD (ग्रेटेस्ट कॉमन डिवाइज़र) का उपयोग करके ज्ञात किया जाता है।</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase">अपने विजन को स्केल करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">आयाम निर्धारित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">अपनी शुरुआती चौड़ाई और ऊँचाई दर्ज करें। हमारा उपकरण तुरंत परिणामी आयतन अनुपात की गणना करेगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लॉक करें और आकार बदलें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">अनुपात बनाए रखने के लिए लॉक आइकन पर क्लिक करें। अब एक आयाम बदलने पर दूसरा स्वतः अपडेट हो जाएगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">प्रीसेट का उपयोग करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">वीडियो के लिए 16:9, फोटो के लिए 3:2, या सोशल मीडिया पोस्ट के लिए 1:1 जैसे सामान्य मानकों के बीच तेज़ी से स्विच करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Educational Content -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">आयतन अनुपात को समझना</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 italic">
+                                आयतन अनुपात किसी आकृति की चौड़ाई और उसकी ऊँचाई के बीच अनुपातिक संबंध का प्रतिनिधित्व करता है। इसे आमतौर पर दो संख्याओं द्वारा व्यक्त किया जाता है जिन्हें कोलन से अलग किया गया है, जैसे 16:9। वास्तविक आकार (पिक्सेल, इंच, सेंटीमीटर) की परवाह किए बिना, अनुपात समान रहता है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic">संगति</div>
+                                    <div class="font-bold">सही स्केलिंग</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic">सटीकता</div>
+                                    <div class="font-bold">GCD एल्गोरिदम</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest">पेशेवरों के लिए डिज़ाइन किया गया</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">द्विदिशात्मक आकार परिवर्तन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">अनुपात लॉक करके चौड़ाई से ऊँचाई या ऊँचाई से चौड़ाई की गणना करें। छवि संपत्तियों को तैयार करने के लिए आदर्श।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">स्मार्ट अनुपात खोज</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">गणितीय रूप से सटीक GCD एल्गोरिदम का उपयोग करके 16:9 जैसे सबसे सरल पूर्णांक अनुपात को स्वतः खोजता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter">अनुपात FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">1920x1080 का आयतन अनुपात क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                1920x1080 बिल्कुल <strong>16:9</strong> है। यह उच्च-परिभाषा वीडियो, मॉनिटर, और टेलीविजन स्क्रीन के लिए मानक आयतन अनुपात है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">मैं एक कस्टम आयतन अनुपात की गणना कैसे करूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                किसी भी अनुपात को खोजने के लिए, चौड़ाई को ऊँचाई से विभाजित करें। उदाहरण के लिए, यदि आपकी चौड़ाई 1000 और ऊँचाई 500 है, तो अनुपात 2 है (या 2:1)। हमारा उपकरण सबसे सरल भिन्नात्मक रूप को भी स्वतः प्रदान करता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Aspect Ratio Logic ===
+        const widthInput = document.getElementById('width-input');
+        const heightInput = document.getElementById('height-input');
+        const ratioWInput = document.getElementById('ratio-w');
+        const ratioHInput = document.getElementById('ratio-h');
+        const lockBtn = document.getElementById('lock-btn');
+        const lockIcon = document.getElementById('lock-icon');
+        const lockPath = document.getElementById('lock-path');
+        const visualBox = document.getElementById('visual-box');
+        const visualContainer = document.getElementById('visual-container');
+        const visualLabel = document.getElementById('visual-label');
+        const labelW = document.getElementById('label-w');
+        const labelH = document.getElementById('label-h');
+        const simpleRatioEl = document.getElementById('simple-ratio');
+        const decimalRatioEl = document.getElementById('decimal-ratio');
+
+        let isLocked = true;
+        let activeRatio = 16 / 9;
+
+        function gcd(a, b) {
+            return b ? gcd(b, a % b) : a;
+        }
+
+        function updateRatiosFromDimensions() {
+            const w = parseFloat(widthInput.value) || 1;
+            const h = parseFloat(heightInput.value) || 1;
+
+            const common = gcd(w, h);
+            const sw = w / common;
+            const sh = h / common;
+
+            ratioWInput.value = sw;
+            ratioHInput.value = sh;
+            activeRatio = w / h;
+
+            updateVisuals();
+        }
+
+        function updateDimensionsFromRatio(source) {
+            const rw = parseFloat(ratioWInput.value) || 1;
+            const rh = parseFloat(ratioHInput.value) || 1;
+            activeRatio = rw / rh;
+
+            if (source === 'width') {
+                const w = parseFloat(widthInput.value) || 1;
+                heightInput.value = Math.round(w / activeRatio);
+            } else {
+                const h = parseFloat(heightInput.value) || 1;
+                widthInput.value = Math.round(h * activeRatio);
+            }
+            updateVisuals();
+        }
+
+        function updateVisuals() {
+            const w = parseFloat(widthInput.value) || 1;
+            const h = parseFloat(heightInput.value) || 1;
+            const rw = parseFloat(ratioWInput.value) || 1;
+            const rh = parseFloat(ratioHInput.value) || 1;
+
+            // Simple Ratio (GCD)
+            const common = gcd(Math.round(w), Math.round(h));
+            const sw = Math.round(w) / common;
+            const sh = Math.round(h) / common;
+
+            simpleRatioEl.textContent = `${sw} : ${sh}`;
+            decimalRatioEl.textContent = (w / h).toFixed(3);
+            visualLabel.textContent = `${sw}:${sh}`;
+            labelW.textContent = `${Math.round(w)}px`;
+            labelH.textContent = `${Math.round(h)}px`;
+
+            // Visual Box Scale
+            const containerWidth = visualContainer.clientWidth - 100;
+            const containerHeight = visualContainer.clientHeight - 100;
+            const containerRatio = containerWidth / containerHeight;
+            const boxRatio = w / h;
+
+            let finalW, finalH;
+            if (boxRatio > containerRatio) {
+                finalW = containerWidth;
+                finalH = containerWidth / boxRatio;
+            } else {
+                finalH = containerHeight;
+                finalW = containerHeight * boxRatio;
+            }
+
+            visualBox.style.width = `${finalW}px`;
+            visualBox.style.height = `${finalH}px`;
+        }
+
+        // Event Listeners
+        widthInput.addEventListener('input', () => {
+            if (isLocked) {
+                const rw = parseFloat(ratioWInput.value) || 1;
+                const rh = parseFloat(ratioHInput.value) || 1;
+                heightInput.value = Math.round(parseFloat(widthInput.value) / (rw / rh));
+            } else {
+                updateRatiosFromDimensions();
+            }
+            updateVisuals();
+        });
+
+        heightInput.addEventListener('input', () => {
+            if (isLocked) {
+                const rw = parseFloat(ratioWInput.value) || 1;
+                const rh = parseFloat(ratioHInput.value) || 1;
+                widthInput.value = Math.round(parseFloat(heightInput.value) * (rw / rh));
+            } else {
+                updateRatiosFromDimensions();
+            }
+            updateVisuals();
+        });
+
+        [ratioWInput, ratioHInput].forEach(el => {
+            el.addEventListener('input', () => {
+                updateDimensionsFromRatio('width');
+            });
+        });
+
+        lockBtn.addEventListener('click', () => {
+            isLocked = !isLocked;
+            lockIcon.classList.toggle('text-blue-500', isLocked);
+            lockIcon.classList.toggle('text-slate-400', !isLocked);
+            lockPath.setAttribute('d', isLocked
+                ? 'M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z'
+                : 'M8 11V7a4 4 0 118 0m4 4H5M6.633 19a2 2 0 002 2h12a2 2 0 002-2v-6a2 2 0 00-2-2H6.633a2 2 0 00-2 2v6a2 2 0 002 2z');
+        });
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                ratioWInput.value = btn.dataset.w;
+                ratioHInput.value = btn.dataset.h;
+                updateDimensionsFromRatio('width');
+
+                document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active-preset'));
+                btn.classList.add('active-preset');
+            });
+        });
+
+        window.addEventListener('resize', updateVisuals);
+
+        // Init
+        updateVisuals();
+
+    </script>
+</body>
+</html>

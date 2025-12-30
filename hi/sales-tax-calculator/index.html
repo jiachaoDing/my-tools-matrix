@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बिक्री कर कैलकुलेटर (Sales Tax Calculator) - सटीक कर और सकल मूल्य | WebUtilityKit</title>
+    <meta name="description" content="बिक्री कर, शुद्ध मूल्य और सकल मूल्य को तुरंत कैलकुलेट करें। रिवर्स टैक्स कैलकुलेशन और कस्टम टैक्स दरों का समर्थन। 100% निजी और क्लाइंट-साइड। अभी कैलकुलेट करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/sales-tax-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/sales-tax-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/sales-tax-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sales Tax Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "756",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/sales-tax-calculator.jpg"
+}
+</script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">बिक्री कर कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">बिक्री कर, शुद्ध राशि और कुल मूल्य को तुरंत कैलकुलेट करें। द्विदिशात्मक "कर जोड़ें" और "कर घटाएं" कैलकुलेशन का समर्थन।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Configuration (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="calc-add" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400">कर जोड़ें</button>
+                            <button id="calc-remove" class="flex-1 py-3 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 ml-1">कर घटाएं</button>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label id="price-label" class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">कर से पहले शुद्ध मूल्य</label>
+                                <div class="relative group">
+                                    <input type="number" id="price-input" value="100" min="0" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pl-12">
+                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span id="price-badge" class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">शुद्ध</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">कर दर (%)</label>
+                                <div class="relative group">
+                                    <input type="number" id="tax-rate" value="8.5" min="0" max="100" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">दर</span>
+                                </div>
+                            </div>
+
+                            <div class="pt-4 grid grid-cols-2 gap-3">
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="0">0%</button>
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="5">5%</button>
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="10">10%</button>
+                                <button class="quick-rate py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-rate="20">20%</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-10">पूर्ण ब्रेकडाउन</label>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                            <!-- Hero Gross Price -->
+                            <div class="text-center relative">
+                                <div id="hero-label" class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.3em] mb-4">सकल मूल्य (कुल)</div>
+                                <div id="total-price" class="text-8xl font-black text-slate-900 dark:text-white leading-none tracking-tighter tabular-nums">$108.50</div>
+                                <div class="mt-6 flex items-center justify-center gap-2">
+                                    <span class="w-12 h-1 bg-blue-500 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-blue-500/30 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-blue-500/30 rounded-full"></span>
+                                </div>
+                            </div>
+
+                            <div class="w-full space-y-4">
+                                <!-- Tax Amount Card -->
+                                <div class="p-8 rounded-[2rem] bg-blue-600 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden group transition-all hover:scale-[1.02]">
+                                    <div class="absolute right-0 top-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl group-hover:scale-125 transition-transform"></div>
+                                    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                        <div>
+                                            <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1 italic">कर राशि</div>
+                                            <div id="tax-amount" class="text-5xl font-black tracking-tight">$8.50</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1 italic">लागू दर</div>
+                                            <div id="applied-rate" class="text-2xl font-black">8.50%</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group">
+                                        <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-widest">कर से पहले शुद्ध मूल्य</div>
+                                        <div id="net-price" class="text-2xl font-bold text-slate-800 dark:text-white">$100.00</div>
+                                    </div>
+                                    <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40 relative group">
+                                        <div class="text-[10px] font-black text-slate-400 uppercase mb-1 tracking-widest">कुल मूल्य</div>
+                                        <div id="total-val" class="text-2xl font-bold text-slate-800 dark:text-white">$108.50</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="w-full p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-900/20">
+                                <div class="flex gap-4">
+                                    <div class="text-blue-500 mt-1">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        रिवर्स कैलकुलेशन: केवल कुल मूल्य जानने पर मूल मूल्य खोजने के लिए "कर घटाएं" का उपयोग करें।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">बिक्री कर कैलकुलेट कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">मोड चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अगर आपके पास आधार मूल्य है तो <strong>कर जोड़ें</strong> चुनें, या अगर आपके पास कर सहित कुल मूल्य है तो <strong>कर घटाएं</strong> चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">मूल्य और दर दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">राशि और कर प्रतिशत टाइप करें। सामान्य मानों जैसे 5%, 10%, या 20% के लिए क्विक-रेट बटन का उपयोग करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">सटीक कुल प्राप्त करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">हमारे टूल उच्च-परिशुद्धता फ्लोटिंग पॉइंट गणित को संभालता है। कर राशि और अंतिम मूल्य ब्रेकडाउन तुरंत देखें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">द्विदिशात्मक स्पष्टता</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                अधिकांश लोग कर जोड़ना जानते हैं, लेकिन मूल्य से कर घटाना गणितीय रूप से अलग है। कुल से 10% घटाना वास्तव में उस कुल को खोजना नहीं है जहां मूल रूप से 10% जोड़ा गया था। हमारा टूल इस जटिल भाग को स्वचालित रूप से संभालता है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">मानक</div>
+                                    <div class="font-bold">कर जोड़ें / घटाएं</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">सटीकता</div>
+                                    <div class="font-bold">दशमलव परिशुद्धता</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">व्यापार और खरीदारी के लिए निर्मित</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">रिवर्स कैलकुलेशन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">किसी भी कुल से पूर्व-कर मूल्य आसानी से खोजें। लेखांकन के लिए शुद्ध मूल्यों की वापसी कैलकुलेशन करने वाले व्यवसाय मालिकों के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तत्काल अपडेट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">"कैलकुलेट" बटन की आवश्यकता नहीं। हमारा इंजन हर बार एक अंक बदलने या प्रीसेट चुनने पर संपूर्ण ब्रेकडाउन पुन: गणना करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता पहले</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका वित्तीय डेटा गोपनीय है। कैलकुलेशन आपके ब्राउज़र में स्थानीय रूप से होते हैं, जिसका अर्थ है कि आपकी कीमतें और दरें आपकी डिवाइस से बाहर कभी नहीं जातीं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">साफ टाइपोग्राफी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कंट्रास्ट, बड़े पैमाने पर टाइपोग्राफी सुनिश्चित करती है कि आप अपने कुल को स्पष्ट रूप से पढ़ सकें भले ही दूर से या छोटी स्क्रीन पर।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">कर संबंधी FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">शुद्ध और सकल में क्या अंतर है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                <strong>शुद्ध मूल्य</strong> कर जोड़ने से पहले मूल्य है। <strong>सकल मूल्य</strong> कर सहित अंतिम राशि है। "कर घटाएं" मोड में, आप सकल से शुरू करते हैं और शुद्ध खोजते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह "रिवर्स सेल्स टैक्स" है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ। "कर घटाएं" मोड अक्सर रिवर्स टैक्स कैलकुलेशन कहलाता है। यह सूत्र का उपयोग करता है: `शुद्ध = सकल / (1 + दर)`। यह सुनिश्चित करता है कि शुद्ध में कर जोड़ने से आपको सटीक सकल मूल्य फिर से मिले।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Sales Tax Logic ===
+        let mode = 'add'; // 'add' or 'remove'
+        const calcAddBtn = document.getElementById('calc-add');
+        const calcRemoveBtn = document.getElementById('calc-remove');
+        const priceLabel = document.getElementById('price-label');
+        const priceInput = document.getElementById('price-input');
+        const priceBadge = document.getElementById('price-badge');
+        const taxRateInput = document.getElementById('tax-rate');
+        const heroLabel = document.getElementById('hero-label');
+        const totalPriceEl = document.getElementById('total-price');
+        const taxAmountEl = document.getElementById('tax-amount');
+        const appliedRateEl = document.getElementById('applied-rate');
+        const netPriceEl = document.getElementById('net-price');
+        const totalValEl = document.getElementById('total-val');
+        const quickRateBtns = document.querySelectorAll('.quick-rate');
+
+        function updateUI() {
+            if (mode === 'add') {
+                calcAddBtn.className = 'tab-btn active-tab';
+                calcRemoveBtn.className = 'tab-btn inactive-tab ml-1';
+                priceLabel.textContent = 'कर से पहले शुद्ध मूल्य';
+                priceBadge.textContent = 'शुद्ध';
+                heroLabel.textContent = 'सकल मूल्य (कुल)';
+            } else {
+                calcAddBtn.className = 'tab-btn inactive-tab';
+                calcRemoveBtn.className = 'tab-btn active-tab ml-1';
+                priceLabel.textContent = 'कर सहित सकल मूल्य';
+                priceBadge.textContent = 'सकल';
+                heroLabel.textContent = 'शुद्ध मूल्य (मूल)';
+            }
+            calculate();
+        }
+
+        function calculate() {
+            const price = parseFloat(priceInput.value) || 0;
+            const rate = parseFloat(taxRateInput.value) || 0;
+            let net, tax, gross;
+
+            if (mode === 'add') {
+                net = price;
+                tax = net * (rate / 100);
+                gross = net + tax;
+            } else {
+                gross = price;
+                net = gross / (1 + (rate / 100));
+                tax = gross - net;
+            }
+
+            // Update displays
+            totalPriceEl.textContent = `$${(mode === 'add' ? gross : net).toFixed(2)}`;
+            taxAmountEl.textContent = `$${tax.toFixed(2)}`;
+            appliedRateEl.textContent = `${rate.toFixed(2)}%`;
+            netPriceEl.textContent = `$${net.toFixed(2)}`;
+            totalValEl.textContent = `$${gross.toFixed(2)}`;
+        }
+
+        calcAddBtn.addEventListener('click', () => { mode = 'add'; updateUI(); });
+        calcRemoveBtn.addEventListener('click', () => { mode = 'remove'; updateUI(); });
+        priceInput.addEventListener('input', calculate);
+        taxRateInput.addEventListener('input', calculate);
+
+        quickRateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                taxRateInput.value = btn.dataset.rate;
+                calculate();
+            });
+        });
+
+        // Init
+        updateUI();
+
+    </script>
+</body>
+</html>

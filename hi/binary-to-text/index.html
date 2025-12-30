@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>बाइनरी से टेक्स्ट डिकोडर (Binary to Text Decoder) - ऑटो सेपरेटर डिटेक्शन | WebUtilityKit</title>
+    <meta name="description" content="बाइनरी से टेक्स्ट को तुरंत डिकोड करें स्मार्ट ऑटो-डिटेक्शन के साथ। बैच फ़ाइलों और एकाधिक डेलीमीटर का सपोर्ट। 100% निजी ब्राउज़र प्रोसेसिंग। अभी आज़माएं!">
+    <link rel="canonical" href="https://webutilitykit.com/binary-to-text/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/binary-to-text/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/binary-to-text/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6 text-center">
+
+        <div class="max-w-4xl mx-auto mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">बाइनरी से टेक्स्ट</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">मशीन कोड (0s और 1s) को मानव-पठनीय टेक्स्ट में वापस ट्रांसलेट करें तुरंत। सुरक्षित, निजी, और स्थानीय।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24 text-left">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">बाइनरी इनपुट</label>
+                            <div class="flex gap-2">
+                                <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5 font-bold">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    अपलोड
+                                </button>
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition">पेस्ट</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सभी साफ़ करें</button>
+                            </div>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[450px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[450px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="बाइनरी कोड पेस्ट करें (जैसे, 01001000 01100101) या फ़ाइलें ड्रॉप करें..."></textarea>
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt,.bin">
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">अपनी बाइनरी फ़ाइलें ड्रॉप करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden text-left">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">डिकोड करने के लिए फ़ाइलें (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">इनपुट फ़ॉर्मेट</span>
+                                <select id="delimiter-select" class="bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm outline-none focus:border-blue-500 transition-all cursor-pointer">
+                                    <option value="auto">ऑटो-डिटेक्ट सेपरेटर</option>
+                                    <option value="space">स्पेस-सेपरेटेड</option>
+                                    <option value="none">कोई सेपरेटर नहीं (8-बिट फिक्स्ड)</option>
+                                    <option value="comma">कॉमा-सेपरेटेड</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">सादा टेक्स्ट आउटपुट</label>
+                            <div class="flex gap-2">
+                                <button id="process-batch-btn" class="hidden text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">सभी फ़ाइलें डिकोड करें</button>
+                                <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">टेक्स्ट कॉपी करें</button>
+                            </div>
+                        </div>
+                        <textarea id="text-output" class="flex-grow w-full min-h-[450px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="अनुवादित टेक्स्ट यहां दिखाई देगा..."></textarea>
+
+                        <!-- Processed Results List -->
+                        <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">
+                            <div class="flex items-center justify-between mb-3 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400">डिकोडेड फ़ाइलें</h4>
+                                <button id="download-all-btn" class="text-[10px] font-black uppercase tracking-wider text-blue-600 hover:text-blue-700 transition flex items-center gap-1 font-bold">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    सभी डाउनलोड करें
+                                </button>
+                            </div>
+                            <div id="results-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+
+                        <!-- Status Box -->
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <div class="flex items-center gap-4">
+                                <div id="status-icon-container" class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div class="text-left text-left">
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">स्थिति</h4>
+                                    <p id="conversion-status" class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">डिकोड करने के लिए तैयार</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 text-left">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">बाइनरी से टेक्स्ट कैसे कन्वर्ट करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">बाइनरी इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपना 0s और 1s का स्ट्रिंग पेस्ट करें। हमारे ऑटो-डिटेक्टर स्पेस, कॉमा, या डैश को हैंडल करेगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फ़ॉर्मेट सत्यापित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टूल स्वचालित रूप से बाइनरी को 8-बिट बाइट्स में विभाजित करता है। यदि आपके बाइनरी में कोई स्पेस नहीं है, तो "कोई सेपरेटर नहीं" विकल्प चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">परिणाम पढ़ें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">मानव-पठनीय टेक्स्ट तुरंत आउटपुट में दिखाई देता है। कॉपी बटन या बैच में प्रोसेस किए गए फ़ाइलों को डाउनलोड करने के लिए उपयोग करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Technical Background -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">कोड को डिक्रिप्ट करना</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8 text-left">
+                                आपके द्वारा देखे जाने वाले हर टेक्स्ट स्ट्रिंग को कंप्यूटर में बाइनरी के रूप में स्टोर किया जाता है। यह टूल उस प्रक्रिया को उलटता है 8-बिट सेगमेंट्स (बाइट्स) को लेकर, उन्हें बेस-2 से बेस-10 में कन्वर्ट करके, और फिर ASCII और Unicode मानकों का उपयोग करके वर्णों को मैप करके।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">मानक</div>
+                                    <div class="font-bold">ASCII / UTF-8</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">सुरक्षा</div>
+                                    <div class="font-bold">ज़ीरो-अपलोड</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="text-6xl font-black text-white/20 tracking-tighter select-none -rotate-3">
+                                BINARY TO TEXT
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">कन्वर्टर हाइलाइट्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">इनपुट लचीलापन</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">ऑटो-डिटेक्शन</span>
+                                    <span class="font-bold text-blue-500">स्मार्ट स्प्लिटिंग</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">मल्टी-डेलीमीटर</span>
+                                    <span class="font-bold text-green-500">स्पेस/कॉमा</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">अमान्य फ़िल्टरिंग</span>
+                                    <span class="font-bold text-orange-500">नॉइज़ साफ़ करें</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">उपयोगकर्ता अनुभव</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">बैच अपलोड</span>
+                                    <span class="font-bold text-slate-400">बड़ी फ़ाइलें</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500">
+                                    <span class="font-medium">डार्क मोड</span>
+                                    <span class="font-bold text-purple-500">सिस्टम रेडी</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">गोपनीयता बैज</span>
+                                    <span class="font-bold text-red-500">वेरिफाइड स्थानीय</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">बाइनरी अनुवाद FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">यदि मेरे बाइनरी में कोई स्पेस नहीं है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                कोई समस्या नहीं। फ़ॉर्मेट मेनू में "कोई सेपरेटर नहीं" विकल्प चुनें। टूल स्वचालित रूप से इनपुट को सही ढंग से प्रोसेस करने के लिए 8-बिट चंक में विभाजित करेगा।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह बाइनरी के रूप में स्टोर किए गए इमेज या फ़ाइलों को डिकोड कर सकता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                यह टूल विशेष रूप से टेक्स्ट एन्कोडिंग (बेस-2 से ASCII/Unicode) के लिए डिज़ाइन किया गया है। रॉ बाइनरी फ़ाइलों या इमेज के लिए, आप आमतौर पर एक hex एडिटर या Base64 डिकोडर का उपयोग करेंगे।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मैं कितना अनुवाद कर सकता हूं, इसकी कोई सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                सभी प्रोसेसिंग आपके ब्राउज़र की RAM में होने के कारण, सीमा आपके डिवाइस की मेमोरी पर निर्भर करती है। अधिकांश उपयोगकर्ताओं के लिए, यह सैकड़ों हजारों वर्णों को बिना किसी लैग के प्रोसेस करने का मतलब है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Binary to Text Logic ===
+        const textInput = document.getElementById('text-input');
+        const textOutput = document.getElementById('text-output');
+        const delimiterSelect = document.getElementById('delimiter-select');
+        const statusText = document.getElementById('conversion-status');
+        const statusIconContainer = document.getElementById('status-icon-container');
+
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const processBatchBtn = document.getElementById('process-batch-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const copyBtn = document.getElementById('copy-btn');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+
+        function binaryToText(binary) {
+            if (!binary) return '';
+
+            let bytes = [];
+            const delimiter = delimiterSelect.value;
+
+            if (delimiter === 'auto') {
+                // Try to find common delimiters or just split by bits
+                const cleaned = binary.replace(/[^01\s,-]/g, '');
+                if (cleaned.includes(' ')) bytes = cleaned.split(/\s+/);
+                else if (cleaned.includes(',')) bytes = cleaned.split(',');
+                else if (cleaned.includes('-')) bytes = cleaned.split('-');
+                else {
+                    // No delimiters, split by 8-bit groups
+                    const pure = cleaned.replace(/[^01]/g, '');
+                    for (let i = 0; i < pure.length; i += 8) {
+                        bytes.push(pure.substr(i, 8));
+                    }
+                }
+            } else if (delimiter === 'none') {
+                const pure = binary.replace(/[^01]/g, '');
+                for (let i = 0; i < pure.length; i += 8) {
+                    bytes.push(pure.substr(i, 8));
+                }
+            } else {
+                const dMap = { space: /\s+/, comma: ',', dash: '-' };
+                bytes = binary.trim().split(dMap[delimiter]);
+            }
+
+            try {
+                return bytes
+                    .filter(b => b.length > 0)
+                    .map(b => String.fromCharCode(parseInt(b, 2)))
+                    .join('');
+            } catch (err) {
+                return '[त्रुटि: अमान्य बाइनरी]';
+            }
+        }
+
+        function updateLiveResult() {
+            if (uploadedFiles.length > 0) return;
+            const input = textInput.value.trim();
+            if (!input) {
+                textOutput.value = '';
+                statusText.textContent = 'डिकोड करने के लिए तैयार';
+                setStatusBar('blue');
+                return;
+            }
+
+            const result = binaryToText(input);
+            textOutput.value = result;
+
+            if (result === '[त्रुटि: अमान्य बाइनरी]') {
+                statusText.textContent = 'अमान्य बाइनरी का पता चला';
+                setStatusBar('red');
+            } else {
+                statusText.textContent = `${result.length} वर्ण डिकोड किए गए`;
+                setStatusBar('green');
+            }
+        }
+
+        function setStatusBar(color) {
+            const colors = {
+                blue: 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400',
+                green: 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400',
+                red: 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400'
+            };
+            statusIconContainer.className = `w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 ${colors[color]}`;
+        }
+
+        // --- File Handling ---
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('drag-over');
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    uploadedFiles.push(file);
+                }
+            });
+            updateFileList();
+            fileInput.value = '';
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBatchBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBatchBtn.textContent = `फ़ाइल डिकोड करें ${uploadedFiles.length > 1 ? 's' : ''}`;
+
+            uploadedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 text-left';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden text-left">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${file.name}</div>
+                            <div class="text-[10px] text-slate-400">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        processBatchBtn.addEventListener('click', async () => {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            let totalProcessed = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    const text = binaryToText(content);
+                    const blob = new Blob([text], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+                    totalProcessed++;
+
+                    const resObj = {
+                        name: `${file.name.split('.')[0]}_text.txt`,
+                        url: url,
+                        size: blob.size,
+                        status: 'success'
+                    };
+                    processedResults.push(resObj);
+                    addResultToList(resObj);
+                } catch (err) {
+                    addResultToList({ name: file.name, status: 'error' });
+                }
+            }
+            statusText.textContent = `${totalProcessed} फ़ाइलें सफलतापूर्वक डिकोड की गईं`;
+            setStatusBar('green');
+        });
+
+        function addResultToList(result) {
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-3 bg-green-50/50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-900/20 text-left';
+
+            if (result.status === 'success') {
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden text-left">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate text-green-700 dark:text-green-400">${result.name}</div>
+                            <div class="text-[10px] text-green-600/60">${(result.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <a href="${result.url}" download="${result.name}" class="p-2 text-green-600 hover:text-green-700 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </a>
+                `;
+            } else {
+                item.className = 'flex items-center justify-between p-3 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20 text-left';
+                item.innerHTML = `<div class="text-xs font-bold truncate text-red-700 dark:text-red-400">विफल: ${result.name}</div>`;
+            }
+            resultsList.appendChild(item);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach(result => {
+                if (result.status === 'success') {
+                    const link = document.createElement('a');
+                    link.href = result.url;
+                    link.download = result.name;
+                    link.click();
+                }
+            });
+        });
+
+        // Listeners
+        textInput.addEventListener('input', updateLiveResult);
+        delimiterSelect.addEventListener('change', updateLiveResult);
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updateLiveResult();
+            } catch (err) {
+                console.error('पेस्ट करने में विफल:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            textOutput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsContainer.classList.add('hidden');
+            updateLiveResult();
+            fileInput.value = '';
+            textInput.focus();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (!textOutput.value) return;
+            navigator.clipboard.writeText(textOutput.value).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'कॉपी हो गया!';
+                copyBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+
+        // Initial preview
+        updateLiveResult();
+    </script>
+</body>
+</html>

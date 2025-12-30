@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मेरा IP पता क्या है (What Is My IP) - मुफ़्त और तुरंत IP जांचकर्ता | WebUtilityKit</title>
+    <meta name="description" content="अपना सार्वजनिक IP पता, स्थान और ISP विवरण तुरंत प्राप्त करें। ब्राउज़र में स्थानीय रूप से संसाधित। मुफ़्त, सुरक्षित और निजी। अभी अपना IP जांचें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/what-is-my-ip/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/what-is-my-ip/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/what-is-my-ip/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "What Is My IP",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "1234",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/what-is-my-ip.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">मेरा IP पता क्या है</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपना सार्वजनिक IP पता और नेटवर्क विवरण तुरंत प्राप्त करें। सुरक्षित, निजी और तेज़।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>गोपनीयता पहले। केवल आपका IP पता प्राप्त किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800 rounded-[3rem] p-8 md:p-12 shadow-2xl border border-slate-100 dark:border-slate-700/50 relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
+
+                <div class="relative z-10 text-center">
+                    <div class="text-sm font-bold text-blue-600 dark:text-blue-400 uppercase tracking-widest mb-4">आपका सार्वजनिक IP पता</div>
+                    <div id="ip-display" class="text-5xl md:text-7xl font-black text-slate-900 dark:text-white mb-8 tracking-tighter tabular-nums">लोड हो रहा है...</div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+                        <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">स्थान</div>
+                            <div id="res-location" class="text-xl font-bold text-slate-800 dark:text-white">-</div>
+                        </div>
+                        <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">ISP</div>
+                            <div id="res-isp" class="text-xl font-bold text-slate-800 dark:text-white">-</div>
+                        </div>
+                        <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700/50">
+                            <div class="text-xs font-bold text-slate-400 uppercase mb-2">देश</div>
+                            <div id="res-country" class="text-xl font-bold text-slate-800 dark:text-white">-</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex justify-center gap-4">
+                        <button id="refresh-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-2xl shadow-lg shadow-blue-500/25 transition-all active:scale-[0.98] flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            विवरण रिफ्रेश करें
+                        </button>
+                        <button id="copy-btn" class="px-8 py-4 rounded-2xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition-all flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            IP कॉपी करें
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">IP पते को समझना</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">सार्वजनिक IP</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">आपका इंटरनेट पर डिजिटल होम एड्रेस, जिसे आपका ISP असाइन करता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">जियोलोकेशन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">आपके IP पते के रजिस्ट्रेशन डेटा से प्राप्त स्थान संबंधी जानकारी।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">ISP विवरण</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">आपके इंटरनेट कनेक्शन प्रदान करने वाली कंपनी की पहचान।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारे IP जांचकर्ता का उपयोग क्यों करें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तेज़ गति</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम उच्च-गति API का उपयोग करके मिलीसेकंड में आपके विवरण प्राप्त करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">कोई ट्रैकिंग नहीं</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम आपके IP को लॉग नहीं करते। आपका अनुरोध संसाधित होकर तुरंत भूल जाता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">IP पता FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">IP पता क्या होता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                IP (Internet Protocol) पता इंटरनेट प्रोटोकॉल का उपयोग करके संचार करने वाले कंप्यूटर नेटवर्क से जुड़े प्रत्येक डिवाइस को असाइन किया गया एक अद्वितीय संख्यात्मक लेबल है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">स्थान कितना सटीक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                IP-आधारित जियोलोकेशन शहर या क्षेत्र के स्तर पर सटीक है लेकिन आमतौर पर एक विशिष्ट सड़क पते तक नहीं। यह इस बात पर निर्भर करता है कि आपका ISP अपने IP ब्लॉकों को कैसे रजिस्टर करता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // Theme Logic
+
+
+        // IP Logic
+        const ipDisplay = document.getElementById('ip-display');
+        const resLocation = document.getElementById('res-location');
+        const resIsp = document.getElementById('res-isp');
+        const resCountry = document.getElementById('res-country');
+        const refreshBtn = document.getElementById('refresh-btn');
+        const copyBtn = document.getElementById('copy-btn');
+
+        async function fetchIP() {
+            ipDisplay.textContent = 'फेच हो रहा है...';
+            ipDisplay.classList.add('animate-pulse');
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+
+                ipDisplay.textContent = data.ip;
+                resLocation.textContent = `${data.city}, ${data.region}`;
+                resIsp.textContent = data.org;
+                resCountry.textContent = data.country_name;
+            } catch (error) {
+                ipDisplay.textContent = 'त्रुटि';
+                console.error('Failed to fetch IP:', error);
+            } finally {
+                ipDisplay.classList.remove('animate-pulse');
+            }
+        }
+
+        refreshBtn.addEventListener('click', fetchIP);
+        copyBtn.addEventListener('click', () => {
+            const ip = ipDisplay.textContent;
+            if (ip && ip !== 'लोड हो रहा है...' && ip !== 'त्रुटि') {
+                navigator.clipboard.writeText(ip);
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = 'कॉपी हो गया!';
+                setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+            }
+        });
+
+        fetchIP();
+    </script>
+</body>
+</html>

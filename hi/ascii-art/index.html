@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASCII कला जनरेटर (ASCII Art Generator) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="टेक्स्ट को सुंदर ASCII कला में कन्वर्ट करें तुरंत। एकाधिक फ़ॉन्ट, रीयल-टाइम पूर्वावलोकन, और बैच प्रोसेसिंग सपोर्ट। 100% निजी और सुरक्षित स्थानीय प्रोसेसिंग।">
+    <link rel="canonical" href="https://webutilitykit.com/ascii-art/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/ascii-art/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/ascii-art/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ASCII Art Generator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "789",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/ascii-art.jpg"
+}
+    </script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+    <!-- Figlet Library for Text to ASCII -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/figlet/1.6.0/figlet.min.js"></script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6 text-center">
+
+        <div class="max-w-4xl mx-auto mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">ASCII कला जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने टेक्स्ट को रचनात्मक ASCII कला में बदलें विभिन्न स्टाइल और फ़ॉन्ट के साथ। टिप्पणियों, हेडर, और रचनात्मक परियोजनाओं के लिए परफेक्ट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24 text-left">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">इनपुट टेक्स्ट</label>
+                            <div class="flex gap-2">
+                                <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5 font-bold">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    अपलोड
+                                </button>
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition">पेस्ट</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सभी हटाएं</button>
+                            </div>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[400px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="या फ़ाइलें ड्रॉप करें... टेक्स्ट दर्ज करें"></textarea>
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt,.md">
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg text-left">टेक्स्ट फ़ाइलें ड्रॉप करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2 text-left">अपलोड की गई फ़ाइलें (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar text-left"></div>
+                        </div>
+
+                        <!-- Settings -->
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1 text-left">फ़ॉन्ट चुनें</label>
+                                    <select id="font-select" class="bg-slate-100 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm outline-none focus:border-blue-500 transition-all cursor-pointer w-full">
+                                        <option value="Standard">स्टैंडर्ड</option>
+                                        <option value="Slant">स्लैंट</option>
+                                        <option value="Shadow">शैडो</option>
+                                        <option value="Small">स्मॉल</option>
+                                        <option value="Script">स्क्रिप्ट</option>
+                                        <option value="Block">ब्लॉक</option>
+                                        <option value="Bubble">बबल</option>
+                                        <option value="Digital">डिजिटल</option>
+                                        <option value="Ivrit">इव्रित</option>
+                                        <option value="Mini">मिनी</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-1.5 block ml-1 text-left">लेआउट</label>
+                                    <div class="flex gap-2">
+                                        <button id="layout-full" class="flex-1 py-2 px-3 rounded-xl bg-blue-600 text-white text-xs font-bold transition-all shadow-lg shadow-blue-500/20">पूर्ण चौड़ाई</button>
+                                        <button id="layout-fitted" class="flex-1 py-2 px-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400 text-xs font-bold transition-all hover:bg-slate-300 dark:hover:bg-slate-700">फिटेड</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Pane -->
+                <div class="flex flex-col h-full text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">ASCII मास्टरपीस</label>
+                            <div class="flex gap-2">
+                                <button id="process-batch-btn" class="hidden text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">बैच प्रोसेस करें</button>
+                                <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">ASCII कला कॉपी करें</button>
+                            </div>
+                        </div>
+                        <div id="ascii-output" class="flex-grow w-full min-h-[400px] bg-slate-900 text-green-400 border-0 rounded-3xl p-6 text-xs font-mono overflow-auto whitespace-pre selection:bg-green-500/30" tabindex="0">कला यहां दिखाई देगी...</div>
+
+                        <!-- Processed Results List -->
+                        <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6 text-left">
+                            <div class="flex items-center justify-between mb-3 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 text-left">प्रोसेस की गई फ़ाइलें</h4>
+                                <button id="download-all-btn" class="text-[10px] font-black uppercase tracking-wider text-blue-600 hover:text-blue-700 transition flex items-center gap-1 font-bold">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    सभी डाउनलोड करें
+                                </button>
+                            </div>
+                            <div id="results-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar text-left"></div>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800 text-left">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                </div>
+                                <div class="text-left text-left">
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">नोट</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">कुछ फ़ॉन्ट छोटे शब्दों या एक लाइनों के साथ सबसे अच्छे काम करते हैं। बड़ा टेक्स्ट स्क्रॉलिंग की आवश्यकता हो सकती है।</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 text-left">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">ASCII कला कैसे बनाएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">टेक्स्ट दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">वह वाक्यांश या वर्ण दर्ज करें जिसे आप कन्वर्ट करना चाहते हैं। आप बैच प्रोसेसिंग के लिए टेक्स्ट फ़ाइलें भी अपलोड कर सकते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फ़ॉन्ट चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Figlet फ़ॉन्ट की एक विस्तृत रेंज में से चुनें—स्टैंडर्ड, स्लैंट, शैडो, और अधिक। पूर्वावलोकन तुरंत अपडेट होता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कॉपी और उपयोग करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">परिणामी ASCII ब्लॉक कॉपी करें। यह आपके टर्मिनल, स्रोत कोड कमेंट्स, या टेक्स्ट फ़ाइलों में उपयोग के लिए तैयार है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: History/Context -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">टेक्स्ट की कला</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                ASCII कला इंटरनेट संस्कृति का एक मुख्य हिस्सा रहा है क्योंकि शुरुआती BBS दिनों से। मानक वर्णों का उपयोग करके बड़ी छवियों या स्टाइलिश टेक्स्ट बनाने से, निर्माता किसी भी प्लेटफॉर्म पर दृश्य रूप से व्यक्त कर सकते थे। हमारा जनरेटर आपके आधुनिक परियोजनाओं के लिए इन क्लासिक स्टाइलों को लाने के लिए शक्तिशाली Figlet इंजन का उपयोग करता है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">स्टैंडर्ड</div>
+                                    <div class="font-bold">Figlet इंजन</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">गोपनीयता</div>
+                                    <div class="font-bold">ज़ीरो-अपलोड</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <pre class="text-[8px] leading-[6px] text-white/30 font-mono select-none">
+ _   _  _   _  _   _ 
+| \ | || | | || | | |
+|  \| || | | || | | |
+| . ` || | | || |_| |
+|_| \_| \___/  \___/ 
+                            </pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">इंजन विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">स्टाइलिंग विकल्प</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">स्टैंडर्ड फ़ॉन्ट</span>
+                                    <span class="font-bold text-blue-500">10+ स्टाइल</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">लेआउट नियंत्रण</span>
+                                    <span class="font-bold text-green-500">पूर्ण/फिटेड</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">UTF-8 सपोर्ट</span>
+                                    <span class="font-bold text-orange-500">आधुनिक टेक्स्ट</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">वर्कफ़्लो</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">बैच प्रोसेस</span>
+                                    <span class="font-bold text-slate-400 text-left">मल्टी-फ़ाइल</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500 text-left">
+                                    <span class="font-medium">इंस्टेंट पूर्वावलोकन</span>
+                                    <span class="font-bold text-purple-500 text-left">रियल-टाइम</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500 text-left">
+                                    <span class="font-medium">सुरक्षित निर्यात</span>
+                                    <span class="font-bold text-red-500 text-left">स्थानीय ही</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic text-left">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl text-left">जब मैं इसे पेस्ट करता हूं तो कला टूट गई क्यों दिखती है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                ASCII कला को सही ढंग से संरेखित करने के लिए **मोनोस्पेस्ड फ़ॉन्ट** (निश्चित-चौड़ाई) की आवश्यकता होती है। यदि आप इसे प्रोपोर्शनेल फ़ॉन्ट का उपयोग करने वाले संपादक या साइट में पेस्ट करते हैं, तो वर्ण लाइन अप नहीं करेंगे। प्राप्त करने वाला पक्ष Courier या Consolas जैसे फ़ॉन्ट का उपयोग कर रहा है, सुनिश्चित करें।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left">
+                                <span class="text-xl text-left">क्या मैं गैर-अंग्रेजी टेक्स्ट के साथ इसका उपयोग कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                Figlet फ़ॉन्ट पारंपरिक रूप से ASCII वर्ण रेंज के लिए डिज़ाइन किए गए हैं। कुछ फ़ॉन्ट विशेष वर्णों का सपोर्ट कर सकते हैं, लेकिन चीनी या अरबी जैसी भाषाओं के लिए, मानक Figlet फ़ॉन्ट संभवतः काम नहीं करेंगे।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left">
+                                <span class="text-xl text-left">मैं कला कैसे डाउनलोड करूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                आप "ASCII कला कॉपी करें" बटन का उपयोग करके टेक्स्ट को कॉपी कर सकते हैं। बैच प्रोसेसिंग के लिए, प्रत्येक कला ब्लॉक को एक अलग .txt फ़ाइल के रूप में सेव करने के लिए "सभी डाउनलोड करें" बटन का उपयोग करें।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === ASCII Art Logic ===
+        const textInput = document.getElementById('text-input');
+        const asciiOutput = document.getElementById('ascii-output');
+        const fontSelect = document.getElementById('font-select');
+        const layoutFull = document.getElementById('layout-full');
+        const layoutFitted = document.getElementById('layout-fitted');
+
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const processBatchBtn = document.getElementById('process-batch-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const copyBtn = document.getElementById('copy-btn');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let currentLayout = 'full'; // 'full' or 'fitted'
+
+        // Pre-load fonts (Figlet.js loads fonts asynchronously)
+        function generateASCII(text, font, callback) {
+            if (!text) {
+                callback('');
+                return;
+            }
+            figlet.text(text, {
+                font: font,
+                horizontalLayout: currentLayout === 'full' ? 'default' : 'fitted',
+                verticalLayout: 'default'
+            }, function(err, data) {
+                if (err) {
+                    console.error('Figlet Error:', err);
+                    callback('[कला जनरेट करने में त्रुटि]');
+                    return;
+                }
+                callback(data);
+            });
+        }
+
+        function updateLiveResult() {
+            if (uploadedFiles.length > 0) return;
+            const text = textInput.value;
+            const font = fontSelect.value;
+            generateASCII(text, font, (art) => {
+                asciiOutput.textContent = art || 'कला यहां दिखाई देगी...';
+            });
+        }
+
+        // Layout Toggle
+        layoutFull.addEventListener('click', () => {
+            currentLayout = 'full';
+            layoutFull.classList.replace('bg-slate-200', 'bg-blue-600');
+            layoutFull.classList.replace('text-slate-600', 'text-white');
+            layoutFull.classList.replace('dark:bg-slate-800', 'dark:bg-blue-600');
+
+            layoutFitted.classList.replace('bg-blue-600', 'bg-slate-200');
+            layoutFitted.classList.replace('text-white', 'text-slate-600');
+            layoutFitted.classList.replace('dark:bg-blue-600', 'dark:bg-slate-800');
+            updateLiveResult();
+        });
+
+        layoutFitted.addEventListener('click', () => {
+            currentLayout = 'fitted';
+            layoutFitted.classList.replace('bg-slate-200', 'bg-blue-600');
+            layoutFitted.classList.replace('text-slate-600', 'text-white');
+            layoutFitted.classList.replace('dark:bg-slate-800', 'dark:bg-blue-600');
+
+            layoutFull.classList.replace('bg-blue-600', 'bg-slate-200');
+            layoutFull.classList.replace('text-white', 'text-slate-600');
+            layoutFull.classList.replace('dark:bg-blue-600', 'dark:bg-slate-800');
+            updateLiveResult();
+        });
+
+        // --- File Handling ---
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('drag-over');
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    uploadedFiles.push(file);
+                }
+            });
+            updateFileList();
+            fileInput.value = '';
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBatchBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBatchBtn.textContent = `फ़ाइल कन्वर्ट करें ${uploadedFiles.length > 1 ? 's' : ''}`;
+
+            uploadedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 text-left';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden text-left">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${file.name}</div>
+                            <div class="text-[10px] text-slate-400">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        processBatchBtn.addEventListener('click', async () => {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            const font = fontSelect.value;
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    await new Promise(resolve => {
+                        generateASCII(content, font, (art) => {
+                            const blob = new Blob([art], { type: 'text/plain' });
+                            const url = URL.createObjectURL(blob);
+                            const resObj = {
+                                name: `${file.name.split('.')[0]}_ascii.txt`,
+                                url: url,
+                                size: blob.size,
+                                status: 'success'
+                            };
+                            processedResults.push(resObj);
+                            addResultToList(resObj);
+                            resolve();
+                        });
+                    });
+                } catch (err) {
+                    addResultToList({ name: file.name, status: 'error' });
+                }
+            }
+        });
+
+        function addResultToList(result) {
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-3 bg-green-50/50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-900/20 text-left';
+
+            if (result.status === 'success') {
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden text-left">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate text-green-700 dark:text-green-400">${result.name}</div>
+                            <div class="text-[10px] text-green-600/60">${(result.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <a href="${result.url}" download="${result.name}" class="p-2 text-green-600 hover:text-green-700 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </a>
+                `;
+            } else {
+                item.className = 'flex items-center justify-between p-3 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20 text-left';
+                item.innerHTML = `<div class="text-xs font-bold truncate text-red-700 dark:text-red-400">विफल: ${result.name}</div>`;
+            }
+            resultsList.appendChild(item);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach(result => {
+                if (result.status === 'success') {
+                    const link = document.createElement('a');
+                    link.href = result.url;
+                    link.download = result.name;
+                    link.click();
+                }
+            });
+        });
+
+        // Listeners
+        textInput.addEventListener('input', updateLiveResult);
+        fontSelect.addEventListener('change', updateLiveResult);
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updateLiveResult();
+            } catch (err) {
+                console.error('पेस्ट करने में विफल:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsContainer.classList.add('hidden');
+            updateLiveResult();
+            fileInput.value = '';
+            textInput.focus();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const text = asciiOutput.textContent;
+            if (!text || text === 'कला यहां दिखाई देगी...') return;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'कॉपी हो गया!';
+                copyBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+
+        // Initialize with default font
+        figlet.defaults({ fontPath: 'https://cdnjs.cloudflare.com/ajax/libs/figlet/1.6.0/fonts' });
+        // Standard is preloaded usually or we can just trigger it
+        setTimeout(updateLiveResult, 500);
+    </script>
+</body>
+</html>

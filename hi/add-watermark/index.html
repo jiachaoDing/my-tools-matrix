@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>वाटरमार्क निर्माता (Watermark Maker) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="अपनी तस्वीरों पर टेक्स्ट या लोगो वाटरमार्क आसानी से जोड़ें। एक साथ कई फ़ाइलों को स्थानीय रूप से प्रोसेस करें। तेज़, सुरक्षित, और 100% निजी वाटरमार्क टूल।">
+    <link rel="canonical" href="https://webutilitykit.com/add-watermark/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/add-watermark/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/add-watermark/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Watermark Maker",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "567",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/add-watermark.jpg"
+}
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">वाटरमार्क निर्माता</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी तस्वीरों को कस्टम टेक्स्ट या लोगो वाटरमार्क से सुरक्षित करें। एक साथ कई फ़ाइलों को तुरंत प्रोसेस करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग ही।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Left: Upload & Files -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">तस्वीरें चुनें</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सभी हटाएं</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 group">
+                            <input type="file" id="file-input" class="hidden" multiple accept="image/*">
+                            <div class="bg-blue-600 text-white p-5 rounded-3xl mb-4 shadow-xl shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <p class="text-slate-900 dark:text-white font-bold text-lg">अपनी फ़ोटो यहां ड्रॉप करें</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">या फ़ाइलें चुनने के लिए क्लिक करें</p>
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">अपलोड करने के लिए छोड़ें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden flex-grow overflow-hidden flex flex-col">
+                            <div class="flex items-center justify-between mb-3 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400">लक्ष्य तस्वीरें (<span id="file-count">0</span>)</h4>
+                            </div>
+                            <div id="file-list" class="space-y-2 overflow-y-auto pr-2 flex-grow scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Settings & Process -->
+                <div class="flex flex-col h-full gap-8">
+                    <!-- Watermark Settings -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">वाटरमार्क सेटिंग्स</label>
+                            <div class="flex bg-slate-100 dark:bg-slate-900/50 p-1 rounded-2xl">
+                                <button id="type-text" class="px-4 py-2 text-xs font-bold rounded-xl transition-all bg-blue-600 text-white shadow-lg shadow-blue-500/20">टेक्स्ट</button>
+                                <button id="type-image" class="px-4 py-2 text-xs font-bold rounded-xl transition-all text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800">इमेज</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Mode: Text -->
+                            <div id="text-controls" class="space-y-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">वाटरमार्क टेक्स्ट</label>
+                                    <input type="text" id="wm-text" placeholder="Copyright © 2025"
+                                           class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-blue-500/10 outline-none transition-all">
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">रंग</label>
+                                        <div class="flex items-center gap-2">
+                                            <input type="color" id="wm-color" value="#ffffff" class="w-10 h-10 rounded-lg cursor-pointer bg-transparent border-none">
+                                            <input type="text" id="wm-color-hex" value="#FFFFFF" class="flex-grow bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-xs uppercase font-mono focus:ring-2 focus:ring-blue-500/20 outline-none transition-all">
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">फ़ॉन्ट साइज़ (%)</label>
+                                        <input type="number" id="wm-font-size" value="5" min="1" max="50"
+                                               class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-blue-500/20 outline-none transition-all">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mode: Image -->
+                            <div id="image-controls" class="hidden space-y-4">
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">वाटरमार्क इमेज (लोगो)</label>
+                                <div id="wm-image-drop" class="border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-2xl p-6 flex flex-col items-center justify-center bg-slate-50/30 dark:bg-slate-900/30 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 transition-all">
+                                    <input type="file" id="wm-file-input" class="hidden" accept="image/*">
+                                    <div id="wm-img-preview" class="hidden mb-3">
+                                        <img src="" class="h-16 w-auto object-contain rounded-lg">
+                                    </div>
+                                    <div id="wm-img-empty" class="flex flex-col items-center">
+                                        <svg class="w-8 h-8 text-slate-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        <span class="text-xs font-bold text-slate-400">लोगो अपलोड करने के लिए क्लिक करें</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">स्केल (%)</label>
+                                    <input type="range" id="wm-scale" min="1" max="100" value="20" class="w-full h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                </div>
+                            </div>
+
+                            <!-- Shared Settings -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">अपारदर्शिता</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="range" id="wm-opacity" min="0" max="100" value="50" class="flex-grow h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <span id="opacity-val" class="text-xs font-bold text-slate-600 dark:text-slate-400 w-8 text-right">50%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">रोटेशन</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="range" id="wm-rotation" min="-180" max="180" value="0" class="flex-grow h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <span id="rotation-val" class="text-xs font-bold text-slate-600 dark:text-slate-400 w-8 text-right">0°</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">पोजीशन</label>
+                                <div class="grid grid-cols-3 gap-2 w-32 mx-auto">
+                                    <button data-pos="top-left" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="top-center" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="top-right" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="middle-left" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="middle-center" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-blue-600 shadow-lg shadow-blue-500/20 transition-all"></button>
+                                    <button data-pos="middle-right" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="bottom-left" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="bottom-center" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                    <button data-pos="bottom-right" class="pos-btn aspect-square rounded-lg bg-slate-50 dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-700 hover:border-blue-500 transition-all"></button>
+                                </div>
+                            </div>
+
+                            <button id="process-btn" class="w-full py-4 rounded-[1.5rem] bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed hidden">
+                                <span id="btn-count">0</span> तस्वीरें प्रोसेस करें
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Processed Results -->
+                    <div id="results-container" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 flex-grow hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">प्रोसेस किए गए परिणाम</label>
+                            <button id="download-all-btn" class="text-xs px-4 py-1.5 rounded-xl bg-green-600 text-white hover:bg-green-700 transition shadow-lg shadow-green-500/20 font-bold">सभी डाउनलोड करें</button>
+                        </div>
+
+                        <div id="progress-container" class="mb-6 hidden">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">प्रोसेसिंग...</span>
+                                <span id="progress-percent" class="text-[10px] font-black text-blue-600">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                            </div>
+                        </div>
+
+                        <div id="results-list" class="space-y-3 overflow-y-auto pr-2 max-h-[400px] scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">वाटरमार्क निर्माता का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फ़ोटो अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">उन तस्वीरों को ड्रॉप या चुनें जिन्हें आप सुरक्षित करना चाहते हैं। सभी फ़ॉर्मेट सपोर्टेड हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कस्टम स्टाइल</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टेक्स्ट या इमेज वाटरमार्क के बीच चुनें। साइज़, अपारदर्शिता, पोजीशन और रोटेशन को एडजस्ट करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">बैच प्रोटेक्ट</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ सभी फ़ोटो पर वाटरमार्क लगाएं और उन्हें तुरंत डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">आपकी गोपनीयता हमारी प्राथमिकता</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                इतना साधारण वाटरमार्क जोड़ने के लिए अपनी निजी तस्वीरों को सर्वर पर क्यों अपलोड करें? हमारा टूल पूरी तरह से आपके ब्राउज़र में चलता है। HTML5 Canvas API का उपयोग करके, हम आपके पिक्सल को स्थानीय रूप से प्रोसेस करते हैं—आपकी तस्वीरें कभी हमारे सर्वर तक नहीं पहुंचतीं। यह तेज़, अधिक सुरक्षित है, और ऑफ़लाइन भी काम करता है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-200 text-xs font-bold uppercase mb-1 text-center">सुरक्षा</div>
+                                    <div class="font-bold">100% स्थानीय</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1 text-center">दक्षता</div>
+                                    <div class="font-bold text-center">बैच रेडी</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">विविध सुरक्षा उपकरण</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">टेक्स्ट वाटरमार्क</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">फ़ॉन्ट साइज़, रंग और पारदर्शिता पर पूर्ण नियंत्रण के साथ कस्टम कॉपीराइट टेक्स्ट जोड़ें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">लोगो और इमेज सपोर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने PNG लोगो को अपलोड करें और सभी एसेट्स पर एक पेशेवर ब्रांड मार्क जोड़ें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">विशाल बैच प्रोसेसिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक सेशन में 10, 50, या 100 तस्वीरों को प्रोटेक्ट करें। दोहराव वाली मैन्युअल एडिटिंग खत्म।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">लाइव रीयल-टाइम ट्यूनिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सेटिंग्स एडजस्ट करते समय परिणाम तुरंत देखें। हर बार परफेक्ट प्लेसमेंट।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">वाटरमार्क निर्माता FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी मूल तस्वीरें अधिलेखित हो जाएंगी?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                नहीं। यह टूल आपके वाटरमार्क को जोड़कर आपकी तस्वीरों की नई कॉपी बनाता है। आपकी मूल फ़ाइलें आपके डिवाइस पर अपरिवर्तित रहती हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">वाटरमार्क के लिए सबसे अच्छी पोजीशन क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                आमतौर पर नीचे-दाएं कोने में प्लेसमेंट की जाती है। हालांकि, अधिकतम सुरक्षा के लिए अनधिकृत क्रॉपिंग से, कम अपारदर्शिता के साथ केंद्रित वाटरमार्क की सिफारिश की जाती है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी तस्वीरें किसी सर्वर पर अपलोड होती हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                बिल्कुल नहीं। सभी प्रोसेसिंग 100% स्थानीय रूप से आपके ब्राउज़र की मेमोरी में होती है। हमारे पास कोई बैकएंड नहीं है जो आपकी तस्वीरों को स्टोर या देखे।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Watermark Maker Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+        const btnCountDisplay = document.getElementById('btn-count');
+        const clearBtn = document.getElementById('clear-btn');
+        const processBtn = document.getElementById('process-btn');
+
+        const typeTextBtn = document.getElementById('type-text');
+        const typeImageBtn = document.getElementById('type-image');
+        const textControls = document.getElementById('text-controls');
+        const imageControls = document.getElementById('image-controls');
+
+        const wmTextInput = document.getElementById('wm-text');
+        const wmColorInput = document.getElementById('wm-color');
+        const wmColorHex = document.getElementById('wm-color-hex');
+        const wmFontSizeInput = document.getElementById('wm-font-size');
+        const wmOpacitySlider = document.getElementById('wm-opacity');
+        const opacityValDisplay = document.getElementById('opacity-val');
+        const wmRotationSlider = document.getElementById('wm-rotation');
+        const rotationValDisplay = document.getElementById('rotation-val');
+
+        const wmImageDrop = document.getElementById('wm-image-drop');
+        const wmFileInput = document.getElementById('wm-file-input');
+        const wmImgPreview = document.getElementById('wm-img-preview');
+        const wmImgEmpty = document.getElementById('wm-img-empty');
+        const wmScaleSlider = document.getElementById('wm-scale');
+
+        const posBtns = document.querySelectorAll('.pos-btn');
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let currentMode = 'text'; // 'text' or 'image'
+        let watermarkImage = null;
+        let selectedPosition = 'middle-center';
+
+        // Tabs Logic
+        typeTextBtn.addEventListener('click', () => setMode('text'));
+        typeImageBtn.addEventListener('click', () => setMode('image'));
+
+        function setMode(mode) {
+            currentMode = mode;
+            const activeClasses = ['bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20'];
+            const inactiveClasses = ['text-slate-500', 'hover:bg-slate-50', 'dark:hover:bg-slate-800'];
+
+            if (mode === 'text') {
+                typeTextBtn.classList.remove(...inactiveClasses);
+                typeTextBtn.classList.add(...activeClasses);
+                typeImageBtn.classList.remove(...activeClasses);
+                typeImageBtn.classList.add(...inactiveClasses);
+                textControls.classList.remove('hidden');
+                imageControls.classList.add('hidden');
+            } else {
+                typeImageBtn.classList.remove(...inactiveClasses);
+                typeImageBtn.classList.add(...activeClasses);
+                typeTextBtn.classList.remove(...activeClasses);
+                typeTextBtn.classList.add(...inactiveClasses);
+                imageControls.classList.remove('hidden');
+                textControls.classList.add('hidden');
+            }
+        }
+
+        // Shared Controls Display
+        wmOpacitySlider.addEventListener('input', () => {
+            opacityValDisplay.textContent = `${wmOpacitySlider.value}%`;
+        });
+        wmRotationSlider.addEventListener('input', () => {
+            rotationValDisplay.textContent = `${wmRotationSlider.value}°`;
+        });
+        wmColorInput.addEventListener('input', () => {
+            wmColorHex.value = wmColorInput.value.toUpperCase();
+        });
+        wmColorHex.addEventListener('input', () => {
+            if (/^#[0-9A-F]{6}$/i.test(wmColorHex.value)) {
+                wmColorInput.value = wmColorHex.value;
+            }
+        });
+
+        // Position Selection
+        posBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                posBtns.forEach(b => {
+                    b.classList.remove('border-blue-600', 'shadow-lg', 'shadow-blue-500/20');
+                    b.classList.add('border-slate-100', 'dark:border-slate-700');
+                });
+                btn.classList.remove('border-slate-100', 'dark:border-slate-700');
+                btn.classList.add('border-blue-600', 'shadow-lg', 'shadow-blue-500/20');
+                selectedPosition = btn.dataset.pos;
+            });
+        });
+
+        // Watermark Image Upload
+        wmImageDrop.addEventListener('click', () => wmFileInput.click());
+        wmFileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    watermarkImage = new Image();
+                    watermarkImage.onload = () => {
+                        wmImgPreview.querySelector('img').src = event.target.result;
+                        wmImgPreview.classList.remove('hidden');
+                        wmImgEmpty.classList.add('hidden');
+                    };
+                    watermarkImage.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Main Image Upload
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        async function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            for (const file of newFiles) {
+                uploadedFiles.push(file);
+            }
+            updateFileList();
+            fileInput.value = '';
+        }
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            btnCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+
+            uploadedFiles.forEach((file, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 group';
+                div.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${file.name}</div>
+                            <div class="text-[10px] text-slate-400">${formatSize(file.size)}</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition opacity-0 group-hover:opacity-100">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(div);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        clearBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsList.innerHTML = '';
+            resultsContainer.classList.add('hidden');
+        });
+
+        // Processing Logic
+        processBtn.addEventListener('click', async () => {
+            if (currentMode === 'image' && !watermarkImage) {
+                alert('पहले वाटरमार्क लोगो अपलोड करें।');
+                return;
+            }
+
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            progressContainer.classList.remove('hidden');
+            downloadAllBtn.classList.add('hidden');
+
+            const settings = {
+                mode: currentMode,
+                text: wmTextInput.value || 'Copyright © 2025',
+                color: wmColorInput.value,
+                fontSizePercent: parseInt(wmFontSizeInput.value),
+                opacity: parseInt(wmOpacitySlider.value) / 100,
+                rotation: parseInt(wmRotationSlider.value) * Math.PI / 180,
+                pos: selectedPosition,
+                scale: parseInt(wmScaleSlider.value) / 100,
+                logo: watermarkImage
+            };
+
+            for (let i = 0; i < uploadedFiles.length; i++) {
+                const file = uploadedFiles[i];
+                const percent = Math.round((i / uploadedFiles.length) * 100);
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = `${percent}%`;
+
+                try {
+                    const blob = await applyWatermark(file, settings);
+                    const url = URL.createObjectURL(blob);
+                    const result = {
+                        name: `watermarked_${file.name}`,
+                        url: url,
+                        size: blob.size
+                    };
+                    processedResults.push(result);
+                    addResultToList(result);
+                } catch (err) {
+                    console.error('Processing failed', err);
+                }
+            }
+
+            progressBar.style.width = '100%';
+            progressPercent.textContent = '100%';
+            setTimeout(() => progressContainer.classList.add('hidden'), 500);
+            downloadAllBtn.classList.remove('hidden');
+        });
+
+        async function applyWatermark(file, s) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        const ctx = canvas.getContext('2d');
+
+                        // Draw Base Image
+                        ctx.drawImage(img, 0, 0);
+
+                        // Setup Watermark Context
+                        ctx.globalAlpha = s.opacity;
+
+                        if (s.mode === 'text') {
+                            const fontSize = (img.width * s.fontSizePercent) / 100;
+                            ctx.font = `bold ${fontSize}px sans-serif`;
+                            ctx.fillStyle = s.color;
+                            ctx.textBaseline = 'middle';
+                            ctx.textAlign = 'center';
+
+                            const metrics = ctx.measureText(s.text);
+                            const textW = metrics.width;
+                            const textH = fontSize;
+
+                            const { x, y } = getPosition(s.pos, img.width, img.height, textW, textH, 40);
+
+                            ctx.save();
+                            ctx.translate(x, y);
+                            ctx.rotate(s.rotation);
+                            ctx.fillText(s.text, 0, 0);
+                            ctx.restore();
+                        } else {
+                            const scale = (img.width * s.scale) / s.logo.width;
+                            const logoW = s.logo.width * scale;
+                            const logoH = s.logo.height * scale;
+
+                            const { x, y } = getPosition(s.pos, img.width, img.height, logoW, logoH, 40);
+
+                            ctx.save();
+                            ctx.translate(x, y);
+                            ctx.rotate(s.rotation);
+                            ctx.drawImage(s.logo, -logoW / 2, -logoH / 2, logoW, logoH);
+                            ctx.restore();
+                        }
+
+                        canvas.toBlob((blob) => resolve(blob), 'image/jpeg', 0.92);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function getPosition(pos, imgW, imgH, itemW, itemH, padding) {
+            const safePadding = Math.min(padding, imgW * 0.05, imgH * 0.05);
+            let x, y;
+
+            switch (pos) {
+                case 'top-left': x = safePadding + itemW/2; y = safePadding + itemH/2; break;
+                case 'top-center': x = imgW/2; y = safePadding + itemH/2; break;
+                case 'top-right': x = imgW - safePadding - itemW/2; y = safePadding + itemH/2; break;
+                case 'middle-left': x = safePadding + itemW/2; y = imgH/2; break;
+                case 'middle-center': x = imgW/2; y = imgH/2; break;
+                case 'middle-right': x = imgW - safePadding - itemW/2; y = imgH/2; break;
+                case 'bottom-left': x = safePadding + itemW/2; y = imgH - safePadding - itemH/2; break;
+                case 'bottom-center': x = imgW/2; y = imgH - safePadding - itemH/2; break;
+                case 'bottom-right': x = imgW - safePadding - itemW/2; y = imgH - safePadding - itemH/2; break;
+            }
+            return { x, y };
+        }
+
+        function addResultToList(result) {
+            const div = document.createElement('div');
+            div.className = 'p-4 rounded-3xl bg-white dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50 flex items-center justify-between group transition-all hover:border-blue-500/30';
+            div.innerHTML = `
+                <div class="flex items-center gap-4 overflow-hidden">
+                    <div class="w-10 h-10 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0">
+                        <img src="${result.url}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="overflow-hidden">
+                        <div class="text-xs font-bold truncate">${result.name}</div>
+                        <div class="text-[10px] text-slate-400 mt-0.5">${formatSize(result.size)}</div>
+                    </div>
+                </div>
+                <a href="${result.url}" download="${result.name}" class="p-2.5 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-xl hover:bg-blue-600 hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </a>
+            `;
+            resultsList.appendChild(div);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach((res, i) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = res.url;
+                    link.download = res.name;
+                    link.click();
+                }, i * 200);
+            });
+        });
+
+    </script>
+</body>
+</html>

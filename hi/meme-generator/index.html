@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>मीम जनरेटर (Meme Generator) - मुफ्त & नो वॉटरमार्क | WebUtilityKit</title>
+    <meta name="description" content="अपने ब्राउज़र में कस्टम मीम तत्काल बनाएं। मुफ्त, नो वॉटरमार्क, असीमित डाउनलोड। इमेज अपलोड करें या टेम्प्लेट का इस्तेमाल करें। अभी मीम बनाना शुरू करें! Meme Generator, free meme maker, online meme creator">
+    <link rel="canonical" href="https://webutilitykit.com/hi/meme-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/meme-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/meme-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Meme Generator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "891",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No watermark, Custom uploads, Template library, Real-time preview, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/meme-generator.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">मीम जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">सेकंड में वायरल मीम डिज़ाइन करें। फास्ट, प्रोफेशनल, और आपके डिवाइस पर रहता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% प्राइवेट। लोकल प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left: Editor/Preview Area -->
+                <div class="lg:col-span-7 flex flex-col h-full min-h-[500px]">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 group">
+                            <input type="file" id="file-input" class="hidden" accept="image/*">
+                            <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">बैकग्राउंड इमेज अपलोड करें</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">ड्रैग एंड ड्रॉप करें या ब्राउज़ करने के लिए क्लिक करें</p>
+                        </div>
+
+                        <!-- Preview Canvas -->
+                        <div id="preview-container" class="hidden flex-grow flex items-center justify-center relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden">
+                            <canvas id="meme-canvas" class="max-w-full max-h-full block shadow-2xl"></canvas>
+                        </div>
+
+                        <!-- Action Bar (Hidden initially) -->
+                        <div id="action-bar" class="hidden flex items-center justify-between mt-4 px-2">
+                            <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">बैकग्राउंड हटाएं</button>
+                            <p class="text-[10px] font-black uppercase tracking-widest text-slate-400">लाइव प्रिव्यू</p>
+                        </div>
+
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">उपयोग करने के लिए रिलीज़ करें</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls Area -->
+                <div class="lg:col-span-5 flex flex-col h-full gap-8">
+
+                    <!-- Settings Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 block">मीम टेक्स्ट</label>
+
+                        <div class="space-y-6">
+                            <!-- Top Text -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2 ml-1">टॉप टेक्स्ट</label>
+                                <textarea id="top-text" rows="2" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-blue-500/10 outline-none transition-all resize-none" placeholder="TOP TEXT GOES HERE"></textarea>
+                            </div>
+
+                            <!-- Bottom Text -->
+                            <div>
+                                <label class="block text-xs font-bold text-slate-500 mb-2 ml-1">बॉटम टेक्स्ट</label>
+                                <textarea id="bottom-text" rows="2" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm focus:ring-4 focus:ring-blue-500/10 outline-none transition-all resize-none" placeholder="BOTTOM TEXT GOES HERE"></textarea>
+                            </div>
+
+                            <hr class="border-slate-100 dark:border-slate-800">
+
+                            <!-- Styling -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">फॉंट साइज़</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="range" id="font-size" min="20" max="100" value="50" class="flex-grow h-2 bg-slate-100 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <span id="font-size-val" class="text-xs font-bold text-slate-600 dark:text-slate-400 w-8">50</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-3 ml-1">कलर</label>
+                                    <div class="flex items-center gap-2">
+                                        <input type="color" id="text-color" value="#ffffff" class="w-full h-10 rounded-lg cursor-pointer bg-transparent border-none">
+                                        <input type="color" id="outline-color" value="#000000" class="w-full h-10 rounded-lg cursor-pointer bg-transparent border-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="download-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group mt-4">
+                                <span class="flex items-center justify-center gap-3">
+                                    <span>मीम डाउनलोड करें</span>
+                                    <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Templates -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 block">क्विक टेम्प्लेट</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button class="template-btn aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden hover:scale-105 transition-transform" data-src="https://i.imgflip.com/1bij.jpg">
+                                <img src="https://i.imgflip.com/1bij.jpg" class="w-full h-full object-cover" alt="Drake">
+                            </button>
+                            <button class="template-btn aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden hover:scale-105 transition-transform" data-src="https://i.imgflip.com/261o3j.jpg">
+                                <img src="https://i.imgflip.com/261o3j.jpg" class="w-full h-full object-cover" alt="Distracted Boyfriend">
+                            </button>
+                            <button class="template-btn aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden hover:scale-105 transition-transform" data-src="https://i.imgflip.com/1otk96.jpg">
+                                <img src="https://i.imgflip.com/1otk96.jpg" class="w-full h-full object-cover" alt="Ancient Aliens">
+                            </button>
+                            <button class="template-btn aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden hover:scale-105 transition-transform" data-src="https://i.imgflip.com/26am.jpg">
+                                <img src="https://i.imgflip.com/26am.jpg" class="w-full h-full object-cover" alt="One Does Not Simply">
+                            </button>
+                            <button class="template-btn aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden hover:scale-105 transition-transform" data-src="https://i.imgflip.com/gr96.jpg">
+                                <img src="https://i.imgflip.com/gr96.jpg" class="w-full h-full object-cover" alt="Success Kid">
+                            </button>
+                            <button class="template-btn aspect-square rounded-xl bg-slate-100 dark:bg-slate-900 overflow-hidden hover:scale-105 transition-transform" data-src="https://i.imgflip.com/1g86es.jpg">
+                                <img src="https://i.imgflip.com/1g86es.jpg" class="w-full h-full object-cover" alt="Mocking Spongebob">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">मीम कैसे बनाएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">इमेज चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपनी खुद की फोटो अपलोड करें या शुरुआत करने के लिए हमारे ट्रेंडिंग टेम्प्लेट में से एक चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">कैप्शन जोड़ें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टॉप और बॉटम बॉक्स में अपना मैसेज टाइप करें। अपनी स्टाइल से मैच करने के लिए फॉंट साइज़ और कलर एडजस्ट करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">जब आप रिजल्ट से खुश हों, तो डाउनलोड बटन पर क्लिक करें और अपना हाई-क्वालिटी मीम सेव करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">प्रोफेशनल क्वालिटी, जीरो इफर्ट</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                हमारा मीम जनरेटर पिक्सेल-पर्फेक्ट रिजल्ट के लिए डिज़ाइन किया गया है। हम स्टैंडर्ड "Impact" स्टाइल फॉंट का इस्तेमाल करते हैं जिसमें हाई-कंट्रास्ट आउटलाइन होते हैं ताकि आपका टेक्स्ट किसी भी बैकग्राउंड पर पढ़ा जा सके। साथ ही, सब कुछ लोकल रूप से होने की वजह से, आपकी प्राइवेट जॉक्स प्राइवेट रहती हैं।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">हाई-रेजोल्यूशन कैनवस एक्सपोर्ट</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">स्टैंडर्ड मीम टाइपोग्राफी</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">इंस्टेंट रीयल-टाइम प्रिव्यू</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">मीम जनरेटर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरे मीम प्राइवेट हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ। अन्य जनरेटर के विपरीत जो आपकी इमेज को उनके सर्वर पर अपलोड करते हैं, हमारा टूल पूरी तरह से आपके ब्राउज़र में काम करता है। आपकी इमेज और टेक्स्ट आपके डिवाइस से कभी नहीं जाते।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं अपनी खुद की इमेज इस्तेमाल कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                बिल्कुल! अपलोड बॉक्स पर क्लिक करें या अपने कंप्यूटर से कोई इमेज फ़ाइल ड्रैग करें।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या टेक्स्ट लेंथ की कोई लिमिट है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                कोई हार्ड लिमिट नहीं है, लेकिन फॉंट साइज़ कंसिस्टेंट रहेगा। अगर आपके पास बहुत सारा टेक्स्ट है, तो हम रीडेबिलिटी के लिए फॉंट साइज़ कम करने की सलाह देते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Meme Generator Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const emptyState = document.getElementById('empty-state');
+        const previewContainer = document.getElementById('preview-container');
+        const actionBar = document.getElementById('action-bar');
+        const fileInput = document.getElementById('file-input');
+        const canvas = document.getElementById('meme-canvas');
+        const ctx = canvas.getContext('2d');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const resetBtn = document.getElementById('reset-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const templateBtns = document.querySelectorAll('.template-btn');
+
+        const topTextInput = document.getElementById('top-text');
+        const bottomTextInput = document.getElementById('bottom-text');
+        const fontSizeSlider = document.getElementById('font-size');
+        const fontSizeVal = document.getElementById('font-size-val');
+        const textColorInput = document.getElementById('text-color');
+        const outlineColorInput = document.getElementById('outline-color');
+
+        let bgImage = null;
+
+        // Initialization
+        emptyState.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        templateBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const img = new Image();
+                img.crossOrigin = "anonymous";
+                img.onload = () => {
+                    bgImage = img;
+                    initCanvas();
+                };
+                img.src = btn.dataset.src;
+            });
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = new Image();
+                img.onload = () => {
+                    bgImage = img;
+                    initCanvas();
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initCanvas() {
+            canvas.width = bgImage.width;
+            canvas.height = bgImage.height;
+
+            emptyState.classList.add('hidden');
+            previewContainer.classList.remove('hidden');
+            actionBar.classList.remove('hidden');
+            downloadBtn.disabled = false;
+
+            drawMeme();
+        }
+
+        function drawMeme() {
+            if (!bgImage) return;
+
+            // Clear and draw image
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(bgImage, 0, 0);
+
+            const topText = topTextInput.value.toUpperCase();
+            const bottomText = bottomTextInput.value.toUpperCase();
+            const fontSize = parseInt(fontSizeSlider.value) * (canvas.width / 500); // Scale font with image width
+            const textColor = textColorInput.value;
+            const outlineColor = outlineColorInput.value;
+
+            ctx.fillStyle = textColor;
+            ctx.strokeStyle = outlineColor;
+            ctx.lineWidth = fontSize / 15;
+            ctx.textAlign = 'center';
+            ctx.font = `bold ${fontSize}px Impact, sans-serif`;
+            ctx.textBaseline = 'top';
+
+            // Draw Top Text
+            if (topText) {
+                const lines = topText.split('\n');
+                lines.forEach((line, i) => {
+                    ctx.strokeText(line, canvas.width / 2, 20 + i * fontSize);
+                    ctx.fillText(line, canvas.width / 2, 20 + i * fontSize);
+                });
+            }
+
+            // Draw Bottom Text
+            if (bottomText) {
+                ctx.textBaseline = 'bottom';
+                const lines = bottomText.split('\n').reverse();
+                lines.forEach((line, i) => {
+                    ctx.strokeText(line, canvas.width / 2, canvas.height - 20 - i * fontSize);
+                    ctx.fillText(line, canvas.width / 2, canvas.height - 20 - i * fontSize);
+                });
+            }
+        }
+
+        // Live update events
+        [topTextInput, bottomTextInput, textColorInput, outlineColorInput].forEach(el => {
+            el.addEventListener('input', drawMeme);
+        });
+
+        fontSizeSlider.addEventListener('input', () => {
+            fontSizeVal.textContent = fontSizeSlider.value;
+            drawMeme();
+        });
+
+        resetBtn.addEventListener('click', () => {
+            bgImage = null;
+            emptyState.classList.remove('hidden');
+            previewContainer.classList.add('hidden');
+            actionBar.classList.add('hidden');
+            downloadBtn.disabled = true;
+            fileInput.value = '';
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            const link = document.createElement('a');
+            link.download = 'meme.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+
+    </script>
+</body>
+</html>

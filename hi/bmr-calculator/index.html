@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR कैलकुलेटर (BMR Calculator) - बेसल मेटाबोलिक रेट और दैनिक कैलोरी | WebUtilityKit</title>
+    <meta name="description" content="अपनी बेसल मेटाबोलिक रेट (BMR) और टोटल डेली एनर्जी एक्सपेंडिचर (TDEE) की गणना करें। वजन प्रबंधन और न्यूट्रिशन के लिए सटीक वैज्ञानिक फॉर्मूले।">
+    <link rel="canonical" href="https://webutilitykit.com/bmr-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/bmr-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/bmr-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <script src="/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "BMR कैलकुलेटर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "891",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Mifflin-St Jeor equation, TDEE calculation, Goal targets, Activity levels, Client-side processing",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/bmr-calculator.jpg"
+    }
+    </script>
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">BMR कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी बेसल मेटाबोलिक रेट का पता लगाएं—यह वह कैलोरी मात्रा है जो आपके शरीर को बेसिक लाइफ फंक्शंस को बनाए रखने के लिए रेस्ट में चाहिए।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. लोकल प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Inputs (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-6 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex p-1.5 bg-slate-100 dark:bg-slate-900/60 rounded-[1.25rem] mb-4 border border-slate-200/50 dark:border-slate-800/50">
+                            <button id="unit-metric" class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 bg-white dark:bg-slate-700 shadow-md shadow-slate-200/50 dark:shadow-none text-blue-600 dark:text-blue-400">मीट्रिक (cm/kg)</button>
+                            <button id="unit-imperial" class="flex-1 py-2.5 text-sm font-bold rounded-xl transition-all duration-300 text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 ml-1">इंपीरियल (in/lb)</button>
+                        </div>
+
+                        <div class="space-y-4">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">लिंग</label>
+                                <div class="flex gap-4">
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="male" checked class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">पुरुष</div>
+                                    </label>
+                                    <label class="flex-1 cursor-pointer">
+                                        <input type="radio" name="gender" value="female" class="hidden peer">
+                                        <div class="py-4 text-center rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 peer-checked:border-blue-500/50 peer-checked:bg-blue-50/50 dark:peer-checked:bg-blue-900/20 transition-all font-bold text-slate-600 dark:text-slate-400 peer-checked:text-blue-600 dark:peer-checked:text-blue-400">महिला</div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">आयु</label>
+                                    <div class="relative group">
+                                        <input type="number" id="age-input" value="25" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">साल</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">ऊंचाई</label>
+                                    <div class="relative group">
+                                        <input type="number" id="height-input" value="175" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-height">cm</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">वजन</label>
+                                <div class="relative group">
+                                    <input type="number" id="weight-input" value="70" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50 unit-weight">kg</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">एक्टिविटी लेवल</label>
+                                <div class="grid grid-cols-1 gap-2" id="activity-levels">
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20 border-blue-500/50 bg-blue-50/50 dark:bg-blue-900/20 ring-4 ring-blue-500/5" data-multiplier="1.2">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold text-sm">सेडेंटरी</span>
+                                            <span class="text-[10px] text-slate-400 font-bold uppercase">कम या कोई एक्सरसाइज़ नहीं</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.375">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold text-sm">लाइटली एक्टिव</span>
+                                            <span class="text-[10px] text-slate-400 font-bold uppercase">सप्ताह में 1-3 दिन</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.55">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold text-sm">मॉडरेटली एक्टिव</span>
+                                            <span class="text-[10px] text-slate-400 font-bold uppercase">सप्ताह में 3-5 दिन</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.725">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold text-sm">वरी एक्टिव</span>
+                                            <span class="text-[10px] text-slate-400 font-bold uppercase">सप्ताह में 6-7 दिन</span>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 rounded-2xl border-2 border-transparent bg-slate-50 dark:bg-slate-900/50 cursor-pointer transition-all hover:border-blue-500/20" data-multiplier="1.9">
+                                        <div class="flex justify-between items-center">
+                                            <span class="font-bold text-sm">एक्सट्रा एक्टिव</span>
+                                            <span class="text-[10px] text-slate-400 font-bold uppercase">बहुत हेवी एक्सरसाइज़</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">गणना किए गए मेटाबॉलिज्म</label>
+
+                        <div class="flex-grow flex flex-col items-center justify-center space-y-12">
+                            <!-- Large BMR Result -->
+                            <div class="text-center relative">
+                                <div id="bmr-result" class="text-8xl font-black text-slate-900 dark:text-white leading-none">1650</div>
+                                <div class="text-sm font-bold text-slate-400 uppercase mt-4 tracking-widest italic">कैलोरी / दिन (BMR)</div>
+                                <div class="mt-4 flex items-center justify-center gap-2">
+                                    <span class="w-12 h-1 bg-blue-500 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-blue-500/30 rounded-full"></span>
+                                    <span class="w-4 h-1 bg-blue-500/30 rounded-full"></span>
+                                </div>
+                            </div>
+
+                            <div class="w-full space-y-4">
+                                <div class="p-8 rounded-[2rem] bg-blue-600 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden">
+                                    <div class="absolute right-0 top-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                                    <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+                                        <div>
+                                            <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1">टोटल डेली एक्सपेंडिचर (TDEE)</div>
+                                            <div id="tdee-result" class="text-5xl font-black">1,980</div>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1">एक्टिविटी लेवल</div>
+                                            <div id="active-level-label" class="text-xl font-bold italic">सेडेंटरी</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                    <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">वजन घटाना</div>
+                                        <div id="weight-loss" class="text-xl font-bold text-green-500">-500 cal</div>
+                                        <div class="text-[10px] text-slate-400 mt-1 uppercase">अनुशंसित कमी</div>
+                                    </div>
+                                    <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">मेनटेनेंस</div>
+                                        <div id="maintenance" class="text-xl font-bold text-blue-500">सामान्य</div>
+                                        <div class="text-[10px] text-slate-400 mt-1 uppercase">जैसे का तैसा रखें</div>
+                                    </div>
+                                    <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                        <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">वजन बढ़ाना</div>
+                                        <div id="weight-gain" class="text-xl font-bold text-orange-500">+500 cal</div>
+                                        <div class="text-[10px] text-slate-400 mt-1 uppercase">मसल बिल्डिंग</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="w-full p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="flex gap-4">
+                                    <div class="text-blue-500 mt-1">
+                                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </div>
+                                    <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed italic">
+                                        नोट: BMR गणना <strong>Mifflin-St Jeor Equation</strong> पर आधारित है, जो कि स्वस्थ वयस्कों के लिए कैलोरी जरूरतों की भविष्यवाणी करने के लिए सबसे सटीक मानक माना जाता है।
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अपने BMR रिजल्ट्स को समझना</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">BMR की पहचान करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">यह आपकी "कोमा कैलोरी काउंट"—एनर्जी है जो पूरे दिन बिस्तर पर लेटे रहने पर भी शरीर को चाहिए।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">एक्टिविटी में फैक्टर करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">मूवमेंट कैलोरी बर्न बढ़ाती है। आपके एक्टिविटी लेवल को चुनने से आपको TDEE (Total Daily Energy Expenditure) मिलता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">अपना गोल सेट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">वजन घटाने के लिए TDEE से कम खाएं, मेनटेन करने के लिए TDEE पर, और मसल बनाने के लिए TDEE से ज्यादा।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Mifflin-St Jeor? -->
+                <section class="bg-slate-900 dark:bg-blue-600 rounded-[3.5rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">गोल्ड स्टैंडर्ड फॉर्मूला</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                कई फॉर्मूले मौजूद हैं, लेकिन हमारा कैलकुलेटर <strong>Mifflin-St Jeor Equation</strong> का उपयोग करता है। 1990 में प्रकाशित, यह पुराने Harris-Benedict समीकरण से ज्यादा सटीक पाया गया, जो कि अधिकांश व्यक्तियों के लिए BMR को मापी गई वैल्यू से 10% के अंदर भविष्यवाणी करता है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">समीकरण</div>
+                                    <div class="font-bold">Mifflin-St Jeor</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">स्थिति</div>
+                                    <div class="font-bold">क्लिनिकली प्रिफर्ड</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रेसिजन न्यूट्रिशन ट्रैकिंग</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">TDEE कैलकुलेशन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने टोटल डेली एनर्जी एक्सपेंडिचर को इंस्टेंटली देखें। हम आपके लाइफस्टाइल इंटेंसिटी को फैक्टर करके आपको एक रियलिस्टिक डेली कैलोरी टारगेट देते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोल टारगेट्स</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">चाहे आप वजन घटाना चाहें, मेनटेन करना चाहें या बुल्क बनाना चाहें, हम आपको सटीक कैलोरी एडजस्टमेंट की गणना करते हैं जो आपके गोल्स के लिए जरूरी है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">यूनिट वर्सेटिलिटी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">मीट्रिक और इंपीरियल दोनों सिस्टम को सपोर्ट करता है। kg/cm और lb/in के बीच डेटा खोए बिना आसानी से स्विच करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">प्राइवेसी सेंट्रिक</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका फिजिकल डेटा सेंसिटिव है। इसलिए सब कुछ आपके ब्राउज़र में लोकल रूप से प्रोसेस होता है। कोई भी डेटा आपकी डिवाइस से बाहर नहीं जाता।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">मेटाबॉलिज्म FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं अपनी BMR से कम खा सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                आमतौर पर लंबे समय तक अपनी BMR से कम खाना अनुशंसित नहीं है। आपकी BMR बेसिक ऑर्गन फंक्शंस को बनाए रखने के लिए जरूरी एनर्जी को रिप्रेजेंट करती है। एक्सट्रीम डिफिसिट मसल लॉस और मेटाबोलिक स्लोडाउन का कारण बन सकते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मैं अपनी BMR कैसे बढ़ा सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                अपनी BMR बढ़ाने का सबसे प्रभावी तरीका स्ट्रेंथ ट्रेनिंग के माध्यम से लीम मसल मास बढ़ाना है। मसल फैट से ज्यादा मेटाबोलिकली एक्टिव है, जिसका मतलब है कि आप सोते समय भी ज्यादा कैलोरी बर्न करेंगे।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === BMR Calculator Logic ===
+        const unitMetric = document.getElementById('unit-metric');
+        const unitImperial = document.getElementById('unit-imperial');
+        const ageInput = document.getElementById('age-input');
+        const heightInput = document.getElementById('height-input');
+        const weightInput = document.getElementById('weight-input');
+        const activityCards = document.querySelectorAll('.activity-card');
+
+        const bmrResult = document.getElementById('bmr-result');
+        const tdeeResult = document.getElementById('tdee-result');
+        const activeLevelLabel = document.getElementById('active-level-label');
+        const weightLoss = document.getElementById('weight-loss');
+        const maintenance = document.getElementById('maintenance');
+        const weightGain = document.getElementById('weight-gain');
+
+        let isMetric = true;
+        let currentMultiplier = 1.2;
+
+        function updateUIUnits() {
+            const heightUnits = document.querySelectorAll('.unit-height');
+            const weightUnits = document.querySelectorAll('.unit-weight');
+
+            if (isMetric) {
+                heightUnits.forEach(u => u.textContent = 'cm');
+                weightUnits.forEach(u => u.textContent = 'kg');
+                unitMetric.classList.add('active-tab');
+                unitMetric.classList.remove('inactive-tab');
+                unitImperial.classList.remove('active-tab');
+                unitImperial.classList.add('inactive-tab');
+            } else {
+                heightUnits.forEach(u => u.textContent = 'in');
+                weightUnits.forEach(u => u.textContent = 'lb');
+                unitImperial.classList.add('active-tab');
+                unitImperial.classList.remove('inactive-tab');
+                unitMetric.classList.remove('active-tab');
+                unitMetric.classList.add('inactive-tab');
+            }
+            calculateBMR();
+        }
+
+        unitMetric.addEventListener('click', () => {
+            if (!isMetric) {
+                isMetric = true;
+                heightInput.value = (parseFloat(heightInput.value) * 2.54).toFixed(0);
+                weightInput.value = (parseFloat(weightInput.value) / 2.20462).toFixed(1);
+                updateUIUnits();
+            }
+        });
+
+        unitImperial.addEventListener('click', () => {
+            if (isMetric) {
+                isMetric = false;
+                heightInput.value = (parseFloat(heightInput.value) / 2.54).toFixed(1);
+                weightInput.value = (parseFloat(weightInput.value) * 2.20462).toFixed(1);
+                updateUIUnits();
+            }
+        });
+
+        activityCards.forEach(card => {
+            card.addEventListener('click', () => {
+                activityCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                currentMultiplier = parseFloat(card.dataset.multiplier);
+                activeLevelLabel.textContent = card.querySelector('.font-bold').textContent;
+                calculateBMR();
+            });
+        });
+
+        function calculateBMR() {
+            const gender = document.querySelector('input[name="gender"]:checked').value;
+            const age = parseFloat(ageInput.value) || 0;
+            let height = parseFloat(heightInput.value) || 0;
+            let weight = parseFloat(weightInput.value) || 0;
+
+            if (age <= 0 || height <= 0 || weight <= 0) return;
+
+            // Convert to metric for formula
+            const h = isMetric ? height : height * 2.54;
+            const w = isMetric ? weight : weight / 2.20462;
+
+            let bmr = 0;
+            if (gender === 'male') {
+                bmr = (10 * w) + (6.25 * h) - (5 * age) + 5;
+            } else {
+                bmr = (10 * w) + (6.25 * h) - (5 * age) - 161;
+            }
+
+            const finalBmr = Math.round(bmr);
+            const finalTdee = Math.round(bmr * currentMultiplier);
+
+            bmrResult.textContent = finalBmr.toLocaleString();
+            tdeeResult.textContent = finalTdee.toLocaleString();
+
+            maintenance.textContent = finalTdee.toLocaleString();
+            weightLoss.textContent = (finalTdee - 500).toLocaleString();
+            weightGain.textContent = (finalTdee + 500).toLocaleString();
+        }
+
+        [ageInput, heightInput, weightInput].forEach(el => el.addEventListener('input', calculateBMR));
+        document.querySelectorAll('input[name="gender"]').forEach(el => el.addEventListener('change', calculateBMR));
+
+        // Init
+        updateUIUnits();
+
+    </script>
+</body>
+</html>

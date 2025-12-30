@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Small Text Generator - Tiny Fonts & Unicode | WebUtilityKit</title>
+    <meta name="description" content="Unicode वर्णों का उपयोग करके छोटा टेक्स्ट, superscript, और subscript तुरंत जनरेट करें। मुफ्त, सुरक्षित, और असीमित प्रोसेसिंग। Processed locally. No software installation required. अभी शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/small-text-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/small-text-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/small-text-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Small Text Generator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "623",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/small-text-generator.jpg"
+}
+</script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6 text-center">
+
+        <div class="max-w-4xl mx-auto mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Small Text Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Unicode वर्णों का उपयोग करके छोटा टेक्स्ट वैरिएशन बनाएं। सोशल बायो, गेमिंग नेम और अनोखी कमेंट्स के लिए परफेक्ट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24 text-left">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">सामान्य टेक्स्ट</label>
+                            <div class="flex gap-2 text-left">
+                                <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5 font-bold">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    अपलोड
+                                </button>
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition">पेस्ट</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">क्लियर</button>
+                            </div>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[450px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[450px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-sans placeholder-slate-400 resize-none outline-none transition-all" placeholder="यहां अपना टेक्स्ट टाइप करें या टेक्स्ट फाइलें ड्रॉप करें..."></textarea>
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt">
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl text-left">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m-3 3l3 3"></path></svg>
+                                </div>
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg text-left">फाइलें यहाँ ड्रॉप करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden text-left text-left">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2 text-left">ट्रांसफॉर्म करने के लिए फाइलें (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 max-h-40 overflow-y-auto pr-2 custom-scrollbar text-left text-left"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Pane -->
+                <div class="flex flex-col h-full text-left text-left">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 text-left text-left">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest text-left">छोटे वैरिएशन</label>
+                            <button id="download-all-btn" class="hidden text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">सब डाउनलोड करें (बैच)</button>
+                        </div>
+
+                        <div class="space-y-6 flex-grow overflow-auto custom-scrollbar pr-2">
+                            <!-- Small Caps -->
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative">
+                                <div class="flex items-center justify-between mb-3 text-left">
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Small Caps</span>
+                                    <button onclick="copyOutput('small-caps')" class="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase">कॉपी</button>
+                                </div>
+                                <div id="output-small-caps" class="text-lg font-medium break-all text-slate-900 dark:text-white">यहाँ आपका टेक्स्ट</div>
+                            </div>
+
+                            <!-- Superscript -->
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative">
+                                <div class="flex items-center justify-between mb-3 text-left">
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Superscript</span>
+                                    <button onclick="copyOutput('superscript')" class="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase">कॉपी</button>
+                                </div>
+                                <div id="output-superscript" class="text-lg font-medium break-all text-slate-900 dark:text-white">यहाँ आपका टेक्स्ट</div>
+                            </div>
+
+                            <!-- Subscript -->
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/30 group relative text-left">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">Subscript</span>
+                                    <button onclick="copyOutput('subscript')" class="text-[10px] font-bold text-blue-600 hover:text-blue-700 uppercase">कॉपी</button>
+                                </div>
+                                <div id="output-subscript" class="text-lg font-medium break-all text-slate-900 dark:text-white">यहाँ आपका टेक्स्ट</div>
+                            </div>
+                        </div>
+
+                        <!-- Processed Results List (Hidden unless batch) -->
+                        <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2 text-left text-left">प्रोसेस की गई फाइलें</h4>
+                            <div id="results-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar text-left text-left"></div>
+                        </div>
+
+                        <!-- Info Box -->
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800 text-left">
+                            <div class="flex items-center gap-4 text-left">
+                                <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                </div>
+                                <div class="text-left text-left">
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">त्वरित टिप</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">"Small Caps" का उपयोग औपचारिक लेकिन छोटे लुक के लिए करें, या गेमिंग टैग के लिए "Superscript"।</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 text-left text-left">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center text-left">छोटी टाइपोग्राफी में महारत हासिल करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left text-left">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">टेक्स्ट इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">प्राथमिक बॉक्स में अपना मैसेज दर्ज करें। टूल हर वैरिएशन को रीयल-टाइम में अपडेट करता है जैसे-जैसे आप टाइप करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left text-left">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">स्टाइल चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Small Caps, Superscript (ऊपर छोटा टेक्स्ट), या Subscript (नीचे छोटा टेक्स्ट) में से चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-left text-left">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">छोटा टेक्स्ट कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने पसंदीदा वैरिएशन पर कॉपी बटन पर क्लिक करें। यह अब आपके क्लिपबोर्ड पर है, सोशल मीडिया या बायो के लिए तैयार।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Technical/Privacy Callout -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl text-left text-left">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-left text-left">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Pure Unicode. Total Privacy.</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8 text-left text-left">
+                                फॉन्ट फाइलों को डाउनलोड करने की ज़रूरत के विपरीत, हमारा छोटा टेक्स्ट जनरेटर स्टैंडर्ड Unicode वर्णों का उपयोग करता है। इसका मतलब है कि आपका छोटा टेक्स्ट Instagram बायो से लेकर Discord टैग तक कहीं भी काम करेगा—बिना किसी विशेष सॉफ्टवेयर या सर्वर इंटरेक्शन की ज़रूरत।
+                            </p>
+                            <div class="flex gap-4 text-left text-left">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20 text-left">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Method</div>
+                                    <div class="font-bold">Unicode Mapping</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20 text-left text-left">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Privacy</div>
+                                    <div class="font-bold">100% Client-Side</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center text-left text-left">
+                            <div class="text-6xl font-black text-white/20 tracking-tighter select-none rotate-3">
+                                ᵀᴵɴʏ ᴛᴇxᴛ
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center text-left">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left text-left text-left">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">Styling Engines</h3>
+                            <div class="space-y-4 text-left">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Small Caps</span>
+                                    <span class="font-bold text-blue-500">ᴛɪɴʏ ᴜᴘᴘᴇʀᴄᴀsᴇ</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500 text-left">
+                                    <span class="font-medium">Superscript</span>
+                                    <span class="font-bold text-green-500">ᵗⁱⁿʸ ᵗᵒᵖ</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500 text-left">
+                                    <span class="font-medium">Subscript</span>
+                                    <span class="font-bold text-orange-500">ₜᵢₙᵧ ₆ₒₜₜₒₘ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800 text-left text-left">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">Workflow</h3>
+                            <div class="space-y-4 text-left text-left">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl text-left">
+                                    <span class="font-medium text-left">Batch Upload</span>
+                                    <span class="font-bold text-slate-400 text-left">Multiple Files</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500 text-left">
+                                    <span class="font-medium text-left">Instant Copy</span>
+                                    <span class="font-bold text-purple-500 text-left">One-Click</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500 text-left">
+                                    <span class="font-medium text-left">Drag & Drop</span>
+                                    <span class="font-bold text-red-500 text-left">Ready</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic text-left text-left">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4 text-left">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left">
+                                <span class="text-xl text-left">क्या यह Instagram या Twitter पर काम करेगा?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left">
+                                हाँ! चूंकि ये Unicode वर्ण हैं और नहीं कि असली फॉन्ट, वे लगभग सभी सोशल मीडिया प्लेटफॉर्म और मैसेजिंग ऐप्स द्वारा सपोर्ट किए जाते हैं। वे बायो और यूजरनेम के लिए परफेक्ट हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left">
+                                <span class="text-xl text-left">कुछ वर्ण क्यों गायब हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left text-left">
+                                Unicode स्टैंडर्ड में हर एकल वर्ण के लिए छोटा वर्जन नहीं है। उदाहरण के लिए, सबस्क्रिप्ट में कुछ अक्षर परिभाषित नहीं हैं। हमारा जनरेटर सबसे अच्छा लुक सुनिश्चित करने के लिए उपलब्ध मैपिंग का उपयोग करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10 text-left text-left">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none text-left">
+                                <span class="text-xl text-left">क्या यह टेक्स्ट फाइलों को प्रोसेस कर सकता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-left">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-left">
+                                बिल्कुल। आप इनपुट ज़ोन में `.txt` फाइलें ड्रैग और ड्रॉप कर सकते हैं। टूल उन्हें स्मॉल कैप्स में कन्वर्ट करेगा और नतीजों को व्यक्तिगत रूप से या बैच के रूप में डाउनलोड करने की अनुमति देगा।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Small Text Logic ===
+        const maps = {
+            smallCaps: {
+                'a': 'ᴀ', 'b': 'ʙ', 'c': 'ᴄ', 'd': 'ᴅ', 'e': 'ᴇ', 'f': 'ꜰ', 'g': 'ɢ', 'h': 'ʜ', 'i': 'ɪ', 'j': 'ᴊ', 'k': 'ᴋ', 'l': 'ʟ', 'm': 'ᴍ', 'n': 'ɴ', 'o': 'ᴏ', 'p': 'ᴘ', 'q': 'ǫ', 'r': 'ʀ', 's': 'ꜱ', 't': 'ᴛ', 'u': 'ᴜ', 'v': 'ᴠ', 'w': 'ᴡ', 'x': 'x', 'y': 'ʏ', 'z': 'ᴢ',
+                'A': 'ᴀ', 'B': 'ʙ', 'C': 'ᴄ', 'D': 'ᴅ', 'E': 'ᴇ', 'F': 'ꜰ', 'G': 'ɢ', 'H': 'ʜ', 'I': 'ɪ', 'J': 'ᴊ', 'K': 'ᴋ', 'L': 'ʟ', 'M': 'ᴍ', 'N': 'ɴ', 'O': 'ᴏ', 'P': 'ᴘ', 'Q': 'ǫ', 'R': 'ʀ', 'S': 'ꜱ', 'T': 'ᴛ', 'U': 'ᴜ', 'V': 'ᴠ', 'W': 'ᴡ', 'X': 'x', 'Y': 'ʏ', 'Z': 'ᴢ'
+            },
+            superscript: {
+                'a': 'ᵃ', 'b': 'ᵇ', 'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ', 'f': 'ᶠ', 'g': 'ᵍ', 'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ', 'k': 'ᵏ', 'l': 'ˡ', 'm': 'ᵐ', 'n': 'ⁿ', 'o': 'ᵒ', 'p': 'ᵖ', 'r': 'ʳ', 's': 'ˢ', 't': 'ᵗ', 'u': 'ᵘ', 'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ', 'z': 'ᶻ',
+                'A': 'ᴬ', 'B': 'ᴮ', 'D': 'ᴰ', 'E': 'ᴱ', 'G': 'ᴳ', 'H': 'ᴴ', 'I': 'ᴵ', 'J': 'ᴶ', 'K': 'ᴷ', 'L': 'ᴸ', 'M': 'ᴹ', 'N': 'ᴺ', 'O': 'ᴼ', 'P': 'ᴾ', 'R': 'ᴿ', 'T': 'ᵀ', 'U': 'ᵁ', 'V': 'ⱽ', 'W': 'ᵂ',
+                '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴', '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
+                '+': '⁺', '-': '⁻', '=': '⁼', '(': '⁽', ')': '⁾'
+            },
+            subscript: {
+                'a': 'ₐ', 'e': 'ₑ', 'h': 'ₕ', 'i': 'ᵢ', 'j': 'ⱼ', 'k': 'ₖ', 'l': 'ₗ', 'm': 'ₘ', 'n': 'ₙ', 'o': 'ₒ', 'p': 'ₚ', 'r': 'ᵣ', 's': 'ₛ', 't': 'ₜ', 'u': 'ᵤ', 'v': 'ᵥ', 'x': 'ₓ',
+                '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄', '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉',
+                '+': '₊', '-': '₋', '=': '₌', '(': '₍', ')': '₎'
+            }
+        };
+
+        const textInput = document.getElementById('text-input');
+        const outputSmallCaps = document.getElementById('output-small-caps');
+        const outputSuperscript = document.getElementById('output-superscript');
+        const outputSubscript = document.getElementById('output-subscript');
+
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+
+        function transform(text, map) {
+            return text.split('').map(char => map[char] || char).join('');
+        }
+
+        function updateLiveResult() {
+            if (uploadedFiles.length > 0) return;
+            const text = textInput.value || "यहाँ आपका टेक्स्ट";
+            outputSmallCaps.textContent = transform(text, maps.smallCaps);
+            outputSuperscript.textContent = transform(text, maps.superscript);
+            outputSubscript.textContent = transform(text, maps.subscript);
+        }
+
+        window.copyOutput = (type) => {
+            const el = document.getElementById(`output-${type}`);
+            const text = el.textContent;
+            if (text === "यहाँ आपका टेक्स्ट") return;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = "कॉपी हो गया!";
+                btn.classList.add('text-green-500');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('text-green-500');
+                }, 1500);
+            });
+        };
+
+        // --- File Handling ---
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('drag-over');
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    uploadedFiles.push(file);
+                }
+            });
+            updateFileList();
+            if (uploadedFiles.length > 0) processBatch();
+            fileInput.value = '';
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            downloadAllBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+
+            uploadedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800 text-left';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden text-left">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${file.name}</div>
+                            <div class="text-[10px] text-slate-400">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            processedResults.splice(index, 1);
+            updateFileList();
+            updateResultsList();
+        };
+
+        async function processBatch() {
+            processedResults = [];
+            resultsContainer.classList.remove('hidden');
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    // Batch default: Small Caps
+                    const transformed = transform(content, maps.smallCaps);
+                    const blob = new Blob([transformed], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+
+                    processedResults.push({
+                        name: `${file.name.split('.')[0]}_small.txt`,
+                        url: url,
+                        size: blob.size,
+                        status: 'success'
+                    });
+                } catch (err) {
+                    processedResults.push({ name: file.name, status: 'error' });
+                }
+            }
+            updateResultsList();
+        }
+
+        function updateResultsList() {
+            resultsList.innerHTML = '';
+            if (processedResults.length === 0) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+            processedResults.forEach(result => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 bg-green-50/50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-900/20 text-left text-left';
+
+                if (result.status === 'success') {
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3 overflow-hidden text-left text-left text-left">
+                            <div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg shrink-0 text-left text-left">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            <div class="overflow-hidden text-left text-left">
+                                <div class="text-xs font-bold truncate text-green-700 dark:text-green-400 text-left text-left">${result.name}</div>
+                                <div class="text-[10px] text-green-600/60 text-left text-left">${(result.size / 1024).toFixed(1)} KB</div>
+                            </div>
+                        </div>
+                        <a href="${result.url}" download="${result.name}" class="p-2 text-green-600 hover:text-green-700 transition text-left text-left">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        </a>
+                    `;
+                } else {
+                    item.className = 'flex items-center justify-between p-3 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20 text-left text-left';
+                    item.innerHTML = `<div class="text-xs font-bold truncate text-red-700 dark:text-red-400 text-left text-left">Failed: ${result.name}</div>`;
+                }
+                resultsList.appendChild(item);
+            });
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach(result => {
+                if (result.status === 'success') {
+                    const link = document.createElement('a');
+                    link.href = result.url;
+                    link.download = result.name;
+                    link.click();
+                }
+            });
+        });
+
+        // Listeners
+        textInput.addEventListener('input', updateLiveResult);
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updateLiveResult();
+            } catch (err) {
+                console.error('Failed to paste:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            updateLiveResult();
+            fileInput.value = '';
+            textInput.focus();
+        });
+
+        // Initialize
+        updateLiveResult();
+    </script>
+</body>
+</html>

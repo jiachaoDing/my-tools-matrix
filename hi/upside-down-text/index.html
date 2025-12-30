@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>अपसाइड डाउन टेक्स्ट जनरेटर (Upside Down Text) - मुफ्त टूल | WebUtilityKit</title>
+    <meta name="description" content="अपने टेक्स्ट को तुरंत उल्टा करें। सोशल मीडिया बायो और मजेदार संदेशों के लिए परफेक्ट। ब्राउज़र में स्थानीय रूप से प्रोसेस किया जाता है। अभी उल्टा करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/upside-down-text/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/upside-down-text/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/upside-down-text/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "अपसाइड डाउन टेक्स्ट जनरेटर",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "623",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/upside-down-text.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">अपसाइड डाउन टेक्स्ट जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने शब्दों को तुरंत उल्टा करें। रचनात्मक सोशल मीडिया बायो, मजेदार संदेशों या बस टेक्स्ट के साथ मज़ा करने के लिए परफेक्ट।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch h-full">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col flex-1 min-h-[300px] group relative">
+                    <div id="drop-zone" class="absolute inset-0 z-10 hidden border-4 border-dashed border-blue-500 rounded-[2.5rem] bg-blue-50/80 dark:bg-blue-900/40 backdrop-blur-sm flex flex-col items-center justify-center transition-all pointer-events-none">
+                        <div class="w-20 h-20 bg-blue-600 text-white rounded-full flex items-center justify-center mb-4 shadow-xl">
+                            <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                        </div>
+                        <p class="text-xl font-bold text-blue-600 dark:text-blue-400">यहाँ अपनी फाइल ड्रॉप करें</p>
+                    </div>
+
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-widest italic">इनपुट टेक्स्ट</label>
+                        <div class="flex items-center gap-2">
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt">
+                            <button id="upload-btn" class="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M16 10l-4-4m0 0l-4 4m4-4v12"></path></svg>
+                                फाइल इम्पोर्ट करें
+                            </button>
+                            <button id="clear-btn" class="text-xs font-bold text-red-500 hover:text-red-600 transition-colors">क्लियर</button>
+                        </div>
+                    </div>
+
+                    <textarea id="input-text" placeholder="यहाँ अपना टेक्स्ट टाइप करें या पेस्ट करें... या फाइल ड्रॉप करें।" class="w-full h-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-[2rem] p-8 outline-none transition-all font-medium text-lg leading-relaxed resize-none shadow-inner flex-grow"></textarea>
+
+                    <div id="uploaded-files" class="mt-4 hidden space-y-2 px-2">
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex justify-between">
+                            <span>अपलोड की गई फाइलें</span>
+                            <span id="file-count">0 फाइलें</span>
+                        </div>
+                        <div id="file-list" class="space-y-2"></div>
+                    </div>
+                </div>
+
+                <!-- Output Pane -->
+                <div class="flex flex-col flex-1 min-h-[300px]">
+                    <div class="flex items-center justify-between mb-4 px-2">
+                        <label class="text-xs font-bold text-slate-500 uppercase tracking-widest italic">अपसाइड डाउन रिजल्ट</label>
+                        <div class="flex items-center gap-4">
+                            <div class="flex items-center gap-2">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" id="reverse-check" class="sr-only peer" checked>
+                                    <div class="w-9 h-5 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 relative"></div>
+                                    <span class="ml-2 text-[10px] font-bold text-slate-500 uppercase">बैकवर्ड</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <textarea id="output-text" readonly placeholder="रिजल्ट यहाँ दिखाई देगा..." class="w-full h-full bg-white/50 dark:bg-slate-800/30 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-[2rem] p-8 outline-none transition-all font-medium text-lg leading-relaxed resize-none shadow-inner flex-grow cursor-default"></textarea>
+
+                    <div class="mt-6 flex gap-4">
+                        <button id="copy-btn" class="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95 bg-blue-600 text-white shadow-lg shadow-blue-500/20 hover:bg-blue-700 flex-1">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 00-2 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            रिजल्ट कॉपी करें
+                        </button>
+                        <button id="download-btn" class="flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-bold transition-all active:scale-95 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1M7 10l5 5m0 0l5-5m-5 5V3"></path></svg>
+                            .txt एक्सपोर्ट करें
+                        </button>
+                    </div>
+
+                    <div id="processed-files" class="mt-4 hidden space-y-2 px-2">
+                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-2 flex justify-between">
+                            <span>प्रोसेस किए गए रिजल्ट</span>
+                            <button id="download-all" class="text-blue-600 hover:underline">सभी डाउनलोड करें</button>
+                        </div>
+                        <div id="processed-list" class="space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase underline decoration-blue-500/30 underline-offset-8">टेक्स्ट को कैसे उल्टा करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">शब्द इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">सीधे बॉक्स में अपना टेक्स्ट टाइप करें, इसे अपने क्लिपबोर्ड से पेस्ट करें, या .txt फाइल को ड्रैग एंड ड्रॉप करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">विकल्प टॉगल करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">निर्णय लें कि आप चाहते हैं कि टेक्स्ट सिर्फ अपसाइड डाउन हो या अपसाइड डाउन और रिवर्स (पीछे से) भी।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">कॉपी करें और पेस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">रिजल्ट को तुरंत कॉपी करें या बैच प्रोसेसिंग के लिए इसे टेक्स्ट फाइल के रूप में डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight leading-tight">डिजिटल भीड़ में अलग दिखें</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8 italic">
+                                चाहे आप अपने Discord बायो को अधिक यूनिक बनाना चाहते हों, एक फ्रेंड को एक प्लेफुल मैसेज भेजना चाहते हों, या आर्टिस्टिक कैप्शन बनाना चाहते हों, उल्टा टेक्स्ट मानक फॉन्ट की विजुअल मोनोटोनी को तोड़ने का एक सरल लेकिन प्रभावी तरीका है।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic tracking-widest">कंपैटिबिलिटी</div>
+                                    <div class="font-bold">यूनिकोड स्टैंडर्ड</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic tracking-widest">स्पीड</div>
+                                    <div class="font-bold">इंस्टेंट रेंडर</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <span class="text-7xl font-black rotate-180 drop-shadow-2xl">उल्टा</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest italic decoration-blue-500/30 underline underline-offset-8">कोर फीचर्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">ड्रैग एंड ड्रॉप इम्पोर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">लंबे टेक्स्ट दस्तावेजों को आसानी से हैंडल करें। अपनी फाइल को इनपुट पेन में ड्रैग करें और हजारों कैरेक्टर्स को एक साथ उल्टा करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">गोपनीयता गारंटीड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">आपका टेक्स्ट आपके डिवाइस पर रहता है। हम ब्राउज़र-नेटिव JavaScript का उपयोग करके सब कुछ स्थानीय रूप से प्रोसेस करते हैं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter decoration-blue-500/30 underline underline-offset-8">अपसाइड डाउन FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">मैं उल्टे टेक्स्ट का कहाँ उपयोग कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                आप इसे लगभग कहीं भी उपयोग कर सकते हैं जो स्टैंडर्ड यूनिकोड टेक्स्ट का सपोर्ट करता हो! इसमें Instagram, Facebook, Twitter (X), Discord, WhatsApp, और अधिकांश आधुनिक मैसेजिंग ऐप और वेबसाइट बिल्डर शामिल हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">यह कैसे काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm border border-slate-100 dark:border-slate-600">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                टूल हर स्टैंडर्ड कैरेक्टर को उसके अपसाइड-डाउन यूनिकोड इक्विवेलेंट से मैप करता है। यह एक अलग फॉन्ट नहीं है, बल्कि कैरेक्टर का एक संग्रह है जो आपके मूल टेक्स्ट को 180 डिग्री उल्टा दिखाने जैसा दिखता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Upside Down Logic ===
+        // ... existing code ...
+</script>
+</body>
+</html>

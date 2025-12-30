@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Converter (लेंथ कन्वर्टर) - इंस्टेंट और एक्यूरेट | WebUtilityKit</title>
+    <meta name="description" content="मीट्रिक और इंपीरियल लेंथ यूनिट्स के बीच इंस्टेंट कन्वर्जन। फ्री, एक्यूरेट, और पूरी तरह से प्राइवेट कन्वर्जन टूल। मीटर्स, फीट, माइल्स, और अधिक सपोर्ट करता है। अभी कन्वर्ट करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/length-converter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/length-converter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/length-converter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Length Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "542",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/length-converter.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">लेंथ कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">मीट्रिक और इंपीरियल लेंथ यूनिट्स के बीच इंस्टेंट कन्वर्जन। परफेक्ट, फास्ट, और पूरी तरह से प्राइवेट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया गया।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-700/50">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
+                    <!-- From -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">से</label>
+                        <input type="number" id="from-value" value="1" step="any"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-2xl font-bold focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="from-unit"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="mm">मिलीमीटर्स (mm)</option>
+                            <option value="cm">सेंटीमीटर्स (cm)</option>
+                            <option value="m" selected>मीटर्स (m)</option>
+                            <option value="km">किलोमीटर्स (km)</option>
+                            <option value="in">इंच (in)</option>
+                            <option value="ft">फीट (ft)</option>
+                            <option value="yd">यार्ड्स (yd)</option>
+                            <option value="mi">माइल्स (mi)</option>
+                            <option value="nmi">नॉटिकल माइल्स (nmi)</option>
+                        </select>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <button id="swap-btn" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-500 transition-all group mt-6 md:mt-10">
+                        <svg class="w-6 h-6 transform md:rotate-0 rotate-90 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </button>
+
+                    <!-- To -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">में</label>
+                        <input type="number" id="to-value" value="3.28084" step="any"
+                            class="w-full bg-blue-50 dark:bg-blue-900/20 border-none rounded-2xl px-6 py-4 text-2xl font-bold text-blue-600 dark:text-blue-400 focus:ring-2 focus:ring-blue-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="to-unit"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-blue-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="mm">मिलीमीटर्स (mm)</option>
+                            <option value="cm">सेंटीमीटर्स (cm)</option>
+                            <option value="m">मीटर्स (m)</option>
+                            <option value="km">किलोमीटर्स (km)</option>
+                            <option value="in">इंच (in)</option>
+                            <option value="ft" selected>फीट (ft)</option>
+                            <option value="yd">यार्ड्स (yd)</option>
+                            <option value="mi">माइल्स (mi)</option>
+                            <option value="nmi">नॉटिकल माइल्स (nmi)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="conversion-formula" class="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/30 text-center text-slate-600 dark:text-slate-400 font-medium italic">
+                    1 मीटर = 3.28084 फीट
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">लेंथ कन्वर्टर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">वैल्यू इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">जिस लेंथ वैल्यू को कन्वर्ट करना चाहते हैं उसे "से" इनपुट फील्ड में टाइप करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">यूनिट्स सिलेक्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">ड्रॉपडाउन मेनू से अपनी स्टार्टिंग यूनिट और टारगेट यूनिट चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">रिजल्ट प्राप्त करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कन्वर्टेड वैल्यू "में" फील्ड में इंस्टेंटली दिखाई देती है जैसे ही आप टाइप करते हैं।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारे लेंथ कन्वर्टर का उपयोग क्यों करें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">हाई परफेक्शन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम हाई-परफेक्शन फ्लोटिंग पॉइंट मैथ का उपयोग करते हैं ताकि आपकी कन्वर्जन कई डेसीमल प्लेसेस तक एक्यूरेट हो।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">प्राइवेट और लोकल</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका डेटा आपके ब्राउज़र से कभी नहीं जाता। सभी कैल्कुलेशन आपके डिवाइस पर किए जाते हैं, जिससे पूर्ण प्राइवेसी मिलती है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">लेंथ कन्वर्टर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मीट्रिक और इंपीरियल के बीच क्या अंतर है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                मीट्रिक सिस्टम (मीटर्स, किलोमीटर्स) दुनिया भर में इस्तेमाल किया जाता है और 10 के मल्टीपल्स पर आधारित है। इंपीरियल सिस्टम (इंच, फीट, माइल्स) मुख्य रूप से US में इस्तेमाल किया जाता है और हिस्टोरिकल यूनिट्स पर आधारित है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fromValue = document.getElementById('from-value');
+        const toValue = document.getElementById('to-value');
+        const fromUnit = document.getElementById('from-unit');
+        const toUnit = document.getElementById('to-unit');
+        const swapBtn = document.getElementById('swap-btn');
+        const formulaDisplay = document.getElementById('conversion-formula');
+
+        const factors = {
+            mm: 0.001,
+            cm: 0.01,
+            m: 1,
+            km: 1000,
+            in: 0.0254,
+            ft: 0.3048,
+            yd: 0.9144,
+            mi: 1609.344,
+            nmi: 1852
+        };
+
+        const unitNames = {
+            mm: 'मिलीमीटर्स',
+            cm: 'सेंटीमीटर्स',
+            m: 'मीटर्स',
+            km: 'किलोमीटर्स',
+            in: 'इंच',
+            ft: 'फीट',
+            yd: 'यार्ड्स',
+            mi: 'माइल्स',
+            nmi: 'नॉटिकल माइल्स'
+        };
+
+        function convert(source) {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+
+            if (source === 'from') {
+                const val = parseFloat(fromValue.value);
+                if (isNaN(val)) { toValue.value = ''; return; }
+                const result = (val * factors[from]) / factors[to];
+                toValue.value = Number(result.toFixed(8)).toString();
+            } else {
+                const val = parseFloat(toValue.value);
+                if (isNaN(val)) { fromValue.value = ''; return; }
+                const result = (val * factors[to]) / factors[from];
+                fromValue.value = Number(result.toFixed(8)).toString();
+            }
+            updateFormula();
+        }
+
+        function updateFormula() {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+            const ratio = factors[from] / factors[to];
+            formulaDisplay.textContent = `1 ${unitNames[from].slice(0, -2)} = ${Number(ratio.toFixed(8))} ${unitNames[to]}`;
+        }
+
+        fromValue.addEventListener('input', () => convert('from'));
+        toValue.addEventListener('input', () => convert('to'));
+        fromUnit.addEventListener('change', () => convert('from'));
+        toUnit.addEventListener('change', () => convert('from'));
+
+        swapBtn.addEventListener('click', () => {
+            const tempUnit = fromUnit.value;
+            fromUnit.value = toUnit.value;
+            toUnit.value = tempUnit;
+            const tempVal = fromValue.value;
+            fromValue.value = toValue.value;
+            toValue.value = tempVal;
+            updateFormula();
+        });
+
+        updateFormula();
+    </script>
+</body>
+</html>

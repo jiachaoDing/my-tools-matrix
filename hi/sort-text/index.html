@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sort Text Lines - Alphabetical & Natural Sort | WebUtilityKit</title>
+    <meta name="description" content="टेक्स्ट लाइनों को अल्फाबेटिकली, न्यूमेरिकली, या नैचुरली तुरंत सॉर्ट करें। मुफ्त, सुरक्षित, और असीमित प्रोसेसिंग। Processed locally. No software installation required. अभी सॉर्टिंग शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/sort-text/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/sort-text/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/sort-text/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Sort Text Lines",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "542",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/sort-text.jpg"
+}
+</script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Sort Text Lines</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने डेटा को बिल्कुल वैसा ऑर्गेनाइज़ करें जैसे आपको चाहिए। हर प्रकार की लिस्ट के लिए इंटेलिजेंट सॉर्टिंग एल्गोरिदम।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Input List</label>
+                            <div class="flex gap-2">
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700">Paste</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear</button>
+                            </div>
+                        </div>
+                        <textarea id="text-input" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="यहां अपनी लिस्ट दर्ज करें..."></textarea>
+
+                        <div class="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+                            <button onclick="sortText('asc')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                A से Z
+                            </button>
+                            <button onclick="sortText('desc')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-blue-600 text-white hover:bg-blue-700 shadow-lg shadow-blue-500/20">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4 4m0 0l4-4m-4 4v-12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Z से A
+                            </button>
+                            <button onclick="sortText('natural')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Natural
+                            </button>
+                            <button onclick="sortText('numeric')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Numeric
+                            </button>
+                            <button onclick="sortText('length')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Length
+                            </button>
+                            <button onclick="sortText('random')" class="flex-1 py-4 px-6 rounded-2xl font-bold text-sm transition-all flex flex-col items-center justify-center gap-2 border-2 border-transparent bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:border-blue-500/30 hover:bg-white dark:hover:bg-slate-800">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                                Random
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Sorted Result</label>
+                            <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">Sorted List कॉपी करें</button>
+                        </div>
+                        <textarea id="text-output" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="सॉर्टेड रिजल्ट यहाँ दिखाई देंगे..."></textarea>
+
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Sorting Modifiers</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="case-sensitive" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer">
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Case Sensitive</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="reverse-order" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer">
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Reverse Order</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="remove-duplicates" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">Duplicates हटाएं</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="ignore-whitespace" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">हर लाइन ट्रिम करें</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अपनी लिस्ट में महारत हासिल करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Content Paste करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी लिस्ट या टेक्स्ट इनपुट करें। सटीक प्रोसेसिंग के लिए हर आइटम को एक अलग लाइन पर होना चाहिए।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Logic चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अल्फाबेटिक, न्यूमेरिक, या नैचुरल सॉर्टिंग में से चुनें। आप लाइन लेंथ या रैंडमाइज़ भी कर सकते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Refine & Export करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">केस सेंसिटिविटी या रिवर्स ऑर्डर मोडिफायर्स के साथ फाइन-ट्यून करें, फिर अपनी परफेक्ट ऑर्डर की गई लिस्ट कॉपी करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Sorting Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Structured Data, Superior Clarity</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                अनऑर्डर्ड इन्फॉर्मेशन सिर्फ नॉइज़ है। हमारा इंटेलिजेंट सॉर्टर अपने डेटा में छुपी हुई स्ट्रक्चर खोजने के लिए एडवांस्ड एल्गोरिदम का उपयोग करता है—नैचुरल लैंग्वेज पैटर्न से लेकर न्यूमेरिकल सीक्वेंस तक—जिससे रॉ लिस्ट को ऐक्शनेबल एसेट में बदलने में आपकी मदद मिलती है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Standard</div>
+                                    <div class="font-bold">Natural Sort</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">Privacy</div>
+                                    <div class="font-bold">In-Memory</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 4h13M3 8h9m-9 4h6m4 0l4-4m0 0l4 4m-4-4v12" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Sorting Algorithms Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Advanced Sorting Engines</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">Logical Styles</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Alphabetical</span>
+                                    <span class="font-bold text-blue-500">A से Z / Z से A</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Numeric</span>
+                                    <span class="font-bold text-green-500">Value-based</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">Natural</span>
+                                    <span class="font-bold text-orange-500">मानव-जैसा (v1 < v10)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">Structural Styles</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Line Length</span>
+                                    <span class="font-bold text-slate-400">सबसे छोटा से सबसे बड़ा</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500">
+                                    <span class="font-medium">Random</span>
+                                    <span class="font-bold text-purple-500">Shuffle Shuffle</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">Custom Delimiter</span>
+                                    <span class="font-bold text-red-500">Line-break Focus</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Expert Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"Natural Sorting" क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                स्टैंडर्ड अल्फाबेटिक सॉर्टिंग कैरेक्टर-बाय-कैरेक्टर काम करती है, जिसका मतलब है कि "File 10" "File 2" से पहले आता है। नैचुरल सॉर्टिंग मल्टी-डिजिट नंबर को सिंगल वैल्यू के रूप में हैंडल करती है, जिससे "File 2" "File 10" से पहले आता है, जो मानव अपेक्षा के अनुरूप है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह हजारों लाइनों को हैंडल कर सकता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ। हमारा इंजन परफॉरमेंस के लिए हाईली ऑप्टिमाइज़ है और आपके ब्राउज़र के लोकल रिसोर्सेज का उपयोग करके बड़ी लिस्ट को कुशलतापूर्वक प्रोसेस करता है। एकमात्र सीमा आपकी डिवाइस की उपलब्ध मेमोरी है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी लिस्ट डेटा सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                100%। सभी सॉर्टिंग आपके ब्राउज़र की मेमोरी में ही होती है। आपकी लिस्ट हमारे सर्वर पर कभी नहीं जाती या कहीं भी स्टोर नहीं होती। आपकी लिस्ट पूरी तरह से प्राइवेट रहती है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Sort Text Logic ===
+        const textInput = document.getElementById('text-input');
+        const textOutput = document.getElementById('text-output');
+        const caseSensitive = document.getElementById('case-sensitive');
+        const reverseOrder = document.getElementById('reverse-order');
+        const removeDuplicates = document.getElementById('remove-duplicates');
+        const ignoreWhitespace = document.getElementById('ignore-whitespace');
+
+        function sortText(type) {
+            let content = textInput.value;
+            if (!content) return;
+
+            let lines = content.split(/\r?\n/);
+
+            // Pre-processing
+            if (ignoreWhitespace.checked) {
+                lines = lines.map(line => line.trim());
+            }
+
+            if (removeDuplicates.checked) {
+                lines = [...new Set(lines)];
+            }
+
+            // Sorting Algorithms
+            switch (type) {
+                case 'asc':
+                    lines.sort((a, b) => {
+                        if (!caseSensitive.checked) {
+                            a = a.toLowerCase();
+                            b = b.toLowerCase();
+                        }
+                        return a.localeCompare(b);
+                    });
+                    break;
+                case 'desc':
+                    lines.sort((a, b) => {
+                        if (!caseSensitive.checked) {
+                            a = a.toLowerCase();
+                            b = b.toLowerCase();
+                        }
+                        return b.localeCompare(a);
+                    });
+                    break;
+                case 'numeric':
+                    lines.sort((a, b) => {
+                        const numA = parseFloat(a.replace(/[^0-9.-]/g, '')) || 0;
+                        const numB = parseFloat(b.replace(/[^0-9.-]/g, '')) || 0;
+                        return numA - numB;
+                    });
+                    break;
+                case 'natural':
+                    const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: caseSensitive.checked ? 'variant' : 'base' });
+                    lines.sort(collator.compare);
+                    break;
+                case 'length':
+                    lines.sort((a, b) => a.length - b.length);
+                    break;
+                case 'random':
+                    for (let i = lines.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [lines[i], lines[j]] = [lines[j], lines[i]];
+                    }
+                    break;
+            }
+
+            // Post-processing
+            if (reverseOrder.checked && type !== 'desc') {
+                lines.reverse();
+            }
+
+            textOutput.value = lines.join('\n');
+        }
+
+        // Action Listeners
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+            } catch (err) {
+                console.error('Failed to paste:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            textOutput.value = '';
+            textInput.focus();
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            if (!textOutput.value) return;
+            navigator.clipboard.writeText(textOutput.value).then(() => {
+                const btn = document.getElementById('copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'कॉपी हो गया!';
+                btn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>

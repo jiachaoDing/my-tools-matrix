@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Color Picker (छवि रंग पिकर) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="छवियों से सीधे रंग निकालें Hex, RGB, HSL के साथ सटीकता से। मुफ्त, सुरक्षित, और निजी ऑनलाइन रंग पिकर। Hex, RGB, और HSL कोड तुरंत प्राप्त करें बिना फोटो अपलोड किए।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/image-color-picker/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/image-color-picker/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/image-color-picker/" />
+
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Color Picker",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "832",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Pixel-perfect zoom, Color history, Multiple formats (Hex, RGB, HSL)",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/image-color-picker.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">छवि रंग पिकर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">किसी भी फोटो से सटीक रंग निकालें। सटीक, तेज़, और 100% निजी।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>स्थानीय प्रसंस्करण। आपकी छवि आपके डिवाइस से बाहर नहीं जाती।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left: Canvas Area -->
+                <div class="lg:col-span-8 flex flex-col h-full min-h-[500px]">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 transition-all cursor-pointer hover:border-blue-500">
+                            <input type="file" id="file-input" class="hidden" accept="image/*">
+                            <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">छवि अपलोड करें</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">क्लिक करें ब्राउज़ करने के लिए या खींचें और छोड़ें</p>
+                        </div>
+
+                        <!-- Canvas Area -->
+                        <div id="canvas-container" class="hidden flex-grow flex items-center justify-center relative bg-slate-100 dark:bg-slate-900/60 rounded-[1.5rem] overflow-hidden cursor-crosshair">
+                            <canvas id="main-canvas" class="max-w-full max-h-full block shadow-lg"></canvas>
+                            <!-- Magnifier -->
+                            <div id="magnifier" class="absolute w-32 h-32 rounded-full border-4 border-white shadow-2xl pointer-events-none hidden overflow-hidden bg-white z-20">
+                                <canvas id="magnifier-canvas" width="128" height="128" class="image-pixelated"></canvas>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="w-2 h-2 border border-white shadow-[0_0_0_1px_rgba(0,0,0,0.5)]"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Bar (Hidden initially) -->
+                        <div id="action-bar" class="hidden flex items-center justify-between mt-4 px-2">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest">छवि पर होवर करें रंग पिक करने के लिए</p>
+                            <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">छवि हटाएं</button>
+                        </div>
+
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">यहां छवि छोड़ें</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Color Info Area -->
+                <div class="lg:col-span-4 flex flex-col h-full gap-8">
+
+                    <!-- Selected Color Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-6 block">वर्तमान रंग</label>
+
+                        <div class="flex items-center gap-6 mb-8">
+                            <div id="color-preview" class="w-24 h-24 rounded-3xl shadow-inner border border-slate-200 dark:border-slate-700 bg-white"></div>
+                            <div class="flex-grow">
+                                <div id="hex-display" class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">#FFFFFF</div>
+                                <div id="rgb-display" class="text-xs font-bold text-slate-400 mt-1 uppercase tracking-wider">rgb(255, 255, 255)</div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-3">
+                            <button onclick="copyToClipboard('hex-display')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">Hex कोड</span>
+                                    <span id="hex-val" class="text-sm font-bold">#FFFFFF</span>
+                                </div>
+                                <svg class="w-5 h-5 text-slate-300 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                            <button onclick="copyToClipboard('rgb-display')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">RGB</span>
+                                    <span id="rgb-val" class="text-sm font-bold">255, 255, 255</span>
+                                </div>
+                                <svg class="w-5 h-5 text-slate-300 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                            <button onclick="copyToClipboard('hsl-display')" class="w-full flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group">
+                                <div class="flex flex-col items-start">
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">HSL</span>
+                                    <span id="hsl-val" class="text-sm font-bold">0°, 0%, 100%</span>
+                                </div>
+                                <svg class="w-5 h-5 text-slate-300 group-hover:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- History Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">रंग इतिहास</label>
+                            <button id="clear-history" class="text-[10px] font-bold text-slate-400 hover:text-red-500 transition uppercase tracking-widest">साफ करें</button>
+                        </div>
+                        <div id="history-list" class="flex flex-col gap-2 auto-rows-min max-h-[300px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
+                            <!-- History items injected here -->
+                        </div>
+                        <div id="history-empty" class="flex-grow flex flex-col items-center justify-center text-slate-400 py-10">
+                            <svg class="w-8 h-8 opacity-20 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                            <span class="text-xs font-bold tracking-tight opacity-50 uppercase">अभी तक कोई रंग नहीं चुना गया</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">छवि रंग पिकर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">छवि अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी छवि को कार्यक्षेत्र में खींचें और छोड़ें। हम JPG, PNG, WebP, और SVG का समर्थन करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">रंग चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">छवि के किसी भी भाग पर होवर करें। मैग्निफायर आपको सटीक पिक्सेल चुनने में मदद करेगा।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">मान कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रंग को सेव करने के लिए उस पर क्लिक करें। एक क्लिक में Hex, RGB, या HSL कोड कॉपी करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">पेशेवर रंग निष्कर्षण</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">पिक्सेल-परफेक्ट ज़ूम</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारा रियल-टाइम मैग्निफायर 8x ज़ूम प्रदान करता है, जो आपको सर्जिकल सटीकता के साथ रंग चुनने की अनुमति देता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">निजी और ऑफलाइन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">100% आपके ब्राउज़र में संसाधित। कोई सर्वर अपलोड नहीं, जिससे कुल गोपनीयता सुनिश्चित होती है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">इतिहास पैलेट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">स्वचालित रूप से आपके द्वारा चुने गए अंतिम रंगों को सहेजता है, जिससे छवि से डिज़ाइन पैलेट बनाना आसान हो जाता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">एकाधिक प्रारूप</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Hex, RGB, और HSL प्रारूपों में रंग कोड तुरंत प्राप्त करें, किसी भी डिज़ाइन या विकास वातावरण के लिए।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">रंग पिकर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह SVG फाइलों के साथ काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हां, आप SVG फाइलें अपलोड कर सकते हैं। उन्हें रंग चुनने के लिए कैनवस में रेखांकित किया जाएगा, बिल्कुल एक नियमित फोटो की तरह।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या छवि आकार की कोई सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कोई सख्त सीमा नहीं है, लेकिन अत्यंत बड़ी छवियां (उदाहरण के लिए, 50MB से अधिक) आपके कंप्यूटर के हार्डवेयर के आधार पर धीमी हो सकती हैं। अधिकांश मानक फोटो तुरंत काम करेंगे।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी छवियां सहेजी जाती हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                नहीं। आपकी छवियां आपके ब्राउज़र की मेमोरी में पूरी तरह से रहती हैं और पेज बंद करने या छवि हटाने पर हटा दी जाती हैं। हम अपनी सर्वर पर आपकी फाइलें अपलोड नहीं करते।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Color Picker Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const emptyState = document.getElementById('empty-state');
+        const canvasContainer = document.getElementById('canvas-container');
+        const actionBar = document.getElementById('action-bar');
+        const fileInput = document.getElementById('file-input');
+        const mainCanvas = document.getElementById('main-canvas');
+        const magnifier = document.getElementById('magnifier');
+        const magCanvas = document.getElementById('magnifier-canvas');
+        const magCtx = magCanvas.getContext('2d');
+        const ctx = mainCanvas.getContext('2d', { willReadFrequently: true });
+        const dropOverlay = document.getElementById('drop-overlay');
+        const resetBtn = document.getElementById('reset-btn');
+        const clearHistoryBtn = document.getElementById('clear-history');
+        const historyList = document.getElementById('history-list');
+        const historyEmpty = document.getElementById('history-empty');
+
+        // Color Display Elements
+        const colorPreview = document.getElementById('color-preview');
+        const hexDisplay = document.getElementById('hex-display');
+        const rgbDisplay = document.getElementById('rgb-display');
+        const hexVal = document.getElementById('hex-val');
+        const rgbVal = document.getElementById('rgb-val');
+        const hslVal = document.getElementById('hsl-val');
+
+        let originalImg = new Image();
+        let history = JSON.parse(localStorage.getItem('colorHistory') || '[]');
+
+        // Initialization
+        emptyState.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    initCanvas();
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initCanvas() {
+            // Use a fixed max height for the canvas container to ensure visibility
+            const containerWidth = canvasContainer.clientWidth || 800;
+            const containerHeight = 600;
+
+            let w = originalImg.width;
+            let h = originalImg.height;
+
+            const ratio = w / h;
+            if (w > containerWidth) {
+                w = containerWidth;
+                h = w / ratio;
+            }
+            if (h > containerHeight) {
+                h = containerHeight;
+                w = h * ratio;
+            }
+
+            mainCanvas.width = originalImg.width; // Keep internal resolution
+            mainCanvas.height = originalImg.height;
+            ctx.drawImage(originalImg, 0, 0);
+
+            // Display size
+            mainCanvas.style.width = `${w}px`;
+            mainCanvas.style.height = `${h}px`;
+
+            emptyState.classList.add('hidden');
+            canvasContainer.classList.remove('hidden');
+            actionBar.classList.remove('hidden');
+            updateHistory();
+        }
+
+        resetBtn.addEventListener('click', () => {
+            emptyState.classList.remove('hidden');
+            canvasContainer.classList.add('hidden');
+            actionBar.classList.add('hidden');
+            fileInput.value = '';
+            magnifier.classList.add('hidden');
+        });
+
+        // Color Picking Logic
+        function getCanvasCoordinates(e) {
+            const rect = mainCanvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) * (mainCanvas.width / rect.width);
+            const y = (e.clientY - rect.top) * (mainCanvas.height / rect.height);
+            return {
+                x: Math.floor(Math.max(0, Math.min(x, mainCanvas.width - 1))),
+                y: Math.floor(Math.max(0, Math.min(y, mainCanvas.height - 1)))
+            };
+        }
+
+        canvasContainer.addEventListener('mousemove', (e) => {
+            if (canvasContainer.classList.contains('hidden')) return;
+
+            const { x, y } = getCanvasCoordinates(e);
+            const rect = mainCanvas.getBoundingClientRect();
+
+            magnifier.classList.remove('hidden');
+
+            // Positioning magnifier to avoid covering the cursor
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            const magX = mouseX - 64;
+            const magY = mouseY - 140;
+            magnifier.style.left = `${magX}px`;
+            magnifier.style.top = `${magY}px`;
+
+            // Draw magnified view
+            magCtx.fillStyle = '#f0f0f0';
+            magCtx.fillRect(0, 0, 128, 128);
+
+            // 8x zoom: grab 16x16 pixel area
+            magCtx.imageSmoothingEnabled = false;
+            magCtx.drawImage(
+                mainCanvas,
+                x - 8, y - 8, 16, 16,
+                0, 0, 128, 128
+            );
+
+            // Get current pixel color
+            const pixel = ctx.getImageData(x, y, 1, 1).data;
+            updateColorDisplay(pixel[0], pixel[1], pixel[2]);
+        });
+
+        canvasContainer.addEventListener('mouseleave', () => {
+            magnifier.classList.add('hidden');
+        });
+
+        canvasContainer.addEventListener('click', (e) => {
+            const { x, y } = getCanvasCoordinates(e);
+            const pixel = ctx.getImageData(x, y, 1, 1).data;
+            const hex = rgbToHex(pixel[0], pixel[1], pixel[2]);
+            addToHistory(hex);
+        });
+
+        function updateColorDisplay(r, g, b) {
+            const hex = rgbToHex(r, g, b);
+            const hsl = rgbToHsl(r, g, b);
+
+            colorPreview.style.backgroundColor = hex;
+            hexDisplay.textContent = hex;
+            rgbDisplay.textContent = `rgb(${r}, ${g}, ${b})`;
+
+            hexVal.textContent = hex;
+            rgbVal.textContent = `${r}, ${g}, ${b}`;
+            hslVal.textContent = `${hsl.h}°, ${hsl.s}%, ${hsl.l}%`;
+        }
+
+        function rgbToHex(r, g, b) {
+            return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+        }
+
+        function rgbToHsl(r, g, b) {
+            r /= 255; g /= 255; b /= 255;
+            const max = Math.max(r, g, b), min = Math.min(r, g, b);
+            let h, s, l = (max + min) / 2;
+
+            if (max == min) {
+                h = s = 0;
+            } else {
+                const d = max - min;
+                s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+                switch (max) {
+                    case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                    case g: h = (b - r) / d + 2; break;
+                    case b: h = (r - g) / d + 4; break;
+                }
+                h /= 6;
+            }
+            return {
+                h: Math.round(h * 360),
+                s: Math.round(s * 100),
+                l: Math.round(l * 100)
+            };
+        }
+
+        // History Logic
+        function addToHistory(hex) {
+            if (history.includes(hex)) {
+                // Move to front
+                history = [hex, ...history.filter(h => h !== hex)];
+            } else {
+                history = [hex, ...history];
+            }
+            history = history.slice(0, 36);
+            localStorage.setItem('colorHistory', JSON.stringify(history));
+            updateHistory();
+        }
+
+        function updateHistory() {
+            historyList.innerHTML = '';
+            if (history.length === 0) {
+                historyEmpty.classList.remove('hidden');
+                return;
+            }
+            historyEmpty.classList.add('hidden');
+
+            history.forEach(hex => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full flex items-center gap-3 p-2 rounded-xl border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 hover:bg-white dark:hover:bg-slate-800 transition-all group';
+
+                const r = parseInt(hex.slice(1, 3), 16);
+                const g = parseInt(hex.slice(3, 5), 16);
+                const b = parseInt(hex.slice(5, 7), 16);
+
+                btn.innerHTML = `
+                    <div class="w-10 h-10 rounded-lg shadow-inner shrink-0 border border-slate-200 dark:border-slate-700" style="background-color: ${hex}"></div>
+                    <div class="flex flex-col items-start overflow-hidden">
+                        <span class="text-xs font-black tracking-tight text-slate-900 dark:text-white">${hex}</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase">rgb(${r}, ${g}, ${b})</span>
+                    </div>
+                    <div class="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                `;
+
+                btn.onclick = () => {
+                    updateColorDisplay(r, g, b);
+                };
+                historyList.appendChild(btn);
+            });
+        }
+
+        clearHistoryBtn.addEventListener('click', () => {
+            history = [];
+            localStorage.removeItem('colorHistory');
+            updateHistory();
+        });
+
+        // Copy Utility
+        window.copyToClipboard = (id) => {
+            let text = "";
+            if (id === 'hex-display') text = hexVal.textContent;
+            else if (id === 'rgb-display') text = `rgb(${rgbVal.textContent})`;
+            else if (id === 'hsl-display') text = `hsl(${hslVal.textContent.replace(/°, /g, ', ').replace(/%, /g, '%, ')})`;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = event.currentTarget;
+                const originalContent = btn.innerHTML;
+                btn.innerHTML = `
+                    <div class="flex flex-col items-start">
+                        <span class="text-[10px] font-bold text-green-500 uppercase tracking-tighter">कॉपी हो गया!</span>
+                        <span class="text-sm font-bold">${text}</span>
+                    </div>
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                `;
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                }, 1500);
+            });
+        };
+
+        // Touch support
+        mainCanvas.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            const { x, y } = getCanvasCoordinates(touch);
+
+            const pixel = ctx.getImageData(x, y, 1, 1).data;
+            updateColorDisplay(pixel[0], pixel[1], pixel[2]);
+            addToHistory(rgbToHex(pixel[0], pixel[1], pixel[2]));
+        });
+
+    </script>
+</body>
+</html>

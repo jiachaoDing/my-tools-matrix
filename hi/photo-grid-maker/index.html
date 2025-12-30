@@ -1,0 +1,975 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>फोटो ग्रिड मेकर (Photo Grid Maker) - मुफ्त इमेज कोलाज क्रिएटर | WebUtilityKit</title>
+    <meta name="description" content="फोटो ग्रिड मेकर के साथ अद्भुत फोटो ग्रिड और कोलाज बनाएं। कस्टम लेआउट (1x2 से 10x10 तक), एडजस्टेबल गैप्स, और 4K एक्सपोर्ट। 100% प्राइवेट, आपके ब्राउज़र में प्रोसेस किया गया। अभी आजमाएं!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/photo-grid-maker/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/photo-grid-maker/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/photo-grid-maker/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Photo Grid Maker",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "634",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Custom layouts, 4K export",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/photo-grid-maker.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">फोटो ग्रिड मेकर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">पेशेवर फोटो कोलाज और ग्रिड तत्काल बनाएं। Instagram, मूड बोर्ड और सोशल मीडिया के लिए परफेक्ट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। आपके ब्राउज़र में स्थानीय रूप से प्रोसेस किया गया।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Sidebar: Controls -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-3xl shadow-xl border-2 border-slate-200/60 dark:border-slate-700/50 backdrop-blur-sm">
+                        <h3 class="text-lg font-bold mb-5 flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            लेआउट सेटिंग्स
+                        </h3>
+                        
+                        <div class="space-y-5">
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">ग्रिड लेआउट प्रीसेट</label>
+                                <div class="grid grid-cols-3 gap-2.5" id="layout-presets">
+                                    <button data-rows="1" data-cols="2" class="layout-btn p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex flex-col items-center gap-1.5 active hover:scale-105 hover:shadow-lg shadow-blue-500/20">
+                                        <div class="grid grid-cols-2 w-8 h-6 gap-0.5 border border-slate-400">
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                        </div>
+                                        <span class="text-xs font-semibold">1×2</span>
+                                    </button>
+                                    <button data-rows="2" data-cols="1" class="layout-btn p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex flex-col items-center gap-1.5 hover:scale-105 hover:shadow-lg shadow-blue-500/20">
+                                        <div class="grid grid-rows-2 w-6 h-8 gap-0.5 border border-slate-400">
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                        </div>
+                                        <span class="text-xs font-semibold">2×1</span>
+                                    </button>
+                                    <button data-rows="2" data-cols="2" class="layout-btn p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex flex-col items-center gap-1.5 hover:scale-105 hover:shadow-lg shadow-blue-500/20">
+                                        <div class="grid grid-cols-2 grid-rows-2 w-8 h-8 gap-0.5 border border-slate-400">
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div>
+                                        </div>
+                                        <span class="text-xs font-semibold">2×2</span>
+                                    </button>
+                                    <button data-rows="3" data-cols="2" class="layout-btn p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex flex-col items-center gap-1.5 hover:scale-105 hover:shadow-lg shadow-blue-500/20">
+                                        <div class="grid grid-cols-2 grid-rows-3 w-8 h-10 gap-0.5 border border-slate-400">
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                        </div>
+                                        <span class="text-xs font-semibold">3×2</span>
+                                    </button>
+                                    <button data-rows="2" data-cols="3" class="layout-btn p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex flex-col items-center gap-1.5 hover:scale-105 hover:shadow-lg shadow-blue-500/20">
+                                        <div class="grid grid-cols-3 grid-rows-2 w-10 h-8 gap-0.5 border border-slate-400">
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                        </div>
+                                        <span class="text-xs font-semibold">2×3</span>
+                                    </button>
+                                    <button data-rows="3" data-cols="3" class="layout-btn p-3 border-2 border-slate-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 flex flex-col items-center gap-1.5 hover:scale-105 hover:shadow-lg shadow-blue-500/20">
+                                        <div class="grid grid-cols-3 grid-rows-3 w-10 h-10 gap-0.5 border border-slate-400">
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                            <div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div><div class="bg-slate-200 dark:bg-slate-600"></div>
+                                        </div>
+                                        <span class="text-xs font-semibold">3×3</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">पंक्तियाँ</label>
+                                    <input type="number" id="grid-rows" min="1" max="10" value="1" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all hover:border-blue-300 font-semibold text-center">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">कॉलम</label>
+                                    <input type="number" id="grid-cols" min="1" max="10" value="2" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-all hover:border-blue-300 font-semibold text-center">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">गैप साइज़</label>
+                                <input type="range" id="grid-gap" min="0" max="100" value="10" class="w-full h-2 rounded-lg appearance-none cursor-pointer">
+                                <div class="flex justify-between text-xs font-semibold text-slate-500 dark:text-slate-400 mt-2">
+                                    <span>0px</span>
+                                    <span id="gap-value" class="text-blue-600 dark:text-blue-400 text-sm">10px</span>
+                                    <span>100px</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">बैकग्राउंड कलर</label>
+                                <div class="flex gap-2 items-center">
+                                    <input type="color" id="bg-color" value="#ffffff" class="w-12 h-12 rounded-xl cursor-pointer bg-transparent border-2 border-slate-200 dark:border-slate-700 hover:scale-110 transition-transform shadow-md">
+                                    <input type="text" id="bg-color-text" value="#ffffff" class="flex-grow px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none text-sm uppercase font-mono font-semibold transition-all hover:border-blue-300">
+                                </div>
+                            </div>
+
+                            <!-- Fill Mode Toggle -->
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">फिल मोड</label>
+                                <div class="flex gap-2">
+                                    <button id="fill-loop" class="flex-1 px-4 py-2.5 rounded-xl border-2 border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-sm transition-all hover:scale-105 fill-mode-btn active">
+                                        🔄 लूप
+                                    </button>
+                                    <button id="fill-blank" class="flex-1 px-4 py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-sm transition-all hover:scale-105 hover:border-blue-300 fill-mode-btn">
+                                        ⬜ खाली
+                                    </button>
+                                </div>
+                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">लूप: इमेज दोहराएं • खाली: खाली सेल बैकग्राउंड से भरें</p>
+                            </div>
+
+                            <!-- Aspect Ratio -->
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">एक्सपेक्ट रेशियो</label>
+                                <div class="grid grid-cols-4 gap-2" id="aspect-ratio-presets">
+                                    <button data-ratio="1:1" class="aspect-btn px-3 py-2 rounded-xl border-2 border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-xs transition-all hover:scale-105 active">
+                                        1:1
+                                    </button>
+                                    <button data-ratio="4:3" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        4:3
+                                    </button>
+                                    <button data-ratio="3:4" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        3:4
+                                    </button>
+                                    <button data-ratio="16:9" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        16:9
+                                    </button>
+                                    <button data-ratio="9:16" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        9:16
+                                    </button>
+                                    <button data-ratio="3:2" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        3:2
+                                    </button>
+                                    <button data-ratio="2:3" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        2:3
+                                    </button>
+                                    <button data-ratio="21:9" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        21:9
+                                    </button>
+                                </div>
+                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-2" id="aspect-ratio-hint">1:1 — स्क्वेयर, Instagram के लिए परफेक्ट</p>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">एक्सपोर्ट रेजोल्यूशन</label>
+                                <select id="export-res" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none font-semibold transition-all hover:border-blue-300 cursor-pointer">
+                                    <option value="1080">📱 स्टैंडर्ड (1080p)</option>
+                                    <option value="1440">🖥️ HD (1440p)</option>
+                                    <option value="2160">✨ अल्ट्रा HD (4K)</option>
+                                    <option value="custom">🎯 इमेज साइज़ मैच करें</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-6 rounded-3xl shadow-xl border-2 border-slate-200/60 dark:border-slate-700/50 backdrop-blur-sm">
+                        <button id="download-btn" class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-4 rounded-2xl shadow-xl shadow-blue-500/40 hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 flex items-center justify-center gap-2 group hover:scale-105 active:scale-95">
+                            <svg class="w-5 h-5 group-hover:translate-y-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            ग्रिड डाउनलोड करें
+                        </button>
+                        <button id="clear-btn" class="w-full mt-3 text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 text-sm font-semibold transition-all hover:bg-red-50 dark:hover:bg-red-900/20 py-2 rounded-xl">
+                            🗑️ सभी इमेज क्लियर करें
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Side: Preview & Upload -->
+                <div class="lg:col-span-8 space-y-6">
+                    <!-- Grid Preview (Always Visible) -->
+                    <div id="preview-container" class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-8 rounded-[3rem] shadow-2xl border-2 border-slate-100 dark:border-slate-700/50 backdrop-blur-sm">
+                        <div class="flex items-center justify-between mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
+                                <h3 class="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">लाइव प्रीव्यू</h3>
+                            </div>
+                            <span id="image-count" class="text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-1.5 rounded-full font-semibold shadow-sm">0 इमेज</span>
+                        </div>
+                        <!-- Fixed Size Preview Area with Drop Support -->
+                        <div id="canvas-dropzone" class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900/80 dark:to-slate-950 flex items-center justify-center shadow-inner transition-all duration-300" style="height: 500px;">
+                            <canvas id="grid-canvas" class="max-w-full max-h-full shadow-2xl rounded-lg"></canvas>
+                            <!-- Empty State / Drop Hint -->
+                            <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                <div class="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 dark:from-blue-600/30 dark:to-purple-700/30 text-blue-500 dark:text-blue-400 rounded-3xl flex items-center justify-center mb-6 border-2 border-dashed border-blue-400/50">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-400 dark:text-slate-500 mb-2">यहाँ फोटो ड्रॉप करें</h3>
+                                <p class="text-slate-400 dark:text-slate-500 text-sm">या नीचे + बटन से इमेज जोड़ें</p>
+                            </div>
+                            <!-- Drag Overlay -->
+                            <div id="drag-overlay" class="absolute inset-0 bg-blue-500/20 border-4 border-dashed border-blue-500 rounded-2xl flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200">
+                                <div class="text-center">
+                                    <svg class="w-16 h-16 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <span class="text-xl font-bold text-blue-600 dark:text-blue-400">ड्रॉप करके इमेज जोड़ें</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manage Images List (Always Visible) -->
+                    <div id="uploaded-list-container">
+                        <div class="flex items-center justify-between mb-4 px-2">
+                            <h4 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">इमेज मैनेज करें</h4>
+                            <span class="text-xs text-slate-400 italic">💡 रिऑर्डर करने के लिए ड्रैग करें</span>
+                        </div>
+                        <div id="uploaded-list" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                            <!-- Thumbnails injected here -->
+                            <!-- Add Button (Always at end) -->
+                        </div>
+                    </div>
+                    
+                    <!-- Hidden File Input -->
+                    <input type="file" id="file-input" multiple accept="image/*" class="hidden">
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">फोटो ग्रिड कैसे बनाएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फोटो अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">+ बटन पर क्लिक करें या फोटो को सीधे प्रीव्यू एरिया में ड्रैग करें। हम सभी प्रमुख इमेज फॉर्मेट सपोर्ट करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लेआउट कस्टमाइज़ करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">प्रीसेट से चुनें या अपनी पंक्तियाँ और कॉलम डिफाइन करें। गैप और बैकग्राउंड कलर एडजस्ट करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">सेव और एक्सपोर्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपना तैयार कोलाज हाई रेजोल्यूशन में डाउनलोड करें। यह शेयर करने के लिए तैयार है!</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">प्रो कोलाज फीचर्स</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                साधारण लेआउट पर क्यों संतुष्ट रहें? हमारा टूल आपको प्रोफेशनल सॉफ्टवेयर की सटीकता देता है वेब ऐप की आसानी के साथ। हर पिक्सल आपके कंट्रोल में है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">जीरो कम्प्रेशन: ओरिजिनल इमेज क्वालिटी बनाए रखें।</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">बैच अपलोड: एक साथ दर्जनों फोटो हैंडल करें।</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">स्मार्ट फिट: ग्रिड के लिए ऑटोमेटिकली क्रॉप और स्केल।</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">क्रिएटिविटी के लिए बनाया गया</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">इंस्टेंट रेंडरिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सेटिंग एडजस्ट करते समय अपने ग्रिड अपडेट होते देखें। हमारा लोकल प्रोसेसिंग इंजन आपके सेटिंग बदलते ही रेंडर करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">प्राइवेसी फर्स्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपके फोटो कभी सर्वर तक नहीं पहुंचते। सभी जादू आपके ब्राउज़र में होता है, जिससे आपकी मेमोरिज प्राइवेट रहती हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">हाई रेजोल्यूशन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">4K रेजोल्यूशन तक ग्रिड एक्सपोर्ट करें। प्रिंटिंग या हाई-क्वालिटी सोशल मीडिया पोस्ट के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">कस्टमाइज़ेबल</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">साधारण 1x2 से लेकर जटिल 10x10 ग्रिड तक। आप स्ट्रक्चर, गैप और कलर डिफाइन करते हैं।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">फोटो ग्रिड FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से इमेज फॉर्मेट सपोर्ट किए जाते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम JPEG, PNG, WebP और GIF जैसे कॉमन इमेज फॉर्मेट सपोर्ट करते हैं। बेस्ट क्वालिटी के लिए, हाई-रेजोल्यूशन सोर्स इमेज का इस्तेमाल करें।
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">फोटो की संख्या की कोई लिमिट है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कोई स्ट्रिक्ट लिमिट नहीं! आप 10x10 (100 फोटो) तक के ग्रिड बना सकते हैं। हालांकि, कई हाई-रेजोल्यूशन फोटो प्रोसेस करने पर आपके डिवाइस की मेमोरी पर निर्भर हो सकता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरी फोटो सर्वर पर अपलोड होती है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                बिल्कुल नहीं। यह कन्वर्टर पूरी तरह क्लाइंट-साइड ऑपरेट करता है। आपकी इमेज आपके ब्राउज़र की मेमोरी में प्रोसेस होती हैं और कभी भी सर्वर तक नहीं जातीं। पेज को बंद या रिफ्रेश करने पर सभी डेटा स्थायी रूप से मेमोरी से हटा दिया जाता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+      
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const fileInput = document.getElementById('file-input');
+        const canvasDropzone = document.getElementById('canvas-dropzone');
+        const dragOverlay = document.getElementById('drag-overlay');
+        const emptyState = document.getElementById('empty-state');
+        const previewContainer = document.getElementById('preview-container');
+        const uploadedListContainer = document.getElementById('uploaded-list-container');
+        const uploadedList = document.getElementById('uploaded-list');
+        const canvas = document.getElementById('grid-canvas');
+        const ctx = canvas.getContext('2d');
+        const imageCountBadge = document.getElementById('image-count');
+
+        const rowsInput = document.getElementById('grid-rows');
+        const colsInput = document.getElementById('grid-cols');
+        const gapInput = document.getElementById('grid-gap');
+        const gapValueLabel = document.getElementById('gap-value');
+        const bgColorInput = document.getElementById('bg-color');
+        const bgColorTextInput = document.getElementById('bg-color-text');
+        const exportResSelect = document.getElementById('export-res');
+        const downloadBtn = document.getElementById('download-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const layoutPresets = document.querySelectorAll('.layout-btn');
+        const fillLoopBtn = document.getElementById('fill-loop');
+        const fillBlankBtn = document.getElementById('fill-blank');
+        const aspectRatioPresets = document.querySelectorAll('.aspect-btn');
+        const aspectRatioHint = document.getElementById('aspect-ratio-hint');
+
+        let uploadedImages = []; // Array of Image objects
+        let fillMode = 'loop'; // 'loop' or 'blank'
+        let aspectRatio = { w: 1, h: 1 }; // default 1:1
+
+        // Aspect ratio hints
+        const aspectHints = {
+            '1:1': '1:1 — स्क्वेयर, Instagram के लिए परफेक्ट',
+            '4:3': '4:3 — क्लासिक फोटो रेशियो',
+            '3:4': '3:4 — पोर्ट्रेट फोटो रेशियो',
+            '16:9': '16:9 — वाइडस्क्रीन, YouTube & TV',
+            '9:16': '9:16 — वर्टिकल वीडियो, Stories & Reels',
+            '3:2': '3:2 — स्टैंडर्ड DSLR फोटो',
+            '2:3': '2:3 — पोर्ट्रेट DSLR फोटो',
+            '21:9': '21:9 — अल्ट्रा-वाइड सिनेमेटिक'
+        };
+
+        // Fill mode toggle
+        fillLoopBtn.addEventListener('click', () => {
+            fillMode = 'loop';
+            fillLoopBtn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillLoopBtn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            fillBlankBtn.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillBlankBtn.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            updateGrid();
+        });
+
+        fillBlankBtn.addEventListener('click', () => {
+            fillMode = 'blank';
+            fillBlankBtn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillBlankBtn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            fillLoopBtn.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillLoopBtn.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            updateGrid();
+        });
+
+        // Aspect Ratio Presets
+        aspectRatioPresets.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                aspectRatioPresets.forEach(b => {
+                    b.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400', 'active');
+                    b.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                });
+                btn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400', 'active');
+                btn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                
+                // Parse ratio
+                const ratioStr = btn.dataset.ratio;
+                const [w, h] = ratioStr.split(':').map(Number);
+                aspectRatio = { w, h };
+                
+                // Update hint
+                aspectRatioHint.textContent = aspectHints[ratioStr] || ratioStr;
+                
+                updateGrid();
+            });
+        });
+
+        // Canvas Dropzone Events
+        canvasDropzone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dragOverlay.classList.remove('opacity-0');
+            dragOverlay.classList.add('opacity-100');
+        });
+        canvasDropzone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dragOverlay.classList.add('opacity-0');
+            dragOverlay.classList.remove('opacity-100');
+        });
+        canvasDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragOverlay.classList.add('opacity-0');
+            dragOverlay.classList.remove('opacity-100');
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = ''; // Reset to allow re-upload of same file
+        });
+
+        rowsInput.addEventListener('input', updateGrid);
+        colsInput.addEventListener('input', updateGrid);
+        gapInput.addEventListener('input', () => {
+            gapValueLabel.textContent = `${gapInput.value}px`;
+            updateGrid();
+        });
+        bgColorInput.addEventListener('input', () => {
+            bgColorTextInput.value = bgColorInput.value;
+            updateGrid();
+        });
+        bgColorTextInput.addEventListener('input', () => {
+            bgColorInput.value = bgColorTextInput.value;
+            updateGrid();
+        });
+        exportResSelect.addEventListener('change', updateGrid);
+        clearBtn.addEventListener('click', clearAll);
+        downloadBtn.addEventListener('click', downloadGrid);
+
+        layoutPresets.forEach(btn => {
+            btn.addEventListener('click', () => {
+                layoutPresets.forEach(b => b.classList.remove('active', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20'));
+                btn.classList.add('active', 'border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/20');
+                rowsInput.value = btn.dataset.rows;
+                colsInput.value = btn.dataset.cols;
+                updateGrid();
+            });
+        });
+
+        async function handleFiles(files) {
+            const newImages = Array.from(files).filter(file => file.type.startsWith('image/'));
+            
+            for (const file of newImages) {
+                const img = await loadImage(file);
+                uploadedImages.push({
+                    img: img,
+                    name: file.name,
+                    id: Date.now() + Math.random()
+                });
+            }
+            
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
+        }
+
+        function loadImage(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => resolve(img);
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function updateEmptyState() {
+            if (uploadedImages.length === 0) {
+                emptyState.classList.remove('hidden');
+                canvas.classList.add('opacity-0');
+            } else {
+                emptyState.classList.add('hidden');
+                canvas.classList.remove('opacity-0');
+            }
+        }
+
+        let draggedIndex = null;
+
+        function updateUploadedList() {
+            uploadedList.innerHTML = '';
+            imageCountBadge.textContent = `${uploadedImages.length} इमेज`;
+            
+            uploadedImages.forEach((data, index) => {
+                const div = document.createElement('div');
+                div.className = 'relative group aspect-square rounded-xl overflow-hidden border-2 border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900 cursor-move hover:border-blue-400 hover:shadow-lg hover:shadow-blue-500/20 transition-all duration-200 hover:scale-105';
+                div.draggable = true;
+                div.dataset.index = index;
+                
+                div.innerHTML = `
+                    <img src="${data.img.src}" class="w-full h-full object-cover pointer-events-none">
+                    <button onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all z-10 shadow-lg">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                    <div class="absolute top-1 left-1 bg-blue-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg opacity-90">
+                        ${index + 1}
+                    </div>
+                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white text-[10px] px-2 py-1.5 truncate opacity-0 group-hover:opacity-100 transition-opacity">
+                        ${data.name}
+                    </div>
+                    <div class="absolute inset-0 bg-blue-500/20 opacity-0 group-hover:opacity-0 transition-opacity pointer-events-none" data-drag-overlay></div>
+                `;
+                
+                // Drag events
+                div.addEventListener('dragstart', handleDragStart);
+                div.addEventListener('dragover', handleDragOver);
+                div.addEventListener('drop', handleDrop);
+                div.addEventListener('dragend', handleDragEnd);
+                div.addEventListener('dragenter', handleDragEnter);
+                div.addEventListener('dragleave', handleDragLeave);
+                
+                uploadedList.appendChild(div);
+            });
+
+            // Add the "+" button at the end
+            const addBtn = document.createElement('div');
+            addBtn.className = 'aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 hover:scale-105 group';
+            addBtn.innerHTML = `
+                <div class="text-center">
+                    <svg class="w-8 h-8 text-slate-400 group-hover:text-blue-500 mx-auto transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    <span class="text-xs text-slate-400 group-hover:text-blue-500 font-medium mt-1 block transition-colors">जोड़ें</span>
+                </div>
+            `;
+            addBtn.addEventListener('click', () => fileInput.click());
+            uploadedList.appendChild(addBtn);
+        }
+
+        function handleDragStart(e) {
+            draggedIndex = parseInt(e.target.dataset.index);
+            e.target.style.opacity = '0.4';
+            e.dataTransfer.effectAllowed = 'move';
+        }
+
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            const target = e.target.closest('[data-index]');
+            if (target && target.dataset.index !== undefined) {
+                target.classList.add('border-blue-500', 'scale-110', 'shadow-2xl', 'shadow-blue-500/50');
+            }
+        }
+
+        function handleDragLeave(e) {
+            const target = e.target.closest('[data-index]');
+            if (target && target.dataset.index !== undefined) {
+                target.classList.remove('border-blue-500', 'scale-110', 'shadow-2xl', 'shadow-blue-500/50');
+            }
+        }
+
+        function handleDrop(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const target = e.target.closest('[data-index]');
+            if (!target) return;
+            
+            const dropIndex = parseInt(target.dataset.index);
+            
+            if (draggedIndex !== null && draggedIndex !== dropIndex) {
+                // Swap images
+                const temp = uploadedImages[draggedIndex];
+                uploadedImages[draggedIndex] = uploadedImages[dropIndex];
+                uploadedImages[dropIndex] = temp;
+                
+                updateUploadedList();
+                updateGrid();
+            }
+            
+            target.classList.remove('border-blue-500', 'scale-110', 'shadow-2xl', 'shadow-blue-500/50');
+            return false;
+        }
+
+        function handleDragEnd(e) {
+            e.target.style.opacity = '1';
+            draggedIndex = null;
+            
+            // Clean up all drag styles
+            document.querySelectorAll('[data-index]').forEach(item => {
+                item.classList.remove('border-blue-500', 'scale-110', 'shadow-2xl', 'shadow-blue-500/50');
+            });
+        }
+
+        window.removeImage = function(index) {
+            uploadedImages.splice(index, 1);
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
+        };
+
+        function clearAll() {
+            uploadedImages = [];
+            updateUploadedList();
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fileInput.value = '';
+            updateEmptyState();
+        }
+
+        function updateGrid() {
+            const rows = parseInt(rowsInput.value) || 1;
+            const cols = parseInt(colsInput.value) || 1;
+            const gap = parseInt(gapInput.value) || 0;
+            const res = exportResSelect.value;
+            const bgColor = bgColorInput.value;
+
+            // Calculate dimensions based on aspect ratio
+            let targetWidth, targetHeight;
+            if (res === 'custom' && uploadedImages.length > 0) {
+                // Use average size or largest size, but apply aspect ratio
+                const maxImgSize = Math.max(
+                    ...uploadedImages.map(d => Math.max(d.img.width, d.img.height))
+                );
+                if (aspectRatio.w >= aspectRatio.h) {
+                    targetWidth = maxImgSize;
+                    targetHeight = Math.round(maxImgSize * (aspectRatio.h / aspectRatio.w));
+                } else {
+                    targetHeight = maxImgSize;
+                    targetWidth = Math.round(maxImgSize * (aspectRatio.w / aspectRatio.h));
+                }
+            } else {
+                const baseRes = parseInt(res) || 1080;
+                // Apply aspect ratio to base resolution
+                if (aspectRatio.w >= aspectRatio.h) {
+                    targetWidth = baseRes;
+                    targetHeight = Math.round(baseRes * (aspectRatio.h / aspectRatio.w));
+                } else {
+                    targetHeight = baseRes;
+                    targetWidth = Math.round(baseRes * (aspectRatio.w / aspectRatio.h));
+                }
+            }
+
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
+            // Fill background
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            if (uploadedImages.length === 0) {
+                // Draw grid placeholder
+                const cellWidth = (targetWidth - (gap * (cols + 1))) / cols;
+                const cellHeight = (targetHeight - (gap * (rows + 1))) / rows;
+                
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([8, 4]);
+                
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const x = gap + c * (cellWidth + gap);
+                        const y = gap + r * (cellHeight + gap);
+                        ctx.strokeRect(x, y, cellWidth, cellHeight);
+                    }
+                }
+                ctx.setLineDash([]);
+                return;
+            }
+
+            const cellWidth = (targetWidth - (gap * (cols + 1))) / cols;
+            const cellHeight = (targetHeight - (gap * (rows + 1))) / rows;
+            const totalCells = rows * cols;
+
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    const cellIndex = r * cols + c;
+                    const x = gap + c * (cellWidth + gap);
+                    const y = gap + r * (cellHeight + gap);
+
+                    let imgIndex;
+                    if (fillMode === 'loop') {
+                        imgIndex = cellIndex % uploadedImages.length;
+                    } else {
+                        // Blank mode - only use available images
+                        imgIndex = cellIndex < uploadedImages.length ? cellIndex : -1;
+                    }
+
+                    if (imgIndex === -1) {
+                        // Draw empty cell with subtle pattern
+                        ctx.fillStyle = bgColor;
+                        ctx.fillRect(x, y, cellWidth, cellHeight);
+                        
+                        // Add subtle border for empty cells
+                        ctx.strokeStyle = '#e2e8f0';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([8, 4]);
+                        ctx.strokeRect(x + 2, y + 2, cellWidth - 4, cellHeight - 4);
+                        ctx.setLineDash([]);
+                    } else {
+                        const img = uploadedImages[imgIndex].img;
+
+                        // Object-fit: cover logic
+                        const imgAspect = img.width / img.height;
+                        const cellAspect = cellWidth / cellHeight;
+
+                        let sw, sh, sx, sy;
+                        if (imgAspect > cellAspect) {
+                            sh = img.height;
+                            sw = img.height * cellAspect;
+                            sx = (img.width - sw) / 2;
+                            sy = 0;
+                        } else {
+                            sw = img.width;
+                            sh = img.width / cellAspect;
+                            sx = 0;
+                            sy = (img.height - sh) / 2;
+                        }
+
+                        ctx.drawImage(img, sx, sy, sw, sh, x, y, cellWidth, cellHeight);
+                    }
+                }
+            }
+        }
+
+        function downloadGrid() {
+            if (uploadedImages.length === 0) {
+                alert('डाउनलोड करने से पहले कम से कम एक इमेज जोड़ें।');
+                return;
+            }
+            
+            const link = document.createElement('a');
+            link.download = `photo-grid-${Date.now()}.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
+        });
+    </script>
+
+    <style>
+        .layout-btn.active {
+            @apply border-blue-500 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/20 ring-2 ring-blue-500/50 shadow-lg shadow-blue-500/30 scale-105;
+        }
+        
+        /* 美化range滑块 */
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        
+        input[type="range"]::-webkit-slider-track {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            height: 0.5rem;
+            border-radius: 9999px;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            margin-top: -4px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            height: 1.25rem;
+            width: 1.25rem;
+            border-radius: 9999px;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transition: all 0.2s;
+        }
+        
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+        
+        input[type="range"]::-moz-range-track {
+            background: linear-gradient(to right, #3b82f6, #8b5cf6);
+            height: 0.5rem;
+            border-radius: 9999px;
+        }
+        
+        input[type="range"]::-moz-range-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            height: 1.25rem;
+            width: 1.25rem;
+            border-radius: 9999px;
+            border: 3px solid white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+            transition: all 0.2s;
+        }
+        
+        input[type="range"]::-moz-range-thumb:hover {
+            transform: scale(1.2);
+            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6);
+        }
+        
+        /* 拖拽时的动画效果 */
+        [draggable="true"] {
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        [draggable="true"]:active {
+            cursor: grabbing;
+        }
+        
+        /* 渐变动画 */
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradient-shift 3s ease infinite;
+        }
+        
+        /* 拖拽提示动画 */
+        @keyframes drag-hint {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        
+        [draggable="true"]:hover {
+            animation: drag-hint 0.6s ease-in-out;
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 美化滚动条 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        /* Canvas transition */
+        #grid-canvas {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</body>
+</html>

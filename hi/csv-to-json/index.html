@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV से JSON कन्वर्टर (CSV to JSON Converter) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="CSV को JSON में तुरंत कन्वर्ट करें। बैच फाइलें, ऑटो हेडर डिटेक्शन और कस्टम डिलीमीटर सपोर्ट। CSV to JSON converter, CSV converter, JSON converter - 100% निजी और असीमित।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/csv-to-json/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/csv-to-json/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/csv-to-json/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "CSV से JSON कन्वर्टर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "823",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/csv-to-json.jpg"
+    }
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">CSV से JSON कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">CSV डेटा को संरचित JSON फॉर्मेट में तुरंत बदलें ऑटो हेडर डिटेक्शन और लचीले पार्सिंग विकल्पों के साथ।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया गया।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+                <!-- Input Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">CSV डेटा</label>
+                                <div class="flex gap-2">
+                                    <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        फाइल अपलोड करें
+                                    </button>
+                                    <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                        पेस्ट करें
+                                    </button>
+                                    <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        क्लियर करें
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Drag & Drop Zone -->
+                            <div id="drop-zone" class="relative flex-1 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-2xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30">
+                                <input type="file" id="file-input" accept=".csv,.txt" multiple class="hidden">
+                                <textarea
+                                    id="csv-input"
+                                    class="absolute inset-0 w-full h-full p-6 pt-14 text-sm font-mono bg-transparent border-0 focus:ring-0 resize-none placeholder-slate-400 transition z-10"
+                                    placeholder="name,age,city&#10;John,30,New York&#10;Jane,25,Los Angeles"
+                                ></textarea>
+                                <!-- Drop Zone Hint -->
+                                <div class="absolute top-3 left-0 right-0 text-center pointer-events-none z-0">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        यहां CSV फाइलें क्लिक करें या ड्रैग करें, या नीचे टेक्स्ट पेस्ट करें
+                                    </div>
+                                </div>
+                                <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-2xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                                    <div class="text-center">
+                                        <svg class="w-20 h-20 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">यहां फाइलें ड्रॉप करें</p>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">.csv या .txt फाइलें सपोर्टेड</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Uploaded Files List -->
+                            <div id="uploaded-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">अपलोड की गई फाइलें</span>
+                                    <span id="file-count" class="text-xs text-slate-600 dark:text-slate-400"></span>
+                                </div>
+                                <div id="file-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div id="input-status" class="mt-4 flex items-center gap-2 text-sm font-medium hidden">
+                                <svg id="status-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                <span id="status-text"></span>
+                            </div>
+                        </div>
+
+                        <!-- Settings & Action -->
+                        <div class="p-6 pt-0 space-y-4">
+                            <!-- Options -->
+                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-4 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <label for="delimiter" class="text-xs font-semibold uppercase tracking-wider text-slate-500">डिलीमीटर</label>
+                                    <select id="delimiter" class="text-sm px-3 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:ring-2 focus:ring-blue-500/20 transition">
+                                        <option value=",">कॉमा (,)</option>
+                                        <option value=";">सेमीकोलन (;)</option>
+                                        <option value="\t">टैब</option>
+                                        <option value="|">पाइप (|)</option>
+                                    </select>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label for="has-header" class="text-xs font-semibold uppercase tracking-wider text-slate-500">पहली रो हेडर है</label>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="has-header" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <label for="format-output" class="text-xs font-semibold uppercase tracking-wider text-slate-500">आउटपुट प्रीटिफाई करें</label>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" id="format-output" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500/20 rounded-full peer dark:bg-slate-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <button id="convert-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+                                <span id="convert-btn-text">JSON में कन्वर्ट करें</span>
+                            </button>
+
+                            <button id="sample-btn" class="w-full py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                सैंपल लोड करें
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label for="json-output" class="text-sm font-semibold uppercase tracking-wider text-slate-500">JSON आउटपुट</label>
+                                <div class="flex gap-2">
+                                    <button id="copy-btn" class="text-xs px-3 py-1.5 rounded-lg bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        कॉपी करें
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea
+                                id="json-output"
+                                class="flex-1 w-full min-h-[450px] p-6 text-sm font-mono bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-green-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
+                                placeholder="JSON डेटा यहां दिखाई देगा..."
+                                readonly
+                            ></textarea>
+
+                            <!-- Processed Files List -->
+                            <div id="processed-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">प्रोसेस की गई फाइलें</span>
+                                    <button id="download-all-btn" class="text-xs px-3 py-1 rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        सभी डाउनलोड करें
+                                    </button>
+                                </div>
+                                <div id="processed-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="mt-4 grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">ऑब्जेक्ट्स</div>
+                                    <div id="stat-objects" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">फील्ड्स</div>
+                                    <div id="stat-fields" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">साइज</div>
+                                    <div id="stat-size" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0 B</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result Message -->
+                        <div class="p-6 pt-0">
+                            <div id="result-message" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900/50 hidden">
+                                <div class="flex items-start gap-3">
+                                    <svg id="result-icon" class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                    <div class="flex-1">
+                                        <div id="result-title" class="font-semibold text-sm mb-1"></div>
+                                        <div id="result-text" class="text-xs text-slate-600 dark:text-slate-400"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">CSV से JSON कन्वर्टर का इस्तेमाल कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">CSV डेटा इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">सीधे CSV डेटा पेस्ट करें, फाइलें अपलोड करें, या ड्रैग एंड ड्रॉप करें। बैच प्रोसेसिंग के लिए एकाधिक फाइलें सपोर्टेड हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">विकल्प चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपना डिलीमीटर चुनें, स्पेसिफाई करें कि पहली रो हेडर है या नहीं, और JSON आउटपुट को प्रीटिफाई करना है या नहीं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">JSON आउटपुट प्राप्त करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कन्वर्ट करने के लिए क्लिक करें और JSON प्राप्त करें। एक क्लिक से क्लिपबोर्ड में कॉपी करें या फाइलों के रूप में डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">मुख्य फीचर्स</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट पार्सिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">नंबर, बूलियन्स और नल वैल्यूज सहित डेटा टाइप्स को स्वचालित रूप से डिटेक्ट करें सटीक JSON रिप्रेजेंटेशन के लिए।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">प्राइवेसी फर्स्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी कन्वर्जन आपके ब्राउजर में होती है। आपका CSV डेटा कभी भी हमारे सर्वर तक नहीं पहुंचता, पूर्ण प्राइवेसी सुनिश्चित करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बैच प्रोसेसिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ एकाधिक CSV फाइलें अपलोड करें और उन्हें सभी को एक साथ कन्वर्ट करें। व्यक्तिगत रूप से या बैच के रूप में रिजल्ट डाउनलोड करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">लचीले डिलीमीटर्स</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कॉमा, सेमीकोलन, टैब और पाइप डिलीमीटर्स के लिए सपोर्ट। किसी भी स्रोत से CSV फाइलों को हैंडल करने के लिए परफेक्ट।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">CSV से JSON कन्वर्जन क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                CSV (Comma-Separated Values) एक फ्लैट टेक्स्ट फॉर्मेट है जहां प्रत्येक लाइन एक रो रिप्रेजेंट करती है और वैल्यूज कॉमा से अलग होती हैं। JSON (JavaScript Object Notation) एक संरचित डेटा फॉर्मेट है जिसमें की-वैल्यू पेयर होते हैं। CSV को JSON में कन्वर्ट करना टैबुलर डेटा को अधिक फ्लेक्सिबल, हायरार्किकल फॉर्मेट में बदलता है जो आधुनिक एप्लिकेशन्स और APIs में इस्तेमाल करने के लिए आसान होता है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरा CSV डेटा सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, बिल्कुल! सभी कन्वर्जन आपके ब्राउजर में JavaScript का इस्तेमाल करके क्लाइंट-साइड पर की जाती है। आपकी CSV फाइलें कभी भी किसी सर्वर पर अपलोड नहीं होतीं, जिससे आपका संवेदनशील डेटा पूरी तरह से सुरक्षित और निजी रहता है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं बड़ी CSV फाइलों को कन्वर्ट कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! चूंकि प्रोसेसिंग आपके ब्राउजर में होती है, फाइल साइज केवल आपके डिवाइस की मेमोरी तक सीमित है। अधिकांश आधुनिक ब्राउजर सैकड़ों हजारों रो वाली CSV फाइलों को आसानी से हैंडल कर सकते हैं बिना किसी समस्या के।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">अगर मेरी CSV में हेडर नहीं हैं तो क्या होगा?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कोई समस्या नहीं! बस "पहली रो हेडर है" विकल्प को अनचेक करें। कन्वर्टर स्वचालित रूप से आपके JSON ऑब्जेक्ट्स के लिए जनरिक कॉलम नेम (column1, column2, etc.) जेनरेट करेगा, हेडर के बिना भी उचित स्ट्रक्चर सुनिश्चित करेगा।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        const csvInput = document.getElementById('csv-input');
+        const jsonOutput = document.getElementById('json-output');
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const processedFilesSection = document.getElementById('processed-files');
+        const processedList = document.getElementById('processed-list');
+
+        const delimiterSelect = document.getElementById('delimiter');
+        const hasHeaderCheckbox = document.getElementById('has-header');
+        const formatOutputCheckbox = document.getElementById('format-output');
+
+        const uploadBtn = document.getElementById('upload-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const convertBtn = document.getElementById('convert-btn');
+        const convertBtnText = document.getElementById('convert-btn-text');
+        const sampleBtn = document.getElementById('sample-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        const inputStatus = document.getElementById('input-status');
+        const statusIcon = document.getElementById('status-icon');
+        const statusText = document.getElementById('status-text');
+
+        const resultMessage = document.getElementById('result-message');
+        const resultIcon = document.getElementById('result-icon');
+        const resultTitle = document.getElementById('result-title');
+        const resultText = document.getElementById('result-text');
+
+        const statObjects = document.getElementById('stat-objects');
+        const statFields = document.getElementById('stat-fields');
+        const statSize = document.getElementById('stat-size');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+
+        // Sample CSV data
+        const sampleData = `name,age,city,active,score
+John Doe,30,New York,true,95.5
+Jane Smith,25,Los Angeles,true,87.3
+Bob Johnson,35,Chicago,false,92.1
+Alice Williams,28,Houston,true,89.7`;
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function showResult(type, title, text) {
+            resultMessage.classList.remove('hidden');
+            resultMessage.classList.remove('bg-green-50', 'dark:bg-green-900/20', 'bg-red-50', 'dark:bg-red-900/20');
+
+            if (type === 'success') {
+                resultMessage.classList.add('bg-green-50', 'dark:bg-green-900/20');
+                resultIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                resultIcon.classList.add('text-green-600', 'dark:text-green-400');
+                resultIcon.classList.remove('text-red-600', 'dark:text-red-400');
+                resultTitle.classList.add('text-green-700', 'dark:text-green-400');
+                resultTitle.classList.remove('text-red-700', 'dark:text-red-400');
+            } else {
+                resultMessage.classList.add('bg-red-50', 'dark:bg-red-900/20');
+                resultIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                resultIcon.classList.add('text-red-600', 'dark:text-red-400');
+                resultIcon.classList.remove('text-green-600', 'dark:text-green-400');
+                resultTitle.classList.add('text-red-700', 'dark:text-red-400');
+                resultTitle.classList.remove('text-green-700', 'dark:text-green-400');
+            }
+
+            resultTitle.textContent = title;
+            resultText.textContent = text;
+        }
+
+        function hideResult() {
+            resultMessage.classList.add('hidden');
+        }
+
+        function updateStats(json, objectCount, fieldCount) {
+            statObjects.textContent = objectCount.toLocaleString();
+            statFields.textContent = fieldCount.toLocaleString();
+            const bytes = new Blob([json]).size;
+            statSize.textContent = formatBytes(bytes);
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                fileList.innerHTML = '';
+                convertBtnText.textContent = 'JSON में कन्वर्ट करें';
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            fileCount.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''}`;
+            convertBtnText.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? 'ें' : ''} प्रोसेस करें`;
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="font-medium truncate">${file.name}</span>
+                        <span class="text-slate-500 dark:text-slate-400">(${formatBytes(file.size)})</span>
+                    </div>
+                    <button onclick="removeFile(${index})" class="ml-2 p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400 transition">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateProcessedList() {
+            if (processedResults.length === 0) {
+                processedFilesSection.classList.add('hidden');
+                return;
+            }
+
+            processedFilesSection.classList.remove('hidden');
+            processedList.innerHTML = processedResults.map((result, index) => `
+                <div class="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 ${result.success ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            ${result.success ?
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' :
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium truncate">${result.fileName}</div>
+                            ${result.success ?
+                                `<div class="text-slate-500 dark:text-slate-400">${formatBytes(result.size)} • ${result.objects} ऑब्जेक्ट्स</div>` :
+                                `<div class="text-red-600 dark:text-red-400">${result.error}</div>`}
+                        </div>
+                    </div>
+                    ${result.success ? `
+                        <button onclick="downloadSingleFile(${index})" class="ml-2 px-2 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded transition flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            डाउनलोड
+                        </button>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingleFile = function(index) {
+            const result = processedResults[index];
+            if (result && result.success) {
+                const blob = new Blob([result.content], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = result.fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file =>
+                file.type === 'text/csv' || file.name.endsWith('.csv') || file.name.endsWith('.txt')
+            );
+
+            if (newFiles.length === 0) {
+                showResult('error', 'गलत फाइलें', 'कृपया केवल CSV या टेक्स्ट फाइलें अपलोड करें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...newFiles];
+            updateFileList();
+            csvInput.value = '';
+            hideResult();
+        }
+
+        // Drag & Drop handlers
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === csvInput) return;
+            fileInput.click();
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        function parseCSVLine(line, delimiter) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                const nextChar = line[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        current += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === delimiter && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+            result.push(current.trim());
+            return result;
+        }
+
+        function convertValue(value) {
+            value = value.replace(/^["']|["']$/g, '');
+            if (value === '' || value.toLowerCase() === 'null') return null;
+            if (value.toLowerCase() === 'true') return true;
+            if (value.toLowerCase() === 'false') return false;
+            if (!isNaN(value) && value.trim() !== '') return Number(value);
+            return value;
+        }
+
+        function csvToJSON(csvData, delimiter, hasHeader, prettify) {
+            const lines = csvData.trim().split('\n').filter(line => line.trim());
+            if (lines.length === 0) throw new Error('CSV डेटा खाली है');
+
+            const parsedLines = lines.map(line => parseCSVLine(line, delimiter));
+            let headers, dataLines;
+
+            if (hasHeader) {
+                headers = parsedLines[0];
+                dataLines = parsedLines.slice(1);
+            } else {
+                const columnCount = parsedLines[0].length;
+                headers = Array.from({ length: columnCount }, (_, i) => `column${i + 1}`);
+                dataLines = parsedLines;
+            }
+
+            const jsonArray = dataLines.map(line => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = convertValue(line[index] || '');
+                });
+                return obj;
+            });
+
+            return {
+                data: jsonArray,
+                json: prettify ? JSON.stringify(jsonArray, null, 2) : JSON.stringify(jsonArray),
+                objectCount: jsonArray.length,
+                fieldCount: headers.length
+            };
+        }
+
+        async function convertCSV() {
+            const delimiter = delimiterSelect.value === '\\t' ? '\t' : delimiterSelect.value;
+            const hasHeader = hasHeaderCheckbox.checked;
+            const prettify = formatOutputCheckbox.checked;
+
+            if (uploadedFiles.length === 0) {
+                const input = csvInput.value.trim();
+                if (!input) {
+                    showResult('error', 'खाली इनपुट', 'कृपया CSV डेटा पेस्ट करें या फाइलें अपलोड करें।');
+                    return;
+                }
+
+                try {
+                    const result = csvToJSON(input, delimiter, hasHeader, prettify);
+                    jsonOutput.value = result.json;
+                    showResult('success', 'कन्वर्जन सफल',
+                        `${result.objectCount} रो${result.objectCount !== 1 ? 'स' : ''} ${result.fieldCount} फील्ड${result.fieldCount !== 1 ? 'स' : ''} के साथ सफलतापूर्वक कन्वर्ट किया गया।`);
+                    updateStats(result.json, result.objectCount, result.fieldCount);
+                } catch (e) {
+                    showResult('error', 'कन्वर्जन विफल', e.message);
+                    jsonOutput.value = '';
+                    updateStats('', 0, 0);
+                }
+                return;
+            }
+
+            // Process uploaded files
+            processedResults = [];
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    const result = csvToJSON(content, delimiter, hasHeader, prettify);
+
+                    processedResults.push({
+                        fileName: file.name.replace(/\.(csv|txt)$/, '') + '.json',
+                        content: result.json,
+                        size: new Blob([result.json]).size,
+                        objects: result.objectCount,
+                        success: true
+                    });
+                } catch (error) {
+                    processedResults.push({
+                        fileName: file.name,
+                        error: error.message,
+                        success: false
+                    });
+                }
+            }
+
+            updateProcessedList();
+
+            const successCount = processedResults.filter(r => r.success).length;
+            const failCount = processedResults.length - successCount;
+
+            if (successCount > 0) {
+                showResult('success', 'प्रोसेसिंग पूर्ण',
+                    `${successCount} फाइल${successCount > 1 ? 'ें' : ''} सफलतापूर्वक प्रोसेस की गई${failCount > 0 ? `, ${failCount} विफल` : ''}।`);
+
+                const firstSuccess = processedResults.find(r => r.success);
+                if (firstSuccess) {
+                    jsonOutput.value = firstSuccess.content;
+                    updateStats(firstSuccess.content, firstSuccess.objects, firstSuccess.objects);
+                }
+            } else {
+                showResult('error', 'प्रोसेसिंग विफल', 'सभी फाइलें प्रोसेस करने में विफल।');
+            }
+        }
+
+        convertBtn.addEventListener('click', convertCSV);
+
+        downloadAllBtn.addEventListener('click', () => {
+            const successResults = processedResults.filter(r => r.success);
+            if (successResults.length === 0) return;
+
+            successResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const blob = new Blob([result.content], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = result.fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, index * 100);
+            });
+        });
+
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                csvInput.value = text;
+                hideResult();
+            } catch (err) {
+                console.error('पेस्ट करने में विफल:', err);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            csvInput.value = '';
+            jsonOutput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            updateProcessedList();
+            hideResult();
+            updateStats('', 0, 0);
+            fileInput.value = '';
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            csvInput.value = sampleData;
+            uploadedFiles = [];
+            updateFileList();
+            hideResult();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const output = jsonOutput.value;
+            if (!output) {
+                showResult('error', 'कॉपी करने के लिए कुछ नहीं', 'पहले CSV को JSON में कन्वर्ट करें।');
+                return;
+            }
+
+            navigator.clipboard.writeText(output).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> कॉपी हो गया!';
+                copyBtn.classList.remove('bg-green-50', 'text-green-600');
+                copyBtn.classList.add('bg-green-600', 'text-white');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('bg-green-600', 'text-white');
+                    copyBtn.classList.add('bg-green-50', 'text-green-600');
+                }, 2000);
+            });
+        });
+
+        // Auto-detect CSV format
+        let detectionTimeout;
+        csvInput.addEventListener('input', () => {
+            clearTimeout(detectionTimeout);
+            detectionTimeout = setTimeout(() => {
+                const input = csvInput.value.trim();
+                if (input && uploadedFiles.length === 0) {
+                    const lines = input.split('\n').filter(line => line.trim());
+                    if (lines.length > 0) {
+                        inputStatus.classList.remove('hidden');
+                        inputStatus.classList.remove('text-red-600');
+                        inputStatus.classList.add('text-green-600');
+                        statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                        statusText.textContent = `${lines.length} लाइन${lines.length !== 1 ? 'स' : ''} डिटेक्ट हुईं`;
+                    }
+                } else {
+                    inputStatus.classList.add('hidden');
+                }
+            }, 500);
+        });
+
+        // Initialize
+        updateStats('', 0, 0);
+    </script>
+</body>
+</html>

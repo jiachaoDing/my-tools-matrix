@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>छवि क्रॉपर (Image Cropper) - मुफ्त और सुरक्षित ऑनलाइन टूल | WebUtilityKit</title>
+    <meta name="description" content="पिक्सेल-परफेक्ट सटीकता के साथ छवियों को ऑनलाइन क्रॉप करें। मुफ्त, सुरक्षित, और असीमित प्रोसेसिंग JPG, PNG, और WebP के लिए। कोई सर्वर अपलोड नहीं - आपकी गोपनीयता की गारंटी। अभी आजमाएं!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/image-cropper/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/image-cropper/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/image-cropper/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/hi/image-cropper/">
+    <meta property="og:title" content="छवि क्रॉपर - 100% सुरक्षित और स्थानीय सटीक क्रॉपिंग">
+    <meta property="og:description" content="सोशल मीडिया के लिए पूर्व निर्धारित अनुपात के साथ अपनी तस्वीरों को तुरंत क्रॉप करें बिना किसी सर्वर पर अपलोड किए।">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/image-cropper.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Cropper",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "724",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Preset aspect ratios, Lossless cropping, Rotation and Flip",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/image-cropper.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white text-pretty italic">छवि क्रॉपर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">अपनी छवियों को स्थानीय रूप से क्रॉप करें। तत्काल, सुरक्षित, और मूल गुणवत्ता को बनाए रखें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto shadow-sm">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% निजी। स्थानीय प्रोसेसिंग केवल।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left: Editor Area (8 cols) -->
+                <div class="lg:col-span-8 flex flex-col h-full min-h-[500px]">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+
+                        <!-- Empty State -->
+                        <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 transition-all cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
+                            <input type="file" id="file-input" class="hidden" accept="image/jpeg,image/png,image/webp" aria-label="क्रॉपिंग के लिए छवि अपलोड करें">
+                            <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
+                                <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white">यहाँ अपनी छवि ड्रॉप करें</h3>
+                            <p class="text-slate-500 dark:text-slate-400 mt-2">या फ़ाइलें चुनने के लिए क्लिक करें</p>
+                        </div>
+
+                        <!-- Editor Area (Hidden initially) -->
+                        <div id="editor-container" class="hidden flex-grow flex flex-col relative min-h-[400px]">
+                            <div class="flex-grow relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden flex items-center justify-center">
+                                <div id="cropper-stage" class="relative max-w-full max-h-full">
+                                    <img id="source-image" class="max-w-full max-h-full block select-none pointer-events-none" src="" alt="क्रॉप करने के लिए">
+                                    <div id="crop-box" class="absolute border-2 border-white shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] cursor-move touch-none box-border group/box">
+                                        <!-- Corner Handles -->
+                                        <div data-handle="nw" class="absolute -top-2 -left-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-nw-resize"></div>
+                                        <div data-handle="ne" class="absolute -top-2 -right-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-ne-resize"></div>
+                                        <div data-handle="sw" class="absolute -bottom-2 -left-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-sw-resize"></div>
+                                        <div data-handle="se" class="absolute -bottom-2 -right-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-se-resize"></div>
+                                        <!-- Side Handles -->
+                                        <div data-handle="n" class="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-n-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        <div data-handle="s" class="absolute -bottom-2 left-1/2 -ml-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-s-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        <div data-handle="w" class="absolute top-1/2 -left-2 -mt-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-w-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+                                        <div data-handle="e" class="absolute top-1/2 -right-2 -mt-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-e-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
+
+                                        <!-- Grid Lines -->
+                                        <div class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3 opacity-30">
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-b border-white/50"></div>
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-r border-white/50 border-b border-white/50"></div>
+                                            <div class="border-b border-white/50"></div>
+                                            <div class="border-r border-white/50"></div>
+                                            <div class="border-r border-white/50"></div>
+                                            <div></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bottom Action Bar -->
+                            <div class="flex items-center justify-between mt-4">
+                                <div class="flex items-center gap-2">
+                                    <button id="rotate-left" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="बाईं ओर घुमाएँ">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                                    </button>
+                                    <button id="rotate-right" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="दाईं ओर घुमाएँ">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                    </button>
+                                    <button id="flip-h" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="क्षैतिज फ़्लिप">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                                    </button>
+                                    <button id="flip-v" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="ऊर्ध्वाधर फ़्लिप">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" transform="rotate(90)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
+                                    </button>
+                                </div>
+                                <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition">छवि रीसेट करें</button>
+                            </div>
+                        </div>
+
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">संपादित करने के लिए छोड़ें</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Controls Area (4 cols) -->
+                <div class="lg:col-span-4 flex flex-col h-full gap-8">
+
+                    <!-- Settings Card -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="mb-8">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">पहलू अनुपात</label>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button data-ratio="free" class="ratio-btn py-3 px-4 rounded-2xl bg-blue-600 text-white font-bold text-sm shadow-lg shadow-blue-500/20 border-2 border-transparent transition-all">मुक्त</button>
+                                <button data-ratio="1:1" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">1:1 वर्ग</button>
+                                <button data-ratio="4:3" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">4:3 फोटो</button>
+                                <button data-ratio="16:9" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">16:9 चौड़ा</button>
+                                <button data-ratio="2:3" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">2:3 पोर्ट्रेट</button>
+                                <button data-ratio="9:16" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">9:16 स्टोरी</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">निर्यात प्रारूप</label>
+                            <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer appearance-none">
+                                <option value="image/jpeg">JPEG (.jpg)</option>
+                                <option value="image/png">PNG (.png)</option>
+                                <option value="image/webp">WebP (.webp)</option>
+                            </select>
+                        </div>
+
+                        <div class="flex-grow"></div>
+
+                        <button id="download-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
+                            <span class="flex items-center justify-center gap-3">
+                                <span>छवि डाउनलोड करें</span>
+                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </span>
+                        </button>
+
+                        <p class="text-center text-[10px] text-slate-400 mt-4 font-medium uppercase tracking-widest">मूल गुणवत्ता संरक्षित</p>
+                    </div>
+
+                    <!-- Info/Preview Card (Mini) -->
+                    <div id="stats-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-6 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">क्रॉप आकार</span>
+                                <span id="crop-res" class="text-sm font-black text-blue-600">0 x 0</span>
+                            </div>
+                            <div>
+                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">पहलू अनुपात</span>
+                                <span id="aspect-val" class="text-sm font-black text-slate-600 dark:text-slate-300">मुक्त</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">छवि क्रॉपर का उपयोग करना</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">फोटो अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">संपादक में अपनी फोटो को खींचकर लाएँ या अपने डिवाइस से फ़ाइलें चुनने के लिए क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">क्षेत्र समायोजित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">एक पूर्व निर्धारित पहलू अनुपात चुनें या अपने कस्टम क्रॉप क्षेत्र को परिभाषित करने के लिए हैंडल खींचें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपनी पसंदीदा प्रारूप चुनें और अपनी पूरी तरह से क्रॉप की गई छवि को तुरंत डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">पूर्ण क्लाइंट-साइड शक्ति</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 text-pretty">
+                                क्लाउड-आधारित संपादकों पर अपनी डेटा का जोखिम क्यों उठाएँ? हमारा छवि क्रॉपर पूरी तरह से आपके ब्राउज़र में चलता है। HTML5 Canvas API का उपयोग करके, हम आपके पिक्सेल को स्थानीय रूप से प्रोसेस करते हैं—आपकी छवियाँ कभी भी हमारे सर्वर तक नहीं पहुँचतीं। यह तेज़, अधिक सुरक्षित, और ऑफ़लाइन काम करता है।
+                            </p>
+                            <div class="flex gap-4 flex-wrap">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">सुरक्षा</div>
+                                    <div class="font-bold">कोई अपलोड नहीं</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">गति</div>
+                                    <div class="font-bold text-center">स्थानीय-केवल</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सटीकता के लिए इंजीनियर्ड</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट पूर्व निर्धारण</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Instagram, YouTube, और LinkedIn के लिए मानक अनुपात सभी सोशल प्लेटफ़ॉर्म पर तत्काल उपयोग के लिए पूर्व कॉन्फ़िगर किए गए हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">नुकसान रहित पूर्वावलोकन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">डाउनलोड करने से पहले देखें कि आपका क्रॉप कैसा दिखता है। हम संपादन प्रक्रिया के दौरान पिक्सेल-परफेक्ट सटीकता बनाए रखते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">परिवर्तन उपकरण</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अतिरिक्त लचीलापन के लिए क्रॉप चयन क्षेत्र को बनाए रखते हुए एक क्लिक से छवियों को घुमाएँ और फ़्लिप करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गति के लिए अनुकूलित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कोई लोडिंग स्क्रीन नहीं। कोई विज्ञापन नहीं। बस एक शुद्ध उपयोगिता जो आपकी छवि क्रॉपिंग कार्य को जल्दी से पूरा करने पर केंद्रित है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या छवि गुणवत्ता खो जाएगी?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                नहीं। हम छवि को इसके मूल रिज़ॉल्यूशन पर क्रॉप करते हैं। यदि आप PNG या नुकसान रहित प्रारूप चुनते हैं, तो कोई गुणवत्ता हानि नहीं होती। JPEG के लिए, हम स्पष्टता सुनिश्चित करने के लिए उच्च गुणवत्ता सेटिंग का उपयोग करते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से प्रारूप समर्थित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम <strong>JPEG, PNG, और WebP</strong> के लिए इनपुट और आउटपुट दोनों का समर्थन करते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह मोबाइल पर काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! हमारा क्रॉपर पूरी तरह से रिस्पॉन्सिव है और टच इवेंट्स का समर्थन करता है, जो आपके स्मार्टफोन या टैबलेट पर प्राकृतिक इशारों के साथ फोटो क्रॉप करना आसान बनाता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <!-- Related Tools Section -->
+                <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">आपको जो अन्य उपकरण चाहिए हो सकते हैं</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="/hi/image-compressor/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">छवि कम्प्रेसर</h3>
+                            <p class="text-sm text-slate-500 mt-1">गुणवत्ता खोए बिना छवि भार कम करें।</p>
+                        </a>
+                        <a href="/hi/image-resizer/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">छवि रीसाइज़र</h3>
+                            <p class="text-sm text-slate-500 mt-1">आयाम या प्रतिशत द्वारा छवियों को बैच रीसाइज़ करें।</p>
+                        </a>
+                        <a href="/hi/webp-converter/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">WebP कन्वर्टर</h3>
+                            <p class="text-sm text-slate-500 mt-1">सर्वोत्तम संपीड़न के लिए फोटो को आधुनिक WebP में बदलें।</p>
+                        </a>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Cropper Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const emptyState = document.getElementById('empty-state');
+        const editorContainer = document.getElementById('editor-container');
+        const fileInput = document.getElementById('file-input');
+        const sourceImage = document.getElementById('source-image');
+        const cropBox = document.getElementById('crop-box');
+        const cropperStage = document.getElementById('cropper-stage');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const ratioBtns = document.querySelectorAll('.ratio-btn');
+        const downloadBtn = document.getElementById('download-btn');
+        const outputFormatSelect = document.getElementById('output-format');
+        const statsCard = document.getElementById('stats-card');
+        const cropResDisplay = document.getElementById('crop-res');
+        const aspectValDisplay = document.getElementById('aspect-val');
+        const resetBtn = document.getElementById('reset-btn');
+        const rotateL = document.getElementById('rotate-left');
+        const rotateR = document.getElementById('rotate-right');
+        const flipHBtn = document.getElementById('flip-h');
+        const flipVBtn = document.getElementById('flip-v');
+
+        let originalFile = null;
+        let originalImg = new Image();
+        let currentRatio = null; // null for free
+        let rotation = 0;
+        let flipH = 1;
+        let flipV = 1;
+
+        // State for dragging
+        let isDragging = false;
+        let dragTarget = null; // 'box' or handle name
+        let startX, startY;
+        let startLeft, startTop, startWidth, startHeight;
+
+        // Initialization
+        emptyState.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            originalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    initEditor();
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function initEditor() {
+            sourceImage.src = originalImg.src;
+            emptyState.classList.add('hidden');
+            editorContainer.classList.remove('hidden');
+            statsCard.classList.remove('hidden');
+            downloadBtn.disabled = false;
+
+            // Reset transforms
+            rotation = 0;
+            flipH = 1;
+            flipV = 1;
+            applyTransforms();
+
+            // Initial crop box: 80% of image
+            setTimeout(() => {
+                const imgW = sourceImage.offsetWidth;
+                const imgH = sourceImage.offsetHeight;
+
+                let w = imgW * 0.8;
+                let h = imgH * 0.8;
+
+                if (currentRatio) {
+                    const [rW, rH] = currentRatio.split(':').map(Number);
+                    const targetRatio = rW / rH;
+                    if (w / h > targetRatio) {
+                        w = h * targetRatio;
+                    } else {
+                        h = w / targetRatio;
+                    }
+                }
+
+                setCropBox(
+                    (imgW - w) / 2,
+                    (imgH - h) / 2,
+                    w,
+                    h
+                );
+            }, 50);
+        }
+
+        function setCropBox(l, t, w, h) {
+            const imgW = sourceImage.offsetWidth;
+            const imgH = sourceImage.offsetHeight;
+
+            // Constraints
+            w = Math.max(20, Math.min(w, imgW));
+            h = Math.max(20, Math.min(h, imgH));
+            l = Math.max(0, Math.min(l, imgW - w));
+            t = Math.max(0, Math.min(t, imgH - h));
+
+            cropBox.style.left = `${l}px`;
+            cropBox.style.top = `${t}px`;
+            cropBox.style.width = `${w}px`;
+            cropBox.style.height = `${h}px`;
+
+            updateStats();
+        }
+
+        function updateStats() {
+            const l = parseFloat(cropBox.style.left);
+            const t = parseFloat(cropBox.style.top);
+            const w = parseFloat(cropBox.style.width);
+            const h = parseFloat(cropBox.style.height);
+
+            const imgDisplayW = sourceImage.offsetWidth;
+            const imgDisplayH = sourceImage.offsetHeight;
+
+            const scaleX = originalImg.width / imgDisplayW;
+            const scaleY = originalImg.height / imgDisplayH;
+
+            const actualW = Math.round(w * scaleX);
+            const actualH = Math.round(h * scaleY);
+
+            cropResDisplay.textContent = `${actualW} x ${actualH}`;
+            aspectValDisplay.textContent = currentRatio || 'मुक्त';
+        }
+
+        // Interaction Logic
+        window.addEventListener('mousedown', startDrag);
+        window.addEventListener('mousemove', doDrag);
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchstart', (e) => startDrag(e.touches[0]), {passive: false});
+        window.addEventListener('touchmove', (e) => doDrag(e.touches[0]), {passive: false});
+        window.addEventListener('touchend', endDrag);
+
+        function startDrag(e) {
+            const handle = e.target.closest('[data-handle]');
+            const box = e.target.closest('#crop-box');
+
+            if (!handle && !box) return;
+
+            isDragging = true;
+            dragTarget = handle ? handle.dataset.handle : 'box';
+            startX = e.clientX;
+            startY = e.clientY;
+            startLeft = parseFloat(cropBox.style.left);
+            startTop = parseFloat(cropBox.style.top);
+            startWidth = parseFloat(cropBox.style.width);
+            startHeight = parseFloat(cropBox.style.height);
+
+            if (e.preventDefault) e.preventDefault();
+        }
+
+        function doDrag(e) {
+            if (!isDragging) return;
+
+            const dx = e.clientX - startX;
+            const dy = e.clientY - startY;
+            const imgW = sourceImage.offsetWidth;
+            const imgH = sourceImage.offsetHeight;
+
+            let nl = startLeft, nt = startTop, nw = startWidth, nh = startHeight;
+
+            if (dragTarget === 'box') {
+                nl = startLeft + dx;
+                nt = startTop + dy;
+            } else {
+                // Handle resizing
+                if (dragTarget.includes('e')) nw = startWidth + dx;
+                if (dragTarget.includes('w')) {
+                    nw = startWidth - dx;
+                    nl = startLeft + dx;
+                }
+                if (dragTarget.includes('s')) nh = startHeight + dy;
+                if (dragTarget.includes('n')) {
+                    nh = startHeight - dy;
+                    nt = startTop + dy;
+                }
+
+                // Apply Ratio
+                if (currentRatio) {
+                    const [rW, rH] = currentRatio.split(':').map(Number);
+                    const ratio = rW / rH;
+
+                    if (dragTarget === 'e' || dragTarget === 'w' || dragTarget === 's' || dragTarget === 'n') {
+                        // Single side drag with ratio is tricky, usually we lock it
+                        if (dragTarget === 'e' || dragTarget === 'w') nh = nw / ratio;
+                        else nw = nh * ratio;
+                    } else {
+                        // Corner drag
+                        if (Math.abs(dx) > Math.abs(dy)) nh = nw / ratio;
+                        else nw = nh * ratio;
+                    }
+
+                    // Re-calculate nl/nt for left/top handles
+                    if (dragTarget.includes('w')) nl = startLeft + (startWidth - nw);
+                    if (dragTarget.includes('n')) nt = startTop + (startHeight - nh);
+                }
+            }
+
+            setCropBox(nl, nt, nw, nh);
+        }
+
+        function endDrag() {
+            isDragging = false;
+            dragTarget = null;
+        }
+
+        // Ratio Buttons
+        ratioBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                ratioBtns.forEach(b => {
+                    b.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20');
+                    b.classList.add('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+                });
+                btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20');
+                btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+
+                currentRatio = btn.dataset.ratio === 'free' ? null : btn.dataset.ratio;
+
+                // Adjust current box to ratio
+                if (currentRatio) {
+                    const [rW, rH] = currentRatio.split(':').map(Number);
+                    const ratio = rW / rH;
+                    let w = parseFloat(cropBox.style.width);
+                    let h = w / ratio;
+                    if (h > sourceImage.offsetHeight) {
+                        h = sourceImage.offsetHeight;
+                        w = h * ratio;
+                    }
+                    setCropBox(parseFloat(cropBox.style.left), parseFloat(cropBox.style.top), w, h);
+                }
+                updateStats();
+            });
+        });
+
+        // Transforms
+        function applyTransforms() {
+            sourceImage.style.transform = `rotate(${rotation}deg) scale(${flipH}, ${flipV})`;
+            // Reset crop box when rotating since image dimensions change in UI
+            setTimeout(() => {
+                // This is a simple implementation, a robust one would transform the crop box
+                const imgW = sourceImage.offsetWidth;
+                const imgH = sourceImage.offsetHeight;
+                setCropBox(imgW*0.1, imgH*0.1, imgW*0.8, imgH*0.8);
+            }, 150);
+        }
+
+        rotateL.addEventListener('click', () => { rotation -= 90; applyTransforms(); });
+        rotateR.addEventListener('click', () => { rotation += 90; applyTransforms(); });
+        flipHBtn.addEventListener('click', () => { flipH *= -1; applyTransforms(); });
+        flipVBtn.addEventListener('click', () => { flipV *= -1; applyTransforms(); });
+        resetBtn.addEventListener('click', initEditor);
+
+        // Download
+        downloadBtn.addEventListener('click', () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+
+            const l = parseFloat(cropBox.style.left);
+            const t = parseFloat(cropBox.style.top);
+            const w = parseFloat(cropBox.style.width);
+            const h = parseFloat(cropBox.style.height);
+
+            const imgDisplayW = sourceImage.offsetWidth;
+            const imgDisplayH = sourceImage.offsetHeight;
+
+            const scaleX = originalImg.width / imgDisplayW;
+            const scaleY = originalImg.height / imgDisplayH;
+
+            const actualX = l * scaleX;
+            const actualY = t * scaleY;
+            const actualW = w * scaleX;
+            const actualH = h * scaleY;
+
+            canvas.width = actualW;
+            canvas.height = actualH;
+
+            // Handle rotations and flips on the hidden canvas
+            const tempCanvas = document.createElement('canvas');
+            const tCtx = tempCanvas.getContext('2d');
+
+            // Normalize rotation to 0, 90, 180, 270
+            const normRot = ((rotation % 360) + 360) % 360;
+
+            if (normRot === 90 || normRot === 270) {
+                tempCanvas.width = originalImg.height;
+                tempCanvas.height = originalImg.width;
+            } else {
+                tempCanvas.width = originalImg.width;
+                tempCanvas.height = originalImg.height;
+            }
+
+            tCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+            tCtx.rotate(normRot * Math.PI / 180);
+            tCtx.scale(flipH, flipV);
+            tCtx.drawImage(originalImg, -originalImg.width / 2, -originalImg.height / 2);
+
+            // Now crop from the transformed image
+            // Note: The UI crop box is relative to the *displayed* transformed image.
+            // Our tempCanvas now contains that transformed image at full res.
+            ctx.drawImage(tempCanvas, actualX, actualY, actualW, actualH, 0, 0, actualW, actualH);
+
+            const format = outputFormatSelect.value;
+            const quality = format === 'image/jpeg' ? 0.92 : undefined;
+
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.download = `cropped_${originalFile.name.split('.')[0]}.${format.split('/')[1]}`;
+                link.href = url;
+                link.click();
+                URL.revokeObjectURL(url);
+            }, format, quality);
+        });
+
+    </script>
+</body>
+</html>

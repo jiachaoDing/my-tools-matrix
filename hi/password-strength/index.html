@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>पासवर्ड सुरक्षा जांचकर्ता (Password Strength Checker) - मुफ्त सुरक्षा विश्लेषक | WebUtilityKit</title>
+    <meta name="description" content="एंट्रॉपी विश्लेषण और क्रैक समय अनुमान के साथ पासवर्ड सुरक्षा को तुरंत जांचें। कार्रवाई योग्य सुरक्षा सुझाव प्राप्त करें। ब्राउज़र में स्थानीय रूप से संसाधित। अभी सुरक्षा जांचें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/password-strength/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/password-strength/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/password-strength/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Password Strength Checker",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "734",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, Entropy calculation, Crack time estimation, Pattern detection, No server upload, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/password-strength.jpg"
+}
+    </script>
+
+    <style>
+        .strength-dot { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .pulse-once { animation: pulse-once 0.5s ease-in-out; }
+        @keyframes pulse-once {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">पासवर्ड सुरक्षा जांचकर्ता</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने पासवर्ड की सुरक्षा को रीयल-टाइम में विश्लेषण करें। हम एंट्रॉपी की गणना करते हैं, क्रैक समय का अनुमान लगाते हैं, और कार्रवाई योग्य सुरक्षा प्रतिक्रिया प्रदान करते हैं।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Input (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="space-y-4">
+                            <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">अपना पासवर्ड जांचें</label>
+                            <div class="relative group">
+                                <input type="password" id="password-input" placeholder="पासवर्ड टाइप करें..."
+                                    class="w-full bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent focus:border-blue-500/30 rounded-2xl px-6 py-5 text-xl font-mono transition-all outline-none pr-14"
+                                    autocomplete="off">
+                                <button id="toggle-visibility" class="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-slate-400 hover:text-blue-500 transition-colors">
+                                    <svg id="eye-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-500 font-medium">सुरक्षा मीटर</span>
+                                <span id="strength-text" class="font-bold text-slate-400">प्रतीक्षा में...</span>
+                            </div>
+                            <div class="flex gap-2 h-3">
+                                <div class="strength-segment flex-1 rounded-full bg-slate-100 dark:bg-slate-900/50 transition-all duration-500"></div>
+                                <div class="strength-segment flex-1 rounded-full bg-slate-100 dark:bg-slate-900/50 transition-all duration-500"></div>
+                                <div class="strength-segment flex-1 rounded-full bg-slate-100 dark:bg-slate-900/50 transition-all duration-500"></div>
+                                <div class="strength-segment flex-1 rounded-full bg-slate-100 dark:bg-slate-900/50 transition-all duration-500"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="text-xs font-bold text-slate-400 uppercase mb-2 tracking-tighter">एंट्रॉपी स्कोर</div>
+                                <div id="entropy-val" class="text-2xl font-bold text-slate-700 dark:text-slate-200">0 बिट्स</div>
+                            </div>
+                            <div class="p-5 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800">
+                                <div class="text-xs font-bold text-slate-400 uppercase mb-2 tracking-tighter">लंबाई</div>
+                                <div id="length-val" class="text-2xl font-bold text-slate-700 dark:text-slate-200">0 वर्ण</div>
+                            </div>
+                        </div>
+
+                        <div id="security-tips" class="space-y-3 pt-4">
+                            <p class="text-sm text-slate-400 italic">विश्लेषण देखने के लिए पासवर्ड दर्ज करें...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Analysis (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">विस्तृत सुरक्षा विश्लेषण</label>
+
+                        <div class="space-y-8 flex-grow">
+                            <!-- Crack Time Estimates -->
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    अनुमानित क्रैक समय
+                                </h3>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="p-6 rounded-3xl bg-blue-50/50 dark:bg-blue-900/10 border border-blue-100/50 dark:border-blue-900/20">
+                                        <div class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase mb-1">ब्रूट फोर्स (ऑनलाइन)</div>
+                                        <div id="crack-online" class="text-xl font-bold text-slate-800 dark:text-slate-100 italic">...</div>
+                                        <div class="text-[10px] text-blue-500/70 mt-1 uppercase">100 प्रयास/सेकंड</div>
+                                    </div>
+                                    <div class="p-6 rounded-3xl bg-purple-50/50 dark:bg-purple-900/10 border border-purple-100/50 dark:border-purple-900/20">
+                                        <div class="text-xs font-bold text-purple-600 dark:text-purple-400 uppercase mb-1">ब्रूट फोर्स (ऑफलाइन)</div>
+                                        <div id="crack-offline" class="text-xl font-bold text-slate-800 dark:text-slate-100 italic">...</div>
+                                        <div class="text-[10px] text-purple-500/70 mt-1 uppercase">10B प्रयास/सेकंड</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Composition Breakdown -->
+                            <div>
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                                    वर्ण संरचना
+                                </h3>
+                                <div class="flex flex-wrap gap-3" id="comp-breakdown">
+                                    <div class="px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-slate-300" id="dot-upper"></div>
+                                        <span class="text-sm font-medium">बड़े अक्षर</span>
+                                    </div>
+                                    <div class="px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-slate-300" id="dot-lower"></div>
+                                        <span class="text-sm font-medium">छोटे अक्षर</span>
+                                    </div>
+                                    <div class="px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-slate-300" id="dot-nums"></div>
+                                        <span class="text-sm font-medium">संख्याएँ</span>
+                                    </div>
+                                    <div class="px-5 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                                        <div class="w-2 h-2 rounded-full bg-slate-300" id="dot-syms"></div>
+                                        <span class="text-sm font-medium">प्रतीक</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Warning Message (if weak) -->
+                        <div id="warning-box" class="mt-8 hidden">
+                            <div class="p-6 rounded-3xl bg-red-50 dark:bg-red-900/10 border-2 border-red-100 dark:border-red-900/20 flex gap-4">
+                                <div class="flex-shrink-0 text-red-500">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-red-800 dark:text-red-300 mb-1 italic">सुरक्षा भेद्यता का पता चला</h4>
+                                    <p id="warning-text" class="text-sm text-red-700 dark:text-red-400 leading-relaxed"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अपनी सुरक्षा का विश्लेषण कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">पासवर्ड इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">जिस पासवर्ड की जांच करना चाहते हैं उसे टाइप या पेस्ट करें। हमारा उपकरण इसे टाइप करते समय तुरंत विश्लेषण करता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">मेट्रिक्स की जांच करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">एंट्रॉपी बिट्स, वर्ण संरचना, और विभिन्न परिदृश्यों के लिए अनुमानित क्रैक समय की समीक्षा करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">सुझाव लागू करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">दरकिनार न करें कि आपका पासवर्ड कमज़ोर क्यों है—जानें कि इसे एक अभेद्य पासवर्ड में कैसे बदला जाए।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Entropy Section -->
+                <section class="bg-slate-900 dark:bg-blue-600 rounded-[3.5rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">पासवर्ड एंट्रॉपी को समझना</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                एंट्रॉपी यादृच्छिकता या अप्रत्याशितता का एक उपाय है। क्रिप्टोग्राफी में, यह हमें बताता है कि आपके पासवर्ड को खोजने के लिए एक कंप्यूटर को कितने "अनुमान" करने होंगे। एंट्रॉपी जितना अधिक होगा (बिट्स में मापा जाता है), आपका पासवर्ड उतना ही अधिक सुरक्षित होगा।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">मानक</div>
+                                    <div class="font-bold">80+ बिट्स सुरक्षित है</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">चेतावनी</div>
+                                    <div class="font-bold">40 बिट्स से कम कमज़ोर है</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:block">
+                            <div class="aspect-square bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full border border-white/10 flex items-center justify-center relative">
+                                <div class="text-6xl font-black text-white/10 select-none">एंट्रॉपी</div>
+                                <svg class="absolute w-3/4 h-3/4 text-white/20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Cards -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सुरक्षा-प्रथम दृष्टिकोण के साथ निर्मित</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all hover:bg-white dark:hover:bg-slate-800/40">
+                            <div class="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">शून्य-सर्वर विश्लेषण</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">अन्य कई जांचकर्ताओं के विपरीत, हम कभी भी आपका पासवर्ड किसी सर्वर पर नहीं भेजते। सभी गणनाएँ मानक JavaScript का उपयोग करके स्थानीय रूप से की जाती हैं, जो सुनिश्चित करता है कि आपका रहस्य आपकी मशीन पर ही रहे।</p>
+                        </div>
+                        <div class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all hover:bg-white dark:hover:bg-slate-800/40">
+                            <div class="w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">ब्रूट-फोर्स सिम्युलेटर</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">हम दोनों ऑनलाइन (दर-सीमित) और ऑफलाइन (बड़े GPU क्लस्टर) हमला परिदृश्यों का अनुकरण करते हैं ताकि आपको आपके पासवर्ड के आधुनिक हार्डवेयर के खिलाफ टिकने में कितना समय लगेगा, इसका वास्तविक दृष्टिकोण मिल सके।</p>
+                        </div>
+                        <div class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all hover:bg-white dark:hover:bg-slate-800/40">
+                            <div class="w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">पैटर्न का पता लगाना</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">हमारी लॉजिक सामान्य कमज़ोरियों का पता लगाती है जैसे कीबोर्ड पैटर्न (qwerty), अनुक्रमिक वर्ण (abc), दोहराए गए वर्ण (aaa), और लंबाई-आधारित कमज़ोरियाँ।</p>
+                        </div>
+                        <div class="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all hover:bg-white dark:hover:bg-slate-800/40">
+                            <div class="w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">गतिशील सुझाव</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">केवल इतना न जानें कि आपका पासवर्ड कमज़ोर है—जानें कि इसे ठीक करने के लिए क्या करें। हम आपके इनपुट की विशिष्ट कमज़ोरियों के आधार पर लक्षित सलाह प्रदान करते हैं।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">विशेषज्ञ सुरक्षा प्रश्नोत्तर</h2>
+                    <div class="max-w-3xl mx-auto space-y-4 text-pretty">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यहाँ अपना पासवर्ड टाइप करना सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ। यह उपकरण पूरी तरह क्लाइंट-साइड है। आपका पासवर्ड कभी हमारे सर्वर पर नहीं जाता, और कोई डेटा भेजा नहीं जाता। अधिकतम सुरक्षा के लिए, आप इंटरनेट से डिस्कनेक्ट करके भी इसका उपयोग कर सकते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्रैक समय की गणना कैसे की जाती है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हम आपके पासवर्ड की एंट्रॉपी का उपयोग करके अनुमान लगाते हैं कि इसे खोजने में कितने प्रयास लगेंगे। फिर हम इसे विशिष्ट हमला गति से विभाजित करते हैं: दर-सीमित करने के कारण ऑनलाइन हमलों के लिए प्रति सेकंड 100 प्रयास (दर-सीमित) और आधुनिक हार्डवेयर का उपयोग करके ऑफलाइन ब्रूट-फोर्स हमलों के लिए प्रति सेकंड 10 अरब प्रयास।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मुझे पासवर्ड मैनेजर का उपयोग करना चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                बिल्कुल। एक पासवर्ड मैनेजर आपको हर खाते के लिए अद्वितीय, जटिल पासवर्ड बनाने की अनुमति देता है बिना उन्हें याद रखे। यह आपके ऑनलाइन सुरक्षा के लिए सबसे अच्छी बात है जो आप कर सकते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Password Strength Logic ===
+        const passwordInput = document.getElementById('password-input');
+        const toggleVisibility = document.getElementById('toggle-visibility');
+        const eyeIcon = document.getElementById('eye-icon');
+        const strengthSegments = document.querySelectorAll('.strength-segment');
+        const strengthText = document.getElementById('strength-text');
+        const entropyVal = document.getElementById('entropy-val');
+        const lengthVal = document.getElementById('length-val');
+        const securityTips = document.getElementById('security-tips');
+        const crackOnline = document.getElementById('crack-online');
+        const crackOffline = document.getElementById('crack-offline');
+        const warningBox = document.getElementById('warning-box');
+        const warningText = document.getElementById('warning-text');
+
+        const dots = {
+            upper: document.getElementById('dot-upper'),
+            lower: document.getElementById('dot-lower'),
+            nums: document.getElementById('dot-nums'),
+            syms: document.getElementById('dot-syms')
+        };
+
+        toggleVisibility.addEventListener('click', () => {
+            const isPassword = passwordInput.type === 'password';
+            passwordInput.type = isPassword ? 'text' : 'password';
+            eyeIcon.innerHTML = isPassword
+                ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18"></path>'
+                : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>';
+        });
+
+        function formatTime(seconds) {
+            if (seconds === Infinity) return "सदी";
+            if (seconds < 1) return "तुरंत";
+            if (seconds < 60) return `${Math.floor(seconds)} सेकंड`;
+            if (seconds < 3600) return `${Math.floor(seconds / 60)} मिनट`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)} घंटे`;
+            if (seconds < 2592000) return `${Math.floor(seconds / 86400)} दिन`;
+            if (seconds < 31536000) return `${Math.floor(seconds / 2592000)} महीने`;
+            if (seconds < 31536000000) return `${Math.floor(seconds / 31536000)} साल`;
+            return "सदी";
+        }
+
+        function analyzePassword() {
+            const password = passwordInput.value;
+            const length = password.length;
+
+            lengthVal.textContent = `${length} वर्ण`;
+
+            if (length === 0) {
+                resetAnalysis();
+                return;
+            }
+
+            let charsetSize = 0;
+            const hasUpper = /[A-Z]/.test(password);
+            const hasLower = /[a-z]/.test(password);
+            const hasNums = /[0-9]/.test(password);
+            const hasSyms = /[^A-Za-z0-9]/.test(password);
+
+            if (hasUpper) charsetSize += 26;
+            if (hasLower) charsetSize += 26;
+            if (hasNums) charsetSize += 10;
+            if (hasSyms) charsetSize += 33; // Approx symbols
+
+            dots.upper.className = `w-2 h-2 rounded-full transition-all ${hasUpper ? 'bg-green-500 scale-125' : 'bg-slate-300'}`;
+            dots.lower.className = `w-2 h-2 rounded-full transition-all ${hasLower ? 'bg-green-500 scale-125' : 'bg-slate-300'}`;
+            dots.nums.className = `w-2 h-2 rounded-full transition-all ${hasNums ? 'bg-green-500 scale-125' : 'bg-slate-300'}`;
+            dots.syms.className = `w-2 h-2 rounded-full transition-all ${hasSyms ? 'bg-green-500 scale-125' : 'bg-slate-300'}`;
+
+            // Entropy: L * log2(R)
+            const entropy = Math.floor(length * Math.log2(charsetSize || 1));
+            entropyVal.textContent = `${entropy} बिट्स`;
+
+            // Crack times
+            const combinations = Math.pow(charsetSize || 1, length);
+            crackOnline.textContent = formatTime(combinations / 100);
+            crackOffline.textContent = formatTime(combinations / 10000000000);
+
+            // Strength levels
+            let level = 0;
+            if (entropy > 80) level = 4;
+            else if (entropy > 60) level = 3;
+            else if (entropy > 40) level = 2;
+            else if (entropy > 20) level = 1;
+
+            updateMeter(level);
+
+            // Analysis & Warning
+            let warnings = [];
+            let tips = [];
+
+            if (length < 8) warnings.push("पासवर्ड बहुत छोटा है (न्यूनतम 8 वर्ण)।");
+            if (length < 12) tips.push("बेहतर सुरक्षा के लिए लंबाई 12+ वर्णों तक बढ़ाएँ।");
+            if (!hasUpper || !hasLower) tips.push("बड़े और छोटे अक्षर मिलाएँ।");
+            if (!hasNums || !hasSyms) tips.push("संख्याएँ और विशेष प्रतीक शामिल करें।");
+
+            if (/(.)\1{2,}/.test(password)) warnings.push("दोहराए गए वर्णों से बचें (जैसे, 'aaa')।");
+            if (/123|abc|qwerty/i.test(password)) warnings.push("सामान्य कीबोर्ड पैटर्न से बचें।");
+
+            if (warnings.length > 0) {
+                warningBox.classList.remove('hidden');
+                warningText.textContent = warnings[0];
+            } else {
+                warningBox.classList.add('hidden');
+            }
+
+            securityTips.innerHTML = tips.map(tip => `
+                <div class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-400">
+                    <svg class="w-4 h-4 text-blue-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>${tip}</span>
+                </div>
+            `).join('') || '<p class="text-sm text-green-600 dark:text-green-400 font-medium">आपका पासवर्ड सुरक्षित लगता है!</p>';
+        }
+
+        function updateMeter(level) {
+            const colors = ['bg-slate-100 dark:bg-slate-900/50', 'bg-red-500', 'bg-orange-500', 'bg-blue-500', 'bg-green-500'];
+            const labels = ['प्रतीक्षा में...', 'बहुत कमज़ोर', 'मध्यम', 'मजबूत', 'अभेद्य'];
+            const labelColors = ['text-slate-400', 'text-red-500', 'text-orange-500', 'text-blue-500', 'text-green-500'];
+
+            strengthText.textContent = labels[level];
+            strengthText.className = `font-bold ${labelColors[level]}`;
+
+            strengthSegments.forEach((seg, i) => {
+                if (i < level) {
+                    seg.className = `strength-segment flex-1 rounded-full ${colors[level]}`;
+                } else {
+                    seg.className = `strength-segment flex-1 rounded-full bg-slate-100 dark:bg-slate-900/50`;
+                }
+            });
+        }
+
+        function resetAnalysis() {
+            updateMeter(0);
+            entropyVal.textContent = "0 बिट्स";
+            crackOnline.textContent = "...";
+            crackOffline.textContent = "...";
+            warningBox.classList.add('hidden');
+            securityTips.innerHTML = '<p class="text-sm text-slate-400 italic">विश्लेषण देखने के लिए पासवर्ड दर्ज करें...</p>';
+            Object.values(dots).forEach(dot => dot.className = "w-2 h-2 rounded-full bg-slate-300");
+        }
+
+        passwordInput.addEventListener('input', analyzePassword);
+
+    </script>
+</body>
+</html>

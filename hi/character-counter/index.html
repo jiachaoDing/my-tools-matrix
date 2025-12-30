@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कैरेक्टर काउंटर (Character Counter) - शब्द और अक्षर गिनती टूल | WebUtilityKit</title>
+    <meta name="description" content="कैरेक्टर, शब्द, सेंटेंस तुरंत गिनें। रीयल-टाइम टेक्स्ट एनालिसिस के साथ Twitter, SMS लिमिट चेकर। मुफ्त ऑनलाइन character counter, 100% प्राइवेट।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/character-counter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/character-counter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/character-counter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Character Counter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "823",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Real-time counting, Platform limit checking, Unicode support, No data tracking, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/character-counter.jpg"
+}
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">कैरेक्टर काउंटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">कैरेक्टर, शब्द और सोशल मीडिया लिमिट के लिए सटीक काउंट प्राप्त करें। सभी प्रोसेसिंग आपके ब्राउज़र में तुरंत होती है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Input -->
+                <div class="lg:col-span-7 flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">इनपुट टेक्स्ट</label>
+                            <div class="flex gap-2">
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700">पेस्ट</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">साफ करें</button>
+                            </div>
+                        </div>
+                        <textarea id="text-input" class="flex-grow w-full min-h-[400px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-blue-500/20 rounded-3xl p-6 text-lg placeholder-slate-400 resize-none outline-none transition-all" placeholder="यहां अपना टेक्स्ट पेस्ट करें..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Statistics -->
+                <div class="lg:col-span-5 space-y-6">
+                    <!-- Top Main Stats -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Characters</div>
+                            <div id="count-chars" class="text-3xl font-black text-slate-900 dark:text-white text-blue-600 dark:text-blue-400">0</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Chars (No Space)</div>
+                            <div id="count-chars-no-space" class="text-3xl font-black text-slate-900 dark:text-white">0</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Words</div>
+                            <div id="count-words" class="text-3xl font-black text-slate-900 dark:text-white text-blue-600 dark:text-blue-400">0</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/40 rounded-3xl p-6 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md">
+                            <div class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-1">Sentences</div>
+                            <div id="count-sentences" class="text-3xl font-black text-slate-900 dark:text-white">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">विस्तृत ब्रेकडाउन</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">पैराग्राफ</span>
+                                <span id="count-paragraphs" class="font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">व्हाइट स्पेस</span>
+                                <span id="count-spaces" class="font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">न्यूमेरिक डिजिट</span>
+                                <span id="count-digits" class="font-bold">0</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm font-medium text-slate-600 dark:text-slate-400">स्पेशल सिंबल</span>
+                                <span id="count-symbols" class="font-bold">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Platform Limits -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">प्लेटफॉर्म लिमिट</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-semibold">Twitter / X</span>
+                                    <span class="text-slate-500"><span id="limit-x">0</span>/280</span>
+                                </div>
+                                <div class="h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
+                                    <div id="bar-x" class="h-full bg-blue-400 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-semibold">SMS (Single)</span>
+                                    <span class="text-slate-500"><span id="limit-sms">0</span>/160</span>
+                                </div>
+                                <div class="h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
+                                    <div id="bar-sms" class="h-full bg-green-400 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-sm mb-1.5">
+                                    <span class="font-semibold">LinkedIn Post</span>
+                                    <span class="text-slate-500"><span id="limit-linkedin">0</span>/3000</span>
+                                </div>
+                                <div class="h-1.5 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden mt-2">
+                                    <div id="bar-linkedin" class="h-full bg-blue-600 transition-all duration-300" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="copy-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-95">
+                        फुल रिपोर्ट कॉपी करें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">कैरेक्टर काउंटर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">टेक्स्ट इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">इनपुट फील्ड में अपना टेक्स्ट पेस्ट करें या सीधे टाइप करें। हम कोई भी कैरेक्टर एन्कोडिंग परफेक्टली हैंडल करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लाइव एनालिसिस</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रीयल-टाइम में स्टेटिस्टिक अपडेट होते देखें। हम स्पेस के साथ और बिना कैरेक्टर के लिए अलग-अलग काउंट प्रदान करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लिमिट चेक करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सोशल मीडिया या मैसेजिंग के लिए प्लेटफॉर्म-विशिष्ट लिमिट रिव्यू करें ताकि आपका कंटेंट परफेक्टली फिट हो।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Precision Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">माइक्रो-कॉपी में महारत हासिल करें</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                कैरेक्टर लिमिट की दुनिया में, हर बाइट मायने रखता है। हमारा Character Counter सिर्फ काउंटिंग से परे जाता है, यह आपके टेक्स्ट की एनाटॉमी में गहराई से उतरता है—व्हाइट स्पेस से लेकर न्यूमेरिक डेंसिटी तक—ताकि आप किसी भी माध्यम के लिए परफेक्ट मैसेज क्राफ्ट कर सकें।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">स्टैंडर्ड</div>
+                                    <div class="font-bold">Unicode तैयार</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">एक्स्योरेंसी</div>
+                                    <div class="font-bold">1:1 मैपिंग</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Platform Standards -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्लेटफॉर्म विशिष्ट लिमिट</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-500 mb-6">सोशल मीडिया</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">Twitter (X) Post</span>
+                                    <span class="font-bold text-slate-400">280 कैरेक्टर</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-400">
+                                    <span class="font-medium">Instagram Caption</span>
+                                    <span class="font-bold text-blue-400">2,200 कैरेक्टर</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-600">
+                                    <span class="font-medium">LinkedIn Post</span>
+                                    <span class="font-bold text-blue-600">3,000 कैरेक्टर</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-green-600 mb-6">मैसेजिंग और सर्च</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">SMS Message</span>
+                                    <span class="font-bold text-slate-400">160 कैरेक्टर</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">Google Page Title</span>
+                                    <span class="font-bold text-green-500">~60 कैरेक्टर</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-yellow-500">
+                                    <span class="font-medium">Meta Description</span>
+                                    <span class="font-bold text-yellow-500">~155 कैरेक्टर</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">एक्सपर्ट Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या स्पेस कैरेक्टर के रूप में गिने जाते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ, तकनीकी रूप से स्पेस एक कैरेक्टर है। हालांकि, हमारा टूल दो अलग-अलग मेट्रिक प्रदान करता है: कुल कैरेक्टर (स्पेस के साथ) और स्पेस के बिना कैरेक्टर, ताकि आपके पास सटीक डेटा हो।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">इमोजी काउंट को कैसे प्रभावित करते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हमारे कैरेक्टर काउंट में इमोजी को सिंगल विजुअल यूनिट के रूप में गिना जाता है, लेकिन प्लेटफॉर्म के एन्कोडिंग के आधार पर वे अधिक "बाइट" कंज्यूम कर सकते हैं। हमारा काउंटर विजुअल कैरेक्टर काउंट (लेंथ) को रिफ्लेक्ट करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या प्राइवेट टेक्स्ट पेस्ट करना सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                बिल्कुल। हम क्लाइंट-साइड JavaScript का उपयोग करके आपके टेक्स्ट को प्रोसेस करते हैं। इसका मतलब है कि आपका डेटा कभी भी आपके कंप्यूटर से बाहर नहीं जाता और हमारे सर्वर पर कभी नहीं भेजा जाता।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Character Counter Logic ===
+        const textInput = document.getElementById('text-input');
+        const countChars = document.getElementById('count-chars');
+        const countCharsNoSpace = document.getElementById('count-chars-no-space');
+        const countWords = document.getElementById('count-words');
+        const countSentences = document.getElementById('count-sentences');
+        const countParagraphs = document.getElementById('count-paragraphs');
+        const countSpaces = document.getElementById('count-spaces');
+        const countDigits = document.getElementById('count-digits');
+        const countSymbols = document.getElementById('count-symbols');
+
+        // Platform Limit Elements
+        const limitX = document.getElementById('limit-x');
+        const barX = document.getElementById('bar-x');
+        const limitSms = document.getElementById('limit-sms');
+        const barSms = document.getElementById('bar-sms');
+        const limitLinkedin = document.getElementById('limit-linkedin');
+        const barLinkedin = document.getElementById('bar-linkedin');
+
+        function updateStats() {
+            const text = textInput.value;
+
+            // Basic Counts
+            const totalChars = text.length;
+            const noSpaceChars = text.replace(/\s/g, '').length;
+            const words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+            const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            const paragraphs = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+
+            // Detailed Breakdown
+            const spaces = (text.match(/\s/g) || []).length;
+            const digits = (text.match(/\d/g) || []).length;
+            const symbols = (text.match(/[^a-zA-Z0-9\s]/g) || []).length;
+
+            // UI Updates
+            countChars.textContent = totalChars.toLocaleString();
+            countCharsNoSpace.textContent = noSpaceChars.toLocaleString();
+            countWords.textContent = words.toLocaleString();
+            countSentences.textContent = sentences.toLocaleString();
+            countParagraphs.textContent = paragraphs.toLocaleString();
+            countSpaces.textContent = spaces.toLocaleString();
+            countDigits.textContent = digits.toLocaleString();
+            countSymbols.textContent = symbols.toLocaleString();
+
+            // Platform Limits
+            updateLimit('x', totalChars, 280, barX, limitX);
+            updateLimit('sms', totalChars, 160, barSms, limitSms);
+            updateLimit('linkedin', totalChars, 3000, barLinkedin, limitLinkedin);
+        }
+
+        function updateLimit(id, current, max, barEl, labelEl) {
+            labelEl.textContent = current.toLocaleString();
+            const percent = Math.min(100, (current / max) * 100);
+            barEl.style.width = `${percent}%`;
+
+            if (current > max) {
+                barEl.classList.add('bg-red-500');
+                barEl.classList.remove('bg-blue-400', 'bg-green-400', 'bg-blue-600');
+                labelEl.classList.add('text-red-500');
+            } else {
+                barEl.classList.remove('bg-red-500');
+                if (id === 'x') barEl.classList.add('bg-blue-400');
+                if (id === 'sms') barEl.classList.add('bg-green-400');
+                if (id === 'linkedin') barEl.classList.add('bg-blue-600');
+                labelEl.classList.remove('text-red-500');
+            }
+        }
+
+        textInput.addEventListener('input', updateStats);
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updateStats();
+            } catch (err) {
+                console.error('Failed to paste:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            updateStats();
+            textInput.focus();
+        });
+
+        document.getElementById('copy-btn').addEventListener('click', () => {
+            const report = `
+Character Count Report
+----------------------
+Total Characters: ${countChars.textContent}
+Chars (No Space): ${countCharsNoSpace.textContent}
+Words: ${countWords.textContent}
+Sentences: ${countSentences.textContent}
+Paragraphs: ${countParagraphs.textContent}
+Spaces: ${countSpaces.textContent}
+Digits: ${countDigits.textContent}
+Symbols: ${countSymbols.textContent}
+            `.trim();
+
+            navigator.clipboard.writeText(report).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'रिपोर्ट कॉपी हो गई!';
+                copyBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+
+        // Initialize
+        updateStats();
+    </script>
+</body>
+</html>

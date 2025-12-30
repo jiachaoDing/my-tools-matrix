@@ -1,0 +1,595 @@
+﻿==================== Batch 1/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@add-watermark/index.html
+@age-calculator/index.html
+@ascii-art/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/add-watermark/index.html created
+√hi/age-calculator/index.html created
+√hi/ascii-art/index.html created
+
+==================== Batch 2/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@aspect-ratio-calculator/index.html
+@avif-to-jpg/index.html
+@avif-to-png/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/aspect-ratio-calculator/index.html created
+√hi/avif-to-jpg/index.html created
+√hi/avif-to-png/index.html created
+
+==================== Batch 3/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@base64-encoder/index.html
+@base64-to-image/index.html
+@binary-to-text/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/base64-encoder/index.html created
+√hi/base64-to-image/index.html created
+√hi/binary-to-text/index.html created
+
+==================== Batch 4/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@blur-image/index.html
+@bmi-calculator/index.html
+@bmp-to-jpg/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/blur-image/index.html created
+√hi/bmi-calculator/index.html created
+√hi/bmp-to-jpg/index.html created
+
+==================== Batch 5/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@bmp-to-png/index.html
+@bmr-calculator/index.html
+@body-fat-calculator/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/bmp-to-png/index.html created
+√hi/bmr-calculator/index.html created
+√hi/body-fat-calculator/index.html created
+
+==================== Batch 6/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@case-converter/index.html
+@character-counter/index.html
+@coin-flipper/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/case-converter/index.html created
+√hi/character-counter/index.html created
+√hi/coin-flipper/index.html created
+
+==================== Batch 7/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@cpm-calculator/index.html
+@credit-card-validator/index.html
+@cron-generator/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/cpm-calculator/index.html created
+√hi/credit-card-validator/index.html created
+√hi/cron-generator/index.html created
+
+==================== Batch 8/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@csv-to-json/index.html
+@data-unit-converter/index.html
+@days-between-dates/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/csv-to-json/index.html created
+√hi/data-unit-converter/index.html created
+√hi/days-between-dates/index.html created
+
+==================== Batch 9/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@dice-roller/index.html
+@discount-calculator/index.html
+@download-time-calculator/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/dice-roller/index.html created
+√hi/discount-calculator/index.html created
+√hi/download-time-calculator/index.html created
+
+==================== Batch 10/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@emoji-picker/index.html
+@extract-pdf-images/index.html
+@find-and-replace/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/emoji-picker/index.html created
+√hi/extract-pdf-images/index.html created
+√hi/find-and-replace/index.html created
+
+==================== Batch 11/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@flip-image/index.html
+@gif-to-mp4/index.html
+@grayscale-image/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/flip-image/index.html created
+√hi/gif-to-mp4/index.html created
+√hi/grayscale-image/index.html created
+
+==================== Batch 12/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@heic-to-jpg/index.html
+@ico-generator/index.html
+@ico-to-png/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/heic-to-jpg/index.html created
+√hi/ico-generator/index.html created
+√hi/ico-to-png/index.html created
+
+==================== Batch 13/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@image-color-picker/index.html
+@image-compressor/index.html
+@image-converter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/image-color-picker/index.html created
+√hi/image-compressor/index.html created
+√hi/image-converter/index.html created
+
+==================== Batch 14/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@image-cropper/index.html
+@image-resizer/index.html
+@image-to-base64/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/image-cropper/index.html created
+√hi/image-resizer/index.html created
+√hi/image-to-base64/index.html created
+
+==================== Batch 15/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@jpg-to-pdf/index.html
+@jpg-to-png/index.html
+@json-formatter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/jpg-to-pdf/index.html created
+√hi/jpg-to-png/index.html created
+√hi/json-formatter/index.html created
+
+==================== Batch 16/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@json-to-csv/index.html
+@length-converter/index.html
+@list-randomizer/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/json-to-csv/index.html created
+√hi/length-converter/index.html created
+√hi/list-randomizer/index.html created
+
+==================== Batch 17/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@loan-calculator/index.html
+@lorem-ipsum/index.html
+@markdown-to-html/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/loan-calculator/index.html created
+√hi/lorem-ipsum/index.html created
+√hi/markdown-to-html/index.html created
+
+==================== Batch 18/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@md5-generator/index.html
+@meme-generator/index.html
+@merge-pdf/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/md5-generator/index.html created
+√hi/meme-generator/index.html created
+√hi/merge-pdf/index.html created
+
+==================== Batch 19/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@meta-tag-generator/index.html
+@online-stopwatch/index.html
+@open-graph-generator/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/meta-tag-generator/index.html created
+√hi/online-stopwatch/index.html created
+√hi/open-graph-generator/index.html created
+
+==================== Batch 20/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@password-generator/index.html
+@password-strength/index.html
+@pdf-to-jpg/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/password-generator/index.html created
+√hi/password-strength/index.html created
+√hi/pdf-to-jpg/index.html created
+
+==================== Batch 21/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@percentage-calculator/index.html
+@photo-grid-maker/index.html
+@png-to-jpg/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/percentage-calculator/index.html created
+√hi/photo-grid-maker/index.html created
+√hi/png-to-jpg/index.html created
+
+==================== Batch 22/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@pomodoro-timer/index.html
+@protect-pdf/index.html
+@qr-code-generator/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/pomodoro-timer/index.html created
+√hi/protect-pdf/index.html created
+√hi/qr-code-generator/index.html created
+
+==================== Batch 23/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@random-number-generator/index.html
+@regex-tester/index.html
+@remove-duplicate-lines/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/random-number-generator/index.html created
+√hi/regex-tester/index.html created
+√hi/remove-duplicate-lines/index.html created
+
+==================== Batch 24/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@reverse-text/index.html
+@rock-paper-scissors/index.html
+@rotate-image/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/reverse-text/index.html created
+√hi/rock-paper-scissors/index.html created
+√hi/rotate-image/index.html created
+
+==================== Batch 25/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@rotate-pdf/index.html
+@sales-tax-calculator/index.html
+@sha256-generator/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/rotate-pdf/index.html created
+√hi/sales-tax-calculator/index.html created
+√hi/sha256-generator/index.html created
+
+==================== Batch 26/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@slug-generator/index.html
+@small-text-generator/index.html
+@sort-text/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/slug-generator/index.html created
+√hi/small-text-generator/index.html created
+√hi/sort-text/index.html created
+
+==================== Batch 27/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@special-symbols-picker/index.html
+@speed-converter/index.html
+@split-pdf/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/special-symbols-picker/index.html created
+√hi/speed-converter/index.html created
+√hi/split-pdf/index.html created
+
+==================== Batch 28/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@sql-formatter/index.html
+@svg-to-png/index.html
+@temperature-converter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/sql-formatter/index.html created
+√hi/svg-to-png/index.html created
+√hi/temperature-converter/index.html created
+
+==================== Batch 29/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@text-to-binary/index.html
+@tiff-to-jpg/index.html
+@time-zone-converter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/text-to-binary/index.html created
+√hi/tiff-to-jpg/index.html created
+√hi/time-zone-converter/index.html created
+
+==================== Batch 30/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@tip-calculator/index.html
+@twitter-card-generator/index.html
+@unix-timestamp/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/tip-calculator/index.html created
+√hi/twitter-card-generator/index.html created
+√hi/unix-timestamp/index.html created
+
+==================== Batch 31/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@unlock-pdf/index.html
+@upside-down-text/index.html
+@url-encoder-decoder/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/unlock-pdf/index.html created
+√hi/upside-down-text/index.html created
+√hi/url-encoder-decoder/index.html created
+
+==================== Batch 32/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@user-agent-parser/index.html
+@uuid-generator/index.html
+@webp-converter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/user-agent-parser/index.html created
+√hi/uuid-generator/index.html created
+√hi/webp-converter/index.html created
+
+==================== Batch 33/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@webp-to-jpg/index.html
+@webp-to-png/index.html
+@weight-converter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/webp-to-jpg/index.html created
+√hi/webp-to-png/index.html created
+√hi/weight-converter/index.html created
+
+==================== Batch 34/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@what-is-my-ip/index.html
+@wheel-of-names/index.html
+@word-counter/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/what-is-my-ip/index.html created
+√hi/wheel-of-names/index.html created
+√hi/word-counter/index.html created
+
+==================== Batch 35/35 ====================
+
+Please execute the localization task according to the rules defined in @hi_trans_rules.md.
+
+**Source Files:**
+@xml-formatter/index.html
+@yes-no-oracle/index.html
+@youtube-thumbnail-grabber/index.html
+
+**Action:**
+Create the Hindi version for these tools in the /hi/ directory following all STRICT rules in @hi_trans_rules.md.
+
+[Output Verification]
+√hi/xml-formatter/index.html created
+√hi/yes-no-oracle/index.html created
+√hi/youtube-thumbnail-grabber/index.html created
+

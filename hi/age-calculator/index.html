@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>आयु गणक (Age Calculator) - सटीक कालानुक्रमिक आयु | WebUtilityKit</title>
+    <meta name="description" content="अपनी सटीक आयु सालों, महीनों, दिनों और अधिक में जानें। अगले जन्मदिन तक कितने दिन बचे हैं, यह भी पता करें। 100% निजी और सुरक्षित क्लाइंट-साइड कैलकुलेशन।">
+    <link rel="canonical" href="https://webutilitykit.com/age-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/age-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/age-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Age Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "423",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/age-calculator.jpg"
+}
+    </script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">आयु गणक</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">दिन तक अपनी सटीक आयु निर्धारित करें। तारीखों के बीच समय की गणना करें और अपना अगला जन्मदिन काउंटडाउन प्राप्त करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Inputs (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">जन्म तिथि</label>
+                                <input type="date" id="dob-input" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">आयु की गणना करें</label>
+                                <input type="date" id="target-date" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5">
+                                <p class="text-[10px] text-slate-400 font-bold uppercase mt-2 ml-1">डिफ़ॉल्ट रूप से आज</p>
+                            </div>
+
+                            <button id="calculate-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-5 rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-3 text-lg">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                सटीक आयु की गणना करें
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Results (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div id="result-placeholder" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col items-center justify-center shadow-sm border border-slate-100 dark:border-slate-800/50 text-slate-400 italic">
+                        <svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        शुरू करने के लिए अपनी जन्मतिथि चुनें
+                    </div>
+
+                    <div id="result-content" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 h-full flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest block mb-8">गणना किए गए कालक्रम</label>
+
+                        <div class="space-y-12 flex-grow flex flex-col">
+                            <!-- Hero Result -->
+                            <div class="text-center">
+                                <div id="hero-age" class="text-6xl md:text-7xl font-black text-slate-900 dark:text-white leading-tight">
+                                    0 <span class="text-2xl text-slate-400">साल</span>
+                                </div>
+                                <div id="hero-sub" class="text-xl font-bold text-blue-500 mt-2 italic">0 महीने | 0 दिन</div>
+                            </div>
+
+                            <!-- Detailed Stats Grid -->
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल महीने</div>
+                                    <div id="stat-months" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल सप्ताह</div>
+                                    <div id="stat-weeks" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल दिन</div>
+                                    <div id="stat-days" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल घंटे</div>
+                                    <div id="stat-hours" class="text-xl font-bold">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल मिनट</div>
+                                    <div id="stat-minutes" class="text-xl font-bold text-sm sm:text-lg">0</div>
+                                </div>
+                                <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 transition-all hover:border-blue-500/10 hover:bg-white dark:hover:bg-slate-800/40">
+                                    <div class="text-[10px] font-bold text-slate-400 uppercase mb-1">कुल सेकंड</div>
+                                    <div id="stat-seconds" class="text-xl font-bold text-xs sm:text-base">0</div>
+                                </div>
+                            </div>
+
+                            <!-- Next Birthday -->
+                            <div class="p-6 rounded-3xl bg-blue-600 text-white shadow-xl shadow-blue-500/20 relative overflow-hidden">
+                                <div class="absolute right-0 top-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                                <div class="relative z-10 flex items-center justify-between">
+                                    <div>
+                                        <div class="text-xs font-bold text-blue-200 uppercase tracking-widest mb-1">अगले जन्मदिन में</div>
+                                        <div id="next-birthday" class="text-2xl font-black italic">0 महीने | 0 दिन</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div id="birthday-day" class="text-lg font-bold">सोमवार</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <!-- Section 1: Features -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">केवल संख्या से अधिक</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">दिन तक</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम सिर्फ साल घटाते नहीं हैं। हमारा एल्गोरिथ्म लीप वर्षों और भिन्न महीने की लंबाई के लिए क्लीनिकल सटीकता के साथ कारक बनाता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">जन्मदिन ट्रैकर</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपनी अगली सेलिब्रेशन तक इंतजार करने में कितना समय है, यह सटीक रूप से जानें, जिसमें सप्ताह का दिन भी शामिल है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">जीवन मेट्रिक्स</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">इस ग्रह पर आप कितने सेकंड रहे हैं, यह जानने में आपने कभी सोचा है? हम आपकी जीवन की विभिन्न इकाइयों में व्यापक तोड़ प्रदान करते हैं।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 max-w-3xl">
+                        <h2 class="text-3xl font-bold mb-6 italic tracking-tight">गोपनीयता डिज़ाइन द्वारा</h2>
+                        <p class="text-lg text-blue-50 leading-relaxed mb-10">
+                            आपकी जन्म तिथि अत्यंत संवेदनशील व्यक्तिगत डेटा है। अन्य कैलकुलेटरों के विपरीत जो आपके सर्वर पर आपका डेटा स्टोर करते हैं, हमारा टूल पूरी तरह से आपके ब्राउज़र में कैलकुलेट करता है। आपकी DOB कभी आपके डिवाइस से बाहर नहीं निकलती।
+                        </p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">कोई कुकीज़ नहीं</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">कोई सर्वर लॉग नहीं</div>
+                            <div class="bg-white/20 backdrop-blur-md px-4 py-2 rounded-xl text-sm font-medium">क्लाइंट-साइड लॉजिक</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">लीप वर्ष को कैसे हैंडल किया जाता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                हमारा कैलकुलेटर बिल्ट-इन JavaScript Date ऑब्जेक्ट का उपयोग करता है, जो स्वाभाविक रूप से लीप वर्षों और भिन्न महीने की लंबाई (28, 29, 30, या 31 दिन) को ऑटोमेटिकली हैंडल करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-6 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-lg">क्या यह टाइमज़ोन पार जाने पर सटीक है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-4 leading-relaxed">
+                                क्रॉनोलॉजिकल आयु आमतौर पर आपके वर्तमान स्थान के स्थानीय समय के आधार पर कैलकुलेट की जाती है। यह टूल आपके सिस्टम की वर्तमान टाइमज़ोन का उपयोग करके आपके स्थानीय कैलेंडर के साथ निरंतरता सुनिश्चित करता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Age Calculator Logic ===
+        const dobInput = document.getElementById('dob-input');
+        const targetDateInput = document.getElementById('target-date');
+        const calculateBtn = document.getElementById('calculate-btn');
+        const resultPlaceholder = document.getElementById('result-placeholder');
+        const resultContent = document.getElementById('result-content');
+
+        // Set default target date to today
+        const today = new Date().toISOString().split('T')[0];
+        targetDateInput.value = today;
+
+        function calculateAge() {
+            const dobValue = dobInput.value;
+            const targetValue = targetDateInput.value;
+
+            if (!dobValue) return;
+
+            const birthDate = new Date(dobValue);
+            const targetDate = new Date(targetValue || today);
+
+            if (birthDate > targetDate) {
+                alert("जन्म तिथि कैलकुलेशन तिथि के सापेक्ष भविष्य में नहीं हो सकती।");
+                return;
+            }
+
+            resultPlaceholder.classList.add('hidden');
+            resultContent.classList.remove('hidden');
+
+            let years = targetDate.getFullYear() - birthDate.getFullYear();
+            let months = targetDate.getMonth() - birthDate.getMonth();
+            let days = targetDate.getDate() - birthDate.getDate();
+
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(targetDate.getFullYear(), targetDate.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            // Hero Result
+            document.getElementById('hero-age').innerHTML = `${years} <span class="text-2xl text-slate-400">साल</span>`;
+            document.getElementById('hero-sub').textContent = `${months} महीने | ${days} दिन`;
+
+            // Detailed Stats
+            const diffTime = Math.abs(targetDate - birthDate);
+            const totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            const totalWeeks = Math.floor(totalDays / 7);
+            const totalMonths = (years * 12) + months;
+            const totalHours = totalDays * 24;
+            const totalMinutes = totalHours * 60;
+            const totalSeconds = totalMinutes * 60;
+
+            document.getElementById('stat-months').textContent = totalMonths.toLocaleString();
+            document.getElementById('stat-weeks').textContent = totalWeeks.toLocaleString();
+            document.getElementById('stat-days').textContent = totalDays.toLocaleString();
+            document.getElementById('stat-hours').textContent = totalHours.toLocaleString();
+            document.getElementById('stat-minutes').textContent = totalMinutes.toLocaleString();
+            document.getElementById('stat-seconds').textContent = totalSeconds.toLocaleString();
+
+            // Next Birthday
+            let nextBday = new Date(targetDate.getFullYear(), birthDate.getMonth(), birthDate.getDate());
+            if (nextBday < targetDate) {
+                nextBday.setFullYear(targetDate.getFullYear() + 1);
+            }
+
+            let bdayMonths = nextBday.getMonth() - targetDate.getMonth();
+            let bdayDays = nextBday.getDate() - targetDate.getDate();
+
+            if (bdayDays < 0) {
+                bdayMonths--;
+                const lastMonth = new Date(nextBday.getFullYear(), nextBday.getMonth(), 0);
+                bdayDays += lastMonth.getDate();
+            }
+            if (bdayMonths < 0) bdayMonths += 12;
+
+            const daysOfWeek = ["रविवार", "सोमवार", "मंगलवार", "बुधवार", "गुरुवार", "शुक्रवार", "शनिवार"];
+            document.getElementById('next-birthday').textContent = `${bdayMonths} महीने | ${bdayDays} दिन`;
+            document.getElementById('birthday-day').textContent = daysOfWeek[nextBday.getDay()];
+        }
+
+        calculateBtn.addEventListener('click', calculateAge);
+        dobInput.addEventListener('change', calculateAge);
+        targetDateInput.addEventListener('change', calculateAge);
+
+    </script>
+</body>
+</html>

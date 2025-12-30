@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>शब्द गणक (Word Counter) - मुफ़्त टेक्स्ट विश्लेषण और आँकड़े उपकरण | WebUtilityKit</title>
+    <meta name="description" content="शब्द, वर्ण, वाक्य तुरंत गिनें। रीयल-टाइम विश्लेषण के साथ पढ़ने का समय और कीवर्ड घनत्व। ब्राउज़र में स्थानीय रूप से संसाधित। अभी आज़माएं!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/word-counter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/word-counter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/word-counter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Word Counter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "823",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/word-counter.jpg"
+}
+</script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">शब्द गणक</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">शब्द संख्या, पढ़ने का समय और कीवर्ड घनत्व पर विस्तृत आँकड़े के साथ अपने टेक्स्ट का तुरंत विश्लेषण करें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+
+                <!-- Input Section -->
+                <div class="xl:col-span-8 flex flex-col h-full bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
+                    <div class="p-6 flex flex-col h-full space-y-4">
+                        <div class="flex items-center justify-between mb-2">
+                            <label for="text-input" class="text-sm font-semibold uppercase tracking-wider text-slate-500">आपका टेक्स्ट</label>
+                            <div class="flex gap-2">
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                    पेस्ट करें
+                                </button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    साफ़ करें
+                                </button>
+                            </div>
+                        </div>
+                        <textarea
+                            id="text-input"
+                            class="flex-1 w-full min-h-[500px] p-6 text-lg bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-blue-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
+                            placeholder="गिनना शुरू करने के लिए यहां अपना टेक्स्ट पेस्ट करें..."
+                        ></textarea>
+                    </div>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="xl:col-span-4 space-y-6">
+                    <!-- Main Counters Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl">
+                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">शब्द</div>
+                            <div id="stat-words" class="text-3xl font-bold text-blue-600 dark:text-blue-400">0</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl">
+                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">वर्ण</div>
+                            <div id="stat-chars" class="text-3xl font-bold text-blue-600 dark:text-blue-400">0</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl">
+                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">वाक्य</div>
+                            <div id="stat-sentences" class="text-3xl font-bold text-slate-800 dark:text-slate-200">0</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl">
+                            <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">अनुच्छेद</div>
+                            <div id="stat-paragraphs" class="text-3xl font-bold text-slate-800 dark:text-slate-200">0</div>
+                        </div>
+                    </div>
+
+                    <!-- Reading/Speaking Times -->
+                    <div class="bg-white dark:bg-slate-800/50 p-8 rounded-3xl space-y-6">
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500">अनुमान</h3>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-tighter">पढ़ने का समय</div>
+                                    <div id="stat-reading" class="text-lg font-bold">0 मिनट</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                                </div>
+                                <div>
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-tighter">बोलने का समय</div>
+                                    <div id="stat-speaking" class="text-lg font-bold">0 मिनट</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Keyword Density -->
+                    <div class="bg-white dark:bg-slate-800/50 p-8 rounded-3xl">
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-6">कीवर्ड घनत्व</h3>
+                        <div id="keyword-list" class="space-y-3">
+                            <p class="text-sm text-slate-400 italic">अभी तक कोई कीवर्ड नहीं मिला।</p>
+                        </div>
+                    </div>
+
+                    <button id="copy-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]">
+                        आँकड़े कॉपी करें
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">शब्द गणक का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">टेक्स्ट इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">बड़े टेक्स्ट एरिया में अपनी सामग्री टाइप या पेस्ट करें। हम किसी भी लंबाई के टेक्स्ट के साथ तुरंत प्रसंस्करण का समर्थन करते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लाइव विश्लेषण</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">रियल-टाइम में शब्द, वर्ण, वाक्य और अनुच्छेद गिने जाने पर संख्या बदलती हुई देखें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">समीक्षा और कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कीवर्ड घनत्व और समय अनुमान जांचें। "आँकड़े कॉपी करें" बटन का उपयोग करके अपने रिपोर्ट को तुरंत सेव करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why Accuracy Matters -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">सामग्री सटीकता की कला</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                चाहे आप लेखक हों, छात्र हों या SEO पेशेवर, शब्द संख्या एक मीट्रिक से ज़्यादा है—यह एक सामग्री मानक है। हमारा उपकरण वैज्ञानिक सटीकता के साथ आपके लक्ष्यों को हिट करने में मदद करने के लिए बारीक अंतर्दृष्टि प्रदान करता है, जबकि आपका डेटा 100% निजी रखता है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">गोपनीयता</div>
+                                    <div class="font-bold">100% स्थानीय</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">गति</div>
+                                    <div class="font-bold">तुरंत अपडेट</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Word Count Standards -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सामान्य सामग्री मानक</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">डिजिटल सामग्री</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">SEO मेटा विवरण</span>
+                                    <span class="font-bold text-slate-400">150 - 160 वर्ण</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">मानक ब्लॉग पोस्ट</span>
+                                    <span class="font-bold text-green-500">800 - 1,200 शब्द</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                    <span class="font-medium">सोशल मीडिया पोस्ट</span>
+                                    <span class="font-bold text-blue-500">100 - 250 शब्द</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">शैक्षणिक और साहित्यिक</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">कॉलेज निबंध</span>
+                                    <span class="font-bold text-slate-400">500 - 2,500 शब्द</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">लघु कहानी</span>
+                                    <span class="font-bold text-green-500">1,000 - 7,500 शब्द</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                    <span class="font-medium">उपन्यास</span>
+                                    <span class="font-bold text-blue-500">50k - 100k शब्द</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">सामान्य प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या कोई शब्द सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                नहीं, कोई तकनीकी सीमा नहीं है। आप एक संपूर्ण मैनुस्क्रिप्ट पेस्ट कर सकते हैं, और उपकरण आपके ब्राउज़र के स्थानीय संसाधनों का उपयोग करके इसे तुरंत संसाधित करेगा।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">पढ़ने का समय कैसे गणना की जाती है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हम प्रति मिनट 200 शब्द (WPM) की औसत पढ़ने की गति का उपयोग करते हैं, जो वयस्क पाठकों के लिए मानक बेंचमार्क है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरा टेक्स्ट सर्वर को भेजा जाता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                कभी नहीं। सभी टेक्स्ट विश्लेषण आपके ब्राउज़र में स्थानीय रूप से होता है। आपकी सामग्री अपलोड, सेव या साझा नहीं की जाती।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const textInput = document.getElementById('text-input');
+        const statWords = document.getElementById('stat-words');
+        const statChars = document.getElementById('stat-chars');
+        const statSentences = document.getElementById('stat-sentences');
+        const statParagraphs = document.getElementById('stat-paragraphs');
+        const statReading = document.getElementById('stat-reading');
+        const statSpeaking = document.getElementById('stat-speaking');
+        const keywordList = document.getElementById('keyword-list');
+
+        const pasteBtn = document.getElementById('paste-btn');
+        const clearBtn = document.getElementById('clear-btn');
+        const copyBtn = document.getElementById('copy-btn');
+
+        function updateStats() {
+            const text = textInput.value;
+
+            // Basic counts
+            const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
+            const wordCount = wordsArray.length;
+            const charCount = text.length;
+            const sentenceCount = text.split(/[.!?]+/).filter(s => s.trim().length > 0).length;
+            const paragraphCount = text.split(/\n+/).filter(p => p.trim().length > 0).length;
+
+            // Updates
+            statWords.textContent = wordCount.toLocaleString();
+            statChars.textContent = charCount.toLocaleString();
+            statSentences.textContent = sentenceCount.toLocaleString();
+            statParagraphs.textContent = paragraphCount.toLocaleString();
+
+            // Time estimates
+            const readMinutes = Math.ceil(wordCount / 200);
+            const speakMinutes = Math.ceil(wordCount / 130);
+            statReading.textContent = `${readMinutes} मिनट${readMinutes !== 1 ? '' : ''}`;
+            statSpeaking.textContent = `${speakMinutes} मिनट${speakMinutes !== 1 ? '' : ''}`;
+
+            // Keyword Density (Top 5)
+            const frequencies = {};
+            const commonWords = new Set(['the', 'and', 'a', 'to', 'of', 'in', 'is', 'it', 'on', 'with', 'for', 'as', 'at', 'this', 'that', 'by', 'be', 'are', 'was', 'were', 'an', 'your', 'my', 'our', 'his', 'her', 'their', 'we', 'you', 'they', 'he', 'she', 'it', 'can', 'will', 'if', 'has', 'have', 'had', 'or', 'from', 'but', 'so', 'up', 'down', 'about', 'just', 'more', 'all', 'some', 'any', 'each', 'very', 'not', 'do', 'does', 'did', 'done']);
+
+            wordsArray.forEach(w => {
+                const word = w.toLowerCase().replace(/[^a-z0-9]/g, '');
+                if (word && !commonWords.has(word) && word.length > 2) {
+                    frequencies[word] = (frequencies[word] || 0) + 1;
+                }
+            });
+
+            const topKeywords = Object.entries(frequencies)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+
+            if (topKeywords.length > 0) {
+                keywordList.innerHTML = topKeywords.map(([word, count]) => `
+                    <div class="flex items-center justify-between text-sm">
+                        <span class="text-slate-600 dark:text-slate-400 font-medium">${word}</span>
+                        <span class="px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 font-bold">${count}</span>
+                    </div>
+                    <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                        <div class="h-full bg-blue-500" style="width: ${(count / wordCount * 100) * 5}%"></div>
+                    </div>
+                `).join('');
+            } else if (wordCount > 0) {
+                keywordList.innerHTML = `<p class="text-sm text-slate-400 italic">अधिक टेक्स्ट प्रोसेस किया जा रहा है...</p>`;
+            } else {
+                keywordList.innerHTML = `<p class="text-sm text-slate-400 italic">अभी तक कोई कीवर्ड नहीं मिला।</p>`;
+            }
+        }
+
+        textInput.addEventListener('input', updateStats);
+
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updateStats();
+            } catch (err) {
+                console.error('Paste failed:', err);
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            textInput.value = '';
+            updateStats();
+            textInput.focus();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const stats = `
+शब्द संख्या: ${statWords.textContent}
+वर्ण संख्या: ${statChars.textContent}
+वाक्य: ${statSentences.textContent}
+अनुच्छेद: ${statParagraphs.textContent}
+पढ़ने का समय: ${statReading.textContent}
+बोलने का समय: ${statSpeaking.textContent}
+            `.trim();
+
+            navigator.clipboard.writeText(stats).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'कॉपी हो गया!';
+                copyBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+
+        // Initialize
+        updateStats();
+    </script>
+</body>
+</html>

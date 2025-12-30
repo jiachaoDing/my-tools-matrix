@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>छवि रीसाइज़र (Image Resizer) - मुफ्त और सुरक्षित ऑनलाइन टूल | WebUtilityKit</title>
+    <meta name="description" content="अपने ब्राउज़र में स्थानीय रूप से कई छवियों को एक साथ रीसाइज़ करें। मुफ्त, सुरक्षित, और असीमित बैच प्रोसेसिंग JPG, PNG, और WebP के लिए। कोई सर्वर अपलोड नहीं - आपकी गोपनीयता की गारंटी। अभी आजमाएं!">
+
+    <link rel="canonical" href="https://webutilitykit.com/hi/image-resizer/" />
+
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/image-resizer/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/image-resizer/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/hi/image-resizer/">
+    <meta property="og:title" content="छवि रीसाइज़र - 100% सुरक्षित और स्थानीय बैच प्रोसेसिंग">
+    <meta property="og:description" content="किसी सर्वर पर अपलोड किए बिना आयाम, प्रतिशत, या लक्ष्य फ़ाइल आकार द्वारा फोटो को तुरंत बैच रीसाइज़ करें।">
+    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/image-resizer.jpg">
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+
+    <!-- Structured Data -->
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Image Resizer",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "876",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Resize by dimensions, Resize by percentage, Target file size compression",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/image-resizer.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">छवि रीसाइज़र</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">अपलोड किए बिना फोटो को तुरंत रीसाइज़ करें। तेज़, सुरक्षित, और आपकी गोपनीयता को बनाए रखें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% निजी। स्थानीय प्रोसेसिंग केवल।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Left: Input & Files -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">छवियाँ चुनें</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सभी हटाएं</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 overflow-hidden">
+                            <input type="file" id="file-input" class="hidden" multiple accept="image/jpeg,image/png,image/webp" aria-label="रीसाइज़िंग के लिए छवियाँ अपलोड करें">
+
+                            <!-- Empty State -->
+                            <div id="empty-upload-state" class="flex-1 flex flex-col items-center justify-center p-8">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <p class="text-slate-900 dark:text-white font-bold text-lg">यहाँ छवियाँ ड्रॉप करें</p>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">या फ़ाइलें चुनने के लिए क्लिक करें</p>
+                            </div>
+
+                            <!-- Preview State -->
+                            <div id="preview-state" class="hidden flex-1 flex flex-col">
+                                <!-- Preview Header -->
+                                <div class="flex items-center justify-between px-4 py-3 bg-slate-100/80 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
+                                    <div class="flex items-center gap-2">
+                                        <button id="prev-preview-btn" class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-30" disabled>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                        </button>
+                                        <span id="preview-counter" class="text-xs font-bold text-slate-500">1 / 1</span>
+                                        <button id="next-preview-btn" class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-30" disabled>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </button>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button id="toggle-compare-btn" class="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition">
+                                            तुलना करें
+                                        </button>
+                                        <button id="add-more-btn" class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="और छवियाँ जोड़ें">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Image Preview Area -->
+                                <div id="preview-container" class="flex-1 relative overflow-hidden cursor-zoom-in group/preview bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23f1f5f9%22%2F%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23334155%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23334155%22%2F%3E%3C%2Fsvg%3E')]">
+                                    <!-- Fullscreen hint -->
+                                    <div class="absolute bottom-3 right-3 z-10 opacity-0 group-hover/preview:opacity-100 transition-opacity pointer-events-none">
+                                        <div class="flex items-center gap-1.5 px-2.5 py-1.5 bg-black/60 text-white text-[10px] font-bold rounded-lg backdrop-blur-sm">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                                            क्लिक करें फुलस्क्रीन के लिए
+                                        </div>
+                                    </div>
+
+                                    <!-- Single Preview -->
+                                    <div id="single-preview" class="absolute inset-0 flex items-center justify-center p-4">
+                                        <img id="preview-image" class="max-w-full max-h-full object-contain rounded-lg shadow-lg" alt="पूर्वावलोकन">
+                                    </div>
+
+                                    <!-- Compare Mode (Side by Side) -->
+                                    <div id="compare-preview" class="hidden absolute inset-0 grid grid-cols-2 gap-1 p-2">
+                                        <div class="relative flex flex-col items-center justify-center bg-white/50 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+                                            <span class="absolute top-2 left-2 text-[10px] font-black uppercase px-2 py-1 rounded-lg bg-slate-900/70 text-white z-10">मूल</span>
+                                            <img id="original-preview" class="max-w-full max-h-full object-contain" alt="मूल">
+                                        </div>
+                                        <div class="relative flex flex-col items-center justify-center bg-white/50 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+                                            <span class="absolute top-2 left-2 text-[10px] font-black uppercase px-3 py-1 rounded-lg bg-blue-600 text-white z-10">रीसाइज़्ड</span>
+                                            <img id="resized-preview" class="max-w-full max-h-full object-contain" alt="रीसाइज़्ड">
+                                        </div>
+                                    </div>
+
+                                    <!-- Loading Spinner -->
+                                    <div id="preview-loading" class="hidden absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-slate-900/80">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                            <span class="text-xs font-bold text-slate-500">प्रोसेसिंग...</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Preview Footer Stats -->
+                                <div id="preview-stats" class="px-4 py-3 bg-slate-100/80 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <div class="flex items-center gap-4">
+                                            <div>
+                                                <span class="text-slate-400 font-medium">मूल:</span>
+                                                <span id="stat-original-dims" class="font-bold text-slate-600 dark:text-slate-300 ml-1">--</span>
+                                            </div>
+                                            <div>
+                                                <span class="text-slate-400 font-medium">रीसाइज़्ड:</span>
+                                                <span id="stat-resized-dims" class="font-bold text-blue-600 dark:text-blue-400 ml-1">--</span>
+                                            </div>
+                                        </div>
+                                        <div id="stat-scale" class="font-bold text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-lg">
+                                            --% स्केल
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed z-20">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">अपलोड करने के लिए छोड़ें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden flex-grow overflow-hidden flex flex-col">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">चयनित छवियाँ (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 overflow-y-auto pr-2 flex-grow [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Settings & Results -->
+                <div class="flex flex-col h-full gap-8">
+                    <!-- Resize Settings -->
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">रीसाइज़ सेटिंग्स</label>
+                            <div class="flex bg-slate-100 dark:bg-slate-900/50 p-1 rounded-2xl w-full">
+                                <button id="mode-dimensions" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all bg-blue-600 text-white shadow-lg shadow-blue-500/20">आयाम</button>
+                                <button id="mode-percentage" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">प्रतिशत</button>
+                                <button id="mode-filesize" class="flex-1 py-2 text-xs font-bold rounded-xl transition-all text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800">फ़ाइल आकार</button>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <!-- Mode: Dimensions -->
+                            <div id="dimensions-controls" class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">चौड़ाई (px)</label>
+                                    <input type="number" id="target-width" placeholder="ऑटो" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                                </div>
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">ऊँचाई (px)</label>
+                                    <input type="number" id="target-height" placeholder="ऑटो" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                                </div>
+                                <div class="col-span-2 flex items-center gap-2 ml-1">
+                                    <input type="checkbox" id="lock-aspect" checked class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500">
+                                    <label for="lock-aspect" class="text-xs font-bold text-slate-600 dark:text-slate-400">पहलू अनुपात लॉक करें</label>
+                                </div>
+                            </div>
+
+                            <!-- Mode: Percentage -->
+                            <div id="percentage-controls" class="hidden space-y-4">
+                                <div>
+                                    <div class="flex items-center justify-between mb-2 ml-1">
+                                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400">स्केल फैक्टर</label>
+                                        <span id="percentage-val" class="text-sm font-bold text-blue-600">50%</span>
+                                    </div>
+                                    <input type="range" id="percentage-slider" min="1" max="200" value="50" class="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                    <div class="flex justify-between mt-2 text-[10px] text-slate-400 font-bold tracking-tighter uppercase">
+                                        <span>छोटा</span>
+                                        <span>मूल</span>
+                                        <span>बड़ा</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mode: File Size -->
+                            <div id="filesize-controls" class="hidden space-y-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">लक्ष्य अधिकतम आकार</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" id="target-filesize" value="1024" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all flex-grow">
+                                        <select id="filesize-unit" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all w-24 cursor-pointer">
+                                            <option value="KB">KB</option>
+                                            <option value="MB" selected>MB</option>
+                                        </select>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 mt-2 ml-1 italic">आयाम और गुणवत्ता स्वचालित रूप से इस लक्ष्य तक पहुंचने के लिए कम हो जाएँगी।</p>
+                                </div>
+                            </div>
+
+                            <hr class="border-slate-100 dark:border-slate-800">
+
+                            <!-- Output Settings -->
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">प्रारूप</label>
+                                    <select id="output-format" class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all cursor-pointer">
+                                        <option value="image/jpeg">JPEG</option>
+                                        <option value="image/png">PNG</option>
+                                        <option value="image/webp">WebP</option>
+                                    </select>
+                                </div>
+                                <div id="quality-container">
+                                    <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2 ml-1">गुणवत्ता</label>
+                                    <div class="flex items-center gap-3">
+                                        <input type="range" id="quality-slider" min="10" max="100" value="90" class="flex-grow h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-blue-600">
+                                        <span id="quality-val" class="text-xs font-bold text-slate-600 dark:text-slate-400 w-8">90%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="process-btn" class="w-full py-4 rounded-[1.5rem] bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed hidden">
+                                <span id="btn-count">0</span> छवियाँ रीसाइज़ करें
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Results List -->
+                    <div id="results-container" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 flex-grow hidden">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">प्रोसेस किए गए परिणाम</label>
+                            <button id="download-all-btn" class="text-xs px-4 py-1.5 rounded-xl bg-green-600 text-white hover:bg-green-700 transition shadow-lg shadow-green-500/20 font-bold">सभी डाउनलोड करें</button>
+                        </div>
+
+                        <!-- Progress Section -->
+                        <div id="progress-container" class="mb-6 hidden">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">प्रोसेसिंग...</span>
+                                <span id="progress-percent" class="text-[10px] font-black text-blue-600">0%</span>
+                            </div>
+                            <div class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                <div id="progress-bar" class="h-full bg-blue-600 transition-all duration-300 w-0"></div>
+                            </div>
+                        </div>
+
+                        <div id="results-list" class="space-y-3 overflow-y-auto pr-2 max-h-[400px] [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-slate-200 dark:[&::-webkit-scrollbar-thumb]:bg-slate-700 [&::-webkit-scrollbar-thumb]:rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">छवि रीसाइज़र का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">छवियाँ अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपलोड ज़ोन में कई छवियाँ खींचकर लाएँ या अपने डिवाइस से फ़ाइलें चुनने के लिए क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">सेटिंग्स कॉन्फ़िगर करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">पिक्सेल आयाम, प्रतिशत स्केलिंग, या <strong>लक्ष्य फ़ाइल आकार</strong> (जैसे, 1MB से कम) के बीच चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">बैच प्रोसेस करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">रीसाइज़ बटन पर क्लिक करें ताकि सभी छवियाँ तुरंत आपके ब्राउज़र में प्रोसेस हों और डाउनलोड हों।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Privacy Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">डिफ़ॉल्ट रूप से गोपनीयता</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 text-pretty">
+                                अधिकांश ऑनलाइन छवि रीसाइज़र अपनी सर्वर पर आपकी तस्वीरें अपलोड करते हैं। हमारा मानना है कि आपकी यादें और पेशेवर संपत्ति आपके डिवाइस पर रहनी चाहिए। हमारा टूल आपके ब्राउज़र की स्थानीय प्रोसेसिंग पावर (Canvas API) का उपयोग करके छवियों को तुरंत रीसाइज़ करता है बिना किसी सर्वर कनेक्शन के।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">सुरक्षा</div>
+                                    <div class="font-bold">कोई अपलोड नहीं</div>
+                                </div>
+                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
+                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">गति</div>
+                                    <div class="font-bold text-center">स्थानीय-केवल</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">शक्तिशाली सुविधाएँ</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तत्काल बैच रीसाइज़</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">एक सेकंड में दर्जनों छवियाँ अपलोड करें और रीसाइज़ करें। कोई अपलोड या सर्वर प्रोसेसिंग कतारों की प्रतीक्षा नहीं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% सुरक्षित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">आपकी फ़ाइलें कभी भी आपके कंप्यूटर से बाहर नहीं जातीं। सभी प्रोसेसिंग आपके ब्राउज़र सत्र में स्थानीय रूप से होती है अधिकतम सुरक्षा के लिए।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बैच वर्कफ़्लो</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">दर्जनों आइकन प्रोसेस कर रहे हैं? एक साथ अपलोड करें और सेकंड में अपनी Base64 स्ट्रिंग्स प्राप्त करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">विकृति रहित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपनी तस्वीरों को किसी भी आकार पर परफेक्ट बनाने के लिए पहलू अनुपात लॉक करें बिना खींचने या असामान्य मोड़ के।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">छवि रीसाइज़र FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मैं किन प्रारूपों को रीसाइज़ कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-slate-400">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                आप <strong>PNG, JPEG, और WebP</strong> छवियों को अपलोड और रीसाइज़ कर सकते हैं। आप रीसाइज़िंग प्रक्रिया के दौरान इन प्रारूपों के बीच भी परिवर्तित कर सकते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">प्रतिशत स्केलिंग कैसे काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-slate-400">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                प्रतिशत स्केलिंग उनकी मूल आकार के सापेक्ष छवि आयामों को समायोजित करता है। उदाहरण के लिए, 50% मूल से आधी चौड़ी और आधी लंबी छवि बनाएगा।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या कोई फ़ाइल आकार सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm text-slate-400">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                कोई हार्ड लिमिट नहीं है, लेकिन प्रदर्शन आपके डिवाइस की मेमोरी पर निर्भर करता है। अत्यंत बड़ी छवियों (40MP+) के लिए, हम उन्हें छोटे बैचों में प्रोसेस करने की सिफारिश करते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <!-- Related Tools Section -->
+                <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">आपको जो अन्य उपकरण चाहिए हो सकते हैं</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="/hi/image-compressor/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">छवि कम्प्रेसर</h3>
+                            <p class="text-sm text-slate-500 mt-1">गुणवत्ता खोए बिना छवि भार कम करें।</p>
+                        </a>
+                        <a href="/hi/image-cropper/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">छवि क्रॉपर</h3>
+                            <p class="text-sm text-slate-500 mt-1">किसी भी सोशल अनुपात के लिए अपनी छवियों को सटीक रूप से क्रॉप करें।</p>
+                        </a>
+                        <a href="/hi/webp-converter/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
+                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">WebP कन्वर्टर</h3>
+                            <p class="text-sm text-slate-500 mt-1">सर्वोत्तम संपीड़न के लिए फोटो को आधुनिक WebP में बदलें।</p>
+                        </a>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Image Resizer Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCountDisplay = document.getElementById('file-count');
+        const btnCountDisplay = document.getElementById('btn-count');
+        const clearBtn = document.getElementById('clear-btn');
+        const processBtn = document.getElementById('process-btn');
+
+        const modeDimensions = document.getElementById('mode-dimensions');
+        const modePercentage = document.getElementById('mode-percentage');
+        const modeFilesize = document.getElementById('mode-filesize');
+        const dimensionsControls = document.getElementById('dimensions-controls');
+        const percentageControls = document.getElementById('percentage-controls');
+        const filesizeControls = document.getElementById('filesize-controls');
+
+        const targetWidthInput = document.getElementById('target-width');
+        const targetHeightInput = document.getElementById('target-height');
+        const lockAspectCheckbox = document.getElementById('lock-aspect');
+
+        const percentageSlider = document.getElementById('percentage-slider');
+        const percentageVal = document.getElementById('percentage-val');
+
+        const targetFilesizeInput = document.getElementById('target-filesize');
+        const filesizeUnit = document.getElementById('filesize-unit');
+
+        const outputFormat = document.getElementById('output-format');
+        const qualitySlider = document.getElementById('quality-slider');
+        const qualityVal = document.getElementById('quality-val');
+        const qualityContainer = document.getElementById('quality-container');
+
+        const resultsContainer = document.getElementById('results-container');
+        const resultsList = document.getElementById('results-list');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressPercent = document.getElementById('progress-percent');
+
+        // Preview elements
+        const emptyUploadState = document.getElementById('empty-upload-state');
+        const previewState = document.getElementById('preview-state');
+        const previewImage = document.getElementById('preview-image');
+        const originalPreview = document.getElementById('original-preview');
+        const resizedPreview = document.getElementById('resized-preview');
+        const singlePreview = document.getElementById('single-preview');
+        const comparePreview = document.getElementById('compare-preview');
+        const previewLoading = document.getElementById('preview-loading');
+        const previewCounter = document.getElementById('preview-counter');
+        const prevPreviewBtn = document.getElementById('prev-preview-btn');
+        const nextPreviewBtn = document.getElementById('next-preview-btn');
+        const toggleCompareBtn = document.getElementById('toggle-compare-btn');
+        const addMoreBtn = document.getElementById('add-more-btn');
+        const previewContainer = document.getElementById('preview-container');
+        const statOriginalDims = document.getElementById('stat-original-dims');
+        const statResizedDims = document.getElementById('stat-resized-dims');
+        const statScale = document.getElementById('stat-scale');
+
+        // Lightbox elements
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxOriginal = document.getElementById('lightbox-original');
+        const lightboxResized = document.getElementById('lightbox-resized');
+        const lightboxSingle = document.getElementById('lightbox-single');
+        const lightboxCompare = document.getElementById('lightbox-compare');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const lightboxFilename = document.getElementById('lightbox-filename');
+        const lightboxOriginalDims = document.getElementById('lightbox-original-dims');
+        const lightboxResizedDims = document.getElementById('lightbox-resized-dims');
+        const lightboxScale = document.getElementById('lightbox-scale');
+        const lightboxViewResized = document.getElementById('lightbox-view-resized');
+        const lightboxViewOriginal = document.getElementById('lightbox-view-original');
+        const lightboxViewCompare = document.getElementById('lightbox-view-compare');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let currentMode = 'dimensions';
+        let currentPreviewIndex = 0;
+        let previewCache = [];
+        let isCompareMode = false;
+        let lightboxViewMode = 'resized';
+        let previewDebounceTimer = null;
+
+        // Tabs Logic
+        const tabs = [
+            { btn: modeDimensions, ctrl: dimensionsControls, mode: 'dimensions' },
+            { btn: modePercentage, ctrl: percentageControls, mode: 'percentage' },
+            { btn: modeFilesize, ctrl: filesizeControls, mode: 'filesize' }
+        ];
+
+        const TAB_ACTIVE_CLASSES = ['bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20'];
+        const TAB_INACTIVE_CLASSES = ['text-slate-500', 'hover:bg-slate-100', 'dark:hover:bg-slate-800'];
+
+        function setTabActive(btn, isActive) {
+            if (isActive) {
+                btn.classList.remove(...TAB_INACTIVE_CLASSES);
+                btn.classList.add(...TAB_ACTIVE_CLASSES);
+            } else {
+                btn.classList.remove(...TAB_ACTIVE_CLASSES);
+                btn.classList.add(...TAB_INACTIVE_CLASSES);
+            }
+        }
+
+        tabs.forEach(tab => {
+            tab.btn.addEventListener('click', () => {
+                currentMode = tab.mode;
+                tabs.forEach(t => {
+                    setTabActive(t.btn, false);
+                    t.ctrl.classList.add('hidden');
+                });
+                setTabActive(tab.btn, true);
+                tab.ctrl.classList.remove('hidden');
+                debouncedPreviewUpdate();
+            });
+        });
+
+        // Sliders Display + Preview Update
+        percentageSlider.addEventListener('input', () => {
+            percentageVal.textContent = `${percentageSlider.value}%`;
+            debouncedPreviewUpdate();
+        });
+
+        qualitySlider.addEventListener('input', () => {
+            qualityVal.textContent = `${qualitySlider.value}%`;
+            debouncedPreviewUpdate();
+        });
+
+        outputFormat.addEventListener('change', () => {
+            qualityContainer.classList.toggle('hidden', outputFormat.value === 'image/png');
+            debouncedPreviewUpdate();
+        });
+
+        // Dimension inputs trigger preview
+        targetWidthInput.addEventListener('input', debouncedPreviewUpdate);
+        targetHeightInput.addEventListener('input', debouncedPreviewUpdate);
+        lockAspectCheckbox.addEventListener('change', debouncedPreviewUpdate);
+        targetFilesizeInput.addEventListener('input', debouncedPreviewUpdate);
+        filesizeUnit.addEventListener('change', debouncedPreviewUpdate);
+
+        // Debounced preview update
+        function debouncedPreviewUpdate() {
+            clearTimeout(previewDebounceTimer);
+            previewDebounceTimer = setTimeout(() => {
+                if (uploadedFiles.length > 0) {
+                    previewCache = [];
+                    updatePreview();
+                }
+            }, 300);
+        }
+
+        // Click to upload (prevent when clicking on preview controls)
+        dropZone.addEventListener('click', (e) => {
+            if (e.target.closest('#preview-state') && !e.target.closest('#add-more-btn')) return;
+            fileInput.click();
+        });
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Add more button
+        addMoreBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        });
+
+        // Preview container click for lightbox
+        previewContainer?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (uploadedFiles.length > 0 && previewCache[currentPreviewIndex]) {
+                openLightbox();
+            }
+        });
+
+        // Drag & Drop
+        const DROP_ACTIVE_CLASSES = ['border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20', 'scale-[1.01]'];
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add(...DROP_ACTIVE_CLASSES);
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove(...DROP_ACTIVE_CLASSES);
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        async function handleFiles(files) {
+            const startIndex = uploadedFiles.length;
+            const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
+            
+            for (const file of newFiles) {
+                const dimensions = await getImageDimensions(file);
+                uploadedFiles.push({
+                    file: file,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    width: dimensions.width,
+                    height: dimensions.height,
+                    aspectRatio: dimensions.width / dimensions.height
+                });
+            }
+            
+            updateFileList();
+            fileInput.value = '';
+            
+            // Show preview if we have files
+            if (uploadedFiles.length > 0) {
+                currentPreviewIndex = startIndex < uploadedFiles.length ? startIndex : 0;
+                showPreviewState();
+                updatePreview();
+            }
+        }
+
+        function getImageDimensions(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        resolve({ width: img.width, height: img.height });
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        // === Preview State Management ===
+        function showPreviewState() {
+            emptyUploadState.classList.add('hidden');
+            previewState.classList.remove('hidden');
+            updatePreviewNavigation();
+        }
+
+        function hidePreviewState() {
+            emptyUploadState.classList.remove('hidden');
+            previewState.classList.add('hidden');
+        }
+
+        function updatePreviewNavigation() {
+            const total = uploadedFiles.length;
+            previewCounter.textContent = `${currentPreviewIndex + 1} / ${total}`;
+            prevPreviewBtn.disabled = currentPreviewIndex === 0;
+            nextPreviewBtn.disabled = currentPreviewIndex >= total - 1;
+        }
+
+        // Navigation buttons
+        prevPreviewBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentPreviewIndex > 0) {
+                currentPreviewIndex--;
+                updatePreviewNavigation();
+                updateFileList();
+                updatePreview();
+            }
+        });
+
+        nextPreviewBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentPreviewIndex < uploadedFiles.length - 1) {
+                currentPreviewIndex++;
+                updatePreviewNavigation();
+                updateFileList();
+                updatePreview();
+            }
+        });
+
+        // Compare mode toggle
+        toggleCompareBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isCompareMode = !isCompareMode;
+            if (isCompareMode) {
+                singlePreview.classList.add('hidden');
+                comparePreview.classList.remove('hidden');
+                toggleCompareBtn.textContent = 'सिंगल व्यू';
+            } else {
+                singlePreview.classList.remove('hidden');
+                comparePreview.classList.add('hidden');
+                toggleCompareBtn.textContent = 'तुलना करें';
+            }
+            updatePreview();
+        });
+
+        async function updatePreview() {
+            if (uploadedFiles.length === 0) return;
+            
+            const item = uploadedFiles[currentPreviewIndex];
+            if (!item) return;
+
+            previewLoading.classList.remove('hidden');
+
+            const originalUrl = URL.createObjectURL(item.file);
+
+            try {
+                // Calculate target dimensions based on current mode
+                let targetW, targetH;
+                
+                if (currentMode === 'percentage') {
+                    const scale = parseInt(percentageSlider.value) / 100;
+                    targetW = Math.round(item.width * scale);
+                    targetH = Math.round(item.height * scale);
+                } else if (currentMode === 'dimensions') {
+                    const wInput = parseInt(targetWidthInput.value);
+                    const hInput = parseInt(targetHeightInput.value);
+                    
+                    if (wInput && hInput) {
+                        targetW = wInput;
+                        targetH = hInput;
+                    } else if (wInput) {
+                        targetW = wInput;
+                        targetH = lockAspectCheckbox.checked ? Math.round(wInput / item.aspectRatio) : item.height;
+                    } else if (hInput) {
+                        targetH = hInput;
+                        targetW = lockAspectCheckbox.checked ? Math.round(hInput * item.aspectRatio) : item.width;
+                    } else {
+                        targetW = item.width;
+                        targetH = item.height;
+                    }
+                } else if (currentMode === 'filesize') {
+                    // For filesize mode, just show original for now (actual resize happens on process)
+                    targetW = item.width;
+                    targetH = item.height;
+                }
+
+                // Perform preview resize
+                const format = outputFormat.value;
+                const quality = parseInt(qualitySlider.value) / 100;
+                const resizedBlob = await performResize(item, targetW, targetH, format, quality);
+                const resizedUrl = URL.createObjectURL(resizedBlob);
+
+                // Update preview images
+                if (isCompareMode) {
+                    originalPreview.src = originalUrl;
+                    resizedPreview.src = resizedUrl;
+                } else {
+                    previewImage.src = resizedUrl;
+                }
+
+                // Update stats
+                const scalePercent = Math.round((targetW / item.width) * 100);
+                statOriginalDims.textContent = `${item.width}×${item.height}`;
+                statResizedDims.textContent = `${targetW}×${targetH}`;
+                statScale.textContent = `${scalePercent}% स्केल`;
+
+                // Cache the result
+                previewCache[currentPreviewIndex] = {
+                    originalUrl,
+                    resizedUrl,
+                    resizedBlob,
+                    targetW,
+                    targetH,
+                    scalePercent
+                };
+
+            } catch (err) {
+                console.error('Preview resize failed:', err);
+                previewImage.src = originalUrl;
+                originalPreview.src = originalUrl;
+                resizedPreview.src = originalUrl;
+                statOriginalDims.textContent = `${item.width}×${item.height}`;
+                statResizedDims.textContent = 'त्रुटि';
+                statScale.textContent = '100% स्केल';
+            }
+
+            previewLoading.classList.add('hidden');
+        }
+
+        function selectFileForPreview(index) {
+            if (index !== currentPreviewIndex) {
+                currentPreviewIndex = index;
+                updateFileList();
+                updatePreviewNavigation();
+                updatePreview();
+            }
+        }
+
+        // === Lightbox Functions ===
+        function openLightbox() {
+            lightboxModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            updateLightbox();
+        }
+
+        function closeLightbox() {
+            lightboxModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            const item = uploadedFiles[currentPreviewIndex];
+            const cache = previewCache[currentPreviewIndex];
+            
+            if (!item || !cache) return;
+
+            lightboxCounter.textContent = `${currentPreviewIndex + 1} / ${uploadedFiles.length}`;
+            lightboxFilename.textContent = item.name;
+
+            lightboxPrev.disabled = currentPreviewIndex === 0;
+            lightboxNext.disabled = currentPreviewIndex >= uploadedFiles.length - 1;
+
+            lightboxOriginalDims.textContent = `${item.width}×${item.height}`;
+            lightboxResizedDims.textContent = `${cache.targetW}×${cache.targetH}`;
+            lightboxScale.textContent = `${cache.scalePercent}% स्केल`;
+
+            updateLightboxView();
+        }
+
+        function updateLightboxView() {
+            const cache = previewCache[currentPreviewIndex];
+            if (!cache) return;
+
+            [lightboxViewResized, lightboxViewOriginal, lightboxViewCompare].forEach(btn => {
+                btn.classList.remove('bg-blue-600');
+                btn.classList.add('text-white/70');
+            });
+
+            if (lightboxViewMode === 'compare') {
+                lightboxSingle.classList.add('hidden');
+                lightboxCompare.classList.remove('hidden');
+                lightboxOriginal.src = cache.originalUrl;
+                lightboxResized.src = cache.resizedUrl;
+                lightboxViewCompare.classList.add('bg-blue-600');
+                lightboxViewCompare.classList.remove('text-white/70');
+            } else {
+                lightboxSingle.classList.remove('hidden');
+                lightboxCompare.classList.add('hidden');
+                
+                if (lightboxViewMode === 'original') {
+                    lightboxImage.src = cache.originalUrl;
+                    lightboxViewOriginal.classList.add('bg-blue-600');
+                    lightboxViewOriginal.classList.remove('text-white/70');
+                } else {
+                    lightboxImage.src = cache.resizedUrl;
+                    lightboxViewResized.classList.add('bg-blue-600');
+                    lightboxViewResized.classList.remove('text-white/70');
+                }
+            }
+        }
+
+        // Lightbox event listeners
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxBackdrop?.addEventListener('click', closeLightbox);
+
+        lightboxPrev?.addEventListener('click', () => {
+            if (currentPreviewIndex > 0) {
+                currentPreviewIndex--;
+                updatePreviewNavigation();
+                updateFileList();
+                updateLightbox();
+            }
+        });
+
+        lightboxNext?.addEventListener('click', () => {
+            if (currentPreviewIndex < uploadedFiles.length - 1) {
+                currentPreviewIndex++;
+                updatePreviewNavigation();
+                updateFileList();
+                updateLightbox();
+            }
+        });
+
+        lightboxViewResized?.addEventListener('click', () => {
+            lightboxViewMode = 'resized';
+            updateLightboxView();
+        });
+
+        lightboxViewOriginal?.addEventListener('click', () => {
+            lightboxViewMode = 'original';
+            updateLightboxView();
+        });
+
+        lightboxViewCompare?.addEventListener('click', () => {
+            lightboxViewMode = 'compare';
+            updateLightboxView();
+        });
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (lightboxModal.classList.contains('hidden')) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    if (currentPreviewIndex > 0) {
+                        currentPreviewIndex--;
+                        updatePreviewNavigation();
+                        updateFileList();
+                        updateLightbox();
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (currentPreviewIndex < uploadedFiles.length - 1) {
+                        currentPreviewIndex++;
+                        updatePreviewNavigation();
+                        updateFileList();
+                        updateLightbox();
+                    }
+                    break;
+                case '1':
+                    lightboxViewMode = 'resized';
+                    updateLightboxView();
+                    break;
+                case '2':
+                    lightboxViewMode = 'original';
+                    updateLightboxView();
+                    break;
+                case '3':
+                    lightboxViewMode = 'compare';
+                    updateLightboxView();
+                    break;
+            }
+        });
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCountDisplay.textContent = uploadedFiles.length;
+            btnCountDisplay.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+            
+            uploadedFiles.forEach((item, index) => {
+                const div = document.createElement('div');
+                const isActive = index === currentPreviewIndex;
+                div.className = `flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${isActive ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' : 'bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800'}`;
+                div.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 ${isActive ? 'bg-blue-200 dark:bg-blue-800 text-blue-600 dark:text-blue-300' : 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'} rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${item.name}</div>
+                            <div class="text-[10px] text-slate-400">${item.width}x${item.height} • ${formatSize(item.size)}</div>
+                        </div>
+                    </div>
+                    <button onclick="event.stopPropagation(); removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                // Click to select for preview
+                div.addEventListener('click', () => selectFileForPreview(index));
+                fileList.appendChild(div);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            previewCache.splice(index, 1);
+            
+            if (uploadedFiles.length === 0) {
+                hidePreviewState();
+                currentPreviewIndex = 0;
+            } else {
+                if (currentPreviewIndex >= uploadedFiles.length) {
+                    currentPreviewIndex = uploadedFiles.length - 1;
+                }
+                updatePreviewNavigation();
+                updatePreview();
+            }
+            updateFileList();
+        };
+
+        clearBtn.addEventListener('click', () => {
+            uploadedFiles = [];
+            processedResults = [];
+            previewCache = [];
+            currentPreviewIndex = 0;
+            updateFileList();
+            hidePreviewState();
+            resultsList.innerHTML = '';
+            resultsContainer.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        processBtn.addEventListener('click', async () => {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            progressContainer.classList.remove('hidden');
+            downloadAllBtn.classList.add('hidden');
+            
+            const format = outputFormat.value;
+            const quality = parseInt(qualitySlider.value) / 100;
+            const extension = format.split('/')[1];
+            
+            for (let i = 0; i < uploadedFiles.length; i++) {
+                const item = uploadedFiles[i];
+                const percent = Math.round((i / uploadedFiles.length) * 100);
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = `${percent}%`;
+
+                try {
+                    const blob = await resizeImage(item);
+                    const url = URL.createObjectURL(blob);
+                    const result = {
+                        name: `resized_${item.name.replace(/\.[^/.]+$/, "")}.${extension}`,
+                        url: url,
+                        size: blob.size,
+                        width: item.targetWidth,
+                        height: item.targetHeight
+                    };
+                    processedResults.push(result);
+                    addResultToList(result);
+                } catch (err) {
+                    console.error('Resize failed', err);
+                }
+            }
+
+            progressBar.style.width = '100%';
+            progressPercent.textContent = '100%';
+            setTimeout(() => progressContainer.classList.add('hidden'), 500);
+            downloadAllBtn.classList.remove('hidden');
+        });
+
+        async function resizeImage(item) {
+            let targetW, targetH;
+            const format = outputFormat.value;
+            const quality = parseInt(qualitySlider.value) / 100;
+            
+            if (currentMode === 'percentage') {
+                const scale = parseInt(percentageSlider.value) / 100;
+                targetW = Math.round(item.width * scale);
+                targetH = Math.round(item.height * scale);
+                return performResize(item, targetW, targetH, format, quality);
+            } else if (currentMode === 'dimensions') {
+                const wInput = parseInt(targetWidthInput.value);
+                const hInput = parseInt(targetHeightInput.value);
+                
+                if (wInput && hInput) {
+                    targetW = wInput;
+                    targetH = hInput;
+                } else if (wInput) {
+                    targetW = wInput;
+                    targetH = lockAspectCheckbox.checked ? Math.round(wInput / item.aspectRatio) : item.height;
+                } else if (hInput) {
+                    targetH = hInput;
+                    targetW = lockAspectCheckbox.checked ? Math.round(hInput * item.aspectRatio) : item.width;
+                } else {
+                    targetW = item.width;
+                    targetH = item.height;
+                }
+                return performResize(item, targetW, targetH, format, quality);
+            } else if (currentMode === 'filesize') {
+                const targetSizeVal = parseFloat(targetFilesizeInput.value);
+                const unit = filesizeUnit.value;
+                const maxBytes = targetSizeVal * (unit === 'MB' ? 1024 * 1024 : 1024);
+                
+                // Iterative resize for file size
+                let currentScale = 1.0;
+                let currentQuality = 0.9;
+                let lastBlob = null;
+                let iterations = 0;
+                const maxIterations = 8;
+
+                while (iterations < maxIterations) {
+                    targetW = Math.max(1, Math.round(item.width * currentScale));
+                    targetH = Math.max(1, Math.round(item.height * currentScale));
+                    
+                    const blob = await performResize(item, targetW, targetH, format, currentQuality);
+                    lastBlob = blob;
+
+                    if (blob.size <= maxBytes) break;
+
+                    // Heuristic adjustment
+                    const ratio = maxBytes / blob.size;
+                    if (format !== 'image/png' && currentQuality > 0.3) {
+                        currentQuality = Math.max(0.1, currentQuality * Math.sqrt(ratio));
+                    } else {
+                        currentScale = Math.max(0.05, currentScale * Math.sqrt(ratio) * 0.9);
+                    }
+                    iterations++;
+                }
+                item.targetWidth = targetW;
+                item.targetHeight = targetH;
+                return lastBlob;
+            }
+        }
+
+        async function performResize(item, targetW, targetH, format, quality) {
+            item.targetWidth = targetW;
+            item.targetHeight = targetH;
+
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        canvas.width = targetW;
+                        canvas.height = targetH;
+                        const ctx = canvas.getContext('2d');
+                        ctx.imageSmoothingEnabled = true;
+                        ctx.imageSmoothingQuality = 'high';
+                        ctx.drawImage(img, 0, 0, targetW, targetH);
+                        canvas.toBlob((blob) => {
+                            resolve(blob);
+                        }, format, format === 'image/png' ? undefined : quality);
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(item.file);
+            });
+        }
+
+        function addResultToList(result) {
+            const div = document.createElement('div');
+        div.className = 'p-4 rounded-3xl bg-white dark:bg-slate-800/60 border border-slate-100 dark:border-slate-700/50 flex items-center justify-between group transition-all hover:border-blue-500/30';
+        div.innerHTML = `
+            <div class="flex items-center gap-4 overflow-hidden">
+                <div class="w-12 h-12 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 shrink-0">
+                    <img src="${result.url}" class="w-full h-full object-cover" loading="lazy">
+                </div>
+                    <div class="overflow-hidden">
+                        <div class="text-xs font-bold truncate">${result.name}</div>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">${result.width}x${result.height}</span>
+                            <span class="text-[10px] font-black uppercase tracking-wider px-2 py-1 rounded-md bg-slate-100 dark:bg-slate-900 text-slate-500">${formatSize(result.size)}</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="${result.url}" download="${result.name}" class="p-3 bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400 rounded-2xl hover:bg-blue-600 hover:text-white transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                </a>
+            `;
+            resultsList.appendChild(div);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach((res, i) => {
+                setTimeout(() => {
+                    const link = document.createElement('a');
+                    link.href = res.url;
+                    link.download = res.name;
+                    link.click();
+                }, i * 200);
+            });
+        });
+
+    </script>
+</body>
+</html>

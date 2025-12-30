@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICO फैविकॉन जनरेटर (ICO Generator) - मल्टी-साइज & फ्री | WebUtilityKit</title>
+    <meta name="description" content="PNG, JPG, या WebP से मल्टी-साइज ICO फैविकॉन तुरंत बनाएं। 100% प्राइवेट, क्लाइंट-साइड कन्वर्जन नो अपलोड। ICO generator online मुफ्त में इस्तेमाल करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/ico-generator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/ico-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/ico-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <style>
+        .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
+    </style>
+
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "ICO फैविकॉन जनरेटर",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "718",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Multi-size ICO generation, Dark mode support",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/ico-generator.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">ICO फाइल जनरेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">उच्च-क्वॉलिटी मल्टी-साइज ICO फैविकॉन तुरंत बनाएं। स्थानीय प्रोसेसिंग से आपकी इमेजेस प्राइवेट रहती हैं।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% प्राइवेट। स्थानीय-ओनली कन्वर्जन।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Left: Input Area -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">सोर्स इमेज</label>
+                            <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">क्लियर करें</button>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 group">
+                            <input type="file" id="file-input" class="hidden" accept="image/png,image/jpeg,image/webp">
+                            <div class="bg-blue-600 text-white p-5 rounded-3xl mb-4 shadow-xl shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <p class="text-slate-900 dark:text-white font-bold text-lg">अपनी इमेज यहाँ ड्रॉप करें</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">PNG, JPG, या WebP</p>
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">अपलोड करने के लिए रिलीज़ करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Preview -->
+                        <div id="preview-container" class="mt-6 hidden">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">ओरिजिनल प्रिव्यू</h4>
+                            <div class="flex items-center gap-4 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                                <div class="w-16 h-16 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 flex items-center justify-center overflow-hidden">
+                                    <img id="image-preview" src="" class="max-w-full max-h-full object-contain">
+                                </div>
+                                <div>
+                                    <div id="file-name" class="text-xs font-bold truncate max-w-[200px]">image.png</div>
+                                    <div id="file-info" class="text-[10px] text-slate-400 mt-0.5">0x0 • 0 KB</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Settings & Export -->
+                <div class="flex flex-col h-full gap-8">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 block">शामिल साइज</label>
+
+                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="16" checked class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">16x16</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="32" checked class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">32x32</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="48" checked class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">48x48</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="64" class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">64x64</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="128" class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">128x128</span>
+                            </label>
+                            <label class="size-checkbox flex items-center gap-3 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 border-2 border-transparent cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800 transition-all select-none">
+                                <input type="checkbox" value="256" class="hidden">
+                                <div class="check-box w-5 h-5 rounded-md border-2 border-slate-300 flex items-center justify-center text-white transition-colors">
+                                    <svg class="w-3 h-3 opacity-0 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-xs font-bold">256x256</span>
+                            </label>
+                        </div>
+
+                        <button id="generate-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
+                            <span class="flex items-center justify-center gap-3">
+                                <span>.ICO जनरेट करें</span>
+                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div id="result-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-6">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">जनरेटेड ICO</label>
+                            <span id="result-size" class="text-[10px] font-black uppercase text-blue-600">0 KB</span>
+                        </div>
+
+                        <!-- Size Previews Grid -->
+                        <div class="mb-6">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">शामिल साइज प्रिव्यू</h4>
+                            <div id="size-previews" class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                                <!-- Previews will be injected here -->
+                            </div>
+                        </div>
+
+                        <!-- Download Section -->
+                        <div class="flex items-center gap-6 p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                            <div class="w-12 h-12 bg-white dark:bg-slate-800 rounded-xl shadow-inner flex items-center justify-center p-1.5 border border-slate-200 dark:border-slate-700">
+                                <img id="result-preview" class="max-w-full max-h-full object-contain pixelated">
+                            </div>
+                            <div class="flex-grow">
+                                <div class="text-sm font-bold text-slate-900 dark:text-white mb-0.5">favicon.ico</div>
+                                <div id="result-details" class="text-[10px] text-slate-400 font-medium">3 साइज शामिल हैं</div>
+                            </div>
+                            <a id="download-link" href="#" download="favicon.ico" class="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">ICO फैविकॉन कैसे बनाएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">इमेज अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक स्क्वेयर PNG, JPG, या WebP इमेज चुनें। हाई-रेजोल्यूशन सोर्स सबसे अच्छा काम करता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">साइज चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">शामिल करने के लिए साइज चुनें। अधिकतम कंपेटिबिलिटी के लिए 16x16, 32x32, और 48x48 अनुशंसित हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">ICO डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपना मल्टी-साइज ICO फाइल जनरेट करें और इसे अपने वेबसाइट फैविकॉन के रूप में इस्तेमाल करने के लिए डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">मल्टी-साइज ICO क्यों?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                एक ही ICO फाइल में अलग-अलग साइज की कई इमेजेस हो सकती हैं। इससे ब्राउज़र अलग-अलग कॉन्टेक्स्ट में सबसे उपयुक्त रेजोल्यूशन चुन सकते हैं—जैसे ब्राउज़र टैब, टास्कबार, या डेस्कटॉप शॉर्टकट—जिससे आपका फैविकॉन हमेशा क्रिस्प दिखता है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">हर स्केल पर क्रिस्प आइकॉन</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">बेहतर लेगेसी ब्राउज़र सपोर्ट</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">प्रोफेशनल क्वॉलिटी फैविकॉन</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">ICO फाइल क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                ICO (Icon) इमेज फॉर्मेट है जो मुख्य रूप से Microsoft Windows में फैविकॉन के लिए इस्तेमाल होता है। यह यूनिक है क्योंकि यह अलग-अलग रेजोल्यूशन और कलर डेप्थ की छोटी इमेजेस का कंटेनर है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से साइज शामिल करने चाहिए?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                एक स्टैंडर्ड वेब फैविकॉन के लिए 16x16, 32x32, और 48x48 सबसे महत्वपूर्ण हैं। 16x16 ब्राउज़र टैब के लिए इस्तेमाल होता है, जबकि 32x32 और 48x48 अक्सर Windows द्वारा टास्कबार और शॉर्टकट के लिए इस्तेमाल होते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === ICO Generator Logic ===
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileInput = document.getElementById('file-input');
+        const previewContainer = document.getElementById('preview-container');
+        const imagePreview = document.getElementById('image-preview');
+        const fileNameDisplay = document.getElementById('file-name');
+        const fileInfoDisplay = document.getElementById('file-info');
+        const clearBtn = document.getElementById('clear-btn');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultCard = document.getElementById('result-card');
+        const resultPreview = document.getElementById('result-preview');
+        const resultSize = document.getElementById('result-size');
+        const resultDetails = document.getElementById('result-details');
+        const downloadLink = document.getElementById('download-link');
+        const sizeCheckboxes = document.querySelectorAll('.size-checkbox');
+
+        let originalFile = null;
+        let originalImg = new Image();
+
+        // Custom checkbox styling
+        sizeCheckboxes.forEach(label => {
+            const input = label.querySelector('input');
+            const box = label.querySelector('.check-box');
+            const svg = box.querySelector('svg');
+
+            function updateUI() {
+                if (input.checked) {
+                    label.classList.add('border-blue-600', 'bg-blue-50/50', 'dark:bg-blue-900/30');
+                    box.classList.add('bg-blue-600', 'border-blue-600');
+                    svg.classList.replace('opacity-0', 'opacity-100');
+                } else {
+                    label.classList.remove('border-blue-600', 'bg-blue-50/50', 'dark:bg-blue-900/30');
+                    box.classList.remove('bg-blue-600', 'border-blue-600');
+                    svg.classList.replace('opacity-100', 'opacity-0');
+                }
+            }
+
+            input.addEventListener('change', updateUI);
+            updateUI(); // Initial
+        });
+
+        // Upload Logic
+        dropZone.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        });
+
+        function formatSize(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function handleFile(file) {
+            if (!file || !file.type.startsWith('image/')) return;
+            originalFile = file;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                originalImg.onload = () => {
+                    imagePreview.src = originalImg.src;
+                    fileNameDisplay.textContent = file.name;
+                    fileInfoDisplay.textContent = `${originalImg.width}x${originalImg.height} • ${formatSize(file.size)}`;
+                    previewContainer.classList.remove('hidden');
+                    generateBtn.disabled = false;
+                    resultCard.classList.add('hidden');
+                };
+                originalImg.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        clearBtn.addEventListener('click', () => {
+            originalFile = null;
+            previewContainer.classList.add('hidden');
+            generateBtn.disabled = true;
+            resultCard.classList.add('hidden');
+            fileInput.value = '';
+        });
+
+        const sizePreviews = document.getElementById('size-previews');
+
+        // ICO Generation Logic
+        generateBtn.addEventListener('click', async () => {
+            const sizes = Array.from(sizeCheckboxes)
+                .map(l => l.querySelector('input'))
+                .filter(i => i.checked)
+                .map(i => parseInt(i.value))
+                .sort((a, b) => a - b); // Sort from smallest to largest
+
+            if (sizes.length === 0) return;
+
+            // Show loading state
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = `<span class="flex items-center justify-center gap-3"><span>जनरेट हो रहा है...</span><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div></span>`;
+
+            // Generate previews for each size
+            sizePreviews.innerHTML = '';
+            const previewUrls = [];
+
+            for (const size of sizes) {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(originalImg, 0, 0, size, size);
+
+                const previewUrl = canvas.toDataURL('image/png');
+                previewUrls.push({ size, url: previewUrl });
+
+                // Create preview card
+                const card = document.createElement('div');
+                card.className = 'flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-blue-500/30 transition-all group';
+
+                // Calculate display size (scale up small icons for visibility)
+                const displaySize = size <= 32 ? 32 : size <= 64 ? 48 : 64;
+
+                card.innerHTML = `
+                    <div class="w-16 h-16 flex items-center justify-center mb-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden" style="background-image: url('data:image/svg+xml,%3Csvg%20width%3D%228%22%20height%3D%228%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1f5f9%22%2F%3E%3C%2Fsvg%3E');">
+                        <img src="${previewUrl}" class="object-contain" style="width: ${displaySize}px; height: ${displaySize}px; image-rendering: ${size <= 32 ? 'pixelated' : 'auto'};">
+                    </div>
+                    <span class="text-[10px] font-black text-slate-500 dark:text-slate-400">${size}×${size}</span>
+                `;
+                sizePreviews.appendChild(card);
+            }
+
+            // Generate ICO file
+            const iconData = await createIco(originalImg, sizes);
+            const blob = new Blob([iconData], { type: 'image/x-icon' });
+            const url = URL.createObjectURL(blob);
+
+            // Use the smallest size for the main preview
+            resultPreview.src = previewUrls[0]?.url || url;
+            resultSize.textContent = formatSize(blob.size);
+            resultDetails.textContent = `इनमें ${sizes.length} साइज शामिल हैं: ${sizes.map(s => s + 'px').join(', ')}`;
+            downloadLink.href = url;
+            resultCard.classList.remove('hidden');
+
+            // Reset button
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = `<span class="flex items-center justify-center gap-3"><span>.ICO जनरेट करें</span><svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></span>`;
+
+            // Scroll to result
+            resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+
+        async function createIco(img, sizes) {
+            // Step 1: Generate PNG data for all sizes first
+            const pngDataArray = [];
+            for (const size of sizes) {
+                const pngData = await getPngData(img, size);
+                // Convert to Uint8Array immediately to preserve the data
+                pngDataArray.push({
+                    size: size,
+                    data: new Uint8Array(pngData)
+                });
+            }
+
+            // Step 2: Calculate total size
+            const HEADER_SIZE = 6;
+            const DIR_ENTRY_SIZE = 16;
+            const dirTotalSize = sizes.length * DIR_ENTRY_SIZE;
+            let imageDataSize = 0;
+            pngDataArray.forEach(item => imageDataSize += item.data.length);
+            const totalSize = HEADER_SIZE + dirTotalSize + imageDataSize;
+
+            // Step 3: Create the final ICO buffer
+            const ico = new Uint8Array(totalSize);
+            const view = new DataView(ico.buffer);
+
+            // Write ICO header (6 bytes)
+            view.setUint16(0, 0, true);           // Reserved, must be 0
+            view.setUint16(2, 1, true);           // Type: 1 = ICO
+            view.setUint16(4, sizes.length, true); // Number of images
+
+            // Step 4: Write directory entries and image data
+            let dirOffset = HEADER_SIZE;
+            let imageOffset = HEADER_SIZE + dirTotalSize;
+
+            for (let i = 0; i < pngDataArray.length; i++) {
+                const { size, data } = pngDataArray[i];
+
+                // Write directory entry (16 bytes each)
+                view.setUint8(dirOffset + 0, size >= 256 ? 0 : size);   // Width (0 = 256)
+                view.setUint8(dirOffset + 1, size >= 256 ? 0 : size);   // Height (0 = 256)
+                view.setUint8(dirOffset + 2, 0);                         // Color palette
+                view.setUint8(dirOffset + 3, 0);                         // Reserved
+                view.setUint16(dirOffset + 4, 1, true);                  // Color planes
+                view.setUint16(dirOffset + 6, 32, true);                 // Bits per pixel
+                view.setUint32(dirOffset + 8, data.length, true);        // Image data size
+                view.setUint32(dirOffset + 12, imageOffset, true);       // Offset to image data
+
+                // Write image data at the calculated offset
+                ico.set(data, imageOffset);
+
+                // Move to next entry
+                dirOffset += DIR_ENTRY_SIZE;
+                imageOffset += data.length;
+            }
+
+            console.log(`ICO created: ${sizes.length} sizes, ${totalSize} bytes`);
+            return ico.buffer;
+        }
+
+        function getPngData(img, size) {
+            return new Promise((resolve, reject) => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(img, 0, 0, size, size);
+                canvas.toBlob((blob) => {
+                    if (!blob) {
+                        reject(new Error(`Failed to create blob for size ${size}`));
+                        return;
+                    }
+                    blob.arrayBuffer().then(buffer => {
+                        resolve(buffer);
+                    }).catch(reject);
+                }, 'image/png');
+            });
+        }
+    </script>
+</body>
+</html>

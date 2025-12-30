@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>केस कन्वर्टर (Case Converter) - मुफ्त टेक्स्ट फॉर्मेटिंग टूल | WebUtilityKit</title>
+    <meta name="description" content="टेक्स्ट को UPPERCASE, lowercase, camelCase, snake_case में बदलें। मुफ्त case converter के साथ बैच प्रोसेसिंग। 100% प्राइवेट ब्राउज़र-आधारित टूल।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/case-converter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/case-converter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/case-converter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Case Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "647",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch file support, Multiple case formats, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/case-converter.jpg"
+}
+    </script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">केस कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने टेक्स्ट को तुरंत किसी भी फॉर्मेट में बदलें। प्रोग्रामर्स, लेखकों और डिजाइनर्स के लिए परफेक्ट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Left Pane: Input -->
+                <div class="lg:col-span-6 flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">आपका कंटेंट</label>
+                            <div class="flex gap-2">
+                                <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5 font-bold">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    अपलोड
+                                </button>
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700">पेस्ट</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सब साफ करें</button>
+                            </div>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[500px]">
+                            <textarea id="text-input" class="flex-grow w-full h-full bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-lg placeholder-slate-400 resize-none outline-none transition-all" placeholder="कन्वर्ट करने के लिए टेक्स्ट दर्ज करें या यहां फाइलें ड्रॉप करें..."></textarea>
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md">
+
+                            <!-- Drop Overlay -->
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">अपनी फाइलें यहां ड्रॉप करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files List -->
+                        <div id="file-list-container" class="mt-6 hidden">
+                            <div class="flex items-center justify-between mb-3 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400">अपलोड की गई फाइलें (<span id="file-count">0</span>)</h4>
+                            </div>
+                            <div id="file-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+
+                        <!-- Processed Results List -->
+                        <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">
+                            <div class="flex items-center justify-between mb-3 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400">प्रोसेस किए गए परिणाम</h4>
+                                <button id="download-all-btn" class="text-[10px] font-black uppercase tracking-wider text-blue-600 hover:text-blue-700 transition flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    सब डाउनलोड करें
+                                </button>
+                            </div>
+                            <div id="results-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Pane: Conversions -->
+                <div class="lg:col-span-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                        <!-- UPPERCASE -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="upper">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">UPPERCASE</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-upper">PREVIEW TEXT</div>
+                        </div>
+
+                        <!-- lowercase -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="lower">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">lowercase</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-lower">preview text</div>
+                        </div>
+
+                        <!-- Sentence case -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="sentence">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">Sentence case</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-sentence">Preview text.</div>
+                        </div>
+
+                        <!-- Title Case -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="title">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">Title Case</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-title">Preview Text</div>
+                        </div>
+
+                        <!-- camelCase -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="camel">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">camelCase</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-camel">previewText</div>
+                        </div>
+
+                        <!-- PascalCase -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="pascal">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">PascalCase</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-pascal">PreviewText</div>
+                        </div>
+
+                        <!-- snake_case -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="snake">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">snake_case</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-snake">preview_text</div>
+                        </div>
+
+                        <!-- kebab-case -->
+                        <div class="flex flex-col p-6 rounded-[2rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-md hover:border-blue-500/30 cursor-pointer group" data-case="kebab">
+                            <div class="flex justify-between items-start mb-1">
+                                <span class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-3 group-hover:text-blue-500 transition-colors">kebab-case</span>
+                                <svg class="w-4 h-4 text-slate-300 opacity-0 group-hover:opacity-100 transition-opacity" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                            <div class="text-lg font-bold text-slate-700 dark:text-slate-300 truncate" id="preview-kebab">preview-text</div>
+                        </div>
+                    </div>
+
+                    <!-- Mass Actions -->
+                    <div class="mt-8 p-8 rounded-[2.5rem] bg-slate-100 dark:bg-slate-800/30 border border-slate-200/50 dark:border-slate-800/50">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">मास ट्रांसफॉर्मेशन</h3>
+                        <div class="flex flex-wrap gap-3">
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('upper')">UPPER CASE</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('lower')">lower case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('sentence')">Sentence case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('title')">Title Case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('camel')">camelCase</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('pascal')">PascalCase</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('snake')">snake_case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('kebab')">kebab-case</button>
+                            <button class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 font-bold text-sm hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all active:scale-95" onclick="applyCase('toggle')">tOGGLE cASE</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">केस कन्वर्टर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">टेक्स्ट इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">इनपुट एरिया में अपना टेक्स्ट पेस्ट करें। हमारा टूल स्वचालित रूप से ब्रेक और शब्दों का पता लगाता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फॉर्मेट चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">8+ अलग-अलग केस फॉर्मेट में से चुनें। दाईं ओर लाइव प्रीव्यू देखें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">रिजल्ट कॉपी करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कोई भी कन्वर्जन कार्ड क्लिक करके कॉपी करें, या मेन टेक्स्ट को मॉडिफाई करने के लिए मास एक्शन बटन का उपयोग करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Code vs. Content -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">अपने सिंटेक्स को स्टैंडर्डाइज करें</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                JavaScript वैरिएबल के लिए `camelCase` से लेकर एनवायरनमेंट वैरिएबल के लिए `SNAKE_CASE` तक, प्रोफेशनल डेवलपमेंट में कंसिस्टेंसी महत्वपूर्ण है। हमारा टूल आपके कोड और डॉक्यूमेंटेशन को हमेशा सही कन्वेंशन के अनुसार सुनिश्चित करता है।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">सपोर्ट</div>
+                                    <div class="font-bold">डेव फ्रेंडली</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">प्राइवेसी</div>
+                                    <div class="font-bold">कोई डेटा लीक नहीं</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Case Styles Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">सामान्य केस स्टाइल</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">प्रोग्रामिंग फॉर्मेट</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium text-slate-500">camelCase</span>
+                                    <span class="font-bold text-blue-500">JS वैरिएबल</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium text-slate-500">PascalCase</span>
+                                    <span class="font-bold text-green-500">क्लासेस और टाइप्स</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium text-slate-500">snake_case</span>
+                                    <span class="font-bold text-orange-500">Python / डेटाबेस</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">राइटिंग और SEO</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium text-slate-500">Title Case</span>
+                                    <span class="font-bold text-slate-400">हेडिंग</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500">
+                                    <span class="font-medium text-slate-500">Sentence case</span>
+                                    <span class="font-bold text-purple-500">बॉडी टेक्स्ट</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium text-slate-500">kebab-case</span>
+                                    <span class="font-bold text-red-500">URL स्लग</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">एक्सपर्ट Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"Sentence case" क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Sentence case प्रत्येक वाक्य के पहले शब्द की केवल पहली अक्षर को कैपिटल करता है, जिससे यह बड़े ब्लॉक्स ऑफ डिस्क्रिप्टिव टेक्स्ट के लिए आदर्श बन जाता है। हमारा टूल सही कैपिटलाइजेशन सुनिश्चित करने के लिए सेंटेंस एंडिंग का बुद्धिमानी से पता लगाता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"Title Case" कैसे अलग है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Title Case प्रत्येक शब्द की पहली अक्षर को कैपिटल करता है (कुछ छोटे जोड़ने वाले शब्दों को छोड़कर कॉम्प्लेक्स वर्जन में)। यह सबसे अधिक सामान्य रूप से किताबों के टाइटल, ब्लॉग हेडर और प्रोफेशनल डॉक्यूमेंट टाइटल के लिए इस्तेमाल किया जाता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">संवेदनशील डेटा के लिए यह सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हाँ। कन्वर्जन लॉजिक पूरी तरह से लोकल है। कोई भी डेटा किसी सर्वर पर नहीं भेजा जाता। आपका इन्फॉर्मेशन बिल्कुल वहीं रहता है जहाँ उसे होना चाहिए - आपके डिवाइस पर।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Case Converter Logic ===
+        const textInput = document.getElementById('text-input');
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCount = document.getElementById('file-count');
+        const resultsList = document.getElementById('results-list');
+        const resultsContainer = document.getElementById('results-container');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+
+        const previews = {
+            upper: document.getElementById('preview-upper'),
+            lower: document.getElementById('preview-lower'),
+            sentence: document.getElementById('preview-sentence'),
+            title: document.getElementById('preview-title'),
+            camel: document.getElementById('preview-camel'),
+            pascal: document.getElementById('preview-pascal'),
+            snake: document.getElementById('preview-snake'),
+            kebab: document.getElementById('preview-kebab')
+        };
+
+        const converters = {
+            upper: (str) => str.toUpperCase(),
+            lower: (str) => str.toLowerCase(),
+            sentence: (str) => str.toLowerCase().replace(/(^\s*\w|[\.\!\?]\s*\w)/g, c => c.toUpperCase()),
+            title: (str) => str.toLowerCase().replace(/\b\w/g, c => c.toUpperCase()),
+            camel: (str) => str.toLowerCase()
+                .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+                .replace(/^(.)/, c => c.toLowerCase()),
+            pascal: (str) => str.toLowerCase()
+                .replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase())
+                .replace(/^(.)/, c => c.toUpperCase()),
+            snake: (str) => str.toLowerCase()
+                .replace(/\s+/g, '_')
+                .replace(/[^a-z0-9_]/g, '')
+                .replace(/_+/g, '_'),
+            kebab: (str) => str.toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^a-z0-9-]/g, '')
+                .replace(/-+/g, '-'),
+            toggle: (str) => str.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')
+        };
+
+        function updatePreviews() {
+            const text = textInput.value || "Preview Text";
+            Object.keys(previews).forEach(key => {
+                const converted = converters[key](text);
+                previews[key].textContent = converted.length > 50 ? converted.substring(0, 50) + '...' : converted;
+            });
+        }
+
+        function applyCase(type) {
+            if (uploadedFiles.length > 0) {
+                processBatch(type);
+                return;
+            }
+            if (!textInput.value) return;
+            textInput.value = converters[type](textInput.value);
+            updatePreviews();
+        }
+
+        // --- File Handling ---
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', handleFileSelect);
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('drag-over');
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            const files = e.dataTransfer.files;
+            if (files.length > 0) handleFiles(files);
+        });
+
+        function handleFileSelect(e) {
+            handleFiles(e.target.files);
+        }
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    uploadedFiles.push(file);
+                }
+            });
+            updateFileList();
+            fileInput.value = ''; // Reset for re-uploading same file
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCount.textContent = uploadedFiles.length;
+
+            if (uploadedFiles.length > 0) {
+                fileListContainer.classList.remove('hidden');
+            } else {
+                fileListContainer.classList.add('hidden');
+            }
+
+            uploadedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${file.name}</div>
+                            <div class="text-[10px] text-slate-400">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        async function processBatch(type) {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+
+            for (const file of uploadedFiles) {
+                try {
+                    const text = await file.text();
+                    const converted = converters[type](text);
+                    const blob = new Blob([converted], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+
+                    const result = {
+                        name: `converted_${type}_${file.name}`,
+                        url: url,
+                        size: blob.size,
+                        status: 'success'
+                    };
+                    processedResults.push(result);
+                    addResultToList(result);
+                } catch (err) {
+                    addResultToList({ name: file.name, status: 'error' });
+                }
+            }
+        }
+
+        function addResultToList(result) {
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-3 bg-green-50/50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-900/20';
+
+            if (result.status === 'success') {
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate text-green-700 dark:text-green-400">${result.name}</div>
+                            <div class="text-[10px] text-green-600/60">${(result.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <a href="${result.url}" download="${result.name}" class="p-2 text-green-600 hover:text-green-700 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </a>
+                `;
+            } else {
+                item.className = 'flex items-center justify-between p-3 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </div>
+                        <div class="text-xs font-bold truncate text-red-700 dark:text-red-400">Failed: ${result.name}</div>
+                    </div>
+                `;
+            }
+            resultsList.appendChild(item);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach(result => {
+                if (result.status === 'success') {
+                    const link = document.createElement('a');
+                    link.href = result.url;
+                    link.download = result.name;
+                    link.click();
+                }
+            });
+        });
+
+        textInput.addEventListener('input', updatePreviews);
+
+        document.querySelectorAll('.action-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const type = card.dataset.case;
+                if (uploadedFiles.length > 0) {
+                    processBatch(type);
+                    return;
+                }
+                const text = converters[type](textInput.value || "Preview Text");
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalLabel = card.querySelector('.action-label').textContent;
+                    card.querySelector('.action-label').textContent = 'COPIED!';
+                    card.classList.add('border-green-500/50', 'bg-green-50/50', 'dark:bg-green-900/10');
+                    setTimeout(() => {
+                        card.querySelector('.action-label').textContent = originalLabel;
+                        card.classList.remove('border-green-500/50', 'bg-green-50/50', 'dark:bg-green-900/10');
+                    }, 1500);
+                });
+            });
+        });
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                updatePreviews();
+            } catch (err) {
+                console.error('Failed to paste:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsContainer.classList.add('hidden');
+            updatePreviews();
+            fileInput.value = '';
+            textInput.focus();
+        });
+
+        // Initialize
+        updatePreviews();
+    </script>
+</body>
+</html>

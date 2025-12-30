@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>डुप्लिकेट लाइन्स हटाएँ (Remove Duplicate Lines) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="किसी भी टेक्स्ट या लिस्ट से डुप्लिकेट लाइन्स तुरंत हटाएँ। केस सेंसिटिविटी, व्हाइटस्पेस ट्रिमिंग और खाली लाइन्स हटाने के विकल्प। 100% प्राइवेट स्थानीय प्रोसेसिंग।">
+    <link rel="canonical" href="https://webutilitykit.com/remove-duplicate-lines/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/remove-duplicate-lines/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/remove-duplicate-lines/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Remove Duplicate Lines",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "534",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Batch processing, Case sensitivity options, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/remove-duplicate-lines.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">डुप्लिकेट लाइन्स हटाएँ</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपनी लिस्ट को तुरंत साफ करें। अपने डेटा की गोपनीयता बनाए रखते हुए अतिरिक्त एंट्री को हटाएँ।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
+
+                <!-- Input Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">मूल लिस्ट</label>
+                            <div class="flex gap-2">
+                                <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-xl bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5 font-bold">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    अपलोड
+                                </button>
+                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-900/60 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition border border-transparent hover:border-slate-200 dark:hover:border-slate-700">पेस्ट</button>
+                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">सभी क्लियर</button>
+                            </div>
+                        </div>
+
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-3xl transition-all duration-300 flex-grow flex flex-col min-h-[500px]">
+                            <textarea id="text-input" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" placeholder="यहाँ अपनी लिस्ट पेस्ट करें या फाइलें ड्रॉप करें..."></textarea>
+                            <input type="file" id="file-input" class="hidden" multiple accept=".txt,.json,.csv,.md">
+
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-3xl flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">यहाँ लिस्ट ड्रॉप करें</p>
+                            </div>
+                        </div>
+
+                        <!-- Uploaded Files -->
+                        <div id="file-list-container" class="mt-6 hidden">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3 px-2">अपलोडेड फाइलें (<span id="file-count">0</span>)</h4>
+                            <div id="file-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+
+                        <div class="mt-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-[2rem] border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">प्रोसेसिंग विकल्प</h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="case-sensitive" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">केस सेंसिटिव</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="trim-lines" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">व्हाइटस्पेस ट्रिम करें</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="remove-empty" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer" checked>
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">खाली लाइन्स हटाएँ</span>
+                                </label>
+                                <label class="flex items-center gap-3 cursor-pointer group">
+                                    <input type="checkbox" id="sort-output" class="w-5 h-5 rounded-lg border-2 border-slate-200 dark:border-slate-700 bg-transparent text-blue-600 focus:ring-blue-500/20 transition-all cursor-pointer">
+                                    <span class="text-sm font-medium text-slate-600 dark:text-slate-400 group-hover:text-blue-500 transition-colors">वर्णानुक्रम में सॉर्ट करें</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Result Pane -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex items-center justify-between mb-4">
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">यूनिक परिणाम</label>
+                            <button id="process-batch-btn" class="hidden text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 font-bold">बैच प्रोसेस करें</button>
+                            <button id="copy-btn" class="text-xs px-4 py-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">यूनिक लाइन्स कॉपी करें</button>
+                        </div>
+                        <textarea id="text-output" class="flex-grow w-full min-h-[500px] bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-0 rounded-3xl p-6 text-sm font-mono placeholder-slate-400 resize-none outline-none transition-all" readonly placeholder="परिणाम यहाँ दिखाई देगा..."></textarea>
+
+                        <!-- Processed Results -->
+                        <div id="results-container" class="mt-6 hidden border-t border-slate-100 dark:border-slate-800 pt-6">
+                            <div class="flex items-center justify-between mb-3 px-2">
+                                <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400">प्रोसेस किए गए परिणाम</h4>
+                                <button id="download-all-btn" class="text-[10px] font-black uppercase tracking-wider text-blue-600 hover:text-blue-700 transition flex items-center gap-1">
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    सभी डाउनलोड करें
+                                </button>
+                            </div>
+                            <div id="results-list" class="space-y-2 max-h-48 overflow-y-auto pr-2 custom-scrollbar"></div>
+                        </div>
+
+                        <div class="mt-6 grid grid-cols-2 gap-4">
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center">
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">डुप्लिकेट हटाए गए</div>
+                                <div id="stat-removed" class="text-2xl font-black text-blue-600 dark:text-blue-400">0</div>
+                            </div>
+                            <div class="p-6 rounded-3xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center">
+                                <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">यूनिक बचे हुए</div>
+                                <div id="stat-remaining" class="text-2xl font-black text-slate-900 dark:text-white">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">अपनी लिस्ट कैसे साफ करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">लिस्ट पेस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपना टेक्स्ट या लिस्ट इनपुट करें। सबसे अच्छे परिणाम के लिए प्रत्येक एंट्री को नई लाइन पर रखें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">विकल्प एडजस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">चुनें कि केस को अनदेखा करना है, स्पेस ट्रिम करना है या फाइनल रिजल्ट को ऑटोमेटिकली सॉर्ट करना है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">डेटा एक्सपोर्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अन्य एप्लिकेशन में इस्तेमाल के लिए अपनी क्लिपबोर्ड पर साफ, यूनिक लिस्ट को तुरंत कॉपी करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Data Integrity -->
+                <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">क्लीन डेटा की पावर</h2>
+                            <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
+                                अतिरिक्त डेटा प्रोसेसिंग को धीमा करता है और एनालिसिस में गलतियाँ पैदा करता है। हमारा डुप्लिकेट रिमूवर आपको अपनी लिस्ट में "सिंगल सोर्स ऑफ ट्रुथ" बनाए रखने में मदद करता है, चाहे आप ईमेल डेटाबेस, कोड एसेट्स या कॉन्टेंट इन्वेंटरी मैनेज कर रहे हों।
+                            </p>
+                            <div class="flex gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">प्रोसेस</div>
+                                    <div class="font-bold">इन-मेमोरी</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-xs font-bold uppercase mb-1">गोपनीयता</div>
+                                    <div class="font-bold">केवल स्थानीय</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Common Use Cases -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">डुप्लिकेट रिमूवल का कब इस्तेमाल करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-blue-600 mb-6">डेवलपमेंट और IT</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">लॉग एनालिसिस</span>
+                                    <span class="font-bold text-blue-500">यूनिक एरर्स</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                    <span class="font-medium">कॉन्फिग फाइल्स</span>
+                                    <span class="font-bold text-green-500">मर्ज कीज</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-orange-500">
+                                    <span class="font-medium">CSV क्लीनअप</span>
+                                    <span class="font-bold text-orange-500">डुप्स हटाएँ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                            <h3 class="text-xl font-bold text-purple-600 mb-6">मार्केटिंग और एडमिन</h3>
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                    <span class="font-medium">ईमेल लिस्ट</span>
+                                    <span class="font-bold text-slate-400">स्पैम से बचें</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-purple-500">
+                                    <span class="font-medium">इन्वेंटरी लिस्ट</span>
+                                    <span class="font-bold text-purple-500">यूनिक SKUs</span>
+                                </div>
+                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-red-500">
+                                    <span class="font-medium">SEO कीवर्ड्स</span>
+                                    <span class="font-bold text-red-500">डिडुप्लिकेट</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">एक्सपर्ट Q&A</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"व्हाइटस्पेस ट्रिम" कैसे काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                व्हाइटस्पेस ट्रिमिंग प्रत्येक लाइन की शुरुआत और अंत से स्पेस या टैब हटा देती है। यह डुप्लिकेट की पहचान करने के लिए महत्वपूर्ण है जो समान दिखते हैं लेकिन गुप्त स्पेस रखते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">लाइन्स की संख्या में कोई सीमा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                हमारा टूल प्रदर्शन के लिए अत्यधिक ऑप्टिमाइज़्ड है और आसानी से हजारों लाइन्स को हैंडल कर सकता है। चूंकि यह आपके ब्राउज़र में चलता है, सीमा आपके डिवाइस की मेमोरी पर निर्भर करती है, लेकिन यह आमतौर पर किसी भी स्टैंडर्ड लिस्ट के लिए पर्याप्त है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं सॉर्टिंग को रिवर्स कर सकता हूँ?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                वर्तमान में "वर्णानुक्रम में सॉर्ट करें" विकल्प स्टैंडर्ड A-Z सॉर्टिंग प्रदान करता है। अधिक जटिल सॉर्टिंग ज़रूरतों के लिए, आप हमारा डेडिकेटेड "टेक्स्ट सॉर्ट" टूल इस्तेमाल कर सकते हैं जिसमें कई एडवांस सॉर्टिंग एल्गोरिदम हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Remove Duplicate Lines Logic ===
+        const textInput = document.getElementById('text-input');
+        const textOutput = document.getElementById('text-output');
+        const statRemoved = document.getElementById('stat-removed');
+        const statRemaining = document.getElementById('stat-remaining');
+
+        const fileInput = document.getElementById('file-input');
+        const uploadBtn = document.getElementById('upload-btn');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const fileList = document.getElementById('file-list');
+        const fileListContainer = document.getElementById('file-list-container');
+        const fileCount = document.getElementById('file-count');
+        const resultsList = document.getElementById('results-list');
+        const resultsContainer = document.getElementById('results-container');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+        const processBatchBtn = document.getElementById('process-batch-btn');
+        const copyBtn = document.getElementById('copy-btn');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+
+        const options = {
+            caseSensitive: document.getElementById('case-sensitive'),
+            trimLines: document.getElementById('trim-lines'),
+            removeEmpty: document.getElementById('remove-empty'),
+            sortOutput: document.getElementById('sort-output')
+        };
+
+        function processText() {
+            const rawText = textInput.value;
+            if (!rawText) {
+                textOutput.value = '';
+                statRemoved.textContent = '0';
+                statRemaining.textContent = '0';
+                return;
+            }
+
+            const { uniqueLines, removedCount } = getUniqueLines(rawText);
+
+            // Update UI
+            textOutput.value = uniqueLines.join('\n');
+            statRemoved.textContent = removedCount.toLocaleString();
+            statRemaining.textContent = uniqueLines.length.toLocaleString();
+        }
+
+        function getUniqueLines(content) {
+            let lines = content.split(/\r?\n/);
+            const originalCount = lines.length;
+
+            if (options.trimLines.checked) lines = lines.map(line => line.trim());
+            if (options.removeEmpty.checked) lines = lines.filter(line => line.length > 0);
+
+            const uniqueLines = [];
+            const seen = new Set();
+
+            lines.forEach(line => {
+                const checkLine = options.caseSensitive.checked ? line : line.toLowerCase();
+                if (!seen.has(checkLine)) {
+                    seen.add(checkLine);
+                    uniqueLines.push(line);
+                }
+            });
+
+            if (options.sortOutput.checked) {
+                uniqueLines.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }));
+            }
+
+            return { uniqueLines, removedCount: originalCount - uniqueLines.length };
+        }
+
+        // --- File Handling ---
+        uploadBtn.addEventListener('click', () => fileInput.click());
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drag-over');
+            dropOverlay.classList.replace('opacity-0', 'opacity-100');
+        });
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('drag-over');
+                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            handleFiles(e.dataTransfer.files);
+        });
+
+        function handleFiles(files) {
+            Array.from(files).forEach(file => {
+                if (!uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    uploadedFiles.push(file);
+                }
+            });
+            updateFileList();
+            fileInput.value = '';
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            fileCount.textContent = uploadedFiles.length;
+            fileListContainer.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBatchBtn.classList.toggle('hidden', uploadedFiles.length === 0);
+            processBatchBtn.textContent = `${uploadedFiles.length} फाइल${uploadedFiles.length > 1 ? '' : ''} प्रोसेस करें`;
+
+            uploadedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800';
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <div class="overflow-hidden">
+                            <div class="text-xs font-bold truncate">${file.name}</div>
+                            <div class="text-[10px] text-slate-400">${(file.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
+        }
+
+        window.removeFile = (index) => {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        processBatchBtn.addEventListener('click', async () => {
+            processedResults = [];
+            resultsList.innerHTML = '';
+            resultsContainer.classList.remove('hidden');
+            let totalRemoved = 0;
+            let totalUnique = 0;
+
+            for (const file of uploadedFiles) {
+                try {
+                    const text = await file.text();
+                    const { uniqueLines, removedCount } = getUniqueLines(text);
+                    const blob = new Blob([uniqueLines.join('\n')], { type: 'text/plain' });
+                    const url = URL.createObjectURL(blob);
+
+                    totalRemoved += removedCount;
+                    totalUnique += uniqueLines.length;
+
+                    const result = {
+                        name: `cleaned_${file.name}`,
+                        url: url,
+                        size: blob.size,
+                        status: 'success',
+                        removed: removedCount
+                    };
+                    processedResults.push(result);
+                    addResultToList(result);
+                } catch (err) {
+                    addResultToList({ name: file.name, status: 'error' });
+                }
+            }
+            statRemoved.textContent = totalRemoved.toLocaleString();
+            statRemaining.textContent = totalUnique.toLocaleString();
+        });
+
+        function addResultToList(result) {
+            const item = document.createElement('div');
+            item.className = 'flex items-center justify-between p-3 bg-green-50/50 dark:bg-green-900/10 rounded-2xl border border-green-100 dark:border-green-900/20';
+
+            if (result.status === 'success') {
+                item.innerHTML = `
+                    <div class="flex items-center gap-3 overflow-hidden">
+                        <div class="p-2 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg shrink-0">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="overflow-hidden text-left">
+                            <div class="text-xs font-bold truncate text-green-700 dark:text-green-400">${result.name}</div>
+                            <div class="text-[10px] text-green-600/60">${result.removed} हटाए गए • ${(result.size / 1024).toFixed(1)} KB</div>
+                        </div>
+                    </div>
+                    <a href="${result.url}" download="${result.name}" class="p-2 text-green-600 hover:text-green-700 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </a>
+                `;
+            } else {
+                item.className = 'flex items-center justify-between p-3 bg-red-50/50 dark:bg-red-900/10 rounded-2xl border border-red-100 dark:border-red-900/20';
+                item.innerHTML = `<div class="text-xs font-bold truncate text-red-700 dark:text-red-400">फेल: ${result.name}</div>`;
+            }
+            resultsList.appendChild(item);
+        }
+
+        downloadAllBtn.addEventListener('click', () => {
+            processedResults.forEach(result => {
+                if (result.status === 'success') {
+                    const link = document.createElement('a');
+                    link.href = result.url;
+                    link.download = result.name;
+                    link.click();
+                }
+            });
+        });
+
+        // Listeners
+        textInput.addEventListener('input', processText);
+        Object.values(options).forEach(opt => opt.addEventListener('change', processText));
+
+        document.getElementById('paste-btn').addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                textInput.value = text;
+                processText();
+            } catch (err) {
+                console.error('Paste failed:', err);
+            }
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            textInput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            resultsContainer.classList.add('hidden');
+            processText();
+            fileInput.value = '';
+            textInput.focus();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (!textOutput.value) return;
+            navigator.clipboard.writeText(textOutput.value).then(() => {
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = 'कॉपी हो गया!';
+                copyBtn.classList.replace('bg-blue-600', 'bg-green-600');
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.classList.replace('bg-green-600', 'bg-blue-600');
+                }, 2000);
+            });
+        });
+
+        // Initialize
+        processText();
+    </script>
+</body>
+</html>

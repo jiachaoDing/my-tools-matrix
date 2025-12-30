@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XML फॉर्मेटर (XML Formatter) - निःशुल्क सुंदरता और सत्यापन उपकरण | WebUtilityKit</title>
+    <meta name="description" content="तुरंत XML डेटा को फॉर्मेट, सत्यापित और सुंदर बनाएं। सुरक्षित क्लाइंट-साइड प्रोसेसिंग, त्रुटि का पता लगाना और मिनिफिकेशन। कोई अपलोड आवश्यक नहीं। अभी फॉर्मेटिंग शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/xml-formatter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/xml-formatter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/xml-formatter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "XML Formatter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "612",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/xml-formatter.jpg"
+}
+</script>
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">XML फॉर्मेटर और सत्यापनकर्ता</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">वास्तविक समय त्रुटि का पता लगाने और सिंटैक्स सत्यापन के साथ अपने XML डेटा को तुरंत फॉर्मेट, सत्यापित और सुंदर बनाएं।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+
+                <!-- Input Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">इनपुट XML</label>
+                                <div class="flex gap-2">
+                                    <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-lg bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                        फ़ाइलें अपलोड करें
+                                    </button>
+                                    <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                        पेस्ट करें
+                                    </button>
+                                    <button id="clear-input-btn" class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                        साफ़ करें
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Drag & Drop Zone -->
+                            <div id="drop-zone" class="relative flex-1 border-2 border-dashed border-blue-300 dark:border-blue-600 rounded-2xl transition-all hover:border-blue-500 dark:hover:border-blue-400 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30">
+                                <input type="file" id="file-input" accept=".xml,.txt" multiple class="hidden">
+                                <textarea
+                                    id="xml-input"
+                                    class="absolute inset-0 w-full h-full p-6 pt-14 text-sm font-mono bg-transparent border-0 focus:ring-0 resize-none placeholder-slate-400 transition z-10"
+                                    placeholder='<note><to>User</to><from>System</from><message>Hello World</message></note>'
+                                ></textarea>
+                                <!-- Drop Zone Hint -->
+                                <div class="absolute top-3 left-0 right-0 text-center pointer-events-none z-0">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 rounded-lg text-xs font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        यहाँ XML फ़ाइलें क्लिक करें या ड्रैग करें, या नीचे पेस्ट करें
+                                    </div>
+                                </div>
+                                <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-blue-100/95 dark:bg-blue-900/95 backdrop-blur-sm rounded-2xl z-20 border-2 border-blue-500 dark:border-blue-400">
+                                    <div class="text-center">
+                                        <svg class="w-20 h-20 mx-auto text-blue-600 dark:text-blue-300 mb-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                        <p class="text-2xl font-bold text-blue-900 dark:text-blue-100 mb-2">फ़ाइलें यहाँ छोड़ें</p>
+                                        <p class="text-sm text-blue-700 dark:text-blue-300">.xml या .txt फ़ाइलें सपोर्ट करता है</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Uploaded Files List -->
+                            <div id="uploaded-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">अपलोड की गई फ़ाइलें</span>
+                                    <span id="file-count" class="text-xs text-slate-600 dark:text-slate-400"></span>
+                                </div>
+                                <div id="file-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Status Badge -->
+                            <div id="input-status" class="mt-4 flex items-center gap-2 text-sm font-medium hidden">
+                                <svg id="status-icon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                <span id="status-text"></span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="p-6 pt-0 flex flex-col gap-3">
+                            <button id="format-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98] flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                <span id="format-btn-text">XML फॉर्मेट करें</span>
+                            </button>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button id="minify-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    मिनिफाई करें
+                                </button>
+                                <button id="sample-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98] flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    नमूना
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full">
+                    <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+                        <div class="p-6 flex flex-col flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <label for="xml-output" class="text-sm font-semibold uppercase tracking-wider text-slate-500">फॉर्मेटेड आउटपुट</label>
+                                <div class="flex gap-2">
+                                    <button id="copy-btn" class="text-xs px-3 py-1.5 rounded-lg bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400 hover:bg-green-100 dark:hover:bg-green-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                                        कॉपी करें
+                                    </button>
+                                </div>
+                            </div>
+                            <textarea
+                                id="xml-output"
+                                class="flex-1 w-full min-h-[500px] p-6 text-sm font-mono bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-green-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
+                                placeholder="यहाँ फॉर्मेटेड XML दिखेगा..."
+                                readonly
+                            ></textarea>
+
+                            <!-- Processed Files List -->
+                            <div id="processed-files" class="mt-4 hidden">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">संसाधित फ़ाइलें</span>
+                                    <button id="download-all-btn" class="text-xs px-3 py-1 rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-900/20 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 transition flex items-center gap-1.5">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                        सभी डाउनलोड करें
+                                    </button>
+                                </div>
+                                <div id="processed-list" class="space-y-2 max-h-48 overflow-y-auto"></div>
+                            </div>
+
+                            <!-- Stats -->
+                            <div class="mt-4 grid grid-cols-3 gap-4">
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">तत्व</div>
+                                    <div id="stat-elements" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">गुण</div>
+                                    <div id="stat-attributes" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">आकार</div>
+                                    <div id="stat-size" class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-1">0 B</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Validation Result -->
+                        <div class="p-6 pt-0">
+                            <div id="validation-result" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900/50 hidden">
+                                <div class="flex items-start gap-3">
+                                    <svg id="validation-icon" class="w-5 h-5 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"></svg>
+                                    <div class="flex-1">
+                                        <div id="validation-title" class="font-semibold text-sm mb-1"></div>
+                                        <div id="validation-message" class="text-xs text-slate-600 dark:text-slate-400"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">XML फॉर्मेटर और सत्यापनकर्ता का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">XML पेस्ट या अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">इनपुट एरिया में सीधे अपना XML कोड पेस्ट करें, या बैच प्रोसेसिंग के लिए XML फ़ाइलें ड्रैग और ड्रॉप करें। एकाधिक फ़ाइलें सपोर्ट करती हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">फॉर्मेट या मिनिफाई करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">"Format XML" पर क्लिक करें ताकि उचित इंडेंटेशन के साथ सुंदर बनाया जाए, या "Minify" पर क्लिक करें ताकि व्हाइटस्पेस हटाकर संकुचित किया जाए।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">कॉपी करें या डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">क्लिपबोर्ड में XML कॉपी करें या एकाधिक फ़ाइलों के लिए "Download All" के साथ संसाधित फ़ाइलें डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">मुख्य विशेषताएं</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">रियल-टाइम सत्यापन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपके टाइप करते समय XML सिंटैक्स त्रुटियों का स्वतः पता लगाएं। विस्तृत त्रुटि संदेशों और लाइन नंबरों के साथ तत्काल प्रतिक्रिया प्राप्त करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% क्लाइंट-साइड प्रोसेसिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सभी फॉर्मेटिंग और सत्यापन JavaScript का उपयोग करके आपके ब्राउज़र में स्थानीय रूप से होता है। आपका XML डेटा किसी सर्वर पर कभी नहीं जाता या संग्रहीत नहीं होता।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">बैच फ़ाइल प्रोसेसिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक साथ एकाधिक XML फ़ाइलों को अपलोड और प्रोसेस करें। बैच डाउनलोड सपोर्ट के साथ दर्जनों फ़ाइलों को फॉर्मेट या मिनिफाई करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट सांख्यिकी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">तत्व संख्या, गुण संख्या और फ़ाइल आकार सहित विस्तृत XML सांख्यिकी देखें। एक नज़र में अपनी XML संरचना को समझें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">XML फॉर्मेटिंग क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                XML फॉर्मेटिंग (या ब्यूटिफाइंग) उचित इंडेंटेशन और लाइन ब्रेक जोड़कर XML कोड को अधिक पठनीय बनाता है। यह नेस्टेड तत्वों को पदानुक्रमित रूप से व्यवस्थित करता है, जिससे संरचना डेवलपर्स और विश्लेषकों के लिए स्पष्ट और समझने योग्य हो जाती है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मेरा XML डेटा सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                बिल्कुल! सभी XML प्रोसेसिंग पूरी तरह से आपके ब्राउज़र में JavaScript का उपयोग करके होती है। आपका XML डेटा कभी भी किसी सर्वर पर नहीं भेजा जाता या कहीं भी संग्रहीत नहीं किया जाता। संवेदनशील कॉन्फ़िगरेशन फ़ाइलों या डेटा के लिए यह पूर्ण गोपनीयता और सुरक्षा सुनिश्चित करता है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">फॉर्मेट और मिनिफाई में क्या अंतर है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                फॉर्मेट पठनीयता के लिए इंडेंटेशन और लाइन ब्रेक जोड़ता है (डेवलपमेंट के लिए उपयोगी), जबकि मिनिफाई फ़ाइल आकार को कम करने के लिए सभी अनावश्यक व्हाइटस्पेस हटा देता है (प्रोडक्शन के लिए उपयोगी)। दोनों XML संरचना और डेटा अखंडता को संरक्षित करते हैं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह टूल XML सिंटैक्स को वैलिडेट कर सकता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! टूल आपके टाइप करते समय XML सिंटैक्स को स्वतः वैलिडेट करता है और रियल-टाइम त्रुटि संदेश प्रदर्शित करता है। यह ब्राउज़र के DOMParser का उपयोग करके वैल-फॉर्म्डनेस की जांच करता है जिसमें मैचिंग टैग, उचित नेस्टिंग और वैलिड XML संरचना शामिल है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मैं एक साथ कई XML फ़ाइलों को प्रोसेस कर सकता हूं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ! ड्रॉप ज़ोन में फ़ाइलें ड्रैग करके या एक साथ कई फ़ाइलें चुनकर एकाधिक XML फ़ाइलें अपलोड करें। टूल सभी फ़ाइलों को प्रोसेस करेगा और आपको उन्हें अलग-अलग डाउनलोड करने या "Download All" बटन के साथ एक साथ डाउनलोड करने देगा।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        const xmlInput = document.getElementById('xml-input');
+        const xmlOutput = document.getElementById('xml-output');
+        const fileInput = document.getElementById('file-input');
+        const dropZone = document.getElementById('drop-zone');
+        const dropOverlay = document.getElementById('drop-overlay');
+        const uploadedFilesSection = document.getElementById('uploaded-files');
+        const fileList = document.getElementById('file-list');
+        const fileCount = document.getElementById('file-count');
+        const processedFilesSection = document.getElementById('processed-files');
+        const processedList = document.getElementById('processed-list');
+
+        const uploadBtn = document.getElementById('upload-btn');
+        const pasteBtn = document.getElementById('paste-btn');
+        const clearInputBtn = document.getElementById('clear-input-btn');
+        const formatBtn = document.getElementById('format-btn');
+        const formatBtnText = document.getElementById('format-btn-text');
+        const minifyBtn = document.getElementById('minify-btn');
+        const sampleBtn = document.getElementById('sample-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const downloadAllBtn = document.getElementById('download-all-btn');
+
+        const inputStatus = document.getElementById('input-status');
+        const statusIcon = document.getElementById('status-icon');
+        const statusText = document.getElementById('status-text');
+
+        const validationResult = document.getElementById('validation-result');
+        const validationIcon = document.getElementById('validation-icon');
+        const validationTitle = document.getElementById('validation-title');
+        const validationMessage = document.getElementById('validation-message');
+
+        const statElements = document.getElementById('stat-elements');
+        const statAttributes = document.getElementById('stat-attributes');
+        const statSize = document.getElementById('stat-size');
+
+        let uploadedFiles = [];
+        let processedResults = [];
+        let currentMode = 'format';
+
+        // Sample XML data
+        const sampleData = `<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+  <book id="bk101" category="programming">
+    <author>Gambardella, Matthew</author>
+    <title>XML Developer's Guide</title>
+    <genre>Computer</genre>
+    <price>44.95</price>
+    <publish_date>2000-10-01</publish_date>
+    <description>An in-depth look at creating applications with XML.</description>
+  </book>
+  <book id="bk102" category="fiction">
+    <author>Ralls, Kim</author>
+    <title>Midnight Rain</title>
+    <genre>Fantasy</genre>
+    <price>5.95</price>
+    <publish_date>2000-12-16</publish_date>
+    <description>A former architect battles corporate zombies.</description>
+  </book>
+</catalog>`;
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 B';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+        }
+
+        function showValidation(type, title, message) {
+            validationResult.classList.remove('hidden');
+            validationResult.classList.remove('bg-green-50', 'dark:bg-green-900/20', 'bg-red-50', 'dark:bg-red-900/20');
+
+            if (type === 'success') {
+                validationResult.classList.add('bg-green-50', 'dark:bg-green-900/20');
+                validationIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                validationIcon.classList.add('text-green-600', 'dark:text-green-400');
+                validationIcon.classList.remove('text-red-600', 'dark:text-red-400');
+                validationTitle.classList.add('text-green-700', 'dark:text-green-400');
+                validationTitle.classList.remove('text-red-700', 'dark:text-red-400');
+            } else {
+                validationResult.classList.add('bg-red-50', 'dark:bg-red-900/20');
+                validationIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                validationIcon.classList.add('text-red-600', 'dark:text-red-400');
+                validationIcon.classList.remove('text-green-600', 'dark:text-green-400');
+                validationTitle.classList.add('text-red-700', 'dark:text-red-400');
+                validationTitle.classList.remove('text-green-700', 'dark:text-green-400');
+            }
+
+            validationTitle.textContent = title;
+            validationMessage.textContent = message;
+        }
+
+        function hideValidation() {
+            validationResult.classList.add('hidden');
+        }
+
+        function updateStats(text) {
+            const bytes = new Blob([text]).size;
+            statSize.textContent = formatBytes(bytes);
+
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(text, "text/xml");
+
+                const elements = xmlDoc.getElementsByTagName('*').length;
+                statElements.textContent = elements.toLocaleString();
+
+                let attrCount = 0;
+                const allElements = xmlDoc.getElementsByTagName('*');
+                for (let i = 0; i < allElements.length; i++) {
+                    attrCount += allElements[i].attributes.length;
+                }
+                statAttributes.textContent = attrCount.toLocaleString();
+            } catch (e) {
+                statElements.textContent = '0';
+                statAttributes.textContent = '0';
+            }
+        }
+
+        function updateFileList() {
+            if (uploadedFiles.length === 0) {
+                uploadedFilesSection.classList.add('hidden');
+                fileList.innerHTML = '';
+                formatBtnText.textContent = 'XML फॉर्मेट करें';
+                return;
+            }
+
+            uploadedFilesSection.classList.remove('hidden');
+            fileCount.textContent = `${uploadedFiles.length} फ़ाइल${uploadedFiles.length > 1 ? 'ें' : ''}`;
+            formatBtnText.textContent = `${uploadedFiles.length} फ़ाइल${uploadedFiles.length > 1 ? 'ें' : ''} प्रोसेस करें`;
+
+            fileList.innerHTML = uploadedFiles.map((file, index) => `
+                <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <span class="font-medium truncate">${file.name}</span>
+                        <span class="text-slate-500 dark:text-slate-400">(${formatBytes(file.size)})</span>
+                    </div>
+                    <button onclick="removeFile(${index})" class="ml-2 p-1 hover:bg-red-100 dark:hover:bg-red-900/30 rounded text-red-600 dark:text-red-400 transition">
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function updateProcessedList() {
+            if (processedResults.length === 0) {
+                processedFilesSection.classList.add('hidden');
+                return;
+            }
+
+            processedFilesSection.classList.remove('hidden');
+            processedList.innerHTML = processedResults.map((result, index) => `
+                <div class="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+                    <div class="flex items-center gap-2 flex-1 min-w-0">
+                        <svg class="w-4 h-4 ${result.success ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            ${result.success ?
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>' :
+                                '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>'}
+                        </svg>
+                        <div class="flex-1 min-w-0">
+                            <div class="font-medium truncate">${result.fileName}</div>
+                            ${result.success ?
+                                `<div class="text-slate-500 dark:text-slate-400">${formatBytes(result.size)}</div>` :
+                                `<div class="text-red-600 dark:text-red-400">${result.error}</div>`}
+                        </div>
+                    </div>
+                    ${result.success ? `
+                        <button onclick="downloadSingleFile(${index})" class="ml-2 px-2 py-1 bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded transition flex items-center gap-1">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            डाउनलोड
+                        </button>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        window.removeFile = function(index) {
+            uploadedFiles.splice(index, 1);
+            updateFileList();
+        };
+
+        window.downloadSingleFile = function(index) {
+            const result = processedResults[index];
+            if (result && result.success) {
+                const blob = new Blob([result.content], { type: 'application/xml' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = result.fileName;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+        };
+
+        function handleFiles(files) {
+            const newFiles = Array.from(files).filter(file =>
+                file.type === 'application/xml' || file.type === 'text/xml' ||
+                file.name.endsWith('.xml') || file.name.endsWith('.txt')
+            );
+
+            if (newFiles.length === 0) {
+                showValidation('error', 'अमान्य फ़ाइलें', 'कृपया केवल XML या टेक्स्ट फ़ाइलें अपलोड करें।');
+                return;
+            }
+
+            uploadedFiles = [...uploadedFiles, ...newFiles];
+            updateFileList();
+            xmlInput.value = '';
+            hideValidation();
+        }
+
+        // Drag & Drop handlers
+        uploadBtn.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        dropZone.addEventListener('click', (e) => {
+            if (e.target === xmlInput) return;
+            fileInput.click();
+        });
+
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+            });
+        });
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.remove('hidden');
+                dropOverlay.classList.add('flex');
+            });
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => {
+                dropOverlay.classList.add('hidden');
+                dropOverlay.classList.remove('flex');
+            });
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            handleFiles(e.dataTransfer.files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = '';
+        });
+
+        function formatXML(xml) {
+            let formatted = '';
+            let indent = 0;
+            const tab = '  ';
+
+            xml.split(/>\s*</).forEach(node => {
+                if (node.match(/^\/\w/)) indent--;
+                formatted += tab.repeat(indent) + '<' + node + '>\n';
+                if (node.match(/^<?\w[^>]*[^\/]$/)) indent++;
+            });
+
+            return formatted.substring(1, formatted.length - 2);
+        }
+
+        function processXML(xmlStr, mode) {
+            try {
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(xmlStr, "text/xml");
+
+                const parserError = xmlDoc.getElementsByTagName("parsererror");
+                if (parserError.length > 0) {
+                    throw new Error(parserError[0].textContent);
+                }
+
+                const serializer = new XMLSerializer();
+                const xmlString = serializer.serializeToString(xmlDoc);
+
+                if (mode === 'format') {
+                    return {
+                        success: true,
+                        content: formatXML(xmlString)
+                    };
+                } else {
+                    return {
+                        success: true,
+                        content: xmlString.replace(/>\s+</g, '><')
+                    };
+                }
+            } catch (e) {
+                return {
+                    success: false,
+                    error: e.message
+                };
+            }
+        }
+
+        async function processFiles(mode) {
+            if (uploadedFiles.length === 0) {
+                const input = xmlInput.value.trim();
+                if (!input) {
+                    showValidation('error', 'खाली इनपुट', 'कृपया XML डेटा पेस्ट करें या फ़ाइलें अपलोड करें।');
+                    return;
+                }
+
+                const result = processXML(input, mode);
+                if (result.success) {
+                    xmlOutput.value = result.content;
+                    showValidation('success', 'मान्य XML', `आपका XML सफलतापूर्वक ${mode === 'format' ? 'फॉर्मेट' : 'मिनिफाई'} किया गया है।`);
+                    updateStats(result.content);
+                } else {
+                    showValidation('error', 'अमान्य XML', `पार्स त्रुटि: ${result.error}`);
+                    xmlOutput.value = '';
+                    updateStats('');
+                }
+                return;
+            }
+
+            // Process uploaded files
+            processedResults = [];
+
+            for (const file of uploadedFiles) {
+                try {
+                    const content = await file.text();
+                    const result = processXML(content, mode);
+
+                    if (result.success) {
+                        processedResults.push({
+                            fileName: file.name.replace(/\.(xml|txt)$/, '') + (mode === 'format' ? '_formatted.xml' : '_minified.xml'),
+                            content: result.content,
+                            size: new Blob([result.content]).size,
+                            success: true
+                        });
+                    } else {
+                        processedResults.push({
+                            fileName: file.name,
+                            error: result.error,
+                            success: false
+                        });
+                    }
+                } catch (error) {
+                    processedResults.push({
+                        fileName: file.name,
+                        error: error.message,
+                        success: false
+                    });
+                }
+            }
+
+            updateProcessedList();
+
+            const successCount = processedResults.filter(r => r.success).length;
+            const failCount = processedResults.length - successCount;
+
+            if (successCount > 0) {
+                showValidation('success', 'प्रोसेसिंग पूर्ण',
+                    `${successCount} फ़ाइल${successCount > 1 ? 'ें' : ''} सफलतापूर्वक प्रोसेस की गई${failCount > 0 ? `, ${failCount} विफल` : ''}।`);
+
+                const firstSuccess = processedResults.find(r => r.success);
+                if (firstSuccess) {
+                    xmlOutput.value = firstSuccess.content;
+                    updateStats(firstSuccess.content);
+                }
+            } else {
+                showValidation('error', 'प्रोसेसिंग विफल', 'सभी फ़ाइलें प्रोसेस करने में विफल।');
+            }
+        }
+
+        formatBtn.addEventListener('click', () => {
+            currentMode = 'format';
+            processFiles('format');
+        });
+
+        minifyBtn.addEventListener('click', () => {
+            currentMode = 'minify';
+            processFiles('minify');
+        });
+
+        downloadAllBtn.addEventListener('click', () => {
+            const successResults = processedResults.filter(r => r.success);
+            if (successResults.length === 0) return;
+
+            successResults.forEach((result, index) => {
+                setTimeout(() => {
+                    const blob = new Blob([result.content], { type: 'application/xml' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = result.fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, index * 100);
+            });
+        });
+
+        pasteBtn.addEventListener('click', async () => {
+            try {
+                const text = await navigator.clipboard.readText();
+                xmlInput.value = text;
+                hideValidation();
+            } catch (err) {
+                console.error('पेस्ट करने में विफल:', err);
+            }
+        });
+
+        clearInputBtn.addEventListener('click', () => {
+            xmlInput.value = '';
+            xmlOutput.value = '';
+            uploadedFiles = [];
+            processedResults = [];
+            updateFileList();
+            updateProcessedList();
+            hideValidation();
+            updateStats('');
+            fileInput.value = '';
+        });
+
+        sampleBtn.addEventListener('click', () => {
+            xmlInput.value = sampleData;
+            uploadedFiles = [];
+            updateFileList();
+            hideValidation();
+        });
+
+        copyBtn.addEventListener('click', () => {
+            const output = xmlOutput.value;
+            if (!output) {
+                showValidation('error', 'कॉपी करने के लिए कुछ नहीं', 'पहले XML फॉर्मेट या मिनिफाई करें।');
+                return;
+            }
+
+            navigator.clipboard.writeText(output).then(() => {
+                const originalHTML = copyBtn.innerHTML;
+                copyBtn.innerHTML = '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> कॉपी हो गया!';
+                copyBtn.classList.remove('bg-green-50', 'text-green-600');
+                copyBtn.classList.add('bg-green-600', 'text-white');
+
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalHTML;
+                    copyBtn.classList.remove('bg-green-600', 'text-white');
+                    copyBtn.classList.add('bg-green-50', 'text-green-600');
+                }, 2000);
+            });
+        });
+
+        // Auto-validate textarea input
+        let validationTimeout;
+        xmlInput.addEventListener('input', () => {
+            clearTimeout(validationTimeout);
+            validationTimeout = setTimeout(() => {
+                const input = xmlInput.value.trim();
+                if (input && uploadedFiles.length === 0) {
+                    try {
+                        const parser = new DOMParser();
+                        const xmlDoc = parser.parseFromString(input, "text/xml");
+                        const parserError = xmlDoc.getElementsByTagName("parsererror");
+
+                        if (parserError.length > 0) {
+                            throw new Error('अमान्य XML');
+                        }
+
+                        inputStatus.classList.remove('hidden');
+                        inputStatus.classList.remove('text-red-600');
+                        inputStatus.classList.add('text-green-600');
+                        statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                        statusText.textContent = 'मान्य XML';
+                    } catch (e) {
+                        inputStatus.classList.remove('hidden');
+                        inputStatus.classList.remove('text-green-600');
+                        inputStatus.classList.add('text-red-600');
+                        statusIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>';
+                        statusText.textContent = 'अमान्य XML';
+                    }
+                } else {
+                    inputStatus.classList.add('hidden');
+                }
+            }, 500);
+        });
+
+        // Initialize
+        updateStats('');
+    </script>
+</body>
+</html>

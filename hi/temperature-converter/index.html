@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>तापमान कन्वर्टर (Temperature Converter) - सेल्सियस फारेनहाइट केल्विन | WebUtilityKit</title>
+    <meta name="description" content="सेल्सियस, फारेनहाइट और केल्विन के बीच तुरंत कन्वर्ट करें। मुफ्त, सुरक्षित, और असीमित कन्वर्शंस। ब्राउज़र में स्थानीय रूप से प्रोसेस किया जाता है। अभी शुरू करें।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/temperature-converter/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/temperature-converter/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/temperature-converter/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Temperature Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "389",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/temperature-converter.jpg"
+}
+</script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">तापमान कन्वर्टर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">सेल्सियस, फारेनहाइट और केल्विन के बीच एक झटके में स्विच करें। खाना पकाने, विज्ञान या मौसम की जांच के लिए परफेक्ट।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से प्रोसेस किया जाता है।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-4xl px-6 mx-auto mb-24">
+            <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 md:p-12 shadow-sm border border-slate-100 dark:border-slate-700/50">
+                <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 items-center">
+                    <!-- From -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">से</label>
+                        <input type="number" id="from-value" value="0" step="any"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-2xl font-bold focus:ring-2 focus:ring-orange-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="from-unit"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-orange-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="C" selected>Celsius (°C)</option>
+                            <option value="F">Fahrenheit (°F)</option>
+                            <option value="K">Kelvin (K)</option>
+                        </select>
+                    </div>
+
+                    <!-- Swap Button -->
+                    <button id="swap-btn" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-700 hover:bg-orange-600 hover:text-white dark:hover:bg-orange-500 transition-all group mt-6 md:mt-10">
+                        <svg class="w-6 h-6 transform md:rotate-0 rotate-90 group-active:scale-90 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
+                        </svg>
+                    </button>
+
+                    <!-- To -->
+                    <div class="space-y-4">
+                        <label class="block text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">में</label>
+                        <input type="number" id="to-value" value="32" step="any"
+                            class="w-full bg-orange-50 dark:bg-orange-900/20 border-none rounded-2xl px-6 py-4 text-2xl font-bold text-orange-600 dark:text-orange-400 focus:ring-2 focus:ring-orange-500 transition-all outline-none"
+                            placeholder="0.00">
+                        <select id="to-unit"
+                            class="w-full bg-slate-50 dark:bg-slate-900/50 border-none rounded-2xl px-6 py-4 text-lg font-medium focus:ring-2 focus:ring-orange-500 transition-all outline-none appearance-none cursor-pointer">
+                            <option value="C">Celsius (°C)</option>
+                            <option value="F" selected>Fahrenheit (°F)</option>
+                            <option value="K">Kelvin (K)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="conversion-formula" class="mt-12 p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/30 text-center text-slate-600 dark:text-slate-400 font-medium italic">
+                    (0°C × 9/5) + 32 = 32°F
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">तापमान कन्वर्टर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-orange-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-orange-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-orange-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">डिग्री दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">"से" इनपुट फील्ड में वह मूल्य टाइप करें जिसे आप कन्वर्ट करना चाहते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-orange-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-orange-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-orange-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">स्केल चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">दोनों पक्षों के लिए सेल्सियस, फारेनहाइट या केल्विन में से चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-orange-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-orange-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-orange-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">तुरंत रिजल्ट</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कन्वर्टेड तापमान "में" फील्ड में तुरंत दिखाई देता है।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">विश्वसनीय कन्वर्शंस</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-orange-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">वैज्ञानिक सटीकता</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारे फॉर्मूले इंटरनेशनल स्टैंडर्ड्स का पालन करते हैं, जिसमें केल्विन के लिए सटीक ऑफसेट (273.15) शामिल है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-orange-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">पूर्ण गोपनीयता</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारे सभी टूल्स की तरह, कोई भी डेटा अपलोड नहीं होता। सब कुछ आपके ब्राउज़र में स्थानीय रूप से चलता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+
+
+        const fromValue = document.getElementById('from-value');
+        const toValue = document.getElementById('to-value');
+        const fromUnit = document.getElementById('from-unit');
+        const toUnit = document.getElementById('to-unit');
+        const swapBtn = document.getElementById('swap-btn');
+        const formulaDisplay = document.getElementById('conversion-formula');
+
+        function convert(source) {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+
+            if (source === 'from') {
+                const val = parseFloat(fromValue.value);
+                if (isNaN(val)) { toValue.value = ''; return; }
+                toValue.value = formatResult(performConversion(val, from, to));
+            } else {
+                const val = parseFloat(toValue.value);
+                if (isNaN(val)) { fromValue.value = ''; return; }
+                fromValue.value = formatResult(performConversion(val, to, from));
+            }
+            updateFormula();
+        }
+
+        function performConversion(val, from, to) {
+            if (from === to) return val;
+
+            // First convert everything to Celsius
+            let celsius;
+            if (from === 'C') celsius = val;
+            else if (from === 'F') celsius = (val - 32) * 5/9;
+            else if (from === 'K') celsius = val - 273.15;
+
+            // Then convert Celsius to target
+            if (to === 'C') return celsius;
+            if (to === 'F') return (celsius * 9/5) + 32;
+            if (to === 'K') return celsius + 273.15;
+        }
+
+        function formatResult(num) {
+            return Number(num.toFixed(8)).toString();
+        }
+
+        function updateFormula() {
+            const from = fromUnit.value;
+            const to = toUnit.value;
+            const val = parseFloat(fromValue.value) || 0;
+            const result = performConversion(val, from, to);
+
+            let formula = '';
+            if (from === 'C' && to === 'F') formula = `(${val}°C × 9/5) + 32 = ${formatResult(result)}°F`;
+            else if (from === 'F' && to === 'C') formula = `(${val}°F - 32) × 5/9 = ${formatResult(result)}°C`;
+            else if (from === 'C' && to === 'K') formula = `${val}°C + 273.15 = ${formatResult(result)}K`;
+            else if (from === 'K' && to === 'C') formula = `${val}K - 273.15 = ${formatResult(result)}°C`;
+            else if (from === 'F' && to === 'K') formula = `(${val}°F - 32) × 5/9 + 273.15 = ${formatResult(result)}K`;
+            else if (from === 'K' && to === 'F') formula = `(${val}K - 273.15) × 9/5 + 32 = ${formatResult(result)}°F`;
+            else formula = `${val} = ${val}`;
+
+            formulaDisplay.textContent = formula;
+        }
+
+        fromValue.addEventListener('input', () => convert('from'));
+        toValue.addEventListener('input', () => convert('to'));
+        fromUnit.addEventListener('change', () => convert('from'));
+        toUnit.addEventListener('change', () => convert('from'));
+
+        swapBtn.addEventListener('click', () => {
+            const tempUnit = fromUnit.value;
+            fromUnit.value = toUnit.value;
+            toUnit.value = tempUnit;
+            const tempVal = fromValue.value;
+            fromValue.value = toValue.value;
+            toValue.value = tempVal;
+            updateFormula();
+        });
+
+        updateFormula();
+    </script>
+</body>
+</html>

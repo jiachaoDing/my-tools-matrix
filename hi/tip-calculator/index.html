@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>टिप कैलकुलेटर (Tip Calculator) - मुफ्त और सुरक्षित | WebUtilityKit</title>
+    <meta name="description" content="टिप तुरंत कैलकुलेट करें और दोस्तों के साथ बिल आसानी से बाँटें। सटीक गणित, अनुकूलन योग्य प्रतिशत, और सुंदर UI। 100% निजी और स्थानीय।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/tip-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/tip-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/tip-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Tip Calculator",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "892",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, No server upload, Batch processing, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/tip-calculator.jpg"
+}
+</script>
+    <!-- Unified Component Management (Header + Footer + Theme) -->
+
+
+    <!-- Tool-specific Logic -->
+
+
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">टिप कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">दोस्तों के साथ बिल को तुरंत विभाजित करने के लिए सही टिप कैलकुलेट करें। सुरुचिपूर्ण, सटीक, और निजी।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% निजी। स्थानीय प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Input Section (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">बिल राशि</label>
+                                <div class="relative group">
+                                    <input type="number" id="bill-input" value="100" min="0" step="0.01" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5 pl-12">
+                                    <span class="absolute left-6 top-1/2 -translate-y-1/2 text-lg font-black text-slate-400">$</span>
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">बिल</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">टिप प्रतिशत चुनें</label>
+                                <div class="grid grid-cols-3 gap-3 mb-4">
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="10">10%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all bg-sky-600 text-white border-sky-600 shadow-lg shadow-sky-500/20 hover:bg-sky-700 hover:border-sky-700" data-percent="15">15%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="18">18%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="20">20%</button>
+                                    <button class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all" data-percent="25">25%</button>
+                                    <button id="custom-tip-btn" class="py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-sm font-bold hover:bg-white dark:hover:bg-slate-800 transition-all">कस्टम</button>
+                                </div>
+                                <div id="custom-tip-container" class="hidden">
+                                    <div class="relative group">
+                                        <input type="number" id="custom-tip-input" value="15" min="0" max="100" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5">
+                                        <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">लोगों की संख्या</label>
+                                <div class="relative group">
+                                    <input type="number" id="people-input" value="2" min="1" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-sky-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-sky-500/5">
+                                    <span class="absolute right-4 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-slate-200/50 dark:bg-slate-800/50 rounded-lg text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter border border-slate-200/50 dark:border-slate-700/50">लोग</span>
+                                </div>
+                                <div class="flex gap-2 mt-4">
+                                    <button id="decrement-people" class="flex-1 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-lg font-black hover:bg-white dark:hover:bg-slate-800 transition-all">-</button>
+                                    <button id="increment-people" class="flex-1 py-2 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-lg font-black hover:bg-white dark:hover:bg-slate-800 transition-all">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-sky-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-sky-500/20 relative overflow-hidden">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-sky-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label class="text-xs font-bold text-sky-200 uppercase tracking-[0.2em] block mb-12">प्रति व्यक्ति अंतिम विभाजन</label>
+
+                            <div class="flex-grow space-y-12">
+                                <!-- Hero Results -->
+                                <div class="flex flex-col sm:flex-row gap-8 items-center justify-between border-b border-sky-500/30 pb-12">
+                                    <div>
+                                        <div class="text-sky-200 text-xs font-bold uppercase mb-2">टिप राशि</div>
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-sky-200 text-2xl font-black italic">$</span>
+                                            <span id="tip-per-person" class="text-6xl font-black text-white tracking-tighter tabular-nums">7.50</span>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-sky-200 text-xs font-bold uppercase mb-2 text-right">प्रति व्यक्ति कुल</div>
+                                        <div class="flex items-baseline gap-1 justify-end">
+                                            <span class="text-sky-200 text-2xl font-black italic">$</span>
+                                            <span id="total-per-person" class="text-7xl font-black text-white tracking-tighter tabular-nums">57.50</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Secondary Totals -->
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20">
+                                        <div class="text-sky-200 text-[10px] font-black uppercase mb-1 tracking-widest">टिप सहित कुल बिल</div>
+                                        <div id="total-bill-all" class="text-2xl font-bold text-white">$115.00</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-6 rounded-3xl border border-white/20">
+                                        <div class="text-sky-200 text-[10px] font-black uppercase mb-1 tracking-widest">कुल टिप</div>
+                                        <div id="total-tip-all" class="text-2xl font-bold text-white">$15.00</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight/Disclaimer -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-sky-200/60 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span><span id="summary-people">2</span> लोगों के लिए <span id="summary-tip">15</span>% टिप के आधार पर कैलकुलेट किया गया।</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">टिप कैलकुलेटर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">बिल दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टिप जोड़ने से पहले अपने चेक की कुल राशि दर्ज करके शुरू करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">टिप प्रतिशत निर्धारित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">आपके द्वारा प्राप्त सेवा के स्तर के लिए सामान्य टिप प्रतिशत चुनें या कस्टम मूल्य दर्ज करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">बिल बाँटें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">लोगों की संख्या समायोजित करें ताकि देख सकें कि टिप सहित प्रत्येक व्यक्ति को क्या देना होगा।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">टिप देने की शिष्टाचार</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                दुनिया भर में टिप संस्कृति अलग-अलग होती है, लेकिन कई क्षेत्रों में अच्छी सेवा के लिए 15-20% मानक है। हमारा कैलकुलेटर आपको गणितीय सटीकता के साथ इन सामाजिक मानदंडों को नेविगेट करने में मदद करता है, हर बार सही राशि छोड़ने की गारंटी देता है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">10-15%: सम्मानजनक सेवा</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">18-20%: मानक अच्छी सेवा</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-sky-500 rounded-full"></div>
+                                    <span class="text-slate-200">22-25%: असाधारण सेवा</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-sky-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-sky-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारे कैलकुलेटर को क्यों चुनें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तत्काल प्रतिक्रिया</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">जैसे ही आप टाइप करते हैं या सेटिंग बदलते हैं, परिणाम वास्तविक समय में अपडेट होते हैं। कोई इंतजार नहीं, सिर्फ तेज गणना।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता गारंटीड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका बिल विवरण आपके डिवाइस से बाहर कभी नहीं जाता। सभी गणित आपके ब्राउज़र में स्थानीय रूप से किया जाता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">मोबाइल ऑप्टिमाइज़्ड</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टेबल पर इस्तेमाल करने के लिए डिज़ाइन किया गया। तेज़, उत्तरदायी, और रेस्टोरेंट की रोशनी में पढ़ने में आसान।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">शून्य त्रुटियाँ</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">मैनुअल गणित की गलतियों की शर्मिंदगी से बचें। टिप और विभाजन के लिए सटीक आंकड़े तुरंत प्राप्त करें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">टिप कैलकुलेटर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कुल राशि पर टिप देना बेहतर है या पूर्व-कर राशि पर?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                मानक शिष्टाचार आपके बिल की <strong>पूर्व-कर</strong> राशि पर टिप देने का सुझाव देता है। हालाँकि, कई लोग पूर्व-कर राशि पर टिप देने को अधिक सरल और अधिक उदार मानते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"बिल बाँटना" कैसे काम करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हमारा कैलकुलेटर आपके द्वारा निर्दिष्ट लोगों की संख्या से कुल बिल (टिप सहित) को विभाजित करता है। इससे प्रत्येक व्यक्ति को कितना देना है, यह तय होता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tip Calculator Logic ===
+        const billInput = document.getElementById('bill-input');
+        const tipBtns = document.querySelectorAll('.tip-btn:not(#custom-tip-btn)');
+        const customTipBtn = document.getElementById('custom-tip-btn');
+        const customTipContainer = document.getElementById('custom-tip-container');
+        const customTipInput = document.getElementById('custom-tip-input');
+        const peopleInput = document.getElementById('people-input');
+        const decrementPeople = document.getElementById('decrement-people');
+        const incrementPeople = document.getElementById('increment-people');
+
+        const tipPerPersonEl = document.getElementById('tip-per-person');
+        const totalPerPersonEl = document.getElementById('total-per-person');
+        const totalBillAllEl = document.getElementById('total-bill-all');
+        const totalTipAllEl = document.getElementById('total-tip-all');
+        const summaryPeople = document.getElementById('summary-people');
+        const summaryTip = document.getElementById('summary-tip');
+
+        let activeTipPercent = 15;
+
+        function calculate() {
+            const bill = parseFloat(billInput.value) || 0;
+            const people = parseInt(peopleInput.value) || 1;
+            const tipPercent = activeTipPercent;
+
+            const totalTip = bill * (tipPercent / 100);
+            const totalBill = bill + totalTip;
+            const tipPerPerson = totalTip / people;
+            const totalPerPerson = totalBill / people;
+
+            // Update UI
+            tipPerPersonEl.textContent = tipPerPerson.toFixed(2);
+            totalPerPersonEl.textContent = totalPerPerson.toFixed(2);
+            totalBillAllEl.textContent = `$${totalBill.toFixed(2)}`;
+            totalTipAllEl.textContent = `$${totalTip.toFixed(2)}`;
+            summaryPeople.textContent = people;
+            summaryTip.textContent = tipPercent;
+        }
+
+        function setActiveTip(percent, isCustom = false) {
+            activeTipPercent = percent;
+            tipBtns.forEach(btn => btn.classList.remove('active-tip'));
+            customTipBtn.classList.remove('active-tip');
+
+            if (isCustom) {
+                customTipBtn.classList.add('active-tip');
+                customTipContainer.classList.remove('hidden');
+            } else {
+                customTipContainer.classList.add('hidden');
+                tipBtns.forEach(btn => {
+                    if (btn.dataset.percent == percent) btn.classList.add('active-tip');
+                });
+            }
+            calculate();
+        }
+
+        billInput.addEventListener('input', calculate);
+        peopleInput.addEventListener('input', calculate);
+
+        tipBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setActiveTip(parseFloat(btn.dataset.percent));
+            });
+        });
+
+        customTipBtn.addEventListener('click', () => {
+            setActiveTip(parseFloat(customTipInput.value), true);
+        });
+
+        customTipInput.addEventListener('input', () => {
+            activeTipPercent = parseFloat(customTipInput.value) || 0;
+            calculate();
+        });
+
+        decrementPeople.addEventListener('click', () => {
+            const val = parseInt(peopleInput.value) || 1;
+            if (val > 1) {
+                peopleInput.value = val - 1;
+                calculate();
+            }
+        });
+
+        incrementPeople.addEventListener('click', () => {
+            const val = parseInt(peopleInput.value) || 1;
+            peopleInput.value = val + 1;
+            calculate();
+        });
+
+        // Init
+        calculate();
+
+    </script>
+</body>
+</html>

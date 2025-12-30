@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF से JPG (PDF to JPG) - मुफ्त कन्वर्टर और बैच एक्सपोर्ट | WebUtilityKit</title>
+    <meta name="description" content="PDF पेजों को उच्च-गुणवत्ता वाली JPG छवियों में तुरंत कन्वर्ट करें। बैच प्रोसेसिंग, समायोज्य गुणवत्ता, और स्थानीय कन्वर्शन। अपलोड की आवश्यकता नहीं। अभी कन्वर्ट करना शुरू करें!">
+    <link rel="canonical" href="https://webutilitykit.com/hi/pdf-to-jpg/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/pdf-to-jpg/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/pdf-to-jpg/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "PDF to JPG Converter",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.9",
+    "ratingCount": "912",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Client-side processing, Batch conversion, High-resolution export, No server upload, ZIP download, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/pdf-to-jpg.jpg"
+}
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">PDF से JPG</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">अपने PDF दस्तावेज़ के प्रत्येक पृष्ठ को एक स्वतंत्र JPG छवि के रूप में निकालें। उच्च-रिज़ॉल्यूशन रेंडरिंग, 100% स्थानीय प्रोसेसिंग।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय ब्राउज़र में संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-24">
+            <!-- Drop Zone -->
+            <div id="drop-zone" class="relative group border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[3rem] bg-white dark:bg-slate-800/40 p-16 flex flex-col items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50/30 transition-all min-h-[400px]">
+                <input type="file" id="file-input" class="hidden" accept=".pdf">
+                <div class="w-24 h-24 bg-blue-600 text-white rounded-[2.5rem] flex items-center justify-center mb-8 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                </div>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">PDF फ़ाइल चुनें</h3>
+                <p class="text-slate-500 dark:text-slate-400">खींचें और छोड़ें या चुनने के लिए क्लिक करें अपनी PDF फ़ाइल</p>
+
+                <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[3rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-blue-500 border-dashed">
+                    <p class="text-blue-600 font-bold text-xl">कन्वर्ज़न शुरू करने के लिए छोड़ें</p>
+                </div>
+            </div>
+
+            <!-- Result Area -->
+            <div id="result-area" class="hidden mt-8 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+                <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 border border-slate-100 dark:border-slate-800/50">
+                    <div class="flex flex-col md:flex-row items-center gap-6">
+                        <div id="file-info" class="flex-grow flex items-center gap-4">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 id="filename" class="font-bold text-slate-900 dark:text-white">filename.pdf</h4>
+                                <p id="filesize" class="text-sm text-slate-500 uppercase tracking-wider">0 KB • 0 पेज</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <select id="quality" class="px-4 py-2 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 outline-none focus:ring-2 focus:ring-blue-500/20 text-sm font-medium">
+                                <option value="1">मानक (1x)</option>
+                                <option value="2" selected>उच्च (2x)</option>
+                                <option value="3">अतिउच्च (3x)</option>
+                            </select>
+                            <button id="convert-btn" class="px-8 py-3 bg-blue-600 text-white font-bold rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/25">
+                                अभी कन्वर्ट करें
+                            </button>
+                            <button id="reset-btn" class="p-3 text-slate-400 hover:text-red-500 transition-colors">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div id="progress-container" class="hidden mt-8">
+                        <div class="flex items-center justify-between mb-2">
+                            <span id="progress-text" class="text-sm font-medium text-slate-600">पेज 1 / 10 प्रोसेस हो रहा है...</span>
+                            <span id="progress-percent" class="text-sm font-bold text-blue-600">10%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 dark:bg-slate-900 rounded-full overflow-hidden">
+                            <div id="progress-bar" class="w-0 h-full bg-blue-600 transition-all duration-300"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Grid -->
+                <div id="preview-grid" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                    <!-- Preview items will be injected here -->
+                </div>
+
+                <!-- Actions -->
+                <div id="batch-actions" class="hidden flex justify-center py-8">
+                    <button id="download-zip" class="px-10 py-4 bg-green-600 text-white font-black text-lg rounded-[2rem] hover:bg-green-700 transition-all shadow-2xl shadow-green-500/30 flex items-center gap-3">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        सभी को डाउनलोड करें (ZIP)
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">PDF से JPG कैसे कन्वर्ट करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold mb-3">PDF अपलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">जिस PDF को आप कन्वर्ट करना चाहते हैं उसे अपलोड करें। फ़ाइलें पूरी तरह स्थानीय रूप से प्रोसेस की जाती हैं।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold mb-3">गुणवत्ता निर्धारित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">अपनी पसंदीदा रेंडरिंग स्केल चुनें। उच्च स्केल से अधिक स्पष्ट छवियाँ मिलती हैं।</p>
+                        </div>
+                        <div class="p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center group">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold mb-3">छवियाँ डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">व्यक्तिगत पेज डाउनलोड करें या सब कुछ एक ZIP फ़ाइल में बैच डाउनलोड करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">गोपनीयता प्रथम, स्थानीय कन्वर्ज़न</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                हम आपकी फ़ाइलों को कभी अपलोड नहीं करते। सभी कन्वर्ज़न आपके ब्राउज़र के भीतर होते हैं। इसका मतलब है कि आपकी संवेदनशील दस्तावेज़ कभी आपकी डिवाइस नहीं छोड़ती।
+                            </p>
+                            <ul class="space-y-4">
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">100% ऑफलाइन कन्वर्ज़न लॉजिक</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">कोई सर्वर-साइड कैशिंग नहीं</span>
+                                </li>
+                                <li class="flex items-center gap-3">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">बड़े फ़ाइलों के लिए त्वरित पूर्वावलोकन</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const resultArea = document.getElementById('result-area');
+        const filenameLabel = document.getElementById('filename');
+        const filesizeLabel = document.getElementById('filesize');
+        const previewGrid = document.getElementById('preview-grid');
+        const convertBtn = document.getElementById('convert-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const progressContainer = document.getElementById('progress-container');
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('progress-text');
+        const progressPercent = document.getElementById('progress-percent');
+        const downloadZipBtn = document.getElementById('download-zip');
+        const batchActions = document.getElementById('batch-actions');
+
+        let currentFile = null;
+        let pdfDoc = null;
+        let convertedImages = [];
+
+        dropZone.onclick = () => fileInput.click();
+        fileInput.onchange = (e) => handleFile(e.target.files[0]);
+
+        dropZone.ondragover = (e) => {
+            e.preventDefault();
+            dropZone.classList.add('border-blue-500', 'bg-blue-50/50');
+            document.getElementById('drop-overlay').classList.replace('opacity-0', 'opacity-100');
+        };
+
+        ['dragleave', 'drop'].forEach(event => {
+            dropZone.addEventListener(event, () => {
+                dropZone.classList.remove('border-blue-500', 'bg-blue-50/50');
+                document.getElementById('drop-overlay').classList.replace('opacity-100', 'opacity-0');
+            });
+        });
+
+        dropZone.ondrop = (e) => {
+            e.preventDefault();
+            handleFile(e.dataTransfer.files[0]);
+        };
+
+        async function handleFile(file) {
+            if (!file || file.type !== 'application/pdf') return;
+            currentFile = file;
+            filenameLabel.textContent = file.name;
+            filesizeLabel.textContent = `${(file.size / 1024).toFixed(1)} KB`;
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                filesizeLabel.textContent += ` • ${pdfDoc.numPages} पेज`;
+
+                dropZone.classList.add('hidden');
+                resultArea.classList.remove('hidden');
+                previewGrid.innerHTML = '';
+                convertedImages = [];
+                batchActions.classList.add('hidden');
+            } catch (err) {
+                alert('PDF पढ़ने में विफल');
+                console.error(err);
+            }
+        }
+
+        convertBtn.onclick = async () => {
+            if (!pdfDoc) return;
+
+            convertBtn.disabled = true;
+            convertBtn.classList.add('opacity-50');
+            progressContainer.classList.remove('hidden');
+            previewGrid.innerHTML = '';
+            convertedImages = [];
+            batchActions.classList.add('hidden');
+
+            const quality = parseFloat(document.getElementById('quality').value);
+            const totalPages = pdfDoc.numPages;
+
+            for (let i = 1; i <= totalPages; i++) {
+                progressText.textContent = `पेज ${i} / ${totalPages} प्रोसेस हो रहा है...`;
+                const percent = Math.round((i / totalPages) * 100);
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = `${percent}%`;
+
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: quality });
+
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                await page.render({ canvasContext: context, viewport: viewport }).promise;
+
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.9);
+                convertedImages.push({ name: `page-${i}.jpg`, url: dataUrl });
+
+                // Create preview
+                const card = document.createElement('div');
+                card.className = 'group relative bg-white dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm animate-in fade-in zoom-in duration-300';
+                card.innerHTML = `
+                    <img src="${dataUrl}" class="w-full aspect-[3/4] object-cover">
+                    <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <a href="${dataUrl}" download="page-${i}.jpg" class="p-2 bg-white text-slate-900 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-lg">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        </a>
+                    </div>
+                    <div class="absolute bottom-2 right-2 px-2 py-1 bg-black/50 backdrop-blur-md rounded text-[10px] font-black text-white">${i}</div>
+                `;
+                previewGrid.appendChild(card);
+            }
+
+            convertBtn.disabled = false;
+            convertBtn.classList.remove('opacity-50');
+            progressContainer.classList.add('hidden');
+            batchActions.classList.remove('hidden');
+        };
+
+        downloadZipBtn.onclick = async () => {
+            if (convertedImages.length === 0) return;
+
+            const zip = new JSZip();
+            convertedImages.forEach(img => {
+                const base64Data = img.url.split(',')[1];
+                zip.file(img.name, base64Data, { base64: true });
+            });
+
+            const content = await zip.generateAsync({ type: 'blob' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(content);
+            link.download = `${currentFile.name.replace('.pdf', '')}_images.zip`;
+            link.click();
+        };
+
+        resetBtn.onclick = () => {
+            currentFile = null;
+            pdfDoc = null;
+            convertedImages = [];
+            dropZone.classList.remove('hidden');
+            resultArea.classList.add('hidden');
+            fileInput.value = '';
+        };
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>कॉइन फ्लिपर (Coin Flipper) - रैंडम हेड्स या टेल्स जेनरेटर | WebUtilityKit</title>
+    <meta name="description" content="ऑनलाइन कॉइन फ्लिप करें, वास्तविक रैंडमनेस के साथ हेड्स या टेल्स। मुफ्त हेड्स या टेल्स जेनरेटर Web Crypto API का उपयोग करके। तुरंत निर्णय लें, 100% निष्पक्ष और सुरक्षित।">
+    <link rel="canonical" href="https://webutilitykit.com/hi/coin-flipper/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/coin-flipper/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/coin-flipper/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Coin Flipper",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Web",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "ratingCount": "512",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "featureList": "Cryptographically secure random, Batch flipping, Session statistics, 3D animation, Dark mode",
+  "screenshot": "https://webutilitykit.com/assets/screenshots/coin-flipper.jpg"
+}
+    </script>
+    <style>
+        .coin {
+            width: 240px;
+            height: 240px;
+            max-width: 100%;
+            perspective: 1000px;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        @media (max-width: 640px) {
+            .coin {
+                width: 180px;
+                height: 180px;
+            }
+        }
+        .coin-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform var(--flip-duration, 1.5s) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            box-shadow:
+                inset 0 0 20px rgba(0,0,0,0.1),
+                0 10px 30px -10px rgba(0,0,0,0.3);
+            border: 8px solid rgba(255,255,255,0.2);
+        }
+        .coin-heads {
+            background: linear-gradient(135deg, #fcd34d 0%, #d97706 100%);
+            color: #78350f;
+        }
+        .coin-tails {
+            background: linear-gradient(135deg, #94a3b8 0%, #475569 100%);
+            color: #1e293b;
+            transform: rotateY(180deg);
+        }
+        .flip-animation-heads {
+            animation: flipHeads var(--flip-duration, 1.5s) ease-out forwards;
+        }
+        .flip-animation-tails {
+            animation: flipTails var(--flip-duration, 1.5s) ease-out forwards;
+        }
+        @keyframes flipHeads {
+            from { transform: rotateY(0) translateY(0); }
+            25% { transform: rotateY(720deg) translateY(-150px); }
+            50% { transform: rotateY(1440deg) translateY(-200px); }
+            75% { transform: rotateY(2160deg) translateY(-150px); }
+            to { transform: rotateY(2880deg) translateY(0); }
+        }
+        @keyframes flipTails {
+            from { transform: rotateY(0) translateY(0); }
+            25% { transform: rotateY(720deg) translateY(-150px); }
+            50% { transform: rotateY(1440deg) translateY(-200px); }
+            75% { transform: rotateY(2340deg) translateY(-150px); }
+            to { transform: rotateY(3060deg) translateY(0); }
+        }
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            background: white;
+            border-radius: 50%;
+            animation: sparkleAnim 0.8s ease-out forwards;
+        }
+        @keyframes sparkleAnim {
+            0% { transform: scale(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: scale(1.5) rotate(180deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors overflow-x-hidden">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">कॉइन फ्लिपर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">हेड्स या टेल्स? हमारे वर्चुअल कॉइन टॉस के साथ तुरंत निर्णय लें। निष्पक्ष, रैंडम, और त्वरित।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% रैंडम। सुरक्षित वेब क्रिप्टो द्वारा संचालित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-4 sm:px-6 mx-auto mb-24">
+            <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch">
+
+                <!-- Flip Zone -->
+                <div class="w-full lg:flex-1 bg-white dark:bg-slate-800 rounded-[2.5rem] sm:rounded-[3rem] p-6 sm:p-12 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex flex-col items-center justify-center relative overflow-hidden min-h-[500px] sm:min-h-[600px]">
+                    <div id="sparkle-container" class="absolute inset-0 pointer-events-none"></div>
+
+                    <!-- Advanced Controls -->
+                    <div class="w-full max-w-md grid grid-cols-2 gap-4 mb-8">
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">फ्लिप काउंट</label>
+                            <div class="flex items-center bg-slate-50 dark:bg-slate-900 rounded-xl p-1 border border-slate-200 dark:border-slate-700">
+                                <button id="dec-count" class="w-8 h-8 flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path></svg>
+                                </button>
+                                <input type="number" id="batch-count" value="1" min="1" max="100" class="flex-1 bg-transparent border-none text-center font-bold text-sm focus:ring-0">
+                                <button id="inc-count" class="w-8 h-8 flex items-center justify-center hover:bg-white dark:hover:bg-slate-800 rounded-lg transition-colors text-slate-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-xs font-bold text-slate-400 uppercase tracking-wider">स्पीड (सेकंड)</label>
+                            <select id="flip-speed" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2 text-sm font-bold focus:ring-2 focus:ring-blue-500/20 outline-none transition-all">
+                                <option value="2.5">स्लो (2.5s)</option>
+                                <option value="1.5" selected>नॉर्मल (1.5s)</option>
+                                <option value="0.8">फास्ट (0.8s)</option>
+                                <option value="0.4">इंस्टेंट (0.4s)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="coin mb-8 sm:mb-12 shrink-0" id="coin">
+                        <div class="coin-inner" id="coin-inner">
+                            <div class="coin-face coin-heads">
+                                <div class="flex flex-col items-center">
+                                    <svg class="w-12 h-12 sm:w-16 sm:h-16 mb-2" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                                    <span class="text-xl sm:text-2xl">HEADS</span>
+                                </div>
+                            </div>
+                            <div class="coin-face coin-tails">
+                                <div class="flex flex-col items-center">
+                                    <svg class="w-12 h-12 sm:w-16 sm:h-16 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7z"/></svg>
+                                    <span class="text-xl sm:text-2xl">TAILS</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center space-y-4 w-full px-4">
+                        <div id="result-text" class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white opacity-0 transition-opacity duration-300 break-words">यह हेड्स है!</div>
+                        <button id="flip-btn" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded-2xl shadow-lg shadow-blue-500/30 active:scale-95 transition-all text-xl">
+                            कॉइन फ्लिप करें
+                        </button>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">फ्लिप करने के लिए कॉइन या बटन पर क्लिक करें</p>
+                    </div>
+                </div>
+
+                <!-- Stats Panel -->
+                <div class="w-full lg:w-80 flex flex-col gap-6">
+                    <div class="bg-white dark:bg-slate-800 rounded-3xl p-8 shadow-sm border border-slate-200/50 dark:border-slate-700/50 flex-grow">
+                        <h2 class="text-xl font-bold mb-8 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            टॉस स्टेटिस्टिक
+                        </h2>
+
+                        <div class="space-y-8">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 bg-amber-500 rounded-full"></div>
+                                    <span class="font-medium text-slate-600 dark:text-slate-400">Heads</span>
+                                </div>
+                                <span id="heads-count" class="text-2xl font-black text-slate-900 dark:text-white">0</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-3 h-3 bg-slate-400 rounded-full"></div>
+                                    <span class="font-medium text-slate-600 dark:text-slate-400">Tails</span>
+                                </div>
+                                <span id="tails-count" class="text-2xl font-black text-slate-900 dark:text-white">0</span>
+                            </div>
+
+                            <div class="pt-4 border-t border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-sm font-bold text-slate-400 uppercase">कुल फ्लिप</span>
+                                    <span id="total-flips" class="font-mono text-slate-900 dark:text-white">0</span>
+                                </div>
+                                <div class="w-full h-3 bg-slate-100 dark:bg-slate-700 rounded-full overflow-hidden flex">
+                                    <div id="heads-bar" class="h-full bg-amber-500 transition-all duration-500" style="width: 50%"></div>
+                                    <div id="tails-bar" class="h-full bg-slate-400 transition-all duration-500" style="width: 50%"></div>
+                                </div>
+                            </div>
+
+                            <button id="reset-stats" class="w-full py-3 text-sm font-semibold text-slate-500 hover:text-red-500 dark:text-slate-400 dark:hover:text-red-400 transition-colors flex items-center justify-center gap-2">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                स्टेट रीसेट करें
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="recent-results" class="bg-slate-50 dark:bg-slate-900/50 rounded-3xl p-6 border border-slate-200/50 dark:border-slate-700/50 h-48 flex flex-col">
+                        <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">हाल के फ्लिप</h3>
+                        <div id="recent-list" class="flex flex-wrap gap-2 content-start overflow-y-auto pr-2">
+                            <!-- Recent results will appear here -->
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">कॉइन फ्लिपर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">क्लिक करें या प्रेस करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">फ्लिप शुरू करने के लिए वर्चुअल कॉइन या "कॉइन फ्लिप करें" बटन पर क्लिक करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">रिजल्ट का इंतजार करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">3D में कॉइन स्पिन होते देखें। रिजल्ट क्रिप्टोग्राफिकली सुरक्षित रैंडमनेस का उपयोग करके कैलकुलेट किया जाता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">स्टेट ट्रैक करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कई राउंड करते समय अपने सेशन स्टेटिस्टिक और हाल की हिस्ट्री को ट्रैक रखें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">टॉस का विज्ञान</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                फिजिकल कॉइन टॉस बायस्ड हो सकते हैं स्टार्टिंग पोजिशन या थंब की फोर्स के कारण। हमारा वर्चुअल फ्लिपर <code>Web Crypto API</code> का उपयोग करके एक गणितीय रूप से शुद्ध 50/50 प्रॉबेबिलिटी सुनिश्चित करता है, फिजिकल इम्पर्फेक्शन से मुक्त।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">हाई-एन्ट्रॉपी रैंडम सीड</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">रियलिस्टिक 3D फिजिक्स सिमुलेशन</span>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                    <span class="text-slate-200">कोई बायस नहीं, कोई ट्रैकिंग नहीं, कोई एड्स नहीं</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative">
+                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">निष्पक्ष और तेज निर्णय लेना</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">तुरंत रिजल्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">फिजिकल कॉइन खोजने की कोई जरूरत नहीं। एक सुंदर, संतोषजनक एनीमेशन के साथ सेकंड में अपना जवाब प्राप्त करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">सच्चा रैंडम</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हमारा एल्गोरिदम आपके डिवाइस से हाई-एन्ट्रॉपी रैंडमनेस का उपयोग करता है, जो कॉइन टॉस जितना निष्पक्ष है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">सेशन हिस्ट्री</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">कई राउंड करते समय? हम आपके हेड्स/टेल्स रेश्यो और हाल के रिजल्ट को ऑटोमेटिकली ट्रैक रखते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">मोबाइल फर्स्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">टच के लिए ऑप्टिमाइज़्ड। स्पोर्ट्स फील्ड या डिनर पर कॉइन फ्लिप करें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">कॉइन फ्लिपर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या आप कॉइन टॉस को निष्पक्ष रखने की गारंटी देते हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम <code>Web Crypto API</code> (विशेष रूप से <code>crypto.getRandomValues</code>) का उपयोग करते हैं, जो क्रिप्टोग्राफिक सुरक्षा के लिए डिजाइन किया गया है। यह मानक <code>Math.random()</code> से कहीं अधिक अप्रेडिक्टेबल हाई-एन्ट्रॉपी रैंडम नंबर्स प्रदान करता है।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह आपके रिजल्ट स्टोर करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                नहीं। सभी स्टेटिस्टिक और हिस्ट्री आपके ब्राउज़र की मेमोरी में मौजूदा सेशन के लिए ही स्टोर की जाती है। रिफ्रेश करने या पेज को बंद करने पर डेटा खत्म हो जाता है। हम अपने सर्वर पर कुछ भी स्टोर नहीं करते।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">"Heads" और "Tails" क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                ऐतिहासिक रूप से, "Heads" एक कॉइन की साइड को संदर्भित करता है जिसमें राजा या नेता का चेहरा (head) होता है। "Tails" विपरीत साइड है। हमारे ऐप में, Heads पीला/गोल्ड और Tails सिल्वर/ग्रे है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Tool Logic ===
+        const coin = document.getElementById('coin');
+        const coinInner = document.getElementById('coin-inner');
+        const flipBtn = document.getElementById('flip-btn');
+        const resultText = document.getElementById('result-text');
+        const headsCountEl = document.getElementById('heads-count');
+        const tailsCountEl = document.getElementById('tails-count');
+        const totalFlipsEl = document.getElementById('total-flips');
+        const headsBar = document.getElementById('heads-bar');
+        const tailsBar = document.getElementById('tails-bar');
+        const recentList = document.getElementById('recent-list');
+        const resetStatsBtn = document.getElementById('reset-stats');
+        const sparkleContainer = document.getElementById('sparkle-container');
+
+        const batchCountInput = document.getElementById('batch-count');
+        const flipSpeedSelect = document.getElementById('flip-speed');
+        const decCountBtn = document.getElementById('dec-count');
+        const incCountBtn = document.getElementById('inc-count');
+
+        let headsCount = 0;
+        let tailsCount = 0;
+        let totalFlips = 0;
+        let isAnimating = false;
+
+        // Speed and Batch Logic
+        decCountBtn.addEventListener('click', () => {
+            batchCountInput.value = Math.max(1, parseInt(batchCountInput.value) - 1);
+        });
+        incCountBtn.addEventListener('click', () => {
+            batchCountInput.value = Math.min(100, parseInt(batchCountInput.value) + 1);
+        });
+
+        function createSparkles() {
+            for (let i = 0; i < 15; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                const size = Math.random() * 8 + 4;
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 0.5}s`;
+                sparkleContainer.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 1300);
+            }
+        }
+
+        async function flip() {
+            if (isAnimating) return;
+
+            const batchCount = parseInt(batchCountInput.value) || 1;
+            const duration = parseFloat(flipSpeedSelect.value);
+            document.documentElement.style.setProperty('--flip-duration', `${duration}s`);
+
+            isAnimating = true;
+            flipBtn.disabled = true;
+            flipBtn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            for (let i = 0; i < batchCount; i++) {
+                // Random result using Crypto
+                const array = new Uint8Array(1);
+                window.crypto.getRandomValues(array);
+                const isHeads = array[0] % 2 === 0;
+
+                // Reset animation
+                coinInner.classList.remove('flip-animation-heads', 'flip-animation-tails');
+                void coinInner.offsetWidth; // Force reflow
+
+                // Start animation
+                coinInner.classList.add(isHeads ? 'flip-animation-heads' : 'flip-animation-tails');
+                resultText.style.opacity = '0';
+
+                // Wait for this flip to finish
+                await new Promise(resolve => setTimeout(resolve, duration * 1000));
+
+                totalFlips++;
+                if (isHeads) headsCount++; else tailsCount++;
+
+                updateStats();
+                createSparkles();
+
+                resultText.textContent = batchCount > 1 ? `फ्लिप ${i+1}/${batchCount}: यह ${isHeads ? 'हेड्स' : 'टेल्स'} है!` : `यह ${isHeads ? 'हेड्स' : 'टेल्स'} है!`;
+                resultText.style.opacity = '1';
+
+                // Add to recent
+                const item = document.createElement('div');
+                item.className = `w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold shadow-sm animate-[bounce_0.5s_ease-out] ${isHeads ? 'bg-amber-100 text-amber-700 border border-amber-200' : 'bg-slate-100 text-slate-700 border border-slate-200'}`;
+                item.textContent = isHeads ? 'H' : 'T';
+                recentList.prepend(item);
+                if (recentList.children.length > 20) recentList.lastElementChild.remove();
+
+                // Small pause between flips if batching
+                if (batchCount > 1 && i < batchCount - 1) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                }
+            }
+
+            isAnimating = false;
+            flipBtn.disabled = false;
+            flipBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+
+        function updateStats() {
+            headsCountEl.textContent = headsCount;
+            tailsCountEl.textContent = tailsCount;
+            totalFlipsEl.textContent = totalFlips;
+
+            const headsPercent = totalFlips === 0 ? 50 : (headsCount / totalFlips) * 100;
+            const tailsPercent = 100 - headsPercent;
+
+            headsBar.style.width = `${headsPercent}%`;
+            tailsBar.style.width = `${tailsPercent}%`;
+        }
+
+        flipBtn.addEventListener('click', flip);
+        coin.addEventListener('click', flip);
+
+        resetStatsBtn.addEventListener('click', () => {
+            headsCount = 0;
+            tailsCount = 0;
+            totalFlips = 0;
+            updateStats();
+            recentList.innerHTML = '';
+            resultText.style.opacity = '0';
+            coinInner.classList.remove('flip-animation-heads', 'flip-animation-tails');
+        });
+    </script>
+</body>
+</html>

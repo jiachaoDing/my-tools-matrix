@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>डाउनलोड टाइम कैलकुलेटर (Download Time Calculator) - सटीक स्पीड अनुमान | WebUtilityKit</title>
+    <meta name="description" content="कोई भी फाइल साइज़ और इंटरनेट स्पीड के लिए डाउनलोड समय तुरंत अनुमानित करें। Mbps, MB/s और Gbps का समर्थन करने वाला मुफ्त कैलकुलेटर। 100% स्थानीय प्रोसेसिंग।">
+    <link rel="canonical" href="https://webutilitykit.com/download-time-calculator/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/download-time-calculator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/download-time-calculator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Download Time Calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "417",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Speed presets, Real-time estimation, Dark mode"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">डाउनलोड टाइम कैलकुलेटर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">सटीकता के साथ अपने डाउनलोड अवधि का अनुमान लगाएं। एकाधिक यूनिट और सामान्य कनेक्शन प्रीसेट का समर्थन।</p>
+
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+
+                <!-- Input Section (5 cols) -->
+                <div class="lg:col-span-5 flex flex-col">
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 space-y-8 flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">फाइल साइज़</label>
+                                <div class="relative group">
+                                    <input type="number" id="size-input" value="5" min="0" step="0.1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pr-24">
+                                    <select id="size-unit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl px-3 py-2 text-[10px] font-black text-slate-500 dark:text-slate-400 outline-none border border-slate-200/50 dark:border-slate-700/50 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+                                        <option value="MB">MB</option>
+                                        <option value="GB" selected>GB</option>
+                                        <option value="TB">TB</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">डाउनलोड स्पीड</label>
+                                <div class="relative group">
+                                    <input type="number" id="speed-input" value="100" min="0" step="1" class="w-full bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-blue-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-2xl px-6 py-4 outline-none transition-all font-bold text-lg shadow-sm focus:shadow-md focus:shadow-blue-500/5 pr-28">
+                                    <select id="speed-unit" class="absolute right-2 top-1/2 -translate-y-1/2 bg-slate-200/50 dark:bg-slate-800/50 rounded-xl px-3 py-2 text-[10px] font-black text-slate-500 dark:text-slate-400 outline-none border border-slate-200/50 dark:border-slate-700/50 cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-all">
+                                        <option value="Mbps" selected>Mbps</option>
+                                        <option value="MB/s">MB/s</option>
+                                        <option value="Gbps">Gbps</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 space-y-4">
+                            <label class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-2.5 block ml-1">स्पीड प्रीसेट</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="10" data-unit="Mbps">
+                                    <span class="font-black">10 Mbps</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">ADSL</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="100" data-unit="Mbps">
+                                    <span class="font-black">100 Mbps</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Fiber</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="1" data-unit="Gbps">
+                                    <span class="font-black">1 Gbps</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Gigabit</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="50" data-unit="Mbps">
+                                    <span class="font-black">50 Mbps</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">4G/LTE</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="300" data-unit="Mbps">
+                                    <span class="font-black">300 Mbps</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">5G</span>
+                                </button>
+                                <button class="py-3 px-4 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800 text-xs font-bold hover:bg-white dark:hover:bg-slate-800 transition-all text-center flex flex-col items-center gap-1" data-speed="12.5" data-unit="MB/s">
+                                    <span class="font-black">12.5 MB/s</span>
+                                    <span class="text-[10px] text-slate-400 uppercase">Steam</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section (7 cols) -->
+                <div class="lg:col-span-7 flex flex-col">
+                    <div class="bg-blue-600 rounded-[2.5rem] p-10 h-full flex flex-col shadow-2xl shadow-blue-500/20 relative overflow-hidden text-white transition-all">
+                        <!-- Abstract Background Decoration -->
+                        <div class="absolute right-0 top-0 -mr-24 -mt-24 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
+                        <div class="absolute left-0 bottom-0 -ml-12 -mb-12 w-48 h-48 bg-blue-400/20 rounded-full blur-2xl"></div>
+
+                        <div class="relative z-10 flex flex-col h-full">
+                            <label class="text-xs font-bold text-blue-200 uppercase tracking-[0.2em] block mb-12 italic">अनुमानित समय</label>
+
+                            <div class="flex-grow space-y-12">
+                                <!-- Hero Results -->
+                                <div class="text-center sm:text-left">
+                                    <div id="time-display" class="text-7xl sm:text-8xl font-black tracking-tighter tabular-nums leading-tight">
+                                        06m 40s
+                                    </div>
+                                    <div class="mt-6 flex items-center justify-center sm:justify-start gap-2">
+                                        <span class="w-12 h-1 bg-white rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                        <span class="w-4 h-1 bg-white/30 rounded-full"></span>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 group hover:bg-white/20 transition-all">
+                                        <div class="text-blue-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">कुल सेकंड</div>
+                                        <div id="total-seconds" class="text-3xl font-black tracking-tight tabular-nums">400.0s</div>
+                                    </div>
+                                    <div class="bg-white/10 backdrop-blur-md p-8 rounded-[2rem] border border-white/20 group hover:bg-white/20 transition-all">
+                                        <div class="text-blue-200 text-[10px] font-black uppercase mb-1 tracking-widest italic">ट्रांसफर रेट</div>
+                                        <div id="actual-rate" class="text-3xl font-black tracking-tight tabular-nums">12.5 MB/s</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insight Box -->
+                            <div class="mt-auto pt-10 flex items-center gap-3 text-blue-200/80 text-xs italic">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <span>गणना: समय = साइज़ / वास्तविक स्पीड। 1 बाइट = 8 बिट। 10% ओवरहेड मान लिया गया।</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight uppercase">स्पीड अनुमान मार्गदर्शिका</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">फाइल साइज़ परिभाषित करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">डाउनलोड करने के लिए आपकी फाइल का साइज़ दर्ज करें। स्केल के आधार पर MB, GB या TB के बीच चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">नेटवर्क स्पीड इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">अपनी वर्तमान डाउनलोड स्पीड दर्ज करें। Mbps (Megabits) और MB/s (Megabytes) के बीच अंतर याद रखें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">तत्काल परिणाम</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty italic">विशिष्ट नेटवर्क ओवरहेड और वास्तविक दुनिया की स्थितियों को ध्यान में रखते हुए आवश्यक समय का तत्काल अनुमान प्राप्त करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Educational Content -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Mbps बनाम MB/s</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8 italic">
+                                इंटरनेट सर्विस प्रोवाइडर (ISPs) आमतौर पर स्पीड को <strong>Mbps</strong> (Megabits per second) में विज्ञापित करते हैं। हालांकि, अधिकांश एप्लिकेशन जैसे Steam या ब्राउज़र डाउनलोड प्रोग्रेस को <strong>MB/s</strong> (Megabytes per second) में दिखाते हैं। चूंकि 1 बाइट = 8 बिट्स, एक 100 Mbps कनेक्शन वास्तव में लगभग 12.5 MB/s पर डाउनलोड करता है अधिकतम।
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic">कन्वर्शन</div>
+                                    <div class="font-bold">1 MB = 8 Mb</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-blue-300 text-[10px] font-black uppercase mb-1 italic">ओवरहेड</div>
+                                    <div class="font-bold">~10% हानि</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                                <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center uppercase tracking-widest">सटीकता के साथ कैलकुलेट किया गया</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">वास्तविक दुनिया का लॉजिक</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">हमारा एल्गोरिथ्म साधारण भागफल से अधिक यथार्थवादी अनुमान के लिए 10% TCP/IP ओवरहेड को ध्यान में रखता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 italic">प्राइवेसी फर्स्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm italic">कैलकुलेशन पूरी तरह से आपके ब्राउज़र में होते हैं। कोई भी डेटा किसी सर्वर पर नहीं भेजा जाता।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic uppercase tracking-tighter">स्पीड FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">मेरा डाउनलोड अनुमान से अधिक समय क्यों ले रहा है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                अनुमान सर्वर-साइड थ्रॉटलिंग, ISP अस्थिरता, आपके नेटवर्क पर अन्य डिवाइसों द्वारा बैंडविड्थ का उपयोग, या Wi-Fi का उपयोग करने पर सिग्नल हस्तक्षेप से प्रभावित हो सकते हैं।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl italic">"नेटवर्क ओवरहेड" क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty italic">
+                                नेटवर्क ओवरहेड आपकी फाइल के साथ भेजा जाने वाला अतिरिक्त डेटा है (जैसे IP हेडर और हैंडशेक पैकेट) ताकि यह आपके डिवाइस तक पहुंचे। यह आमतौर पर प्रभावी स्पीड को लगभग 10-15% तक कम कर देता है।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Download Logic ===
+        const sizeInput = document.getElementById('size-input');
+        const sizeUnit = document.getElementById('size-unit');
+        const speedInput = document.getElementById('speed-input');
+        const speedUnit = document.getElementById('speed-unit');
+
+        const timeDisplay = document.getElementById('time-display');
+        const totalSecondsEl = document.getElementById('total-seconds');
+        const actualRateEl = document.getElementById('actual-rate');
+
+        function calculate() {
+            let size = parseFloat(sizeInput.value) || 0;
+            let speed = parseFloat(speedInput.value) || 0;
+
+            // Convert everything to Megabytes (MB)
+            let sizeMB = size;
+            if (sizeUnit.value === 'GB') sizeMB *= 1024;
+            if (sizeUnit.value === 'TB') sizeMB *= 1024 * 1024;
+
+            // Convert speed to Megabytes per second (MB/s)
+            let speedMBps = speed;
+            if (speedUnit.value === 'Mbps') speedMBps = speed / 8;
+            if (speedUnit.value === 'Gbps') speedMBps = (speed * 1024) / 8;
+
+            // Apply 10% overhead for realistic estimation
+            const effectiveSpeed = speedMBps * 0.9;
+
+            let seconds = 0;
+            if (effectiveSpeed > 0) {
+                seconds = sizeMB / effectiveSpeed;
+            }
+
+            // Display results
+            actualRateEl.textContent = speedMBps.toFixed(2) + ' MB/s';
+            totalSecondsEl.textContent = seconds.toFixed(1) + 's';
+
+            if (seconds === Infinity || isNaN(seconds)) {
+                timeDisplay.textContent = '00s';
+            } else {
+                timeDisplay.textContent = formatTime(seconds);
+            }
+        }
+
+        function formatTime(seconds) {
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = Math.floor(seconds % 60);
+
+            let res = '';
+            if (h > 0) res += h.toString().padStart(2, '0') + 'h ';
+            res += m.toString().padStart(2, '0') + 'm ';
+            res += s.toString().padStart(2, '0') + 's';
+            return res;
+        }
+
+        [sizeInput, sizeUnit, speedInput, speedUnit].forEach(el => {
+            el.addEventListener('input', calculate);
+        });
+
+        document.querySelectorAll('.preset-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                speedInput.value = btn.dataset.speed;
+                speedUnit.value = btn.dataset.unit;
+
+                document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active-preset'));
+                btn.classList.add('active-preset');
+
+                calculate();
+            });
+        });
+
+        // Init
+        calculate();
+
+    </script>
+</body>
+</html>

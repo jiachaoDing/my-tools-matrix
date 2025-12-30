@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cron Expression Generator (क्रॉन एक्सप्रेशन जेनरेटर) - कोई सिंटैक्स एरर नहीं & नि:शुल्क | WebUtilityKit</title>
+    <meta name="description" content="सिंटैक्स याद किए बिना विज़ुअली क्रॉन एक्सप्रेशन बनाएं। इंस्टेंट ह्यूमन-रिडेबल प्रीव्यू, सभी शेड्यूलिंग पैटर्न सपोर्ट करता है। अभी ट्राई करें नि:शुल्क!">
+    <link rel="canonical" href="https://webutilitykit.com/cron-generator/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/cron-generator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/cron-generator/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Cron Expression Generator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "567",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Visual builder, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/cron-generator.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Cron Expression Generator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">सिंटैक्स याद किए बिना जटिल शेड्यूलिंग पैटर्न बनाएं। अगले एक्सेक्यूशन समय तुरंत देखें।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित. स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 h-full">
+                <!-- Configuration Panel -->
+                <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-slate-100 dark:border-slate-700/50 space-y-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <!-- Minutes -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Minutes</label>
+                            <select id="cron-minutes" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">हर मिनट (*)</option>
+                                <option value="*/2">हर 2 मिनट</option>
+                                <option value="*/5">हर 5 मिनट</option>
+                                <option value="*/10">हर 10 मिनट</option>
+                                <option value="*/15">हर 15 मिनट</option>
+                                <option value="*/30">हर 30 मिनट</option>
+                                <option value="0">मिनट 0 पर</option>
+                            </select>
+                        </div>
+                        <!-- Hours -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Hours</label>
+                            <select id="cron-hours" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">हर घंटा (*)</option>
+                                <option value="*/2">हर 2 घंटे</option>
+                                <option value="*/3">हर 3 घंटे</option>
+                                <option value="*/4">हर 4 घंटे</option>
+                                <option value="*/6">हर 6 घंटे</option>
+                                <option value="*/12">हर 12 घंटे</option>
+                                <option value="0">मध्यरात्रि (00:00) पर</option>
+                            </select>
+                        </div>
+                        <!-- Day of Month -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Day of Month</label>
+                            <select id="cron-dom" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">हर दिन (*)</option>
+                                <option value="1">महीने का 1st दिन</option>
+                                <option value="15">महीने का 15th दिन</option>
+                                <option value="L">महीने का अंतिम दिन</option>
+                            </select>
+                        </div>
+                        <!-- Month -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Month</label>
+                            <select id="cron-month" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">हर महीना (*)</option>
+                                <option value="1">जनवरी</option>
+                                <option value="2">फरवरी</option>
+                                <option value="3">मार्च</option>
+                                <option value="4">अप्रैल</option>
+                                <option value="5">मई</option>
+                                <option value="6">जून</option>
+                                <option value="7">जुलाई</option>
+                                <option value="8">अगस्त</option>
+                                <option value="9">सितंबर</option>
+                                <option value="10">अक्टूबर</option>
+                                <option value="11">नवंबर</option>
+                                <option value="12">दिसंबर</option>
+                            </select>
+                        </div>
+                        <!-- Day of Week -->
+                        <div>
+                            <label class="block text-sm font-bold text-slate-400 uppercase tracking-wider mb-3">Day of Week</label>
+                            <select id="cron-dow" class="w-full bg-slate-50 dark:bg-slate-900/50 border-0 rounded-xl p-3 text-slate-700 dark:text-slate-300 focus:ring-2 focus:ring-blue-500/20 transition-all">
+                                <option value="*">हर दिन (*)</option>
+                                <option value="1-5">सोमवार से शुक्रवार</option>
+                                <option value="0,6">सप्ताहांत</option>
+                                <option value="1">सोमवार</option>
+                                <option value="2">मंगलवार</option>
+                                <option value="3">बुधवार</option>
+                                <option value="4">गुरुवार</option>
+                                <option value="5">शुक्रवार</option>
+                                <option value="6">शनिवार</option>
+                                <option value="0">रविवार</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview Panel -->
+                <div class="bg-white dark:bg-slate-800 rounded-[2.5rem] p-8 md:p-10 shadow-sm border border-slate-100 dark:border-slate-700/50 flex flex-col">
+                    <label class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-6 text-center lg:text-left">जनरेटेड रिजल्ट</label>
+                    <div class="flex-1 flex flex-col justify-center text-center space-y-6">
+                        <div class="bg-slate-50 dark:bg-slate-900/50 rounded-2xl p-8 border border-slate-100 dark:border-slate-700/50 relative group">
+                            <div id="cron-output" class="text-3xl font-black text-blue-600 dark:text-blue-400 tracking-widest font-mono">* * * * *</div>
+                            <button id="copy-btn" class="absolute top-2 right-2 p-2 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors" title="एक्सप्रेशन कॉपी करें">
+                                <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            </button>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="text-xs font-bold text-slate-400 uppercase">अर्थ</div>
+                            <div id="cron-description" class="text-lg font-semibold text-slate-700 dark:text-slate-300 italic">"हर मिनट"</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Cron Generator का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">शेड्यूल चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">ड्रॉपडाउन मेनू से मिनट, घंटे और दिनों के लिए फ्रीक्वेंसी चुनें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">रिजल्ट प्रीव्यू करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Cron एक्सप्रेशन और इसका ह्यूमन-रिडेबल अर्थ तुरंत अपडेट होता है जैसे ही आप सेटिंग बदलते हैं।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">कॉपी करें & उपयोग करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अंतिम एक्सप्रेशन कॉपी करें और इसे अपने सर्वर कॉन्फिगरेशन या टास्क शेड्यूलर में पेस्ट करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">इस जनरेटर का उपयोग क्यों करें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">अनुमान लगाने से छुटकारा</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">विज़ुअल वैलिडेशन के साथ अपने सर्वर crontab फाइलों में एरर से बचें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ह्यूमन फ्रेंडली</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">डिप्लॉयमेंट से पहले सादे अंग्रेजी विवरणों के साथ अपने शेड्यूल को सत्यापित करें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Cron FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Cron expression क्या है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                एक Cron expression एक स्ट्रिंग है जिसमें पाँच या छह फील्ड होते हैं जो व्हाइट स्पेस से अलग होते हैं और एक शेड्यूल का प्रतिनिधित्व करते हैं जिसके लिए एक कार्य स्वचालित रूप से निष्पादित किया जाएगा।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से फील्ड शामिल हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                मानक क्रम है: Minutes, Hours, Day of Month, Month, और Day of Week।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // Theme Logic
+
+
+        // Cron Logic
+        const inputs = {
+            minutes: document.getElementById('cron-minutes'),
+            hours: document.getElementById('cron-hours'),
+            dom: document.getElementById('cron-dom'),
+            month: document.getElementById('cron-month'),
+            dow: document.getElementById('cron-dow')
+        };
+        const output = document.getElementById('cron-output');
+        const description = document.getElementById('cron-description');
+        const copyBtn = document.getElementById('copy-btn');
+
+        function updateCron() {
+            const m = inputs.minutes.value;
+            const h = inputs.hours.value;
+            const dom = inputs.dom.value;
+            const mon = inputs.month.value;
+            const dow = inputs.dow.value;
+
+            const cron = `${m} ${h} ${dom} ${mon} ${dow}`;
+            output.textContent = cron;
+
+            // Simple human-readable description (very basic implementation)
+            let desc = "पर ";
+
+            if (m === '*') desc += "हर मिनट";
+            else if (m.startsWith('*/')) desc += `हर ${m.split('/')[1]} मिनट`;
+            else desc += `मिनट ${m}`;
+
+            desc += ", ";
+
+            if (h === '*') desc += "हर घंटा";
+            else if (h.startsWith('*/')) desc += `हर ${h.split('/')[1]} घंटे`;
+            else if (h === '0') desc += "मध्यरात्रि पर";
+            else desc += `घंटा ${h}`;
+
+            if (dom !== '*' || mon !== '*' || dow !== '*') {
+                desc += ", ";
+                if (mon === '*') desc += "हर महीना"; else desc += `महीना ${mon}`;
+                if (dom !== '*') desc += ` और दिन ${dom}`;
+                if (dow !== '*') desc += ` (dow: ${dow})`;
+            }
+
+            description.textContent = `"${desc}"`;
+        }
+
+        Object.values(inputs).forEach(input => input.addEventListener('change', updateCron));
+        copyBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText(output.textContent);
+            const originalIcon = copyBtn.innerHTML;
+            copyBtn.innerHTML = '<svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+            setTimeout(() => copyBtn.innerHTML = originalIcon, 2000);
+        });
+
+        updateCron();
+    </script>
+</body>
+</html>

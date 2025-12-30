@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 एनकोडर और डिकोडर (Base64 Encoder & Decoder) - तत्काल UTF-8 सपोर्ट | WebUtilityKit</title>
+    <meta name="description" content="Base64 स्ट्रिंग को तुरंत एनकोड और डिकोड करें पूर्ण UTF-8 सपोर्ट के साथ। 100% निजी ब्राउज़र प्रोसेसिंग। कोई डेटा अपलोड नहीं, असीमित उपयोग। अभी आज़माएं!">
+    <link rel="canonical" href="https://webutilitykit.com/base64-encoder/" />
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/base64-encoder/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/base64-encoder/" />
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script src="/hi/tools-config.js"></script>
+
+    <script src="/hi/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Base64 Encoder & Decoder",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "823",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, UTF-8 support, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/base64-encoder.jpg"
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Base64 एनकोडर / डिकोडर</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">टेक्स्ट को Base64 फ़ॉर्मेट में कन्वर्ट करें या मौजूदा Base64 स्ट्रिंग को डिकोड करें। सभी प्रोसेसिंग अधिकतम सुरक्षा के लिए स्थानीय रूप से होती है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय प्रोसेसिंग।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-6xl px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                <!-- Input Section -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">इनपुट टेक्स्ट / Base64</label>
+                        <button id="clear-btn" class="text-xs font-semibold text-slate-400 hover:text-rose-500 transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            साफ़ करें
+                        </button>
+                    </div>
+                    <div class="flex-grow min-h-[300px] relative group">
+                        <textarea id="input-text"
+                            class="w-full h-full p-6 bg-white dark:bg-slate-800 rounded-[2rem] border-none focus:ring-4 focus:ring-emerald-500/10 text-slate-700 dark:text-slate-200 text-lg leading-relaxed placeholder:text-slate-400 transition-all resize-none outline-none shadow-sm"
+                            placeholder="अपना टेक्स्ट या Base64 स्ट्रिंग यहां पेस्ट करें..."></textarea>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button id="encode-btn" class="py-4 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg shadow-lg shadow-emerald-500/25 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            एनकोड
+                        </button>
+                        <button id="decode-btn" class="py-4 px-8 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-lg shadow-lg shadow-emerald-500/25 transition-all active:scale-95 flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            डिकोड
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Output Section -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between px-2">
+                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">परिणाम</label>
+                        <button id="copy-btn" class="text-xs font-semibold text-slate-400 hover:text-emerald-500 transition-colors flex items-center gap-1">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 00-2 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            परिणाम कॉपी करें
+                        </button>
+                    </div>
+                    <div class="flex-grow min-h-[300px] relative">
+                        <textarea id="output-text" readonly
+                            class="w-full h-full p-6 bg-white dark:bg-slate-800/50 rounded-[2rem] border-none text-slate-600 dark:text-slate-400 text-lg leading-relaxed transition-all resize-none outline-none shadow-sm cursor-default"
+                            placeholder="परिणाम यहां दिखाई देगा..."></textarea>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/50 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-3">
+                        <div class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                        <span>मानक UTF-8 एन्कोडिंग का उपयोग विश्वसनीय बहु-भाषा सपोर्ट के लिए किया जाता है।</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Base64 एनकोडर/डिकोडर का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">डेटा इनपुट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">अपना टेक्स्ट या Base64 स्ट्रिंग इनपुट एरिया में टाइप या पेस्ट करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">विधि चुनें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">"एनकोड" बटन पर क्लिक करें टेक्स्ट को Base64 में कन्वर्ट करने के लिए, या विपरीत प्रक्रिया के लिए "डिकोड"।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-emerald-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-emerald-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-emerald-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">तत्काल परिणाम</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">परिणाम तुरंत प्रदर्शित होता है। एक क्लिक से अपनी क्लिपबोर्ड में कॉपी करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- High Contrast Section -->
+                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Base64 क्या है?</h2>
+                            <p class="text-lg text-slate-400 leading-relaxed mb-8">
+                                Base64 एक बाइनरी-टू-टेक्स्ट एन्कोडिंग स्कीम है जो बाइनरी डेटा को ASCII स्ट्रिंग फ़ॉर्मेट में प्रस्तुत करता है। यह सामान्यतः HTML में छवियां एम्बेड करने, टेक्स्ट-आधारित प्रोटोकॉल (जैसे ईमेल) पर बाइनरी डेटा ट्रांसमिट करने, या साधारण टेक्स्ट फ़ॉर्मेट में जटिल डेटा स्टोर करने के लिए उपयोग किया जाता है।
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 text-slate-200">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">Aa</div>
+                                    <span>64 अद्वितीय वर्णों का उपयोग करता है</span>
+                                </div>
+                                <div class="flex items-center gap-4 text-slate-200">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center text-emerald-400 font-bold">==</div>
+                                    <span>आवश्यकता पड़ने पर परिणामों को '=' से पैड करता है</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-center">
+                            <div class="relative p-8 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-sm">
+                                <code class="text-emerald-400 text-sm break-all">SGVsbG8gV29ybGQh</code>
+                                <div class="text-xs text-slate-500 mt-2 text-center">("Hello World!" Base64 में)</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">WebUtilityKit का उपयोग क्यों करें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">UTF-8 सपोर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">हम इमोजी, विदेशी भाषाएं (emojis, foreign languages) को सही ढंग से हैंडल करते हैं आधुनिक ब्राउज़र मानकों का उपयोग करके।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-emerald-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">सुरक्षित और निजी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">सब कुछ आपके डिवाइस पर प्रोसेस होता है। कोई भी सर्वर पर डेटा अपलोड या स्टोर नहीं किया जाता।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Base64 कन्वर्टर FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-emerald-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या Base64 एन्क्रिप्शन का एक रूप है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                नहीं, Base64 <strong>एन्क्रिप्शन नहीं है</strong>। यह एक एन्कोडिंग स्कीम है। कोई भी Base64 स्ट्रिंग को आसानी से उसके मूल रूप में वापस डिकोड कर सकता है। इसे सुरक्षा या डेटा छिपाने के लिए कभी इस्तेमाल नहीं किया जाना चाहिए।
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह गैर-अंग्रेजी वर्णों का सपोर्ट करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ। हमारा टूल UTF-8 एन्कोडिंग का उपयोग करता है Base64 में कन्वर्ट करने से पहले, यह सुनिश्चित करता है कि सभी अंतर्राष्ट्रीय वर्ण और इमोजी सही ढंग से संरक्षित हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Base64 Utility Functions for UTF-8 ===
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
+
+        // === Tool Logic ===
+        const inputText = document.getElementById('input-text');
+        const outputText = document.getElementById('output-text');
+        const encodeBtn = document.getElementById('encode-btn');
+        const decodeBtn = document.getElementById('decode-btn');
+        const copyBtn = document.getElementById('copy-btn');
+        const clearBtn = document.getElementById('clear-btn');
+
+        encodeBtn.addEventListener('click', () => {
+            try {
+                const input = inputText.value;
+                if (!input) return;
+                outputText.value = utf8_to_b64(input);
+            } catch (e) {
+                outputText.value = "एनकोडिंग में त्रुटि: " + e.message;
+            }
+        });
+
+        decodeBtn.addEventListener('click', () => {
+            try {
+                const input = inputText.value.trim();
+                if (!input) return;
+                outputText.value = b64_to_utf8(input);
+            } catch (e) {
+                outputText.value = "डिकोडिंग में त्रुटि: अमान्य Base64 अनुक्रम";
+            }
+        });
+
+        copyBtn.addEventListener('click', () => {
+            if (!outputText.value) return;
+            navigator.clipboard.writeText(outputText.value).then(() => {
+                const originalText = copyBtn.innerHTML;
+                copyBtn.innerHTML = `
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    कॉपी हो गया!
+                `;
+                setTimeout(() => {
+                    copyBtn.innerHTML = originalText;
+                }, 2000);
+            });
+        });
+
+        clearBtn.addEventListener('click', () => {
+            inputText.value = '';
+            outputText.value = '';
+        });
+    </script>
+</body>
+</html>
