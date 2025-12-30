@@ -20,6 +20,11 @@
         @apply bg-slate-200 dark:bg-slate-800 rounded-full;
     }
 
+    /* 状态标签 - 用于图片压缩等工具 */
+    .stat-badge {
+        @apply text-[10px] font-bold px-2 py-0.5 rounded-lg whitespace-nowrap;
+    }
+
     /* 针对 emoji-picker 的特定状态 */
     .category-btn-active-pink {
         @apply bg-pink-50 dark:bg-pink-900/20 text-pink-600 dark:text-pink-400 shadow-sm border border-pink-100 dark:border-pink-800/50;
