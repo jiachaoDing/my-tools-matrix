@@ -142,6 +142,52 @@
                                 </div>
                             </div>
 
+                            <!-- Fill Mode Toggle -->
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Fill Mode</label>
+                                <div class="flex gap-2">
+                                    <button id="fill-loop" class="flex-1 px-4 py-2.5 rounded-xl border-2 border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-sm transition-all hover:scale-105 fill-mode-btn active">
+                                        🔄 Loop
+                                    </button>
+                                    <button id="fill-blank" class="flex-1 px-4 py-2.5 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-sm transition-all hover:scale-105 hover:border-blue-300 fill-mode-btn">
+                                        ⬜ Blank
+                                    </button>
+                                </div>
+                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-2">Loop: repeat images • Blank: fill empty cells with background</p>
+                            </div>
+
+                            <!-- Aspect Ratio -->
+                            <div>
+                                <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Aspect Ratio</label>
+                                <div class="grid grid-cols-4 gap-2" id="aspect-ratio-presets">
+                                    <button data-ratio="1:1" class="aspect-btn px-3 py-2 rounded-xl border-2 border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-semibold text-xs transition-all hover:scale-105 active">
+                                        1:1
+                                    </button>
+                                    <button data-ratio="4:3" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        4:3
+                                    </button>
+                                    <button data-ratio="3:4" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        3:4
+                                    </button>
+                                    <button data-ratio="16:9" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        16:9
+                                    </button>
+                                    <button data-ratio="9:16" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        9:16
+                                    </button>
+                                    <button data-ratio="3:2" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        3:2
+                                    </button>
+                                    <button data-ratio="2:3" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        2:3
+                                    </button>
+                                    <button data-ratio="21:9" class="aspect-btn px-3 py-2 rounded-xl border-2 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 font-semibold text-xs transition-all hover:scale-105 hover:border-blue-300">
+                                        21:9
+                                    </button>
+                                </div>
+                                <p class="text-xs text-slate-400 dark:text-slate-500 mt-2" id="aspect-ratio-hint">1:1 — Square, perfect for Instagram</p>
+                            </div>
+
                             <div>
                                 <label class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Export Resolution</label>
                                 <select id="export-res" class="w-full px-3 py-2.5 bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none font-semibold transition-all hover:border-blue-300 cursor-pointer">
@@ -167,46 +213,50 @@
 
                 <!-- Right Side: Preview & Upload -->
                 <div class="lg:col-span-8 space-y-6">
-                    <!-- Dropzone -->
-                    <div id="dropzone" class="relative group">
-                        <input type="file" id="file-input" multiple accept="image/*" class="hidden">
-                        <div class="border-2 border-dashed border-slate-300 dark:border-slate-700 rounded-[2.5rem] p-12 text-center hover:border-blue-500 dark:hover:border-blue-400 transition-all duration-300 cursor-pointer bg-gradient-to-br from-white to-slate-50 dark:from-slate-800/50 dark:to-slate-900/30 backdrop-blur-sm hover:shadow-2xl hover:shadow-blue-500/10 hover:scale-[1.02]">
-                            <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 dark:from-blue-600 dark:to-purple-700 text-white rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-xl shadow-blue-500/30">
-                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <h3 class="text-2xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent mb-2">Drop your photos here</h3>
-                            <p class="text-slate-600 dark:text-slate-400 font-medium">Click to upload or drag and drop multiple images</p>
-                            <p class="text-xs text-slate-400 dark:text-slate-500 mt-4 flex items-center justify-center gap-2">
-                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-                                Supports PNG, JPG, WebP • 100% Private Processing
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Grid Preview -->
-                    <div id="preview-container" class="hidden bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-8 rounded-[3rem] shadow-2xl border-2 border-slate-100 dark:border-slate-700/50 backdrop-blur-sm">
+                    <!-- Grid Preview (Always Visible) -->
+                    <div id="preview-container" class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 p-8 rounded-[3rem] shadow-2xl border-2 border-slate-100 dark:border-slate-700/50 backdrop-blur-sm">
                         <div class="flex items-center justify-between mb-6">
                             <div class="flex items-center gap-3">
                                 <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-lg shadow-green-500/50"></div>
                                 <h3 class="text-xl font-bold bg-gradient-to-r from-slate-900 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">Live Preview</h3>
                             </div>
-                            <span id="image-count" class="text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-1.5 rounded-full font-semibold shadow-sm">0 images uploaded</span>
+                            <span id="image-count" class="text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-4 py-1.5 rounded-full font-semibold shadow-sm">0 images</span>
                         </div>
-                        <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900/80 dark:to-slate-950 flex items-center justify-center min-h-[400px] p-6 shadow-inner">
-                            <canvas id="grid-canvas" class="max-w-full h-auto shadow-2xl rounded-lg"></canvas>
+                        <!-- Fixed Size Preview Area with Drop Support -->
+                        <div id="canvas-dropzone" class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-900/80 dark:to-slate-950 flex items-center justify-center shadow-inner transition-all duration-300" style="height: 500px;">
+                            <canvas id="grid-canvas" class="max-w-full max-h-full shadow-2xl rounded-lg"></canvas>
+                            <!-- Empty State / Drop Hint -->
+                            <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                                <div class="w-20 h-20 bg-gradient-to-br from-blue-500/20 to-purple-600/20 dark:from-blue-600/30 dark:to-purple-700/30 text-blue-500 dark:text-blue-400 rounded-3xl flex items-center justify-center mb-6 border-2 border-dashed border-blue-400/50">
+                                    <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-400 dark:text-slate-500 mb-2">Drop photos here</h3>
+                                <p class="text-slate-400 dark:text-slate-500 text-sm">or use the + button below to add images</p>
+                            </div>
+                            <!-- Drag Overlay -->
+                            <div id="drag-overlay" class="absolute inset-0 bg-blue-500/20 border-4 border-dashed border-blue-500 rounded-2xl flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-200">
+                                <div class="text-center">
+                                    <svg class="w-16 h-16 text-blue-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                    <span class="text-xl font-bold text-blue-600 dark:text-blue-400">Drop to add images</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Uploaded List -->
-                    <div id="uploaded-list-container" class="hidden">
+                    <!-- Manage Images List (Always Visible) -->
+                    <div id="uploaded-list-container">
                         <div class="flex items-center justify-between mb-4 px-2">
                             <h4 class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Manage Images</h4>
                             <span class="text-xs text-slate-400 italic">💡 Drag to reorder</span>
                         </div>
-                        <div id="uploaded-list" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
+                        <div id="uploaded-list" class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
                             <!-- Thumbnails injected here -->
+                            <!-- Add Button (Always at end) -->
                         </div>
                     </div>
+                    
+                    <!-- Hidden File Input -->
+                    <input type="file" id="file-input" multiple accept="image/*" class="hidden">
                 </div>
 
             </div>
@@ -223,7 +273,7 @@
                         <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
                             <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Upload Photos</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Drag and drop multiple images into the workspace. We support all major image formats.</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Click the + button or drag images directly onto the preview area. We support all major image formats.</p>
                         </div>
                         <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
                             <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
@@ -370,7 +420,9 @@
     <script>
         // === Tool Logic ===
         const fileInput = document.getElementById('file-input');
-        const dropzone = document.getElementById('dropzone');
+        const canvasDropzone = document.getElementById('canvas-dropzone');
+        const dragOverlay = document.getElementById('drag-overlay');
+        const emptyState = document.getElementById('empty-state');
         const previewContainer = document.getElementById('preview-container');
         const uploadedListContainer = document.getElementById('uploaded-list-container');
         const uploadedList = document.getElementById('uploaded-list');
@@ -388,24 +440,91 @@
         const downloadBtn = document.getElementById('download-btn');
         const clearBtn = document.getElementById('clear-btn');
         const layoutPresets = document.querySelectorAll('.layout-btn');
+        const fillLoopBtn = document.getElementById('fill-loop');
+        const fillBlankBtn = document.getElementById('fill-blank');
+        const aspectRatioPresets = document.querySelectorAll('.aspect-btn');
+        const aspectRatioHint = document.getElementById('aspect-ratio-hint');
 
         let uploadedImages = []; // Array of Image objects
+        let fillMode = 'loop'; // 'loop' or 'blank'
+        let aspectRatio = { w: 1, h: 1 }; // default 1:1
 
-        // Event Listeners
-        dropzone.addEventListener('click', () => fileInput.click());
-        dropzone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropzone.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+        // Aspect ratio hints
+        const aspectHints = {
+            '1:1': '1:1 — Square, perfect for Instagram',
+            '4:3': '4:3 — Classic photo ratio',
+            '3:4': '3:4 — Portrait photo ratio',
+            '16:9': '16:9 — Widescreen, YouTube & TV',
+            '9:16': '9:16 — Vertical video, Stories & Reels',
+            '3:2': '3:2 — Standard DSLR photo',
+            '2:3': '2:3 — Portrait DSLR photo',
+            '21:9': '21:9 — Ultra-wide cinematic'
+        };
+
+        // Fill mode toggle
+        fillLoopBtn.addEventListener('click', () => {
+            fillMode = 'loop';
+            fillLoopBtn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillLoopBtn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            fillBlankBtn.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillBlankBtn.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            updateGrid();
         });
-        dropzone.addEventListener('dragleave', () => {
-            dropzone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+
+        fillBlankBtn.addEventListener('click', () => {
+            fillMode = 'blank';
+            fillBlankBtn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillBlankBtn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            fillLoopBtn.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400');
+            fillLoopBtn.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+            updateGrid();
         });
-        dropzone.addEventListener('drop', (e) => {
+
+        // Aspect Ratio Presets
+        aspectRatioPresets.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active state
+                aspectRatioPresets.forEach(b => {
+                    b.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400', 'active');
+                    b.classList.add('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                });
+                btn.classList.add('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/30', 'text-blue-600', 'dark:text-blue-400', 'active');
+                btn.classList.remove('border-slate-200', 'dark:border-slate-700', 'text-slate-600', 'dark:text-slate-400');
+                
+                // Parse ratio
+                const ratioStr = btn.dataset.ratio;
+                const [w, h] = ratioStr.split(':').map(Number);
+                aspectRatio = { w, h };
+                
+                // Update hint
+                aspectRatioHint.textContent = aspectHints[ratioStr] || ratioStr;
+                
+                updateGrid();
+            });
+        });
+
+        // Canvas Dropzone Events
+        canvasDropzone.addEventListener('dragover', (e) => {
             e.preventDefault();
-            dropzone.classList.remove('border-blue-500', 'bg-blue-50', 'dark:bg-blue-900/10');
+            dragOverlay.classList.remove('opacity-0');
+            dragOverlay.classList.add('opacity-100');
+        });
+        canvasDropzone.addEventListener('dragleave', (e) => {
+            e.preventDefault();
+            dragOverlay.classList.add('opacity-0');
+            dragOverlay.classList.remove('opacity-100');
+        });
+        canvasDropzone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dragOverlay.classList.add('opacity-0');
+            dragOverlay.classList.remove('opacity-100');
             handleFiles(e.dataTransfer.files);
         });
-        fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+            fileInput.value = ''; // Reset to allow re-upload of same file
+        });
 
         rowsInput.addEventListener('input', updateGrid);
         colsInput.addEventListener('input', updateGrid);
@@ -447,12 +566,9 @@
                 });
             }
             
-            if (uploadedImages.length > 0) {
-                previewContainer.classList.remove('hidden');
-                uploadedListContainer.classList.remove('hidden');
-                updateUploadedList();
-                updateGrid();
-            }
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
         }
 
         function loadImage(file) {
@@ -467,11 +583,21 @@
             });
         }
 
+        function updateEmptyState() {
+            if (uploadedImages.length === 0) {
+                emptyState.classList.remove('hidden');
+                canvas.classList.add('opacity-0');
+            } else {
+                emptyState.classList.add('hidden');
+                canvas.classList.remove('opacity-0');
+            }
+        }
+
         let draggedIndex = null;
 
         function updateUploadedList() {
             uploadedList.innerHTML = '';
-            imageCountBadge.textContent = `${uploadedImages.length} images uploaded`;
+            imageCountBadge.textContent = `${uploadedImages.length} image${uploadedImages.length !== 1 ? 's' : ''}`;
             
             uploadedImages.forEach((data, index) => {
                 const div = document.createElement('div');
@@ -503,6 +629,18 @@
                 
                 uploadedList.appendChild(div);
             });
+
+            // Add the "+" button at the end
+            const addBtn = document.createElement('div');
+            addBtn.className = 'aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 hover:scale-105 group';
+            addBtn.innerHTML = `
+                <div class="text-center">
+                    <svg class="w-8 h-8 text-slate-400 group-hover:text-blue-500 mx-auto transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    <span class="text-xs text-slate-400 group-hover:text-blue-500 font-medium mt-1 block transition-colors">Add</span>
+                </div>
+            `;
+            addBtn.addEventListener('click', () => fileInput.click());
+            uploadedList.appendChild(addBtn);
         }
 
         function handleDragStart(e) {
@@ -566,47 +704,49 @@
 
         window.removeImage = function(index) {
             uploadedImages.splice(index, 1);
-            if (uploadedImages.length === 0) {
-                clearAll();
-            } else {
-                updateUploadedList();
-                updateGrid();
-            }
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
         };
 
         function clearAll() {
             uploadedImages = [];
-            uploadedList.innerHTML = '';
-            imageCountBadge.textContent = '0 images uploaded';
-            previewContainer.classList.add('hidden');
-            uploadedListContainer.classList.add('hidden');
+            updateUploadedList();
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             fileInput.value = '';
+            updateEmptyState();
         }
 
         function updateGrid() {
-            if (uploadedImages.length === 0) return;
-
             const rows = parseInt(rowsInput.value) || 1;
             const cols = parseInt(colsInput.value) || 1;
             const gap = parseInt(gapInput.value) || 0;
             const res = exportResSelect.value;
             const bgColor = bgColorInput.value;
 
-            // Calculate dimensions
+            // Calculate dimensions based on aspect ratio
             let targetWidth, targetHeight;
-            if (res === 'custom') {
-                // Use average size or largest size
-                targetWidth = Math.max(...uploadedImages.map(d => d.img.width));
-                targetHeight = Math.max(...uploadedImages.map(d => d.img.height));
+            if (res === 'custom' && uploadedImages.length > 0) {
+                // Use average size or largest size, but apply aspect ratio
+                const maxImgSize = Math.max(
+                    ...uploadedImages.map(d => Math.max(d.img.width, d.img.height))
+                );
+                if (aspectRatio.w >= aspectRatio.h) {
+                    targetWidth = maxImgSize;
+                    targetHeight = Math.round(maxImgSize * (aspectRatio.h / aspectRatio.w));
+                } else {
+                    targetHeight = maxImgSize;
+                    targetWidth = Math.round(maxImgSize * (aspectRatio.w / aspectRatio.h));
+                }
             } else {
-                const baseRes = parseInt(res);
-                if (cols >= rows) {
+                const baseRes = parseInt(res) || 1080;
+                // Apply aspect ratio to base resolution
+                if (aspectRatio.w >= aspectRatio.h) {
                     targetWidth = baseRes;
-                    targetHeight = Math.round(baseRes * (rows / cols));
+                    targetHeight = Math.round(baseRes * (aspectRatio.h / aspectRatio.w));
                 } else {
                     targetHeight = baseRes;
-                    targetWidth = Math.round(baseRes * (cols / rows));
+                    targetWidth = Math.round(baseRes * (aspectRatio.w / aspectRatio.h));
                 }
             }
 
@@ -617,41 +757,86 @@
             ctx.fillStyle = bgColor;
             ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+            if (uploadedImages.length === 0) {
+                // Draw grid placeholder
+                const cellWidth = (targetWidth - (gap * (cols + 1))) / cols;
+                const cellHeight = (targetHeight - (gap * (rows + 1))) / rows;
+                
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 2;
+                ctx.setLineDash([8, 4]);
+                
+                for (let r = 0; r < rows; r++) {
+                    for (let c = 0; c < cols; c++) {
+                        const x = gap + c * (cellWidth + gap);
+                        const y = gap + r * (cellHeight + gap);
+                        ctx.strokeRect(x, y, cellWidth, cellHeight);
+                    }
+                }
+                ctx.setLineDash([]);
+                return;
+            }
+
             const cellWidth = (targetWidth - (gap * (cols + 1))) / cols;
             const cellHeight = (targetHeight - (gap * (rows + 1))) / rows;
+            const totalCells = rows * cols;
 
             for (let r = 0; r < rows; r++) {
                 for (let c = 0; c < cols; c++) {
-                    const imgIndex = (r * cols + c) % uploadedImages.length;
-                    const img = uploadedImages[imgIndex].img;
-
+                    const cellIndex = r * cols + c;
                     const x = gap + c * (cellWidth + gap);
                     const y = gap + r * (cellHeight + gap);
 
-                    // Object-fit: cover logic
-                    const imgAspect = img.width / img.height;
-                    const cellAspect = cellWidth / cellHeight;
-
-                    let sw, sh, sx, sy;
-                    if (imgAspect > cellAspect) {
-                        sh = img.height;
-                        sw = img.height * cellAspect;
-                        sx = (img.width - sw) / 2;
-                        sy = 0;
+                    let imgIndex;
+                    if (fillMode === 'loop') {
+                        imgIndex = cellIndex % uploadedImages.length;
                     } else {
-                        sw = img.width;
-                        sh = img.width / cellAspect;
-                        sx = 0;
-                        sy = (img.height - sh) / 2;
+                        // Blank mode - only use available images
+                        imgIndex = cellIndex < uploadedImages.length ? cellIndex : -1;
                     }
 
-                    ctx.drawImage(img, sx, sy, sw, sh, x, y, cellWidth, cellHeight);
+                    if (imgIndex === -1) {
+                        // Draw empty cell with subtle pattern
+                        ctx.fillStyle = bgColor;
+                        ctx.fillRect(x, y, cellWidth, cellHeight);
+                        
+                        // Add subtle border for empty cells
+                        ctx.strokeStyle = '#e2e8f0';
+                        ctx.lineWidth = 2;
+                        ctx.setLineDash([8, 4]);
+                        ctx.strokeRect(x + 2, y + 2, cellWidth - 4, cellHeight - 4);
+                        ctx.setLineDash([]);
+                    } else {
+                        const img = uploadedImages[imgIndex].img;
+
+                        // Object-fit: cover logic
+                        const imgAspect = img.width / img.height;
+                        const cellAspect = cellWidth / cellHeight;
+
+                        let sw, sh, sx, sy;
+                        if (imgAspect > cellAspect) {
+                            sh = img.height;
+                            sw = img.height * cellAspect;
+                            sx = (img.width - sw) / 2;
+                            sy = 0;
+                        } else {
+                            sw = img.width;
+                            sh = img.width / cellAspect;
+                            sx = 0;
+                            sy = (img.height - sh) / 2;
+                        }
+
+                        ctx.drawImage(img, sx, sy, sw, sh, x, y, cellWidth, cellHeight);
+                    }
                 }
             }
         }
 
         function downloadGrid() {
-            if (uploadedImages.length === 0) return;
+            if (uploadedImages.length === 0) {
+                alert('Please add at least one image before downloading.');
+                return;
+            }
             
             const link = document.createElement('a');
             link.download = `photo-grid-${Date.now()}.png`;
@@ -659,7 +844,12 @@
             link.click();
         }
 
-        // Initialize (theme handled by components.js)
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
+        });
     </script>
 
     <style>
@@ -772,6 +962,11 @@
         
         ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #2563eb, #7c3aed);
+        }
+
+        /* Canvas transition */
+        #grid-canvas {
+            transition: opacity 0.3s ease;
         }
     </style>
 </body>
