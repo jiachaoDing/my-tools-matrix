@@ -71,15 +71,98 @@
                             <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-xl bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition">Clear All</button>
                         </div>
 
-                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[250px] flex flex-col items-center justify-center bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
+                        <div id="drop-zone" class="relative border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] transition-all duration-300 min-h-[300px] flex flex-col bg-slate-50/50 dark:bg-slate-900/50 cursor-pointer hover:border-blue-500 overflow-hidden">
                             <input type="file" id="file-input" class="hidden" multiple accept="image/jpeg,image/png,image/webp" aria-label="Upload images for resizing">
-                            <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
-                                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            </div>
-                            <p class="text-slate-900 dark:text-white font-bold text-lg">Drop images here</p>
-                            <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to select files</p>
                             
-                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed">
+                            <!-- Empty State -->
+                            <div id="empty-upload-state" class="flex-1 flex flex-col items-center justify-center p-8">
+                                <div class="bg-blue-600 text-white p-4 rounded-full mb-4 shadow-xl">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <p class="text-slate-900 dark:text-white font-bold text-lg">Drop images here</p>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">or click to select files</p>
+                            </div>
+
+                            <!-- Preview State -->
+                            <div id="preview-state" class="hidden flex-1 flex flex-col">
+                                <!-- Preview Header -->
+                                <div class="flex items-center justify-between px-4 py-3 bg-slate-100/80 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700">
+                                    <div class="flex items-center gap-2">
+                                        <button id="prev-preview-btn" class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-30" disabled>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                        </button>
+                                        <span id="preview-counter" class="text-xs font-bold text-slate-500">1 / 1</span>
+                                        <button id="next-preview-btn" class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition disabled:opacity-30" disabled>
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                        </button>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button id="toggle-compare-btn" class="text-[10px] font-bold px-3 py-1.5 rounded-lg bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition">
+                                            Compare
+                                        </button>
+                                        <button id="add-more-btn" class="p-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="Add more images">
+                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Image Preview Area -->
+                                <div id="preview-container" class="flex-1 relative overflow-hidden cursor-zoom-in group/preview bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23f1f5f9%22%2F%3E%3C%2Fsvg%3E')] dark:bg-[url('data:image/svg+xml,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23334155%22%2F%3E%3Crect%20x%3D%2210%22%20y%3D%2210%22%20width%3D%2210%22%20height%3D%2210%22%20fill%3D%22%23334155%22%2F%3E%3C%2Fsvg%3E')]">
+                                    <!-- Fullscreen hint -->
+                                    <div class="absolute bottom-3 right-3 z-10 opacity-0 group-hover/preview:opacity-100 transition-opacity pointer-events-none">
+                                        <div class="flex items-center gap-1.5 px-2.5 py-1.5 bg-black/60 text-white text-[10px] font-bold rounded-lg backdrop-blur-sm">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                                            Click to fullscreen
+                                        </div>
+                                    </div>
+
+                                    <!-- Single Preview -->
+                                    <div id="single-preview" class="absolute inset-0 flex items-center justify-center p-4">
+                                        <img id="preview-image" class="max-w-full max-h-full object-contain rounded-lg shadow-lg" alt="Preview">
+                                    </div>
+                                    
+                                    <!-- Compare Mode (Side by Side) -->
+                                    <div id="compare-preview" class="hidden absolute inset-0 grid grid-cols-2 gap-1 p-2">
+                                        <div class="relative flex flex-col items-center justify-center bg-white/50 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+                                            <span class="absolute top-2 left-2 text-[10px] font-black uppercase px-2 py-1 rounded-lg bg-slate-900/70 text-white z-10">Original</span>
+                                            <img id="original-preview" class="max-w-full max-h-full object-contain" alt="Original">
+                                        </div>
+                                        <div class="relative flex flex-col items-center justify-center bg-white/50 dark:bg-slate-900/50 rounded-lg overflow-hidden">
+                                            <span class="absolute top-2 left-2 text-[10px] font-black uppercase px-2 py-1 rounded-lg bg-blue-600 text-white z-10">Resized</span>
+                                            <img id="resized-preview" class="max-w-full max-h-full object-contain" alt="Resized">
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Loading Spinner -->
+                                    <div id="preview-loading" class="hidden absolute inset-0 flex items-center justify-center bg-white/80 dark:bg-slate-900/80">
+                                        <div class="flex flex-col items-center gap-3">
+                                            <div class="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                            <span class="text-xs font-bold text-slate-500">Processing...</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Preview Footer Stats -->
+                                <div id="preview-stats" class="px-4 py-3 bg-slate-100/80 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700">
+                                    <div class="flex items-center justify-between text-xs">
+                                        <div class="flex items-center gap-4">
+                                            <div>
+                                                <span class="text-slate-400 font-medium">Original:</span>
+                                                <span id="stat-original-dims" class="font-bold text-slate-600 dark:text-slate-300 ml-1">--</span>
+                                            </div>
+                                            <div>
+                                                <span class="text-slate-400 font-medium">Resized:</span>
+                                                <span id="stat-resized-dims" class="font-bold text-blue-600 dark:text-blue-400 ml-1">--</span>
+                                            </div>
+                                        </div>
+                                        <div id="stat-scale" class="font-bold text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900/30 px-2 py-1 rounded-lg">
+                                            --% scale
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-2 border-blue-500 border-dashed z-20">
                                 <p class="text-blue-600 dark:text-blue-400 font-bold text-lg">Release to upload</p>
                             </div>
                         </div>
@@ -368,6 +451,84 @@
                     > </div>
             </article>
         </div>
+
+        <!-- Fullscreen Lightbox Modal -->
+        <div id="lightbox-modal" class="fixed inset-0 z-50 hidden">
+            <!-- Backdrop -->
+            <div id="lightbox-backdrop" class="absolute inset-0 bg-black/95 backdrop-blur-sm"></div>
+            
+            <!-- Content -->
+            <div class="relative z-10 w-full h-full flex flex-col">
+                <!-- Header -->
+                <div class="flex items-center justify-between px-6 py-4 bg-gradient-to-b from-black/50 to-transparent">
+                    <div class="flex items-center gap-4">
+                        <span id="lightbox-counter" class="text-sm font-bold text-white/80">1 / 1</span>
+                        <span id="lightbox-filename" class="text-sm text-white/60 truncate max-w-[200px]"></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <!-- View Mode Toggle -->
+                        <div class="flex bg-white/10 rounded-xl p-1">
+                            <button id="lightbox-view-resized" class="px-4 py-2 text-xs font-bold rounded-lg bg-blue-600 text-white transition-all">
+                                Resized
+                            </button>
+                            <button id="lightbox-view-original" class="px-4 py-2 text-xs font-bold rounded-lg text-white/70 hover:text-white transition-all">
+                                Original
+                            </button>
+                            <button id="lightbox-view-compare" class="px-4 py-2 text-xs font-bold rounded-lg text-white/70 hover:text-white transition-all">
+                                Compare
+                            </button>
+                        </div>
+                        <!-- Close Button -->
+                        <button id="lightbox-close" class="p-2 rounded-xl hover:bg-white/10 transition text-white/80 hover:text-white ml-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Image Container -->
+                <div class="flex-1 relative flex items-center justify-center overflow-hidden">
+                    <!-- Navigation Arrows -->
+                    <button id="lightbox-prev" class="absolute left-4 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all disabled:opacity-20 disabled:cursor-not-allowed">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button id="lightbox-next" class="absolute right-4 z-20 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all disabled:opacity-20 disabled:cursor-not-allowed">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+
+                    <!-- Single Image View -->
+                    <div id="lightbox-single" class="max-w-[90vw] max-h-[80vh] flex items-center justify-center">
+                        <img id="lightbox-image" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl" alt="Fullscreen preview">
+                    </div>
+
+                    <!-- Compare View (Side by Side) -->
+                    <div id="lightbox-compare" class="hidden w-full max-w-[95vw] h-[80vh] grid grid-cols-2 gap-4 px-16">
+                        <div class="relative flex items-center justify-center bg-white/5 rounded-2xl overflow-hidden">
+                            <span class="absolute top-4 left-4 text-xs font-black uppercase px-3 py-1.5 rounded-lg bg-slate-900/80 text-white z-10">Original</span>
+                            <img id="lightbox-original" class="max-w-full max-h-full object-contain" alt="Original">
+                        </div>
+                        <div class="relative flex items-center justify-center bg-white/5 rounded-2xl overflow-hidden">
+                            <span class="absolute top-4 left-4 text-xs font-black uppercase px-3 py-1.5 rounded-lg bg-blue-600 text-white z-10">Resized</span>
+                            <img id="lightbox-resized" class="max-w-full max-h-full object-contain" alt="Resized">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Stats -->
+                <div class="px-6 py-4 bg-gradient-to-t from-black/50 to-transparent">
+                    <div class="flex items-center justify-center gap-8 text-sm">
+                        <div class="text-white/60">
+                            Original: <span id="lightbox-original-dims" class="font-bold text-white">--</span>
+                        </div>
+                        <div class="text-white/60">
+                            Resized: <span id="lightbox-resized-dims" class="font-bold text-blue-400">--</span>
+                        </div>
+                        <div id="lightbox-scale" class="font-bold text-green-400 bg-green-500/20 px-3 py-1 rounded-lg">
+                            --% scale
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
       
     </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
     <script src="../assets/js/components.js"></script>
@@ -415,9 +576,53 @@
         const progressBar = document.getElementById('progress-bar');
         const progressPercent = document.getElementById('progress-percent');
 
+        // Preview elements
+        const emptyUploadState = document.getElementById('empty-upload-state');
+        const previewState = document.getElementById('preview-state');
+        const previewImage = document.getElementById('preview-image');
+        const originalPreview = document.getElementById('original-preview');
+        const resizedPreview = document.getElementById('resized-preview');
+        const singlePreview = document.getElementById('single-preview');
+        const comparePreview = document.getElementById('compare-preview');
+        const previewLoading = document.getElementById('preview-loading');
+        const previewCounter = document.getElementById('preview-counter');
+        const prevPreviewBtn = document.getElementById('prev-preview-btn');
+        const nextPreviewBtn = document.getElementById('next-preview-btn');
+        const toggleCompareBtn = document.getElementById('toggle-compare-btn');
+        const addMoreBtn = document.getElementById('add-more-btn');
+        const previewContainer = document.getElementById('preview-container');
+        const statOriginalDims = document.getElementById('stat-original-dims');
+        const statResizedDims = document.getElementById('stat-resized-dims');
+        const statScale = document.getElementById('stat-scale');
+
+        // Lightbox elements
+        const lightboxModal = document.getElementById('lightbox-modal');
+        const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxOriginal = document.getElementById('lightbox-original');
+        const lightboxResized = document.getElementById('lightbox-resized');
+        const lightboxSingle = document.getElementById('lightbox-single');
+        const lightboxCompare = document.getElementById('lightbox-compare');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxCounter = document.getElementById('lightbox-counter');
+        const lightboxFilename = document.getElementById('lightbox-filename');
+        const lightboxOriginalDims = document.getElementById('lightbox-original-dims');
+        const lightboxResizedDims = document.getElementById('lightbox-resized-dims');
+        const lightboxScale = document.getElementById('lightbox-scale');
+        const lightboxViewResized = document.getElementById('lightbox-view-resized');
+        const lightboxViewOriginal = document.getElementById('lightbox-view-original');
+        const lightboxViewCompare = document.getElementById('lightbox-view-compare');
+
         let uploadedFiles = [];
         let processedResults = [];
         let currentMode = 'dimensions';
+        let currentPreviewIndex = 0;
+        let previewCache = [];
+        let isCompareMode = false;
+        let lightboxViewMode = 'resized';
+        let previewDebounceTimer = null;
 
         // Tabs Logic
         const tabs = [
@@ -448,25 +653,64 @@
                 });
                 setTabActive(tab.btn, true);
                 tab.ctrl.classList.remove('hidden');
+                debouncedPreviewUpdate();
             });
         });
 
-        // Sliders Display
+        // Sliders Display + Preview Update
         percentageSlider.addEventListener('input', () => {
             percentageVal.textContent = `${percentageSlider.value}%`;
+            debouncedPreviewUpdate();
         });
         
         qualitySlider.addEventListener('input', () => {
             qualityVal.textContent = `${qualitySlider.value}%`;
+            debouncedPreviewUpdate();
         });
 
         outputFormat.addEventListener('change', () => {
             qualityContainer.classList.toggle('hidden', outputFormat.value === 'image/png');
+            debouncedPreviewUpdate();
         });
 
-        // Click to upload
-        dropZone.addEventListener('click', () => fileInput.click());
+        // Dimension inputs trigger preview
+        targetWidthInput.addEventListener('input', debouncedPreviewUpdate);
+        targetHeightInput.addEventListener('input', debouncedPreviewUpdate);
+        lockAspectCheckbox.addEventListener('change', debouncedPreviewUpdate);
+        targetFilesizeInput.addEventListener('input', debouncedPreviewUpdate);
+        filesizeUnit.addEventListener('change', debouncedPreviewUpdate);
+
+        // Debounced preview update
+        function debouncedPreviewUpdate() {
+            clearTimeout(previewDebounceTimer);
+            previewDebounceTimer = setTimeout(() => {
+                if (uploadedFiles.length > 0) {
+                    previewCache = [];
+                    updatePreview();
+                }
+            }, 300);
+        }
+
+        // Click to upload (prevent when clicking on preview controls)
+        dropZone.addEventListener('click', (e) => {
+            if (e.target.closest('#preview-state') && !e.target.closest('#add-more-btn')) return;
+            fileInput.click();
+        });
         fileInput.addEventListener('change', (e) => handleFiles(e.target.files));
+
+        // Add more button
+        addMoreBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            fileInput.click();
+        });
+
+        // Preview container click for lightbox
+        previewContainer?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (uploadedFiles.length > 0 && previewCache[currentPreviewIndex]) {
+                openLightbox();
+            }
+        });
 
         // Drag & Drop
         const DROP_ACTIVE_CLASSES = ['border-blue-500', 'bg-blue-50/50', 'dark:bg-blue-900/20', 'scale-[1.01]'];
@@ -498,10 +742,10 @@
         }
 
         async function handleFiles(files) {
+            const startIndex = uploadedFiles.length;
             const newFiles = Array.from(files).filter(file => file.type.startsWith('image/'));
             
             for (const file of newFiles) {
-                // Pre-load image to get dimensions
                 const dimensions = await getImageDimensions(file);
                 uploadedFiles.push({
                     file: file,
@@ -516,6 +760,13 @@
             
             updateFileList();
             fileInput.value = '';
+            
+            // Show preview if we have files
+            if (uploadedFiles.length > 0) {
+                currentPreviewIndex = startIndex < uploadedFiles.length ? startIndex : 0;
+                showPreviewState();
+                updatePreview();
+            }
         }
 
         function getImageDimensions(file) {
@@ -532,6 +783,294 @@
             });
         }
 
+        // === Preview State Management ===
+        function showPreviewState() {
+            emptyUploadState.classList.add('hidden');
+            previewState.classList.remove('hidden');
+            updatePreviewNavigation();
+        }
+
+        function hidePreviewState() {
+            emptyUploadState.classList.remove('hidden');
+            previewState.classList.add('hidden');
+        }
+
+        function updatePreviewNavigation() {
+            const total = uploadedFiles.length;
+            previewCounter.textContent = `${currentPreviewIndex + 1} / ${total}`;
+            prevPreviewBtn.disabled = currentPreviewIndex === 0;
+            nextPreviewBtn.disabled = currentPreviewIndex >= total - 1;
+        }
+
+        // Navigation buttons
+        prevPreviewBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentPreviewIndex > 0) {
+                currentPreviewIndex--;
+                updatePreviewNavigation();
+                updateFileList();
+                updatePreview();
+            }
+        });
+
+        nextPreviewBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (currentPreviewIndex < uploadedFiles.length - 1) {
+                currentPreviewIndex++;
+                updatePreviewNavigation();
+                updateFileList();
+                updatePreview();
+            }
+        });
+
+        // Compare mode toggle
+        toggleCompareBtn?.addEventListener('click', (e) => {
+            e.stopPropagation();
+            isCompareMode = !isCompareMode;
+            if (isCompareMode) {
+                singlePreview.classList.add('hidden');
+                comparePreview.classList.remove('hidden');
+                toggleCompareBtn.textContent = 'Single View';
+            } else {
+                singlePreview.classList.remove('hidden');
+                comparePreview.classList.add('hidden');
+                toggleCompareBtn.textContent = 'Compare';
+            }
+            updatePreview();
+        });
+
+        async function updatePreview() {
+            if (uploadedFiles.length === 0) return;
+            
+            const item = uploadedFiles[currentPreviewIndex];
+            if (!item) return;
+
+            previewLoading.classList.remove('hidden');
+
+            const originalUrl = URL.createObjectURL(item.file);
+
+            try {
+                // Calculate target dimensions based on current mode
+                let targetW, targetH;
+                
+                if (currentMode === 'percentage') {
+                    const scale = parseInt(percentageSlider.value) / 100;
+                    targetW = Math.round(item.width * scale);
+                    targetH = Math.round(item.height * scale);
+                } else if (currentMode === 'dimensions') {
+                    const wInput = parseInt(targetWidthInput.value);
+                    const hInput = parseInt(targetHeightInput.value);
+                    
+                    if (wInput && hInput) {
+                        targetW = wInput;
+                        targetH = hInput;
+                    } else if (wInput) {
+                        targetW = wInput;
+                        targetH = lockAspectCheckbox.checked ? Math.round(wInput / item.aspectRatio) : item.height;
+                    } else if (hInput) {
+                        targetH = hInput;
+                        targetW = lockAspectCheckbox.checked ? Math.round(hInput * item.aspectRatio) : item.width;
+                    } else {
+                        targetW = item.width;
+                        targetH = item.height;
+                    }
+                } else if (currentMode === 'filesize') {
+                    // For filesize mode, just show original for now (actual resize happens on process)
+                    targetW = item.width;
+                    targetH = item.height;
+                }
+
+                // Perform preview resize
+                const format = outputFormat.value;
+                const quality = parseInt(qualitySlider.value) / 100;
+                const resizedBlob = await performResize(item, targetW, targetH, format, quality);
+                const resizedUrl = URL.createObjectURL(resizedBlob);
+
+                // Update preview images
+                if (isCompareMode) {
+                    originalPreview.src = originalUrl;
+                    resizedPreview.src = resizedUrl;
+                } else {
+                    previewImage.src = resizedUrl;
+                }
+
+                // Update stats
+                const scalePercent = Math.round((targetW / item.width) * 100);
+                statOriginalDims.textContent = `${item.width}×${item.height}`;
+                statResizedDims.textContent = `${targetW}×${targetH}`;
+                statScale.textContent = `${scalePercent}% scale`;
+
+                // Cache the result
+                previewCache[currentPreviewIndex] = {
+                    originalUrl,
+                    resizedUrl,
+                    resizedBlob,
+                    targetW,
+                    targetH,
+                    scalePercent
+                };
+
+            } catch (err) {
+                console.error('Preview resize failed:', err);
+                previewImage.src = originalUrl;
+                originalPreview.src = originalUrl;
+                resizedPreview.src = originalUrl;
+                statOriginalDims.textContent = `${item.width}×${item.height}`;
+                statResizedDims.textContent = 'Error';
+                statScale.textContent = '100% scale';
+            }
+
+            previewLoading.classList.add('hidden');
+        }
+
+        function selectFileForPreview(index) {
+            if (index !== currentPreviewIndex) {
+                currentPreviewIndex = index;
+                updateFileList();
+                updatePreviewNavigation();
+                updatePreview();
+            }
+        }
+
+        // === Lightbox Functions ===
+        function openLightbox() {
+            lightboxModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            updateLightbox();
+        }
+
+        function closeLightbox() {
+            lightboxModal.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightbox() {
+            const item = uploadedFiles[currentPreviewIndex];
+            const cache = previewCache[currentPreviewIndex];
+            
+            if (!item || !cache) return;
+
+            lightboxCounter.textContent = `${currentPreviewIndex + 1} / ${uploadedFiles.length}`;
+            lightboxFilename.textContent = item.name;
+
+            lightboxPrev.disabled = currentPreviewIndex === 0;
+            lightboxNext.disabled = currentPreviewIndex >= uploadedFiles.length - 1;
+
+            lightboxOriginalDims.textContent = `${item.width}×${item.height}`;
+            lightboxResizedDims.textContent = `${cache.targetW}×${cache.targetH}`;
+            lightboxScale.textContent = `${cache.scalePercent}% scale`;
+
+            updateLightboxView();
+        }
+
+        function updateLightboxView() {
+            const cache = previewCache[currentPreviewIndex];
+            if (!cache) return;
+
+            [lightboxViewResized, lightboxViewOriginal, lightboxViewCompare].forEach(btn => {
+                btn.classList.remove('bg-blue-600');
+                btn.classList.add('text-white/70');
+            });
+
+            if (lightboxViewMode === 'compare') {
+                lightboxSingle.classList.add('hidden');
+                lightboxCompare.classList.remove('hidden');
+                lightboxOriginal.src = cache.originalUrl;
+                lightboxResized.src = cache.resizedUrl;
+                lightboxViewCompare.classList.add('bg-blue-600');
+                lightboxViewCompare.classList.remove('text-white/70');
+            } else {
+                lightboxSingle.classList.remove('hidden');
+                lightboxCompare.classList.add('hidden');
+                
+                if (lightboxViewMode === 'original') {
+                    lightboxImage.src = cache.originalUrl;
+                    lightboxViewOriginal.classList.add('bg-blue-600');
+                    lightboxViewOriginal.classList.remove('text-white/70');
+                } else {
+                    lightboxImage.src = cache.resizedUrl;
+                    lightboxViewResized.classList.add('bg-blue-600');
+                    lightboxViewResized.classList.remove('text-white/70');
+                }
+            }
+        }
+
+        // Lightbox event listeners
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxBackdrop?.addEventListener('click', closeLightbox);
+
+        lightboxPrev?.addEventListener('click', () => {
+            if (currentPreviewIndex > 0) {
+                currentPreviewIndex--;
+                updatePreviewNavigation();
+                updateFileList();
+                updateLightbox();
+            }
+        });
+
+        lightboxNext?.addEventListener('click', () => {
+            if (currentPreviewIndex < uploadedFiles.length - 1) {
+                currentPreviewIndex++;
+                updatePreviewNavigation();
+                updateFileList();
+                updateLightbox();
+            }
+        });
+
+        lightboxViewResized?.addEventListener('click', () => {
+            lightboxViewMode = 'resized';
+            updateLightboxView();
+        });
+
+        lightboxViewOriginal?.addEventListener('click', () => {
+            lightboxViewMode = 'original';
+            updateLightboxView();
+        });
+
+        lightboxViewCompare?.addEventListener('click', () => {
+            lightboxViewMode = 'compare';
+            updateLightboxView();
+        });
+
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            if (lightboxModal.classList.contains('hidden')) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowLeft':
+                    if (currentPreviewIndex > 0) {
+                        currentPreviewIndex--;
+                        updatePreviewNavigation();
+                        updateFileList();
+                        updateLightbox();
+                    }
+                    break;
+                case 'ArrowRight':
+                    if (currentPreviewIndex < uploadedFiles.length - 1) {
+                        currentPreviewIndex++;
+                        updatePreviewNavigation();
+                        updateFileList();
+                        updateLightbox();
+                    }
+                    break;
+                case '1':
+                    lightboxViewMode = 'resized';
+                    updateLightboxView();
+                    break;
+                case '2':
+                    lightboxViewMode = 'original';
+                    updateLightboxView();
+                    break;
+                case '3':
+                    lightboxViewMode = 'compare';
+                    updateLightboxView();
+                    break;
+            }
+        });
+
         function updateFileList() {
             fileList.innerHTML = '';
             fileCountDisplay.textContent = uploadedFiles.length;
@@ -541,10 +1080,11 @@
             
             uploadedFiles.forEach((item, index) => {
                 const div = document.createElement('div');
-                div.className = 'flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800';
+                const isActive = index === currentPreviewIndex;
+                div.className = `flex items-center justify-between p-3 rounded-2xl border cursor-pointer transition-all ${isActive ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800' : 'bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/50'}`;
                 div.innerHTML = `
                     <div class="flex items-center gap-3 overflow-hidden">
-                        <div class="p-2 bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg shrink-0">
+                        <div class="p-2 ${isActive ? 'bg-blue-200 dark:bg-blue-800 text-blue-600 dark:text-blue-300' : 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400'} rounded-lg shrink-0">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
                         <div class="overflow-hidden">
@@ -552,23 +1092,40 @@
                             <div class="text-[10px] text-slate-400">${item.width}x${item.height} • ${formatSize(item.size)}</div>
                         </div>
                     </div>
-                    <button onclick="removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
+                    <button onclick="event.stopPropagation(); removeFile(${index})" class="p-2 text-slate-400 hover:text-red-500 transition">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 `;
+                // Click to select for preview
+                div.addEventListener('click', () => selectFileForPreview(index));
                 fileList.appendChild(div);
             });
         }
 
         window.removeFile = (index) => {
             uploadedFiles.splice(index, 1);
+            previewCache.splice(index, 1);
+            
+            if (uploadedFiles.length === 0) {
+                hidePreviewState();
+                currentPreviewIndex = 0;
+            } else {
+                if (currentPreviewIndex >= uploadedFiles.length) {
+                    currentPreviewIndex = uploadedFiles.length - 1;
+                }
+                updatePreviewNavigation();
+                updatePreview();
+            }
             updateFileList();
         };
 
         clearBtn.addEventListener('click', () => {
             uploadedFiles = [];
             processedResults = [];
+            previewCache = [];
+            currentPreviewIndex = 0;
             updateFileList();
+            hidePreviewState();
             resultsList.innerHTML = '';
             resultsContainer.classList.add('hidden');
             fileInput.value = '';
