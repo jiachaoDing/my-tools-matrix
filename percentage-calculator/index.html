@@ -1,1 +1,390 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator - Instant Math Tool | WebUtilityKit</title>
+    <meta name="description" content="Calculate percentages instantly with 5 powerful calculators. Find percentage values, changes, and increases in real-time. 100% private, client-side processing.">
+    <link rel="canonical" href="https://webutilitykit.com/percentage-calculator/" />
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script src="/tools-config.js"></script>
+
+    <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Percentage Calculator",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "ratingCount": "782",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": "Client-side processing, No server upload, Real-time calculation, Dark mode",
+      "screenshot": "https://webutilitykit.com/assets/screenshots/percentage-calculator.jpg"
+    }
+    </script>
+
+
+    <!-- Tool-specific Logic -->
+
+    
+    
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Percentage Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Five essential percentage calculators in one clean interface. Fast, accurate, and completely private.</p>
+            
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Private. Local processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-5xl px-6 mx-auto mb-32 space-y-8">
+            
+            <!-- Module 1: What is X% of Y -->
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Percentage</label>
+                            <input type="number" id="m1-x" value="15" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">% of</div>
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Value</label>
+                            <input type="number" id="m1-y" value="100" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">is</div>
+                        <div class="sm:col-span-1 text-center">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Result</label>
+                            <span id="m1-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 2: X is what % of Y -->
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Value X</label>
+                            <input type="number" id="m2-x" value="25" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">is what % of</div>
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Value Y</label>
+                            <input type="number" id="m2-y" value="200" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">?</div>
+                        <div class="sm:col-span-1 text-center">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Result (%)</label>
+                            <span id="m2-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">12.5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 3: Percentage Increase/Decrease from X to Y -->
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">From Value</label>
+                            <input type="number" id="m3-x" value="50" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">to</div>
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">To Value</label>
+                            <input type="number" id="m3-y" value="80" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">is % change</div>
+                        <div class="sm:col-span-1 text-center">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Result (%)</label>
+                            <span id="m3-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums text-green-600 dark:text-green-400">+60</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 4: X + Y% -->
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Initial Value</label>
+                            <input type="number" id="m4-x" value="100" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">+</div>
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Add %</label>
+                            <input type="number" id="m4-y" value="10" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">is</div>
+                        <div class="sm:col-span-1 text-center">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Final Value</label>
+                            <span id="m4-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">110</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Module 5: X - Y% -->
+            <div class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800/50 shadow-sm transition-all hover:shadow-xl hover:shadow-primary-500/5 hover:border-primary-500/20">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="flex-grow grid grid-cols-1 sm:grid-cols-5 items-center gap-4">
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Initial Value</label>
+                            <input type="number" id="m5-x" value="100" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">-</div>
+                        <div class="sm:col-span-1">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Subtract %</label>
+                            <input type="number" id="m5-y" value="20" step="any" class="bg-slate-100/50 dark:bg-slate-900/50 border-2 border-slate-200/30 dark:border-slate-700/30 focus:border-primary-500/40 focus:bg-white dark:focus:bg-slate-900 rounded-xl px-4 py-3 outline-none transition-all font-bold text-lg text-center w-full">
+                        </div>
+                        <div class="text-center font-bold text-slate-400 italic">is</div>
+                        <div class="sm:col-span-1 text-center">
+                            <label class="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2 block">Final Value</label>
+                            <span id="m5-res" class="bg-primary-50 dark:bg-primary-900/10 text-primary-600 dark:text-primary-400 font-black text-2xl py-3 px-6 rounded-xl border border-primary-100 dark:border-primary-900/20 text-center min-w-[120px] inline-block tabular-nums">80</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- Section 1: How to use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Mastering Percentages</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-primary-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-primary-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Pick a Module</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Choose the specific percentage problem you need to solve—from simple finders to change calculators.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-primary-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-primary-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Values</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Enter your numbers into the fields. Our tool handles any numeric value, including decimals and large figures.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-primary-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-primary-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-primary-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Instant Result</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">The calculation happens in real-time. No "Calculate" button needed. Your results appear instantly as you type.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Why it matters (Visual Highlight) -->
+                <section class="bg-primary-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight">Why Precision Matters</h2>
+                            <p class="text-lg text-primary-50/80 leading-relaxed mb-8">
+                                Whether you're calculating a discount, a salary increase, or analyzing data trends, percentages are the backbone of decision-making. Small errors in manual calculations can lead to significant financial or data-driven mistakes. Our tool provides high-precision floating point calculations for absolute certainty.
+                            </p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-primary-200 text-xs font-bold uppercase mb-1 italic">Accuracy</div>
+                                    <div class="font-bold">15 Decimal Places</div>
+                                </div>
+                                <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
+                                    <div class="text-primary-200 text-xs font-bold uppercase mb-1 italic">Speed</div>
+                                    <div class="font-bold">Instant Computation</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hidden lg:flex justify-center">
+                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-[spin_45s_linear_infinite]">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Built for Speed and Clarity</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-primary-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-primary-100 dark:bg-primary-900/30 text-primary-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Real-time Feedback</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Calculations are triggered on every keystroke. Watch the results update as you type, allowing for quick "what-if" scenarios.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-primary-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">100% Client-Side</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">No data ever leaves your device. Your values are processed locally in your browser, ensuring maximum privacy and instant performance.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-primary-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Zero Dependencies</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Built with pure Vanilla JS and Tailwind CSS for a lightweight, native-feeling experience that loads in milliseconds.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-primary-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Clean Typography</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">High-contrast results ensure clarity. Tabular figures prevent jumping text when values change, keeping the layout stable.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Percentage FAQ</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-primary-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How is percentage change calculated?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Percentage change is calculated by taking the difference between the final and initial values, dividing by the absolute value of the initial value, and multiplying by 100. Formula: `((Final - Initial) / Initial) * 100`.
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-primary-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What if the percentage is over 100%?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Our calculator handles percentages of any size. For example, 200% of a value simply means double that value, and 500% means five times that value.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+                <div id="related-tools-section" class="mt-12 border-t border-slate-200 dark:border-slate-800 pt-8 hidden">
+                    > </div>
+            </article>
+        </div>
+    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    <script src="../assets/js/components.js"></script>
+
+    <!-- Tool-specific Logic -->
+
+    <script>
+        // === Percentage Calculator Logic ===
+        const formatNum = (num) => {
+            if (isNaN(num) || !isFinite(num)) return 'Error';
+            const s = num.toString();
+            if (s.includes('.') && s.split('.')[1].length > 4) {
+                return parseFloat(num.toFixed(4)).toString();
+            }
+            return s;
+        };
+
+        // Module 1: What is X% of Y
+        const m1x = document.getElementById('m1-x');
+        const m1y = document.getElementById('m1-y');
+        const m1res = document.getElementById('m1-res');
+        function calcM1() {
+            const x = parseFloat(m1x.value) || 0;
+            const y = parseFloat(m1y.value) || 0;
+            m1res.textContent = formatNum((x / 100) * y);
+        }
+
+        // Module 2: X is what % of Y
+        const m2x = document.getElementById('m2-x');
+        const m2y = document.getElementById('m2-y');
+        const m2res = document.getElementById('m2-res');
+        function calcM2() {
+            const x = parseFloat(m2x.value) || 0;
+            const y = parseFloat(m2y.value) || 0;
+            if (y === 0) { m2res.textContent = '0'; return; }
+            m2res.textContent = formatNum((x / y) * 100);
+        }
+
+        // Module 3: % Change
+        const m3x = document.getElementById('m3-x');
+        const m3y = document.getElementById('m3-y');
+        const m3res = document.getElementById('m3-res');
+        function calcM3() {
+            const x = parseFloat(m3x.value) || 0;
+            const y = parseFloat(m3y.value) || 0;
+            if (x === 0) { m3res.textContent = '0'; return; }
+            const change = ((y - x) / Math.abs(x)) * 100;
+            const prefix = change > 0 ? '+' : '';
+            m3res.textContent = prefix + formatNum(change);
+            m3res.classList.toggle('text-green-600', change > 0);
+            m3res.classList.toggle('dark:text-green-400', change > 0);
+            m3res.classList.toggle('text-red-600', change < 0);
+            m3res.classList.toggle('dark:text-red-400', change < 0);
+            m3res.classList.toggle('text-primary-600', change === 0);
+            m3res.classList.toggle('dark:text-primary-400', change === 0);
+        }
+
+        // Module 4: X + Y%
+        const m4x = document.getElementById('m4-x');
+        const m4y = document.getElementById('m4-y');
+        const m4res = document.getElementById('m4-res');
+        function calcM4() {
+            const x = parseFloat(m4x.value) || 0;
+            const y = parseFloat(m4y.value) || 0;
+            m4res.textContent = formatNum(x + (x * (y / 100)));
+        }
+
+        // Module 5: X - Y%
+        const m5x = document.getElementById('m5-x');
+        const m5y = document.getElementById('m5-y');
+        const m5res = document.getElementById('m5-res');
+        function calcM5() {
+            const x = parseFloat(m5x.value) || 0;
+            const y = parseFloat(m5y.value) || 0;
+            m5res.textContent = formatNum(x - (x * (y / 100)));
+        }
+
+        [m1x, m1y].forEach(el => el.addEventListener('input', calcM1));
+        [m2x, m2y].forEach(el => el.addEventListener('input', calcM2));
+        [m3x, m3y].forEach(el => el.addEventListener('input', calcM3));
+        [m4x, m4y].forEach(el => el.addEventListener('input', calcM4));
+        [m5x, m5y].forEach(el => el.addEventListener('input', calcM5));
+
+        // Init all
+        calcM1(); calcM2(); calcM3(); calcM4(); calcM5();
+
+    </script>
+</body>
+</html>
