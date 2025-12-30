@@ -2,532 +2,1062 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://webutilitykit.com/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/</loc>
+    <lastmod>2025-12-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/add-watermark/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/age-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/ascii-art/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/aspect-ratio-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/avif-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/avif-to-png/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/base64-encoder/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/base64-to-image/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/binary-to-text/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/blur-image/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/bmi-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/bmp-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/bmp-to-png/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/bmr-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/body-fat-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/case-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/character-counter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/coin-flipper/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/cpm-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/credit-card-validator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/cron-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/csv-to-json/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/data-unit-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/days-between-dates/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/dice-roller/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/discount-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/download-time-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/emoji-picker/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/extract-pdf-images/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/find-and-replace/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/flip-image/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/gif-to-mp4/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/grayscale-image/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/heic-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/ico-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/ico-to-png/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/image-color-picker/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/image-compressor/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/image-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/image-cropper/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/image-resizer/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/image-to-base64/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/jpg-to-pdf/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/jpg-to-png/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/json-formatter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/json-to-csv/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/length-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/list-randomizer/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/loan-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/lorem-ipsum/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/markdown-to-html/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/md5-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/meme-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/merge-pdf/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/meta-tag-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/online-stopwatch/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/open-graph-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/password-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/password-strength/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/pdf-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/percentage-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/photo-grid-maker/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/png-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/pomodoro-timer/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/protect-pdf/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/qr-code-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/random-number-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/regex-tester/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/remove-duplicate-lines/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/reverse-text/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/rock-paper-scissors/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/rotate-image/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/rotate-pdf/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/sales-tax-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/sha256-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/slug-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/small-text-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/sort-text/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/special-symbols-picker/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/speed-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/split-pdf/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/sql-formatter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/svg-to-png/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/temperature-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/text-to-binary/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/tiff-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/time-zone-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/tip-calculator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/twitter-card-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/unix-timestamp/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/unlock-pdf/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/upside-down-text/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/url-encoder-decoder/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/user-agent-parser/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/uuid-generator/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/webp-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/webp-to-jpg/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/webp-to-png/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/weight-converter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/what-is-my-ip/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/wheel-of-names/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/word-counter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/xml-formatter/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/yes-no-oracle/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://webutilitykit.com/youtube-thumbnail-grabber/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/add-watermark/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/age-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/ascii-art/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/aspect-ratio-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/avif-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/avif-to-png/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/base64-encoder/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/base64-to-image/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/binary-to-text/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/blur-image/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/bmi-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/bmp-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/bmp-to-png/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/bmr-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/body-fat-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/case-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/character-counter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/coin-flipper/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/cpm-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/credit-card-validator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/cron-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/csv-to-json/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/data-unit-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/days-between-dates/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/dice-roller/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/discount-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/download-time-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/emoji-picker/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/extract-pdf-images/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/find-and-replace/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/flip-image/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/gif-to-mp4/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/grayscale-image/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/heic-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/ico-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/ico-to-png/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/image-color-picker/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/image-compressor/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/image-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/image-cropper/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/image-resizer/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/image-to-base64/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/jpg-to-pdf/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/jpg-to-png/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/json-formatter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/json-to-csv/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/length-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/list-randomizer/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/loan-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/lorem-ipsum/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/markdown-to-html/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/md5-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/meme-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/merge-pdf/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/meta-tag-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/online-stopwatch/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/open-graph-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/password-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/password-strength/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/pdf-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/percentage-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/photo-grid-maker/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/png-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/pomodoro-timer/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/protect-pdf/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/qr-code-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/random-number-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/regex-tester/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/remove-duplicate-lines/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/reverse-text/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/rock-paper-scissors/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/rotate-image/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/rotate-pdf/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/sales-tax-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/sha256-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/slug-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/small-text-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/sort-text/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/special-symbols-picker/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/speed-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/split-pdf/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/sql-formatter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/svg-to-png/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/temperature-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/text-to-binary/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/tiff-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/time-zone-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/tip-calculator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/twitter-card-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/unix-timestamp/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/unlock-pdf/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/upside-down-text/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/url-encoder-decoder/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/user-agent-parser/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/uuid-generator/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/webp-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/webp-to-jpg/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/webp-to-png/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/weight-converter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/what-is-my-ip/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/wheel-of-names/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/word-counter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/xml-formatter/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/yes-no-oracle/</loc>
+    <lastmod>2025-12-30</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://webutilitykit.com/hi/youtube-thumbnail-grabber/</loc>
+    <lastmod>2025-12-30</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
