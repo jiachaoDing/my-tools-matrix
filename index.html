@@ -62,111 +62,16 @@
                     </div>
 
                     <!-- Categories -->
-                    <nav class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm space-y-2">
+                    <nav class="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm space-y-2" id="category-nav">
                         <div class="text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400 mb-2">Jump to category</div>
-                        <a href="#images" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>📸 Images & Media</span><span id="count-images" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
-                        <a href="#developer" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>💻 Developer Tools</span><span id="count-developer" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
-                        <a href="#text" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>📝 Text & Strings</span><span id="count-text" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
-                        <a href="#calculators" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>🧮 Calculators</span><span id="count-calculators" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
-                        <a href="#pdf" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>📄 PDF & Documents</span><span id="count-pdf" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
-                        <a href="#fun" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>🎲 Fun & Random</span><span id="count-fun" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
-                        <a href="#converters" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
-                            <span>📏 Unit Converters</span><span id="count-converters" class="text-xs text-slate-500 dark:text-slate-400">—</span>
-                        </a>
+                        <!-- Category links will be dynamically generated here -->
                     </nav>
                 </div>
             </aside>
 
             <!-- Main Content -->
-            <div class="flex-1 min-w-0 space-y-12">
-                <!-- Images & Media -->
-                <section id="images" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">📸 Images & Media Tools</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-images">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="images-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
-
-                <!-- Developer Tools -->
-                <section id="developer" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">💻 Developer Tools</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-developer">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="developer-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
-
-                <!-- Text & Strings -->
-                <section id="text" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">📝 Text & String Tools</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-text">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="text-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
-
-                <!-- Calculators -->
-                <section id="calculators" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">🧮 Calculators</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-calculators">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="calculators-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
-
-                <!-- PDF & Documents -->
-                <section id="pdf" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">📄 PDF & Document Tools</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-pdf">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="pdf-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
-
-                <!-- Fun & Random -->
-                <section id="fun" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">🎲 Fun & Random Tools</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-fun">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="fun-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
-
-                <!-- Unit Converters -->
-                <section id="converters" class="space-y-4">
-                    <div class="flex items-center justify-between gap-3">
-                        <h2 class="text-xl font-bold">📏 Unit Converters</h2>
-                        <span class="text-sm text-slate-500 dark:text-slate-400" id="label-converters">— tools</span>
-                    </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="converters-grid">
-                        <!-- Tools will be dynamically generated here -->
-                    </div>
-                </section>
+            <div class="flex-1 min-w-0 space-y-12" id="main-content">
+                <!-- Categories and tools will be dynamically generated here -->
             </div>
         </div>
 
@@ -211,17 +116,54 @@
                 `;
         }
 
+        // Generate category navigation links
+        function generateCategoryNav() {
+            const navContainer = document.getElementById('category-nav');
+            if (!navContainer) return;
+
+            const navLinksHtml = toolsConfig.categories.map(category => {
+                const count = category.tools.length;
+                return `
+                    <a href="#${category.id}" class="flex items-center justify-between rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800 px-4 py-3 text-sm font-medium text-slate-900 dark:text-slate-100 hover:border-blue-300 hover:bg-blue-50 dark:hover:bg-slate-700 transition">
+                        <span>${category.title}</span><span id="count-${category.id}" class="text-xs text-slate-500 dark:text-slate-400">${count}</span>
+                    </a>
+                `;
+            }).join('');
+
+            // Insert after the title
+            const titleDiv = navContainer.querySelector('div');
+            if (titleDiv) {
+                titleDiv.insertAdjacentHTML('afterend', navLinksHtml);
+            }
+        }
+
+        // Generate category sections
+        function generateCategorySections() {
+            const mainContent = document.getElementById('main-content');
+            if (!mainContent) return;
+
+            const sectionsHtml = toolsConfig.categories.map(category => {
+                const count = category.tools.length;
+                return `
+                    <section id="${category.id}" class="space-y-4">
+                        <div class="flex items-center justify-between gap-3">
+                            <h2 class="text-xl font-bold">${category.title}</h2>
+                            <span class="text-sm text-slate-500 dark:text-slate-400" id="label-${category.id}">${count} tools</span>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4" id="${category.id}-grid">
+                            <!-- Tools will be dynamically generated here -->
+                        </div>
+                    </section>
+                `;
+            }).join('');
+
+            mainContent.innerHTML = sectionsHtml;
+        }
+
         function populateStats() {
             let totalTools = 0;
-            const counts = {};
             toolsConfig.categories.forEach(category => {
-                const count = category.tools.length;
-                totalTools += count;
-                counts[category.id] = count;
-                const label = document.getElementById(`label-${category.id}`);
-                const badge = document.getElementById(`count-${category.id}`);
-                if (label) label.textContent = `${count} tools`;
-                if (badge) badge.textContent = count;
+                totalTools += category.tools.length;
             });
             const totalEl = document.getElementById('stat-total');
             const catEl = document.getElementById('stat-categories');
@@ -240,20 +182,26 @@
             populateStats();
         }
 
-        // Generate cards and initialize search when page loads
-        document.addEventListener('DOMContentLoaded', function() {
+        // Generate all dynamic content
+        function initializePage() {
+            generateCategoryNav();
+            generateCategorySections();
             generateToolCards();
             initializeSearch();
-        });
+            initializeSmoothScrolling();
+        }
+
+        // Generate cards and initialize search when page loads
+        document.addEventListener('DOMContentLoaded', initializePage);
 
         // Simple search functionality
         function initializeSearch() {
             const searchInput = document.getElementById('toolSearch');
-            const categorySections = document.querySelectorAll('section[id]');
-
+            
             searchInput.addEventListener('input', function() {
                 const query = this.value.toLowerCase().trim();
                 let visibleCategories = 0;
+                const categorySections = document.querySelectorAll('section[id]');
 
                 categorySections.forEach(section => {
                     const cards = section.querySelectorAll('[data-tool-name]');
@@ -288,15 +236,19 @@
         }
 
         // Smooth scrolling for category links
-        document.querySelectorAll('aside a[href^="#"]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        function initializeSmoothScrolling() {
+            // Use event delegation since links are dynamically generated
+            document.querySelector('aside').addEventListener('click', function(e) {
+                const link = e.target.closest('a[href^="#"]');
+                if (link) {
+                    e.preventDefault();
+                    const target = document.querySelector(link.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
                 }
             });
-        });
+        }
     </script>
 </body>
 </html>
