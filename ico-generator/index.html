@@ -7,6 +7,9 @@
     <meta name="description" content="Create multi-size ICO favicons instantly from PNG, JPG, or WebP. 100% private, client-side conversion with no uploads. Generate professional favicons now!">
     <link rel="canonical" href="https://webutilitykit.com/ico-generator/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <style>
+        .pixelated { image-rendering: pixelated; image-rendering: crisp-edges; }
+    </style>
     
     <script src="/tools-config.js"></script>
 
@@ -148,19 +151,29 @@
 
                     <div id="result-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50">
                         <div class="flex items-center justify-between mb-6">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Result</label>
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest">Generated ICO</label>
                             <span id="result-size" class="text-[10px] font-black uppercase text-blue-600">0 KB</span>
                         </div>
-                        <div class="flex items-center gap-6 p-6 bg-slate-50 dark:bg-slate-900/50 rounded-3xl border-2 border-blue-500/10">
-                            <div class="w-16 h-16 bg-white dark:bg-slate-800 rounded-xl shadow-inner flex items-center justify-center p-2">
-                                <img id="result-preview" class="max-w-full max-h-full object-contain">
+                        
+                        <!-- Size Previews Grid -->
+                        <div class="mb-6">
+                            <h4 class="text-[10px] font-black uppercase tracking-wider text-slate-400 mb-3">Included Sizes Preview</h4>
+                            <div id="size-previews" class="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                                <!-- Previews will be injected here -->
+                            </div>
+                        </div>
+
+                        <!-- Download Section -->
+                        <div class="flex items-center gap-6 p-5 bg-slate-50 dark:bg-slate-900/50 rounded-2xl border border-slate-100 dark:border-slate-800">
+                            <div class="w-12 h-12 bg-white dark:bg-slate-800 rounded-xl shadow-inner flex items-center justify-center p-1.5 border border-slate-200 dark:border-slate-700">
+                                <img id="result-preview" class="max-w-full max-h-full object-contain pixelated">
                             </div>
                             <div class="flex-grow">
-                                <div class="text-sm font-bold text-slate-900 dark:text-white mb-1">favicon.ico</div>
+                                <div class="text-sm font-bold text-slate-900 dark:text-white mb-0.5">favicon.ico</div>
                                 <div id="result-details" class="text-[10px] text-slate-400 font-medium">Includes 3 sizes</div>
                             </div>
-                            <a id="download-link" href="#" download="favicon.ico" class="p-4 bg-blue-600 text-white rounded-2xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <a id="download-link" href="#" download="favicon.ico" class="p-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             </a>
                         </div>
                     </div>
@@ -358,78 +371,134 @@
             fileInput.value = '';
         });
 
+        const sizePreviews = document.getElementById('size-previews');
+
         // ICO Generation Logic
         generateBtn.addEventListener('click', async () => {
             const sizes = Array.from(sizeCheckboxes)
                 .map(l => l.querySelector('input'))
                 .filter(i => i.checked)
-                .map(i => parseInt(i.value));
+                .map(i => parseInt(i.value))
+                .sort((a, b) => a - b); // Sort from smallest to largest
 
             if (sizes.length === 0) return;
 
+            // Show loading state
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = `<span class="flex items-center justify-center gap-3"><span>Generating...</span><div class="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div></span>`;
+
+            // Generate previews for each size
+            sizePreviews.innerHTML = '';
+            const previewUrls = [];
+            
+            for (const size of sizes) {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = 'high';
+                ctx.drawImage(originalImg, 0, 0, size, size);
+                
+                const previewUrl = canvas.toDataURL('image/png');
+                previewUrls.push({ size, url: previewUrl });
+                
+                // Create preview card
+                const card = document.createElement('div');
+                card.className = 'flex flex-col items-center p-3 bg-slate-50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-blue-500/30 transition-all group';
+                
+                // Calculate display size (scale up small icons for visibility)
+                const displaySize = size <= 32 ? 32 : size <= 64 ? 48 : 64;
+                
+                card.innerHTML = `
+                    <div class="w-16 h-16 flex items-center justify-center mb-2 bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 overflow-hidden" style="background-image: url('data:image/svg+xml,%3Csvg%20width%3D%228%22%20height%3D%228%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Crect%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1f5f9%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%224%22%20height%3D%224%22%20fill%3D%22%23f1f5f9%22%2F%3E%3C%2Fsvg%3E');">
+                        <img src="${previewUrl}" class="object-contain" style="width: ${displaySize}px; height: ${displaySize}px; image-rendering: ${size <= 32 ? 'pixelated' : 'auto'};">
+                    </div>
+                    <span class="text-[10px] font-black text-slate-500 dark:text-slate-400">${size}×${size}</span>
+                `;
+                sizePreviews.appendChild(card);
+            }
+
+            // Generate ICO file
             const iconData = await createIco(originalImg, sizes);
             const blob = new Blob([iconData], { type: 'image/x-icon' });
             const url = URL.createObjectURL(blob);
 
-            resultPreview.src = url;
+            // Use the smallest size for the main preview
+            resultPreview.src = previewUrls[0]?.url || url;
             resultSize.textContent = formatSize(blob.size);
-            resultDetails.textContent = `Includes ${sizes.length} size${sizes.length > 1 ? 's' : ''}`;
+            resultDetails.textContent = `Includes ${sizes.length} size${sizes.length > 1 ? 's' : ''}: ${sizes.map(s => s + 'px').join(', ')}`;
             downloadLink.href = url;
             resultCard.classList.remove('hidden');
+
+            // Reset button
+            generateBtn.disabled = false;
+            generateBtn.innerHTML = `<span class="flex items-center justify-center gap-3"><span>Generate .ICO</span><svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg></span>`;
             
             // Scroll to result
             resultCard.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
 
         async function createIco(img, sizes) {
-            const header = new ArrayBuffer(6);
-            const view = new DataView(header);
-            view.setUint16(0, 0, true); // Reserved
-            view.setUint16(2, 1, true); // Type: ICO
-            view.setUint16(4, sizes.length, true); // Count
-
-            const directories = [];
-            const images = [];
-            let offset = 6 + sizes.length * 16;
-
+            // Step 1: Generate PNG data for all sizes first
+            const pngDataArray = [];
             for (const size of sizes) {
                 const pngData = await getPngData(img, size);
-                const dir = new ArrayBuffer(16);
-                const dView = new DataView(dir);
-                
-                dView.setUint8(0, size === 256 ? 0 : size); // Width
-                dView.setUint8(1, size === 256 ? 0 : size); // Height
-                dView.setUint8(2, 0); // Palette
-                dView.setUint8(3, 0); // Reserved
-                dView.setUint16(4, 1, true); // Planes
-                dView.setUint16(6, 32, true); // BPP
-                dView.setUint32(8, pngData.byteLength, true); // Size
-                dView.setUint32(12, offset, true); // Offset
-
-                directories.push(dir);
-                images.push(pngData);
-                offset += pngData.byteLength;
+                // Convert to Uint8Array immediately to preserve the data
+                pngDataArray.push({ 
+                    size: size, 
+                    data: new Uint8Array(pngData) 
+                });
             }
 
-            const totalSize = offset;
-            const final = new Uint8Array(totalSize);
-            final.set(new Uint8Array(header), 0);
-            
-            let currentPos = 6;
-            for (const dir of directories) {
-                final.set(new Uint8Array(dir), currentPos);
-                currentPos += 16;
-            }
-            for (const imgData of images) {
-                final.set(new Uint8Array(imgData), currentPos);
-                currentPos += imgData.byteLength;
+            // Step 2: Calculate total size
+            const HEADER_SIZE = 6;
+            const DIR_ENTRY_SIZE = 16;
+            const dirTotalSize = sizes.length * DIR_ENTRY_SIZE;
+            let imageDataSize = 0;
+            pngDataArray.forEach(item => imageDataSize += item.data.length);
+            const totalSize = HEADER_SIZE + dirTotalSize + imageDataSize;
+
+            // Step 3: Create the final ICO buffer
+            const ico = new Uint8Array(totalSize);
+            const view = new DataView(ico.buffer);
+
+            // Write ICO header (6 bytes)
+            view.setUint16(0, 0, true);           // Reserved, must be 0
+            view.setUint16(2, 1, true);           // Type: 1 = ICO
+            view.setUint16(4, sizes.length, true); // Number of images
+
+            // Step 4: Write directory entries and image data
+            let dirOffset = HEADER_SIZE;
+            let imageOffset = HEADER_SIZE + dirTotalSize;
+
+            for (let i = 0; i < pngDataArray.length; i++) {
+                const { size, data } = pngDataArray[i];
+
+                // Write directory entry (16 bytes each)
+                view.setUint8(dirOffset + 0, size >= 256 ? 0 : size);   // Width (0 = 256)
+                view.setUint8(dirOffset + 1, size >= 256 ? 0 : size);   // Height (0 = 256)
+                view.setUint8(dirOffset + 2, 0);                         // Color palette
+                view.setUint8(dirOffset + 3, 0);                         // Reserved
+                view.setUint16(dirOffset + 4, 1, true);                  // Color planes
+                view.setUint16(dirOffset + 6, 32, true);                 // Bits per pixel
+                view.setUint32(dirOffset + 8, data.length, true);        // Image data size
+                view.setUint32(dirOffset + 12, imageOffset, true);       // Offset to image data
+
+                // Write image data at the calculated offset
+                ico.set(data, imageOffset);
+
+                // Move to next entry
+                dirOffset += DIR_ENTRY_SIZE;
+                imageOffset += data.length;
             }
 
-            return final.buffer;
+            console.log(`ICO created: ${sizes.length} sizes, ${totalSize} bytes`);
+            return ico.buffer;
         }
 
         function getPngData(img, size) {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 const canvas = document.createElement('canvas');
                 canvas.width = size;
                 canvas.height = size;
@@ -438,9 +507,13 @@
                 ctx.imageSmoothingQuality = 'high';
                 ctx.drawImage(img, 0, 0, size, size);
                 canvas.toBlob((blob) => {
-                    const reader = new FileReader();
-                    reader.onload = () => resolve(reader.result);
-                    reader.readAsArrayBuffer(blob);
+                    if (!blob) {
+                        reject(new Error(`Failed to create blob for size ${size}`));
+                        return;
+                    }
+                    blob.arrayBuffer().then(buffer => {
+                        resolve(buffer);
+                    }).catch(reject);
                 }, 'image/png');
             });
         }
