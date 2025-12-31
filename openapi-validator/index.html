@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenAPI (Swagger) Validator - Free & Secure | WebUtilityKit</title>
+  <meta name="description" content="Validate OpenAPI 3.x and Swagger 2.0 specs locally in your browser. Supports YAML & JSON, batch uploads, $ref checks, and downloadable reports.">
+  <link href="../assets/css/styles.css" rel="stylesheet">
+  <link rel="canonical" href="https://webutilitykit.com/openapi-validator/">
+  <script src="/tools-config.js"></script>
+  <script src="/assets/js/app.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+  <!-- Header is automatically injected by components.js -->
+  <main class="flex-grow w-full py-12 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">OpenAPI (Swagger) Validator</h1>
+      <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Paste YAML/JSON or batch upload files. Validate OpenAPI 3.x &amp; Swagger 2.0, detect broken internal <code class="font-mono">$ref</code>, and export reports.</p>
+      <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        <span>100% Secure. Processed locally.</span>
+      </div>
+    </div>
+
+    <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+      <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 items-start">
+        <section class="flex flex-col h-full">
+          <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+            <div class="p-6 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-4">
+                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">Spec Input</label>
+                <div class="flex gap-2">
+                  <button id="upload-btn" class="text-xs px-3 py-1.5 rounded-lg bg-sky-50 text-sky-600 dark:bg-sky-900/20 dark:text-sky-400 hover:bg-sky-100 dark:hover:bg-sky-900/40 transition">Upload</button>
+                  <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Paste</button>
+                  <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-lg bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition">Clear</button>
+                </div>
+              </div>
+
+              <div id="drop-zone" class="relative flex-1 border-2 border-dashed border-sky-300 dark:border-sky-600 rounded-2xl transition-all hover:border-sky-500 dark:hover:border-sky-400 hover:bg-sky-50/30 dark:hover:bg-sky-900/20 cursor-pointer bg-slate-50/50 dark:bg-slate-900/30">
+                <input type="file" id="file-input" accept=".yaml,.yml,.json,.txt" multiple class="hidden">
+                <textarea id="spec-input" class="absolute inset-0 w-full h-full p-6 pt-14 text-sm font-mono bg-transparent border-0 focus:ring-0 resize-none placeholder-slate-400 transition z-10" placeholder="openapi: 3.0.3&#10;info:&#10;  title: Example API&#10;  version: 1.0.0&#10;paths:&#10;  /health:&#10;    get:&#10;      responses:&#10;        '200':&#10;          description: OK"></textarea>
+                <div class="absolute top-3 left-0 right-0 text-center pointer-events-none z-0">
+                  <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-sky-100 dark:bg-sky-900/40 text-sky-700 dark:text-sky-300 rounded-lg text-xs font-medium">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                    Click or drag OpenAPI files here
+                  </div>
+                </div>
+                <div id="drop-overlay" class="absolute inset-0 hidden items-center justify-center bg-sky-100/95 dark:bg-sky-900/95 backdrop-blur-sm rounded-2xl z-20 border-2 border-sky-500 dark:border-sky-400">
+                  <div class="text-center">
+                    <p class="text-2xl font-bold text-sky-900 dark:text-sky-100 mb-2">Drop files here</p>
+                    <p class="text-sm text-sky-700 dark:text-sky-300">Supports multiple .yaml/.yml/.json/.txt</p>
+                  </div>
+                </div>
+              </div>
+
+              <div id="uploaded-files" class="mt-4 hidden">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Uploaded Files</span>
+                  <span id="file-count" class="text-xs text-slate-600 dark:text-slate-400"></span>
+                </div>
+                <div id="file-list" class="space-y-2 max-h-32 overflow-y-auto"></div>
+              </div>
+
+              <div id="input-summary" class="mt-4 hidden">
+                <div class="flex flex-wrap gap-2">
+                  <span id="badge-format" class="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200"></span>
+                  <span id="badge-spec" class="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200"></span>
+                  <span id="badge-title" class="inline-flex items-center text-xs font-semibold px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-6 pt-0 flex flex-col gap-3">
+              <button id="validate-btn" class="w-full py-4 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-sky-500/20 active:scale-[0.98]">
+                <span id="validate-btn-text">Validate OpenAPI</span>
+              </button>
+              <div class="grid grid-cols-2 gap-3">
+                <button id="sample-oas3-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98]">Sample OAS3</button>
+                <button id="sample-sw2-btn" class="py-3 bg-slate-200 hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 font-semibold rounded-2xl transition-all active:scale-[0.98]">Sample Swagger2</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="flex flex-col h-full">
+          <div class="bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden flex flex-col h-full">
+            <div class="p-6 flex flex-col flex-1">
+              <div class="flex items-center justify-between mb-4">
+                <label class="text-sm font-semibold uppercase tracking-wider text-slate-500">Report</label>
+                <div class="flex gap-2">
+                  <button id="copy-report-btn" class="text-xs px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-600 dark:bg-emerald-900/20 dark:text-emerald-400 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 transition">Copy Report</button>
+                  <button id="copy-json-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Copy JSON</button>
+                </div>
+              </div>
+
+              <div class="flex items-center gap-2 mb-4">
+                <button id="tab-report" class="px-4 py-2 rounded-xl text-sm font-semibold bg-sky-600 text-white">Report</button>
+                <button id="tab-json" class="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Normalized JSON</button>
+              </div>
+
+              <div class="grid grid-cols-3 gap-4 mb-4">
+                <div class="text-center rounded-2xl bg-slate-50 dark:bg-slate-900/40 p-4">
+                  <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Errors</div>
+                  <div id="stat-errors" class="text-2xl font-black text-rose-600 dark:text-rose-400 mt-1">0</div>
+                </div>
+                <div class="text-center rounded-2xl bg-slate-50 dark:bg-slate-900/40 p-4">
+                  <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Warnings</div>
+                  <div id="stat-warnings" class="text-2xl font-black text-amber-600 dark:text-amber-400 mt-1">0</div>
+                </div>
+                <div class="text-center rounded-2xl bg-slate-50 dark:bg-slate-900/40 p-4">
+                  <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase">Operations</div>
+                  <div id="stat-ops" class="text-2xl font-black text-slate-700 dark:text-slate-200 mt-1">0</div>
+                </div>
+              </div>
+
+              <div id="report-view" class="flex-1 min-h-[520px]">
+                <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center space-y-4 rounded-2xl bg-slate-50/60 dark:bg-slate-900/30 p-8">
+                  <p class="text-slate-600 dark:text-slate-300 font-bold text-lg">Waiting for input</p>
+                  <p class="text-sm text-slate-500 dark:text-slate-400 max-w-[420px]">Paste a spec or upload files, then click Validate.</p>
+                </div>
+                <div id="success-state" class="hidden h-full flex flex-col items-center justify-center text-center space-y-4 rounded-2xl bg-emerald-50/60 dark:bg-emerald-900/10 p-8 border border-emerald-200/60 dark:border-emerald-900/30">
+                  <p class="text-2xl font-black text-emerald-700 dark:text-emerald-400 italic">Looks good</p>
+                  <p id="success-subtitle" class="text-slate-700 dark:text-slate-200 font-semibold">No issues detected.</p>
+                </div>
+                <div id="issues-state" class="hidden space-y-4">
+                  <div class="flex flex-wrap items-center justify-between gap-3">
+                    <div class="flex items-center gap-2">
+                      <button id="filter-all" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-white dark:text-slate-900">All</button>
+                      <button id="filter-errors" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition">Errors</button>
+                      <button id="filter-warnings" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition">Warnings</button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <button id="download-report-btn" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/30 transition">Download Report</button>
+                      <button id="download-json-btn" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition">Download JSON</button>
+                    </div>
+                  </div>
+                  <div id="issues-list" class="space-y-3"></div>
+                </div>
+              </div>
+
+              <div id="json-view" class="hidden flex-1">
+                <textarea id="normalized-json" class="w-full h-full min-h-[520px] p-6 text-sm font-mono bg-slate-50/60 dark:bg-slate-900/40 border-0 focus:ring-2 focus:ring-sky-500/20 rounded-2xl resize-none placeholder-slate-400 transition" placeholder="Normalized JSON will appear here..." readonly></textarea>
+              </div>
+
+              <div id="processed-files" class="mt-6 hidden">
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Processed Results</span>
+                  <button id="download-all-btn" class="text-xs px-3 py-1 rounded-lg bg-indigo-50 text-indigo-600 dark:bg-indigo-900/20 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition">Download All</button>
+                </div>
+                <div id="processed-list" class="space-y-2 max-h-56 overflow-y-auto"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>
+    </div>
+
+    <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+      <article class="space-y-16">
+        <section>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center italic tracking-tight">How to use</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="p-8 rounded-[2.25rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center">
+              <div class="w-14 h-14 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto mb-5">1</div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Input</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm">Paste YAML/JSON, or upload multiple files.</p>
+            </div>
+            <div class="p-8 rounded-[2.25rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center">
+              <div class="w-14 h-14 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto mb-5">2</div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Validate</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm">See errors/warnings and a normalized JSON view.</p>
+            </div>
+            <div class="p-8 rounded-[2.25rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 text-center">
+              <div class="w-14 h-14 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto mb-5">3</div>
+              <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Export</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm">Download per-file reports or export all at once.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-10 text-center">FAQ</h2>
+          <div class="max-w-3xl mx-auto space-y-4">
+            <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-7 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+              <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                <span class="text-lg">Is it private?</span>
+                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                  <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </summary>
+              <div class="text-slate-600 dark:text-slate-400 mt-5 leading-relaxed text-base text-pretty">
+                Yes. Everything runs locally in your browser—no uploads.
+              </div>
+            </details>
+            <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-7 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+              <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                <span class="text-lg">Does it support Swagger 2.0?</span>
+                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                  <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                </span>
+              </summary>
+              <div class="text-slate-600 dark:text-slate-400 mt-5 leading-relaxed text-base text-pretty">
+                Yes. The validator detects OpenAPI 3.x via <code class="font-mono">openapi</code> and Swagger 2.0 via <code class="font-mono">swagger: &quot;2.0&quot;</code>.
+              </div>
+            </details>
+          </div>
+        </section>
+      </article>
+    </div>
+  </main>
+
+  <!-- Shared Components (Header + Footer + Theme) -->
+  <script src="/assets/js/components.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const el = {
+        specInput: document.getElementById('spec-input'),
+        fileInput: document.getElementById('file-input'),
+        dropZone: document.getElementById('drop-zone'),
+        dropOverlay: document.getElementById('drop-overlay'),
+        uploadBtn: document.getElementById('upload-btn'),
+        pasteBtn: document.getElementById('paste-btn'),
+        clearBtn: document.getElementById('clear-btn'),
+        validateBtn: document.getElementById('validate-btn'),
+        validateBtnText: document.getElementById('validate-btn-text'),
+        sampleOAS3Btn: document.getElementById('sample-oas3-btn'),
+        sampleSW2Btn: document.getElementById('sample-sw2-btn'),
+        uploadedFilesSection: document.getElementById('uploaded-files'),
+        fileCount: document.getElementById('file-count'),
+        fileList: document.getElementById('file-list'),
+        inputSummary: document.getElementById('input-summary'),
+        badgeFormat: document.getElementById('badge-format'),
+        badgeSpec: document.getElementById('badge-spec'),
+        badgeTitle: document.getElementById('badge-title'),
+
+        tabReport: document.getElementById('tab-report'),
+        tabJson: document.getElementById('tab-json'),
+        reportView: document.getElementById('report-view'),
+        jsonView: document.getElementById('json-view'),
+        normalizedJson: document.getElementById('normalized-json'),
+
+        statErrors: document.getElementById('stat-errors'),
+        statWarnings: document.getElementById('stat-warnings'),
+        statOps: document.getElementById('stat-ops'),
+
+        emptyState: document.getElementById('empty-state'),
+        successState: document.getElementById('success-state'),
+        successSubtitle: document.getElementById('success-subtitle'),
+        issuesState: document.getElementById('issues-state'),
+        issuesList: document.getElementById('issues-list'),
+        filterAll: document.getElementById('filter-all'),
+        filterErrors: document.getElementById('filter-errors'),
+        filterWarnings: document.getElementById('filter-warnings'),
+
+        copyReportBtn: document.getElementById('copy-report-btn'),
+        copyJsonBtn: document.getElementById('copy-json-btn'),
+        downloadReportBtn: document.getElementById('download-report-btn'),
+        downloadJsonBtn: document.getElementById('download-json-btn'),
+
+        processedFilesSection: document.getElementById('processed-files'),
+        processedList: document.getElementById('processed-list'),
+        downloadAllBtn: document.getElementById('download-all-btn'),
+      };
+
+      const allowedMethods = ['get','put','post','delete','options','head','patch','trace'];
+
+      let uploadedFiles = [];
+      let processedResults = [];
+      let current = null; // { reportObj, normalizedJsonText, fileBaseName }
+      let issueFilter = 'all'; // all | error | warning
+
+      const sampleOAS3 = `openapi: 3.0.3
+info:
+  title: WebUtilityKit Sample API
+  version: 1.0.0
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      responses:
+        '200':
+          description: OK
+  /users/{id}:
+    get:
+      operationId: getUserById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: User found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      required: [id, name]
+      properties:
+        id: { type: string }
+        name: { type: string }`;
+
+      const sampleSW2 = `{
+  "swagger": "2.0",
+  "info": { "title": "WebUtilityKit Sample Swagger 2.0", "version": "1.0.0" },
+  "paths": {
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "responses": { "200": { "description": "OK" } }
+      }
+    }
+  }
+}`;
+
+      function escapeHtml(s) {
+        return String(s)
+          .replaceAll('&', '&amp;')
+          .replaceAll('<', '&lt;')
+          .replaceAll('>', '&gt;')
+          .replaceAll('"', '&quot;')
+          .replaceAll("'", '&#039;');
+      }
+
+      function formatBytes(bytes) {
+        if (!Number.isFinite(bytes) || bytes <= 0) return '0 B';
+        const k = 1024;
+        const sizes = ['B', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i];
+      }
+
+      function isObject(v) {
+        return v !== null && typeof v === 'object' && !Array.isArray(v);
+      }
+
+      function safeString(v) {
+        return typeof v === 'string' ? v : '';
+      }
+
+      function detectInputFormat(raw) {
+        const t = (raw || '').trim();
+        if (!t) return 'empty';
+        if (t.startsWith('{') || t.startsWith('[')) return 'json';
+        return 'yaml';
+      }
+
+      function parseSpec(raw) {
+        const format = detectInputFormat(raw);
+        if (format === 'empty') throw new Error('Input is empty.');
+        if (format === 'json') return { format, doc: JSON.parse(raw) };
+        if (!window.jsyaml) throw new Error('YAML parser unavailable.');
+        return { format, doc: window.jsyaml.load(raw) };
+      }
+
+      function decodeJsonPointerToken(token) {
+        return token.replace(/~1/g, '/').replace(/~0/g, '~');
+      }
+
+      function resolveJsonPointer(root, ref) {
+        if (ref === '#') return { ok: true, value: root };
+        if (!ref.startsWith('#/')) return { ok: false, reason: 'external_or_invalid' };
+        const tokens = ref.slice(2).split('/').map(decodeJsonPointerToken);
+        let cur = root;
+        for (const key of tokens) {
+          if (isObject(cur) || Array.isArray(cur)) {
+            if (key in cur) cur = cur[key];
+            else return { ok: false, reason: 'not_found' };
+          } else {
+            return { ok: false, reason: 'not_traversable' };
+          }
+        }
+        return { ok: true, value: cur };
+      }
+
+      function makeIssue(severity, pointer, message, hint) {
+        return { severity, pointer: pointer || '#', message, hint: hint || '' };
+      }
+
+      function validateOpenApiDoc(root, format) {
+        const issues = [];
+        const errors = [];
+        const warnings = [];
+
+        function push(issue) {
+          issues.push(issue);
+          if (issue.severity === 'error') errors.push(issue);
+          else warnings.push(issue);
+        }
+
+        if (!isObject(root)) {
+          push(makeIssue('error', '#', 'Root must be an object.', 'Ensure your document parses to a JSON object.'));
+          return { type: 'Unknown', version: '', title: '', format, issues, errors, warnings, stats: { paths: 0, operations: 0, refs: 0 } };
+        }
+
+        const isOAS3 = typeof root.openapi === 'string';
+        const isSW2 = root.swagger === '2.0';
+        let type = 'Unknown';
+        let version = '';
+
+        if (isOAS3) {
+          type = 'OpenAPI';
+          version = safeString(root.openapi);
+          if (!/^3\.(0|1)\.\d+/.test(version)) {
+            push(makeIssue('warning', '#/openapi', `OpenAPI version "${version}" looks unusual.`, 'Expected something like 3.0.3 or 3.1.0.'));
+          }
+        } else if (isSW2) {
+          type = 'Swagger';
+          version = '2.0';
+        } else {
+          push(makeIssue('error', '#', 'Cannot detect spec type (missing "openapi" or "swagger": "2.0").'));
+        }
+
+        // info
+        if (!isObject(root.info)) {
+          push(makeIssue('error', '#/info', 'Missing required object "info".', 'Add info.title and info.version.'));
+        } else {
+          if (!safeString(root.info.title)) push(makeIssue('error', '#/info/title', 'Missing required field "info.title".'));
+          if (!safeString(root.info.version)) push(makeIssue('error', '#/info/version', 'Missing required field "info.version".'));
+        }
+
+        // paths + operations
+        let pathsCount = 0;
+        let operations = 0;
+        const opIds = new Map();
+        if (!isObject(root.paths)) {
+          push(makeIssue('error', '#/paths', 'Missing required object "paths".'));
+        } else {
+          const pathKeys = Object.keys(root.paths);
+          pathsCount = pathKeys.length;
+          if (pathsCount === 0) push(makeIssue('warning', '#/paths', '"paths" is empty.'));
+
+          for (const p of pathKeys) {
+            const pPtr = `#/paths/${p.replaceAll('~','~0').replaceAll('/','~1')}`;
+            if (!p.startsWith('/')) push(makeIssue('error', pPtr, `Path "${p}" must start with "/".`));
+            const pathItem = root.paths[p];
+            if (!isObject(pathItem)) {
+              push(makeIssue('error', pPtr, 'Path item must be an object.'));
+              continue;
+            }
+            for (const m of allowedMethods) {
+              if (!(m in pathItem)) continue;
+              operations += 1;
+              const opPtr = `${pPtr}/${m}`;
+              const op = pathItem[m];
+              if (!isObject(op)) {
+                push(makeIssue('error', opPtr, `Operation "${m}" must be an object.`));
+                continue;
+              }
+              const opId = safeString(op.operationId).trim();
+              if (opId) {
+                if (opIds.has(opId)) push(makeIssue('warning', `${opPtr}/operationId`, `Duplicate operationId "${opId}".`, `Also used at ${opIds.get(opId)}.`));
+                else opIds.set(opId, opPtr);
+              }
+              if (!isObject(op.responses)) {
+                push(makeIssue('error', `${opPtr}/responses`, 'Missing required object "responses".'));
+              } else if (Object.keys(op.responses).length === 0) {
+                push(makeIssue('error', `${opPtr}/responses`, '"responses" must define at least one response.'));
+              } else {
+                for (const [code, resp] of Object.entries(op.responses)) {
+                  const respPtr = `${opPtr}/responses/${code}`;
+                  if (!isObject(resp)) {
+                    push(makeIssue('error', respPtr, 'Response must be an object.'));
+                    continue;
+                  }
+                  if (!safeString(resp.description)) push(makeIssue('error', `${respPtr}/description`, 'Response "description" is required.'));
+                }
+              }
+
+              if ('parameters' in op) {
+                if (!Array.isArray(op.parameters)) push(makeIssue('error', `${opPtr}/parameters`, '"parameters" must be an array.'));
+                else {
+                  op.parameters.forEach((param, i) => {
+                    const paramPtr = `${opPtr}/parameters/${i}`;
+                    if (!isObject(param)) return push(makeIssue('error', paramPtr, 'Parameter must be an object.'));
+                    const name = safeString(param.name);
+                    const loc = safeString(param.in);
+                    if (!name) push(makeIssue('error', `${paramPtr}/name`, 'Parameter "name" is required.'));
+                    if (!loc) push(makeIssue('error', `${paramPtr}/in`, 'Parameter "in" is required.'));
+                    if (loc === 'path' && param.required !== true) push(makeIssue('error', `${paramPtr}/required`, 'Path parameters must set "required": true.'));
+                    if (isOAS3) {
+                      if (!('schema' in param) && !('content' in param)) push(makeIssue('error', paramPtr, 'OAS3 parameter must have "schema" or "content".'));
+                    } else if (isSW2) {
+                      if (loc === 'body') {
+                        if (!isObject(param.schema)) push(makeIssue('error', `${paramPtr}/schema`, 'Swagger2 body parameter must include "schema".'));
+                      } else {
+                        if (!safeString(param.type)) push(makeIssue('error', `${paramPtr}/type`, 'Swagger2 non-body parameter must include "type".'));
+                      }
+                    }
+                  });
+                }
+              }
+            }
+          }
+        }
+
+        // securitySchemes sanity (OAS3)
+        if (isOAS3 && isObject(root.components) && 'securitySchemes' in root.components) {
+          const sec = root.components.securitySchemes;
+          if (!isObject(sec)) push(makeIssue('error', '#/components/securitySchemes', '"components.securitySchemes" must be an object.'));
+          else {
+            for (const [k, v] of Object.entries(sec)) {
+              const ptr = `#/components/securitySchemes/${k.replaceAll('~','~0').replaceAll('/','~1')}`;
+              if (!isObject(v)) { push(makeIssue('error', ptr, 'Security scheme must be an object.')); continue; }
+              const t = safeString(v.type);
+              if (!t) push(makeIssue('error', `${ptr}/type`, 'Security scheme "type" is required.'));
+              if (t === 'apiKey') {
+                if (!safeString(v.name)) push(makeIssue('error', `${ptr}/name`, 'apiKey requires "name".'));
+                if (!safeString(v.in)) push(makeIssue('error', `${ptr}/in`, 'apiKey requires "in".'));
+              }
+            }
+          }
+        }
+
+        // collect and validate internal $ref
+        const refs = [];
+        const seen = new Set();
+        function walk(node, ptr) {
+          if (node === null || typeof node !== 'object') return;
+          if (seen.has(node)) return;
+          seen.add(node);
+          if (isObject(node) && typeof node.$ref === 'string') refs.push({ ref: node.$ref, at: ptr + '/$ref' });
+          if (Array.isArray(node)) return node.forEach((c, i) => walk(c, `${ptr}/${i}`));
+          for (const [k, v] of Object.entries(node)) {
+            if (k === '$ref') continue;
+            walk(v, `${ptr}/${k.replaceAll('~','~0').replaceAll('/','~1')}`);
+          }
+        }
+        walk(root, '#');
+        refs.forEach(r => {
+          const res = resolveJsonPointer(root, r.ref);
+          if (!res.ok) {
+            if (res.reason === 'external_or_invalid') push(makeIssue('warning', r.at, `External or invalid $ref "${r.ref}".`, 'Only internal refs starting with "#/" are resolved.'));
+            else push(makeIssue('error', r.at, `Broken $ref "${r.ref}".`, 'Target was not found in this document.'));
+          }
+        });
+
+        const title = isObject(root.info) ? safeString(root.info.title) : '';
+        return { type, version, title, format, issues, errors, warnings, stats: { paths: pathsCount, operations, refs: refs.length } };
+      }
+
+      function toFileBaseName(fileName) {
+        const safe = (fileName || 'openapi').replace(/[/\\?%*:|"<>]/g, '_');
+        return safe.replace(/\.(yaml|yml|json|txt)$/i, '') || 'openapi';
+      }
+
+      function downloadTextFile(name, content, mime = 'application/json') {
+        const blob = new Blob([content], { type: mime });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+
+      function setActiveTab(tab) {
+        const isReport = tab === 'report';
+        el.tabReport.className = isReport ? 'px-4 py-2 rounded-xl text-sm font-semibold bg-sky-600 text-white' : 'px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition';
+        el.tabJson.className = !isReport ? 'px-4 py-2 rounded-xl text-sm font-semibold bg-sky-600 text-white' : 'px-4 py-2 rounded-xl text-sm font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition';
+        el.reportView.classList.toggle('hidden', !isReport);
+        el.jsonView.classList.toggle('hidden', isReport);
+      }
+
+      function showState(state) {
+        el.emptyState.classList.toggle('hidden', state !== 'empty');
+        el.successState.classList.toggle('hidden', state !== 'success');
+        el.issuesState.classList.toggle('hidden', state !== 'issues');
+      }
+
+      function updateBadges(validation) {
+        el.inputSummary.classList.remove('hidden');
+        el.badgeFormat.textContent = validation.format ? `Format: ${validation.format.toUpperCase()}` : 'Format: -';
+        el.badgeSpec.textContent = validation.type ? `${validation.type}${validation.version ? ': ' + validation.version : ''}` : 'Spec: -';
+        el.badgeTitle.textContent = validation.title ? `Title: ${validation.title}` : 'Title: -';
+      }
+
+      function setFilter(next) {
+        issueFilter = next;
+        el.filterAll.className = next === 'all'
+          ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-white dark:text-slate-900'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 transition';
+        el.filterErrors.className = next === 'error'
+          ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-600 text-white'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-300 hover:bg-rose-100 dark:hover:bg-rose-900/30 transition';
+        el.filterWarnings.className = next === 'warning'
+          ? 'px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-600 text-white'
+          : 'px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-50 text-amber-700 dark:bg-amber-900/20 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/30 transition';
+      }
+
+      function renderIssues() {
+        if (!current) return;
+        const list = current.reportObj.issues.filter(it => issueFilter === 'all' ? true : it.severity === issueFilter);
+        el.issuesList.innerHTML = list.map(it => {
+          const badge = it.severity === 'error'
+            ? '<span class="px-2.5 py-1 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-300 rounded-lg text-[10px] font-black uppercase tracking-widest border border-rose-200/50 dark:border-rose-800/50">error</span>'
+            : '<span class="px-2.5 py-1 bg-amber-100 dark:bg-amber-900/40 text-amber-700 dark:text-amber-300 rounded-lg text-[10px] font-black uppercase tracking-widest border border-amber-200/50 dark:border-amber-800/50">warning</span>';
+          const hint = it.hint ? `<div class="mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">${escapeHtml(it.hint)}</div>` : '';
+          return `
+            <div class="p-5 rounded-[1.75rem] bg-slate-50/70 dark:bg-slate-900/30 border border-slate-100 dark:border-slate-800">
+              <div class="flex items-center gap-3 mb-2">
+                ${badge}
+                <code class="text-slate-600 dark:text-slate-300 font-mono text-xs bg-white/80 dark:bg-slate-800/60 px-3 py-1 rounded-lg border border-slate-100 dark:border-slate-700/50">${escapeHtml(it.pointer || '#')}</code>
+              </div>
+              <div class="text-slate-800 dark:text-slate-200 font-semibold">${escapeHtml(it.message)}</div>
+              ${hint}
+            </div>
+          `;
+        }).join('');
+      }
+
+      function renderCurrent() {
+        if (!current) {
+          el.statErrors.textContent = '0';
+          el.statWarnings.textContent = '0';
+          el.statOps.textContent = '0';
+          el.normalizedJson.value = '';
+          showState('empty');
+          return;
+        }
+
+        const r = current.reportObj;
+        el.statErrors.textContent = String(r.counts.errors);
+        el.statWarnings.textContent = String(r.counts.warnings);
+        el.statOps.textContent = String(r.stats.operations);
+        el.normalizedJson.value = current.normalizedJsonText || '';
+
+        if (r.counts.total === 0) {
+          el.successSubtitle.textContent = `${r.specType}${r.specVersion ? ' ' + r.specVersion : ''} — ${r.stats.operations} operation(s).`;
+          showState('success');
+        } else {
+          showState('issues');
+          renderIssues();
+        }
+      }
+
+      function validateFromText(raw, name) {
+        const parsed = parseSpec(raw);
+        const normalizedJsonText = JSON.stringify(parsed.doc, null, 2);
+        const validation = validateOpenApiDoc(parsed.doc, parsed.format);
+
+        updateBadges(validation);
+
+        const reportObj = {
+          fileName: name || 'input',
+          processedAt: new Date().toISOString(),
+          inputFormat: validation.format,
+          specType: validation.type,
+          specVersion: validation.version,
+          title: validation.title,
+          stats: validation.stats,
+          counts: { errors: validation.errors.length, warnings: validation.warnings.length, total: validation.issues.length },
+          issues: validation.issues,
+        };
+
+        current = { reportObj, normalizedJsonText, fileBaseName: toFileBaseName(name) };
+        renderCurrent();
+        return current;
+      }
+
+      function updateFileList() {
+        if (uploadedFiles.length === 0) {
+          el.uploadedFilesSection.classList.add('hidden');
+          el.validateBtnText.textContent = 'Validate OpenAPI';
+          return;
+        }
+        el.uploadedFilesSection.classList.remove('hidden');
+        el.fileCount.textContent = `${uploadedFiles.length} file${uploadedFiles.length > 1 ? 's' : ''}`;
+        el.validateBtnText.textContent = `Process ${uploadedFiles.length} File${uploadedFiles.length > 1 ? 's' : ''}`;
+        el.fileList.innerHTML = uploadedFiles.map((file, idx) => `
+          <div class="flex items-center justify-between p-2 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+            <div class="flex items-center gap-2 flex-1 min-w-0">
+              <span class="font-medium truncate">${escapeHtml(file.name)}</span>
+              <span class="text-slate-500 dark:text-slate-400">(${formatBytes(file.size)})</span>
+            </div>
+            <button class="ml-2 p-1 hover:bg-rose-100 dark:hover:bg-rose-900/30 rounded text-rose-600 dark:text-rose-400 transition" data-remove-file="${idx}" aria-label="Remove file">✕</button>
+          </div>
+        `).join('');
+      }
+
+      function updateProcessedList() {
+        if (processedResults.length === 0) {
+          el.processedFilesSection.classList.add('hidden');
+          return;
+        }
+        el.processedFilesSection.classList.remove('hidden');
+        el.processedList.innerHTML = processedResults.map((res, idx) => {
+          const statusColor = res.status === 'error' ? 'text-rose-600' : (res.status === 'processing' ? 'text-amber-700' : (res.valid ? 'text-emerald-600' : 'text-amber-700'));
+          const statusText = res.status === 'processing' ? 'Processing…' : (res.status === 'error' ? (res.error || 'Failed') : (res.valid ? 'Valid (0 issues)' : `${res.counts.errors} error(s), ${res.counts.warnings} warning(s)`));
+          const canDownload = res.status === 'done';
+          return `
+            <div class="flex items-center justify-between p-3 bg-slate-100 dark:bg-slate-800 rounded-lg text-xs">
+              <div class="flex-1 min-w-0">
+                <div class="font-medium truncate">${escapeHtml(res.name)}</div>
+                <div class="${statusColor} truncate">${escapeHtml(statusText)}</div>
+              </div>
+              ${canDownload ? `<button class="ml-2 px-2 py-1 bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 rounded transition" data-download-report="${idx}">Report</button>` : ''}
+            </div>
+          `;
+        }).join('');
+      }
+
+      function resetAll() {
+        el.specInput.value = '';
+        el.normalizedJson.value = '';
+        uploadedFiles = [];
+        processedResults = [];
+        current = null;
+        issueFilter = 'all';
+        el.inputSummary.classList.add('hidden');
+        el.fileInput.value = '';
+        el.processedFilesSection.classList.add('hidden');
+        updateFileList();
+        setFilter('all');
+        renderCurrent();
+      }
+
+      function isAcceptedFile(file) {
+        const n = (file && file.name || '').toLowerCase();
+        return n.endsWith('.yaml') || n.endsWith('.yml') || n.endsWith('.json') || n.endsWith('.txt');
+      }
+
+      function handleFiles(list) {
+        const incoming = Array.from(list || []).filter(isAcceptedFile);
+        if (incoming.length === 0) return;
+        uploadedFiles = [...uploadedFiles, ...incoming];
+        el.specInput.value = '';
+        el.inputSummary.classList.add('hidden');
+        updateFileList();
+      }
+
+      async function processBatch() {
+        processedResults = uploadedFiles.map(f => ({ name: f.name, status: 'processing', valid: false, counts: { errors: 0, warnings: 0 }, reportJson: '', reportFileName: '', error: '' }));
+        updateProcessedList();
+
+        for (let i = 0; i < uploadedFiles.length; i++) {
+          const file = uploadedFiles[i];
+          try {
+            const raw = await file.text();
+            const result = validateFromText(raw, file.name);
+            const reportJson = JSON.stringify(result.reportObj, null, 2);
+            const base = toFileBaseName(file.name);
+            processedResults[i] = {
+              name: file.name,
+              status: 'done',
+              valid: result.reportObj.counts.total === 0,
+              counts: result.reportObj.counts,
+              reportJson,
+              reportFileName: `${base}.openapi-report.json`,
+              error: ''
+            };
+          } catch (e) {
+            processedResults[i] = {
+              name: file.name,
+              status: 'error',
+              valid: false,
+              counts: { errors: 0, warnings: 0 },
+              reportJson: '',
+              reportFileName: '',
+              error: (e && e.message) ? e.message : 'Unknown error'
+            };
+          }
+          updateProcessedList();
+        }
+        setActiveTab('report');
+      }
+
+      // --- Event wiring ---
+      el.uploadBtn.addEventListener('click', () => el.fileInput.click());
+      el.fileInput.addEventListener('change', (e) => {
+        handleFiles(e.target.files);
+        el.fileInput.value = '';
+      });
+
+      el.dropZone.addEventListener('click', (e) => {
+        if (e.target === el.specInput) return;
+        el.fileInput.click();
+      });
+
+      el.dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        el.dropOverlay.classList.remove('hidden');
+        el.dropOverlay.classList.add('flex');
+      });
+      ['dragleave', 'drop'].forEach(evt => {
+        el.dropZone.addEventListener(evt, () => {
+          el.dropOverlay.classList.add('hidden');
+          el.dropOverlay.classList.remove('flex');
+        });
+      });
+      el.dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        handleFiles(e.dataTransfer.files);
+      });
+
+      el.fileList.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-remove-file]');
+        if (!btn) return;
+        const idx = Number(btn.getAttribute('data-remove-file'));
+        if (!Number.isFinite(idx)) return;
+        uploadedFiles.splice(idx, 1);
+        updateFileList();
+      });
+
+      el.processedList.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-download-report]');
+        if (!btn) return;
+        const idx = Number(btn.getAttribute('data-download-report'));
+        const res = processedResults[idx];
+        if (!res || res.status !== 'done') return;
+        downloadTextFile(res.reportFileName, res.reportJson, 'application/json');
+      });
+
+      el.downloadAllBtn.addEventListener('click', () => {
+        const done = processedResults.filter(r => r.status === 'done');
+        done.forEach((res, i) => setTimeout(() => downloadTextFile(res.reportFileName, res.reportJson, 'application/json'), i * 200));
+      });
+
+      el.pasteBtn.addEventListener('click', async () => {
+        try {
+          const text = await navigator.clipboard.readText();
+          uploadedFiles = [];
+          processedResults = [];
+          updateFileList();
+          updateProcessedList();
+          el.specInput.value = text;
+          validateFromText(text, 'clipboard');
+          setActiveTab('report');
+        } catch (err) {
+          console.error('Paste failed', err);
+        }
+      });
+
+      el.clearBtn.addEventListener('click', resetAll);
+
+      el.sampleOAS3Btn.addEventListener('click', () => {
+        uploadedFiles = [];
+        processedResults = [];
+        updateFileList();
+        updateProcessedList();
+        el.specInput.value = sampleOAS3;
+        validateFromText(sampleOAS3, 'sample-openapi.yaml');
+        setActiveTab('report');
+      });
+
+      el.sampleSW2Btn.addEventListener('click', () => {
+        uploadedFiles = [];
+        processedResults = [];
+        updateFileList();
+        updateProcessedList();
+        el.specInput.value = sampleSW2;
+        validateFromText(sampleSW2, 'sample-swagger.json');
+        setActiveTab('report');
+      });
+
+      el.validateBtn.addEventListener('click', async () => {
+        if (uploadedFiles.length > 0) return processBatch();
+        try {
+          validateFromText(el.specInput.value, 'input');
+          setActiveTab('report');
+        } catch (e) {
+          current = {
+            reportObj: {
+              fileName: 'input',
+              processedAt: new Date().toISOString(),
+              inputFormat: detectInputFormat(el.specInput.value),
+              specType: 'Unknown',
+              specVersion: '',
+              title: '',
+              stats: { paths: 0, operations: 0, refs: 0 },
+              counts: { errors: 1, warnings: 0, total: 1 },
+              issues: [makeIssue('error', '#', (e && e.message) ? e.message : 'Unknown error', 'Fix parsing errors first (invalid JSON/YAML).')]
+            },
+            normalizedJsonText: '',
+            fileBaseName: 'input'
+          };
+          el.inputSummary.classList.add('hidden');
+          renderCurrent();
+          setActiveTab('report');
+        }
+      });
+
+      el.tabReport.addEventListener('click', () => setActiveTab('report'));
+      el.tabJson.addEventListener('click', () => setActiveTab('json'));
+
+      el.filterAll.addEventListener('click', () => { setFilter('all'); renderIssues(); });
+      el.filterErrors.addEventListener('click', () => { setFilter('error'); renderIssues(); });
+      el.filterWarnings.addEventListener('click', () => { setFilter('warning'); renderIssues(); });
+
+      el.copyReportBtn.addEventListener('click', async () => {
+        if (!current) return;
+        try { await navigator.clipboard.writeText(JSON.stringify(current.reportObj, null, 2)); } catch (e) { console.error('Copy report failed', e); }
+      });
+      el.copyJsonBtn.addEventListener('click', async () => {
+        if (!current || !current.normalizedJsonText) return;
+        try { await navigator.clipboard.writeText(current.normalizedJsonText); } catch (e) { console.error('Copy JSON failed', e); }
+      });
+      el.downloadReportBtn.addEventListener('click', () => {
+        if (!current) return;
+        downloadTextFile(`${current.fileBaseName}.openapi-report.json`, JSON.stringify(current.reportObj, null, 2), 'application/json');
+      });
+      el.downloadJsonBtn.addEventListener('click', () => {
+        if (!current || !current.normalizedJsonText) return;
+        downloadTextFile(`${current.fileBaseName}.normalized.json`, current.normalizedJsonText, 'application/json');
+      });
+
+      let debounceTimer;
+      el.specInput.addEventListener('input', () => {
+        if (uploadedFiles.length > 0) return;
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          if (!el.specInput.value.trim()) {
+            current = null;
+            el.inputSummary.classList.add('hidden');
+            renderCurrent();
+            return;
+          }
+          try { validateFromText(el.specInput.value, 'input'); } catch { /* quiet */ }
+        }, 350);
+      });
+
+      // init
+      setActiveTab('report');
+      setFilter('all');
+      showState('empty');
+    });
+  </script>
+</body>
+</html>
+
+

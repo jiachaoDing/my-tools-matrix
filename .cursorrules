@@ -2,7 +2,7 @@
 
    ## 1. Project Mission
 
-   We are building a suite of 100+ client-side utility tools.
+   We are building a suite of 100+ client-side utility tools targeting the global English-speaking market.
    **Core Philosophy:** Privacy First, Instant Speed, and "Native App" Feel.
 
    ## 2. Tech Stack Constraints (STRICT)
@@ -50,9 +50,9 @@
      - DO NOT manually write Header or Footer HTML in new tools.
      - DO NOT include theme-toggle logic in the tool's `<script>` block.
      - Simply include the component script at the very end of `<body>`:
-       - Tool pages: `<script src="../assets/js/components.js"></script>`
-       - Root index: `<script src="assets/js/components.js"></script>`
+       - `<script src="/assets/js/components.js"></script>`
    - **Automatic Features:** The script automatically injects the responsive Header, Footer, and handles Dark/Light mode switching and persistence.
+
 
    ## 3. Design Role & Intelligent Layout (AI EMPOWERED)
 
@@ -126,6 +126,10 @@
     <title>[Tool Name] - Free & Secure | WebUtilityKit</title>
     <meta name="description" content="[SEO Description]">
     <link href="../assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/[current site]/">
+    <script src="/tools-config.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+</head>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
@@ -235,5 +239,6 @@
    ## 6. Response Protocol
 
       1. **Analyze & Plan:** Determine layout type (A/B/C) and necessary logic.
-      2. **File Path:** Start with the path.
-      3. **Code:** Provide the complete HTML.
+      2. **Concise Execution:** Directly apply the edit the target files. Minimize conversational filler and avoid explaining every line of code unless specifically asked.
+      3. **File Path:** Start with the path.
+      4. **Code:** Provide the complete HTML.

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Free Bulk URL Extractor - Extract Links from Text Online | WebUtilityKit</title>
+    <meta name="description" content="Instantly extract all URLs and links from text, HTML, or files. Clean tracking parameters, remove duplicates, and export to CSV. Client-side processing for privacy.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/url-extractor/">
+    <script src="/tools-config.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Free Bulk URL Extractor - Extract Links from Text Online</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Quickly harvest URLs from raw text, HTML source code, or documents. Secure, fast, and completely private.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Left Column: Input -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Input Text</h2>
+                        <div class="flex gap-2">
+                            <button id="clear-btn" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors">Clear</button>
+                            <label for="file-upload" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-sky-100 text-sky-700 hover:bg-sky-200 dark:bg-sky-900/40 dark:text-sky-300 dark:hover:bg-sky-900/60 transition-colors cursor-pointer">
+                                Upload Files
+                                <input type="file" id="file-upload" class="hidden" accept=".txt,.csv,.json,.html" multiple>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="drop-zone" class="relative flex-grow group">
+                        <textarea id="input-text" 
+                            class="w-full h-[500px] p-6 rounded-[2rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-sky-500/10 transition-all resize-none shadow-sm dark:shadow-2xl placeholder:text-slate-400 text-slate-700 dark:text-slate-200 outline-none" 
+                            placeholder="Paste your text or HTML source code here..."></textarea>
+                        
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-sky-500/10 dark:bg-sky-500/20 backdrop-blur-[2px] rounded-[2rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-sky-500">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-sky-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-lg font-bold text-sky-700 dark:text-sky-400">Drop files here</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Options -->
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-[2rem] shadow-sm dark:shadow-2xl">
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-4">Extraction Options</h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <div class="relative flex items-center">
+                                    <input type="checkbox" id="remove-duplicates" checked class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 checked:bg-sky-600 checked:border-sky-600 transition-all">
+                                    <svg class="absolute h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Remove Duplicates</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <div class="relative flex items-center">
+                                    <input type="checkbox" id="sort-alpha" class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 checked:bg-sky-600 checked:border-sky-600 transition-all">
+                                    <svg class="absolute h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Sort Alphabetically</span>
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <div class="relative flex items-center">
+                                    <input type="checkbox" id="clean-params" class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 checked:bg-sky-600 checked:border-sky-600 transition-all">
+                                    <svg class="absolute h-3.5 w-3.5 text-white opacity-0 peer-checked:opacity-100 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <span class="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">Clean Tracking Params</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Output -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Extracted URLs</h2>
+                        <div id="stats-badge" class="hidden text-xs font-bold px-3 py-1.5 rounded-lg bg-sky-600 text-white shadow-sm">
+                            <span id="url-count-val">0</span> URLs Found
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-[2rem] flex-grow flex flex-col overflow-hidden shadow-sm dark:shadow-2xl h-[500px]">
+                        <!-- Toolbar -->
+                        <div class="p-4 border-b border-slate-100 dark:border-slate-700/50 flex flex-wrap gap-2 items-center justify-between">
+                            <div class="flex gap-2">
+                                <button id="copy-btn" class="text-xs font-bold px-4 py-1.5 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition-all flex items-center gap-2 disabled:opacity-50">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                    Copy
+                                </button>
+                                <button id="export-txt" class="text-xs px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-700/50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-600 disabled:opacity-50">TXT</button>
+                                <button id="export-csv" class="text-xs px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-700/50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-600 disabled:opacity-50">CSV</button>
+                            </div>
+                        </div>
+                        
+                        <!-- List -->
+                        <div id="output-list" class="flex-grow overflow-y-auto p-6 space-y-2 font-mono text-sm">
+                            <div id="empty-state" class="h-full flex flex-col items-center justify-center text-slate-400 italic">
+                                <svg class="w-12 h-12 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                                <span>Extracted URLs will appear here</span>
+                            </div>
+                            <textarea id="output-text" class="w-full h-full bg-transparent border-none focus:ring-0 resize-none hidden text-slate-700 dark:text-slate-300" readonly></textarea>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>           
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use URL Extractor</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Input Your Source</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Paste HTML code, raw text, or even drag and drop document files into the input area.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Configure Filters</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose to remove duplicates, sort alphabetically, or clean up tracking parameters like UTM tags.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Export Results</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Instantly copy your clean list of URLs or export them directly to a TXT or CSV file.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Fast & Local</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">All processing happens in your browser. Large files are handled instantly with zero latency.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy First</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">We never upload your content. Your source code and extracted links stay 100% private.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Smart Cleaning</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Automatically strip UTM parameters and other tracking IDs to get clean, professional URLs.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Flexible Export</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Export your findings as a simple list, a spreadsheet-ready CSV, or a standard text file.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What protocol types are supported?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Our extractor identifies http, https, ftp, and www links. It works across HTML source code, CSS files, and plain text.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is it safe to paste confidential code?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes. The entire extraction process happens within your browser's memory. No data is sent to our servers, ensuring your source code remains strictly confidential.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What tracking parameters are removed?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                When "Clean Tracking Params" is enabled, the tool strips common identifiers such as utm_source, utm_medium, utm_campaign, fbclid, gclid, and other similar analytics markers.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+      
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="../assets/js/components.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputText = document.getElementById('input-text');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const exportTxtBtn = document.getElementById('export-txt');
+            const exportCsvBtn = document.getElementById('export-csv');
+            const outputText = document.getElementById('output-text');
+            const emptyState = document.getElementById('empty-state');
+            const statsBadge = document.getElementById('stats-badge');
+            const urlCountVal = document.getElementById('url-count-val');
+            
+            const removeDuplicatesCheck = document.getElementById('remove-duplicates');
+            const sortAlphaCheck = document.getElementById('sort-alpha');
+            const cleanParamsCheck = document.getElementById('clean-params');
+            
+            const dropZone = document.getElementById('drop-zone');
+            const dropOverlay = document.getElementById('drop-overlay');
+            const fileUpload = document.getElementById('file-upload');
+
+            let extractedUrls = [];
+
+            // Robust URL Regex
+            const urlRegex = /(?:https?|ftp):\/\/[\w-]+(?:\.[\w-]+)+(?:[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?|www\.[\w-]+(?:\.[\w-]+)+(?:[\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?/gi;
+
+            function cleanTrackingParams(url) {
+                try {
+                    const urlObj = new URL(url.startsWith('www.') ? 'http://' + url : url);
+                    const paramsToRemove = [
+                        'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content',
+                        'fbclid', 'gclid', 'msclkid', 'mc_eid', '_ga', '_gl'
+                    ];
+                    
+                    paramsToRemove.forEach(param => urlObj.searchParams.delete(param));
+                    
+                    // Remove other common patterns
+                    const keys = Array.from(urlObj.searchParams.keys());
+                    keys.forEach(key => {
+                        if (key.startsWith('utm_') || key.startsWith('_ga')) {
+                            urlObj.searchParams.delete(key);
+                        }
+                    });
+
+                    let cleaned = urlObj.toString();
+                    if (url.startsWith('www.') && cleaned.startsWith('http://')) {
+                        cleaned = cleaned.substring(7);
+                    }
+                    // Remove trailing slash if original didn't have it and it's just home
+                    if (cleaned.endsWith('/') && !url.endsWith('/') && urlObj.pathname === '/') {
+                        cleaned = cleaned.slice(0, -1);
+                    }
+                    return cleaned;
+                } catch (e) {
+                    return url;
+                }
+            }
+
+            function extractUrls() {
+                const text = inputText.value;
+                let matches = text.match(urlRegex) || [];
+                
+                if (cleanParamsCheck.checked) {
+                    matches = matches.map(url => cleanTrackingParams(url));
+                }
+
+                if (removeDuplicatesCheck.checked) {
+                    matches = [...new Set(matches)];
+                }
+
+                if (sortAlphaCheck.checked) {
+                    matches.sort();
+                }
+
+                extractedUrls = matches;
+                renderResults();
+            }
+
+            function renderResults() {
+                if (extractedUrls.length > 0) {
+                    emptyState.classList.add('hidden');
+                    outputText.classList.remove('hidden');
+                    statsBadge.classList.remove('hidden');
+                    urlCountVal.textContent = extractedUrls.length;
+                    outputText.value = extractedUrls.join('\n');
+                    copyBtn.disabled = false;
+                    exportTxtBtn.disabled = false;
+                    exportCsvBtn.disabled = false;
+                } else {
+                    emptyState.classList.remove('hidden');
+                    outputText.classList.add('hidden');
+                    statsBadge.classList.add('hidden');
+                    outputText.value = '';
+                    copyBtn.disabled = true;
+                    exportTxtBtn.disabled = true;
+                    exportCsvBtn.disabled = true;
+                }
+            }
+
+            // Events
+            inputText.addEventListener('input', extractUrls);
+            removeDuplicatesCheck.addEventListener('change', extractUrls);
+            sortAlphaCheck.addEventListener('change', extractUrls);
+            cleanParamsCheck.addEventListener('change', extractUrls);
+
+            clearBtn.addEventListener('click', () => {
+                inputText.value = '';
+                extractedUrls = [];
+                renderResults();
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (extractedUrls.length === 0) return;
+                navigator.clipboard.writeText(extractedUrls.join('\n')).then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = 'Copied!';
+                    setTimeout(() => copyBtn.innerHTML = originalText, 2000);
+                });
+            });
+
+            exportTxtBtn.addEventListener('click', () => {
+                if (extractedUrls.length === 0) return;
+                const blob = new Blob([extractedUrls.join('\n')], { type: 'text/plain' });
+                downloadFile(blob, 'extracted_urls.txt');
+            });
+
+            exportCsvBtn.addEventListener('click', () => {
+                if (extractedUrls.length === 0) return;
+                const csvContent = 'URL\n' + extractedUrls.map(url => `"${url.replace(/"/g, '""')}"`).join('\n');
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                downloadFile(blob, 'extracted_urls.csv');
+            });
+
+            function downloadFile(blob, filename) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }
+
+            // File Handling
+            function handleFiles(files) {
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        inputText.value += (inputText.value ? '\n\n' : '') + e.target.result;
+                        extractUrls();
+                    };
+                    reader.readAsText(file);
+                });
+            }
+
+            fileUpload.addEventListener('change', (e) => handleFiles(e.target.files));
+            
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropOverlay.classList.add('opacity-0', 'pointer-events-none');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropOverlay.classList.add('opacity-0', 'pointer-events-none');
+                handleFiles(e.dataTransfer.files);
+            });
+        });
+    </script>
+</body>
+</html>
+

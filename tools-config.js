@@ -167,6 +167,12 @@ window.toolsConfig = {
           tags: ["developer", "json", "formatter", "validator", "data", "prettify"],
         },
         {
+          name: "YAML Validator & Linter",
+          description: "Check YAML syntax and indentation with real-time feedback.",
+          url: "/yaml-validator/",
+          tags: ["developer", "yaml", "validator", "linter", "syntax", "indentation"],
+        },
+        {
           name: "XML Formatter",
           description: "Format and validate XML structures.",
           url: "/xml-formatter/",
@@ -221,6 +227,12 @@ window.toolsConfig = {
           tags: ["developer", "markdown", "html", "converter", "document", "editor"],
         },
         {
+          name: "JSON Schema Validator",
+          description: "Validate JSON data against a JSON Schema using Ajv.",
+          url: "/json-schema-validator/",
+          tags: ["developer", "json", "schema", "validator", "ajv", "data"],
+        },
+        {
           name: "Text to Binary",
           description: "Convert text to binary and vice versa.",
           url: "/text-to-binary/",
@@ -232,6 +244,12 @@ window.toolsConfig = {
       id: "text",
       title: "📝 Text & Writing",
       tools: [
+        {
+          name: "Email Extractor",
+          description: "Extract unique email addresses from any text or files.",
+          url: "/email-extractor/",
+          tags: ["text", "email", "extract", "collector", "scraper", "leads"],
+        },
         {
           name: "Word Counter",
           description: "Count words, characters, and reading time.",
@@ -286,6 +304,24 @@ window.toolsConfig = {
       id: "web-seo",
       title: "🌐 Web & SEO",
       tools: [
+        {
+          name: "URL Extractor",
+          description: "Extract and clean URLs from text or HTML source code.",
+          url: "/url-extractor/",
+          tags: ["web", "seo", "url", "extract", "links", "cleaner"],
+        },
+        {
+          name: "OpenAPI Validator",
+          description: "Validate OpenAPI definitions for compliance and errors.",
+          url: "/openapi-validator/",
+          tags: ["developer", "openapi", "validator", "linter", "syntax", "indentation"],
+        },
+        {
+          name: "Media Extractor",
+          description: "Extract images and videos from HTML source code or text.",
+          url: "/media-extractor/",
+          tags: ["image", "video", "extract", "html", "media", "scraper"],
+        },
         {
           name: "Meta Tag Generator",
           description: "Create SEO meta tags for your website.",

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Schema Validator - Online JSON Validation Tool (Ajv) | WebUtilityKit</title>
+    <meta name="description" content="Validate JSON data online using the high-performance Ajv library. Supports JSON Schema drafts, displays validation errors in real-time, and ensures data structures comply with specifications. 100% browser-side processing for privacy and security.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/json-schema-validator/">
+    <script src="/tools-config.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+    <!-- Ajv Library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.12.0/ajv7.bundle.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JSON Schema Validator - Test JSON against Schema</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Validate the integrity and compliance of your JSON data using the industrial-grade Ajv engine. All processing is done locally in your browser, ensuring your data stays private and secure.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Local Browser Processing.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <!-- Tool implementation: 3 Column Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 h-auto lg:min-h-[750px]">
+                
+                <!-- Column 1: JSON Data -->
+                <div class="flex flex-col space-y-4 h-full">
+                    <div class="flex items-center justify-between px-2">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            Your JSON Data
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="clear-data" class="text-[10px] font-bold px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-red-500 hover:text-white transition-all uppercase">Clear</button>
+                            <label class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 hover:bg-blue-200 cursor-pointer uppercase">
+                                Import
+                                <input type="file" id="file-data" class="hidden" accept=".json,.txt">
+                            </label>
+                        </div>
+                    </div>
+                    <div id="drop-zone-data" class="relative flex-grow group">
+                        <textarea id="json-data" 
+                            class="w-full h-[500px] lg:h-full p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm dark:shadow-2xl placeholder:text-slate-300 dark:placeholder:text-slate-600 font-mono text-sm outline-none resize-none"
+                            placeholder='{
+  "name": "John Doe",
+  "age": 30,
+  "email": "john@example.com"
+}'></textarea>
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay-data" class="absolute inset-0 bg-blue-500/10 dark:bg-blue-500/20 backdrop-blur-[2px] rounded-[2.5rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-blue-500">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-blue-500 text-white rounded-xl flex items-center justify-center mx-auto mb-2 shadow-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-sm font-bold text-blue-700 dark:text-blue-400">Drop JSON file</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-4">
+                        <button id="format-data" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">Format JSON</button>
+                        <span id="data-status" class="text-[10px] text-slate-400 uppercase tracking-tighter font-mono">Ready</span>
+                    </div>
+                </div>
+
+                <!-- Column 2: JSON Schema -->
+                <div class="flex flex-col space-y-4 h-full">
+                    <div class="flex items-center justify-between px-2">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            JSON Schema
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="clear-schema" class="text-[10px] font-bold px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-red-500 hover:text-white transition-all uppercase">Clear</button>
+                            <label class="text-[10px] font-bold px-2 py-1 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 hover:bg-amber-200 cursor-pointer uppercase">
+                                Import
+                                <input type="file" id="file-schema" class="hidden" accept=".json,.txt">
+                            </label>
+                        </div>
+                    </div>
+                    <div id="drop-zone-schema" class="relative flex-grow group">
+                        <textarea id="json-schema" 
+                            class="w-full h-[500px] lg:h-full p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-amber-500/10 transition-all shadow-sm dark:shadow-2xl placeholder:text-slate-300 dark:placeholder:text-slate-600 font-mono text-sm outline-none resize-none"
+                            placeholder='{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "number" },
+    "email": { "type": "string", "format": "email" }
+  },
+  "required": ["name", "age"]
+}'></textarea>
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay-schema" class="absolute inset-0 bg-amber-500/10 dark:bg-amber-500/20 backdrop-blur-[2px] rounded-[2.5rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-amber-500">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center mx-auto mb-2 shadow-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-sm font-bold text-amber-700 dark:text-amber-400">Drop Schema file</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-4">
+                        <button id="format-schema" class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">Format Schema</button>
+                        <span id="schema-status" class="text-[10px] text-slate-400 uppercase tracking-tighter font-mono">Ready</span>
+                    </div>
+                </div>
+
+                <!-- Column 3: Result -->
+                <div class="flex flex-col space-y-4 h-full">
+                    <div class="flex items-center justify-between px-2">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            Validation Result
+                        </h2>
+                        <button id="validate-btn" class="text-xs font-black px-8 py-2.5 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-500/30 transition-all active:scale-95 uppercase tracking-wider">Validate</button>
+                    </div>
+                    
+                    <div class="flex-grow rounded-[3rem] bg-white dark:bg-slate-800 shadow-sm dark:shadow-2xl overflow-hidden flex flex-col border border-slate-100 dark:border-slate-700/50">
+                        <div id="result-container" class="flex-grow p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
+                            <!-- Initial Empty State -->
+                            <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center space-y-6">
+                                <div class="w-24 h-24 rounded-[2rem] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-300 dark:text-slate-700">
+                                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-slate-500 dark:text-slate-400 font-bold text-lg">Waiting for Input</p>
+                                    <p class="text-sm text-slate-400 max-w-[220px] mx-auto leading-relaxed">Provide your JSON data and a validation schema, then click Validate to begin the check.</p>
+                                </div>
+                            </div>
+
+                            <!-- Success State -->
+                            <div id="success-state" class="hidden h-full flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in zoom-in duration-500">
+                                <div class="w-32 h-32 rounded-[3rem] bg-emerald-500 text-white flex items-center justify-center shadow-[0_20px_50px_-10px_rgba(16,185,129,0.4)]">
+                                    <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div class="space-y-3">
+                                    <h3 class="text-3xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight italic">Success!</h3>
+                                    <p class="text-slate-600 dark:text-slate-400 font-bold text-lg">Data matches Schema</p>
+                                    <p class="text-slate-400 dark:text-slate-500 text-sm">Your JSON data fully complies with the defined schema specifications.</p>
+                                </div>
+                            </div>
+
+                            <!-- Error State -->
+                            <div id="error-state" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
+                                <div class="flex items-center gap-5 p-8 rounded-[2.5rem] bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/50 shadow-sm">
+                                    <div class="w-16 h-16 rounded-2xl bg-red-500 text-white flex items-center justify-center shadow-xl shadow-red-500/30 flex-shrink-0">
+                                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-black text-red-600 dark:text-red-400 tracking-tight italic">Validation Failed</h3>
+                                        <p id="error-count" class="text-sm font-bold text-red-500/80 uppercase tracking-widest">0 errors found</p>
+                                    </div>
+                                </div>
+                                <div id="error-list" class="space-y-4">
+                                    <!-- Error items injected here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>           
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 px-4">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use JSON Schema Validator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Prepare JSON Data</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Enter or drag your JSON data into the left pane. Use the "Format" button to clean up the structure instantly.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Load Validation Schema</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Provide your validation rules in the middle pane. Supports Draft 7+ specs and various custom constraints.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Instant Validation</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click the Validate button. The right pane will display the result or a detailed list of errors with instance paths.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Ajv High-Performance Engine</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Powered by the fastest and most standard-compliant JSON Schema validation library available for web apps.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy-First Design</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">All validation happens locally in your browser. Your JSON data is never uploaded to any server.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 0a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Drag & Drop Support</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Easily import files by dragging them into the text areas or using the dedicated file upload buttons.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Instance Path Debugging</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Error reports pinpoint exact locations in your JSON structure using standard Instance Paths for faster debugging.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is it free to use?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Yes, all tools on WebUtilityKit are completely free to use with no hidden costs or registration required.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Which JSON Schema versions are supported?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                We use the industrial-grade Ajv library, which supports Draft 7, Draft 2019-09, and Draft 2020-12 by default. This covers the vast majority of modern API and data specification needs.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Why do I see Strict Mode warnings?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Ajv enforces strict mode to prevent ambiguous schema definitions. While we've enabled a relaxed configuration for broader compatibility, we recommend following standard schema practices for the best results.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+      
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- Shared Components -->
+    <script src="../assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = {
+                jsonData: document.getElementById('json-data'),
+                jsonSchema: document.getElementById('json-schema'),
+                validateBtn: document.getElementById('validate-btn'),
+                emptyState: document.getElementById('empty-state'),
+                successState: document.getElementById('success-state'),
+                errorState: document.getElementById('error-state'),
+                errorList: document.getElementById('error-list'),
+                errorCount: document.getElementById('error-count'),
+                
+                clearData: document.getElementById('clear-data'),
+                clearSchema: document.getElementById('clear-schema'),
+                formatData: document.getElementById('format-data'),
+                formatSchema: document.getElementById('format-schema'),
+                
+                fileData: document.getElementById('file-data'),
+                fileSchema: document.getElementById('file-schema'),
+                
+                dropData: document.getElementById('drop-zone-data'),
+                dropSchema: document.getElementById('drop-zone-schema'),
+                overlayData: document.getElementById('drop-overlay-data'),
+                overlaySchema: document.getElementById('drop-overlay-schema'),
+                
+                dataStatus: document.getElementById('data-status'),
+                schemaStatus: document.getElementById('schema-status')
+            };
+
+            let ajv;
+            try {
+                // CDN bundle might expose Ajv or ajv7
+                const AjvClass = window.Ajv || window.ajv7;
+                ajv = new AjvClass({ 
+                    allErrors: true, 
+                    strict: false,
+                    validateFormats: true
+                });
+            } catch (e) {
+                console.error("Ajv init failed", e);
+            }
+
+            // --- Core Logic ---
+
+            const validate = () => {
+                const dataStr = elements.jsonData.value.trim();
+                const schemaStr = elements.jsonSchema.value.trim();
+
+                if (!dataStr || !schemaStr) return;
+
+                elements.emptyState.classList.add('hidden');
+                elements.successState.classList.add('hidden');
+                elements.errorState.classList.add('hidden');
+
+                try {
+                    let data, schema;
+                    try {
+                        data = JSON.parse(dataStr);
+                    } catch (e) {
+                        throw new Error(`JSON Data Parse Error: ${e.message}`);
+                    }
+                    try {
+                        schema = JSON.parse(schemaStr);
+                    } catch (e) {
+                        throw new Error(`JSON Schema Parse Error: ${e.message}`);
+                    }
+                    
+                    const validateFn = ajv.compile(schema);
+                    const valid = validateFn(data);
+
+                    if (valid) {
+                        elements.successState.classList.remove('hidden');
+                    } else {
+                        elements.errorState.classList.remove('hidden');
+                        elements.errorCount.textContent = `${validateFn.errors.length} ERRORS DETECTED`;
+                        elements.errorList.innerHTML = validateFn.errors.map(err => `
+                            <div class="p-6 rounded-[2rem] bg-white dark:bg-slate-800 border border-red-100 dark:border-red-900/30 text-sm shadow-sm animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-2.5 py-1 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg text-[10px] font-black uppercase tracking-widest border border-red-200/50 dark:border-red-800/50">${err.keyword}</span>
+                                    <code class="text-slate-500 dark:text-slate-400 font-mono text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-100 dark:border-slate-800">${err.instancePath || '/'}</code>
+                                </div>
+                                <p class="text-slate-700 dark:text-slate-200 font-bold text-base mb-2">${err.message}</p>
+                                ${err.params ? `<pre class="mt-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl text-[10px] text-slate-400 overflow-x-auto border border-slate-100 dark:border-slate-800">Parameters: ${JSON.stringify(err.params, null, 2)}</pre>` : ''}
+                            </div>
+                        `).join('');
+                    }
+                } catch (e) {
+                    elements.errorState.classList.remove('hidden');
+                    elements.errorCount.textContent = "SYNTAX ERROR";
+                    elements.errorList.innerHTML = `
+                        <div class="p-8 rounded-[2rem] bg-white dark:bg-slate-800 border border-red-100 dark:border-red-900/30 text-sm shadow-sm">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </div>
+                            <p class="text-red-600 dark:text-red-400 font-black text-lg mb-2 italic">Parse Exception</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-mono text-xs">${e.message}</p>
+                        </div>
+                    `;
+                }
+            };
+
+            // --- Events ---
+
+            elements.validateBtn.addEventListener('click', validate);
+
+            const setupDropZone = (zone, overlay, textarea, statusEl) => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    overlay.classList.remove('opacity-0', 'pointer-events-none');
+                });
+                zone.addEventListener('dragleave', () => {
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                });
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                    const file = e.dataTransfer.files[0];
+                    if (file) readFile(file, textarea, statusEl);
+                });
+            };
+
+            const readFile = (file, textarea, statusEl) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    textarea.value = e.target.result;
+                    statusEl.textContent = `File: ${file.name}`;
+                    statusEl.classList.remove('text-slate-400');
+                    statusEl.classList.add('text-blue-500', 'font-bold');
+                };
+                reader.readAsText(file);
+            };
+
+            setupDropZone(elements.dropData, elements.overlayData, elements.jsonData, elements.dataStatus);
+            setupDropZone(elements.dropSchema, elements.overlaySchema, elements.jsonSchema, elements.schemaStatus);
+
+            elements.fileData.addEventListener('change', (e) => {
+                if (e.target.files[0]) readFile(e.target.files[0], elements.jsonData, elements.dataStatus);
+            });
+            elements.fileSchema.addEventListener('change', (e) => {
+                if (e.target.files[0]) readFile(e.target.files[0], elements.jsonSchema, elements.schemaStatus);
+            });
+
+            const format = (textarea, statusEl) => {
+                try {
+                    const val = textarea.value.trim();
+                    if (!val) return;
+                    textarea.value = JSON.stringify(JSON.parse(val), null, 2);
+                    statusEl.textContent = "Formatted ✨";
+                    statusEl.classList.remove('text-slate-400', 'text-red-500');
+                    statusEl.classList.add('text-emerald-500', 'font-bold');
+                } catch (e) {
+                    statusEl.textContent = "Format Error ❌";
+                    statusEl.classList.remove('text-slate-400', 'text-emerald-500');
+                    statusEl.classList.add('text-red-500', 'font-bold');
+                }
+            };
+
+            elements.formatData.addEventListener('click', () => format(elements.jsonData, elements.dataStatus));
+            elements.formatSchema.addEventListener('click', () => format(elements.jsonSchema, elements.schemaStatus));
+
+            elements.clearData.addEventListener('click', () => {
+                elements.jsonData.value = '';
+                elements.dataStatus.textContent = 'Cleared';
+                elements.dataStatus.className = 'text-[10px] text-slate-400 uppercase tracking-tighter font-mono';
+                elements.emptyState.classList.remove('hidden');
+                elements.successState.classList.add('hidden');
+                elements.errorState.classList.add('hidden');
+            });
+            elements.clearSchema.addEventListener('click', () => {
+                elements.jsonSchema.value = '';
+                elements.schemaStatus.textContent = 'Cleared';
+                elements.schemaStatus.className = 'text-[10px] text-slate-400 uppercase tracking-tighter font-mono';
+                elements.emptyState.classList.remove('hidden');
+                elements.successState.classList.add('hidden');
+                elements.errorState.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
