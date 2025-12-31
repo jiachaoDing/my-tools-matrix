@@ -1,7 +1,5 @@
 // assets/js/app.js
 
-// // 1. 放在最外面，证明 app.js 被加载了
-// console.log('🚀 App.js is running...');
 
 document.addEventListener('DOMContentLoaded', () => {
     try {
@@ -83,9 +81,9 @@ function injectRelatedTools() {
     renderTools(container, recommendations);
 }
 
-// 辅助函数：生成 HTML 并注入 (V2.0 美化版)
+// 辅助函数：生成 HTML 并注入 (V2.1 极简精致版)
 function renderTools(container, tools) {
-    // 定义不同分类的颜色映射 (可选，增加精致感)
+    // 定义不同分类的颜色映射
     const categoryColors = {
         'image': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
         'pdf': 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
@@ -95,46 +93,44 @@ function renderTools(container, tools) {
     };
 
     const html = `
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                Related Tools You Might Need
+        <div class="flex items-center justify-between mb-5">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
+                <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                Related Tools
             </h3>
-            <a href="/" class="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 flex items-center gap-1 group">
-                View All <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+            <a href="/" class="text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 flex items-center gap-1 group transition-colors">
+                Explore All <span class="group-hover:translate-x-0.5 transition-transform">→</span>
             </a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             ${tools.map(tool => {
-                // 获取分类颜色，没有就用默认
                 const catID = tool.categoryID || 'default';
                 const badgeClass = categoryColors[catID] || categoryColors['default'];
                 
                 return `
-                <a href="${tool.url}" class="group relative flex flex-col p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:border-blue-500/50 dark:hover:border-blue-500 hover:-translate-y-1">
+                <a href="${tool.url}" class="group flex items-center gap-4 p-3.5 bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/50 rounded-xl transition-all duration-200 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-0.5">
                     
-                    <div class="flex justify-between items-start mb-4">
-                        <div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 group-hover:text-blue-600 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <div class="flex-shrink-0 w-11 h-11 rounded-lg bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 group-hover:text-blue-600 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    
+                    <div class="min-w-0 flex-1">
+                        <div class="flex items-center justify-between mb-0.5">
+                            <h4 class="text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors truncate">
+                                ${tool.name}
+                            </h4>
                         </div>
-                        
-                        <span class="text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-full ${badgeClass}">
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 mb-1.5">
+                            ${tool.description || tool.desc}
+                        </p>
+                        <span class="inline-block text-[9px] uppercase tracking-widest font-black px-1.5 py-0.5 rounded-md ${badgeClass} opacity-80 group-hover:opacity-100 transition-opacity">
                             ${tool.categoryID || 'TOOL'}
                         </span>
                     </div>
 
-                    <div class="mb-2">
-                        <h4 class="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">
-                            ${tool.name}
-                        </h4>
-                    </div>
-                    
-                    <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-4 flex-grow">
-                        ${tool.description || tool.desc}
-                    </p>
-
-                    <div class="flex items-center text-sm font-semibold text-blue-600 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 mt-auto">
-                        Try this tool <span class="ml-1">→</span>
+                    <div class="flex-shrink-0 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </div>
                 </a>
                 `;
@@ -145,4 +141,3 @@ function renderTools(container, tools) {
     container.innerHTML = html;
     container.classList.remove('hidden');
 }
-// ... 保持 renderTools 和 getRandomTools 函数不变 ...
