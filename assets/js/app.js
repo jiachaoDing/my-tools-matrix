@@ -32,7 +32,8 @@ function injectRelatedTools() {
     // 数据准备
     const allTools = window.toolsConfig.categories.flatMap(cat => cat.tools.map(tool => ({
         ...tool,
-        categoryID: cat.id
+        categoryID: cat.id,
+        categoryName: cat.name
     })));
 
     const currentBrowserPath = normalizePath(window.location.pathname);
@@ -77,12 +78,33 @@ function injectRelatedTools() {
 
     // console.log('✨ Recommendations generated:', recommendations.length);
     
-    // 渲染 (保持你之前漂亮的样式函数 renderTools 不变)
-    renderTools(container, recommendations);
+    // 渲染 (SEO 增强版)
+    renderTools(container, recommendations, currentTool);
+    // 注入 JSON-LD
+    injectJSONLD(recommendations);
 }
 
-// 辅助函数：生成 HTML 并注入 (V2.1 极简精致版)
-function renderTools(container, tools) {
+// 辅助函数：注入 JSON-LD 提升 SEO
+function injectJSONLD(tools) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": tools.map((tool, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "url": window.location.origin + tool.url,
+            "name": tool.name,
+            "description": tool.description || tool.desc
+        }))
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+}
+
+// 辅助函数：生成 HTML 并注入 (V2.2 SEO 增强版)
+function renderTools(container, tools, currentTool) {
     // 定义不同分类的颜色映射
     const categoryColors = {
         'image': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
@@ -92,14 +114,19 @@ function renderTools(container, tools) {
         'default': 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
     };
 
+    // 动态生成 SEO 友好的标题
+    const sectionTitle = currentTool 
+        ? `Related ${currentTool.categoryName || currentTool.categoryID.charAt(0).toUpperCase() + currentTool.categoryID.slice(1)} Tools` 
+        : 'Recommended Tools';
+
     const html = `
         <div class="flex items-center justify-between mb-5">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
                 <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                Related Tools
+                ${sectionTitle}
             </h3>
             <a href="/" class="text-xs font-bold text-blue-600 hover:text-blue-700 dark:text-blue-400 flex items-center gap-1 group transition-colors">
-                Explore All <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                Explore All Tools <span class="group-hover:translate-x-0.5 transition-transform">→</span>
             </a>
         </div>
 
@@ -109,7 +136,9 @@ function renderTools(container, tools) {
                 const badgeClass = categoryColors[catID] || categoryColors['default'];
                 
                 return `
-                <a href="${tool.url}" class="group flex items-center gap-4 p-3.5 bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/50 rounded-xl transition-all duration-200 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-0.5">
+                <a href="${tool.url}" 
+                   title="Use ${tool.name} - ${tool.description || tool.desc}"
+                   class="group flex items-center gap-4 p-3.5 bg-white dark:bg-slate-900/40 border border-slate-200/60 dark:border-slate-800/50 rounded-xl transition-all duration-200 hover:border-blue-500/40 hover:shadow-lg hover:shadow-blue-500/5 hover:-translate-y-0.5">
                     
                     <div class="flex-shrink-0 w-11 h-11 rounded-lg bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center text-slate-400 group-hover:text-blue-600 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/30 transition-colors">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>

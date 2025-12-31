@@ -29,7 +29,8 @@ function injectRelatedTools() {
     // डेटा तैयार करें
     const allTools = window.toolsConfig.categories.flatMap(cat => cat.tools.map(tool => ({
         ...tool,
-        categoryID: cat.id
+        categoryID: cat.id,
+        categoryName: cat.name
     })));
 
     const currentBrowserPath = normalizePath(window.location.pathname);
@@ -66,11 +67,33 @@ function injectRelatedTools() {
         recommendations = [...recommendations, ...fillers];
     }
     
-    // रेंडरिंग
-    renderTools(container, recommendations);
+    // रेंडरिंग (SEO उन्नत संस्करण)
+    renderTools(container, recommendations, currentTool);
+    // JSON-LD इंजेक्ट करें
+    injectJSONLD(recommendations);
 }
 
-function renderTools(container, tools) {
+// सहायक फ़ंक्शन: SEO बढ़ाने के लिए JSON-LD इंजेक्ट करें
+function injectJSONLD(tools) {
+    const schema = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "itemListElement": tools.map((tool, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "url": window.location.origin + (tool.url.startsWith('/hi/') ? tool.url : `/hi${tool.url}`),
+            "name": tool.name,
+            "description": tool.description || tool.desc
+        }))
+    };
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.text = JSON.stringify(schema);
+    document.head.appendChild(script);
+}
+
+// सहायक फ़ंक्शन: HTML उत्पन्न करें और इंजेक्ट करें (V2.2 SEO उन्नत संस्करण)
+function renderTools(container, tools, currentTool) {
     const categoryColors = {
         'images': 'bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300',
         'pdf': 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-300',
@@ -79,13 +102,18 @@ function renderTools(container, tools) {
         'default': 'bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300'
     };
 
+    // गतिशील रूप से SEO अनुकूल शीर्षक उत्पन्न करें
+    const sectionTitle = currentTool 
+        ? `संबंधित ${currentTool.categoryName || currentTool.categoryID.charAt(0).toUpperCase() + currentTool.categoryID.slice(1)} उपकरण` 
+        : 'संबंधित उपकरण जिनकी आपको आवश्यकता हो सकती है';
+
     const html = `
         <div class="flex items-center justify-between mb-6">
             <h3 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-                संबंधित उपकरण जिनकी आपको आवश्यकता हो सकती है
+                ${sectionTitle}
             </h3>
             <a href="/hi/" class="text-sm font-medium text-blue-600 hover:text-blue-700 dark:text-blue-400 flex items-center gap-1 group">
-                सभी देखें (View All) <span class="group-hover:translate-x-0.5 transition-transform">→</span>
+                सभी उपकरण देखें (View All Tools) <span class="group-hover:translate-x-0.5 transition-transform">→</span>
             </a>
         </div>
 
@@ -98,7 +126,9 @@ function renderTools(container, tools) {
                 const localizedUrl = tool.url.startsWith('/hi/') ? tool.url : `/hi${tool.url}`;
                 
                 return `
-                <a href="${localizedUrl}" class="group relative flex flex-col p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:border-blue-500/50 dark:hover:border-blue-500 hover:-translate-y-1">
+                <a href="${localizedUrl}" 
+                   title="उपयोग करें ${tool.name} - ${tool.description || tool.desc}"
+                   class="group relative flex flex-col p-6 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-slate-200/50 dark:hover:shadow-none hover:border-blue-500/50 dark:hover:border-blue-500 hover:-translate-y-1">
                     
                     <div class="flex justify-between items-start mb-4">
                         <div class="p-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-slate-400 group-hover:text-blue-600 group-hover:bg-blue-50 dark:group-hover:bg-blue-900/20 transition-colors">
