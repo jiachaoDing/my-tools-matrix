@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Extractor (ईमेल एक्सट्रैक्टर) - 100% सुरक्षित और मुफ्त | WebUtilityKit</title>
+    <meta name="description" content="किसी भी टेक्स्ट या फ़ाइल से ईमेल पते जल्दी से निकालें। मुफ़्त, सुरक्षित और 100% क्लाइंट-साइड ईमेल एक्सट्रैक्टर टूल। डोमेन या वर्णानुक्रम के अनुसार क्रमबद्ध करें।">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/hi/email-extractor/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/email-extractor/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/email-extractor/" />
+    <script src="/hi/tools-config.js"></script>
+    <script src="/hi/assets/js/app.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">मुफ़्त Email Extractor (ईमेल एक्सट्रैक्टर)</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">कच्चे टेक्स्ट, लिस्ट या दस्तावेजों से ईमेल पतों का त्वरित और सुरक्षित निष्कर्षण। कोई डेटा आपके ब्राउज़र से बाहर नहीं जाता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
+                
+                <!-- Left Column: Input -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">इनपुट टेक्स्ट (Input Text)</h2>
+                        <div class="flex gap-2">
+                            <button id="clear-btn" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors">साफ़ करें (Clear)</button>
+                            <label for="file-upload" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-sky-100 text-sky-700 hover:bg-sky-200 dark:bg-sky-900/40 dark:text-sky-300 dark:hover:bg-sky-900/60 transition-colors cursor-pointer">
+                                फ़ाइलें अपलोड करें
+                                <input type="file" id="file-upload" class="hidden" accept=".txt,.csv,.json,.html" multiple>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="drop-zone" class="relative flex-grow group">
+                        <textarea id="input-text" 
+                            class="w-full h-[500px] p-6 rounded-[2rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-sky-500/10 transition-all resize-none shadow-sm dark:shadow-2xl placeholder:text-slate-400 text-slate-700 dark:text-slate-200 outline-none" 
+                            placeholder="अपना टेक्स्ट यहाँ पेस्ट करें या फ़ाइलें ड्रैग और ड्रॉप करें..."></textarea>
+                        
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-sky-500/10 dark:bg-sky-500/20 backdrop-blur-[2px] rounded-[2rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-sky-500">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-sky-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-lg font-bold text-sky-700 dark:text-sky-400">फ़ाइलें यहाँ छोड़ें</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- File List -->
+                    <div id="file-list" class="hidden space-y-2">
+                        <div class="flex items-center justify-between text-xs text-slate-500 mb-2">
+                            <span id="file-count">0 फ़ाइलें अपलोड की गईं</span>
+                            <button id="clear-files" class="hover:text-red-500">सभी हटाएँ</button>
+                        </div>
+                        <div id="file-items" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Output -->
+                <div class="flex flex-col h-full space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">निकाले गए ईमेल (Extracted Emails)</h2>
+                        <div class="flex gap-2">
+                            <div id="stats-badge" class="hidden text-xs font-bold px-3 py-1.5 rounded-lg bg-sky-600 text-white shadow-sm">
+                                <span id="email-count-val">0</span> ईमेल मिले
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 rounded-[2rem] flex-grow flex flex-col overflow-hidden shadow-sm dark:shadow-2xl">
+                        <!-- Toolbar -->
+                        <div class="p-4 border-b border-slate-100 dark:border-slate-700/50 flex flex-wrap gap-2 items-center justify-between">
+                            <div class="flex gap-2">
+                                <button id="sort-alpha" class="text-xs px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-700/50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-600">A-Z क्रमित करें</button>
+                                <button id="sort-domain" class="text-xs px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-700/50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-600">डोमेन के अनुसार</button>
+                                <button id="download-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-50 hover:bg-slate-100 dark:bg-slate-700/50 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-600 flex items-center gap-1.5 disabled:opacity-50">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    डाउनलोड (Download)
+                                </button>
+                            </div>
+                            <button id="copy-btn" class="text-xs font-bold px-4 py-1.5 rounded-lg bg-sky-600 text-white hover:bg-sky-700 transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                सभी कॉपी करें (Copy All)
+                            </button>
+                        </div>
+                        
+                        <!-- List -->
+                        <div id="output-list" class="flex-grow overflow-y-auto p-6 space-y-2 font-mono text-sm">
+                            <div id="empty-state" class="h-full flex flex-col items-center justify-center text-slate-400 italic">
+                                <svg class="w-12 h-12 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                <span>निकाले गए ईमेल यहाँ दिखाई देंगे</span>
+                            </div>
+                            <ul id="email-items-container" class="space-y-1"></ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>           
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Email Extractor का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">अपनी सामग्री दर्ज करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">कच्चे टेक्स्ट को सीधे पेस्ट करें या एक्सट्रैक्टर में फ़ाइलें (.txt, .csv, .html) ड्रैग और ड्रॉप करें।</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">स्वचालित निष्कर्षण</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टूल तुरंत टेक्स्ट को स्कैन करता है और स्मार्ट पैटर्न मिलान का उपयोग करके सभी मान्य ईमेल पतों की पहचान करता है।</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">संगठित और निर्यात करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">परिणामों को वर्णानुक्रम में या डोमेन के अनुसार क्रमबद्ध करें, और एक क्लिक के साथ साफ सूची कॉपी करें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">हमारा Email Extractor क्यों चुनें?</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">त्वरित प्रसंस्करण (Instant Processing)</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">अपने ब्राउज़र में ही मिलीसेकंड में हजारों टेक्स्ट लाइनों को संभालें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता की गारंटी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका डेटा कभी भी आपके कंप्यूटर से बाहर नहीं जाता है। हम निकाले गए ईमेल को स्टोर या लॉग नहीं करते हैं।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्वच्छ आउटपुट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">स्वचालित रूप से डुप्लिकेट हटा देता है और स्वच्छ, लाइन-दर-लाइन लिस्ट प्रदान करता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">स्मार्ट ग्रुपिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">ईमेल को उनके डोमेन (जैसे gmail.com, outlook.com) द्वारा समूहित करके लीड सूचियों का विश्लेषण करें।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न (FAQ)</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या मेरा डेटा सुरक्षित है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                बिल्कुल। सभी प्रसंस्करण JavaScript का उपयोग करके आपके ब्राउज़र में स्थानीय रूप से किया जाता है। हमारे सर्वर पर कोई टेक्स्ट या फ़ाइलें अपलोड नहीं की जाती हैं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से फ़ाइल स्वरूप समर्थित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                आप किसी भी टेक्स्ट को पेस्ट कर सकते हैं या सादा टेक्स्ट फ़ाइलें (.txt), CSV फ़ाइलें, या HTML फ़ाइलें अपलोड कर सकते हैं। टूल ईमेल पैटर्न खोजने के लिए सभी वर्णों को स्कैन करेगा।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह डुप्लिकेट ईमेल को संभालता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, टूल स्वचालित रूप से डुप्लिकेट हटा देता है ताकि यह सुनिश्चित हो सके कि आपको अद्वितीय ईमेल पतों की एक स्वच्छ सूची मिले।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+      
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputText = document.getElementById('input-text');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyBtn = document.getElementById('copy-btn');
+            const sortAlphaBtn = document.getElementById('sort-alpha');
+            const sortDomainBtn = document.getElementById('sort-domain');
+            const downloadBtn = document.getElementById('download-btn');
+            const outputContainer = document.getElementById('email-items-container');
+            const emptyState = document.getElementById('empty-state');
+            const statsBadge = document.getElementById('stats-badge');
+            const emailCountVal = document.getElementById('email-count-val');
+            const dropZone = document.getElementById('drop-zone');
+            const dropOverlay = document.getElementById('drop-overlay');
+            const fileUpload = document.getElementById('file-upload');
+            const fileList = document.getElementById('file-list');
+            const fileItems = document.getElementById('file-items');
+            const fileCountText = document.getElementById('file-count');
+            const clearFilesBtn = document.getElementById('clear-files');
+
+            let extractedEmails = [];
+            let uploadedFiles = [];
+
+            // Email Regex
+            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi;
+
+            function extractEmails() {
+                const text = inputText.value;
+                const matches = text.match(emailRegex) || [];
+                // Remove duplicates and normalize to lowercase
+                extractedEmails = [...new Set(matches.map(email => email.toLowerCase()))];
+                renderResults();
+            }
+
+            function renderResults() {
+                outputContainer.innerHTML = '';
+                
+                if (extractedEmails.length > 0) {
+                    emptyState.classList.add('hidden');
+                    statsBadge.classList.remove('hidden');
+                    emailCountVal.textContent = extractedEmails.length;
+                    copyBtn.disabled = false;
+                    downloadBtn.disabled = false;
+
+                    extractedEmails.forEach(email => {
+                        const li = document.createElement('li');
+                        li.className = 'px-4 py-2 bg-slate-50 dark:bg-slate-700/30 rounded-lg border border-slate-100 dark:border-slate-700 text-slate-700 dark:text-slate-300 flex justify-between items-center group/item hover:border-sky-500/30 transition-all';
+                        li.innerHTML = `
+                            <span>${email}</span>
+                            <button class="opacity-0 group-hover/item:opacity-100 text-sky-600 dark:text-sky-400 hover:underline text-xs" onclick="navigator.clipboard.writeText('${email}')">कॉपी (Copy)</button>
+                        `;
+                        outputContainer.appendChild(li);
+                    });
+                } else {
+                    emptyState.classList.remove('hidden');
+                    statsBadge.classList.add('hidden');
+                    copyBtn.disabled = true;
+                    downloadBtn.disabled = true;
+                }
+            }
+
+            // Input Event
+            inputText.addEventListener('input', extractEmails);
+
+            // Clear Button
+            clearBtn.addEventListener('click', () => {
+                inputText.value = '';
+                extractedEmails = [];
+                renderResults();
+                uploadedFiles = [];
+                updateFileList();
+            });
+
+            // Copy All
+            copyBtn.addEventListener('click', () => {
+                if (extractedEmails.length === 0) return;
+                const textToCopy = extractedEmails.join('\n');
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalText = copyBtn.innerHTML;
+                    copyBtn.innerHTML = 'कॉपी किया गया!';
+                    copyBtn.classList.replace('bg-sky-600', 'bg-emerald-600');
+                    setTimeout(() => {
+                        copyBtn.innerHTML = originalText;
+                        copyBtn.classList.replace('bg-emerald-600', 'bg-sky-600');
+                    }, 2000);
+                });
+            });
+
+            // Sorting
+            sortAlphaBtn.addEventListener('click', () => {
+                extractedEmails.sort();
+                renderResults();
+            });
+
+            // Sorting by Domain
+            sortDomainBtn.addEventListener('click', () => {
+                extractedEmails.sort((a, b) => {
+                    const domainA = a.split('@')[1];
+                    const domainB = b.split('@')[1];
+                    return domainA.localeCompare(domainB) || a.localeCompare(b);
+                });
+                renderResults();
+            });
+
+            // Download
+            downloadBtn.addEventListener('click', () => {
+                if (extractedEmails.length === 0) return;
+                const blob = new Blob([extractedEmails.join('\n')], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'extracted_emails.txt';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // File Handling
+            function handleFiles(files) {
+                const textFiles = Array.from(files);
+                textFiles.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        inputText.value += (inputText.value ? '\n\n' : '') + e.target.result;
+                        extractEmails();
+                    };
+                    reader.readAsText(file);
+                    uploadedFiles.push(file);
+                });
+                updateFileList();
+            }
+
+            function updateFileList() {
+                fileItems.innerHTML = '';
+                if (uploadedFiles.length > 0) {
+                    fileList.classList.remove('hidden');
+                    fileCountText.textContent = `${uploadedFiles.length} फ़ाइलें अपलोड की गईं`;
+                    
+                    uploadedFiles.forEach((file, index) => {
+                        const div = document.createElement('div');
+                        div.className = 'flex items-center justify-between p-2 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-xl text-xs';
+                        div.innerHTML = `
+                            <span class="truncate max-w-[150px] font-medium">${file.name}</span>
+                            <span class="text-slate-400">${(file.size / 1024).toFixed(1)} KB</span>
+                            <button class="text-red-500 hover:text-red-700 ml-2" data-index="${index}">✕</button>
+                        `;
+                        div.querySelector('button').addEventListener('click', (e) => {
+                            const idx = parseInt(e.target.dataset.index);
+                            uploadedFiles.splice(idx, 1);
+                            updateFileList();
+                        });
+                        fileItems.appendChild(div);
+                    });
+                } else {
+                    fileList.classList.add('hidden');
+                }
+            }
+
+            fileUpload.addEventListener('change', (e) => handleFiles(e.target.files));
+            clearFilesBtn.addEventListener('click', () => {
+                uploadedFiles = [];
+                updateFileList();
+            });
+
+            // Drag and Drop
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropOverlay.classList.remove('opacity-0', 'pointer-events-none');
+            });
+
+            dropZone.addEventListener('dragleave', () => {
+                dropOverlay.classList.add('opacity-0', 'pointer-events-none');
+            });
+
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                dropOverlay.classList.add('opacity-0', 'pointer-events-none');
+                handleFiles(e.dataTransfer.files);
+            });
+        });
+    </script>
+</body>
+</html>
+

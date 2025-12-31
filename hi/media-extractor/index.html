@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Extractor (मीडिया एक्सट्रैक्टर) - HTML/टेक्स्ट से इमेज और वीडियो निकालें | WebUtilityKit</title>
+    <meta name="description" content="HTML या टेक्स्ट पेस्ट करें और कोड में छिपे सभी फ़ोटो (JPG, PNG, WebP) और वीडियो (MP4) तुरंत निकालें और डाउनलोड करें। 100% सुरक्षित क्लाइंट-साइड निष्कर्षण।">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/hi/media-extractor/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/media-extractor/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/media-extractor/" />
+    <script src="/hi/tools-config.js"></script>
+    <script src="/hi/assets/js/app.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">मुफ़्त Media Extractor (मीडिया एक्सट्रैक्टर)</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">कच्चे HTML सोर्स कोड या किसी भी मिश्रित टेक्स्ट से फ़ोटो और वीडियो तुरंत प्राप्त करें। कोई अपलोड नहीं, बस तत्काल निष्कर्षण।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय रूप से संसाधित।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                
+                <!-- Left Column: Input & Controls (4 cols) -->
+                <div class="lg:col-span-4 flex flex-col space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">स्रोत सामग्री (Source Content)</h2>
+                        <button id="clear-btn" class="text-xs font-medium px-3 py-1.5 rounded-lg bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors">साफ़ करें (Clear)</button>
+                    </div>
+
+                    <div id="drop-zone" class="relative group">
+                        <textarea id="input-text" 
+                            class="w-full h-[400px] p-6 rounded-[2rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-sky-500/10 transition-all resize-none shadow-sm dark:shadow-2xl placeholder:text-slate-400 text-slate-700 dark:text-slate-200 outline-none" 
+                            placeholder="यहाँ HTML सोर्स कोड या टेक्स्ट पेस्ट करें..."></textarea>
+                        
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay" class="absolute inset-0 bg-sky-500/10 dark:bg-sky-500/20 backdrop-blur-[2px] rounded-[2rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-sky-500">
+                            <div class="text-center">
+                                <div class="w-16 h-16 bg-sky-500 text-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-lg font-bold text-sky-700 dark:text-sky-400">फ़ाइलें यहाँ छोड़ें</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Base URL Support -->
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-[2rem] shadow-sm dark:shadow-2xl space-y-4">
+                        <div>
+                            <label for="base-url" class="block text-xs font-bold text-slate-500 uppercase mb-2">बेस URL (रिलेटिव लिंक के लिए)</label>
+                            <input type="text" id="base-url" placeholder="https://example.com" class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-xl px-4 py-2.5 text-sm focus:ring-4 focus:ring-sky-500/10 outline-none">
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button id="extract-btn" class="flex-1 py-3 px-6 bg-sky-600 hover:bg-sky-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-sky-500/20">मीडिया निकालें</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Results (8 cols) -->
+                <div class="lg:col-span-8 flex flex-col space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex gap-4">
+                            <button id="tab-gallery" class="text-sm font-bold pb-2 border-b-2 border-sky-500 text-sky-600 dark:text-sky-400">इमेज गैलरी (<span id="img-count">0</span>)</button>
+                            <button id="tab-videos" class="text-sm font-bold pb-2 border-b-2 border-transparent text-slate-400 hover:text-slate-600">वीडियो सूची (<span id="vid-count">0</span>)</button>
+                        </div>
+                        <button id="copy-all-btn" class="hidden text-xs font-bold px-4 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 transition-all flex items-center gap-2">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                            सभी लिंक कॉपी करें
+                        </button>
+                    </div>
+
+                    <div id="results-container" class="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-sm dark:shadow-2xl min-h-[500px] p-6">
+                        <!-- Empty State -->
+                        <div id="empty-state" class="h-full min-h-[400px] flex flex-col items-center justify-center text-slate-400 italic">
+                            <svg class="w-16 h-16 mb-4 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h14a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            <span>निकाला गया मीडिया यहाँ दिखाई देगा</span>
+                        </div>
+
+                        <!-- Gallery View -->
+                        <div id="gallery-view" class="hidden grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+
+                        <!-- Video List -->
+                        <div id="video-list" class="hidden space-y-3"></div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>           
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Media Extractor का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">स्रोत सामग्री पेस्ट करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">किसी वेबसाइट से HTML कोड या इमेज और वीडियो URL वाला कोई भी टेक्स्ट पेस्ट करें।</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">बेस URL जोड़ें (वैकल्पिक)</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">यदि लिंक रिलेटिव हैं (जैसे, /img.jpg), तो उन्हें स्वचालित रूप से ठीक करने के लिए वेबसाइट का डोमेन प्रदान करें।</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">निकालें और डाउनलोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">गैलरी ब्राउज़ करें, सीधे लिंक कॉपी करें, या उन्हें सहेजने के लिए एक नए टैब में मीडिया खोलें।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रमुख विशेषताऐं (Key Features)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h14a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">विजुअल गैलरी</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">एक सुंदर थंबनेल ग्रिड में निकाले गए इमेज का तुरंत पूर्वावलोकन करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">वीडियो डिटेक्शन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">किसी भी टेक्स्ट या HTML स्रोत में एम्बेडेड MP4, WebM, और MOV लिंक ढूँढता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">रिलेटिव पाथ फिक्सिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">बेस डोमेन प्रदान करके रिलेटिव फ़ाइल पाथ को क्लिक करने योग्य, एब्सोल्यूट URL में बदलें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">निजी और सुरक्षित</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">आपका डेटा कभी अपलोड नहीं किया जाता है। निष्कर्षण पूरी तरह से आपकी मशीन पर होता है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न (FAQ)</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से फ़ाइल एक्सटेंशन समर्थित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम सामान्य इमेज फ़ॉर्मेट (JPG, PNG, GIF, WebP, SVG) और वीडियो फ़ॉर्मेट (MP4, WebM, MOV) का समर्थन करते हैं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह टूल फ़ाइलें डाउनलोड करता है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                ब्राउज़र सुरक्षा प्रतिबंधों के कारण, "डाउनलोड" बटन मीडिया को एक नए टैब में खोलता है जहाँ आप राइट-क्लिक करके "Save As" कर सकते हैं। यह सुनिश्चित करता है कि प्रक्रिया 100% निजी और क्लाइंट-साइड बनी रहे।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">बेस URL का उपयोग क्यों करें?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                कई वेबसाइटें अपने कोड में रिलेटिव पाथ (जैसे "/images/logo.png") का उपयोग करती हैं। बेस डोमेन प्रदान करके, हमारा टूल पूर्ण URL का पुनर्निर्माण कर सकता है ताकि आप मीडिया देख सकें और डाउनलोड कर सकें।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+      
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const inputText = document.getElementById('input-text');
+            const baseUrlInput = document.getElementById('base-url');
+            const extractBtn = document.getElementById('extract-btn');
+            const clearBtn = document.getElementById('clear-btn');
+            const copyAllBtn = document.getElementById('copy-all-btn');
+            
+            const tabGallery = document.getElementById('tab-gallery');
+            const tabVideos = document.getElementById('tab-videos');
+            const galleryView = document.getElementById('gallery-view');
+            const videoList = document.getElementById('video-list');
+            const emptyState = document.getElementById('empty-state');
+            
+            const imgCountSpan = document.getElementById('img-count');
+            const vidCountSpan = document.getElementById('vid-count');
+            
+            let images = [];
+            let videos = [];
+
+            // Media Regex
+            const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+            const videoExts = ['mp4', 'webm', 'mov'];
+            
+            const mediaRegex = /(?:https?:\/\/|ftp:\/\/|(?:\/|\.\.\/)+)[\w.,@?^=%&:/~+#-]+\.(?:jpg|jpeg|png|gif|webp|svg|mp4|webm|mov)/gi;
+
+            function fixUrl(url) {
+                if (url.startsWith('http') || url.startsWith('ftp')) return url;
+                
+                let baseUrl = baseUrlInput.value.trim();
+                if (!baseUrl) return url;
+                
+                // Ensure base URL doesn't end with slash if path starts with one
+                if (baseUrl.endsWith('/') && url.startsWith('/')) {
+                    baseUrl = baseUrl.slice(0, -1);
+                } else if (!baseUrl.endsWith('/') && !url.startsWith('/')) {
+                    baseUrl += '/';
+                }
+                
+                return baseUrl + url;
+            }
+
+            function extractMedia() {
+                const text = inputText.value;
+                const matches = text.match(mediaRegex) || [];
+                const uniqueUrls = [...new Set(matches)];
+                
+                images = [];
+                videos = [];
+                
+                uniqueUrls.forEach(url => {
+                    const fixedUrl = fixUrl(url);
+                    const ext = fixedUrl.split('.').pop().toLowerCase();
+                    
+                    if (imageExts.includes(ext)) {
+                        images.push(fixedUrl);
+                    } else if (videoExts.includes(ext)) {
+                        videos.push(fixedUrl);
+                    }
+                });
+                
+                updateUI();
+            }
+
+            function updateUI() {
+                imgCountSpan.textContent = images.length;
+                vidCountSpan.textContent = videos.length;
+                
+                galleryView.innerHTML = '';
+                videoList.innerHTML = '';
+                
+                if (images.length === 0 && videos.length === 0) {
+                    emptyState.classList.remove('hidden');
+                    galleryView.classList.add('hidden');
+                    videoList.classList.add('hidden');
+                    copyAllBtn.classList.add('hidden');
+                    return;
+                }
+                
+                emptyState.classList.add('hidden');
+                copyAllBtn.classList.remove('hidden');
+                
+                // Show default tab (Gallery if images exist, else Videos)
+                if (images.length > 0) {
+                    showTab('gallery');
+                } else {
+                    showTab('videos');
+                }
+                
+                // Render Images
+                images.forEach(url => {
+                    const card = document.createElement('div');
+                    card.className = 'group relative bg-slate-50 dark:bg-slate-900 rounded-2xl overflow-hidden border border-slate-100 dark:border-slate-800 transition-all hover:shadow-xl';
+                    card.innerHTML = `
+                        <div class="aspect-square w-full overflow-hidden bg-slate-200 dark:bg-slate-700">
+                            <img src="${url}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22 fill=%22%23cbd5e1%22><path d=%22M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z%22/></svg>'">
+                        </div>
+                        <div class="absolute inset-0 bg-slate-900/60 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center justify-center gap-2 p-2">
+                            <button class="w-full py-1.5 bg-sky-600 text-white text-[10px] font-bold rounded-lg hover:bg-sky-700 transition-colors" onclick="window.open('${url}', '_blank')">देखें / डाउनलोड करें</button>
+                            <button class="w-full py-1.5 bg-white/20 backdrop-blur-md text-white text-[10px] font-bold rounded-lg hover:bg-white/30 transition-colors" onclick="copyToClipboard('${url}', this)">लिंक कॉपी करें</button>
+                        </div>
+                    `;
+                    galleryView.appendChild(card);
+                });
+                
+                // Render Videos
+                videos.forEach(url => {
+                    const item = document.createElement('div');
+                    item.className = 'flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl group';
+                    item.innerHTML = `
+                        <div class="flex items-center gap-3 min-w-0">
+                            <div class="w-10 h-10 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-xl flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <span class="text-sm font-mono truncate text-slate-600 dark:text-slate-400">${url}</span>
+                        </div>
+                        <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button class="px-3 py-1.5 bg-sky-600 text-white text-[10px] font-bold rounded-lg hover:bg-sky-700" onclick="window.open('${url}', '_blank')">देखें</button>
+                            <button class="px-3 py-1.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-[10px] font-bold rounded-lg hover:bg-slate-300 dark:hover:bg-slate-700" onclick="copyToClipboard('${url}', this)">कॉपी</button>
+                        </div>
+                    `;
+                    videoList.appendChild(item);
+                });
+            }
+
+            function showTab(type) {
+                if (type === 'gallery') {
+                    tabGallery.classList.replace('border-transparent', 'border-sky-500');
+                    tabGallery.classList.replace('text-slate-400', 'text-sky-600');
+                    tabVideos.classList.replace('border-sky-500', 'border-transparent');
+                    tabVideos.classList.replace('text-sky-600', 'text-slate-400');
+                    galleryView.classList.remove('hidden');
+                    videoList.classList.add('hidden');
+                } else {
+                    tabVideos.classList.replace('border-transparent', 'border-sky-500');
+                    tabVideos.classList.replace('text-slate-400', 'text-sky-600');
+                    tabGallery.classList.replace('border-sky-500', 'border-transparent');
+                    tabGallery.classList.replace('text-sky-600', 'text-slate-400');
+                    videoList.classList.remove('hidden');
+                    galleryView.classList.add('hidden');
+                }
+            }
+
+            // Global Copy function
+            window.copyToClipboard = (text, btn) => {
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalText = btn.textContent;
+                    btn.textContent = 'कॉपी किया गया!';
+                    setTimeout(() => btn.textContent = originalText, 2000);
+                });
+            };
+
+            // Events
+            extractBtn.addEventListener('click', extractMedia);
+            tabGallery.addEventListener('click', () => showTab('gallery'));
+            tabVideos.addEventListener('click', () => showTab('videos'));
+            
+            clearBtn.addEventListener('click', () => {
+                inputText.value = '';
+                images = [];
+                videos = [];
+                updateUI();
+            });
+
+            copyAllBtn.addEventListener('click', () => {
+                const allLinks = [...images, ...videos].join('\n');
+                if (!allLinks) return;
+                navigator.clipboard.writeText(allLinks).then(() => {
+                    const originalText = copyAllBtn.innerHTML;
+                    copyAllBtn.innerHTML = 'सभी लिंक कॉपी किए गए!';
+                    setTimeout(() => copyAllBtn.innerHTML = originalText, 2000);
+                });
+            });
+
+            // Drag and Drop
+            inputText.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                document.getElementById('drop-overlay').classList.remove('opacity-0', 'pointer-events-none');
+            });
+
+            inputText.addEventListener('dragleave', () => {
+                document.getElementById('drop-overlay').classList.add('opacity-0', 'pointer-events-none');
+            });
+
+            inputText.addEventListener('drop', (e) => {
+                e.preventDefault();
+                document.getElementById('drop-overlay').classList.add('opacity-0', 'pointer-events-none');
+                const file = e.dataTransfer.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        inputText.value = ev.target.result;
+                        extractMedia();
+                    };
+                    reader.readAsText(file);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

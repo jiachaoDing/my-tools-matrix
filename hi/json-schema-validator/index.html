@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="hi" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Schema Validator (JSON स्कीमा वैलिडेटर) - ऑनलाइन JSON चेकिंग टूल | WebUtilityKit</title>
+    <meta name="description" content="उच्च प्रदर्शन वाले Ajv लाइब्रेरी का उपयोग करके ऑनलाइन JSON डेटा को मान्य करें। JSON स्कीमा ड्राफ्ट का समर्थन करता है, वास्तविक समय में त्रुटियों को प्रदर्शित करता है, और डेटा संरचनाओं का अनुपालन सुनिश्चित करता है। 100% सुरक्षित स्थानीय ब्राउज़र प्रसंस्करण।">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/hi/json-schema-validator/">
+    <link rel="alternate" hreflang="en" href="https://webutilitykit.com/json-schema-validator/" />
+    <link rel="alternate" hreflang="hi" href="https://webutilitykit.com/hi/json-schema-validator/" />
+    <script src="/hi/tools-config.js"></script>
+    <script src="/hi/assets/js/app.js" defer></script>
+    <!-- Ajv Library from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ajv/8.12.0/ajv7.bundle.js"></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+    
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">JSON Schema Validator - JSON डेटा की जाँच करें</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">औद्योगिक-ग्रेड Ajv इंजन का उपयोग करके अपने JSON डेटा की अखंडता और अनुपालन को सत्यापित करें। सभी प्रसंस्करण आपके ब्राउज़र में स्थानीय रूप से किया जाता है, जिससे आपका डेटा निजी और सुरक्षित रहता है।</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% सुरक्षित। स्थानीय ब्राउज़र प्रसंस्करण।</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <!-- Tool implementation: 3 Column Layout -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 h-auto lg:min-h-[750px]">
+                
+                <!-- Column 1: JSON Data -->
+                <div class="flex flex-col space-y-4 h-full">
+                    <div class="flex items-center justify-between px-2">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            आपका JSON डेटा
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="clear-data" class="text-[10px] font-bold px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-red-500 hover:text-white transition-all uppercase">साफ़ करें</button>
+                            <label class="text-[10px] font-bold px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300 hover:bg-blue-200 cursor-pointer uppercase">
+                                इम्पोर्ट (Import)
+                                <input type="file" id="file-data" class="hidden" accept=".json,.txt">
+                            </label>
+                        </div>
+                    </div>
+                    <div id="drop-zone-data" class="relative flex-grow group">
+                        <textarea id="json-data" 
+                            class="w-full h-[500px] lg:h-full p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-blue-500/10 transition-all shadow-sm dark:shadow-2xl placeholder:text-slate-300 dark:placeholder:text-slate-600 font-mono text-sm outline-none resize-none"
+                            placeholder='{
+  "name": "John Doe",
+  "age": 30,
+  "email": "john@example.com"
+}'></textarea>
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay-data" class="absolute inset-0 bg-blue-500/10 dark:bg-blue-500/20 backdrop-blur-[2px] rounded-[2.5rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-blue-500">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-blue-500 text-white rounded-xl flex items-center justify-center mx-auto mb-2 shadow-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-sm font-bold text-blue-700 dark:text-blue-400">JSON फ़ाइल यहाँ छोड़ें</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-4">
+                        <button id="format-data" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">JSON फ़ॉर्मेट करें</button>
+                        <span id="data-status" class="text-[10px] text-slate-400 uppercase tracking-tighter font-mono">तैयार</span>
+                    </div>
+                </div>
+
+                <!-- Column 2: JSON Schema -->
+                <div class="flex flex-col space-y-4 h-full">
+                    <div class="flex items-center justify-between px-2">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                            JSON Schema (स्कीमा)
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="clear-schema" class="text-[10px] font-bold px-2 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-red-500 hover:text-white transition-all uppercase">साफ़ करें</button>
+                            <label class="text-[10px] font-bold px-2 py-1 rounded bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300 hover:bg-amber-200 cursor-pointer uppercase">
+                                इम्पोर्ट (Import)
+                                <input type="file" id="file-schema" class="hidden" accept=".json,.txt">
+                            </label>
+                        </div>
+                    </div>
+                    <div id="drop-zone-schema" class="relative flex-grow group">
+                        <textarea id="json-schema" 
+                            class="w-full h-[500px] lg:h-full p-8 rounded-[2.5rem] bg-white dark:bg-slate-800 border-none focus:ring-4 focus:ring-amber-500/10 transition-all shadow-sm dark:shadow-2xl placeholder:text-slate-300 dark:placeholder:text-slate-600 font-mono text-sm outline-none resize-none"
+                            placeholder='{
+  "type": "object",
+  "properties": {
+    "name": { "type": "string" },
+    "age": { "type": "number" },
+    "email": { "type": "string", "format": "email" }
+  },
+  "required": ["name", "age"]
+}'></textarea>
+                        <!-- Drop Overlay -->
+                        <div id="drop-overlay-schema" class="absolute inset-0 bg-amber-500/10 dark:bg-amber-500/20 backdrop-blur-[2px] rounded-[2.5rem] flex items-center justify-center opacity-0 pointer-events-none transition-opacity border-2 border-dashed border-amber-500">
+                            <div class="text-center">
+                                <div class="w-12 h-12 bg-amber-500 text-white rounded-xl flex items-center justify-center mx-auto mb-2 shadow-lg">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                                </div>
+                                <p class="text-sm font-bold text-amber-700 dark:text-amber-400">Schema फ़ाइल यहाँ छोड़ें</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center px-4">
+                        <button id="format-schema" class="text-xs font-bold text-amber-600 dark:text-amber-400 hover:underline">Schema फ़ॉर्मेट करें</button>
+                        <span id="schema-status" class="text-[10px] text-slate-400 uppercase tracking-tighter font-mono">तैयार</span>
+                    </div>
+                </div>
+
+                <!-- Column 3: Result -->
+                <div class="flex flex-col space-y-4 h-full">
+                    <div class="flex items-center justify-between px-2">
+                        <h2 class="text-sm font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                            जाँच का परिणाम (Result)
+                        </h2>
+                        <button id="validate-btn" class="text-xs font-black px-8 py-2.5 rounded-2xl bg-blue-600 text-white hover:bg-blue-700 shadow-xl shadow-blue-500/30 transition-all active:scale-95 uppercase tracking-wider">जाँचें (Validate)</button>
+                    </div>
+                    
+                    <div class="flex-grow rounded-[3rem] bg-white dark:bg-slate-800 shadow-sm dark:shadow-2xl overflow-hidden flex flex-col border border-slate-100 dark:border-slate-700/50">
+                        <div id="result-container" class="flex-grow p-8 overflow-y-auto scrollbar-thin scrollbar-thumb-slate-200 dark:scrollbar-thumb-slate-700">
+                            <!-- Initial Empty State -->
+                            <div id="empty-state" class="h-full flex flex-col items-center justify-center text-center space-y-6">
+                                <div class="w-24 h-24 rounded-[2rem] bg-slate-50 dark:bg-slate-900 flex items-center justify-center text-slate-300 dark:text-slate-700">
+                                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
+                                <div class="space-y-2">
+                                    <p class="text-slate-500 dark:text-slate-400 font-bold text-lg">इनपुट की प्रतीक्षा है</p>
+                                    <p class="text-sm text-slate-400 max-w-[220px] mx-auto leading-relaxed">अपना JSON डेटा और वैलिडेटर स्कीमा प्रदान करें, फिर जाँच शुरू करने के लिए Validate पर क्लिक करें।</p>
+                                </div>
+                            </div>
+
+                            <!-- Success State -->
+                            <div id="success-state" class="hidden h-full flex flex-col items-center justify-center text-center space-y-8 animate-in fade-in zoom-in duration-500">
+                                <div class="w-32 h-32 rounded-[3rem] bg-emerald-500 text-white flex items-center justify-center shadow-[0_20px_50px_-10px_rgba(16,185,129,0.4)]">
+                                    <svg class="w-16 h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                </div>
+                                <div class="space-y-3">
+                                    <h3 class="text-3xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight italic">सफल!</h3>
+                                    <p class="text-slate-600 dark:text-slate-400 font-bold text-lg">डेटा स्कीमा से मेल खाता है</p>
+                                    <p class="text-slate-400 dark:text-slate-500 text-sm">आपका JSON डेटा परिभाषित स्कीमा विशिष्टताओं का पूरी तरह से अनुपालन करता है।</p>
+                                </div>
+                            </div>
+
+                            <!-- Error State -->
+                            <div id="error-state" class="hidden space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-500">
+                                <div class="flex items-center gap-5 p-8 rounded-[2.5rem] bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-800/50 shadow-sm">
+                                    <div class="w-16 h-16 rounded-2xl bg-red-500 text-white flex items-center justify-center shadow-xl shadow-red-500/30 flex-shrink-0">
+                                        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                    </div>
+                                    <div>
+                                        <h3 class="text-2xl font-black text-red-600 dark:text-red-400 tracking-tight italic">सत्यापन विफल</h3>
+                                        <p id="error-count" class="text-sm font-bold text-red-500/80 uppercase tracking-widest">0 त्रुटियाँ मिलीं</p>
+                                    </div>
+                                </div>
+                                <div id="error-list" class="space-y-4">
+                                    <!-- Error items injected here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>           
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24 px-4">
+            <article class="space-y-24">
+                
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">JSON Schema Validator का उपयोग कैसे करें</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">JSON डेटा तैयार करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">बाएँ फलक में अपना JSON डेटा दर्ज करें या ड्रैग करें। संरचना को तुरंत साफ़ करने के लिए "फ़ॉर्मेट" बटन का उपयोग करें।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">सत्यापन स्कीमा लोड करें</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">मध्य फलक में अपने सत्यापन नियम प्रदान करें। Draft 7+ विशिष्टताओं और विभिन्न कस्टम बाधाओं का समर्थन करता है।</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">त्वरित सत्यापन</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Validate बटन पर क्लिक करें। दायाँ फलक परिणाम या इंस्टेंस पथों के साथ त्रुटियों की विस्तृत सूची प्रदर्शित करेगा।</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">प्रमुख विशेषताऐं (Key Features)</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Ajv उच्च-प्रदर्शन इंजन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">वेब ऐप्स के लिए उपलब्ध सबसे तेज़ और सबसे मानक-अनुपालन JSON Schema सत्यापन लाइब्रेरी द्वारा संचालित।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">गोपनीयता-प्रथम डिज़ाइन</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">सभी सत्यापन आपके ब्राउज़र में स्थानीय रूप से होते हैं। आपका JSON डेटा कभी भी किसी सर्वर पर अपलोड नहीं किया जाता है।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4m-6 0a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m12 0a2 2 0 100-4m0 4a2 2 0 110-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ड्रैग एंड ड्रॉप सपोर्ट</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">टेक्स्ट क्षेत्रों में फ़ाइलों को ड्रैग करके या समर्पित फ़ाइल अपलोड बटन का उपयोग करके आसानी से फ़ाइलें इम्पोर्ट करें।</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">इन्स्टेंस पाथ डिबगिंग</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">त्रुटि रिपोर्ट तेज़ी से डिबगिंग के लिए मानक इंस्टेंस पाथ का उपयोग करके आपके JSON संरचना में सटीक स्थानों को इंगित करती है।</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">अक्सर पूछे जाने वाले प्रश्न (FAQ)</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">क्या यह उपयोग करने के लिए स्वतंत्र है?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हाँ, WebUtilityKit के सभी टूल बिना किसी छिपी लागत या पंजीकरण की आवश्यकता के उपयोग करने के लिए पूरी तरह से स्वतंत्र हैं।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">कौन से JSON Schema संस्करण समर्थित हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                हम औद्योगिक-ग्रेड Ajv लाइब्रेरी का उपयोग करते हैं, जो डिफ़ॉल्ट रूप से Draft 7, Draft 2019-09 और Draft 2020-12 का समर्थन करती है। यह आधुनिक API और डेटा विशिष्टताओं की विशाल बहुमत को कवर करता है।
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">मुझे स्ट्रिक्ट मोड (Strict Mode) चेतावनियाँ क्यों दिखाई देती हैं?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Ajv अस्पष्ट स्कीमा परिभाषाओं को रोकने के लिए स्ट्रिक्ट मोड लागू करता है। हालांकि हमने व्यापक अनुकूलता के लिए एक आरामदेह कॉन्फ़िगरेशन सक्षम किया है, हम सर्वोत्तम परिणामों के लिए मानक स्कीमा प्रथाओं का पालन करने की सलाह देते हैं।
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+      
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- Shared Components -->
+    <script src="/hi/assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = {
+                jsonData: document.getElementById('json-data'),
+                jsonSchema: document.getElementById('json-schema'),
+                validateBtn: document.getElementById('validate-btn'),
+                emptyState: document.getElementById('empty-state'),
+                successState: document.getElementById('success-state'),
+                errorState: document.getElementById('error-state'),
+                errorList: document.getElementById('error-list'),
+                errorCount: document.getElementById('error-count'),
+                
+                clearData: document.getElementById('clear-data'),
+                clearSchema: document.getElementById('clear-schema'),
+                formatData: document.getElementById('format-data'),
+                formatSchema: document.getElementById('format-schema'),
+                
+                fileData: document.getElementById('file-data'),
+                fileSchema: document.getElementById('file-schema'),
+                
+                dropData: document.getElementById('drop-zone-data'),
+                dropSchema: document.getElementById('drop-zone-schema'),
+                overlayData: document.getElementById('drop-overlay-data'),
+                overlaySchema: document.getElementById('drop-overlay-schema'),
+                
+                dataStatus: document.getElementById('data-status'),
+                schemaStatus: document.getElementById('schema-status')
+            };
+
+            let ajv;
+            try {
+                // CDN bundle might expose Ajv or ajv7
+                const AjvClass = window.Ajv || window.ajv7;
+                ajv = new AjvClass({ 
+                    allErrors: true, 
+                    strict: false,
+                    validateFormats: true
+                });
+            } catch (e) {
+                console.error("Ajv init failed", e);
+            }
+
+            // --- Core Logic ---
+
+            const validate = () => {
+                const dataStr = elements.jsonData.value.trim();
+                const schemaStr = elements.jsonSchema.value.trim();
+
+                if (!dataStr || !schemaStr) return;
+
+                elements.emptyState.classList.add('hidden');
+                elements.successState.classList.add('hidden');
+                elements.errorState.classList.add('hidden');
+
+                try {
+                    let data, schema;
+                    try {
+                        data = JSON.parse(dataStr);
+                    } catch (e) {
+                        throw new Error(`JSON डेटा पार्स त्रुटि: ${e.message}`);
+                    }
+                    try {
+                        schema = JSON.parse(schemaStr);
+                    } catch (e) {
+                        throw new Error(`JSON स्कीमा पार्स त्रुटि: ${e.message}`);
+                    }
+                    
+                    const validateFn = ajv.compile(schema);
+                    const valid = validateFn(data);
+
+                    if (valid) {
+                        elements.successState.classList.remove('hidden');
+                    } else {
+                        elements.errorState.classList.remove('hidden');
+                        elements.errorCount.textContent = `${validateFn.errors.length} त्रुटियाँ पाई गईं`;
+                        elements.errorList.innerHTML = validateFn.errors.map(err => `
+                            <div class="p-6 rounded-[2rem] bg-white dark:bg-slate-800 border border-red-100 dark:border-red-900/30 text-sm shadow-sm animate-in fade-in slide-in-from-right-4 duration-300">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <span class="px-2.5 py-1 bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 rounded-lg text-[10px] font-black uppercase tracking-widest border border-red-200/50 dark:border-red-800/50">${err.keyword}</span>
+                                    <code class="text-slate-500 dark:text-slate-400 font-mono text-xs bg-slate-50 dark:bg-slate-900 px-3 py-1 rounded-lg border border-slate-100 dark:border-slate-800">${err.instancePath || '/'}</code>
+                                </div>
+                                <p class="text-slate-700 dark:text-slate-200 font-bold text-base mb-2">${err.message}</p>
+                                ${err.params ? `<pre class="mt-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl text-[10px] text-slate-400 overflow-x-auto border border-slate-100 dark:border-slate-800">Parameters: ${JSON.stringify(err.params, null, 2)}</pre>` : ''}
+                            </div>
+                        `).join('');
+                    }
+                } catch (e) {
+                    elements.errorState.classList.remove('hidden');
+                    elements.errorCount.textContent = "सिंटैक्स त्रुटि (SYNTAX ERROR)";
+                    elements.errorList.innerHTML = `
+                        <div class="p-8 rounded-[2rem] bg-white dark:bg-slate-800 border border-red-100 dark:border-red-900/30 text-sm shadow-sm">
+                            <div class="w-12 h-12 rounded-xl bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-400 flex items-center justify-center mb-4">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </div>
+                            <p class="text-red-600 dark:text-red-400 font-black text-lg mb-2 italic">पार्स अपवाद (Parse Exception)</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed font-mono text-xs">${e.message}</p>
+                        </div>
+                    `;
+                }
+            };
+
+            // --- Events ---
+
+            elements.validateBtn.addEventListener('click', validate);
+
+            const setupDropZone = (zone, overlay, textarea, statusEl) => {
+                zone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    overlay.classList.remove('opacity-0', 'pointer-events-none');
+                });
+                zone.addEventListener('dragleave', () => {
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                });
+                zone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    overlay.classList.add('opacity-0', 'pointer-events-none');
+                    const file = e.dataTransfer.files[0];
+                    if (file) readFile(file, textarea, statusEl);
+                });
+            };
+
+            const readFile = (file, textarea, statusEl) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    textarea.value = e.target.result;
+                    statusEl.textContent = `फ़ाइल: ${file.name}`;
+                    statusEl.classList.remove('text-slate-400');
+                    statusEl.classList.add('text-blue-500', 'font-bold');
+                };
+                reader.readAsText(file);
+            };
+
+            setupDropZone(elements.dropData, elements.overlayData, elements.jsonData, elements.dataStatus);
+            setupDropZone(elements.dropSchema, elements.overlaySchema, elements.jsonSchema, elements.schemaStatus);
+
+            elements.fileData.addEventListener('change', (e) => {
+                if (e.target.files[0]) readFile(e.target.files[0], elements.jsonData, elements.dataStatus);
+            });
+            elements.fileSchema.addEventListener('change', (e) => {
+                if (e.target.files[0]) readFile(e.target.files[0], elements.jsonSchema, elements.schemaStatus);
+            });
+
+            const format = (textarea, statusEl) => {
+                try {
+                    const val = textarea.value.trim();
+                    if (!val) return;
+                    textarea.value = JSON.stringify(JSON.parse(val), null, 2);
+                    statusEl.textContent = "फ़ॉर्मेट किया गया ✨";
+                    statusEl.classList.remove('text-slate-400', 'text-red-500');
+                    statusEl.classList.add('text-emerald-500', 'font-bold');
+                } catch (e) {
+                    statusEl.textContent = "फ़ॉर्मेट त्रुटि ❌";
+                    statusEl.classList.remove('text-slate-400', 'text-emerald-500');
+                    statusEl.classList.add('text-red-500', 'font-bold');
+                }
+            };
+
+            elements.formatData.addEventListener('click', () => format(elements.jsonData, elements.dataStatus));
+            elements.formatSchema.addEventListener('click', () => format(elements.jsonSchema, elements.schemaStatus));
+
+            elements.clearData.addEventListener('click', () => {
+                elements.jsonData.value = '';
+                elements.dataStatus.textContent = 'साफ़ किया गया';
+                elements.dataStatus.className = 'text-[10px] text-slate-400 uppercase tracking-tighter font-mono';
+                elements.emptyState.classList.remove('hidden');
+                elements.successState.classList.add('hidden');
+                elements.errorState.classList.add('hidden');
+            });
+            elements.clearSchema.addEventListener('click', () => {
+                elements.jsonSchema.value = '';
+                elements.schemaStatus.textContent = 'साफ़ किया गया';
+                elements.schemaStatus.className = 'text-[10px] text-slate-400 uppercase tracking-tighter font-mono';
+                elements.emptyState.classList.remove('hidden');
+                elements.successState.classList.add('hidden');
+                elements.errorState.classList.add('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
+
