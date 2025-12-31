@@ -1,10 +1,12 @@
 ﻿<!DOCTYPE html>
 <html lang="en" class="">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Word Counter - Free Text Analysis & Statistics Tool | WebUtilityKit</title>
-    <meta name="description" content="Count words, characters, sentences instantly. Real-time analysis with reading time and keyword density. Processed locally in browser. Try it now!">
+    <meta name="description"
+        content="Count words, characters, sentences instantly. Real-time analysis with reading time and keyword density. Processed locally in browser. Try it now!">
     <link rel="canonical" href="https://webutilitykit.com/word-counter/" />
     <link href="../assets/css/styles.css" rel="stylesheet">
     <script src="/tools-config.js"></script>
@@ -33,45 +35,64 @@
   "screenshot": "https://webutilitykit.com/assets/screenshots/word-counter.jpg"
 }
 </script>
-    
+
 </head>
-<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
-    
+
+<body
+    class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
     <main class="flex-grow w-full py-12 px-4 sm:px-6">
-        
+
         <div class="max-w-4xl mx-auto text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Word Counter</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Analyze your text instantly with detailed statistics on word count, reading time, and keyword density.</p>
-            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Word
+                Counter</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Analyze your text instantly with
+                detailed statistics on word count, reading time, and keyword density.</p>
+            <div
+                class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                    </path>
+                </svg>
                 <span>100% Secure. Processed locally.</span>
             </div>
         </div>
 
         <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
-                
+
                 <!-- Input Section -->
-                <div class="xl:col-span-8 flex flex-col h-full bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
+                <div
+                    class="xl:col-span-8 flex flex-col h-full bg-white dark:bg-slate-800/50 rounded-3xl overflow-hidden">
                     <div class="p-6 flex flex-col h-full space-y-4">
                         <div class="flex items-center justify-between mb-2">
-                            <label for="text-input" class="text-sm font-semibold uppercase tracking-wider text-slate-500">Your Text</label>
+                            <label for="text-input"
+                                class="text-sm font-semibold uppercase tracking-wider text-slate-500">Your Text</label>
                             <div class="flex gap-2">
-                                <button id="paste-btn" class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
+                                <button id="paste-btn"
+                                    class="text-xs px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2">
+                                        </path>
+                                    </svg>
                                     Paste
                                 </button>
-                                <button id="clear-btn" class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
-                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                <button id="clear-btn"
+                                    class="text-xs px-3 py-1.5 rounded-lg bg-red-50 text-red-600 dark:bg-red-900/20 dark:text-red-400 hover:bg-red-100 dark:hover:bg-red-900/40 transition flex items-center gap-1.5">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16">
+                                        </path>
+                                    </svg>
                                     Clear
                                 </button>
                             </div>
                         </div>
-                        <textarea 
-                            id="text-input" 
+                        <textarea id="text-input"
                             class="flex-1 w-full min-h-[500px] p-6 text-lg bg-slate-50/50 dark:bg-slate-900/50 border-0 focus:ring-2 focus:ring-blue-500/20 rounded-2xl resize-none placeholder-slate-400 transition"
-                            placeholder="Paste your text here to start counting..."
-                        ></textarea>
+                            placeholder="Paste your text here to start counting..."></textarea>
                     </div>
                 </div>
 
@@ -89,11 +110,13 @@
                         </div>
                         <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl">
                             <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Sentences</div>
-                            <div id="stat-sentences" class="text-3xl font-bold text-slate-800 dark:text-slate-200">0</div>
+                            <div id="stat-sentences" class="text-3xl font-bold text-slate-800 dark:text-slate-200">0
+                            </div>
                         </div>
                         <div class="bg-white dark:bg-slate-800/50 p-6 rounded-3xl">
                             <div class="text-slate-500 dark:text-slate-400 text-sm font-medium mb-1">Paragraphs</div>
-                            <div id="stat-paragraphs" class="text-3xl font-bold text-slate-800 dark:text-slate-200">0</div>
+                            <div id="stat-paragraphs" class="text-3xl font-bold text-slate-800 dark:text-slate-200">0
+                            </div>
                         </div>
                     </div>
 
@@ -102,20 +125,34 @@
                         <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500">Estimates</h3>
                         <div class="grid grid-cols-1 gap-6">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-600 dark:text-orange-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                        </path>
+                                    </svg>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-tighter">Reading Time</div>
+                                    <div
+                                        class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-tighter">
+                                        Reading Time</div>
                                     <div id="stat-reading" class="text-lg font-bold">0 min</div>
                                 </div>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path></svg>
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-600 dark:text-purple-400">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z">
+                                        </path>
+                                    </svg>
                                 </div>
                                 <div>
-                                    <div class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-tighter">Speaking Time</div>
+                                    <div
+                                        class="text-xs text-slate-500 dark:text-slate-400 font-medium uppercase tracking-tighter">
+                                        Speaking Time</div>
                                     <div id="stat-speaking" class="text-lg font-bold">0 min</div>
                                 </div>
                             </div>
@@ -124,54 +161,75 @@
 
                     <!-- Keyword Density -->
                     <div class="bg-white dark:bg-slate-800/50 p-8 rounded-3xl">
-                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-6">Keyword Density</h3>
+                        <h3 class="text-sm font-semibold uppercase tracking-wider text-slate-500 mb-6">Keyword Density
+                        </h3>
                         <div id="keyword-list" class="space-y-3">
                             <p class="text-sm text-slate-400 italic">No keywords detected yet.</p>
                         </div>
                     </div>
 
-                    <button id="copy-btn" class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]">
+                    <button id="copy-btn"
+                        class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl transition-all shadow-lg shadow-blue-500/20 active:scale-[0.98]">
                         Copy Statistics
                     </button>
                 </div>
             </div>
+
             <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>
         </div>
 
         <!-- Editorial Section -->
         <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
             <article class="space-y-24">
-                
+
                 <!-- Section 1: How to use -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to use Word Counter</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">How to use Word
+                        Counter</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">1</div>
+                        <div
+                            class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div
+                                class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">
+                                1</div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Input Text</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Type or paste your content into the large text area. We support any length of text with instant processing.</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Type or paste your
+                                content into the large text area. We support any length of text with instant processing.
+                            </p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">2</div>
+                        <div
+                            class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div
+                                class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">
+                                2</div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Live Analysis</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Watch the numbers update instantly. We calculate words, characters, sentences, and paragraphs in real-time.</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Watch the numbers
+                                update instantly. We calculate words, characters, sentences, and paragraphs in
+                                real-time.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">3</div>
+                        <div
+                            class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group">
+                            <div
+                                class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mb-6 group-hover:scale-110 transition-transform">
+                                3</div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Review & Copy</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Check keyword density and time estimates. Use the "Copy Statistics" button to save your report instantly.</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Check keyword density
+                                and time estimates. Use the "Copy Statistics" button to save your report instantly.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Section 2: Why Accuracy Matters -->
                 <section class="bg-blue-600 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
-                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 right-0 -mr-24 -mb-24 w-96 h-96 bg-white/10 rounded-full blur-3xl">
+                    </div>
                     <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div>
                             <h2 class="text-4xl font-bold mb-6 italic tracking-tight">The Art of Content Precision</h2>
                             <p class="text-lg text-blue-50/80 leading-relaxed mb-8">
-                                Whether you're an author, student, or SEO professional, word count is more than a metric—it's a content standard. Our tool provides granular insights that help you hit your targets with scientific precision, all while keeping your data 100% private.
+                                Whether you're an author, student, or SEO professional, word count is more than a
+                                metric—it's a content standard. Our tool provides granular insights that help you hit
+                                your targets with scientific precision, all while keeping your data 100% private.
                             </p>
                             <div class="flex gap-4">
                                 <div class="bg-white/10 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/20">
@@ -185,8 +243,14 @@
                             </div>
                         </div>
                         <div class="hidden lg:flex justify-center">
-                            <div class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
-                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+                            <div
+                                class="w-64 h-64 border-4 border-dashed border-white/20 rounded-full flex items-center justify-center animate-pulse">
+                                <svg class="w-32 h-32 text-white/40" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
+                                    </path>
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -194,37 +258,46 @@
 
                 <!-- Section 3: Word Count Standards -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Common Content Standards</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Common Content
+                        Standards</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                        <div
+                            class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
                             <h3 class="text-xl font-bold text-blue-600 mb-6">Digital Content</h3>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                <div
+                                    class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
                                     <span class="font-medium">SEO Meta Description</span>
                                     <span class="font-bold text-slate-400">150 - 160 Chars</span>
                                 </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                <div
+                                    class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
                                     <span class="font-medium">Standard Blog Post</span>
                                     <span class="font-bold text-green-500">800 - 1,200 Words</span>
                                 </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                <div
+                                    class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
                                     <span class="font-medium">Social Media Post</span>
                                     <span class="font-bold text-blue-500">100 - 250 Words</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
+                        <div
+                            class="p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border border-slate-100 dark:border-slate-800">
                             <h3 class="text-xl font-bold text-purple-600 mb-6">Academic & Literary</h3>
                             <div class="space-y-4">
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
+                                <div
+                                    class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl">
                                     <span class="font-medium">College Essay</span>
                                     <span class="font-bold text-slate-400">500 - 2,500 Words</span>
                                 </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
+                                <div
+                                    class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-green-500">
                                     <span class="font-medium">Short Story</span>
                                     <span class="font-bold text-green-500">1,000 - 7,500 Words</span>
                                 </div>
-                                <div class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
+                                <div
+                                    class="flex justify-between items-center p-4 bg-white dark:bg-slate-900/50 rounded-2xl border-l-4 border-blue-500">
                                     <span class="font-medium">Novel</span>
                                     <span class="font-bold text-blue-500">50k - 100k Words</span>
                                 </div>
@@ -235,41 +308,63 @@
 
                 <!-- Section 4: FAQ -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Common Questions</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Common
+                        Questions</h2>
                     <div class="max-w-3xl mx-auto space-y-4">
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                        <details
+                            class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary
+                                class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
                                 <span class="text-xl">Is there a word limit?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                <span
+                                    class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5"
+                                        viewBox="0 0 24 24" width="20">
+                                        <path d="M6 9l6 6 6-6"></path>
+                                    </svg>
                                 </span>
                             </summary>
                             <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                No, there is no technical limit. You can paste an entire manuscript, and the tool will process it instantly using your browser's local resources.
-                            </div>
-                        </details>
-                        
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">How is reading time calculated?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                We use an average reading speed of 200 words per minute (WPM), which is the standard benchmark for adult readers.
+                                No, there is no technical limit. You can paste an entire manuscript, and the tool will
+                                process it instantly using your browser's local resources.
                             </div>
                         </details>
 
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">Is my text sent to a server?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                        <details
+                            class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary
+                                class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How is reading time calculated?</span>
+                                <span
+                                    class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5"
+                                        viewBox="0 0 24 24" width="20">
+                                        <path d="M6 9l6 6 6-6"></path>
+                                    </svg>
                                 </span>
                             </summary>
                             <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
-                                Never. All text analysis happens locally in your browser. Your content is never uploaded, saved, or shared.
+                                We use an average reading speed of 200 words per minute (WPM), which is the standard
+                                benchmark for adult readers.
+                            </div>
+                        </details>
+
+                        <details
+                            class="group bg-slate-50 dark:bg-slate-800/20 rounded-3xl p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                            <summary
+                                class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is my text sent to a server?</span>
+                                <span
+                                    class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5"
+                                        viewBox="0 0 24 24" width="20">
+                                        <path d="M6 9l6 6 6-6"></path>
+                                    </svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg">
+                                Never. All text analysis happens locally in your browser. Your content is never
+                                uploaded, saved, or shared.
                             </div>
                         </details>
                     </div>
@@ -277,7 +372,7 @@
 
             </article>
         </div>
-    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    </main> <!-- Unified Component Management (Header + Footer + Theme) -->
     <script src="../assets/js/components.js"></script>
 
     <!-- Tool-specific Logic -->
@@ -292,14 +387,14 @@
         const statReading = document.getElementById('stat-reading');
         const statSpeaking = document.getElementById('stat-speaking');
         const keywordList = document.getElementById('keyword-list');
-        
+
         const pasteBtn = document.getElementById('paste-btn');
         const clearBtn = document.getElementById('clear-btn');
         const copyBtn = document.getElementById('copy-btn');
 
         function updateStats() {
             const text = textInput.value;
-            
+
             // Basic counts
             const wordsArray = text.trim().split(/\s+/).filter(w => w.length > 0);
             const wordCount = wordsArray.length;
@@ -322,7 +417,7 @@
             // Keyword Density (Top 5)
             const frequencies = {};
             const commonWords = new Set(['the', 'and', 'a', 'to', 'of', 'in', 'is', 'it', 'on', 'with', 'for', 'as', 'at', 'this', 'that', 'by', 'be', 'are', 'was', 'were', 'an', 'your', 'my', 'our', 'his', 'her', 'their', 'we', 'you', 'they', 'he', 'she', 'it', 'can', 'will', 'if', 'has', 'have', 'had', 'or', 'from', 'but', 'so', 'up', 'down', 'about', 'just', 'more', 'all', 'some', 'any', 'each', 'very', 'not', 'do', 'does', 'did', 'done']);
-            
+
             wordsArray.forEach(w => {
                 const word = w.toLowerCase().replace(/[^a-z0-9]/g, '');
                 if (word && !commonWords.has(word) && word.length > 2) {
@@ -378,7 +473,7 @@ Paragraphs: ${statParagraphs.textContent}
 Reading Time: ${statReading.textContent}
 Speaking Time: ${statSpeaking.textContent}
             `.trim();
-            
+
             navigator.clipboard.writeText(stats).then(() => {
                 const originalText = copyBtn.textContent;
                 copyBtn.textContent = 'Copied!';
@@ -394,4 +489,5 @@ Speaking Time: ${statSpeaking.textContent}
         updateStats();
     </script>
 </body>
+
 </html>

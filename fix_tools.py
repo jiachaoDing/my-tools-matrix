@@ -2,12 +2,13 @@ import os
 import re
 
 def batch_update_tools():
+    # 目标 HTML
     target_html = '\n            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>'
-    
-    # 遍历当前目录下所有子文件夹
+    # 用于匹配可能已存在的组件（包括旧位置的）
+    existing_pattern = re.compile(r'\s*<div id="related-tools-section"[^>]*></div>')
+
     for root, dirs, files in os.walk("."):
-        # 跳过根目录的 index.html
-        if root == ".":
+        if root == "." or "node_modules" in root:
             continue
             
         for file in files:
@@ -17,49 +18,47 @@ def batch_update_tools():
                 with open(file_path, 'r', encoding='utf-8') as f:
                     content = f.read()
                 
-                # 1. 检查是否已经存在相关组件
-                if 'id="related-tools-section"' in content:
-                    print(f"Skipping (Already exists): {file_path}")
-                    continue
+                # 1. 先清理掉所有已存在的该组件（无论在什么位置）
+                content = existing_pattern.sub('', content)
                 
-                # 2. 查找 tool-wrapper
+                # 2. 查找 tool-wrapper 的起始位置
                 wrapper_match = re.search(r'<div id="tool-wrapper"[^>]*>', content)
                 if not wrapper_match:
-                    print(f"Skipping (No tool-wrapper): {file_path}")
                     continue
                 
-                wrapper_start = wrapper_match.end()
-                
-                # 3. 寻找第一个子 div 的闭合处
-                # 我们寻找 tool-wrapper 内部的第一个大容器 div 的结尾
-                # 逻辑：找到第一个 <div 后的配对 </div>
+                # 3. 寻找 tool-wrapper 自己的闭合标签 </div>
+                # 逻辑：从 wrapper 起始处开始，追踪 div 嵌套计数
+                start_pos = wrapper_match.start()
                 count = 0
-                pos = wrapper_start
-                found_first_div = False
+                pos = start_pos
                 insert_pos = -1
                 
                 while pos < len(content):
-                    div_open = content.find('<div', pos)
-                    div_close = content.find('</div>', pos)
+                    # 查找下一个 <div 或 </div>
+                    next_open = content.find('<div', pos)
+                    next_close = content.find('</div>', pos)
                     
-                    if div_close == -1: break
+                    if next_close == -1: break # 理论上不会发生
                     
-                    if div_open != -1 and div_open < div_close:
+                    # 如果找到新的起始标签
+                    if next_open != -1 and next_open < next_close:
                         count += 1
-                        pos = div_open + 4
-                        found_first_div = True
+                        pos = next_open + 4
+                    # 如果找到闭合标签
                     else:
                         count -= 1
-                        pos = div_close + 6
-                        if count == 0 and found_first_div:
-                            insert_pos = pos
+                        if count == 0:
+                            # 找到了 tool-wrapper 自己的闭合标签
+                            insert_pos = next_close
                             break
+                        pos = next_close + 6
                 
+                # 4. 在闭合标签前插入
                 if insert_pos != -1:
                     new_content = content[:insert_pos] + target_html + content[insert_pos:]
                     with open(file_path, 'w', encoding='utf-8') as f:
                         f.write(new_content)
-                    print(f"✅ Updated: {file_path}")
+                    print(f"✅ Fixed & Updated: {file_path}")
 
 if __name__ == "__main__":
     batch_update_tools()
