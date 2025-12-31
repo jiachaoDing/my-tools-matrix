@@ -76,6 +76,22 @@
             <div class="flex-1 min-w-0 space-y-12" id="main-content">
                 <!-- Categories and tools will be dynamically generated here -->
             </div>
+
+            <!-- Search Results View (Hidden by default) -->
+            <div id="search-results-view" class="flex-1 min-w-0 hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-2xl font-bold">खोज परिणाम (Search Results)</h2>
+                    <button id="clearSearch" class="text-sm text-blue-600 dark:text-blue-400 hover:underline">खोज साफ़ करें (Clear Search)</button>
+                </div>
+                <div id="search-results-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                    <!-- Search results will be injected here -->
+                </div>
+                <div id="no-results-found" class="hidden text-center py-20">
+                    <div class="text-4xl mb-4">🔍</div>
+                    <h3 class="text-xl font-semibold mb-2">कोई उपकरण नहीं मिला (No tools found)</h3>
+                    <p class="text-slate-500 dark:text-slate-400">कुछ और खोजने का प्रयास करें या श्रेणियां ब्राउज़ करें। (Try searching for something else or browse categories.)</p>
+                </div>
+            </div>
         </div>
 
         <section class="mt-16 rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 shadow-sm">
@@ -203,41 +219,74 @@
         // Simple search functionality
         function initializeSearch() {
             const searchInput = document.getElementById('toolSearch');
+            const mainContent = document.getElementById('main-content');
+            const searchView = document.getElementById('search-results-view');
+            const searchResultsGrid = document.getElementById('search-results-grid');
+            const noResultsFound = document.getElementById('no-results-found');
+            const clearSearchBtn = document.getElementById('clearSearch');
+            const categoryNav = document.getElementById('category-nav');
             
-            searchInput.addEventListener('input', function() {
-                const query = this.value.toLowerCase().trim();
-                let visibleCategories = 0;
-                const categorySections = document.querySelectorAll('section[id]');
+            function performSearch(query) {
+                query = query.toLowerCase().trim();
+                
+                if (!query) {
+                    mainContent.classList.remove('hidden');
+                    searchView.classList.add('hidden');
+                    categoryNav.classList.remove('hidden'); // Show category list
+                    return;
+                }
 
-                categorySections.forEach(section => {
-                    const cards = section.querySelectorAll('[data-tool-name]');
-                    let visibleCards = 0;
+                mainContent.classList.add('hidden');
+                searchView.classList.remove('hidden');
+                categoryNav.classList.add('hidden'); // Hide category list during search
 
-                    cards.forEach(card => {
-                        const toolName = card.dataset.toolName.toLowerCase();
-                        const isVisible = toolName.includes(query);
-                        card.style.display = isVisible ? '' : 'none';
-                        if (isVisible) visibleCards++;
+                // Collect all tools
+                let allTools = [];
+                toolsConfig.categories.forEach(cat => {
+                    cat.tools.forEach(tool => {
+                        allTools.push({ ...tool, categoryTitle: cat.title });
                     });
-
-                    const hasVisibleCards = visibleCards > 0;
-                    section.style.display = hasVisibleCards ? '' : 'none';
-                    if (hasVisibleCards) visibleCategories++;
                 });
 
-                let noResultsMsg = document.getElementById('noResults');
-                if (visibleCategories === 0 && query) {
-                    if (!noResultsMsg) {
-                        noResultsMsg = document.createElement('div');
-                        noResultsMsg.id = 'noResults';
-                        noResultsMsg.className = 'text-center py-12 text-slate-500 dark:text-slate-400';
-                        noResultsMsg.textContent = 'आपकी खोज से मेल खाने वाला कोई उपकरण नहीं मिला। (No tools found matching your search.)';
-                        document.querySelector('main').appendChild(noResultsMsg);
-                    }
-                    noResultsMsg.style.display = '';
-                } else if (noResultsMsg) {
-                    noResultsMsg.style.display = 'none';
+                // Filter and Score
+                const results = allTools
+                    .filter(tool => {
+                        return tool.name.toLowerCase().includes(query) || 
+                               tool.description.toLowerCase().includes(query) ||
+                               (tool.tags && tool.tags.some(tag => tag.toLowerCase().includes(query)));
+                    })
+                    .sort((a, b) => {
+                        const aName = a.name.toLowerCase();
+                        const bName = b.name.toLowerCase();
+                        
+                        // Exact match
+                        if (aName === query && bName !== query) return -1;
+                        if (bName === query && aName !== query) return 1;
+                        
+                        // Starts with
+                        if (aName.startsWith(query) && !bName.startsWith(query)) return -1;
+                        if (bName.startsWith(query) && !aName.startsWith(query)) return 1;
+                        
+                        // Alphabetical
+                        return aName.localeCompare(bName);
+                    });
+
+                // Render
+                if (results.length > 0) {
+                    noResultsFound.classList.add('hidden');
+                    searchResultsGrid.classList.remove('hidden');
+                    searchResultsGrid.innerHTML = results.map(tool => createToolCard(tool)).join('');
+                } else {
+                    noResultsFound.classList.remove('hidden');
+                    searchResultsGrid.classList.add('hidden');
                 }
+            }
+
+            searchInput.addEventListener('input', (e) => performSearch(e.target.value));
+            
+            clearSearchBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                performSearch('');
             });
         }
 
