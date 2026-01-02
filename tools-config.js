@@ -359,6 +359,12 @@ window.toolsConfig = {
           tags: ["web", "ip", "address", "network", "public", "location"],
         },
         {
+          name: "LocalDrop Pro",
+          description: "Secure, private P2P file transfer, chat, and voice calls.",
+          url: "/localdrop-pro/",
+          tags: ["web", "p2p", "file-transfer", "chat", "voice", "privacy"],
+        },
+        {
           name: "Download Time Calculator",
           description: "Estimate file download speed and time.",
           url: "/download-time-calculator/",

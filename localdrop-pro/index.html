@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalDrop Pro - P2P Chat, File Transfer & Voice | WebUtilityKit</title>
+    <meta name="description" content="LocalDrop Pro is a privacy-first P2P communication app with real-time chat, secure file transfer, and voice calls—powered by WebRTC via PeerJS. Runs 100% in your browser.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/localdrop-pro/">
+    <script src="/tools-config.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">LocalDrop Pro</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">P2P chat, file transfer, and voice calls—powered by WebRTC. No accounts, no uploads. Just connect and go.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+
+            <!-- App Header -->
+            <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-lg shadow-sky-500/20">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16h6M12 3a9 9 0 100 18 9 9 0 000-18z"></path></svg>
+                    </div>
+                    <div>
+                        <div class="text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Connection Status</div>
+                        <div class="flex items-center gap-2">
+                            <span id="status-dot" class="inline-flex w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                            <span id="status-text" class="text-lg font-bold text-slate-900 dark:text-white">Disconnected</span>
+                            <span id="status-detail" class="text-xs text-slate-500 dark:text-slate-400"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="btn-reset" class="text-xs font-semibold px-3 py-2 rounded-xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors">
+                        Reset
+                    </button>
+                    <button id="btn-disconnect" class="text-xs font-semibold px-3 py-2 rounded-xl bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                        Disconnect
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+                <!-- Left Column -->
+                <div class="lg:col-span-4 flex flex-col h-full space-y-6">
+
+                    <!-- Identity & Connection -->
+                    <section class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700/50">
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div>
+                                <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Identity</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Share your ID to allow others to connect.</p>
+                            </div>
+                            <span class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-300">WebRTC</span>
+                        </div>
+
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-2">
+                                <div class="flex-1 min-w-0">
+                                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">My ID</div>
+                                    <div class="flex items-center gap-2">
+                                        <code id="my-id" class="flex-1 min-w-0 truncate text-sm font-mono px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 text-slate-700 dark:text-slate-200">Initializing…</code>
+                                        <button id="btn-copy-id" class="shrink-0 text-xs font-bold px-3 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
+                                            Copy
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="remote-id" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Remote ID</label>
+                                <div class="mt-1 flex items-center gap-2">
+                                    <input id="remote-id" type="text" placeholder="Paste remote peer ID…" class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 focus:ring-4 focus:ring-sky-500/10 outline-none">
+                                    <button id="btn-connect" class="shrink-0 text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50">
+                                        Connect
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="pt-2 border-t border-slate-200/70 dark:border-slate-700/60">
+                                <div class="flex items-center justify-between gap-3">
+                                    <div>
+                                        <div class="text-xs font-semibold text-slate-500 dark:text-slate-400">Room</div>
+                                        <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Join a room to auto-connect everyone (mesh).</div>
+                                    </div>
+                                    <span id="room-badge" class="hidden text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-900/20 dark:text-sky-300">IN ROOM</span>
+                                </div>
+                                <div class="mt-2 flex items-center gap-2">
+                                    <input id="room-name" type="text" placeholder="e.g. office-123" class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 focus:ring-4 focus:ring-sky-500/10 outline-none">
+                                    <button id="btn-join-room" class="shrink-0 text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
+                                        Join
+                                    </button>
+                                </div>
+                                <div id="room-link-wrap" class="mt-2 hidden">
+                                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Share Link</div>
+                                    <div class="flex items-center gap-2">
+                                        <input id="room-link" type="text" readonly class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 font-mono text-xs text-slate-700 dark:text-slate-200">
+                                        <button id="btn-copy-room-link" class="shrink-0 text-xs font-bold px-3 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                                            Copy
+                                        </button>
+                                    </div>
+                                </div>
+                                <div id="room-members-wrap" class="mt-3 hidden">
+                                    <div class="flex items-center justify-between gap-3">
+                                        <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Members</div>
+                                        <div class="flex items-center gap-2">
+                                            <button id="btn-connect-all" type="button" class="text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900/40 dark:hover:bg-slate-900/60 transition-colors">
+                                                Connect All
+                                            </button>
+                                            <div id="room-members-count" class="text-[11px] font-bold text-slate-600 dark:text-slate-300">0</div>
+                                        </div>
+                                    </div>
+                                    <div id="room-members-list" class="mt-2 flex flex-wrap gap-2"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                                <span>PeerJS cloud ID is random each session.</span>
+                                <button id="btn-paste-id" class="font-semibold hover:text-slate-900 dark:hover:text-white transition-colors">Paste</button>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Voice Call -->
+                    <section class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700/50 flex flex-col">
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div>
+                                <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Voice</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Audio calls are direct P2P over WebRTC.</p>
+                            </div>
+                            <div class="text-xs font-semibold px-2 py-1 rounded-xl bg-slate-100 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300" id="call-status-pill">Idle</div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-2">
+                            <button id="btn-call" class="text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
+                                Start Call
+                            </button>
+                            <button id="btn-hangup" class="text-xs font-bold px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                                Hangup
+                            </button>
+                            <button id="btn-answer" class="text-xs font-bold px-4 py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700 transition-colors disabled:opacity-50 hidden">
+                                Answer
+                            </button>
+                            <button id="btn-mute" class="text-xs font-bold px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                                Mute
+                            </button>
+                        </div>
+
+                        <div class="mt-4 text-xs text-slate-500 dark:text-slate-400">
+                            <div class="flex items-center justify-between">
+                                <span>Mic</span>
+                                <span id="mic-state" class="font-semibold">Not ready</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-1">
+                                <span>Remote audio</span>
+                                <span id="remote-audio-state" class="font-semibold">—</span>
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Right Column -->
+                <div class="lg:col-span-8 flex flex-col h-full space-y-6">
+
+                    <!-- Chat -->
+                    <section class="bg-white dark:bg-slate-800/40 rounded-[2rem] border border-slate-100 dark:border-slate-700/50 overflow-hidden flex flex-col h-[560px]">
+                        <div class="p-5 border-b border-slate-100 dark:border-slate-700/50 flex items-center justify-between gap-4">
+                            <div>
+                                <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Chat</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Messages are sent over a WebRTC data channel.</p>
+                            </div>
+                            <button id="btn-clear-chat" class="text-xs font-semibold px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900/40 dark:hover:bg-slate-900/60 transition-colors">
+                                Clear
+                            </button>
+                        </div>
+
+                        <div id="chat-log" class="flex-1 overflow-y-auto p-5 space-y-3 custom-scrollbar">
+                            <div class="text-sm text-slate-500 dark:text-slate-400 italic" id="chat-empty">Connect to a peer to start chatting.</div>
+                        </div>
+
+                        <form id="chat-form" class="p-5 border-t border-slate-100 dark:border-slate-700/50 flex items-center gap-3">
+                            <input id="chat-input" type="text" placeholder="Type a message…" class="flex-1 px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 focus:ring-4 focus:ring-sky-500/10 outline-none" autocomplete="off" disabled>
+                            <button id="btn-send-direct" type="button" class="text-xs font-bold px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                                Direct
+                            </button>
+                            <button id="btn-send-chat" type="submit" class="text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
+                                Broadcast
+                            </button>
+                        </form>
+                    </section>
+
+                    <!-- File Transfer -->
+                    <section class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700/50">
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div>
+                                <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">File Transfer</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Files are split into chunks for reliable binary transfer.</p>
+                            </div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400" id="file-conn-hint">Connect first</div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-end">
+                            <div class="md:col-span-2">
+                                <label class="text-xs font-semibold text-slate-500 dark:text-slate-400">Select file</label>
+                                <input id="file-input" type="file" class="mt-1 block w-full text-sm text-slate-600 dark:text-slate-300 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-slate-100 file:text-slate-700 hover:file:bg-slate-200 dark:file:bg-slate-900/40 dark:file:text-slate-200 dark:hover:file:bg-slate-900/60" disabled>
+                                <div class="text-xs text-slate-500 dark:text-slate-400 mt-2" id="file-selected">No file selected</div>
+                            </div>
+                            <div class="md:col-span-1">
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button id="btn-send-file-direct" type="button" class="w-full text-xs font-bold px-3 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                                        Direct
+                                    </button>
+                                    <button id="btn-send-file" type="button" class="w-full text-xs font-bold px-3 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
+                                        Broadcast
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress -->
+                        <div class="mt-4 hidden" id="file-progress-wrap">
+                            <div class="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                                <span id="file-progress-label">Sending…</span>
+                                <span id="file-progress-pct" class="font-semibold">0%</span>
+                            </div>
+                            <div class="mt-2 h-2 rounded-full bg-slate-200 dark:bg-slate-900/50 overflow-hidden">
+                                <div id="file-progress-bar" class="h-full bg-sky-600 w-0 transition-[width]"></div>
+                            </div>
+                        </div>
+
+                        <!-- Received -->
+                        <div class="mt-6">
+                            <div class="flex items-center justify-between">
+                                <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Received</h3>
+                                <button id="btn-clear-received" class="text-xs font-semibold text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors hidden">
+                                    Clear
+                                </button>
+                            </div>
+                            <div id="received-list" class="mt-3 space-y-2"></div>
+                            <div id="received-empty" class="mt-3 text-sm text-slate-500 dark:text-slate-400 italic">No files received yet.</div>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>
+        </div>
+
+    </main>
+
+    <!-- Hidden audio element for remote stream -->
+    <audio id="remote-audio" autoplay playsinline class="hidden"></audio>
+
+    <!-- Toast container -->
+    <div id="toast-root" class="fixed bottom-4 right-4 z-[100] w-[92vw] max-w-sm space-y-2 pointer-events-none"></div>
+
+    <!-- Footer is automatically injected by components.js -->
+    <script src="../assets/js/components.js"></script>
+
+    <!-- PeerJS (local preferred). If missing, we will auto-load a CDN fallback. -->
+    <script src="./peerjs.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ---------- Small helpers ----------
+            const $ = (id) => document.getElementById(id);
+            const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+            const formatBytes = (bytes) => {
+                if (!Number.isFinite(bytes)) return '—';
+                const units = ['B', 'KB', 'MB', 'GB'];
+                let v = bytes, i = 0;
+                while (v >= 1024 && i < units.length - 1) { v /= 1024; i++; }
+                return `${v.toFixed(i === 0 ? 0 : 2)} ${units[i]}`;
+            };
+            const nowTime = () => new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const safeFilename = (name) => (name || 'download').replace(/[<>:"/\\|?*\x00-\x1F]+/g, '_').slice(0, 180);
+            const uuid = () => (crypto?.randomUUID ? crypto.randomUUID() : `f_${Date.now()}_${Math.random().toString(16).slice(2)}`);
+
+            function toast(message, type = 'info', detail = '') {
+                const root = $('toast-root');
+                const color = {
+                    info: 'bg-slate-900 text-white',
+                    success: 'bg-emerald-600 text-white',
+                    warn: 'bg-amber-500 text-white',
+                    error: 'bg-rose-600 text-white',
+                }[type] || 'bg-slate-900 text-white';
+
+                const el = document.createElement('div');
+                el.className = `pointer-events-auto rounded-2xl px-4 py-3 shadow-2xl shadow-black/20 border border-white/10 ${color}`;
+                el.innerHTML = `
+                    <div class="text-sm font-bold">${message}</div>
+                    ${detail ? `<div class="text-xs opacity-90 mt-1">${detail}</div>` : ''}
+                `;
+                root.appendChild(el);
+                setTimeout(() => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(6px)';
+                    el.style.transition = 'all 240ms ease';
+                    setTimeout(() => el.remove(), 260);
+                }, 2600);
+            }
+
+            function setStatus(state, detail = '') {
+                const dot = $('status-dot');
+                const text = $('status-text');
+                const detailEl = $('status-detail');
+                const map = {
+                    disconnected: { t: 'Disconnected', c: 'bg-slate-400' },
+                    connecting: { t: 'Connecting', c: 'bg-amber-400' },
+                    connected: { t: 'Connected', c: 'bg-emerald-400' },
+                };
+                const v = map[state] || map.disconnected;
+                dot.className = `inline-flex w-2.5 h-2.5 rounded-full ${v.c}`;
+                text.textContent = v.t;
+                detailEl.textContent = detail ? `· ${detail}` : '';
+            }
+
+            function setCallStatus(state) {
+                const pill = $('call-status-pill');
+                const map = {
+                    idle: { t: 'Idle', c: 'bg-slate-100 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300' },
+                    ringing: { t: 'Incoming…', c: 'bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300' },
+                    calling: { t: 'Calling…', c: 'bg-sky-100 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300' },
+                    in_call: { t: 'In Call', c: 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300' },
+                    ended: { t: 'Ended', c: 'bg-slate-100 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300' },
+                };
+                const v = map[state] || map.idle;
+                pill.textContent = v.t;
+                pill.className = `text-xs font-semibold px-2 py-1 rounded-xl ${v.c}`;
+            }
+
+            function addChatMessage(side, text, meta = {}) {
+                const log = $('chat-log');
+                const empty = $('chat-empty');
+                if (empty) empty.remove();
+
+                const wrap = document.createElement('div');
+                wrap.className = `flex ${side === 'me' ? 'justify-end' : 'justify-start'}`;
+
+                const bubble = document.createElement('div');
+                bubble.className = [
+                    'max-w-[85%] rounded-2xl px-4 py-3 border',
+                    side === 'me'
+                        ? 'bg-sky-600 text-white border-sky-500/30'
+                        : 'bg-slate-50 dark:bg-slate-900/40 text-slate-800 dark:text-slate-100 border-slate-200/70 dark:border-slate-700/60'
+                ].join(' ');
+
+                const header = document.createElement('div');
+                header.className = 'text-[10px] font-bold opacity-90 flex items-center justify-between gap-3 mb-1';
+                header.innerHTML = `
+                    <span>${side === 'me' ? 'You' : (meta.from || 'Peer')}</span>
+                    <span class="font-mono opacity-80">${meta.time || nowTime()}</span>
+                `;
+
+                const body = document.createElement('div');
+                body.className = 'text-sm whitespace-pre-wrap break-words';
+                body.textContent = text;
+
+                bubble.appendChild(header);
+                bubble.appendChild(body);
+                wrap.appendChild(bubble);
+                log.appendChild(wrap);
+                log.scrollTop = log.scrollHeight;
+            }
+
+            // ---------- PeerJS loading fallback ----------
+            async function ensurePeerJSLoaded() {
+                if (window.Peer) return true;
+                toast('PeerJS 未检测到，尝试加载在线版本…', 'warn', '建议把 peerjs.min.js 放到 localdrop-pro/ 目录以离线使用');
+                try {
+                    await new Promise((resolve, reject) => {
+                        const s = document.createElement('script');
+                        s.src = 'https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js';
+                        s.onload = resolve;
+                        s.onerror = reject;
+                        document.head.appendChild(s);
+                    });
+                    return !!window.Peer;
+                } catch {
+                    return false;
+                }
+            }
+
+            function sanitizeRoomName(name) {
+                const raw = (name || '').trim();
+                if (!raw) return '';
+                // PeerJS cloud enforces strict peerId validation.
+                // Keep room names and derived lobby IDs safe: lowercase letters, digits, hyphen only.
+                // Also keep it short to avoid any backend max-length constraints.
+                const cleaned = raw
+                    .toLowerCase()
+                    .replace(/[^a-z0-9-]+/g, '-') // drop underscores/spaces/etc
+                    .replace(/-+/g, '-')
+                    .replace(/^-+|-+$/g, '');
+                return cleaned.slice(0, 24);
+            }
+
+            function generateRandomRoomName() {
+                const bytes = new Uint8Array(4);
+                crypto.getRandomValues(bytes);
+                const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+                return `room-${hex}`; // safe: [a-z0-9-]
+            }
+
+            function makeRoomPeerId(room) {
+                return `${ROOM_PREFIX}${room}`;
+            }
+
+            function getRoomFromURL() {
+                try {
+                    const u = new URL(window.location.href);
+                    return u.searchParams.get('room') || '';
+                } catch {
+                    return '';
+                }
+            }
+
+            function setURLRoom(room) {
+                try {
+                    const u = new URL(window.location.href);
+                    if (room) u.searchParams.set('room', room);
+                    else u.searchParams.delete('room');
+                    window.history.replaceState({}, '', u.toString());
+                } catch {}
+            }
+
+            async function copyToClipboard(text, okToast) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    if (okToast) toast(okToast, 'success');
+                    return true;
+                } catch {
+                    // fallback
+                    const ta = document.createElement('textarea');
+                    ta.value = text;
+                    document.body.appendChild(ta);
+                    ta.select();
+                    document.execCommand('copy');
+                    ta.remove();
+                    if (okToast) toast(okToast, 'success');
+                    return true;
+                }
+            }
+
+            function setConnecting(detail = '') {
+                setStatus('connecting', detail || (roomName ? `Room: ${roomName}` : 'Connecting'));
+            }
+
+            // ---------- Mesh connections ----------
+            function connectMeshPeer(peerId) {
+                const pid = (peerId || '').trim();
+                if (!pid) return;
+                if (!peer) return;
+                if (pid === peer.id) return;
+
+                const existing = meshConns.get(pid);
+                if (existing && existing.open) return;
+
+                // avoid duplicates: close stale
+                if (existing && !existing.open) {
+                    try { existing.close(); } catch {}
+                    meshConns.delete(pid);
+                }
+
+                setConnecting(pid);
+                try {
+                    const c = peer.connect(pid, { reliable: true });
+                    bindMeshConnection(c, 'outgoing');
+                } catch (e) {
+                    toast('连接成员失败', 'error', e?.message || String(e));
+                }
+            }
+
+            function sendMeshHello(c) {
+                const peers = Array.from(meshConns.keys());
+                sendToConn(c, { t: 'mesh-hello', room: roomName || '', peers, from: peer?.id || '' });
+            }
+
+            function bindMeshConnection(c, mode) {
+                try { c.binaryType = 'arraybuffer'; } catch {}
+
+                // record early to dedupe inbound/outbound races
+                meshConns.set(c.peer, c);
+                if (roomName) roomMembers.add(c.peer);
+                updateRoomMembersUI();
+                updateConnectionStatus();
+
+                c.on('open', () => {
+                    meshConns.set(c.peer, c);
+                    if (roomName) roomMembers.add(c.peer);
+                    updateRoomMembersUI();
+                    updateConnectionStatus();
+                    toast('已连接成员', 'success', c.peer);
+                    sendMeshHello(c);
+                });
+
+                c.on('data', (data) => handleIncomingData(data, c.peer));
+
+                c.on('close', () => {
+                    if (meshConns.get(c.peer) === c) meshConns.delete(c.peer);
+                    if (roomName) roomMembers.delete(c.peer);
+                    updateRoomMembersUI();
+                    updateConnectionStatus();
+                    toast('成员已离线', 'info', c.peer);
+                });
+
+                c.on('error', (e) => {
+                    toast('成员连接错误', 'error', e?.message || String(e));
+                });
+
+                if (mode === 'outgoing') toast('正在连接成员…', 'info', c.peer);
+            }
+
+            // ---------- Room lobby ----------
+            async function connectToLobby(roomPid) {
+                if (!peer) throw new Error('peer not ready');
+                if (roomLobbyConn) {
+                    try { roomLobbyConn.close(); } catch {}
+                    roomLobbyConn = null;
+                }
+
+                setConnecting(`Room: ${roomName}`);
+                const c = peer.connect(roomPid, { reliable: true });
+
+                // wait for open or an early error/timeout
+                const outcome = await new Promise((resolve) => {
+                    let done = false;
+                    const t = setTimeout(() => {
+                        if (done) return;
+                        done = true;
+                        resolve({ ok: false, type: 'timeout' });
+                    }, 3500);
+
+                    c.on('open', () => {
+                        if (done) return;
+                        done = true;
+                        clearTimeout(t);
+                        resolve({ ok: true });
+                    });
+                    c.on('error', (e) => {
+                        if (done) return;
+                        done = true;
+                        clearTimeout(t);
+                        resolve({ ok: false, type: e?.type || 'error', error: e });
+                    });
+                });
+
+                if (!outcome.ok) {
+                    try { c.close(); } catch {}
+                    throw outcome;
+                }
+
+                roomLobbyConn = c;
+                c.on('data', handleLobbyData);
+                c.on('close', () => {
+                    roomLobbyConn = null;
+                    toast('房间发现服务断开', 'warn', '将尝试重新加入/重新选举');
+                    // best-effort rejoin
+                    if (roomName) {
+                        setTimeout(() => joinRoom(roomName, { silent: true, retry: true }), 800);
+                    }
+                });
+                c.on('error', (e) => {
+                    toast('房间发现服务错误', 'error', e?.message || String(e));
+                });
+
+                // host will send members list
+                toast('已加入房间', 'success', roomName);
+                updateConnectionStatus();
+            }
+
+            function handleLobbyData(data) {
+                if (typeof data === 'string') {
+                    try { data = JSON.parse(data); } catch { /* ignore */ }
+                }
+                if (!data || typeof data !== 'object') return;
+
+                if (data.t === 'room-members' && Array.isArray(data.peers)) {
+                    roomMembers.clear();
+                    for (const pid of data.peers) roomMembers.add(pid);
+                    if (peer?.id) roomMembers.add(peer.id);
+                    updateRoomMembersUI();
+                    updateShareLink();
+                    for (const pid of data.peers) connectMeshPeer(pid);
+                    connectAllRoomMembers();
+                    return;
+                }
+
+                if (data.t === 'room-peer-joined' && data.peerId) {
+                    roomMembers.add(data.peerId);
+                    updateRoomMembersUI();
+                    connectMeshPeer(data.peerId);
+                    connectAllRoomMembers();
+                    return;
+                }
+
+                if (data.t === 'room-peer-left' && data.peerId) {
+                    roomMembers.delete(data.peerId);
+                    const c = meshConns.get(data.peerId);
+                    if (c) { try { c.close(); } catch {} }
+                    updateRoomMembersUI();
+                    updateConnectionStatus();
+                    return;
+                }
+            }
+
+            function startRoomHost(roomPid) {
+                // Create a dedicated Peer to act as lobby/registry for this room.
+                if (roomPeer) {
+                    try { roomPeer.destroy(); } catch {}
+                    roomPeer = null;
+                }
+
+                const rp = new Peer(roomPid);
+                roomPeer = rp;
+
+                const lobbyClients = new Map(); // peerId -> conn
+                roomMembers.clear();
+                if (peer?.id) roomMembers.add(peer.id);
+                updateRoomMembersUI();
+                updateShareLink();
+
+                rp.on('open', () => {
+                    toast('房间已创建', 'success', roomName);
+                    updateConnectionStatus();
+                });
+
+                rp.on('connection', (c) => {
+                    // client main peer id is c.peer
+                    lobbyClients.set(c.peer, c);
+                    roomMembers.add(c.peer);
+                    updateRoomMembersUI();
+
+                    // send current roster to new client
+                    sendToConn(c, { t: 'room-members', peers: Array.from(roomMembers) });
+
+                    // notify others
+                    for (const [pid, oc] of lobbyClients.entries()) {
+                        if (!oc || !oc.open) continue;
+                        if (pid === c.peer) continue;
+                        sendToConn(oc, { t: 'room-peer-joined', peerId: c.peer });
+                    }
+                    toast('成员加入房间', 'info', c.peer);
+                    connectAllRoomMembers();
+
+                    c.on('close', () => {
+                        lobbyClients.delete(c.peer);
+                        roomMembers.delete(c.peer);
+                        updateRoomMembersUI();
+                        for (const oc of lobbyClients.values()) {
+                            sendToConn(oc, { t: 'room-peer-left', peerId: c.peer });
+                        }
+                        toast('成员离开房间', 'info', c.peer);
+                    });
+                });
+
+                rp.on('error', (e) => {
+                    if (e?.type === 'unavailable-id') {
+                        // someone else became host first; fallback to client join
+                        toast('房间已存在，切换为加入模式', 'info', roomName);
+                        try { rp.destroy(); } catch {}
+                        roomPeer = null;
+                        connectToLobby(roomPid).catch(() => {
+                            toast('加入房间失败', 'error', '请稍后重试');
+                        });
+                        return;
+                    }
+                    toast('房间服务错误', 'error', e?.message || e?.type || 'room host error');
+                });
+            }
+
+            async function joinRoom(name, opts = {}) {
+                const desired = sanitizeRoomName(name);
+                if (!desired) {
+                    if (!opts.silent) toast('请输入房间号', 'warn', '仅支持字母/数字/-/_');
+                    return;
+                }
+                if (!peer || !peer.id) {
+                    if (!opts.silent) toast('Peer 未就绪', 'warn');
+                    return;
+                }
+
+                // if switching rooms, leave first
+                if (roomName && roomName !== desired) leaveRoom({ keepURL: false });
+
+                roomName = desired;
+                roomPeerId = makeRoomPeerId(roomName);
+                setURLRoom(roomName);
+                roomNameEl.value = roomName;
+                updateShareLink();
+                roomMembers.clear();
+                roomMembers.add(peer.id);
+                updateRoomMembersUI();
+
+                // Try join existing lobby first; if not exists, become host.
+                try {
+                    await connectToLobby(roomPeerId);
+                } catch (outcome) {
+                    const type = outcome?.type || 'error';
+                    if (type === 'peer-unavailable' || type === 'timeout') {
+                        if (!opts.silent) toast('未发现房间服务，正在创建…', 'info', roomName);
+                        startRoomHost(roomPeerId);
+                    } else {
+                        if (!opts.silent) toast('加入房间失败', 'error', outcome?.error?.message || type);
+                        if (!opts.retry) {
+                            // fallback: try host once
+                            startRoomHost(roomPeerId);
+                        }
+                    }
+                } finally {
+                    updateConnectionStatus();
+                }
+            }
+
+            function leaveRoom({ keepURL = true } = {}) {
+                if (!roomName) return;
+                if (roomLobbyConn) {
+                    try { roomLobbyConn.close(); } catch {}
+                    roomLobbyConn = null;
+                }
+                if (roomPeer) {
+                    try { roomPeer.destroy(); } catch {}
+                    roomPeer = null;
+                }
+                roomName = '';
+                roomPeerId = '';
+                roomMembers.clear();
+                if (!keepURL) setURLRoom('');
+                updateRoomMembersUI();
+                updateConnectionStatus();
+            }
+
+            // ---------- State ----------
+            let peer = null; // main peer (auto id)
+
+            // mesh connections between members (peerId -> DataConnection)
+            const meshConns = new Map();
+
+            // room lobby: deterministic peerId for rendezvous (optional host)
+            // NOTE: avoid underscores - some PeerJS deployments reject them as invalid IDs
+            const ROOM_PREFIX = 'wuklocaldrop-room-';
+            let roomName = '';
+            let roomPeerId = '';
+            let roomLobbyConn = null; // DataConnection to roomPeerId (if we are a client)
+            let roomPeer = null; // dedicated Peer instance if we become the room host
+            const roomMembers = new Set(); // known peer ids in room (including self)
+
+            let currentRemoteId = '';
+
+            let localStream = null;
+            let currentCall = null;
+            let incomingCall = null;
+            let isMuted = false;
+
+            const incomingTransfers = new Map(); // id -> { meta, receivedBytes, chunks, startedAt }
+            let outgoingSending = false;
+            let selectedFile = null;
+
+            // ---------- Elements ----------
+            const myIdEl = $('my-id');
+            const btnCopyId = $('btn-copy-id');
+            const remoteIdEl = $('remote-id');
+            const btnConnect = $('btn-connect');
+            const btnDisconnect = $('btn-disconnect');
+            const btnReset = $('btn-reset');
+            const btnPasteId = $('btn-paste-id');
+
+            const roomNameEl = $('room-name');
+            const btnJoinRoom = $('btn-join-room');
+            const roomBadge = $('room-badge');
+            const roomLinkWrap = $('room-link-wrap');
+            const roomLinkEl = $('room-link');
+            const btnCopyRoomLink = $('btn-copy-room-link');
+            const roomMembersWrap = $('room-members-wrap');
+            const roomMembersCount = $('room-members-count');
+            const roomMembersList = $('room-members-list');
+            const btnConnectAll = $('btn-connect-all');
+
+            const chatInput = $('chat-input');
+            const btnSendChat = $('btn-send-chat'); // Broadcast
+            const btnSendDirect = $('btn-send-direct');
+            const chatForm = $('chat-form');
+            const btnClearChat = $('btn-clear-chat');
+
+            const fileInput = $('file-input');
+            const fileSelected = $('file-selected');
+            const btnSendFile = $('btn-send-file'); // Broadcast
+            const btnSendFileDirect = $('btn-send-file-direct');
+            const fileHint = $('file-conn-hint');
+            const fileProgressWrap = $('file-progress-wrap');
+            const fileProgressLabel = $('file-progress-label');
+            const fileProgressPct = $('file-progress-pct');
+            const fileProgressBar = $('file-progress-bar');
+            const receivedList = $('received-list');
+            const receivedEmpty = $('received-empty');
+            const btnClearReceived = $('btn-clear-received');
+
+            const btnCall = $('btn-call');
+            const btnAnswer = $('btn-answer');
+            const btnHangup = $('btn-hangup');
+            const btnMute = $('btn-mute');
+            const micState = $('mic-state');
+            const remoteAudioState = $('remote-audio-state');
+            const remoteAudio = $('remote-audio');
+
+            // ---------- UI enable/disable ----------
+            function openMeshCount() {
+                let n = 0;
+                for (const c of meshConns.values()) if (c && c.open) n++;
+                return n;
+            }
+
+            function isPeerConnected(peerId) {
+                const c = meshConns.get(peerId);
+                return !!(c && c.open);
+            }
+
+            function connectAllRoomMembers() {
+                if (!roomName) return;
+                for (const pid of roomMembers) {
+                    if (pid && pid !== peer?.id) connectMeshPeer(pid);
+                }
+            }
+
+            function updateRoomMembersUI() {
+                const inRoom = !!roomName;
+                if (!inRoom) {
+                    roomBadge.classList.add('hidden');
+                    roomLinkWrap.classList.add('hidden');
+                    roomMembersWrap.classList.add('hidden');
+                    btnCopyRoomLink.disabled = true;
+                    if (btnConnectAll) btnConnectAll.disabled = true;
+                    return;
+                }
+
+                roomBadge.classList.remove('hidden');
+                roomLinkWrap.classList.remove('hidden');
+                roomMembersWrap.classList.remove('hidden');
+
+                const members = Array.from(roomMembers);
+                roomMembersCount.textContent = `${members.length}`;
+                roomMembersList.innerHTML = '';
+                if (btnConnectAll) btnConnectAll.disabled = members.length <= 1;
+
+                for (const id of members.slice(0, 30)) {
+                    const pill = document.createElement('button');
+                    pill.type = 'button';
+                    pill.className = [
+                        'text-[11px] font-bold px-3 py-1.5 rounded-xl border transition-colors',
+                        id === peer?.id
+                            ? 'bg-emerald-100 text-emerald-800 border-emerald-200/70 dark:bg-emerald-900/20 dark:text-emerald-200 dark:border-emerald-900/40'
+                            : (isPeerConnected(id)
+                                ? 'bg-sky-100 text-sky-800 border-sky-200/70 hover:bg-sky-200 dark:bg-sky-900/20 dark:text-sky-200 dark:border-sky-900/40 dark:hover:bg-sky-900/35'
+                                : 'bg-slate-50 text-slate-700 border-slate-200/70 hover:bg-slate-100 dark:bg-slate-900/30 dark:text-slate-200 dark:border-slate-700/60 dark:hover:bg-slate-900/60')
+                    ].join(' ');
+                    pill.textContent = id === peer?.id ? 'You' : id;
+                    pill.title = id;
+                    pill.addEventListener('click', () => {
+                        if (!id || id === peer?.id) return;
+                        remoteIdEl.value = id;
+                        setActiveRemoteId(id);
+                        connectMeshPeer(id); // one-click connect
+                        toast('正在连接成员', 'info', id);
+                    });
+                    roomMembersList.appendChild(pill);
+                }
+
+                if (members.length > 30) {
+                    const more = document.createElement('div');
+                    more.className = 'text-[11px] text-slate-500 dark:text-slate-400 px-2 py-1';
+                    more.textContent = `+${members.length - 30} more…`;
+                    roomMembersList.appendChild(more);
+                }
+            }
+
+            function updateShareLink() {
+                if (!roomName) return;
+                const u = new URL(window.location.href);
+                u.searchParams.set('room', roomName);
+                roomLinkEl.value = u.toString();
+                btnCopyRoomLink.disabled = false;
+            }
+
+            function updateConnectionStatus() {
+                const count = openMeshCount();
+                if (count > 0) {
+                    setStatus('connected', `${count} peer${count > 1 ? 's' : ''}`);
+                } else {
+                    setStatus('disconnected', roomName ? `Room: ${roomName}` : 'Ready');
+                }
+
+                const isConnected = count > 0;
+                chatInput.disabled = !isConnected;
+                btnSendChat.disabled = !isConnected; // broadcast
+                btnSendDirect.disabled = !isConnected || !currentRemoteId || !isPeerConnected(currentRemoteId);
+                fileInput.disabled = !isConnected;
+
+                btnSendFile.disabled = !isConnected || !selectedFile || outgoingSending; // broadcast
+                btnSendFileDirect.disabled = !isConnected || !selectedFile || outgoingSending || !currentRemoteId || !isPeerConnected(currentRemoteId);
+
+                btnDisconnect.disabled = !isConnected && !roomName;
+                btnCall.disabled = !currentRemoteId;
+                fileHint.textContent = isConnected ? (roomName ? `Broadcast to ${count}` : 'Ready') : 'Connect first';
+            }
+
+            function resetFileUI() {
+                selectedFile = null;
+                fileInput.value = '';
+                fileSelected.textContent = 'No file selected';
+                outgoingSending = false;
+                btnSendFile.disabled = openMeshCount() === 0;
+                fileProgressWrap.classList.add('hidden');
+                fileProgressBar.style.width = '0%';
+                fileProgressPct.textContent = '0%';
+                fileProgressLabel.textContent = 'Sending…';
+            }
+
+            function resetCallUI() {
+                setCallStatus('idle');
+                btnAnswer.classList.add('hidden');
+                btnHangup.disabled = true;
+                btnMute.disabled = true;
+                btnCall.disabled = !currentRemoteId;
+                micState.textContent = 'Not ready';
+                remoteAudioState.textContent = '—';
+                isMuted = false;
+                btnMute.textContent = 'Mute';
+            }
+
+            function clearReceivedUI() {
+                receivedList.innerHTML = '';
+                receivedEmpty.classList.remove('hidden');
+                btnClearReceived.classList.add('hidden');
+            }
+
+            // ---------- Connection helpers ----------
+            function closeAllMesh(reason = '') {
+                for (const c of meshConns.values()) {
+                    try { c.close(); } catch {}
+                }
+                meshConns.clear();
+                if (reason) setStatus('disconnected', reason);
+                updateConnectionStatus();
+            }
+
+            function setActiveRemoteId(id) {
+                currentRemoteId = (id || '').trim();
+                if (remoteIdEl.value.trim() !== currentRemoteId) remoteIdEl.value = currentRemoteId;
+                btnCall.disabled = !currentRemoteId;
+            }
+
+            // ---------- Data messaging ----------
+            function sendToConn(c, payload) {
+                if (!c || !c.open) return false;
+                try { c.send(payload); return true; } catch { return false; }
+            }
+
+            function broadcast(payload, excludePeerId = '') {
+                let sent = 0;
+                for (const [pid, c] of meshConns.entries()) {
+                    if (!c || !c.open) continue;
+                    if (excludePeerId && pid === excludePeerId) continue;
+                    if (sendToConn(c, payload)) sent++;
+                }
+                return sent;
+            }
+
+            function handleIncomingData(data, fromPeerId = '') {
+                // PeerJS delivers: string | object | ArrayBuffer
+                if (typeof data === 'string') {
+                    // try JSON
+                    try { data = JSON.parse(data); } catch { /* ignore */ }
+                }
+
+                if (data && typeof data === 'object' && data.t) {
+                    if (data.t === 'chat') {
+                        addChatMessage('peer', data.text || '', { time: data.time || nowTime(), from: fromPeerId || data.from || 'Peer' });
+                        return;
+                    }
+                    if (data.t === 'mesh-hello') {
+                        // mesh discovery handshake
+                        if (data.room && roomName && data.room !== roomName) return;
+                        const peers = Array.isArray(data.peers) ? data.peers : [];
+                        for (const pid of peers) connectMeshPeer(pid);
+                        return;
+                    }
+                    if (data.t === 'file-meta') {
+                        const id = data.id;
+                        if (!id) return;
+                        incomingTransfers.set(id, {
+                            meta: { name: data.name, size: data.size, type: data.type },
+                            receivedBytes: 0,
+                            chunks: [],
+                            startedAt: Date.now(),
+                        });
+                        toast('开始接收文件', 'info', `${data.name} (${formatBytes(data.size)}) · From ${fromPeerId || 'Peer'}`);
+                        renderReceivingRow(id, { name: data.name, size: data.size, type: data.type }, 0, 'receiving');
+                        return;
+                    }
+                    if (data.t === 'file-chunk') {
+                        const transfer = incomingTransfers.get(data.id);
+                        if (!transfer) return;
+                        const buf = data.data;
+                        if (!(buf instanceof ArrayBuffer)) return;
+                        const chunk = new Uint8Array(buf);
+                        transfer.chunks.push(chunk);
+                        transfer.receivedBytes += chunk.byteLength;
+                        const pct = transfer.meta.size ? Math.min(100, Math.floor((transfer.receivedBytes / transfer.meta.size) * 100)) : 0;
+                        updateReceivingRow(data.id, pct, `${formatBytes(transfer.receivedBytes)} / ${formatBytes(transfer.meta.size)}`);
+                        return;
+                    }
+                    if (data.t === 'file-end') {
+                        const transfer = incomingTransfers.get(data.id);
+                        if (!transfer) return;
+                        const blob = new Blob(transfer.chunks, { type: transfer.meta.type || 'application/octet-stream' });
+                        const url = URL.createObjectURL(blob);
+                        const filename = safeFilename(transfer.meta.name);
+                        incomingTransfers.delete(data.id);
+
+                        finalizeReceivingRow(data.id, {
+                            filename,
+                            url,
+                            size: blob.size,
+                            type: transfer.meta.type || 'application/octet-stream'
+                        });
+                        toast('文件已接收', 'success', `${filename} (${formatBytes(blob.size)})`);
+                        return;
+                    }
+                }
+            }
+
+            function renderReceivingRow(id, meta, pct, state) {
+                receivedEmpty.classList.add('hidden');
+                btnClearReceived.classList.remove('hidden');
+
+                const row = document.createElement('div');
+                row.id = `rx_${id}`;
+                row.className = 'rounded-2xl border border-slate-200/70 dark:border-slate-700/60 bg-slate-50 dark:bg-slate-900/30 p-4';
+                row.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="min-w-0">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white truncate">${meta.name || 'File'}</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                <span class="font-mono">${formatBytes(meta.size)}</span>
+                                <span class="mx-2 opacity-50">·</span>
+                                <span class="rx_state">${state === 'receiving' ? 'Receiving…' : 'Ready'}</span>
+                            </div>
+                        </div>
+                        <div class="shrink-0 flex items-center gap-2">
+                            <a class="rx_download hidden text-xs font-bold px-3 py-2 rounded-xl bg-sky-600 text-white hover:bg-sky-700 transition-colors" href="#" download>Download</a>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400">
+                            <span class="rx_detail">Waiting…</span>
+                            <span class="rx_pct font-semibold">${pct}%</span>
+                        </div>
+                        <div class="mt-2 h-2 rounded-full bg-slate-200 dark:bg-slate-800/60 overflow-hidden">
+                            <div class="rx_bar h-full bg-emerald-500 w-0 transition-[width]"></div>
+                        </div>
+                    </div>
+                `;
+                receivedList.prepend(row);
+                updateReceivingRow(id, pct, `0 / ${formatBytes(meta.size)}`);
+            }
+
+            function updateReceivingRow(id, pct, detail) {
+                const row = $(`rx_${id}`);
+                if (!row) return;
+                row.querySelector('.rx_pct').textContent = `${pct}%`;
+                row.querySelector('.rx_bar').style.width = `${pct}%`;
+                row.querySelector('.rx_detail').textContent = detail || '';
+            }
+
+            function finalizeReceivingRow(id, file) {
+                const row = $(`rx_${id}`);
+                if (!row) return;
+                row.querySelector('.rx_state').textContent = 'Ready';
+                row.querySelector('.rx_pct').textContent = '100%';
+                row.querySelector('.rx_bar').style.width = '100%';
+                row.querySelector('.rx_detail').textContent = `${formatBytes(file.size)} · ${file.type}`;
+                const link = row.querySelector('.rx_download');
+                link.classList.remove('hidden');
+                link.href = file.url;
+                link.download = file.filename;
+            }
+
+            // ---------- File send ----------
+            async function waitForBufferedAmountBelow(c, thresholdBytes = 4 * 1024 * 1024) {
+                // PeerJS internal: c._dc is RTCPeerConnection DataChannel
+                const dc = c && c._dc;
+                if (!dc) return;
+                while (dc.bufferedAmount > thresholdBytes) {
+                    await sleep(25);
+                }
+            }
+
+            async function sendFileToConn(c, peerId, file, fileId) {
+                const meta = { t: 'file-meta', id: fileId, name: file.name, size: file.size, type: file.type, from: peer?.id || '' };
+                if (!sendToConn(c, meta)) throw new Error(`send meta failed (${peerId})`);
+
+                const chunkSize = 16 * 1024; // conservative for broad compatibility
+                let offset = 0;
+                let seq = 0;
+                while (offset < file.size) {
+                    const slice = file.slice(offset, offset + chunkSize);
+                    const buf = await slice.arrayBuffer();
+                    const ok = sendToConn(c, { t: 'file-chunk', id: fileId, seq, data: buf });
+                    if (!ok) throw new Error(`send chunk failed (${peerId})`);
+                    offset += buf.byteLength;
+                    seq++;
+                    await waitForBufferedAmountBelow(c);
+                }
+                sendToConn(c, { t: 'file-end', id: fileId });
+            }
+
+            async function sendFileToAll(file) {
+                if (!file) return;
+                const targets = Array.from(meshConns.entries()).filter(([, c]) => c && c.open);
+                if (targets.length === 0) return toast('请先连接到对端', 'error');
+                if (outgoingSending) return;
+
+                outgoingSending = true;
+                btnSendFile.disabled = true;
+                fileProgressWrap.classList.remove('hidden');
+                fileProgressPct.textContent = '0%';
+                fileProgressBar.style.width = '0%';
+
+                const baseId = `${peer?.id || 'me'}:${uuid()}`;
+                toast('开始群发文件', 'info', `${file.name} · ${targets.length} peer(s)`);
+
+                try {
+                    for (let i = 0; i < targets.length; i++) {
+                        const [pid, c] = targets[i];
+                        const fileId = `${baseId}:${pid}`;
+
+                        fileProgressLabel.textContent = `Sending to ${pid} (${i + 1}/${targets.length})…`;
+                        await sendFileToConn(c, pid, file, fileId);
+
+                        const pct = Math.min(100, Math.floor(((i + 1) / targets.length) * 100));
+                        fileProgressPct.textContent = `${pct}%`;
+                        fileProgressBar.style.width = `${pct}%`;
+                    }
+
+                    fileProgressLabel.textContent = 'Sent.';
+                    fileProgressPct.textContent = '100%';
+                    fileProgressBar.style.width = '100%';
+                    toast('文件群发完成', 'success', file.name);
+                } catch (e) {
+                    toast('文件群发失败', 'error', e?.message || String(e));
+                } finally {
+                    outgoingSending = false;
+                    setTimeout(() => fileProgressWrap.classList.add('hidden'), 900);
+                    resetFileUI();
+                    updateConnectionStatus();
+                }
+            }
+
+            // ---------- Voice ----------
+            async function ensureMic() {
+                if (localStream) return localStream;
+                try {
+                    micState.textContent = 'Requesting…';
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    localStream = stream;
+                    micState.textContent = 'Ready';
+                    return stream;
+                } catch (e) {
+                    micState.textContent = 'Denied';
+                    toast('麦克风权限被拒绝', 'error', e?.message || '请允许麦克风权限后重试');
+                    throw e;
+                }
+            }
+
+            function stopMic() {
+                try {
+                    localStream?.getTracks()?.forEach(t => t.stop());
+                } catch {}
+                localStream = null;
+                micState.textContent = 'Not ready';
+            }
+
+            function attachCallHandlers(call, modeLabel) {
+                currentCall = call;
+                setCallStatus(modeLabel === 'incoming' ? 'in_call' : 'calling');
+                btnHangup.disabled = false;
+                btnMute.disabled = false;
+                btnCall.disabled = true;
+
+                call.on('stream', (remoteStream) => {
+                    remoteAudio.srcObject = remoteStream;
+                    remoteAudioState.textContent = 'Playing';
+                    setCallStatus('in_call');
+                    toast('通话已建立', 'success');
+                });
+
+                call.on('close', () => {
+                    if (currentCall === call) currentCall = null;
+                    remoteAudio.srcObject = null;
+                    remoteAudioState.textContent = '—';
+                    setCallStatus('ended');
+                    btnHangup.disabled = true;
+                    btnMute.disabled = true;
+                    btnCall.disabled = !currentRemoteId;
+                    toast('通话已结束', 'info');
+                });
+
+                call.on('error', (e) => {
+                    toast('通话错误', 'error', e?.message || String(e));
+                });
+            }
+
+            async function startCall() {
+                if (!peer) return;
+                const rid = remoteIdEl.value.trim();
+                if (!rid) return toast('请输入 Remote ID', 'warn');
+                setActiveRemoteId(rid);
+
+                setCallStatus('calling');
+                toast('正在呼叫…', 'info', rid);
+                try {
+                    const stream = await ensureMic();
+                    const call = peer.call(rid, stream);
+                    attachCallHandlers(call, 'outgoing');
+                } catch {
+                    setCallStatus('idle');
+                }
+            }
+
+            async function answerCall() {
+                if (!incomingCall) return;
+                setCallStatus('calling');
+                try {
+                    const stream = await ensureMic();
+                    incomingCall.answer(stream);
+                    attachCallHandlers(incomingCall, 'incoming');
+                    incomingCall = null;
+                    btnAnswer.classList.add('hidden');
+                } catch {
+                    setCallStatus('idle');
+                }
+            }
+
+            function hangup() {
+                try { currentCall?.close(); } catch {}
+                currentCall = null;
+                incomingCall = null;
+                btnAnswer.classList.add('hidden');
+                remoteAudio.srcObject = null;
+                remoteAudioState.textContent = '—';
+                setCallStatus('ended');
+                btnHangup.disabled = true;
+                btnMute.disabled = true;
+                btnCall.disabled = !currentRemoteId;
+                stopMic();
+            }
+
+            function toggleMute() {
+                if (!localStream) return;
+                const track = localStream.getAudioTracks?.()[0];
+                if (!track) return;
+                isMuted = !isMuted;
+                track.enabled = !isMuted;
+                btnMute.textContent = isMuted ? 'Unmute' : 'Mute';
+                toast(isMuted ? '已静音' : '已取消静音', 'info');
+            }
+
+            // ---------- Peer lifecycle ----------
+            async function initPeer() {
+                setStatus('connecting', 'PeerJS');
+                myIdEl.textContent = 'Initializing…';
+                btnCopyId.disabled = true;
+                btnConnect.disabled = true;
+                btnCall.disabled = true;
+                updateConnectionStatus();
+                resetCallUI();
+
+                const ok = await ensurePeerJSLoaded();
+                if (!ok) {
+                    setStatus('disconnected', 'PeerJS unavailable');
+                    myIdEl.textContent = 'PeerJS missing';
+                    toast('PeerJS 加载失败', 'error', '请在 localdrop-pro/ 放置 peerjs.min.js，或检查网络');
+                    btnConnect.disabled = false;
+                    return;
+                }
+
+                try { peer?.destroy(); } catch {}
+                peer = new Peer(); // Auto ID via PeerJS cloud
+
+                peer.on('open', (id) => {
+                    myIdEl.textContent = id;
+                    btnCopyId.disabled = false;
+                    btnConnect.disabled = false;
+                    btnJoinRoom.disabled = false;
+                    setStatus('disconnected', 'Ready');
+                    toast('Peer 已就绪', 'success', `My ID: ${id}`);
+
+                    // auto-join room from URL
+                    const urlRoom = sanitizeRoomName(getRoomFromURL());
+                    if (urlRoom) {
+                        roomNameEl.value = urlRoom;
+                        joinRoom(urlRoom, { silent: true });
+                    }
+                });
+
+                peer.on('connection', (c) => {
+                    // mesh incoming connection
+                    bindMeshConnection(c, 'incoming');
+                });
+
+                peer.on('call', (call) => {
+                    if (currentCall) {
+                        // Busy: reject/close the new call
+                        try { call.close(); } catch {}
+                        toast('收到来电但当前忙线', 'warn');
+                        return;
+                    }
+                    incomingCall = call;
+                    setActiveRemoteId(call.peer);
+                    setCallStatus('ringing');
+                    btnAnswer.classList.remove('hidden');
+                    toast('收到来电', 'info', `From: ${call.peer}`);
+
+                    // If caller hangs up before we answer, clean up UI
+                    call.on('close', () => {
+                        if (incomingCall === call) incomingCall = null;
+                        btnAnswer.classList.add('hidden');
+                        if (!currentCall) setCallStatus('idle');
+                        toast('来电已取消', 'info');
+                    });
+                    call.on('error', (e) => {
+                        toast('来电发生错误', 'error', e?.message || String(e));
+                    });
+                });
+
+                peer.on('error', (e) => {
+                    // PeerJS sometimes emits peer-unavailable when dialing a peer that doesn't exist yet.
+                    // In our room flow, we intentionally probe the room lobby id first; failure is expected.
+                    const msgText = (e?.message || '').toString();
+                    const isRoomDial =
+                        msgText.includes('Could not connect to peer') &&
+                        msgText.includes(ROOM_PREFIX);
+
+                    if (e?.type === 'peer-unavailable' || isRoomDial) {
+                        return;
+                    }
+
+                    const msg = e?.type ? `${e.type}` : 'peer error';
+                    toast('Peer 错误', 'error', e?.message || msg);
+                    setStatus('disconnected', e?.type || 'Error');
+                });
+
+                peer.on('disconnected', () => {
+                    toast('Peer 已断开', 'warn', '可能是网络波动或 PeerJS 服务不可用');
+                    setStatus('disconnected', 'Peer disconnected');
+                });
+            }
+
+            function connectToRemote() {
+                const rid = remoteIdEl.value.trim();
+                if (!rid) return toast('请输入 Remote ID', 'warn');
+                if (!peer) return toast('Peer 未就绪', 'warn');
+                if (rid === peer.id) return toast('不能连接到自己', 'warn');
+                setActiveRemoteId(rid);
+
+                const existing = meshConns.get(rid);
+                if (existing && existing.open) {
+                    toast('已连接到该对端', 'info');
+                    return;
+                }
+
+                try {
+                    connectMeshPeer(rid);
+                } catch (e) {
+                    toast('连接失败', 'error', e?.message || String(e));
+                    setStatus('disconnected', 'Connect failed');
+                }
+            }
+
+            function disconnect() {
+                hangup();
+                closeAllMesh('');
+                leaveRoom({ keepURL: false });
+                resetFileUI();
+                updateConnectionStatus();
+                toast('已断开连接', 'info');
+            }
+
+            function hardReset() {
+                disconnect();
+                try { peer?.destroy(); } catch {}
+                peer = null;
+                incomingTransfers.clear();
+                clearReceivedUI();
+                $('chat-log').innerHTML = '<div class="text-sm text-slate-500 dark:text-slate-400 italic" id="chat-empty">Connect to a peer to start chatting.</div>';
+                initPeer();
+            }
+
+            // ---------- Events ----------
+            btnCopyId.addEventListener('click', async () => {
+                const id = myIdEl.textContent.trim();
+                if (!id || id === 'Initializing…') return;
+                await copyToClipboard(id, '已复制 My ID');
+            });
+
+            btnPasteId.addEventListener('click', async () => {
+                try {
+                    const v = await navigator.clipboard.readText();
+                    if (v) remoteIdEl.value = v.trim();
+                    toast('已粘贴 Remote ID', 'success');
+                } catch {
+                    toast('无法读取剪贴板', 'warn', '请手动粘贴 Remote ID');
+                }
+            });
+
+            btnJoinRoom.addEventListener('click', () => joinRoom(roomNameEl.value));
+            roomNameEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') joinRoom(roomNameEl.value);
+            });
+            btnCopyRoomLink.addEventListener('click', async () => {
+                if (!roomName) return;
+                updateShareLink();
+                await copyToClipboard(roomLinkEl.value, '已复制房间链接');
+            });
+
+            if (btnConnectAll) {
+                btnConnectAll.addEventListener('click', () => {
+                    if (!roomName) return;
+                    connectAllRoomMembers();
+                    toast('正在连接全员…', 'info');
+                });
+            }
+
+            btnConnect.addEventListener('click', connectToRemote);
+            remoteIdEl.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') connectToRemote();
+            });
+
+            btnDisconnect.addEventListener('click', disconnect);
+            btnReset.addEventListener('click', hardReset);
+
+            chatForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const text = chatInput.value.trim();
+                if (!text) return;
+                const payload = { t: 'chat', text, time: nowTime(), from: peer?.id || '' };
+                const sent = broadcast(payload);
+                if (sent > 0) {
+                    addChatMessage('me', text, { time: payload.time });
+                    chatInput.value = '';
+                    chatInput.focus();
+                    toast('已群发消息', 'success', `${sent} peer(s)`);
+                } else {
+                    toast('未连接到对端', 'error');
+                }
+            });
+
+            btnSendDirect.addEventListener('click', () => {
+                const text = chatInput.value.trim();
+                if (!text) return;
+                if (!currentRemoteId) return toast('请选择一个成员', 'warn');
+                const c = meshConns.get(currentRemoteId);
+                if (!c || !c.open) {
+                    connectMeshPeer(currentRemoteId);
+                    return toast('正在连接成员…', 'info', currentRemoteId);
+                }
+                const payload = { t: 'chat', text, time: nowTime(), from: peer?.id || '' };
+                if (sendToConn(c, payload)) {
+                    addChatMessage('me', text, { time: payload.time });
+                    chatInput.value = '';
+                    chatInput.focus();
+                    toast('已直发消息', 'success', currentRemoteId);
+                } else {
+                    toast('直发失败', 'error', currentRemoteId);
+                }
+            });
+
+            btnClearChat.addEventListener('click', () => {
+                $('chat-log').innerHTML = '<div class="text-sm text-slate-500 dark:text-slate-400 italic" id="chat-empty">Chat cleared.</div>';
+            });
+
+            fileInput.addEventListener('change', () => {
+                selectedFile = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
+                fileSelected.textContent = selectedFile ? `${selectedFile.name} · ${formatBytes(selectedFile.size)}${selectedFile.type ? ` · ${selectedFile.type}` : ''}` : 'No file selected';
+                btnSendFile.disabled = openMeshCount() === 0 || !selectedFile || outgoingSending;
+                updateConnectionStatus();
+            });
+
+            btnSendFile.addEventListener('click', async () => {
+                if (!selectedFile) return toast('请选择文件', 'warn');
+                await sendFileToAll(selectedFile);
+            });
+
+            async function sendFileToPeer(peerId, file) {
+                const c = meshConns.get(peerId);
+                if (!c || !c.open) {
+                    connectMeshPeer(peerId);
+                    toast('正在连接成员…', 'info', peerId);
+                    return;
+                }
+                if (outgoingSending) return;
+
+                outgoingSending = true;
+                btnSendFile.disabled = true;
+                btnSendFileDirect.disabled = true;
+                fileProgressWrap.classList.remove('hidden');
+                fileProgressPct.textContent = '0%';
+                fileProgressBar.style.width = '0%';
+                fileProgressLabel.textContent = `Sending to ${peerId}…`;
+
+                const fileId = `${peer?.id || 'me'}:${uuid()}:${peerId}`;
+                try {
+                    await sendFileToConn(c, peerId, file, fileId);
+                    fileProgressPct.textContent = '100%';
+                    fileProgressBar.style.width = '100%';
+                    fileProgressLabel.textContent = 'Sent.';
+                    toast('文件已直发', 'success', `${peerId}`);
+                } catch (e) {
+                    toast('文件直发失败', 'error', e?.message || String(e));
+                } finally {
+                    outgoingSending = false;
+                    setTimeout(() => fileProgressWrap.classList.add('hidden'), 900);
+                    resetFileUI();
+                    updateConnectionStatus();
+                }
+            }
+
+            btnSendFileDirect.addEventListener('click', async () => {
+                if (!selectedFile) return toast('请选择文件', 'warn');
+                if (!currentRemoteId) return toast('请选择一个成员', 'warn');
+                await sendFileToPeer(currentRemoteId, selectedFile);
+            });
+
+            btnClearReceived.addEventListener('click', () => {
+                clearReceivedUI();
+                toast('已清空接收列表', 'info');
+            });
+
+            btnCall.addEventListener('click', startCall);
+            btnAnswer.addEventListener('click', answerCall);
+            btnHangup.addEventListener('click', hangup);
+            btnMute.addEventListener('click', toggleMute);
+
+            // ---------- Init ----------
+            clearReceivedUI();
+            setStatus('connecting', 'Boot');
+            setCallStatus('idle');
+            updateRoomMembersUI();
+            updateConnectionStatus();
+
+            // Prefill a random room name (unless URL already specifies one)
+            const initialRoomFromUrl = sanitizeRoomName(getRoomFromURL());
+            if (initialRoomFromUrl) {
+                roomNameEl.value = initialRoomFromUrl;
+            } else if (!roomNameEl.value.trim()) {
+                roomNameEl.value = generateRandomRoomName();
+            }
+
+            initPeer();
+        });
+    </script>
+</body>
+</html>
+
