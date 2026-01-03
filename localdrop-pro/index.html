@@ -82,6 +82,20 @@
                                 </div>
                             </div>
 
+                            <!-- Share Link (Auto Connect) -->
+                            <div id="share-link-wrap" class="hidden">
+                                <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Share Link</div>
+                                <div class="flex items-center gap-2">
+                                    <input id="share-link" type="text" readonly class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 font-mono text-xs text-slate-700 dark:text-slate-200" value="">
+                                    <button id="btn-copy-share-link" class="shrink-0 text-xs font-bold px-3 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                                        Copy
+                                    </button>
+                                </div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-2">
+                                    Share this link. When opened, it will auto-fill your ID as the Remote ID and connect.
+                                </div>
+                            </div>
+
                             <div>
                                 <label for="remote-id" class="text-xs font-semibold text-slate-500 dark:text-slate-400">Remote ID</label>
                                 <div class="mt-1 flex items-center gap-2">
@@ -89,43 +103,6 @@
                                     <button id="btn-connect" class="shrink-0 text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50">
                                         Connect
                                     </button>
-                                </div>
-                            </div>
-
-                            <div class="pt-2 border-t border-slate-200/70 dark:border-slate-700/60">
-                                <div class="flex items-center justify-between gap-3">
-                                    <div>
-                                        <div class="text-xs font-semibold text-slate-500 dark:text-slate-400">Room</div>
-                                        <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-1">Join a room to auto-connect everyone (mesh).</div>
-                                    </div>
-                                    <span id="room-badge" class="hidden text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-900/20 dark:text-sky-300">IN ROOM</span>
-                                </div>
-                                <div class="mt-2 flex items-center gap-2">
-                                    <input id="room-name" type="text" placeholder="e.g. office-123" class="w-full px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 focus:ring-4 focus:ring-sky-500/10 outline-none">
-                                    <button id="btn-join-room" class="shrink-0 text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
-                                        Join
-                                    </button>
-                                </div>
-                                <div id="room-link-wrap" class="mt-2 hidden">
-                                    <div class="text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">Share Link</div>
-                                    <div class="flex items-center gap-2">
-                                        <input id="room-link" type="text" readonly class="w-full px-4 py-3 rounded-2xl bg-slate-50 dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 font-mono text-xs text-slate-700 dark:text-slate-200">
-                                        <button id="btn-copy-room-link" class="shrink-0 text-xs font-bold px-3 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
-                                            Copy
-                                        </button>
-                                    </div>
-                                </div>
-                                <div id="room-members-wrap" class="mt-3 hidden">
-                                    <div class="flex items-center justify-between gap-3">
-                                        <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Members</div>
-                                        <div class="flex items-center gap-2">
-                                            <button id="btn-connect-all" type="button" class="text-[11px] font-bold px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900/40 dark:hover:bg-slate-900/60 transition-colors">
-                                                Connect All
-                                            </button>
-                                            <div id="room-members-count" class="text-[11px] font-bold text-slate-600 dark:text-slate-300">0</div>
-                                        </div>
-                                    </div>
-                                    <div id="room-members-list" class="mt-2 flex flex-wrap gap-2"></div>
                                 </div>
                             </div>
 
@@ -196,11 +173,8 @@
 
                         <form id="chat-form" class="p-5 border-t border-slate-100 dark:border-slate-700/50 flex items-center gap-3">
                             <input id="chat-input" type="text" placeholder="Type a message…" class="flex-1 px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/40 border border-slate-200/70 dark:border-slate-700/60 focus:ring-4 focus:ring-sky-500/10 outline-none" autocomplete="off" disabled>
-                            <button id="btn-send-direct" type="button" class="text-xs font-bold px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
-                                Direct
-                            </button>
                             <button id="btn-send-chat" type="submit" class="text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
-                                Broadcast
+                                Send
                             </button>
                         </form>
                     </section>
@@ -222,14 +196,9 @@
                                 <div class="text-xs text-slate-500 dark:text-slate-400 mt-2" id="file-selected">No file selected</div>
                             </div>
                             <div class="md:col-span-1">
-                                <div class="grid grid-cols-2 gap-2">
-                                    <button id="btn-send-file-direct" type="button" class="w-full text-xs font-bold px-3 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
-                                        Direct
-                                    </button>
-                                    <button id="btn-send-file" type="button" class="w-full text-xs font-bold px-3 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
-                                        Broadcast
-                                    </button>
-                                </div>
+                                <button id="btn-send-file" class="w-full text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
+                                    Send File
+                                </button>
                             </div>
                         </div>
 
@@ -365,7 +334,7 @@
                 const header = document.createElement('div');
                 header.className = 'text-[10px] font-bold opacity-90 flex items-center justify-between gap-3 mb-1';
                 header.innerHTML = `
-                    <span>${side === 'me' ? 'You' : (meta.from || 'Peer')}</span>
+                    <span>${side === 'me' ? 'You' : 'Peer'}</span>
                     <span class="font-mono opacity-80">${meta.time || nowTime()}</span>
                 `;
 
@@ -398,370 +367,9 @@
                 }
             }
 
-            function sanitizeRoomName(name) {
-                const raw = (name || '').trim();
-                if (!raw) return '';
-                // PeerJS cloud enforces strict peerId validation.
-                // Keep room names and derived lobby IDs safe: lowercase letters, digits, hyphen only.
-                // Also keep it short to avoid any backend max-length constraints.
-                const cleaned = raw
-                    .toLowerCase()
-                    .replace(/[^a-z0-9-]+/g, '-') // drop underscores/spaces/etc
-                    .replace(/-+/g, '-')
-                    .replace(/^-+|-+$/g, '');
-                return cleaned.slice(0, 24);
-            }
-
-            function generateRandomRoomName() {
-                const bytes = new Uint8Array(4);
-                crypto.getRandomValues(bytes);
-                const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
-                return `room-${hex}`; // safe: [a-z0-9-]
-            }
-
-            function makeRoomPeerId(room) {
-                return `${ROOM_PREFIX}${room}`;
-            }
-
-            function getRoomFromURL() {
-                try {
-                    const u = new URL(window.location.href);
-                    return u.searchParams.get('room') || '';
-                } catch {
-                    return '';
-                }
-            }
-
-            function setURLRoom(room) {
-                try {
-                    const u = new URL(window.location.href);
-                    if (room) u.searchParams.set('room', room);
-                    else u.searchParams.delete('room');
-                    window.history.replaceState({}, '', u.toString());
-                } catch {}
-            }
-
-            async function copyToClipboard(text, okToast) {
-                try {
-                    await navigator.clipboard.writeText(text);
-                    if (okToast) toast(okToast, 'success');
-                    return true;
-                } catch {
-                    // fallback
-                    const ta = document.createElement('textarea');
-                    ta.value = text;
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    ta.remove();
-                    if (okToast) toast(okToast, 'success');
-                    return true;
-                }
-            }
-
-            function setConnecting(detail = '') {
-                setStatus('connecting', detail || (roomName ? `Room: ${roomName}` : 'Connecting'));
-            }
-
-            // ---------- Mesh connections ----------
-            function connectMeshPeer(peerId) {
-                const pid = (peerId || '').trim();
-                if (!pid) return;
-                if (!peer) return;
-                if (pid === peer.id) return;
-
-                const existing = meshConns.get(pid);
-                if (existing && existing.open) return;
-
-                // avoid duplicates: close stale
-                if (existing && !existing.open) {
-                    try { existing.close(); } catch {}
-                    meshConns.delete(pid);
-                }
-
-                setConnecting(pid);
-                try {
-                    const c = peer.connect(pid, { reliable: true });
-                    bindMeshConnection(c, 'outgoing');
-                } catch (e) {
-                    toast('连接成员失败', 'error', e?.message || String(e));
-                }
-            }
-
-            function sendMeshHello(c) {
-                const peers = Array.from(meshConns.keys());
-                sendToConn(c, { t: 'mesh-hello', room: roomName || '', peers, from: peer?.id || '' });
-            }
-
-            function bindMeshConnection(c, mode) {
-                try { c.binaryType = 'arraybuffer'; } catch {}
-
-                // record early to dedupe inbound/outbound races
-                meshConns.set(c.peer, c);
-                if (roomName) roomMembers.add(c.peer);
-                updateRoomMembersUI();
-                updateConnectionStatus();
-
-                c.on('open', () => {
-                    meshConns.set(c.peer, c);
-                    if (roomName) roomMembers.add(c.peer);
-                    updateRoomMembersUI();
-                    updateConnectionStatus();
-                    toast('已连接成员', 'success', c.peer);
-                    sendMeshHello(c);
-                });
-
-                c.on('data', (data) => handleIncomingData(data, c.peer));
-
-                c.on('close', () => {
-                    if (meshConns.get(c.peer) === c) meshConns.delete(c.peer);
-                    if (roomName) roomMembers.delete(c.peer);
-                    updateRoomMembersUI();
-                    updateConnectionStatus();
-                    toast('成员已离线', 'info', c.peer);
-                });
-
-                c.on('error', (e) => {
-                    toast('成员连接错误', 'error', e?.message || String(e));
-                });
-
-                if (mode === 'outgoing') toast('正在连接成员…', 'info', c.peer);
-            }
-
-            // ---------- Room lobby ----------
-            async function connectToLobby(roomPid) {
-                if (!peer) throw new Error('peer not ready');
-                if (roomLobbyConn) {
-                    try { roomLobbyConn.close(); } catch {}
-                    roomLobbyConn = null;
-                }
-
-                setConnecting(`Room: ${roomName}`);
-                const c = peer.connect(roomPid, { reliable: true });
-
-                // wait for open or an early error/timeout
-                const outcome = await new Promise((resolve) => {
-                    let done = false;
-                    const t = setTimeout(() => {
-                        if (done) return;
-                        done = true;
-                        resolve({ ok: false, type: 'timeout' });
-                    }, 3500);
-
-                    c.on('open', () => {
-                        if (done) return;
-                        done = true;
-                        clearTimeout(t);
-                        resolve({ ok: true });
-                    });
-                    c.on('error', (e) => {
-                        if (done) return;
-                        done = true;
-                        clearTimeout(t);
-                        resolve({ ok: false, type: e?.type || 'error', error: e });
-                    });
-                });
-
-                if (!outcome.ok) {
-                    try { c.close(); } catch {}
-                    throw outcome;
-                }
-
-                roomLobbyConn = c;
-                c.on('data', handleLobbyData);
-                c.on('close', () => {
-                    roomLobbyConn = null;
-                    toast('房间发现服务断开', 'warn', '将尝试重新加入/重新选举');
-                    // best-effort rejoin
-                    if (roomName) {
-                        setTimeout(() => joinRoom(roomName, { silent: true, retry: true }), 800);
-                    }
-                });
-                c.on('error', (e) => {
-                    toast('房间发现服务错误', 'error', e?.message || String(e));
-                });
-
-                // host will send members list
-                toast('已加入房间', 'success', roomName);
-                updateConnectionStatus();
-            }
-
-            function handleLobbyData(data) {
-                if (typeof data === 'string') {
-                    try { data = JSON.parse(data); } catch { /* ignore */ }
-                }
-                if (!data || typeof data !== 'object') return;
-
-                if (data.t === 'room-members' && Array.isArray(data.peers)) {
-                    roomMembers.clear();
-                    for (const pid of data.peers) roomMembers.add(pid);
-                    if (peer?.id) roomMembers.add(peer.id);
-                    updateRoomMembersUI();
-                    updateShareLink();
-                    for (const pid of data.peers) connectMeshPeer(pid);
-                    connectAllRoomMembers();
-                    return;
-                }
-
-                if (data.t === 'room-peer-joined' && data.peerId) {
-                    roomMembers.add(data.peerId);
-                    updateRoomMembersUI();
-                    connectMeshPeer(data.peerId);
-                    connectAllRoomMembers();
-                    return;
-                }
-
-                if (data.t === 'room-peer-left' && data.peerId) {
-                    roomMembers.delete(data.peerId);
-                    const c = meshConns.get(data.peerId);
-                    if (c) { try { c.close(); } catch {} }
-                    updateRoomMembersUI();
-                    updateConnectionStatus();
-                    return;
-                }
-            }
-
-            function startRoomHost(roomPid) {
-                // Create a dedicated Peer to act as lobby/registry for this room.
-                if (roomPeer) {
-                    try { roomPeer.destroy(); } catch {}
-                    roomPeer = null;
-                }
-
-                const rp = new Peer(roomPid);
-                roomPeer = rp;
-
-                const lobbyClients = new Map(); // peerId -> conn
-                roomMembers.clear();
-                if (peer?.id) roomMembers.add(peer.id);
-                updateRoomMembersUI();
-                updateShareLink();
-
-                rp.on('open', () => {
-                    toast('房间已创建', 'success', roomName);
-                    updateConnectionStatus();
-                });
-
-                rp.on('connection', (c) => {
-                    // client main peer id is c.peer
-                    lobbyClients.set(c.peer, c);
-                    roomMembers.add(c.peer);
-                    updateRoomMembersUI();
-
-                    // send current roster to new client
-                    sendToConn(c, { t: 'room-members', peers: Array.from(roomMembers) });
-
-                    // notify others
-                    for (const [pid, oc] of lobbyClients.entries()) {
-                        if (!oc || !oc.open) continue;
-                        if (pid === c.peer) continue;
-                        sendToConn(oc, { t: 'room-peer-joined', peerId: c.peer });
-                    }
-                    toast('成员加入房间', 'info', c.peer);
-                    connectAllRoomMembers();
-
-                    c.on('close', () => {
-                        lobbyClients.delete(c.peer);
-                        roomMembers.delete(c.peer);
-                        updateRoomMembersUI();
-                        for (const oc of lobbyClients.values()) {
-                            sendToConn(oc, { t: 'room-peer-left', peerId: c.peer });
-                        }
-                        toast('成员离开房间', 'info', c.peer);
-                    });
-                });
-
-                rp.on('error', (e) => {
-                    if (e?.type === 'unavailable-id') {
-                        // someone else became host first; fallback to client join
-                        toast('房间已存在，切换为加入模式', 'info', roomName);
-                        try { rp.destroy(); } catch {}
-                        roomPeer = null;
-                        connectToLobby(roomPid).catch(() => {
-                            toast('加入房间失败', 'error', '请稍后重试');
-                        });
-                        return;
-                    }
-                    toast('房间服务错误', 'error', e?.message || e?.type || 'room host error');
-                });
-            }
-
-            async function joinRoom(name, opts = {}) {
-                const desired = sanitizeRoomName(name);
-                if (!desired) {
-                    if (!opts.silent) toast('请输入房间号', 'warn', '仅支持字母/数字/-/_');
-                    return;
-                }
-                if (!peer || !peer.id) {
-                    if (!opts.silent) toast('Peer 未就绪', 'warn');
-                    return;
-                }
-
-                // if switching rooms, leave first
-                if (roomName && roomName !== desired) leaveRoom({ keepURL: false });
-
-                roomName = desired;
-                roomPeerId = makeRoomPeerId(roomName);
-                setURLRoom(roomName);
-                roomNameEl.value = roomName;
-                updateShareLink();
-                roomMembers.clear();
-                roomMembers.add(peer.id);
-                updateRoomMembersUI();
-
-                // Try join existing lobby first; if not exists, become host.
-                try {
-                    await connectToLobby(roomPeerId);
-                } catch (outcome) {
-                    const type = outcome?.type || 'error';
-                    if (type === 'peer-unavailable' || type === 'timeout') {
-                        if (!opts.silent) toast('未发现房间服务，正在创建…', 'info', roomName);
-                        startRoomHost(roomPeerId);
-                    } else {
-                        if (!opts.silent) toast('加入房间失败', 'error', outcome?.error?.message || type);
-                        if (!opts.retry) {
-                            // fallback: try host once
-                            startRoomHost(roomPeerId);
-                        }
-                    }
-                } finally {
-                    updateConnectionStatus();
-                }
-            }
-
-            function leaveRoom({ keepURL = true } = {}) {
-                if (!roomName) return;
-                if (roomLobbyConn) {
-                    try { roomLobbyConn.close(); } catch {}
-                    roomLobbyConn = null;
-                }
-                if (roomPeer) {
-                    try { roomPeer.destroy(); } catch {}
-                    roomPeer = null;
-                }
-                roomName = '';
-                roomPeerId = '';
-                roomMembers.clear();
-                if (!keepURL) setURLRoom('');
-                updateRoomMembersUI();
-                updateConnectionStatus();
-            }
-
             // ---------- State ----------
-            let peer = null; // main peer (auto id)
-
-            // mesh connections between members (peerId -> DataConnection)
-            const meshConns = new Map();
-
-            // room lobby: deterministic peerId for rendezvous (optional host)
-            // NOTE: avoid underscores - some PeerJS deployments reject them as invalid IDs
-            const ROOM_PREFIX = 'wuklocaldrop-room-';
-            let roomName = '';
-            let roomPeerId = '';
-            let roomLobbyConn = null; // DataConnection to roomPeerId (if we are a client)
-            let roomPeer = null; // dedicated Peer instance if we become the room host
-            const roomMembers = new Set(); // known peer ids in room (including self)
-
+            let peer = null;
+            let conn = null;
             let currentRemoteId = '';
 
             let localStream = null;
@@ -776,33 +384,23 @@
             // ---------- Elements ----------
             const myIdEl = $('my-id');
             const btnCopyId = $('btn-copy-id');
+            const shareLinkWrap = $('share-link-wrap');
+            const shareLinkEl = $('share-link');
+            const btnCopyShareLink = $('btn-copy-share-link');
             const remoteIdEl = $('remote-id');
             const btnConnect = $('btn-connect');
             const btnDisconnect = $('btn-disconnect');
             const btnReset = $('btn-reset');
             const btnPasteId = $('btn-paste-id');
 
-            const roomNameEl = $('room-name');
-            const btnJoinRoom = $('btn-join-room');
-            const roomBadge = $('room-badge');
-            const roomLinkWrap = $('room-link-wrap');
-            const roomLinkEl = $('room-link');
-            const btnCopyRoomLink = $('btn-copy-room-link');
-            const roomMembersWrap = $('room-members-wrap');
-            const roomMembersCount = $('room-members-count');
-            const roomMembersList = $('room-members-list');
-            const btnConnectAll = $('btn-connect-all');
-
             const chatInput = $('chat-input');
-            const btnSendChat = $('btn-send-chat'); // Broadcast
-            const btnSendDirect = $('btn-send-direct');
+            const btnSendChat = $('btn-send-chat');
             const chatForm = $('chat-form');
             const btnClearChat = $('btn-clear-chat');
 
             const fileInput = $('file-input');
             const fileSelected = $('file-selected');
-            const btnSendFile = $('btn-send-file'); // Broadcast
-            const btnSendFileDirect = $('btn-send-file-direct');
+            const btnSendFile = $('btn-send-file');
             const fileHint = $('file-conn-hint');
             const fileProgressWrap = $('file-progress-wrap');
             const fileProgressLabel = $('file-progress-label');
@@ -821,103 +419,14 @@
             const remoteAudio = $('remote-audio');
 
             // ---------- UI enable/disable ----------
-            function openMeshCount() {
-                let n = 0;
-                for (const c of meshConns.values()) if (c && c.open) n++;
-                return n;
-            }
-
-            function isPeerConnected(peerId) {
-                const c = meshConns.get(peerId);
-                return !!(c && c.open);
-            }
-
-            function connectAllRoomMembers() {
-                if (!roomName) return;
-                for (const pid of roomMembers) {
-                    if (pid && pid !== peer?.id) connectMeshPeer(pid);
-                }
-            }
-
-            function updateRoomMembersUI() {
-                const inRoom = !!roomName;
-                if (!inRoom) {
-                    roomBadge.classList.add('hidden');
-                    roomLinkWrap.classList.add('hidden');
-                    roomMembersWrap.classList.add('hidden');
-                    btnCopyRoomLink.disabled = true;
-                    if (btnConnectAll) btnConnectAll.disabled = true;
-                    return;
-                }
-
-                roomBadge.classList.remove('hidden');
-                roomLinkWrap.classList.remove('hidden');
-                roomMembersWrap.classList.remove('hidden');
-
-                const members = Array.from(roomMembers);
-                roomMembersCount.textContent = `${members.length}`;
-                roomMembersList.innerHTML = '';
-                if (btnConnectAll) btnConnectAll.disabled = members.length <= 1;
-
-                for (const id of members.slice(0, 30)) {
-                    const pill = document.createElement('button');
-                    pill.type = 'button';
-                    pill.className = [
-                        'text-[11px] font-bold px-3 py-1.5 rounded-xl border transition-colors',
-                        id === peer?.id
-                            ? 'bg-emerald-100 text-emerald-800 border-emerald-200/70 dark:bg-emerald-900/20 dark:text-emerald-200 dark:border-emerald-900/40'
-                            : (isPeerConnected(id)
-                                ? 'bg-sky-100 text-sky-800 border-sky-200/70 hover:bg-sky-200 dark:bg-sky-900/20 dark:text-sky-200 dark:border-sky-900/40 dark:hover:bg-sky-900/35'
-                                : 'bg-slate-50 text-slate-700 border-slate-200/70 hover:bg-slate-100 dark:bg-slate-900/30 dark:text-slate-200 dark:border-slate-700/60 dark:hover:bg-slate-900/60')
-                    ].join(' ');
-                    pill.textContent = id === peer?.id ? 'You' : id;
-                    pill.title = id;
-                    pill.addEventListener('click', () => {
-                        if (!id || id === peer?.id) return;
-                        remoteIdEl.value = id;
-                        setActiveRemoteId(id);
-                        connectMeshPeer(id); // one-click connect
-                        toast('正在连接成员', 'info', id);
-                    });
-                    roomMembersList.appendChild(pill);
-                }
-
-                if (members.length > 30) {
-                    const more = document.createElement('div');
-                    more.className = 'text-[11px] text-slate-500 dark:text-slate-400 px-2 py-1';
-                    more.textContent = `+${members.length - 30} more…`;
-                    roomMembersList.appendChild(more);
-                }
-            }
-
-            function updateShareLink() {
-                if (!roomName) return;
-                const u = new URL(window.location.href);
-                u.searchParams.set('room', roomName);
-                roomLinkEl.value = u.toString();
-                btnCopyRoomLink.disabled = false;
-            }
-
-            function updateConnectionStatus() {
-                const count = openMeshCount();
-                if (count > 0) {
-                    setStatus('connected', `${count} peer${count > 1 ? 's' : ''}`);
-                } else {
-                    setStatus('disconnected', roomName ? `Room: ${roomName}` : 'Ready');
-                }
-
-                const isConnected = count > 0;
+            function setConnectedUI(isConnected) {
                 chatInput.disabled = !isConnected;
-                btnSendChat.disabled = !isConnected; // broadcast
-                btnSendDirect.disabled = !isConnected || !currentRemoteId || !isPeerConnected(currentRemoteId);
+                btnSendChat.disabled = !isConnected;
                 fileInput.disabled = !isConnected;
-
-                btnSendFile.disabled = !isConnected || !selectedFile || outgoingSending; // broadcast
-                btnSendFileDirect.disabled = !isConnected || !selectedFile || outgoingSending || !currentRemoteId || !isPeerConnected(currentRemoteId);
-
-                btnDisconnect.disabled = !isConnected && !roomName;
+                btnSendFile.disabled = !isConnected || !selectedFile || outgoingSending;
+                btnDisconnect.disabled = !isConnected;
                 btnCall.disabled = !currentRemoteId;
-                fileHint.textContent = isConnected ? (roomName ? `Broadcast to ${count}` : 'Ready') : 'Connect first';
+                fileHint.textContent = isConnected ? 'Ready' : 'Connect first';
             }
 
             function resetFileUI() {
@@ -925,7 +434,7 @@
                 fileInput.value = '';
                 fileSelected.textContent = 'No file selected';
                 outgoingSending = false;
-                btnSendFile.disabled = openMeshCount() === 0;
+                btnSendFile.disabled = !conn?.open;
                 fileProgressWrap.classList.add('hidden');
                 fileProgressBar.style.width = '0%';
                 fileProgressPct.textContent = '0%';
@@ -951,13 +460,12 @@
             }
 
             // ---------- Connection helpers ----------
-            function closeAllMesh(reason = '') {
-                for (const c of meshConns.values()) {
-                    try { c.close(); } catch {}
-                }
-                meshConns.clear();
-                if (reason) setStatus('disconnected', reason);
-                updateConnectionStatus();
+            function closeConn(reason = '') {
+                try { conn?.close(); } catch {}
+                conn = null;
+                setStatus('disconnected', reason || '');
+                setConnectedUI(false);
+                btnDisconnect.disabled = true;
             }
 
             function setActiveRemoteId(id) {
@@ -967,22 +475,21 @@
             }
 
             // ---------- Data messaging ----------
-            function sendToConn(c, payload) {
-                if (!c || !c.open) return false;
-                try { c.send(payload); return true; } catch { return false; }
-            }
-
-            function broadcast(payload, excludePeerId = '') {
-                let sent = 0;
-                for (const [pid, c] of meshConns.entries()) {
-                    if (!c || !c.open) continue;
-                    if (excludePeerId && pid === excludePeerId) continue;
-                    if (sendToConn(c, payload)) sent++;
+            function sendData(payload) {
+                if (!conn || !conn.open) {
+                    toast('未连接到对端', 'error');
+                    return false;
                 }
-                return sent;
+                try {
+                    conn.send(payload);
+                    return true;
+                } catch (e) {
+                    toast('发送失败', 'error', e?.message || String(e));
+                    return false;
+                }
             }
 
-            function handleIncomingData(data, fromPeerId = '') {
+            function handleIncomingData(data) {
                 // PeerJS delivers: string | object | ArrayBuffer
                 if (typeof data === 'string') {
                     // try JSON
@@ -991,14 +498,7 @@
 
                 if (data && typeof data === 'object' && data.t) {
                     if (data.t === 'chat') {
-                        addChatMessage('peer', data.text || '', { time: data.time || nowTime(), from: fromPeerId || data.from || 'Peer' });
-                        return;
-                    }
-                    if (data.t === 'mesh-hello') {
-                        // mesh discovery handshake
-                        if (data.room && roomName && data.room !== roomName) return;
-                        const peers = Array.isArray(data.peers) ? data.peers : [];
-                        for (const pid of peers) connectMeshPeer(pid);
+                        addChatMessage('peer', data.text || '', { time: data.time || nowTime() });
                         return;
                     }
                     if (data.t === 'file-meta') {
@@ -1010,7 +510,7 @@
                             chunks: [],
                             startedAt: Date.now(),
                         });
-                        toast('开始接收文件', 'info', `${data.name} (${formatBytes(data.size)}) · From ${fromPeerId || 'Peer'}`);
+                        toast('开始接收文件', 'info', `${data.name} (${formatBytes(data.size)})`);
                         renderReceivingRow(id, { name: data.name, size: data.size, type: data.type }, 0, 'receiving');
                         return;
                     }
@@ -1103,73 +603,70 @@
             }
 
             // ---------- File send ----------
-            async function waitForBufferedAmountBelow(c, thresholdBytes = 4 * 1024 * 1024) {
-                // PeerJS internal: c._dc is RTCPeerConnection DataChannel
-                const dc = c && c._dc;
+            async function waitForBufferedAmountBelow(thresholdBytes = 4 * 1024 * 1024) {
+                // PeerJS internal: conn._dc is RTCPeerConnection DataChannel
+                const dc = conn && conn._dc;
                 if (!dc) return;
                 while (dc.bufferedAmount > thresholdBytes) {
                     await sleep(25);
                 }
             }
 
-            async function sendFileToConn(c, peerId, file, fileId) {
-                const meta = { t: 'file-meta', id: fileId, name: file.name, size: file.size, type: file.type, from: peer?.id || '' };
-                if (!sendToConn(c, meta)) throw new Error(`send meta failed (${peerId})`);
+            async function sendFile(file) {
+                if (!file) return;
+                if (!conn || !conn.open) {
+                    toast('请先连接到对端', 'error');
+                    return;
+                }
+                if (outgoingSending) return;
+                outgoingSending = true;
+                btnSendFile.disabled = true;
+                fileProgressWrap.classList.remove('hidden');
+                fileProgressLabel.textContent = 'Sending…';
+                fileProgressPct.textContent = '0%';
+                fileProgressBar.style.width = '0%';
+
+                const id = uuid();
+                const meta = { t: 'file-meta', id, name: file.name, size: file.size, type: file.type };
+                toast('开始发送文件', 'info', `${file.name} (${formatBytes(file.size)})`);
+                if (!sendData(meta)) {
+                    outgoingSending = false;
+                    setConnectedUI(!!conn?.open);
+                    return;
+                }
 
                 const chunkSize = 16 * 1024; // conservative for broad compatibility
                 let offset = 0;
                 let seq = 0;
-                while (offset < file.size) {
-                    const slice = file.slice(offset, offset + chunkSize);
-                    const buf = await slice.arrayBuffer();
-                    const ok = sendToConn(c, { t: 'file-chunk', id: fileId, seq, data: buf });
-                    if (!ok) throw new Error(`send chunk failed (${peerId})`);
-                    offset += buf.byteLength;
-                    seq++;
-                    await waitForBufferedAmountBelow(c);
-                }
-                sendToConn(c, { t: 'file-end', id: fileId });
-            }
-
-            async function sendFileToAll(file) {
-                if (!file) return;
-                const targets = Array.from(meshConns.entries()).filter(([, c]) => c && c.open);
-                if (targets.length === 0) return toast('请先连接到对端', 'error');
-                if (outgoingSending) return;
-
-                outgoingSending = true;
-                btnSendFile.disabled = true;
-                fileProgressWrap.classList.remove('hidden');
-                fileProgressPct.textContent = '0%';
-                fileProgressBar.style.width = '0%';
-
-                const baseId = `${peer?.id || 'me'}:${uuid()}`;
-                toast('开始群发文件', 'info', `${file.name} · ${targets.length} peer(s)`);
-
                 try {
-                    for (let i = 0; i < targets.length; i++) {
-                        const [pid, c] = targets[i];
-                        const fileId = `${baseId}:${pid}`;
+                    while (offset < file.size) {
+                        const slice = file.slice(offset, offset + chunkSize);
+                        const buf = await slice.arrayBuffer();
+                        const ok = sendData({ t: 'file-chunk', id, seq, data: buf });
+                        if (!ok) throw new Error('send chunk failed');
 
-                        fileProgressLabel.textContent = `Sending to ${pid} (${i + 1}/${targets.length})…`;
-                        await sendFileToConn(c, pid, file, fileId);
-
-                        const pct = Math.min(100, Math.floor(((i + 1) / targets.length) * 100));
+                        offset += buf.byteLength;
+                        seq++;
+                        const pct = Math.min(100, Math.floor((offset / file.size) * 100));
                         fileProgressPct.textContent = `${pct}%`;
                         fileProgressBar.style.width = `${pct}%`;
+                        fileProgressLabel.textContent = `Sending… ${formatBytes(offset)} / ${formatBytes(file.size)}`;
+
+                        await waitForBufferedAmountBelow();
                     }
 
-                    fileProgressLabel.textContent = 'Sent.';
+                    sendData({ t: 'file-end', id });
                     fileProgressPct.textContent = '100%';
                     fileProgressBar.style.width = '100%';
-                    toast('文件群发完成', 'success', file.name);
+                    fileProgressLabel.textContent = 'Sent.';
+                    toast('文件发送完成', 'success', file.name);
                 } catch (e) {
-                    toast('文件群发失败', 'error', e?.message || String(e));
+                    toast('文件发送失败', 'error', e?.message || String(e));
                 } finally {
                     outgoingSending = false;
                     setTimeout(() => fileProgressWrap.classList.add('hidden'), 900);
                     resetFileUI();
-                    updateConnectionStatus();
+                    setConnectedUI(!!conn?.open);
                 }
             }
 
@@ -1282,6 +779,52 @@
                 toast(isMuted ? '已静音' : '已取消静音', 'info');
             }
 
+            async function copyText(text) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                    return true;
+                } catch {
+                    try {
+                        const ta = document.createElement('textarea');
+                        ta.value = text;
+                        document.body.appendChild(ta);
+                        ta.select();
+                        document.execCommand('copy');
+                        ta.remove();
+                        return true;
+                    } catch {
+                        return false;
+                    }
+                }
+            }
+
+            function getConnectTargetFromURL() {
+                try {
+                    const u = new URL(window.location.href);
+                    return (
+                        u.searchParams.get('connect') ||
+                        u.searchParams.get('remote') ||
+                        u.searchParams.get('peer') ||
+                        ''
+                    ).trim();
+                } catch {
+                    return '';
+                }
+            }
+
+            function buildShareLinkForMyId(myId) {
+                try {
+                    const u = new URL(window.location.href);
+                    u.searchParams.set('connect', myId);
+                    // keep other params (if any), but avoid duplicate aliases
+                    u.searchParams.delete('remote');
+                    u.searchParams.delete('peer');
+                    return u.toString();
+                } catch {
+                    return '';
+                }
+            }
+
             // ---------- Peer lifecycle ----------
             async function initPeer() {
                 setStatus('connecting', 'PeerJS');
@@ -1289,7 +832,7 @@
                 btnCopyId.disabled = true;
                 btnConnect.disabled = true;
                 btnCall.disabled = true;
-                updateConnectionStatus();
+                setConnectedUI(false);
                 resetCallUI();
 
                 const ok = await ensurePeerJSLoaded();
@@ -1308,21 +851,34 @@
                     myIdEl.textContent = id;
                     btnCopyId.disabled = false;
                     btnConnect.disabled = false;
-                    btnJoinRoom.disabled = false;
                     setStatus('disconnected', 'Ready');
                     toast('Peer 已就绪', 'success', `My ID: ${id}`);
 
-                    // auto-join room from URL
-                    const urlRoom = sanitizeRoomName(getRoomFromURL());
-                    if (urlRoom) {
-                        roomNameEl.value = urlRoom;
-                        joinRoom(urlRoom, { silent: true });
+                    // Build & show share link
+                    const link = buildShareLinkForMyId(id);
+                    if (link) {
+                        shareLinkEl.value = link;
+                        shareLinkWrap.classList.remove('hidden');
+                        btnCopyShareLink.disabled = false;
+                    }
+
+                    // Auto-connect if opened via shared link
+                    const target = getConnectTargetFromURL();
+                    if (target && target !== id) {
+                        remoteIdEl.value = target;
+                        setActiveRemoteId(target);
+                        // slight delay to let UI paint and Peer settle
+                        setTimeout(() => connectToRemote(), 120);
                     }
                 });
 
                 peer.on('connection', (c) => {
-                    // mesh incoming connection
-                    bindMeshConnection(c, 'incoming');
+                    // Single active connection: replace existing
+                    if (conn && conn.open) {
+                        try { conn.close(); } catch {}
+                    }
+                    conn = c;
+                    bindConnection(conn, 'incoming');
                 });
 
                 peer.on('call', (call) => {
@@ -1351,17 +907,6 @@
                 });
 
                 peer.on('error', (e) => {
-                    // PeerJS sometimes emits peer-unavailable when dialing a peer that doesn't exist yet.
-                    // In our room flow, we intentionally probe the room lobby id first; failure is expected.
-                    const msgText = (e?.message || '').toString();
-                    const isRoomDial =
-                        msgText.includes('Could not connect to peer') &&
-                        msgText.includes(ROOM_PREFIX);
-
-                    if (e?.type === 'peer-unavailable' || isRoomDial) {
-                        return;
-                    }
-
                     const msg = e?.type ? `${e.type}` : 'peer error';
                     toast('Peer 错误', 'error', e?.message || msg);
                     setStatus('disconnected', e?.type || 'Error');
@@ -1373,6 +918,38 @@
                 });
             }
 
+            function bindConnection(c, mode) {
+                try { c.binaryType = 'arraybuffer'; } catch {}
+                setActiveRemoteId(c.peer);
+                setStatus('connecting', c.peer);
+
+                c.on('open', () => {
+                    setStatus('connected', c.peer);
+                    toast('已连接到对端', 'success', c.peer);
+                    setConnectedUI(true);
+                });
+
+                c.on('data', handleIncomingData);
+
+                c.on('close', () => {
+                    toast('连接已关闭', 'info');
+                    closeConn('');
+                    resetFileUI();
+                    resetCallUI();
+                });
+
+                c.on('error', (e) => {
+                    toast('连接错误', 'error', e?.message || String(e));
+                    closeConn('Error');
+                });
+
+                // Make UI usable even while connecting
+                setConnectedUI(false);
+                btnDisconnect.disabled = false;
+                btnCall.disabled = !currentRemoteId;
+                if (mode === 'outgoing') toast('正在建立连接…', 'info', c.peer);
+            }
+
             function connectToRemote() {
                 const rid = remoteIdEl.value.trim();
                 if (!rid) return toast('请输入 Remote ID', 'warn');
@@ -1380,14 +957,19 @@
                 if (rid === peer.id) return toast('不能连接到自己', 'warn');
                 setActiveRemoteId(rid);
 
-                const existing = meshConns.get(rid);
-                if (existing && existing.open) {
+                if (conn && conn.open && conn.peer === rid) {
                     toast('已连接到该对端', 'info');
                     return;
                 }
 
+                if (conn && conn.open) {
+                    try { conn.close(); } catch {}
+                }
+
                 try {
-                    connectMeshPeer(rid);
+                    const c = peer.connect(rid, { reliable: true });
+                    conn = c;
+                    bindConnection(conn, 'outgoing');
                 } catch (e) {
                     toast('连接失败', 'error', e?.message || String(e));
                     setStatus('disconnected', 'Connect failed');
@@ -1396,10 +978,9 @@
 
             function disconnect() {
                 hangup();
-                closeAllMesh('');
-                leaveRoom({ keepURL: false });
+                closeConn('');
                 resetFileUI();
-                updateConnectionStatus();
+                setConnectedUI(false);
                 toast('已断开连接', 'info');
             }
 
@@ -1417,7 +998,15 @@
             btnCopyId.addEventListener('click', async () => {
                 const id = myIdEl.textContent.trim();
                 if (!id || id === 'Initializing…') return;
-                await copyToClipboard(id, '已复制 My ID');
+                const ok = await copyText(id);
+                toast(ok ? '已复制 My ID' : '复制失败', ok ? 'success' : 'error');
+            });
+
+            btnCopyShareLink.addEventListener('click', async () => {
+                const link = (shareLinkEl.value || '').trim();
+                if (!link) return;
+                const ok = await copyText(link);
+                toast(ok ? '已复制分享链接' : '复制失败', ok ? 'success' : 'error');
             });
 
             btnPasteId.addEventListener('click', async () => {
@@ -1429,24 +1018,6 @@
                     toast('无法读取剪贴板', 'warn', '请手动粘贴 Remote ID');
                 }
             });
-
-            btnJoinRoom.addEventListener('click', () => joinRoom(roomNameEl.value));
-            roomNameEl.addEventListener('keydown', (e) => {
-                if (e.key === 'Enter') joinRoom(roomNameEl.value);
-            });
-            btnCopyRoomLink.addEventListener('click', async () => {
-                if (!roomName) return;
-                updateShareLink();
-                await copyToClipboard(roomLinkEl.value, '已复制房间链接');
-            });
-
-            if (btnConnectAll) {
-                btnConnectAll.addEventListener('click', () => {
-                    if (!roomName) return;
-                    connectAllRoomMembers();
-                    toast('正在连接全员…', 'info');
-                });
-            }
 
             btnConnect.addEventListener('click', connectToRemote);
             remoteIdEl.addEventListener('keydown', (e) => {
@@ -1460,35 +1031,10 @@
                 e.preventDefault();
                 const text = chatInput.value.trim();
                 if (!text) return;
-                const payload = { t: 'chat', text, time: nowTime(), from: peer?.id || '' };
-                const sent = broadcast(payload);
-                if (sent > 0) {
-                    addChatMessage('me', text, { time: payload.time });
+                if (sendData({ t: 'chat', text, time: nowTime() })) {
+                    addChatMessage('me', text, { time: nowTime() });
                     chatInput.value = '';
                     chatInput.focus();
-                    toast('已群发消息', 'success', `${sent} peer(s)`);
-                } else {
-                    toast('未连接到对端', 'error');
-                }
-            });
-
-            btnSendDirect.addEventListener('click', () => {
-                const text = chatInput.value.trim();
-                if (!text) return;
-                if (!currentRemoteId) return toast('请选择一个成员', 'warn');
-                const c = meshConns.get(currentRemoteId);
-                if (!c || !c.open) {
-                    connectMeshPeer(currentRemoteId);
-                    return toast('正在连接成员…', 'info', currentRemoteId);
-                }
-                const payload = { t: 'chat', text, time: nowTime(), from: peer?.id || '' };
-                if (sendToConn(c, payload)) {
-                    addChatMessage('me', text, { time: payload.time });
-                    chatInput.value = '';
-                    chatInput.focus();
-                    toast('已直发消息', 'success', currentRemoteId);
-                } else {
-                    toast('直发失败', 'error', currentRemoteId);
                 }
             });
 
@@ -1499,53 +1045,12 @@
             fileInput.addEventListener('change', () => {
                 selectedFile = fileInput.files && fileInput.files[0] ? fileInput.files[0] : null;
                 fileSelected.textContent = selectedFile ? `${selectedFile.name} · ${formatBytes(selectedFile.size)}${selectedFile.type ? ` · ${selectedFile.type}` : ''}` : 'No file selected';
-                btnSendFile.disabled = openMeshCount() === 0 || !selectedFile || outgoingSending;
-                updateConnectionStatus();
+                btnSendFile.disabled = !conn?.open || !selectedFile || outgoingSending;
             });
 
             btnSendFile.addEventListener('click', async () => {
                 if (!selectedFile) return toast('请选择文件', 'warn');
-                await sendFileToAll(selectedFile);
-            });
-
-            async function sendFileToPeer(peerId, file) {
-                const c = meshConns.get(peerId);
-                if (!c || !c.open) {
-                    connectMeshPeer(peerId);
-                    toast('正在连接成员…', 'info', peerId);
-                    return;
-                }
-                if (outgoingSending) return;
-
-                outgoingSending = true;
-                btnSendFile.disabled = true;
-                btnSendFileDirect.disabled = true;
-                fileProgressWrap.classList.remove('hidden');
-                fileProgressPct.textContent = '0%';
-                fileProgressBar.style.width = '0%';
-                fileProgressLabel.textContent = `Sending to ${peerId}…`;
-
-                const fileId = `${peer?.id || 'me'}:${uuid()}:${peerId}`;
-                try {
-                    await sendFileToConn(c, peerId, file, fileId);
-                    fileProgressPct.textContent = '100%';
-                    fileProgressBar.style.width = '100%';
-                    fileProgressLabel.textContent = 'Sent.';
-                    toast('文件已直发', 'success', `${peerId}`);
-                } catch (e) {
-                    toast('文件直发失败', 'error', e?.message || String(e));
-                } finally {
-                    outgoingSending = false;
-                    setTimeout(() => fileProgressWrap.classList.add('hidden'), 900);
-                    resetFileUI();
-                    updateConnectionStatus();
-                }
-            }
-
-            btnSendFileDirect.addEventListener('click', async () => {
-                if (!selectedFile) return toast('请选择文件', 'warn');
-                if (!currentRemoteId) return toast('请选择一个成员', 'warn');
-                await sendFileToPeer(currentRemoteId, selectedFile);
+                await sendFile(selectedFile);
             });
 
             btnClearReceived.addEventListener('click', () => {
@@ -1562,17 +1067,7 @@
             clearReceivedUI();
             setStatus('connecting', 'Boot');
             setCallStatus('idle');
-            updateRoomMembersUI();
-            updateConnectionStatus();
-
-            // Prefill a random room name (unless URL already specifies one)
-            const initialRoomFromUrl = sanitizeRoomName(getRoomFromURL());
-            if (initialRoomFromUrl) {
-                roomNameEl.value = initialRoomFromUrl;
-            } else if (!roomNameEl.value.trim()) {
-                roomNameEl.value = generateRandomRoomName();
-            }
-
+            setConnectedUI(false);
             initPeer();
         });
     </script>
