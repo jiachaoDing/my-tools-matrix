@@ -6,7 +6,7 @@ window.toolsConfig = {
       tools: [
         {
           name: "Guitar Tuner",
-          description: "Tune your guitar with real-time mic pitch detection (standard + popular alternate tunings).",
+          description: "Professional instrument tuner for guitar, bass, and ukulele. Uses advanced pitch detection with cents deviation and auto-string matching.",
           url: "/guitar-tuner/",
           tags: ["audio", "music", "guitar", "tuner", "pitch", "microphone", "cents", "chromatic", "tuning"],
         },
