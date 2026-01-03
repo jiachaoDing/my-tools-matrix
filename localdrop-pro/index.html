@@ -3,12 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LocalDrop Pro - P2P Chat, File Transfer & Voice | WebUtilityKit</title>
-    <meta name="description" content="LocalDrop Pro is a privacy-first P2P communication app with real-time chat, secure file transfer, and voice calls—powered by WebRTC via PeerJS. Runs 100% in your browser.">
+    <title>LocalDrop Pro - Secure P2P Chat & File Transfer | WebUtilityKit</title>
+    <meta name="description" content="LocalDrop Pro: Free, secure peer-to-peer chat and file transfer tool. Real-time messaging, instant file sharing via WebRTC. No accounts, no uploads, 100% browser-based. Privacy-first communication platform.">
+    <meta name="keywords" content="P2P chat, file transfer, WebRTC, peer-to-peer, secure messaging, local file sharing, browser-based communication, privacy-first tools, real-time chat, instant file transfer">
+    <meta name="author" content="WebUtilityKit">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+    <meta property="og:title" content="LocalDrop Pro - Secure P2P Chat & File Transfer">
+    <meta property="og:description" content="Free peer-to-peer chat and file transfer tool. Real-time messaging, instant file sharing via WebRTC. No accounts required, 100% browser-based.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/localdrop-pro/">
+    <meta property="og:image" content="https://webutilitykit.com/assets/images/localdrop-pro-og.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="LocalDrop Pro - Secure P2P Chat & File Transfer">
+    <meta name="twitter:description" content="Free peer-to-peer chat and file transfer tool. Real-time messaging, instant file sharing via WebRTC. No accounts required, 100% browser-based.">
     <link href="../assets/css/styles.css" rel="stylesheet">
     <link rel="canonical" href="https://webutilitykit.com/localdrop-pro/">
     <script src="/tools-config.js"></script>
     <script src="/assets/js/app.js" defer></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "LocalDrop Pro",
+      "description": "Free, secure peer-to-peer chat and file transfer tool powered by WebRTC. Real-time messaging and instant file sharing with no accounts or uploads required.",
+      "url": "https://webutilitykit.com/localdrop-pro/",
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Peer-to-peer chat",
+        "Secure file transfer",
+        "WebRTC powered",
+        "No account required",
+        "100% browser-based",
+        "Privacy-first design"
+      ],
+      "author": {
+        "@type": "Organization",
+        "name": "WebUtilityKit"
+      }
+    }
+    </script>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
 
@@ -18,7 +58,7 @@
 
         <div class="max-w-4xl mx-auto text-center mb-10">
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">LocalDrop Pro</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">P2P chat, file transfer, and voice calls—powered by WebRTC. No accounts, no uploads. Just connect and go.</p>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Peer-to-peer chat and file transfer powered by WebRTC. No accounts, no cloud uploads. Connect directly and communicate securely.</p>
             <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 <span>100% Secure. Processed locally.</span>
@@ -113,43 +153,6 @@
                         </div>
                     </section>
 
-                    <!-- Voice Call -->
-                    <section class="bg-white dark:bg-slate-800/40 rounded-[2rem] p-6 border border-slate-100 dark:border-slate-700/50 flex flex-col">
-                        <div class="flex items-start justify-between gap-4 mb-4">
-                            <div>
-                                <h2 class="text-sm font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Voice</h2>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Audio calls are direct P2P over WebRTC.</p>
-                            </div>
-                            <div class="text-xs font-semibold px-2 py-1 rounded-xl bg-slate-100 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300" id="call-status-pill">Idle</div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2">
-                            <button id="btn-call" class="text-xs font-bold px-4 py-3 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors disabled:opacity-50" disabled>
-                                Start Call
-                            </button>
-                            <button id="btn-hangup" class="text-xs font-bold px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
-                                Hangup
-                            </button>
-                            <button id="btn-answer" class="text-xs font-bold px-4 py-3 rounded-2xl bg-emerald-600 text-white hover:bg-emerald-700 transition-colors disabled:opacity-50 hidden">
-                                Answer
-                            </button>
-                            <button id="btn-mute" class="text-xs font-bold px-4 py-3 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
-                                Mute
-                            </button>
-                        </div>
-
-                        <div class="mt-4 text-xs text-slate-500 dark:text-slate-400">
-                            <div class="flex items-center justify-between">
-                                <span>Mic</span>
-                                <span id="mic-state" class="font-semibold">Not ready</span>
-                            </div>
-                            <div class="flex items-center justify-between mt-1">
-                                <span>Remote audio</span>
-                                <span id="remote-audio-state" class="font-semibold">—</span>
-                            </div>
-                        </div>
-                    </section>
-
                 </div>
 
                 <!-- Right Column -->
@@ -233,9 +236,6 @@
         </div>
 
     </main>
-
-    <!-- Hidden audio element for remote stream -->
-    <audio id="remote-audio" autoplay playsinline class="hidden"></audio>
 
     <!-- Toast container -->
     <div id="toast-root" class="fixed bottom-4 right-4 z-[100] w-[92vw] max-w-sm space-y-2 pointer-events-none"></div>
@@ -327,19 +327,6 @@
                 detailEl.textContent = detail ? `· ${detail}` : '';
             }
 
-            function setCallStatus(state) {
-                const pill = $('call-status-pill');
-                const map = {
-                    idle: { t: 'Idle', c: 'bg-slate-100 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300' },
-                    ringing: { t: 'Incoming…', c: 'bg-amber-100 dark:bg-amber-900/20 text-amber-700 dark:text-amber-300' },
-                    calling: { t: 'Calling…', c: 'bg-sky-100 dark:bg-sky-900/20 text-sky-700 dark:text-sky-300' },
-                    in_call: { t: 'In Call', c: 'bg-emerald-100 dark:bg-emerald-900/20 text-emerald-700 dark:text-emerald-300' },
-                    ended: { t: 'Ended', c: 'bg-slate-100 dark:bg-slate-900/40 text-slate-600 dark:text-slate-300' },
-                };
-                const v = map[state] || map.idle;
-                pill.textContent = v.t;
-                pill.className = `text-xs font-semibold px-2 py-1 rounded-xl ${v.c}`;
-            }
 
             function addChatMessage(side, text, meta = {}) {
                 const log = $('chat-log');
@@ -378,7 +365,7 @@
             // ---------- PeerJS loading fallback ----------
             async function ensurePeerJSLoaded() {
                 if (window.Peer) return true;
-                toast('PeerJS 未检测到，尝试加载在线版本…', 'warn', '建议把 peerjs.min.js 放到 localdrop-pro/ 目录以离线使用');
+                toast('PeerJS not detected, loading online version…', 'warn', 'Place peerjs.min.js in localdrop-pro/ directory for offline use');
                 try {
                     await new Promise((resolve, reject) => {
                         const s = document.createElement('script');
@@ -398,10 +385,6 @@
             let conn = null;
             let currentRemoteId = '';
 
-            let localStream = null;
-            let currentCall = null;
-            let incomingCall = null;
-            let isMuted = false;
 
             const incomingTransfers = new Map(); // id -> { meta, receivedBytes, chunks, startedAt }
             let outgoingSending = false;
@@ -436,13 +419,6 @@
             const receivedEmpty = $('received-empty');
             const btnClearReceived = $('btn-clear-received');
 
-            const btnCall = $('btn-call');
-            const btnAnswer = $('btn-answer');
-            const btnHangup = $('btn-hangup');
-            const btnMute = $('btn-mute');
-            const micState = $('mic-state');
-            const remoteAudioState = $('remote-audio-state');
-            const remoteAudio = $('remote-audio');
 
             // ---------- UI enable/disable ----------
             function setConnectedUI(isConnected) {
@@ -451,7 +427,6 @@
                 fileInput.disabled = !isConnected;
                 btnSendFile.disabled = !isConnected || !selectedFile || outgoingSending;
                 btnDisconnect.disabled = !isConnected;
-                btnCall.disabled = !currentRemoteId;
                 fileHint.textContent = isConnected ? 'Ready' : 'Connect first';
             }
 
@@ -467,17 +442,6 @@
                 fileProgressLabel.textContent = 'Sending…';
             }
 
-            function resetCallUI() {
-                setCallStatus('idle');
-                btnAnswer.classList.add('hidden');
-                btnHangup.disabled = true;
-                btnMute.disabled = true;
-                btnCall.disabled = !currentRemoteId;
-                micState.textContent = 'Not ready';
-                remoteAudioState.textContent = '—';
-                isMuted = false;
-                btnMute.textContent = 'Mute';
-            }
 
             function clearReceivedUI() {
                 receivedList.innerHTML = '';
@@ -497,20 +461,19 @@
             function setActiveRemoteId(id) {
                 currentRemoteId = (id || '').trim();
                 if (remoteIdEl.value.trim() !== currentRemoteId) remoteIdEl.value = currentRemoteId;
-                btnCall.disabled = !currentRemoteId;
             }
 
             // ---------- Data messaging ----------
             function sendData(payload) {
                 if (!conn || !conn.open) {
-                    toast('未连接到对端', 'error');
+                    toast('Not connected to peer', 'error');
                     return false;
                 }
                 try {
                     conn.send(payload);
                     return true;
                 } catch (e) {
-                    toast('发送失败', 'error', e?.message || String(e));
+                    toast('Send failed', 'error', e?.message || String(e));
                     return false;
                 }
             }
@@ -536,7 +499,7 @@
                             chunks: [],
                             startedAt: Date.now(),
                         });
-                        toast('开始接收文件', 'info', `${data.name} (${formatBytes(data.size)})`);
+                        toast('Starting file reception', 'info', `${data.name} (${formatBytes(data.size)})`);
                         renderReceivingRow(id, { name: data.name, size: data.size, type: data.type }, 0, 'receiving');
                         return;
                     }
@@ -566,7 +529,7 @@
                             size: blob.size,
                             type: transfer.meta.type || 'application/octet-stream'
                         });
-                        toast('文件已接收', 'success', `${filename} (${formatBytes(blob.size)})`);
+                        toast('File received', 'success', `${filename} (${formatBytes(blob.size)})`);
                         return;
                     }
                 }
@@ -641,7 +604,7 @@
             async function sendFile(file) {
                 if (!file) return;
                 if (!conn || !conn.open) {
-                    toast('请先连接到对端', 'error');
+                    toast('Please connect to a peer first', 'error');
                     return;
                 }
                 if (outgoingSending) return;
@@ -654,7 +617,7 @@
 
                 const id = uuid();
                 const meta = { t: 'file-meta', id, name: file.name, size: file.size, type: file.type };
-                toast('开始发送文件', 'info', `${file.name} (${formatBytes(file.size)})`);
+                toast('Starting file transfer', 'info', `${file.name} (${formatBytes(file.size)})`);
                 if (!sendData(meta)) {
                     outgoingSending = false;
                     setConnectedUI(!!conn?.open);
@@ -685,9 +648,9 @@
                     fileProgressPct.textContent = '100%';
                     fileProgressBar.style.width = '100%';
                     fileProgressLabel.textContent = 'Sent.';
-                    toast('文件发送完成', 'success', file.name);
+                    toast('File transfer completed', 'success', file.name);
                 } catch (e) {
-                    toast('文件发送失败', 'error', e?.message || String(e));
+                    toast('File transfer failed', 'error', e?.message || String(e));
                 } finally {
                     outgoingSending = false;
                     setTimeout(() => fileProgressWrap.classList.add('hidden'), 900);
@@ -696,116 +659,6 @@
                 }
             }
 
-            // ---------- Voice ----------
-            async function ensureMic() {
-                if (localStream) return localStream;
-                try {
-                    micState.textContent = 'Requesting…';
-                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    localStream = stream;
-                    micState.textContent = 'Ready';
-                    return stream;
-                } catch (e) {
-                    micState.textContent = 'Denied';
-                    toast('麦克风权限被拒绝', 'error', e?.message || '请允许麦克风权限后重试');
-                    throw e;
-                }
-            }
-
-            function stopMic() {
-                try {
-                    localStream?.getTracks()?.forEach(t => t.stop());
-                } catch {}
-                localStream = null;
-                micState.textContent = 'Not ready';
-            }
-
-            function attachCallHandlers(call, modeLabel) {
-                currentCall = call;
-                setCallStatus(modeLabel === 'incoming' ? 'in_call' : 'calling');
-                btnHangup.disabled = false;
-                btnMute.disabled = false;
-                btnCall.disabled = true;
-
-                call.on('stream', (remoteStream) => {
-                    remoteAudio.srcObject = remoteStream;
-                    remoteAudioState.textContent = 'Playing';
-                    setCallStatus('in_call');
-                    toast('通话已建立', 'success');
-                });
-
-                call.on('close', () => {
-                    if (currentCall === call) currentCall = null;
-                    remoteAudio.srcObject = null;
-                    remoteAudioState.textContent = '—';
-                    setCallStatus('ended');
-                    btnHangup.disabled = true;
-                    btnMute.disabled = true;
-                    btnCall.disabled = !currentRemoteId;
-                    toast('通话已结束', 'info');
-                });
-
-                call.on('error', (e) => {
-                    toast('通话错误', 'error', e?.message || String(e));
-                });
-            }
-
-            async function startCall() {
-                if (!peer) return;
-                const ridShort = remoteIdEl.value.trim();
-                if (!ridShort) return toast('请输入 Remote ID', 'warn');
-                setActiveRemoteId(ridShort);
-
-                const ridLong = await derivePeerId(ridShort);
-
-                setCallStatus('calling');
-                toast('正在呼叫…', 'info', ridShort);
-                try {
-                    const stream = await ensureMic();
-                    const call = peer.call(ridLong, stream);
-                    attachCallHandlers(call, 'outgoing');
-                } catch {
-                    setCallStatus('idle');
-                }
-            }
-
-            async function answerCall() {
-                if (!incomingCall) return;
-                setCallStatus('calling');
-                try {
-                    const stream = await ensureMic();
-                    incomingCall.answer(stream);
-                    attachCallHandlers(incomingCall, 'incoming');
-                    incomingCall = null;
-                    btnAnswer.classList.add('hidden');
-                } catch {
-                    setCallStatus('idle');
-                }
-            }
-
-            function hangup() {
-                try { currentCall?.close(); } catch {}
-                currentCall = null;
-                incomingCall = null;
-                btnAnswer.classList.add('hidden');
-                remoteAudio.srcObject = null;
-                remoteAudioState.textContent = '—';
-                setCallStatus('ended');
-                btnHangup.disabled = true;
-                btnMute.disabled = true;
-                btnCall.disabled = !currentRemoteId;
-                stopMic();
-            }
-
-            function toggleMute() {
-                if (!localStream) return;
-                const track = localStream.getAudioTracks?.()[0];
-                if (!track) return;
-                isMuted = !isMuted;
-                track.enabled = !isMuted;
-                btnMute.textContent = isMuted ? 'Unmute' : 'Mute';
-                toast(isMuted ? '已静音' : '已取消静音', 'info');
-            }
 
             async function copyText(text) {
                 try {
@@ -858,7 +711,7 @@
 
             async function initPeer(retryCount = 0) {
                 if (retryCount > 5) {
-                    toast('多次尝试生成短码失败', 'error', '请刷新页面重试');
+                    toast('Failed to generate short code after multiple attempts', 'error', 'Please refresh the page to retry');
                     return;
                 }
 
@@ -866,15 +719,13 @@
                 myIdEl.textContent = 'Initializing…';
                 btnCopyId.disabled = true;
                 btnConnect.disabled = true;
-                btnCall.disabled = true;
                 setConnectedUI(false);
-                resetCallUI();
 
                 const ok = await ensurePeerJSLoaded();
                 if (!ok) {
                     setStatus('disconnected', 'PeerJS unavailable');
                     myIdEl.textContent = 'PeerJS missing';
-                    toast('PeerJS 加载失败', 'error', '请在 localdrop-pro/ 放置 peerjs.min.js，或检查网络');
+                    toast('PeerJS loading failed', 'error', 'Place peerjs.min.js in localdrop-pro/ directory or check network connection');
                     btnConnect.disabled = false;
                     return;
                 }
@@ -892,7 +743,7 @@
                     btnCopyId.disabled = false;
                     btnConnect.disabled = false;
                     setStatus('disconnected', 'Ready');
-                    toast('Peer 已就绪', 'success', `Short Code: ${currentShortCode}`);
+                    toast('Peer ready', 'success', `Short Code: ${currentShortCode}`);
 
                     // Build & show share link using short code
                     const link = buildShareLinkForMyId(currentShortCode);
@@ -920,30 +771,6 @@
                     bindConnection(conn, 'incoming');
                 });
 
-                peer.on('call', (call) => {
-                    if (currentCall) {
-                        // Busy: reject/close the new call
-                        try { call.close(); } catch {}
-                        toast('收到来电但当前忙线', 'warn');
-                        return;
-                    }
-                    incomingCall = call;
-                    setActiveRemoteId(call.peer);
-                    setCallStatus('ringing');
-                    btnAnswer.classList.remove('hidden');
-                    toast('收到来电', 'info', `From: ${call.peer}`);
-
-                    // If caller hangs up before we answer, clean up UI
-                    call.on('close', () => {
-                        if (incomingCall === call) incomingCall = null;
-                        btnAnswer.classList.add('hidden');
-                        if (!currentCall) setCallStatus('idle');
-                        toast('来电已取消', 'info');
-                    });
-                    call.on('error', (e) => {
-                        toast('来电发生错误', 'error', e?.message || String(e));
-                    });
-                });
 
                 peer.on('error', (e) => {
                     if (e.type === 'unavailable-id') {
@@ -952,53 +779,50 @@
                         return;
                     }
                     const msg = e?.type ? `${e.type}` : 'peer error';
-                    toast('Peer 错误', 'error', e?.message || msg);
+                    toast('Peer error', 'error', e?.message || msg);
                     setStatus('disconnected', e?.type || 'Error');
                 });
 
                 peer.on('disconnected', () => {
-                    toast('Peer 已断开', 'warn', '可能是网络波动或 PeerJS 服务不可用');
+                    toast('Peer disconnected', 'warn', 'May be due to network issues or PeerJS service unavailable');
                     setStatus('disconnected', 'Peer disconnected');
                 });
             }
 
             function bindConnection(c, mode) {
                 try { c.binaryType = 'arraybuffer'; } catch {}
-                setActiveRemoteId(c.peer);
-                setStatus('connecting', c.peer);
+                setStatus('connecting', currentRemoteId || 'peer');
 
                 c.on('open', () => {
-                    setStatus('connected', c.peer);
-                    toast('已连接到对端', 'success', c.peer);
+                    setStatus('connected', currentRemoteId || 'peer');
+                    toast('Connected to peer', 'success', currentRemoteId);
                     setConnectedUI(true);
                 });
 
                 c.on('data', handleIncomingData);
 
                 c.on('close', () => {
-                    toast('连接已关闭', 'info');
+                    toast('Connection closed', 'info');
                     closeConn('');
                     resetFileUI();
-                    resetCallUI();
                 });
 
                 c.on('error', (e) => {
-                    toast('连接错误', 'error', e?.message || String(e));
+                    toast('Connection error', 'error', e?.message || String(e));
                     closeConn('Error');
                 });
 
                 // Make UI usable even while connecting
                 setConnectedUI(false);
                 btnDisconnect.disabled = false;
-                btnCall.disabled = !currentRemoteId;
-                if (mode === 'outgoing') toast('正在建立连接…', 'info', c.peer);
+                if (mode === 'outgoing') toast('Establishing connection…', 'info', currentRemoteId);
             }
 
             async function connectToRemote() {
                 const ridShort = remoteIdEl.value.trim();
-                if (!ridShort) return toast('请输入 Remote ID', 'warn');
-                if (!peer) return toast('Peer 未就绪', 'warn');
-                if (ridShort === currentShortCode) return toast('不能连接到自己', 'warn');
+                if (!ridShort) return toast('Please enter Remote ID', 'warn');
+                if (!peer) return toast('Peer not ready', 'warn');
+                if (ridShort === currentShortCode) return toast('Cannot connect to yourself', 'warn');
                 
                 setActiveRemoteId(ridShort);
 
@@ -1006,7 +830,7 @@
                 const ridLong = await derivePeerId(ridShort);
 
                 if (conn && conn.open && conn.peer === ridLong) {
-                    toast('已连接到该对端', 'info');
+                    toast('Already connected to this peer', 'info');
                     return;
                 }
 
@@ -1019,17 +843,16 @@
                     conn = c;
                     bindConnection(conn, 'outgoing');
                 } catch (e) {
-                    toast('连接失败', 'error', e?.message || String(e));
+                    toast('Connection failed', 'error', e?.message || String(e));
                     setStatus('disconnected', 'Connect failed');
                 }
             }
 
             function disconnect() {
-                hangup();
                 closeConn('');
                 resetFileUI();
                 setConnectedUI(false);
-                toast('已断开连接', 'info');
+                toast('Disconnected', 'info');
             }
 
             function hardReset() {
@@ -1047,23 +870,23 @@
                 const id = myIdEl.textContent.trim();
                 if (!id || id === 'Initializing…') return;
                 const ok = await copyText(id);
-                toast(ok ? '已复制 My ID' : '复制失败', ok ? 'success' : 'error');
+                toast(ok ? 'My ID copied' : 'Copy failed', ok ? 'success' : 'error');
             });
 
             btnCopyShareLink.addEventListener('click', async () => {
                 const link = (shareLinkEl.value || '').trim();
                 if (!link) return;
                 const ok = await copyText(link);
-                toast(ok ? '已复制分享链接' : '复制失败', ok ? 'success' : 'error');
+                toast(ok ? 'Share link copied' : 'Copy failed', ok ? 'success' : 'error');
             });
 
             btnPasteId.addEventListener('click', async () => {
                 try {
                     const v = await navigator.clipboard.readText();
                     if (v) remoteIdEl.value = v.trim();
-                    toast('已粘贴 Remote ID', 'success');
+                    toast('Remote ID pasted', 'success');
                 } catch {
-                    toast('无法读取剪贴板', 'warn', '请手动粘贴 Remote ID');
+                    toast('Cannot read clipboard', 'warn', 'Please paste Remote ID manually');
                 }
             });
 
@@ -1097,24 +920,19 @@
             });
 
             btnSendFile.addEventListener('click', async () => {
-                if (!selectedFile) return toast('请选择文件', 'warn');
+                if (!selectedFile) return toast('Please select a file', 'warn');
                 await sendFile(selectedFile);
             });
 
             btnClearReceived.addEventListener('click', () => {
                 clearReceivedUI();
-                toast('已清空接收列表', 'info');
+                toast('Received files cleared', 'info');
             });
 
-            btnCall.addEventListener('click', startCall);
-            btnAnswer.addEventListener('click', answerCall);
-            btnHangup.addEventListener('click', hangup);
-            btnMute.addEventListener('click', toggleMute);
 
             // ---------- Init ----------
             clearReceivedUI();
             setStatus('connecting', 'Boot');
-            setCallStatus('idle');
             setConnectedUI(false);
             initPeer();
         });
