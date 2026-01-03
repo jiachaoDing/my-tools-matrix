@@ -257,6 +257,7 @@
                     
                     <!-- Hidden File Input -->
                     <input type="file" id="file-input" multiple accept="image/*" class="hidden">
+                    <input type="color" id="blank-color-picker" class="hidden">
                 </div>
 
             </div>
@@ -420,6 +421,7 @@
     <script>
         // === Tool Logic ===
         const fileInput = document.getElementById('file-input');
+        const blankColorPicker = document.getElementById('blank-color-picker');
         const canvasDropzone = document.getElementById('canvas-dropzone');
         const dragOverlay = document.getElementById('drag-overlay');
         const emptyState = document.getElementById('empty-state');
@@ -560,6 +562,7 @@
             for (const file of newImages) {
                 const img = await loadImage(file);
                 uploadedImages.push({
+                    type: 'image',
                     img: img,
                     name: file.name,
                     id: Date.now() + Math.random()
@@ -583,6 +586,34 @@
             });
         }
 
+        window.addBlankPage = function(color = '#ffffff') {
+            uploadedImages.push({
+                type: 'blank',
+                color: color,
+                id: Date.now() + Math.random()
+            });
+            updateUploadedList();
+            updateGrid();
+            updateEmptyState();
+        };
+
+        // 监听新增空白页的颜色选择器
+        blankColorPicker.addEventListener('change', (e) => {
+            addBlankPage(e.target.value);
+        });
+
+        window.updateBlankColor = function(index, color) {
+            uploadedImages[index].color = color;
+            // 实时更新缩略图预览
+            const thumbnails = uploadedList.querySelectorAll('[data-index]');
+            const thumb = Array.from(thumbnails).find(t => parseInt(t.dataset.index) === index);
+            if (thumb) {
+                const colorDiv = thumb.querySelector('.blank-color-preview');
+                if (colorDiv) colorDiv.style.backgroundColor = color;
+            }
+            updateGrid();
+        };
+
         function updateEmptyState() {
             if (uploadedImages.length === 0) {
                 emptyState.classList.remove('hidden');
@@ -597,7 +628,7 @@
 
         function updateUploadedList() {
             uploadedList.innerHTML = '';
-            imageCountBadge.textContent = `${uploadedImages.length} image${uploadedImages.length !== 1 ? 's' : ''}`;
+            imageCountBadge.textContent = `${uploadedImages.length} item${uploadedImages.length !== 1 ? 's' : ''}`;
             
             uploadedImages.forEach((data, index) => {
                 const div = document.createElement('div');
@@ -605,19 +636,34 @@
                 div.draggable = true;
                 div.dataset.index = index;
                 
-                div.innerHTML = `
-                    <img src="${data.img.src}" class="w-full h-full object-cover pointer-events-none">
-                    <button onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all z-10 shadow-lg">
-                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                    </button>
-                    <div class="absolute top-1 left-1 bg-blue-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg opacity-90">
-                        ${index + 1}
-                    </div>
-                    <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white text-[10px] px-2 py-1.5 truncate opacity-0 group-hover:opacity-100 transition-opacity">
-                        ${data.name}
-                    </div>
-                    <div class="absolute inset-0 bg-blue-500/20 opacity-0 group-hover:opacity-0 transition-opacity pointer-events-none" data-drag-overlay></div>
-                `;
+                if (data.type === 'blank') {
+                    div.innerHTML = `
+                        <div class="w-full h-full blank-color-preview" style="background-color: ${data.color}"></div>
+                        <input type="color" value="${data.color}" oninput="updateBlankColor(${index}, this.value)" class="absolute inset-0 opacity-0 cursor-pointer z-20">
+                        <button onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all z-30 shadow-lg">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                        <div class="absolute top-1 left-1 bg-blue-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg opacity-90 z-10">
+                            ${index + 1}
+                        </div>
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white text-[10px] px-2 py-1.5 truncate opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                            Blank: ${data.color.toUpperCase()}
+                        </div>
+                    `;
+                } else {
+                    div.innerHTML = `
+                        <img src="${data.img.src}" class="w-full h-full object-cover pointer-events-none">
+                        <button onclick="removeImage(${index})" class="absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white p-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all z-10 shadow-lg">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                        <div class="absolute top-1 left-1 bg-blue-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shadow-lg opacity-90">
+                            ${index + 1}
+                        </div>
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white text-[10px] px-2 py-1.5 truncate opacity-0 group-hover:opacity-100 transition-opacity">
+                            ${data.name}
+                        </div>
+                    `;
+                }
                 
                 // Drag events
                 div.addEventListener('dragstart', handleDragStart);
@@ -630,17 +676,30 @@
                 uploadedList.appendChild(div);
             });
 
-            // Add the "+" button at the end
+            // 添加按钮组
+            // 1. 添加图片按钮
             const addBtn = document.createElement('div');
             addBtn.className = 'aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 hover:scale-105 group';
             addBtn.innerHTML = `
                 <div class="text-center">
                     <svg class="w-8 h-8 text-slate-400 group-hover:text-blue-500 mx-auto transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    <span class="text-xs text-slate-400 group-hover:text-blue-500 font-medium mt-1 block transition-colors">Add</span>
+                    <span class="text-[10px] text-slate-400 group-hover:text-blue-500 font-medium mt-1 block transition-colors">Add Image</span>
                 </div>
             `;
             addBtn.addEventListener('click', () => fileInput.click());
             uploadedList.appendChild(addBtn);
+
+            // 2. 添加空白页按钮
+            const addBlankBtn = document.createElement('div');
+            addBlankBtn.className = 'aspect-square rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 bg-slate-50 dark:bg-slate-800/50 flex items-center justify-center cursor-pointer hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-200 hover:scale-105 group';
+            addBlankBtn.innerHTML = `
+                <div class="text-center">
+                    <svg class="w-8 h-8 text-slate-400 group-hover:text-blue-500 mx-auto transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                    <span class="text-[10px] text-slate-400 group-hover:text-blue-500 font-medium mt-1 block transition-colors">Add Blank</span>
+                </div>
+            `;
+            addBlankBtn.addEventListener('click', () => blankColorPicker.click());
+            uploadedList.appendChild(addBlankBtn);
         }
 
         function handleDragStart(e) {
@@ -807,26 +866,33 @@
                         ctx.strokeRect(x + 2, y + 2, cellWidth - 4, cellHeight - 4);
                         ctx.setLineDash([]);
                     } else {
-                        const img = uploadedImages[imgIndex].img;
+                        const item = uploadedImages[imgIndex];
 
-                        // Object-fit: cover logic
-                        const imgAspect = img.width / img.height;
-                        const cellAspect = cellWidth / cellHeight;
-
-                        let sw, sh, sx, sy;
-                        if (imgAspect > cellAspect) {
-                            sh = img.height;
-                            sw = img.height * cellAspect;
-                            sx = (img.width - sw) / 2;
-                            sy = 0;
+                        if (item.type === 'blank') {
+                            ctx.fillStyle = item.color;
+                            ctx.fillRect(x, y, cellWidth, cellHeight);
                         } else {
-                            sw = img.width;
-                            sh = img.width / cellAspect;
-                            sx = 0;
-                            sy = (img.height - sh) / 2;
-                        }
+                            const img = item.img;
 
-                        ctx.drawImage(img, sx, sy, sw, sh, x, y, cellWidth, cellHeight);
+                            // Object-fit: cover logic
+                            const imgAspect = img.width / img.height;
+                            const cellAspect = cellWidth / cellHeight;
+
+                            let sw, sh, sx, sy;
+                            if (imgAspect > cellAspect) {
+                                sh = img.height;
+                                sw = img.height * cellAspect;
+                                sx = (img.width - sw) / 2;
+                                sy = 0;
+                            } else {
+                                sw = img.width;
+                                sh = img.width / cellAspect;
+                                sx = 0;
+                                sy = (img.height - sh) / 2;
+                            }
+
+                            ctx.drawImage(img, sx, sy, sw, sh, x, y, cellWidth, cellHeight);
+                        }
                     }
                 }
             }
