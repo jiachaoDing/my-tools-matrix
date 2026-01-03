@@ -262,6 +262,32 @@
             const safeFilename = (name) => (name || 'download').replace(/[<>:"/\\|?*\x00-\x1F]+/g, '_').slice(0, 180);
             const uuid = () => (crypto?.randomUUID ? crypto.randomUUID() : `f_${Date.now()}_${Math.random().toString(16).slice(2)}`);
 
+            // Generate a 6-character short code (hash-like)
+            function generateShortCode() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // Exclude ambiguous chars like I, O, 0, 1
+                let res = '';
+                // Simple hash based on random + time
+                const seed = Date.now().toString(36) + Math.random().toString(36);
+                for (let i = 0; i < 6; i++) {
+                    const idx = Math.floor(Math.random() * chars.length);
+                    res += chars[idx];
+                }
+                return res;
+            }
+
+            // Map short code to a long, unique Peer ID using SHA-256
+            async function derivePeerId(shortCode) {
+                const prefix = 'wuk-ld-v1-'; // Namespace to avoid collisions with other apps
+                const msgUint8 = new TextEncoder().encode(prefix + shortCode.toUpperCase());
+                const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+                // Use base64url encoding for URL-safe peer ID (PeerJS requirement)
+                const hashBase64 = btoa(String.fromCharCode(...new Uint8Array(hashBuffer)))
+                    .replace(/\+/g, '-')
+                    .replace(/\//g, '_')
+                    .replace(/=+$/, ''); // Remove padding
+                return prefix + hashBase64;
+            }
+
             function toast(message, type = 'info', detail = '') {
                 const root = $('toast-root');
                 const color = {
@@ -726,15 +752,17 @@
 
             async function startCall() {
                 if (!peer) return;
-                const rid = remoteIdEl.value.trim();
-                if (!rid) return toast('请输入 Remote ID', 'warn');
-                setActiveRemoteId(rid);
+                const ridShort = remoteIdEl.value.trim();
+                if (!ridShort) return toast('请输入 Remote ID', 'warn');
+                setActiveRemoteId(ridShort);
+
+                const ridLong = await derivePeerId(ridShort);
 
                 setCallStatus('calling');
-                toast('正在呼叫…', 'info', rid);
+                toast('正在呼叫…', 'info', ridShort);
                 try {
                     const stream = await ensureMic();
-                    const call = peer.call(rid, stream);
+                    const call = peer.call(ridLong, stream);
                     attachCallHandlers(call, 'outgoing');
                 } catch {
                     setCallStatus('idle');
@@ -826,7 +854,14 @@
             }
 
             // ---------- Peer lifecycle ----------
-            async function initPeer() {
+            let currentShortCode = ''; // Track the human-readable part
+
+            async function initPeer(retryCount = 0) {
+                if (retryCount > 5) {
+                    toast('多次尝试生成短码失败', 'error', '请刷新页面重试');
+                    return;
+                }
+
                 setStatus('connecting', 'PeerJS');
                 myIdEl.textContent = 'Initializing…';
                 btnCopyId.disabled = true;
@@ -845,17 +880,22 @@
                 }
 
                 try { peer?.destroy(); } catch {}
-                peer = new Peer(); // Auto ID via PeerJS cloud
+                
+                currentShortCode = generateShortCode();
+                const longId = await derivePeerId(currentShortCode);
+                
+                peer = new Peer(longId); // Initialize with unique long ID
 
                 peer.on('open', (id) => {
-                    myIdEl.textContent = id;
+                    // Important: Show the short code to user, not the internal long ID
+                    myIdEl.textContent = currentShortCode; 
                     btnCopyId.disabled = false;
                     btnConnect.disabled = false;
                     setStatus('disconnected', 'Ready');
-                    toast('Peer 已就绪', 'success', `My ID: ${id}`);
+                    toast('Peer 已就绪', 'success', `Short Code: ${currentShortCode}`);
 
-                    // Build & show share link
-                    const link = buildShareLinkForMyId(id);
+                    // Build & show share link using short code
+                    const link = buildShareLinkForMyId(currentShortCode);
                     if (link) {
                         shareLinkEl.value = link;
                         shareLinkWrap.classList.remove('hidden');
@@ -863,11 +903,10 @@
                     }
 
                     // Auto-connect if opened via shared link
-                    const target = getConnectTargetFromURL();
-                    if (target && target !== id) {
-                        remoteIdEl.value = target;
-                        setActiveRemoteId(target);
-                        // slight delay to let UI paint and Peer settle
+                    const targetShortCode = getConnectTargetFromURL();
+                    if (targetShortCode && targetShortCode !== currentShortCode) {
+                        remoteIdEl.value = targetShortCode;
+                        setActiveRemoteId(targetShortCode);
                         setTimeout(() => connectToRemote(), 120);
                     }
                 });
@@ -907,6 +946,11 @@
                 });
 
                 peer.on('error', (e) => {
+                    if (e.type === 'unavailable-id') {
+                        console.warn('Short code taken, retrying...', retryCount);
+                        setTimeout(() => initPeer(retryCount + 1), 100);
+                        return;
+                    }
                     const msg = e?.type ? `${e.type}` : 'peer error';
                     toast('Peer 错误', 'error', e?.message || msg);
                     setStatus('disconnected', e?.type || 'Error');
@@ -950,14 +994,18 @@
                 if (mode === 'outgoing') toast('正在建立连接…', 'info', c.peer);
             }
 
-            function connectToRemote() {
-                const rid = remoteIdEl.value.trim();
-                if (!rid) return toast('请输入 Remote ID', 'warn');
+            async function connectToRemote() {
+                const ridShort = remoteIdEl.value.trim();
+                if (!ridShort) return toast('请输入 Remote ID', 'warn');
                 if (!peer) return toast('Peer 未就绪', 'warn');
-                if (rid === peer.id) return toast('不能连接到自己', 'warn');
-                setActiveRemoteId(rid);
+                if (ridShort === currentShortCode) return toast('不能连接到自己', 'warn');
+                
+                setActiveRemoteId(ridShort);
 
-                if (conn && conn.open && conn.peer === rid) {
+                // Map input short code to the long ID used by PeerJS
+                const ridLong = await derivePeerId(ridShort);
+
+                if (conn && conn.open && conn.peer === ridLong) {
                     toast('已连接到该对端', 'info');
                     return;
                 }
@@ -967,7 +1015,7 @@
                 }
 
                 try {
-                    const c = peer.connect(rid, { reliable: true });
+                    const c = peer.connect(ridLong, { reliable: true });
                     conn = c;
                     bindConnection(conn, 'outgoing');
                 } catch (e) {
