@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Tuner - Online Mic Tuner (Free & Accurate) | WebUtilityKit</title>
+    <meta name="description" content="Tune your guitar with a fast, accurate online tuner. Uses your microphone to detect pitch in real-time. Standard and alternate tunings (Drop D, DADGAD, Open G, Open D). 100% client-side & privacy-first.">
+    <meta name="keywords" content="guitar tuner, online guitar tuner, mic tuner, guitar tuning, standard tuning, drop d tuning, dadgad, open g, open d, pitch detector, cents, chromatic tuner">
+    <meta name="author" content="WebUtilityKit">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="English">
+
+    <meta property="og:title" content="Guitar Tuner - Online Mic Tuner (Free & Accurate)">
+    <meta property="og:description" content="Tune your guitar in your browser with real-time pitch detection. No uploads, no accounts, privacy-first.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://webutilitykit.com/guitar-tuner/">
+    <meta property="og:image" content="https://webutilitykit.com/assets/images/guitar-tuner-og.png">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Guitar Tuner - Online Mic Tuner">
+    <meta name="twitter:description" content="Fast, accurate guitar tuning in your browser with real-time pitch detection.">
+
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/guitar-tuner/">
+    <script src="/tools-config.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Guitar Tuner",
+      "description": "An accurate, privacy-first online guitar tuner that uses your microphone for real-time pitch detection. Supports standard and common alternate tunings.",
+      "url": "https://webutilitykit.com/guitar-tuner/",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "Web Browser",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "featureList": [
+        "Real-time microphone pitch detection",
+        "Cents offset and tuning direction",
+        "Standard tuning and popular alternate tunings",
+        "String-by-string targeting",
+        "100% client-side processing"
+      ],
+      "author": { "@type": "Organization", "name": "WebUtilityKit" }
+    }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Guitar Tuner</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">A fast, accurate online guitar tuner. Tune by ear—visually—with real-time microphone pitch detection.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+
+            <!-- Toolbar (no card borders/shadows; app-like) -->
+            <div class="max-w-6xl mx-auto">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-8">
+                    <div class="flex items-center gap-3">
+                        <div class="w-11 h-11 rounded-2xl bg-sky-600 text-white flex items-center justify-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-2v13"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 17c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z"></path></svg>
+                        </div>
+                        <div>
+                            <div class="text-sm uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Microphone</div>
+                            <div class="flex items-center gap-2">
+                                <span id="mic-dot" class="inline-flex w-2.5 h-2.5 rounded-full bg-slate-400"></span>
+                                <span id="mic-status" class="text-lg font-bold text-slate-900 dark:text-white">Ready</span>
+                                <span id="mic-detail" class="text-xs text-slate-500 dark:text-slate-400"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2 w-full lg:w-auto">
+                        <button id="btn-start" class="w-full sm:w-auto text-xs font-bold px-4 py-3 sm:py-2.5 rounded-2xl bg-sky-600 text-white hover:bg-sky-700 transition-colors">
+                            Start Tuning
+                        </button>
+                        <button id="btn-stop" class="w-full sm:w-auto text-xs font-bold px-4 py-3 sm:py-2.5 rounded-2xl bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors disabled:opacity-50" disabled>
+                            Stop
+                        </button>
+                        <button id="btn-reset" class="w-full sm:w-auto text-xs font-semibold px-4 py-3 sm:py-2.5 rounded-2xl bg-slate-200 hover:bg-slate-300 dark:bg-slate-800 dark:hover:bg-slate-700 transition-colors">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tuning Presets -->
+                <div class="mb-10">
+                    <div class="flex items-center justify-between gap-3 mb-3">
+                        <div>
+                            <div class="text-sm font-semibold text-slate-900 dark:text-white">Tuning Presets</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Pick a common tuning—no extra settings required.</div>
+                        </div>
+                        <span id="tuning-pill" class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200">Standard</span>
+                    </div>
+                    <div id="tuning-buttons" class="flex gap-2 overflow-x-auto custom-scrollbar -mx-1 px-1 pb-1"></div>
+                </div>
+
+                <!-- Main Layout -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+
+                    <!-- Left: Live Readout + Gauge -->
+                    <section class="lg:col-span-7 flex flex-col min-h-[520px]">
+                        <div class="flex-1">
+                            <div class="flex items-start justify-between gap-4 mb-6">
+                                <div>
+                                    <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Live Detection</div>
+                                    <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Pluck a single string. Mute the others for best accuracy.</div>
+                                </div>
+                                <span id="quality-badge" class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200">Waiting</span>
+                            </div>
+
+                            <div class="flex flex-col items-center justify-center text-center py-6">
+                                <div class="flex items-baseline justify-center gap-3">
+                                    <div id="detected-note" class="text-6xl md:text-7xl font-extrabold tracking-tight text-slate-900 dark:text-white">—</div>
+                                    <div class="text-left">
+                                        <div class="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-semibold">Target</div>
+                                        <div id="target-note" class="text-2xl font-bold text-slate-900 dark:text-white">—</div>
+                                    </div>
+                                </div>
+                                <div id="cents-big" class="mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white">±—¢</div>
+                                <div class="mt-3 flex flex-wrap items-center justify-center gap-3 text-sm">
+                                    <div class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200">
+                                        <span class="font-semibold">Freq:</span> <span id="detected-freq">—</span> Hz
+                                    </div>
+                                    <div class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200">
+                                        <span class="font-semibold">Offset:</span> <span id="detected-cents">—</span> cents
+                                    </div>
+                                    <div id="direction-pill" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200">
+                                        <span class="font-semibold">Direction:</span> <span id="tune-direction">—</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Gauge -->
+                            <div class="mt-6">
+                                <div class="relative h-12 rounded-2xl bg-slate-100 dark:bg-slate-800/60 overflow-hidden">
+                                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <div class="w-0.5 h-12 bg-slate-900/40 dark:bg-white/40"></div>
+                                    </div>
+                                    <div class="absolute inset-y-0 left-1/2 w-40 -translate-x-1/2 bg-emerald-500/10 dark:bg-emerald-400/10"></div>
+                                    <div class="absolute inset-y-0 left-0 right-0 flex items-center justify-between px-4 text-[10px] font-bold text-slate-500 dark:text-slate-400">
+                                        <span>-50</span>
+                                        <span>0</span>
+                                        <span>+50</span>
+                                    </div>
+                                    <div id="needle" class="absolute top-1/2 -translate-y-1/2 w-1.5 h-10 rounded-full bg-sky-600 left-1/2 -translate-x-1/2 transition-[left] duration-75"></div>
+                                </div>
+                                <div class="mt-3 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                                    <span>Flat</span>
+                                    <span class="font-semibold text-slate-700 dark:text-slate-200">In Tune Zone</span>
+                                    <span>Sharp</span>
+                                </div>
+                            </div>
+
+                            <!-- Audio Visualization -->
+                            <div class="mt-10">
+                                <div class="flex items-center justify-between gap-3 mb-3">
+                                    <div>
+                                        <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Signal</div>
+                                        <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">Waveform, spectrum, and extracted pitch over time.</div>
+                                    </div>
+                                    <span id="peaks-pill" class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200">Peaks: —</span>
+                                </div>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="rounded-2xl bg-slate-100 dark:bg-slate-800/60 overflow-hidden">
+                                        <div class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Waveform</div>
+                                        <div class="px-3 pb-3">
+                                            <canvas id="canvas-wave" class="w-full h-28"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-2xl bg-slate-100 dark:bg-slate-800/60 overflow-hidden">
+                                        <div class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Spectrum</div>
+                                        <div class="px-3 pb-3">
+                                            <canvas id="canvas-spec" class="w-full h-28"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="rounded-2xl bg-slate-100 dark:bg-slate-800/60 overflow-hidden">
+                                        <div class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Pitch</div>
+                                        <div class="px-3 pb-3">
+                                            <canvas id="canvas-pitch" class="w-full h-28"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom helper (kept aligned) -->
+                        <div class="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+                            <div class="text-xs text-slate-500 dark:text-slate-400">
+                                Tip: Tune up to the pitch (avoid tuning down past the target).
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200">No Uploads</span>
+                                <span class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200">Live</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Right: Strings -->
+                    <section class="lg:col-span-5 flex flex-col min-h-[520px]">
+                        <div class="flex items-start justify-between gap-4 mb-6">
+                            <div>
+                                <div class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">Target Strings</div>
+                                <div class="mt-1 text-[11px] text-slate-500 dark:text-slate-400">We auto-pick the closest string from your selected tuning.</div>
+                            </div>
+                            <span id="string-pick" class="text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200">—</span>
+                        </div>
+
+                        <!-- Visual string map -->
+                        <div class="mb-4 rounded-3xl bg-slate-50 dark:bg-slate-800/20 p-4">
+                            <div class="flex items-center justify-between gap-3">
+                                <div class="text-xs font-semibold text-slate-900 dark:text-white">String Map</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400">Auto-detects your plucked string</div>
+                            </div>
+                            <div id="strings-visual" class="mt-4 space-y-3"></div>
+                        </div>
+
+                        <div id="strings-list" class="flex-1 space-y-2"></div>
+
+                        <div class="mt-8 text-xs text-slate-500 dark:text-slate-400">
+                            <div class="font-semibold text-slate-700 dark:text-slate-200 mb-2">Quick checklist</div>
+                            <ul class="space-y-1">
+                                <li>• Allow microphone access when prompted.</li>
+                                <li>• Pluck near the neck pickup (or over the sound hole for acoustic).</li>
+                                <li>• Reduce background noise for best stability.</li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>
+            </div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use this online Guitar Tuner</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Start & Allow Mic</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click “Start Tuning” and allow microphone access. All audio stays on your device.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Pluck One String</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Pluck a single string and let the tuner lock onto the closest target string automatically.</p>
+                        </div>
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Tune to Center</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Turn the tuning peg until the needle centers at 0 cents and the “In Tune” zone lights up.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Fast & Accurate</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Real-time pitch detection with cents offset so you can tune precisely, not just “close enough.”</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy-First</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Audio is processed locally in your browser. Nothing is uploaded or stored.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-violet-100 dark:bg-violet-900/30 text-violet-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h10v10H7z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12h10"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Common Tunings</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Standard plus popular alternates like Drop D, DADGAD, Open G, and Open D.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-amber-100 dark:bg-amber-900/30 text-amber-700 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">String Targeting</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Automatically selects the closest string and shows whether you’re flat or sharp.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Do you upload or store my audio?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                No. The tuner processes audio locally in your browser. Nothing is uploaded or saved.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Why is the pitch unstable?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Background noise, multiple strings ringing, or very soft plucks can reduce stability. Pluck one string cleanly and mute the others.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Which browsers are supported?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Modern Chromium browsers and Firefox work best. On iOS Safari, you must tap “Start Tuning” to enable audio due to platform restrictions.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- Unified component manager -->
+    <script src="../assets/js/components.js"></script>
+
+    <script>
+        // === Tool Logic: Guitar Tuner (WebAudio pitch detection, client-side only) ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = {
+                micDot: document.getElementById('mic-dot'),
+                micStatus: document.getElementById('mic-status'),
+                micDetail: document.getElementById('mic-detail'),
+                qualityBadge: document.getElementById('quality-badge'),
+                detectedNote: document.getElementById('detected-note'),
+                detectedFreq: document.getElementById('detected-freq'),
+                detectedCents: document.getElementById('detected-cents'),
+                centsBig: document.getElementById('cents-big'),
+                tuneDirection: document.getElementById('tune-direction'),
+                directionPill: document.getElementById('direction-pill'),
+                targetNote: document.getElementById('target-note'),
+                needle: document.getElementById('needle'),
+                stringsList: document.getElementById('strings-list'),
+                stringPick: document.getElementById('string-pick'),
+                stringsVisual: document.getElementById('strings-visual'),
+                tuningButtons: document.getElementById('tuning-buttons'),
+                tuningPill: document.getElementById('tuning-pill'),
+                peaksPill: document.getElementById('peaks-pill'),
+                canvasWave: document.getElementById('canvas-wave'),
+                canvasSpec: document.getElementById('canvas-spec'),
+                canvasPitch: document.getElementById('canvas-pitch'),
+                btnStart: document.getElementById('btn-start'),
+                btnStop: document.getElementById('btn-stop'),
+                btnReset: document.getElementById('btn-reset')
+            };
+
+            const NOTE_NAMES_SHARP = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+            const NOTE_TO_SEMITONE = { C:0, 'C#':1, Db:1, D:2, 'D#':3, Eb:3, E:4, F:5, 'F#':6, Gb:6, G:7, 'G#':8, Ab:8, A:9, 'A#':10, Bb:10, B:11 };
+
+            function noteToMidi(note) {
+                // Examples: E2, F#3, Bb4
+                const m = /^([A-G])(#|b)?(\d)$/.exec(note);
+                if (!m) return null;
+                const letter = m[1];
+                const accidental = m[2] || '';
+                const octave = Number(m[3]);
+                const name = accidental ? (letter + accidental) : letter;
+                const semitone = NOTE_TO_SEMITONE[name];
+                if (typeof semitone !== 'number') return null;
+                return (octave + 1) * 12 + semitone;
+            }
+
+            function midiToNoteName(midi) {
+                const name = NOTE_NAMES_SHARP[midi % 12];
+                const octave = Math.floor(midi / 12) - 1;
+                return `${name}${octave}`;
+            }
+
+            function freqToMidi(freq) {
+                return Math.round(69 + 12 * Math.log2(freq / 440));
+            }
+
+            function midiToFreq(midi) {
+                return 440 * Math.pow(2, (midi - 69) / 12);
+            }
+
+            function centsDiff(freq, targetFreq) {
+                return 1200 * Math.log2(freq / targetFreq);
+            }
+
+            function clamp(n, min, max) { return Math.max(min, Math.min(max, n)); }
+
+            function setMicState(state, detail) {
+                // state: ready | listening | error | stopped
+                const map = {
+                    ready: { dot: 'bg-slate-400', text: 'Ready' },
+                    listening: { dot: 'bg-emerald-500', text: 'Listening' },
+                    stopped: { dot: 'bg-slate-400', text: 'Stopped' },
+                    error: { dot: 'bg-rose-500', text: 'Microphone Error' }
+                };
+                const s = map[state] || map.ready;
+                el.micDot.className = `inline-flex w-2.5 h-2.5 rounded-full ${s.dot}`;
+                el.micStatus.textContent = s.text;
+                el.micDetail.textContent = detail || '';
+            }
+
+            function setQuality(label, tone) {
+                // tone: slate | emerald | amber | rose
+                const tones = {
+                    slate: 'bg-slate-100 text-slate-700 dark:bg-slate-800/60 dark:text-slate-200',
+                    emerald: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-300',
+                    amber: 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-200',
+                    rose: 'bg-rose-100 text-rose-700 dark:bg-rose-900/20 dark:text-rose-300'
+                };
+                el.qualityBadge.className = `text-[10px] uppercase tracking-widest font-black px-2 py-1 rounded-xl ${tones[tone] || tones.slate}`;
+                el.qualityBadge.textContent = label;
+            }
+
+            const TUNINGS = [
+                { id: 'standard', name: 'Standard', strings: ['E2','A2','D3','G3','B3','E4'] },
+                { id: 'dropd', name: 'Drop D', strings: ['D2','A2','D3','G3','B3','E4'] },
+                { id: 'dadgad', name: 'DADGAD', strings: ['D2','A2','D3','G3','A3','D4'] },
+                { id: 'openg', name: 'Open G', strings: ['D2','G2','D3','G3','B3','D4'] },
+                { id: 'opend', name: 'Open D', strings: ['D2','A2','D3','F#3','A3','D4'] },
+                { id: 'halfdown', name: 'Half-Step Down', strings: ['Eb2','Ab2','Db3','Gb3','Bb3','Eb4'] },
+                { id: 'fulldown', name: 'Whole-Step Down', strings: ['D2','G2','C3','F3','A3','D4'] }
+            ];
+
+            let selectedTuning = TUNINGS[0];
+            let audioCtx = null;
+            let analyser = null;
+            let mediaStream = null;
+            let rafId = null;
+            let buffer = null;
+            let freqBins = null;
+
+            const viz = {
+                waveCtx: null,
+                specCtx: null,
+                pitchCtx: null,
+                pitchHistory: [],
+                pitchMax: 140,
+                lastDraw: 0,
+                dpr: Math.max(1, Math.min(2, window.devicePixelRatio || 1))
+            };
+
+            const history = {
+                midi: [],
+                cents: [],
+                max: 10
+            };
+
+            function resetHistory() {
+                history.midi = [];
+                history.cents = [];
+            }
+
+            function pushHistory(midi, cents) {
+                history.midi.push(midi);
+                history.cents.push(cents);
+                if (history.midi.length > history.max) history.midi.shift();
+                if (history.cents.length > history.max) history.cents.shift();
+            }
+
+            function calcStability() {
+                if (history.cents.length < 6) return { stable: false, spread: Infinity };
+                const mean = history.cents.reduce((a,b)=>a+b,0) / history.cents.length;
+                const variance = history.cents.reduce((a,b)=>a + Math.pow(b-mean,2),0) / history.cents.length;
+                const spread = Math.sqrt(variance);
+                const allSameMidi = history.midi.every(m => m === history.midi[0]);
+                return { stable: allSameMidi && spread < 4, spread };
+            }
+
+            function buildTuningButtons() {
+                el.tuningButtons.innerHTML = '';
+                TUNINGS.forEach(t => {
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.dataset.tuningId = t.id;
+                    btn.className = 'text-xs font-bold px-3 py-2 rounded-2xl border transition-colors ' +
+                        (t.id === selectedTuning.id
+                            ? 'bg-sky-600 text-white border-sky-600'
+                            : 'bg-white dark:bg-slate-900/30 text-slate-800 dark:text-slate-100 border-slate-200 dark:border-slate-700/60 hover:bg-slate-50 dark:hover:bg-slate-800');
+                    btn.classList.add('shrink-0');
+                    btn.textContent = t.name;
+                    btn.addEventListener('click', () => {
+                        selectedTuning = t;
+                        el.tuningPill.textContent = t.name;
+                        buildTuningButtons();
+                        renderStrings(null);
+                        resetReadout();
+                    });
+                    el.tuningButtons.appendChild(btn);
+                });
+            }
+
+            function tuningModel(tuning) {
+                // Returns strings with computed midi/freq
+                return tuning.strings.map((note, idx) => {
+                    const midi = noteToMidi(note);
+                    const freq = midi ? midiToFreq(midi) : null;
+                    return {
+                        index: idx,
+                        stringNumber: 6 - idx,
+                        note,
+                        midi,
+                        freq
+                    };
+                });
+            }
+
+            function renderStrings(activeMidi) {
+                const model = tuningModel(selectedTuning);
+                let activeIndex = -1;
+                if (typeof activeMidi === 'number') {
+                    let best = { idx: -1, dist: Infinity };
+                    model.forEach((s, idx) => {
+                        if (typeof s.midi !== 'number') return;
+                        const d = Math.abs(activeMidi - s.midi);
+                        if (d < best.dist) best = { idx, dist: d };
+                    });
+                    activeIndex = best.idx;
+                }
+
+                el.stringPick.textContent = activeIndex >= 0 ? `String ${model[activeIndex].stringNumber} • ${model[activeIndex].note.replace('#', '♯')}` : '—';
+
+                // Visual string map (semantic, mobile-friendly)
+                if (el.stringsVisual) {
+                    el.stringsVisual.innerHTML = model.map((s, idx) => {
+                        const isActive = idx === activeIndex;
+                        const thickness = 1 + Math.round((5 - idx) * 0.6); // low strings thicker
+                        const lineClass = isActive
+                            ? 'bg-sky-600 dark:bg-sky-400'
+                            : 'bg-slate-300 dark:bg-slate-600';
+                        const glow = isActive ? 'shadow-[0_0_0_6px_rgba(56,189,248,0.15)] dark:shadow-[0_0_0_6px_rgba(56,189,248,0.18)]' : '';
+                        return `
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 text-[11px] font-black text-slate-700 dark:text-slate-200">${s.note.replace('#','♯')}</div>
+                                <div class="relative flex-1">
+                                    <div class="rounded-full ${lineClass} ${glow}" style="height:${thickness}px"></div>
+                                    <div class="absolute -top-1.5 ${isActive ? 'left-2' : 'left-0'} transition-[left] duration-150">
+                                        <div class="w-4 h-4 rounded-full ${isActive ? 'bg-sky-600 dark:bg-sky-400' : 'bg-slate-400 dark:bg-slate-600'}"></div>
+                                    </div>
+                                </div>
+                                <div class="w-10 text-right text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-sky-700 dark:text-sky-300' : 'text-slate-400 dark:text-slate-500'}">
+                                    ${isActive ? 'Now' : ''}
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+
+                el.stringsList.innerHTML = model.map((s, idx) => {
+                    const isActive = idx === activeIndex;
+                    const rowClass = isActive
+                        ? 'bg-sky-50 dark:bg-sky-900/20 border border-sky-200/60 dark:border-sky-800/40'
+                        : 'bg-white/0 border border-transparent';
+                    return `
+                        <div class="flex items-center justify-between gap-4 px-4 py-3 rounded-2xl ${rowClass}">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-9 h-9 rounded-2xl flex items-center justify-center text-xs font-black ${isActive ? 'bg-sky-600 text-white' : 'bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200'}">
+                                    ${s.stringNumber}
+                                </div>
+                                <div class="min-w-0">
+                                    <div class="text-sm font-bold text-slate-900 dark:text-white truncate">${s.note.replace('#','♯')}</div>
+                                    <div class="text-[11px] text-slate-500 dark:text-slate-400">${s.freq ? s.freq.toFixed(2) : '—'} Hz</div>
+                                </div>
+                            </div>
+                            <div class="text-[10px] font-black uppercase tracking-widest ${isActive ? 'text-sky-700 dark:text-sky-300' : 'text-slate-400 dark:text-slate-500'}">
+                                ${isActive ? 'Target' : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            function resetReadout() {
+                el.detectedNote.textContent = '—';
+                el.targetNote.textContent = '—';
+                el.detectedFreq.textContent = '—';
+                el.detectedCents.textContent = '—';
+                if (el.centsBig) {
+                    el.centsBig.textContent = '±—¢';
+                    el.centsBig.className = 'mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white';
+                }
+                el.tuneDirection.textContent = '—';
+                el.needle.style.left = '50%';
+                el.stringPick.textContent = '—';
+                setQuality('Waiting', 'slate');
+                el.directionPill.className = 'px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200';
+                if (el.peaksPill) el.peaksPill.textContent = 'Peaks: —';
+                viz.pitchHistory = [];
+                clearCanvases();
+            }
+
+            function setDirection(cents) {
+                const abs = Math.abs(cents);
+                const inTune = abs <= 5;
+                if (inTune) {
+                    el.tuneDirection.textContent = 'In Tune';
+                    el.directionPill.className = 'px-3 py-1.5 rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-900/20 dark:text-emerald-300';
+                    return;
+                }
+                if (cents < 0) {
+                    el.tuneDirection.textContent = 'Tune Up (Flat)';
+                    el.directionPill.className = 'px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-200';
+                } else {
+                    el.tuneDirection.textContent = 'Tune Down (Sharp)';
+                    el.directionPill.className = 'px-3 py-1.5 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-200';
+                }
+            }
+
+            function setNeedle(cents) {
+                const c = clamp(cents, -50, 50);
+                const percent = 50 + (c / 100) * 100; // [-50..50] -> [0..100]
+                el.needle.style.left = `${percent}%`;
+            }
+
+            function ensureCanvas(canvas) {
+                if (!canvas) return null;
+                const dpr = viz.dpr;
+                const rect = canvas.getBoundingClientRect();
+                const w = Math.max(1, Math.floor(rect.width * dpr));
+                const h = Math.max(1, Math.floor(rect.height * dpr));
+                if (canvas.width !== w || canvas.height !== h) {
+                    canvas.width = w;
+                    canvas.height = h;
+                }
+                const ctx = canvas.getContext('2d');
+                if (ctx) {
+                    ctx.setTransform(1, 0, 0, 1, 0, 0);
+                    ctx.scale(dpr, dpr);
+                }
+                return ctx;
+            }
+
+            function initVizContexts() {
+                viz.dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+                viz.waveCtx = ensureCanvas(el.canvasWave);
+                viz.specCtx = ensureCanvas(el.canvasSpec);
+                viz.pitchCtx = ensureCanvas(el.canvasPitch);
+            }
+
+            function clearCanvas(ctx, canvas) {
+                if (!ctx || !canvas) return;
+                const rect = canvas.getBoundingClientRect();
+                ctx.clearRect(0, 0, rect.width, rect.height);
+                ctx.fillStyle = 'rgba(0,0,0,0)';
+            }
+
+            function clearCanvases() {
+                clearCanvas(viz.waveCtx, el.canvasWave);
+                clearCanvas(viz.specCtx, el.canvasSpec);
+                clearCanvas(viz.pitchCtx, el.canvasPitch);
+            }
+
+            function drawWaveform(timeDomain, rms) {
+                const ctx = viz.waveCtx;
+                const canvas = el.canvasWave;
+                if (!ctx || !canvas) return;
+                const rect = canvas.getBoundingClientRect();
+                const w = rect.width, h = rect.height;
+                ctx.clearRect(0, 0, w, h);
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = 'rgba(14,165,233,0.95)'; // sky-500
+                ctx.beginPath();
+                const mid = h / 2;
+                const step = Math.max(1, Math.floor(timeDomain.length / (w * 1.5)));
+                let x = 0;
+                for (let i = 0; i < timeDomain.length; i += step) {
+                    const y = mid + timeDomain[i] * (h * 0.38);
+                    if (i === 0) ctx.moveTo(x, y);
+                    else ctx.lineTo(x, y);
+                    x += w / (timeDomain.length / step);
+                    if (x > w) break;
+                }
+                ctx.stroke();
+                // center line
+                ctx.strokeStyle = 'rgba(15,23,42,0.18)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(0, mid);
+                ctx.lineTo(w, mid);
+                ctx.stroke();
+                // rms meter
+                const meter = clamp(rms / 0.12, 0, 1);
+                ctx.fillStyle = 'rgba(34,197,94,0.20)';
+                ctx.fillRect(0, h - 6, w * meter, 6);
+            }
+
+            function binToHz(bin, sampleRate, binCount) {
+                return (bin / binCount) * (sampleRate / 2);
+            }
+
+            function findPeaks(byteFreq, sampleRate, binCount, minHz, maxHz, topN) {
+                const peaks = [];
+                const minBin = Math.max(1, Math.floor((minHz / (sampleRate / 2)) * binCount));
+                const maxBin = Math.min(binCount - 2, Math.floor((maxHz / (sampleRate / 2)) * binCount));
+                for (let i = minBin + 1; i < maxBin; i++) {
+                    const a = byteFreq[i - 1];
+                    const b = byteFreq[i];
+                    const c = byteFreq[i + 1];
+                    if (b > a && b > c && b > 40) {
+                        peaks.push({ bin: i, val: b, hz: binToHz(i, sampleRate, binCount) });
+                    }
+                }
+                peaks.sort((p, q) => q.val - p.val);
+                return peaks.slice(0, topN);
+            }
+
+            function drawSpectrum(byteFreq, sampleRate, detectedFreq, targetFreq) {
+                const ctx = viz.specCtx;
+                const canvas = el.canvasSpec;
+                if (!ctx || !canvas) return [];
+                const rect = canvas.getBoundingClientRect();
+                const w = rect.width, h = rect.height;
+                ctx.clearRect(0, 0, w, h);
+
+                const binCount = byteFreq.length;
+                const maxHz = 2000;
+                const maxBin = Math.min(binCount - 1, Math.floor((maxHz / (sampleRate / 2)) * binCount));
+                const bars = Math.min(120, maxBin);
+                const step = Math.max(1, Math.floor(maxBin / bars));
+                const barW = w / bars;
+                ctx.fillStyle = 'rgba(100,116,139,0.35)';
+                for (let i = 0; i < bars; i++) {
+                    const bin = i * step;
+                    const v = byteFreq[bin] / 255;
+                    const bh = v * (h * 0.9);
+                    ctx.fillRect(i * barW, h - bh, Math.max(1, barW - 1), bh);
+                }
+
+                // Peaks
+                const peaks = findPeaks(byteFreq, sampleRate, binCount, 60, 2000, 5);
+                const hzToX = (hz) => (hz / maxHz) * w;
+                ctx.fillStyle = 'rgba(14,165,233,0.95)';
+                peaks.forEach(p => {
+                    const x = hzToX(p.hz);
+                    const y = h - (p.val / 255) * (h * 0.9);
+                    ctx.beginPath();
+                    ctx.arc(x, y, 3, 0, Math.PI * 2);
+                    ctx.fill();
+                });
+
+                // Fundamental marker
+                if (detectedFreq) {
+                    const x = hzToX(detectedFreq);
+                    ctx.strokeStyle = 'rgba(14,165,233,0.95)';
+                    ctx.lineWidth = 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, h);
+                    ctx.stroke();
+                }
+                // Target marker
+                if (targetFreq) {
+                    const x = hzToX(targetFreq);
+                    ctx.strokeStyle = 'rgba(34,197,94,0.85)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 4]);
+                    ctx.beginPath();
+                    ctx.moveTo(x, 0);
+                    ctx.lineTo(x, h);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                return peaks;
+            }
+
+            function drawPitchTrace(targetFreq) {
+                const ctx = viz.pitchCtx;
+                const canvas = el.canvasPitch;
+                if (!ctx || !canvas) return;
+                const rect = canvas.getBoundingClientRect();
+                const w = rect.width, h = rect.height;
+                ctx.clearRect(0, 0, w, h);
+
+                const minF = 60;
+                const maxF = 1100;
+                const toY = (f) => {
+                    const lf = Math.log2(f);
+                    const lmin = Math.log2(minF);
+                    const lmax = Math.log2(maxF);
+                    const t = (lf - lmin) / (lmax - lmin);
+                    return h - clamp(t, 0, 1) * h;
+                };
+
+                // target line
+                if (targetFreq) {
+                    const y = toY(targetFreq);
+                    ctx.strokeStyle = 'rgba(34,197,94,0.65)';
+                    ctx.lineWidth = 2;
+                    ctx.setLineDash([5, 4]);
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(w, y);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
+                }
+
+                // pitch line
+                ctx.strokeStyle = 'rgba(14,165,233,0.95)';
+                ctx.lineWidth = 2;
+                ctx.beginPath();
+                const n = viz.pitchHistory.length;
+                const start = Math.max(0, n - viz.pitchMax);
+                let started = false;
+                for (let i = start; i < n; i++) {
+                    const f = viz.pitchHistory[i];
+                    const x = ((i - start) / Math.max(1, (n - start - 1))) * w;
+                    if (!f) {
+                        started = false;
+                        continue;
+                    }
+                    const y = toY(f);
+                    if (!started) {
+                        ctx.moveTo(x, y);
+                        started = true;
+                    } else {
+                        ctx.lineTo(x, y);
+                    }
+                }
+                ctx.stroke();
+
+                // subtle baseline
+                ctx.strokeStyle = 'rgba(15,23,42,0.14)';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(0, h - 1);
+                ctx.lineTo(w, h - 1);
+                ctx.stroke();
+            }
+
+            function calcRms(buf) {
+                let sum = 0;
+                for (let i = 0; i < buf.length; i++) sum += buf[i] * buf[i];
+                return Math.sqrt(sum / buf.length);
+            }
+
+            // Autocorrelation pitch detection (ACF2+ style)
+            function autoCorrelate(timeDomain, sampleRate) {
+                const SIZE = timeDomain.length;
+                const rms = calcRms(timeDomain);
+                if (rms < 0.012) return { freq: null, rms };
+
+                // Trim silence at both ends to improve correlation
+                let r1 = 0, r2 = SIZE - 1;
+                const threshold = 0.2;
+                while (r1 < SIZE / 2 && Math.abs(timeDomain[r1]) < threshold) r1++;
+                while (r2 > SIZE / 2 && Math.abs(timeDomain[r2]) < threshold) r2--;
+                const trimmed = timeDomain.slice(r1, r2);
+                const len = trimmed.length;
+                if (len < 32) return { freq: null, rms };
+
+                const c = new Array(len).fill(0);
+                for (let i = 0; i < len; i++) {
+                    for (let j = 0; j < len - i; j++) {
+                        c[i] = c[i] + trimmed[j] * trimmed[j + i];
+                    }
+                }
+
+                let d = 0;
+                while (d < len - 1 && c[d] > c[d + 1]) d++;
+
+                let maxval = -1;
+                let maxpos = -1;
+                for (let i = d; i < len; i++) {
+                    if (c[i] > maxval) { maxval = c[i]; maxpos = i; }
+                }
+                if (maxpos <= 0) return { freq: null, rms };
+
+                // Parabolic interpolation for better accuracy
+                const x1 = maxpos - 1;
+                const x2 = maxpos;
+                const x3 = maxpos + 1;
+                if (x1 < 0 || x3 >= c.length) {
+                    return { freq: sampleRate / maxpos, rms };
+                }
+                const y1 = c[x1], y2 = c[x2], y3 = c[x3];
+                const a = (y1 + y3 - 2 * y2) / 2;
+                const b = (y3 - y1) / 2;
+                const shift = a ? (-b / (2 * a)) : 0;
+                const period = x2 + shift;
+                const freq = sampleRate / period;
+
+                // Guitar practical band-pass: ~70Hz to ~1000Hz
+                if (freq < 60 || freq > 1100) return { freq: null, rms };
+                return { freq, rms };
+            }
+
+            function getTargetForDetected(midiDetected) {
+                const model = tuningModel(selectedTuning);
+                let best = null;
+                for (const s of model) {
+                    if (typeof s.midi !== 'number') continue;
+                    const dist = Math.abs(midiDetected - s.midi);
+                    if (!best || dist < best.dist) best = { ...s, dist };
+                }
+                return best; // includes note, midi, freq, stringNumber
+            }
+
+            async function start() {
+                if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                    setMicState('error', 'getUserMedia not supported');
+                    setQuality('Unsupported', 'rose');
+                    return;
+                }
+
+                try {
+                    setMicState('listening', 'Requesting permission…');
+                    setQuality('Initializing', 'slate');
+
+                    mediaStream = await navigator.mediaDevices.getUserMedia({
+                        audio: {
+                            echoCancellation: false,
+                            noiseSuppression: false,
+                            autoGainControl: false
+                        }
+                    });
+
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const source = audioCtx.createMediaStreamSource(mediaStream);
+                    analyser = audioCtx.createAnalyser();
+                    analyser.fftSize = 4096;
+                    analyser.smoothingTimeConstant = 0.0;
+                    source.connect(analyser);
+                    buffer = new Float32Array(analyser.fftSize);
+                    freqBins = new Uint8Array(analyser.frequencyBinCount);
+                    initVizContexts();
+
+                    el.btnStart.disabled = true;
+                    el.btnStop.disabled = false;
+                    setMicState('listening', 'Mic active');
+                    setQuality('Listening', 'slate');
+                    resetHistory();
+                    viz.pitchHistory = [];
+                    renderStrings(null);
+                    loop();
+                } catch (err) {
+                    console.error(err);
+                    setMicState('error', (err && err.name) ? err.name : 'Permission denied');
+                    setQuality('Mic blocked', 'rose');
+                    el.btnStart.disabled = false;
+                    el.btnStop.disabled = true;
+                }
+            }
+
+            function stop() {
+                if (rafId) cancelAnimationFrame(rafId);
+                rafId = null;
+
+                if (analyser) analyser.disconnect();
+                analyser = null;
+
+                if (audioCtx) {
+                    audioCtx.close().catch(() => {});
+                    audioCtx = null;
+                }
+
+                if (mediaStream) {
+                    mediaStream.getTracks().forEach(t => t.stop());
+                    mediaStream = null;
+                }
+
+                el.btnStart.disabled = false;
+                el.btnStop.disabled = true;
+                setMicState('stopped', '');
+                setQuality('Stopped', 'slate');
+                clearCanvases();
+            }
+
+            function loop() {
+                if (!analyser || !audioCtx) return;
+                analyser.getFloatTimeDomainData(buffer);
+                const { freq, rms } = autoCorrelate(buffer, audioCtx.sampleRate);
+                analyser.getByteFrequencyData(freqBins);
+
+                const now = performance.now();
+                const shouldDraw = (now - viz.lastDraw) > 33; // ~30fps cap
+                if (shouldDraw) {
+                    viz.lastDraw = now;
+                    drawWaveform(buffer, rms);
+                }
+
+                if (!freq) {
+                    setQuality(rms < 0.012 ? 'Too quiet' : 'No pitch', rms < 0.012 ? 'amber' : 'slate');
+                    el.detectedFreq.textContent = '—';
+                    el.detectedNote.textContent = '—';
+                    el.detectedCents.textContent = '—';
+                    if (el.centsBig) {
+                        el.centsBig.textContent = '±—¢';
+                        el.centsBig.className = 'mt-4 text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white';
+                    }
+                    el.targetNote.textContent = '—';
+                    el.tuneDirection.textContent = '—';
+                    el.needle.style.left = '50%';
+                    renderStrings(null);
+                    resetHistory();
+                    viz.pitchHistory.push(null);
+                    if (viz.pitchHistory.length > (viz.pitchMax * 2)) viz.pitchHistory.shift();
+                    if (shouldDraw) {
+                        const peaks = drawSpectrum(freqBins, audioCtx.sampleRate, null, null);
+                        if (el.peaksPill) {
+                            el.peaksPill.textContent = peaks.length
+                                ? `Peaks: ${peaks.slice(0,3).map(p => `${p.hz.toFixed(0)}Hz`).join(' • ')}`
+                                : 'Peaks: —';
+                        }
+                        drawPitchTrace(null);
+                    }
+                } else {
+                    const midi = freqToMidi(freq);
+                    const detectedName = midiToNoteName(midi);
+                    const target = getTargetForDetected(midi);
+                    const targetFreq = target ? target.freq : null;
+                    const cents = targetFreq ? centsDiff(freq, targetFreq) : 0;
+                    const clampedCents = clamp(cents, -50, 50);
+
+                    pushHistory(midi, cents);
+                    const stability = calcStability();
+
+                    el.detectedFreq.textContent = freq.toFixed(2);
+                    el.detectedNote.textContent = detectedName.replace('#', '♯');
+                    el.targetNote.textContent = target ? target.note.replace('#', '♯') : '—';
+                    const centsStr = (cents >= 0 ? '+' : '−') + Math.abs(cents).toFixed(1);
+                    el.detectedCents.textContent = centsStr;
+                    if (el.centsBig) {
+                        const abs = Math.abs(cents);
+                        const bigTone =
+                            (abs <= 5 && stability.stable) ? 'text-emerald-600 dark:text-emerald-400' :
+                            (abs <= 12) ? 'text-amber-700 dark:text-amber-300' :
+                            'text-slate-900 dark:text-white';
+                        el.centsBig.className = `mt-4 text-3xl md:text-4xl font-extrabold tracking-tight ${bigTone}`;
+                        el.centsBig.textContent = `${centsStr}¢`;
+                    }
+
+                    setNeedle(clampedCents);
+                    setDirection(cents);
+                    renderStrings(midi);
+
+                    const abs = Math.abs(cents);
+                    if (abs <= 5 && stability.stable) {
+                        setQuality('In Tune', 'emerald');
+                    } else if (abs <= 10) {
+                        setQuality(stability.stable ? 'Close' : 'Locking…', stability.stable ? 'emerald' : 'amber');
+                    } else {
+                        setQuality(stability.stable ? 'Adjust' : 'Locking…', stability.stable ? 'amber' : 'amber');
+                    }
+
+                    viz.pitchHistory.push(freq);
+                    if (viz.pitchHistory.length > (viz.pitchMax * 2)) viz.pitchHistory.shift();
+                    if (shouldDraw) {
+                        const peaks = drawSpectrum(freqBins, audioCtx.sampleRate, freq, targetFreq);
+                        if (el.peaksPill) {
+                            el.peaksPill.textContent = peaks.length
+                                ? `Peaks: ${peaks.slice(0,3).map(p => `${p.hz.toFixed(0)}Hz`).join(' • ')}`
+                                : 'Peaks: —';
+                        }
+                        drawPitchTrace(targetFreq);
+                    }
+                }
+
+                rafId = requestAnimationFrame(loop);
+            }
+
+            function resetAll() {
+                stop();
+                resetHistory();
+                resetReadout();
+                renderStrings(null);
+                setMicState('ready', '');
+            }
+
+            // Wire up UI
+            buildTuningButtons();
+            renderStrings(null);
+            resetReadout();
+            setMicState('ready', 'Tap anywhere to start');
+            initVizContexts();
+
+            el.btnStart.addEventListener('click', start);
+            el.btnStop.addEventListener('click', stop);
+            el.btnReset.addEventListener('click', resetAll);
+
+            // Mobile-first: first interaction starts automatically (still requires user gesture for mic)
+            let autoStarted = false;
+            const autoStartHandler = (e) => {
+                if (autoStarted) return;
+                const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+                if (tag === 'a') return;
+                if (el.btnStart && el.btnStart.disabled) return;
+                autoStarted = true;
+                start();
+                document.removeEventListener('pointerdown', autoStartHandler, true);
+            };
+            document.addEventListener('pointerdown', autoStartHandler, true);
+
+            window.addEventListener('resize', () => {
+                initVizContexts();
+            });
+
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    // avoid running audio in background
+                    stop();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
+

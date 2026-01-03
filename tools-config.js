@@ -1,6 +1,18 @@
 window.toolsConfig = {
   categories: [
     {
+      id: "audio-music",
+      title: "🎵 Audio & Music",
+      tools: [
+        {
+          name: "Guitar Tuner",
+          description: "Tune your guitar with real-time mic pitch detection (standard + popular alternate tunings).",
+          url: "/guitar-tuner/",
+          tags: ["audio", "music", "guitar", "tuner", "pitch", "microphone", "cents", "chromatic", "tuning"],
+        },
+      ],
+    },
+    {
       id: "images",
       title: "📸 Image Tools",
       tools: [
