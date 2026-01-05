@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F7F7F5" id="themeColor" />
+  <title>先别抽</title>
+
+
+  <link href="../assets/css/styles.css" rel="stylesheet">
+  <style>
+    button { -webkit-tap-highlight-color: transparent; }
+    .safe-b { padding-bottom: max(env(safe-area-inset-bottom), 1rem); }
+
+    /* Theme tokens (minimal, no cards) */
+    :root{
+      --bg: #F7F7F5;
+      --text: #0F172A;   /* slate-900 */
+      --muted:#475569;   /* slate-600 */
+      --muted2:#64748B;  /* slate-500 */
+      --border:#E2E8F0;  /* slate-200 */
+
+      --btn: #0F172A;
+      --btnText: #FFFFFF;
+
+      --btn2: rgba(15, 23, 42, 0.06);
+      --btn2Text: #0F172A;
+    }
+    [data-theme="dark"]{
+      --bg: #0B1220;
+      --text: #E5E7EB;   /* gray-200 */
+      --muted:#CBD5E1;   /* slate-300 */
+      --muted2:#94A3B8;  /* slate-400 */
+      --border: rgba(148,163,184,0.25);
+
+      --btn: #F8FAFC;    /* slate-50 */
+      --btnText: #0B1220;
+
+      --btn2: rgba(248,250,252,0.10);
+      --btn2Text: #E5E7EB;
+    }
+
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "PingFang SC",
+                   "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", Arial, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .muted, .muted2, #timer, #fixedHint, #softHint {
+      transition: color 0.4s ease, opacity 0.4s ease;
+    }
+
+    .muted { color: var(--muted); }
+    .muted2{ color: var(--muted2); }
+
+    .btn-primary{
+      background: var(--btn);
+      color: var(--btnText);
+      transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+    }
+    .btn-ghost{
+      background: var(--btn2);
+      color: var(--btn2Text);
+      border: 1px solid var(--border);
+      transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    /* reveal animation (no JS, no setTimeout) */
+    .reveal{
+      opacity: 0;
+      transform: translateY(6px);
+      animation: revealIn 420ms ease-out forwards;
+      will-change: opacity, transform;
+    }
+    @keyframes revealIn{
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-0   { animation-delay: 0ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-450 { animation-delay: 450ms; }
+    .delay-650 { animation-delay: 650ms; }
+
+    /* Ensure animation retriggers when we force reflow via key change */
+    .reveal-reset { animation: none !important; }
+
+    /* Top controls should not affect centering */
+    .topbar{
+      position: fixed;
+      top: 12px;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .topbar-inner{
+      pointer-events: auto;
+      max-width: 28rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top controls -->
+  <div class="topbar">
+    <div class="topbar-inner">
+      <button id="btnReset"
+              class="text-xs px-3 py-2 rounded-xl btn-ghost opacity-80 hover:opacity-100 transition hidden">
+        重置
+      </button>
+
+      <div class="ml-auto flex gap-2">
+        <button id="btnTheme"
+                class="text-xs px-3 py-2 rounded-xl btn-ghost opacity-90 hover:opacity-100 transition">
+          主题：自动
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="min-h-screen flex items-center justify-center px-5 safe-b">
+    <div class="w-full max-w-md">
+
+      <!-- SCREEN: HOME -->
+      <section id="screenHome" class="min-h-[72vh] flex flex-col items-center justify-center text-center">
+        <h1 class="text-4xl sm:text-[2.6rem] font-semibold tracking-tight">先别抽。</h1>
+        <p class="mt-4 text-base sm:text-lg leading-relaxed muted">
+          难受的时候，<br/>在这儿坐一会儿。
+        </p>
+
+        <div class="mt-8 w-full space-y-3">
+          <button id="btnCrave"
+                  class="w-full rounded-2xl btn-primary font-semibold py-4 text-lg active:scale-[0.99] transition">
+            我现在想抽烟
+          </button>
+          <div class="text-xs muted2">点一下就行。</div>
+        </div>
+
+        <div class="mt-8 w-full flex items-center justify-between text-sm">
+          <div class="muted">今天点了</div>
+          <div id="todayCount" class="font-semibold">0</div>
+        </div>
+        <div class="mt-2 w-full text-xs muted2 text-left">
+          不用记录对错。只是一个顺手能打开的地方。
+        </div>
+      </section>
+
+      <!-- SCREEN: CHOOSE -->
+      <section id="screenChoose" class="min-h-[72vh] hidden flex flex-col justify-center">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">现在是哪种感觉？</h2>
+          <p class="mt-2 text-sm muted2">选一个接近的就行。</p>
+        </div>
+
+        <div class="mt-8 space-y-3">
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition"
+                  data-state="body">
+            <div class="text-base font-medium">身上不太舒服</div>
+            <div class="mt-1 text-xs muted2">坐不住、顶、发闷之类</div>
+          </button>
+
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition"
+                  data-state="annoy">
+            <div class="text-base font-medium">心里有点烦</div>
+            <div class="mt-1 text-xs muted2">烦、火大、不耐烦</div>
+          </button>
+
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition"
+                  data-state="tight">
+            <div class="text-base font-medium">有点紧</div>
+            <div class="mt-1 text-xs muted2">憋得慌、紧张、焦虑</div>
+          </button>
+
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition"
+                  data-state="empty">
+            <div class="text-base font-medium">空着，不太好受</div>
+            <div class="mt-1 text-xs muted2">空落落、说不上来</div>
+          </button>
+
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition"
+                  data-state="habit">
+            <div class="text-base font-medium">就是顺手想抽</div>
+            <div class="mt-1 text-xs muted2">习惯反射，手先动</div>
+          </button>
+        </div>
+
+        <div class="mt-6">
+          <button id="btnBackFromChoose"
+                  class="w-full rounded-2xl py-3 btn-ghost active:scale-[0.99] transition">
+            返回
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: BUFFER -->
+      <section id="screenBuffer" class="min-h-[72vh] hidden flex flex-col items-center justify-center text-center">
+        <!-- buffer container (no card, just spacing) -->
+        <div class="w-full">
+          <!-- We will rebuild these nodes on each entry to retrigger CSS delays -->
+          <div id="bufferContent" class="space-y-6"></div>
+
+          <div class="mt-10 space-y-3">
+            <button id="btnNextStage" class="w-full rounded-2xl btn-primary font-semibold py-4 text-lg active:scale-[0.99] transition hidden">
+              再坐一两分钟
+            </button>
+            <button id="btnGiveUp" class="w-full rounded-2xl py-3 btn-ghost transition">
+              返回
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: CHECK -->
+      <section id="screenCheck" class="min-h-[72vh] hidden flex flex-col items-center justify-center text-center">
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">现在感觉怎么样？</h2>
+        <p class="mt-2 text-sm muted2">不用判断对错。</p>
+
+        <div class="mt-8 w-full space-y-3">
+          <button id="btnBetter"
+                  class="w-full rounded-2xl btn-primary font-semibold py-4 text-lg active:scale-[0.99] transition">
+            好点了
+          </button>
+
+          <button id="btnNotYet"
+                  class="w-full rounded-2xl py-4 text-lg btn-ghost active:scale-[0.99] transition">
+            还不太行
+          </button>
+        </div>
+
+        <div id="checkTip" class="mt-7 w-full text-sm leading-relaxed hidden muted"></div>
+
+        <button id="btnBackHome"
+                class="mt-6 w-full rounded-2xl py-3 btn-ghost hidden transition">
+          回到首页
+        </button>
+      </section>
+
+      <!-- Add to Home prompt -->
+      <div id="a2hs" class="fixed left-0 right-0 bottom-0 px-5 pb-4 hidden z-50">
+        <div class="mx-auto max-w-md rounded-2xl bg-white dark:bg-slate-800 shadow-2xl border border-slate-200 dark:border-slate-700 px-4 py-4">
+          <div class="text-sm font-semibold">这个可以放到桌面。</div>
+          <div class="mt-1 text-xs muted2">想用的时候，点一下就开。</div>
+
+          <div class="mt-3 flex gap-2">
+            <button id="btnA2HSHow"
+                    class="flex-1 rounded-2xl btn-primary font-semibold py-2 text-sm active:scale-[0.99] transition">
+              放到桌面
+            </button>
+            <button id="btnA2HSLater"
+                    class="flex-1 rounded-2xl btn-ghost py-2 text-sm active:scale-[0.99] transition">
+              下次再说
+            </button>
+          </div>
+
+          <div id="a2hsHow" class="mt-3 hidden text-xs leading-relaxed muted">
+            <div class="font-semibold">怎么放？</div>
+            <div class="mt-1">
+              iPhone：Safari 点 <b>分享</b> → <b>添加到主屏幕</b><br/>
+              Android：浏览器菜单 → <b>添加到主屏幕</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- A2HS Trigger Icon -->
+      <button id="btnShowA2HS" 
+              class="fixed right-5 bottom-5 w-10 h-10 rounded-full btn-ghost flex items-center justify-center shadow-lg transition hidden z-40">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </button>
+
+    </div>
+  </main>
+
+  <script>
+    // ---------- Theme ----------
+    const THEME_KEY = "xianbiechou_theme_v1"; // auto | light | dark
+
+    function applyTheme(mode) {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      let theme = "light";
+
+      if (mode === "light") theme = "light";
+      else if (mode === "dark") theme = "dark";
+      else {
+        const h = new Date().getHours();
+        theme = (h >= 19 || h < 7 || prefersDark) ? "dark" : "light";
+      }
+
+      document.documentElement.setAttribute("data-theme", theme);
+      document.getElementById("themeColor").setAttribute("content", theme === "dark" ? "#0B1220" : "#F7F7F5");
+      
+      const label = theme === "dark" ? "夜间" : "日间";
+      document.getElementById("btnTheme").textContent = `主题：${label}`;
+    }
+
+    // ---------- App State & Storage ----------
+    const LS_KEY = "xianbiechou_v3";
+    const state = {
+      screen: "home",
+      chosen: null,
+      stageIndex: 0,
+      remaining: 0,
+      timerId: null,
+      a2hsDismissed: false,
+      a2hsShown: false,
+    };
+
+    function save() {
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      data.a2hsDismissed = state.a2hsDismissed;
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        state.a2hsDismissed = !!data.a2hsDismissed;
+      } catch {}
+    }
+
+    function updateTodayCountUI() {
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      const k = new Date().toISOString().split('T')[0];
+      document.getElementById("todayCount").textContent = data.counts[k] || 0;
+      
+      const btnReset = document.getElementById("btnReset");
+      const total = Object.values(data.counts || {}).reduce((a, b) => a + (b || 0), 0);
+      btnReset.classList.toggle("hidden", total === 0);
+    }
+
+    function incTodayCount() {
+      const k = new Date().toISOString().split('T')[0];
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      if (!data.counts) data.counts = {};
+      data.counts[k] = (data.counts[k] || 0) + 1;
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      updateTodayCountUI();
+    }
+
+    // ---------- Copy ----------
+    const COPY = {
+      body:  { l1:"这阵不太好受。", l2:"一般不会太久。", soft:"慢慢呼一口气。" },
+      annoy: { l1:"烦的时候，容易想抽一根。", l2:"", soft:"坐着就好。" },
+      tight: { l1:"紧的时候，手会先动。", l2:"", soft:"呼一口气就行。" },
+      empty: { l1:"这种感觉，抽完也会再来。", l2:"", soft:"很快就过去。" },
+      habit: { l1:"很多时候，只是习惯。", l2:"", soft:"顺手的事，等一等。" },
+      afterNotYet: "那就再坐一会儿。",
+      afterBetter:  "行。<br/>这一阵过去了。",
+    };
+
+    const LADDER = [
+      { dur: 10,  intro: "先停 10 秒。", done: "好。还在这儿。", nextBtn: "再多坐一会儿" },
+      { dur: 30,  intro: "再给一点时间。", done: "现在还不需要做决定。", nextBtn: "继续坐会儿" },
+      { dur: 60,  intro: "在这里停一分钟。", done: "这股劲儿，起起落落。", nextBtn: "再多留一点时间" },
+      { dur: 180, intro: "坐 3 分钟。", done: "", nextBtn: "" }
+    ];
+
+    // ---------- UI ----------
+    const screens = {
+      home:   document.getElementById("screenHome"),
+      choose: document.getElementById("screenChoose"),
+      buffer: document.getElementById("screenBuffer"),
+      check:  document.getElementById("screenCheck"),
+    };
+
+    function showScreen(name) {
+      Object.values(screens).forEach(s => s.classList.add("hidden"));
+      screens[name].classList.remove("hidden");
+      state.screen = name;
+      updateA2HSSwitcher();
+    }
+
+    function fmtTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function stopTimer() {
+      if (state.timerId) {
+        clearInterval(state.timerId);
+        state.timerId = null;
+      }
+    }
+
+    function renderBufferContent(chosen, stageIdx) {
+      const c = COPY[chosen];
+      const s = LADDER[stageIdx];
+      const wrap = document.getElementById("bufferContent");
+      
+      wrap.innerHTML = `
+        <div class="reveal delay-0 text-lg sm:text-xl font-semibold">${c.l1}</div>
+        <div class="reveal delay-200 muted text-base sm:text-lg leading-relaxed ${c.l2 ? "" : "hidden"}">${c.l2}</div>
+
+        <div class="reveal delay-450 text-6xl sm:text-7xl font-semibold tabular-nums tracking-tight" id="timer">
+          ${fmtTime(state.remaining)}
+        </div>
+
+        <div class="reveal delay-650 muted text-base sm:text-lg leading-relaxed" id="fixedHint">
+          ${s.intro}
+        </div>
+
+        <div class="mt-4 text-sm muted2 leading-relaxed" id="softHint">
+          ${c.soft}
+        </div>
+      `;
+    }
+
+    function startBuffer(chosen, stageIdx = 0) {
+      stopTimer();
+      state.chosen = chosen;
+      state.stageIndex = stageIdx;
+      state.remaining = LADDER[stageIdx].dur;
+
+      showScreen("buffer");
+      document.getElementById("btnNextStage").classList.add("hidden");
+      renderBufferContent(chosen, stageIdx);
+
+      state.timerId = setInterval(() => {
+        state.remaining -= 1;
+        if (state.remaining < 0) state.remaining = 0;
+        
+        const t = document.getElementById("timer");
+        if (t) t.textContent = fmtTime(state.remaining);
+
+        if (state.remaining === 0) {
+          stopTimer();
+          handleStageEnd();
+        }
+      }, 1000);
+    }
+
+    function handleStageEnd() {
+      const current = LADDER[state.stageIndex];
+      const next = LADDER[state.stageIndex + 1];
+
+      if (next) {
+        const hint = document.getElementById("fixedHint");
+        if (hint) hint.innerHTML = current.done;
+        
+        const t = document.getElementById("timer");
+        if (t) t.textContent = fmtTime(next.dur);
+
+        const btnNext = document.getElementById("btnNextStage");
+        btnNext.textContent = current.nextBtn;
+        btnNext.classList.remove("hidden");
+      } else {
+        showCheck();
+      }
+    }
+
+    function showCheck() {
+      stopTimer();
+      showScreen("check");
+      const tip = document.getElementById("checkTip");
+      tip.classList.add("hidden");
+      tip.innerHTML = "";
+      document.getElementById("btnBackHome").classList.add("hidden");
+    }
+
+    // ---------- A2HS ----------
+    function shouldShowA2HS() {
+      if (state.a2hsDismissed) return false;
+      if (state.a2hsShown) return false;
+      
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      const k = new Date().toISOString().split('T')[0];
+      const today = data.counts[k] || 0;
+      const total = Object.values(data.counts || {}).reduce((a, b) => a + (b || 0), 0);
+      
+      return (today >= 2 || total >= 3);
+    }
+
+    function showA2HS() {
+      if (!shouldShowA2HS()) {
+        updateA2HSSwitcher();
+        return;
+      }
+      state.a2hsShown = true;
+      document.getElementById("a2hs").classList.remove("hidden");
+      document.getElementById("btnShowA2HS").classList.add("hidden");
+    }
+
+    function hideA2HS(dismiss = false) {
+      if (dismiss) {
+        state.a2hsDismissed = true;
+        save();
+      }
+      document.getElementById("a2hs").classList.add("hidden");
+      document.getElementById("a2hsHow").classList.add("hidden");
+      updateA2HSSwitcher();
+    }
+
+    function updateA2HSSwitcher() {
+      const btn = document.getElementById("btnShowA2HS");
+      if (state.a2hsDismissed && state.screen === "home") {
+        btn.classList.remove("hidden");
+      } else {
+        btn.classList.add("hidden");
+      }
+    }
+
+    // ---------- Events ----------
+    document.getElementById("btnTheme").onclick = () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const next = (currentTheme === "dark") ? "light" : "dark";
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    };
+
+    document.getElementById("btnCrave").onclick = () => {
+      incTodayCount();
+      showScreen("choose");
+    };
+
+    document.getElementById("btnBackFromChoose").onclick = () => {
+      showScreen("home");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.querySelectorAll(".choiceBtn").forEach(btn => {
+      btn.onclick = () => startBuffer(btn.getAttribute("data-state"), 0);
+    });
+
+    document.getElementById("btnNextStage").onclick = () => {
+      startBuffer(state.chosen, state.stageIndex + 1);
+    };
+
+    document.getElementById("btnGiveUp").onclick = () => {
+      stopTimer();
+      showScreen("home");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnBetter").onclick = () => {
+      const tip = document.getElementById("checkTip");
+      tip.innerHTML = COPY.afterBetter;
+      tip.classList.remove("hidden");
+      document.getElementById("btnBackHome").classList.remove("hidden");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnNotYet").onclick = () => {
+      const tip = document.getElementById("checkTip");
+      tip.textContent = COPY.afterNotYet;
+      tip.classList.remove("hidden");
+      setTimeout(() => startBuffer(state.chosen || "body", LADDER.length - 1), 800);
+    };
+
+    document.getElementById("btnBackHome").onclick = () => {
+      showScreen("home");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnReset").onclick = () => {
+      if (!confirm("确定要重置使用记录吗？")) return;
+      const data = { counts: {}, a2hsDismissed: false };
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      state.a2hsDismissed = false;
+      state.a2hsShown = false;
+      updateTodayCountUI();
+      hideA2HS(false);
+    };
+
+    document.getElementById("btnA2HSHow").onclick = () => {
+      document.getElementById("a2hsHow").classList.toggle("hidden");
+    };
+
+    document.getElementById("btnA2HSLater").onclick = () => {
+      hideA2HS(true);
+    };
+
+    document.getElementById("btnShowA2HS").onclick = () => {
+      state.a2hsShown = true;
+      document.getElementById("a2hs").classList.remove("hidden");
+      document.getElementById("btnShowA2HS").classList.add("hidden");
+    };
+
+    // ---------- Init ----------
+    load();
+    updateTodayCountUI();
+    applyTheme(localStorage.getItem(THEME_KEY) || "auto");
+    showScreen("home");
+    setTimeout(showA2HS, 700);
+  </script>
+</body>
+</html>

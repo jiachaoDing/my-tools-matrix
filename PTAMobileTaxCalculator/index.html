@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PTA Mobile Tax Calculator - Free & Secure | WebUtilityKit</title>
+    <meta name="description" content="Calculate Pakistan PTA mobile phone import taxes including Customs Duty, Sales Tax, and Withholding Tax. Free online calculator for accurate tax computation.">
+    <link href="../assets/css/styles.css" rel="stylesheet">
+    <link rel="canonical" href="https://webutilitykit.com/pta-mobile-tax-calculator/">
+    <script src="/tools-config.js"></script>
+    <script src="/assets/js/app.js" defer></script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
+
+    <!-- Header is automatically injected by components.js -->
+
+    <main class="flex-grow w-full py-12 px-4 sm:px-6">
+        <div class="max-w-4xl mx-auto text-center mb-10">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">PTA Mobile Tax Calculator</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Calculate import taxes for mobile phones in Pakistan including Customs Duty, Sales Tax, and Withholding Income Tax.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                <span>100% Secure. Processed locally.</span>
+            </div>
+        </div>
+
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
+            <!-- Tax Calculator Tool -->
+            <div class="w-full max-w-2xl mx-auto">
+                <div class="bg-white dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 rounded-[2rem] p-8 shadow-xl">
+
+                    <!-- Input Section -->
+                    <div class="space-y-6">
+                        <!-- Phone Selection -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Brand
+                                </label>
+                                <select id="brandSelect" class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors">
+                                    <option value="">Select Brand</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                    Model
+                                </label>
+                                <select id="modelSelect" class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" disabled>
+                                    <option value="">Select Model</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Selected Phone Info -->
+                        <div id="selectedPhoneInfo" class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-xl hidden">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                <div>
+                                    <span class="text-slate-600 dark:text-slate-400">Pakistan Price:</span>
+                                    <span id="pakistanPrice" class="font-medium text-slate-900 dark:text-white block"></span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-600 dark:text-slate-400">USA Price:</span>
+                                    <span id="usaPrice" class="font-medium text-slate-900 dark:text-white block"></span>
+                                </div>
+                                <div>
+                                    <span class="text-slate-600 dark:text-slate-400">Dubai Price:</span>
+                                    <span id="dubaiPrice" class="font-medium text-slate-900 dark:text-white block"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Mobile Phone Import Value (PKR)
+                            </label>
+                            <input type="number" id="mobileValue" placeholder="e.g. 250,000 or select from above"
+                                   class="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 placeholder-slate-500 dark:placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors" step="0.01" min="0">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                                Taxpayer Status
+                            </label>
+                            <div class="flex gap-4">
+                                <label class="flex items-center">
+                                    <input type="radio" name="taxpayerStatus" value="atl" checked
+                                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">ATL (Active Taxpayer)</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="taxpayerStatus" value="non-atl"
+                                           class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                    <span class="ml-2 text-sm text-slate-700 dark:text-slate-300">Non-ATL</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button id="calculateBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-xl transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                            Calculate Taxes
+                        </button>
+                    </div>
+
+                    <!-- Results Section -->
+                    <div id="resultsSection" class="mt-8 space-y-4 hidden">
+                        <div class="border-t border-slate-200 dark:border-slate-700 pt-6">
+                            <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Tax Breakdown</h3>
+
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-slate-600 dark:text-slate-400">Value in PKR:</span>
+                                    <span id="valuePKR" class="font-medium text-slate-900 dark:text-white">PKR 0</span>
+                                </div>
+
+                                <div class="flex justify-between items-center py-2 border-t border-slate-100 dark:border-slate-700">
+                                    <span class="text-slate-600 dark:text-slate-400">Customs Duty (CD):</span>
+                                    <span id="customsDuty" class="font-medium text-slate-900 dark:text-white">PKR 250</span>
+                                </div>
+
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-slate-600 dark:text-slate-400">Sales Tax (ST):</span>
+                                    <span id="salesTax" class="font-medium text-slate-900 dark:text-white">PKR 0</span>
+                                </div>
+
+                                <div class="flex justify-between items-center py-2">
+                                    <span class="text-slate-600 dark:text-slate-400">Withholding Tax (WHT):</span>
+                                    <span id="withholdingTax" class="font-medium text-slate-900 dark:text-white">PKR 0</span>
+                                </div>
+
+                                <div class="flex justify-between items-center py-2 border-t-2 border-slate-300 dark:border-slate-600 pt-3">
+                                    <span class="text-lg font-semibold text-slate-900 dark:text-white">Total Tax:</span>
+                                    <span id="totalTax" class="text-lg font-bold text-red-600 dark:text-red-400">PKR 0</span>
+                                </div>
+
+                                <div class="flex justify-between items-center py-2 bg-slate-50 dark:bg-slate-800/50 rounded-lg px-3 py-2">
+                                    <span class="text-slate-600 dark:text-slate-400">Total Cost (Phone + Taxes):</span>
+                                    <span id="totalCost" class="font-semibold text-slate-900 dark:text-white">PKR 0</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg hidden">
+                        <p class="text-red-700 dark:text-red-300 text-sm" id="errorText"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>
+        </div>
+
+        <!-- Editorial Section -->
+        <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
+            <article class="space-y-24">
+
+                <!-- How to Use -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use PTA Mobile Tax Calculator</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Step 1 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Your Phone</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose your phone brand and model from our database, or manually enter the import value in USD.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Enter Price in PKR</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Input the phone's import value directly in Pakistani Rupees.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Select Taxpayer Status</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose ATL (Active Taxpayer List) or Non-ATL status for accurate tax calculation.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Feature Grid -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key Features</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Accurate PTA Compliance</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Calculates all three major taxes: Customs Duty, Sales Tax, and Withholding Income Tax according to current PTA regulations.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Direct PKR Input</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Enter phone prices directly in Pakistani Rupees for accurate calculations. No exchange rate conversions needed.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Privacy First</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">All calculations are performed locally in your browser. No data is sent to any server or stored anywhere.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">ATL/Non-ATL Support</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Automatically calculates different tax rates based on whether you are on the Active Taxpayers List (ATL) or not.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tax Information -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Understanding Pakistan Mobile Phone Taxes</h2>
+                    <div class="prose prose-slate dark:prose-invert max-w-none">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                            <div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Customs Duty (CD)</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Fixed amount of PKR 250 per mobile phone unit, regardless of the phone's value or specifications.</p>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Sales Tax (ST)</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">18% for phones valued at $500 or less, 25% for phones valued above $500. Calculated on the CIF value in Pakistani Rupees.</p>
+                            </div>
+                            <div class="bg-white dark:bg-slate-800/40 p-6 rounded-2xl border border-slate-200 dark:border-slate-700/50">
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Withholding Tax (WHT)</h3>
+                                <p class="text-slate-600 dark:text-slate-400 text-sm">Fixed amounts based on phone value brackets. ATL taxpayers pay lower rates than Non-ATL taxpayers.</p>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-6 rounded-2xl border border-blue-200 dark:border-blue-800">
+                            <h4 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">Important Notes</h4>
+                            <ul class="text-blue-800 dark:text-blue-200 text-sm space-y-1">
+                                <li>• This calculator is for complete mobile phone units (CBU) with HS Code 8517.1219</li>
+                                <li>• CKD/SKD (parts for local assembly) have different tax rates</li>
+                                <li>• Tax rates are subject to change. Always verify with official PTA sources</li>
+                                <li>• SIM cards are exempt from the PKR 250 customs duty since July 1, 2020</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- FAQ -->
+                <section>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
+                    <div class="max-w-3xl mx-auto space-y-4">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What is ATL and Non-ATL?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                ATL stands for Active Taxpayers List. Taxpayers registered on this list pay lower withholding tax rates. Non-ATL taxpayers pay double the ATL rates. You can check your status on the FBR website.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Are these rates up to date?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                The calculator uses the tax rates effective from Finance Act 2025. However, tax rates can change. Always verify with official PTA and FBR sources before making import decisions.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">What's the difference between CBU and CKD/SKD?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                CBU (Completely Built Unit) refers to finished mobile phones. CKD/SKD (Completely/Semi Knocked Down) refers to mobile phone parts imported for local assembly. They have different HS codes and tax rates.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">How do I use the phone model selector?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Simply select your phone's brand from the first dropdown, then choose the specific model from the second dropdown. The tool will automatically fill in the Pakistan price in PKR and display pricing information for all markets. You can also manually enter a custom price if your model isn't listed.
+                            </div>
+                        </details>
+
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is this calculator official?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                This is an educational tool for estimation purposes only. For official tax calculations, consult with Pakistan Customs, FBR, or qualified tax professionals. The calculator implements the formulas from official PTA tax schedules.
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
+    <!-- 统一组件管理 -->
+    <script src="../assets/js/components.js"></script>
+
+    <script>
+        // === PTA Mobile Tax Calculator Logic ===
+
+        // Phone data and variables
+        let phoneData = [];
+        let brands = new Set();
+
+        // Load CSV data
+        async function loadPhoneData() {
+            try {
+                const response = await fetch('./Mobiles Dataset (2025).csv');
+                const csvText = await response.text();
+                parseCSV(csvText);
+            } catch (error) {
+                console.error('Error loading phone data:', error);
+            }
+        }
+
+        // Parse CSV data - improved parser to handle quoted fields with commas
+        function parseCSV(csvText) {
+            const lines = csvText.split('\n').filter(line => line.trim());
+            const headers = parseCSVLine(lines[0]);
+
+            phoneData = lines.slice(1).map(line => {
+                const values = parseCSVLine(line);
+                const phone = {};
+
+                headers.forEach((header, index) => {
+                    phone[header] = values[index] || '';
+                });
+
+                // Extract brand from company name
+                if (phone['Company Name']) {
+                    brands.add(phone['Company Name']);
+                }
+
+                return phone;
+            });
+            populateBrands();
+        }
+
+        // CSV line parser that properly handles quoted fields with commas
+        function parseCSVLine(line) {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < line.length; i++) {
+                const char = line[i];
+                const nextChar = line[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        // Escaped quote inside quoted field
+                        current += '"';
+                        i++; // Skip next quote
+                    } else {
+                        // Start or end of quoted field
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    // Comma outside quotes is a field separator
+                    result.push(current);
+                    current = '';
+                } else {
+                    current += char;
+                }
+            }
+
+            // Add the last field
+            result.push(current);
+
+            return result;
+        }
+
+        // Populate brand dropdown
+        function populateBrands() {
+            const brandSelect = document.getElementById('brandSelect');
+            brandSelect.innerHTML = '<option value="">Select Brand</option>';
+
+            Array.from(brands).sort().forEach(brand => {
+                const option = document.createElement('option');
+                option.value = brand;
+                option.textContent = brand;
+                brandSelect.appendChild(option);
+            });
+        }
+
+        // Populate models for selected brand
+        function populateModels(brand) {
+            const modelSelect = document.getElementById('modelSelect');
+            modelSelect.innerHTML = '<option value="">Select Model</option>';
+
+            const brandPhones = phoneData.filter(phone => phone['Company Name'] === brand);
+            brandPhones.forEach(phone => {
+                if (phone['Model Name']) {
+                    const option = document.createElement('option');
+                    option.value = phone['Model Name'];
+                    option.textContent = phone['Model Name'];
+                    // Store the full phone data in the option
+                    option.dataset.phoneData = JSON.stringify(phone);
+                    modelSelect.appendChild(option);
+                }
+            });
+
+            modelSelect.disabled = false;
+        }
+
+        // Handle model selection
+        function handleModelSelection(modelName, brand) {
+            const selectedPhone = phoneData.find(phone =>
+                phone['Company Name'] === brand && phone['Model Name'] === modelName
+            );
+
+            if (selectedPhone) {
+                // Fill price information - use Pakistan price as PKR value
+                const pakistanPrice = selectedPhone['Launched Price (Pakistan)'] || '';
+                const numericPKR = parseFloat(pakistanPrice.replace(/[^0-9.]/g, '')) || 0;
+
+                if (numericPKR > 0) {
+                    document.getElementById('mobileValue').value = numericPKR;
+                }
+
+                // Show selected phone info
+                const usaPriceRaw = selectedPhone['Launched Price (USA)'] || '';
+                const dubaiPriceRaw = selectedPhone['Launched Price (Dubai)'] || '';
+
+                // Ensure proper formatting
+                const usaPriceDisplay = usaPriceRaw.startsWith('USD') ? usaPriceRaw : ('USD ' + usaPriceRaw);
+                const dubaiPriceDisplay = dubaiPriceRaw.startsWith('AED') ? dubaiPriceRaw : ('AED ' + dubaiPriceRaw.replace(/^USD\s*/, ''));
+
+                document.getElementById('pakistanPrice').textContent = pakistanPrice || 'N/A';
+                document.getElementById('usaPrice').textContent = usaPriceDisplay || 'N/A';
+                document.getElementById('dubaiPrice').textContent = dubaiPriceDisplay || 'N/A';
+                document.getElementById('selectedPhoneInfo').classList.remove('hidden');
+
+                // Auto-calculate if price is available
+                if (numericPKR > 0) {
+                    calculateTaxes();
+                }
+            }
+        }
+
+        // Withholding Tax lookup table for mobile phones (HS Code 8517.1219)
+        // Based on Finance Act 2025 rates - Fixed amounts based on USD value ranges
+        const WHT_TABLE = {
+            atl: [
+                { min: 0, max: 50, tax: 70 },
+                { min: 50, max: 100, tax: 140 },
+                { min: 100, max: 150, tax: 210 },
+                { min: 150, max: 200, tax: 280 },
+                { min: 200, max: 250, tax: 350 },
+                { min: 250, max: 300, tax: 420 },
+                { min: 300, max: 350, tax: 490 },
+                { min: 350, max: 400, tax: 560 },
+                { min: 400, max: 450, tax: 630 },
+                { min: 450, max: 500, tax: 700 },
+                { min: 500, max: 600, tax: 840 },
+                { min: 600, max: 700, tax: 980 },
+                { min: 700, max: 800, tax: 1120 },
+                { min: 800, max: Infinity, tax: 11500 }
+            ],
+            'non-atl': [
+                { min: 0, max: 50, tax: 140 },
+                { min: 50, max: 100, tax: 280 },
+                { min: 100, max: 150, tax: 420 },
+                { min: 150, max: 200, tax: 560 },
+                { min: 200, max: 250, tax: 700 },
+                { min: 250, max: 300, tax: 840 },
+                { min: 300, max: 350, tax: 980 },
+                { min: 350, max: 400, tax: 1120 },
+                { min: 400, max: 450, tax: 1260 },
+                { min: 450, max: 500, tax: 1400 },
+                { min: 500, max: 600, tax: 1680 },
+                { min: 600, max: 700, tax: 1960 },
+                { min: 700, max: 800, tax: 2240 },
+                { min: 800, max: Infinity, tax: 23000 }
+            ]
+        };
+
+        // Format currency helper
+        function formatCurrency(amount, currency = 'PKR') {
+            if (typeof amount !== 'number' || isNaN(amount)) {
+                console.error('Invalid amount for formatCurrency:', amount, typeof amount);
+                return `${currency} 0`;
+            }
+            return `${currency} ${amount.toLocaleString('en-PK', { maximumFractionDigits: 0 })}`;
+        }
+
+        // Calculate withholding tax based on USD value and taxpayer status
+        function calculateWHT(usdValue, taxpayerStatus) {
+            const table = WHT_TABLE[taxpayerStatus];
+            for (const bracket of table) {
+                if (usdValue >= bracket.min && usdValue < bracket.max) {
+                    return bracket.tax;
+                }
+            }
+            return table[table.length - 1].tax; // Return the highest bracket tax
+        }
+
+        // Main calculation function
+        function calculateTaxes() {
+            const mobileValuePKR = parseFloat(document.getElementById('mobileValue').value);
+            const taxpayerStatus = document.querySelector('input[name="taxpayerStatus"]:checked').value;
+
+            // Validation
+            if (!mobileValuePKR || mobileValuePKR <= 0) {
+                showError('Please enter a valid mobile phone value in PKR.');
+                return;
+            }
+
+            hideError();
+
+            // Use fixed exchange rate for tax bracket calculation (278.50 PKR per USD)
+            const fixedExchangeRate = 278.50;
+            const mobileValueUSD = mobileValuePKR / fixedExchangeRate;
+
+            // Calculate Customs Duty (fixed at PKR 250)
+            const customsDuty = 250;
+
+            // Calculate Sales Tax based on USD value
+            let salesTaxRate = 0;
+            if (mobileValueUSD <= 500) {
+                salesTaxRate = 0.18; // 18% for phones ≤ $500
+            } else {
+                salesTaxRate = 0.25; // 25% for phones > $500
+            }
+            const salesTax = mobileValuePKR * salesTaxRate;
+
+            // Calculate Withholding Tax based on USD value
+            const withholdingTax = calculateWHT(mobileValueUSD, taxpayerStatus);
+
+            // Calculate totals
+            const totalTax = customsDuty + salesTax + withholdingTax;
+            const totalCost = mobileValuePKR + totalTax;
+
+
+            // Update UI
+            document.getElementById('valuePKR').textContent = formatCurrency(mobileValuePKR);
+            document.getElementById('customsDuty').textContent = formatCurrency(customsDuty);
+            document.getElementById('salesTax').textContent = formatCurrency(salesTax);
+            document.getElementById('withholdingTax').textContent = formatCurrency(withholdingTax);
+            document.getElementById('totalTax').textContent = formatCurrency(totalTax);
+            document.getElementById('totalCost').textContent = formatCurrency(totalCost);
+
+            // Show results
+            document.getElementById('resultsSection').classList.remove('hidden');
+        }
+
+        // Error handling
+        function showError(message) {
+            document.getElementById('errorText').textContent = message;
+            document.getElementById('errorMessage').classList.remove('hidden');
+            document.getElementById('resultsSection').classList.add('hidden');
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').classList.add('hidden');
+        }
+
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Load phone data on page load
+            loadPhoneData();
+
+            // Brand selection event
+            document.getElementById('brandSelect').addEventListener('change', (e) => {
+                const brand = e.target.value;
+                if (brand) {
+                    populateModels(brand);
+                    document.getElementById('selectedPhoneInfo').classList.add('hidden');
+                } else {
+                    document.getElementById('modelSelect').disabled = true;
+                    document.getElementById('modelSelect').innerHTML = '<option value="">Select Model</option>';
+                    document.getElementById('selectedPhoneInfo').classList.add('hidden');
+                }
+            });
+
+            // Model selection event
+            document.getElementById('modelSelect').addEventListener('change', (e) => {
+                const modelName = e.target.value;
+                const brand = document.getElementById('brandSelect').value;
+                if (modelName && brand) {
+                    handleModelSelection(modelName, brand);
+                } else {
+                    document.getElementById('selectedPhoneInfo').classList.add('hidden');
+                }
+            });
+
+            document.getElementById('calculateBtn').addEventListener('click', calculateTaxes);
+
+            // Allow Enter key to trigger calculation
+            document.getElementById('mobileValue').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') calculateTaxes();
+            });
+
+            // Auto-calculate when radio buttons change
+            document.querySelectorAll('input[name="taxpayerStatus"]').forEach(radio => {
+                radio.addEventListener('change', () => {
+                    const mobileValue = document.getElementById('mobileValue').value;
+                    if (mobileValue) {
+                        calculateTaxes();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

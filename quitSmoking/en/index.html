@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#F7F7F5" id="themeColor" />
+  <title>Not Yet - A quiet place to sit</title>
+  <meta name="description" content="Not Yet is a quiet place to sit for a few minutes when you want a cigarette but don’t want to decide yet.">
+
+  <link href="../../assets/css/styles.css" rel="stylesheet">
+  <style>
+    button { -webkit-tap-highlight-color: transparent; }
+    .safe-b { padding-bottom: max(env(safe-area-inset-bottom), 1rem); }
+
+    :root{
+      --bg: #F7F7F5;
+      --text: #0F172A;
+      --muted:#475569;
+      --muted2:#64748B;
+      --border:#E2E8F0;
+      --btn: #0F172A;
+      --btnText: #FFFFFF;
+      --btn2: rgba(15, 23, 42, 0.06);
+      --btn2Text: #0F172A;
+    }
+    [data-theme="dark"]{
+      --bg: #0B1220;
+      --text: #E5E7EB;
+      --muted:#CBD5E1;
+      --muted2:#94A3B8;
+      --border: rgba(148,163,184,0.25);
+      --btn: #F8FAFC;
+      --btnText: #0B1220;
+      --btn2: rgba(248,250,252,0.10);
+      --btn2Text: #E5E7EB;
+    }
+
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.4s ease, color 0.4s ease;
+    }
+
+    .muted, .muted2, #timer, #fixedHint, #softHint {
+      transition: color 0.4s ease, opacity 0.4s ease;
+    }
+
+    .muted { color: var(--muted); }
+    .muted2{ color: var(--muted2); }
+
+    .btn-primary{
+      background: var(--btn);
+      color: var(--btnText);
+      transition: background 0.4s ease, color 0.4s ease, transform 0.2s ease;
+    }
+    .btn-ghost{
+      background: var(--btn2);
+      color: var(--btn2Text);
+      border: 1px solid var(--border);
+      transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .reveal{
+      opacity: 0;
+      transform: translateY(6px);
+      animation: revealIn 420ms ease-out forwards;
+      will-change: opacity, transform;
+    }
+    @keyframes revealIn{
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .delay-0   { animation-delay: 0ms; }
+    .delay-200 { animation-delay: 200ms; }
+    .delay-450 { animation-delay: 450ms; }
+    .delay-650 { animation-delay: 650ms; }
+
+    .topbar{
+      position: fixed;
+      top: 12px;
+      left: 0;
+      right: 0;
+      z-index: 50;
+      pointer-events: none;
+    }
+    .topbar-inner{
+      pointer-events: auto;
+      max-width: 28rem;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      gap: .5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="topbar">
+    <div class="topbar-inner">
+      <button id="btnReset" class="text-xs px-3 py-2 rounded-xl btn-ghost opacity-80 hover:opacity-100 transition hidden">
+        Reset
+      </button>
+
+      <div class="ml-auto flex gap-2">
+        <button id="btnTheme" class="text-xs px-3 py-2 rounded-xl btn-ghost opacity-90 hover:opacity-100 transition">
+          Theme: Auto
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="min-h-screen flex items-center justify-center px-5 safe-b">
+    <div class="w-full max-w-md">
+
+      <!-- SCREEN: HOME -->
+      <section id="screenHome" class="min-h-[72vh] flex flex-col items-center justify-center text-center">
+        <h1 class="text-5xl sm:text-[3.2rem] font-semibold tracking-tight">Not yet.</h1>
+        <p class="mt-4 text-base sm:text-lg leading-relaxed muted">
+          If it’s rough right now,<br/>just sit here for a moment.
+        </p>
+
+        <div class="mt-8 w-full space-y-3">
+          <button id="btnCrave" class="w-full rounded-2xl btn-primary font-semibold py-4 text-lg active:scale-[0.99] transition">
+            I want a cigarette
+          </button>
+          <div class="text-xs muted2">Just tap once.</div>
+        </div>
+
+        <div class="mt-8 w-full flex items-center justify-between text-sm">
+          <div class="muted">Logged today</div>
+          <div id="todayCount" class="font-semibold">0</div>
+        </div>
+        <div class="mt-2 w-full text-xs muted2 text-left">
+          No judgment. Just a place to come when you need it.
+        </div>
+      </section>
+
+      <!-- SCREEN: CHOOSE -->
+      <section id="screenChoose" class="min-h-[72vh] hidden flex flex-col justify-center">
+        <div class="text-center">
+          <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">What does it feel like right now?</h2>
+          <p class="mt-2 text-sm muted2">Pick whatever’s closest.</p>
+        </div>
+
+        <div class="mt-8 space-y-3">
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition" data-state="body">
+            <div class="text-base font-medium">My body feels off</div>
+          </button>
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition" data-state="irritated">
+            <div class="text-base font-medium">I’m irritated</div>
+          </button>
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition" data-state="tense">
+            <div class="text-base font-medium">I feel tense</div>
+          </button>
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition" data-state="empty">
+            <div class="text-base font-medium">I feel empty</div>
+          </button>
+          <button class="choiceBtn w-full text-left rounded-2xl px-4 py-4 btn-ghost hover:opacity-100 transition" data-state="habit">
+            <div class="text-base font-medium">It’s just habit</div>
+          </button>
+        </div>
+
+        <div class="mt-6">
+          <button id="btnBackFromChoose" class="w-full rounded-2xl py-3 btn-ghost active:scale-[0.99] transition">
+            Back
+          </button>
+        </div>
+      </section>
+
+      <!-- SCREEN: BUFFER -->
+      <section id="screenBuffer" class="min-h-[72vh] hidden flex flex-col items-center justify-center text-center">
+        <div class="w-full">
+          <div id="bufferContent" class="space-y-6"></div>
+          <div class="mt-10 space-y-3">
+            <button id="btnNextStage" class="w-full rounded-2xl btn-primary font-semibold py-4 text-lg active:scale-[0.99] transition hidden"></button>
+            <button id="btnGiveUp" class="w-full rounded-2xl py-3 btn-ghost transition">
+              Back
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- SCREEN: CHECK -->
+      <section id="screenCheck" class="min-h-[72vh] hidden flex flex-col items-center justify-center text-center">
+        <h2 class="text-2xl sm:text-3xl font-semibold tracking-tight">How does it feel now?</h2>
+        
+        <div class="mt-8 w-full space-y-3">
+          <button id="btnBetter" class="w-full rounded-2xl btn-primary font-semibold py-4 text-lg active:scale-[0.99] transition">
+            A bit better
+          </button>
+          <button id="btnNotYet" class="w-full rounded-2xl py-4 text-lg btn-ghost active:scale-[0.99] transition">
+            Still not great
+          </button>
+        </div>
+
+        <div id="checkTip" class="mt-7 w-full text-sm leading-relaxed hidden muted"></div>
+        <button id="btnBackHome" class="mt-6 w-full rounded-2xl py-3 btn-ghost hidden transition">
+          Back to start
+        </button>
+      </section>
+
+      <!-- Add to Home prompt -->
+      <div id="a2hs" class="fixed left-0 right-0 bottom-0 px-5 pb-4 hidden z-50">
+        <div class="mx-auto max-w-md rounded-2xl bg-white dark:bg-slate-800 shadow-2xl border border-slate-200 dark:border-slate-700 px-4 py-4">
+          <div class="text-sm font-semibold">You can put this on your home screen.</div>
+          <div class="mt-1 text-xs muted2">One tap. Opens right away.</div>
+          <div class="mt-3 flex gap-2">
+            <button id="btnA2HSHow" class="flex-1 rounded-2xl btn-primary font-semibold py-2 text-sm transition">Add to home screen</button>
+            <button id="btnA2HSLater" class="flex-1 rounded-2xl btn-ghost py-2 text-sm transition">Not now</button>
+          </div>
+          <div id="a2hsHow" class="mt-3 hidden text-xs leading-relaxed muted">
+            iPhone: Safari → Share → <b>Add to Home Screen</b><br/>
+            Android: Browser menu → <b>Add to Home Screen</b>
+          </div>
+        </div>
+      </div>
+
+      <!-- A2HS Trigger Icon -->
+      <button id="btnShowA2HS" 
+              class="fixed right-5 bottom-5 w-10 h-10 rounded-full btn-ghost flex items-center justify-center shadow-lg transition hidden z-40">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </button>
+
+    </div>
+  </main>
+
+  <script>
+    const THEME_KEY = "notyet_theme_v1";
+    const LS_KEY = "notyet_us_v1";
+
+    const state = {
+      screen: "home",
+      chosen: null,
+      stageIndex: 0,
+      remaining: 0,
+      timerId: null,
+      a2hsDismissed: false,
+      a2hsShown: false,
+    };
+
+    function save() {
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      data.a2hsDismissed = state.a2hsDismissed;
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+
+    function load() {
+      try {
+        const raw = localStorage.getItem(LS_KEY);
+        if (!raw) return;
+        const data = JSON.parse(raw);
+        state.a2hsDismissed = !!data.a2hsDismissed;
+      } catch {}
+    }
+
+    function updateTodayCountUI() {
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      const k = new Date().toISOString().split('T')[0];
+      document.getElementById("todayCount").textContent = data.counts[k] || 0;
+      
+      const btnReset = document.getElementById("btnReset");
+      const total = Object.values(data.counts || {}).reduce((a, b) => a + (b || 0), 0);
+      btnReset.classList.toggle("hidden", total === 0);
+    }
+
+    function incCount() {
+      const k = new Date().toISOString().split('T')[0];
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      if (!data.counts) data.counts = {};
+      data.counts[k] = (data.counts[k] || 0) + 1;
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      updateTodayCountUI();
+    }
+
+    const COPY = {
+      body:  { l1: "This doesn’t feel good.", l2: "It usually passes.", soft: "Slow breath in. Slow breath out." },
+      irritated: { l1: "When you’re irritated,", l2: "a cigarette feels tempting.", soft: "Nothing else to do." },
+      tense: { l1: "When it’s tense,", l2: "your hands move first.", soft: "Don’t deal with it yet. Give it a moment." },
+      empty: { l1: "This kind of feeling", l2: "comes back even after a cigarette.", soft: "Let it sit for a moment." },
+      habit: { l1: "Most of the time,", l2: "it’s just habit talking.", soft: "Habits fade if you wait." },
+      afterNotYet: "That's fine. Sit a little longer.",
+      afterBetter: "Okay. That wave passed."
+    };
+
+    const LADDER = [
+      { dur: 10,  intro: "Let’s pause for 10 seconds.", done: "Okay. Still here.", nextBtn: "Stay a bit longer" },
+      { dur: 30,  intro: "Let’s give it a little more time.", done: "Nothing you need to decide yet.", nextBtn: "Keep sitting" },
+      { dur: 60,  intro: "Stay here for one minute.", done: "This urge rises and falls.", nextBtn: "Give it a little more time" },
+      { dur: 180, intro: "Let’s sit for 3 minutes.", done: "", nextBtn: "" }
+    ];
+
+    function applyTheme(mode) {
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      let theme = "light";
+
+      if (mode === "light") theme = "light";
+      else if (mode === "dark") theme = "dark";
+      else {
+        const h = new Date().getHours();
+        theme = (h >= 19 || h < 7 || prefersDark) ? "dark" : "light";
+      }
+
+      document.documentElement.setAttribute("data-theme", theme);
+      document.getElementById("themeColor").setAttribute("content", theme === "dark" ? "#0B1220" : "#F7F7F5");
+      
+      const label = theme === "dark" ? "Night" : "Day";
+      document.getElementById("btnTheme").textContent = `Theme: ${label}`;
+    }
+
+    function showScreen(name) {
+      ["screenHome", "screenChoose", "screenBuffer", "screenCheck"].forEach(id => {
+        document.getElementById(id).classList.add("hidden");
+      });
+      document.getElementById("screen" + name.charAt(0).toUpperCase() + name.slice(1)).classList.remove("hidden");
+      state.screen = name;
+      updateA2HSSwitcher();
+    }
+
+    function fmtTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+    }
+
+    function stopTimer() {
+      if (state.timerId) {
+        clearInterval(state.timerId);
+        state.timerId = null;
+      }
+    }
+
+    function renderBufferContent(chosen, stageIdx) {
+      const c = COPY[chosen];
+      const s = LADDER[stageIdx];
+      const wrap = document.getElementById("bufferContent");
+      
+      wrap.innerHTML = `
+        <div class="reveal delay-0 text-lg sm:text-xl font-semibold">${c.l1}</div>
+        <div class="reveal delay-200 muted text-base sm:text-lg leading-relaxed ${c.l2 ? "" : "hidden"}">${c.l2}</div>
+        <div class="reveal delay-450 text-6xl sm:text-7xl font-semibold tabular-nums tracking-tight" id="timer">${fmtTime(state.remaining)}</div>
+        <div class="reveal delay-650 muted text-base sm:text-lg leading-relaxed" id="fixedHint">${s.intro}</div>
+        <div class="mt-4 text-sm muted2 leading-relaxed">${c.soft}</div>
+      `;
+    }
+
+    function startBuffer(chosen, stageIdx = 0) {
+      stopTimer();
+      state.chosen = chosen;
+      state.stageIndex = stageIdx;
+      state.remaining = LADDER[stageIdx].dur;
+      
+      showScreen("buffer");
+      document.getElementById("btnNextStage").classList.add("hidden");
+      renderBufferContent(chosen, stageIdx);
+
+      state.timerId = setInterval(() => {
+        state.remaining--;
+        const t = document.getElementById("timer");
+        if (t) t.textContent = fmtTime(state.remaining);
+        if (state.remaining <= 0) {
+          stopTimer();
+          handleStageEnd();
+        }
+      }, 1000);
+    }
+
+    function handleStageEnd() {
+      const current = LADDER[state.stageIndex];
+      const next = LADDER[state.stageIndex + 1];
+      if (next) {
+        const hint = document.getElementById("fixedHint");
+        if (hint) hint.innerHTML = current.done;
+        const t = document.getElementById("timer");
+        if (t) t.textContent = fmtTime(next.dur);
+        const btn = document.getElementById("btnNextStage");
+        btn.textContent = current.nextBtn;
+        btn.classList.remove("hidden");
+      } else {
+        showScreen("check");
+      }
+    }
+
+    function showCheck() {
+      stopTimer();
+      showScreen("check");
+      const tip = document.getElementById("checkTip");
+      tip.classList.add("hidden");
+      tip.innerHTML = "";
+      document.getElementById("btnBackHome").classList.add("hidden");
+    }
+
+    // ---------- A2HS ----------
+    function shouldShowA2HS() {
+      if (state.a2hsDismissed) return false;
+      if (state.a2hsShown) return false;
+      const data = JSON.parse(localStorage.getItem(LS_KEY) || '{"counts":{}}');
+      const k = new Date().toISOString().split('T')[0];
+      const today = data.counts[k] || 0;
+      const total = Object.values(data.counts || {}).reduce((a, b) => a + (b || 0), 0);
+      return (today >= 2 || total >= 3);
+    }
+
+    function showA2HS() {
+      if (!shouldShowA2HS()) {
+        updateA2HSSwitcher();
+        return;
+      }
+      state.a2hsShown = true;
+      document.getElementById("a2hs").classList.remove("hidden");
+      document.getElementById("btnShowA2HS").classList.add("hidden");
+    }
+
+    function hideA2HS(dismiss = false) {
+      if (dismiss) {
+        state.a2hsDismissed = true;
+        save();
+      }
+      document.getElementById("a2hs").classList.add("hidden");
+      document.getElementById("a2hsHow").classList.add("hidden");
+      updateA2HSSwitcher();
+    }
+
+    function updateA2HSSwitcher() {
+      const btn = document.getElementById("btnShowA2HS");
+      if (state.a2hsDismissed && state.screen === "home") {
+        btn.classList.remove("hidden");
+      } else {
+        btn.classList.add("hidden");
+      }
+    }
+
+    // ---------- Events ----------
+    document.getElementById("btnTheme").onclick = () => {
+      const currentTheme = document.documentElement.getAttribute("data-theme");
+      const next = (currentTheme === "dark") ? "light" : "dark";
+      localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    };
+
+    document.getElementById("btnCrave").onclick = () => { incCount(); showScreen("choose"); };
+    
+    document.querySelectorAll(".choiceBtn").forEach(b => {
+      b.onclick = () => startBuffer(b.dataset.state, 0);
+    });
+
+    document.getElementById("btnNextStage").onclick = () => {
+      startBuffer(state.chosen, state.stageIndex + 1);
+    };
+
+    document.getElementById("btnBetter").onclick = () => {
+      const tip = document.getElementById("checkTip");
+      tip.innerHTML = COPY.afterBetter;
+      tip.classList.remove("hidden");
+      document.getElementById("btnBackHome").classList.remove("hidden");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnNotYet").onclick = () => {
+      const tip = document.getElementById("checkTip");
+      tip.textContent = COPY.afterNotYet;
+      tip.classList.remove("hidden");
+      setTimeout(() => startBuffer(state.chosen, LADDER.length - 1), 800);
+    };
+
+    document.getElementById("btnBackHome").onclick = () => {
+      showScreen("home");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnGiveUp").onclick = () => {
+      stopTimer();
+      showScreen("home");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnBackFromChoose").onclick = () => {
+      showScreen("home");
+      setTimeout(showA2HS, 350);
+    };
+
+    document.getElementById("btnReset").onclick = () => {
+      if (!confirm("Are you sure you want to reset your usage history?")) return;
+      const data = { counts: {}, a2hsDismissed: false };
+      localStorage.setItem(LS_KEY, JSON.stringify(data));
+      state.a2hsDismissed = false;
+      state.a2hsShown = false;
+      updateTodayCountUI();
+      hideA2HS(false);
+    };
+
+    document.getElementById("btnA2HSHow").onclick = () => {
+      document.getElementById("a2hsHow").classList.toggle("hidden");
+    };
+
+    document.getElementById("btnA2HSLater").onclick = () => {
+      hideA2HS(true);
+    };
+
+    document.getElementById("btnShowA2HS").onclick = () => {
+      state.a2hsShown = true;
+      document.getElementById("a2hs").classList.remove("hidden");
+      document.getElementById("btnShowA2HS").classList.add("hidden");
+    };
+
+    // ---------- Init ----------
+    load();
+    updateTodayCountUI();
+    applyTheme(localStorage.getItem(THEME_KEY) || "auto");
+    showScreen("home");
+    setTimeout(showA2HS, 700);
+  </script>
+</body>
+</html>
