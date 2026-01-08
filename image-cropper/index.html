@@ -3,73 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Cropper - Free, Secure & Precision Online Tool | WebUtilityKit</title>
-    <meta name="description" content="Crop images online with pixel-perfect precision. Free, secure, and unlimited processing for JPG, PNG, and WebP. No server uploads - your privacy is guaranteed. Try it now!">
-    
-    <link rel="canonical" href="https://webutilitykit.com/image-cropper/" />
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://webutilitykit.com/image-cropper/">
-    <meta property="og:title" content="Image Cropper - 100% Secure & Local Precision Cropping">
-    <meta property="og:description" content="Precisely crop your photos instantly with preset ratios for social media without uploading to any server.">
-    <meta property="og:image" content="https://webutilitykit.com/assets/screenshots/image-cropper.jpg">
-
-    <!-- Performance -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <title>Image Cropper - Pixel-Perfect Precision | WebUtilityKit</title>
+    <meta name="description" content="Free online image cropper with pixel-perfect precision, batch processing, and local handling. Protect your privacy with no server uploads. Supports JPG, PNG, and WebP.">
     <link href="../assets/css/styles.css" rel="stylesheet">
-    
-    <!-- Structured Data -->
+    <link rel="canonical" href="https://webutilitykit.com/image-cropper/">
     <script src="/tools-config.js"></script>
-
     <script src="/assets/js/app.js" defer></script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Image Cropper",
-      "applicationCategory": "UtilitiesApplication",
-      "operatingSystem": "Web",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "ratingCount": "724",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "featureList": "Client-side processing, No server upload, Preset aspect ratios, Lossless cropping, Rotation and Flip",
-      "screenshot": "https://webutilitykit.com/assets/screenshots/image-cropper.jpg"
-    }
-    </script>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 font-sans min-h-screen flex flex-col transition-colors">
     
+    <!-- Header is automatically injected by components.js -->
+
     <main class="flex-grow w-full py-12 px-4 sm:px-6">
         
         <div class="max-w-4xl mx-auto text-center mb-10">
-            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white text-pretty italic">Image Cropper</h1>
-            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-pretty">Precisely crop your images locally. Instant, secure, and preserves original quality.</p>
-            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto shadow-sm">
+            <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Image Cropper</h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Crop images with surgical precision using pixel-level dimensions and center-point positioning. All processing happens locally for total privacy.</p>
+            <div class="mt-6 flex items-center justify-center gap-2 text-sm font-medium text-green-700 dark:text-green-400 bg-green-100/50 dark:bg-green-900/20 py-1.5 px-4 rounded-full w-fit mx-auto">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                <span>100% Private. Local processing only.</span>
+                <span>100% Secure. Processed locally.</span>
             </div>
         </div>
 
-        <div id="tool-wrapper" class="w-full max-w-7xl px-6 mx-auto mb-24">
+        <div id="tool-wrapper" class="w-full max-w-[1920px] px-6 mx-auto mb-24">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
                 
                 <!-- Left: Editor Area (8 cols) -->
-                <div class="lg:col-span-8 flex flex-col h-full min-h-[500px]">
-                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-4 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
+                <div class="lg:col-span-8 flex flex-col">
+                    <div id="drop-zone" class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-6 flex flex-col h-[750px] shadow-sm border border-slate-100 dark:border-slate-800/50 relative overflow-hidden group">
                         
                         <!-- Empty State -->
                         <div id="empty-state" class="flex-grow flex flex-col items-center justify-center border-2 border-dashed border-slate-200 dark:border-slate-700 rounded-[2rem] bg-slate-50/50 dark:bg-slate-900/50 transition-all cursor-pointer hover:border-blue-500 hover:bg-blue-50/30">
-                            <input type="file" id="file-input" class="hidden" accept="image/jpeg,image/png,image/webp" aria-label="Upload image for cropping">
+                            <input type="file" id="file-input" class="hidden" accept="image/*">
                             <div class="bg-blue-600 text-white p-6 rounded-[2rem] mb-6 shadow-2xl shadow-blue-500/40 group-hover:scale-110 transition-transform duration-500">
                                 <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
@@ -77,23 +42,23 @@
                             <p class="text-slate-500 dark:text-slate-400 mt-2">or click to browse files</p>
                         </div>
 
-                        <!-- Editor Area (Hidden initially) -->
-                        <div id="editor-container" class="hidden flex-grow flex flex-col relative min-h-[400px]">
-                            <div class="flex-grow relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden flex items-center justify-center">
-                                <div id="cropper-stage" class="relative max-w-full max-h-full">
-                                    <img id="source-image" class="max-w-full max-h-full block select-none pointer-events-none" src="" alt="To crop">
-                                    <div id="crop-box" class="absolute border-2 border-white shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] cursor-move touch-none box-border group/box">
-                                        <!-- Corner Handles -->
+                        <!-- Editor Area -->
+                        <div id="editor-container" class="hidden flex-grow flex flex-col relative min-h-0 overflow-hidden">
+                            <div class="flex-grow flex-1 relative bg-slate-900/5 dark:bg-slate-900/40 rounded-[1.5rem] overflow-hidden flex items-center justify-center p-8 min-h-0">
+                                <div id="cropper-stage" class="relative h-full flex items-center justify-center">
+                                    <img id="source-image" class="h-full w-auto max-w-none block pointer-events-none select-none object-contain" src="" alt="To crop">
+                                    <div id="crop-box" class="absolute border-2 border-white shadow-[0_0_0_9999px_rgba(0,0,0,0.5)] cursor-move touch-none box-border">
+                                        <!-- Handles -->
                                         <div data-handle="nw" class="absolute -top-2 -left-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-nw-resize"></div>
                                         <div data-handle="ne" class="absolute -top-2 -right-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-ne-resize"></div>
                                         <div data-handle="sw" class="absolute -bottom-2 -left-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-sw-resize"></div>
                                         <div data-handle="se" class="absolute -bottom-2 -right-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-se-resize"></div>
-                                        <!-- Side Handles -->
-                                        <div data-handle="n" class="absolute -top-2 left-1/2 -ml-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-n-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
-                                        <div data-handle="s" class="absolute -bottom-2 left-1/2 -ml-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-s-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
-                                        <div data-handle="w" class="absolute top-1/2 -left-2 -mt-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-w-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
-                                        <div data-handle="e" class="absolute top-1/2 -right-2 -mt-2 w-4 h-4 bg-white border-2 border-blue-600 rounded-full cursor-e-resize md:opacity-0 group-hover/box:opacity-100 transition-opacity"></div>
                                         
+                                        <!-- Center Dot -->
+                                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                            <div class="w-2 h-2 bg-blue-500 rounded-full shadow-sm ring-4 ring-white/30"></div>
+                                        </div>
+
                                         <!-- Grid Lines -->
                                         <div class="absolute inset-0 pointer-events-none grid grid-cols-3 grid-rows-3 opacity-30">
                                             <div class="border-r border-white/50 border-b border-white/50"></div>
@@ -110,53 +75,76 @@
                                 </div>
                             </div>
                             
-                            <!-- Bottom Action Bar -->
-                            <div class="flex items-center justify-between mt-4">
-                                <div class="flex items-center gap-2">
+                            <!-- Bottom Actions -->
+                            <div class="flex items-center justify-between mt-6">
+                                <div class="flex gap-3">
                                     <button id="rotate-left" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Rotate Left">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                                     </button>
                                     <button id="rotate-right" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Rotate Right">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                                     </button>
-                                    <button id="flip-h" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Flip Horizontal">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
-                                    </button>
-                                    <button id="flip-v" class="p-3 bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700 hover:bg-slate-50 transition" title="Flip Vertical">
-                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" transform="rotate(90)"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path></svg>
-                                    </button>
                                 </div>
-                                <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition">Reset Image</button>
+                                <button id="reset-btn" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">Clear Image</button>
                             </div>
                         </div>
 
                         <!-- Drop Overlay -->
                         <div id="drop-overlay" class="absolute inset-0 bg-blue-600/10 backdrop-blur-[2px] rounded-[2.5rem] flex flex-col items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 border-4 border-blue-500 border-dashed">
-                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">Release to edit</p>
+                            <p class="text-blue-600 dark:text-blue-400 font-bold text-2xl">Release to Import</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Right: Controls Area (4 cols) -->
-                <div class="lg:col-span-4 flex flex-col h-full gap-8">
+                <div class="lg:col-span-4 flex flex-col gap-8">
                     
                     <!-- Settings Card -->
-                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col h-full shadow-sm border border-slate-100 dark:border-slate-800/50">
-                        <div class="mb-8">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">Aspect Ratio</label>
-                            <div class="grid grid-cols-2 gap-3">
-                                <button data-ratio="free" class="ratio-btn py-3 px-4 rounded-2xl bg-blue-600 text-white font-bold text-sm shadow-lg shadow-blue-500/20 border-2 border-transparent transition-all">Free</button>
-                                <button data-ratio="1:1" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">1:1 Square</button>
-                                <button data-ratio="4:3" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">4:3 Photo</button>
-                                <button data-ratio="16:9" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">16:9 Wide</button>
-                                <button data-ratio="2:3" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">2:3 Portrait</button>
-                                <button data-ratio="9:16" class="ratio-btn py-3 px-4 rounded-2xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-sm border-2 border-transparent hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">9:16 Story</button>
+                    <div class="bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 flex flex-col flex-grow shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <h2 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Crop Settings
+                        </h2>
+
+                        <!-- Precise Controls -->
+                        <div class="space-y-6 mb-8">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-400 uppercase mb-2 block tracking-wider">Width (px)</label>
+                                    <input type="number" id="input-w" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all" value="300">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-400 uppercase mb-2 block tracking-wider">Height (px)</label>
+                                    <input type="number" id="input-h" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all" value="300">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-slate-400 uppercase mb-2 block tracking-wider">Center X (px)</label>
+                                    <input type="number" id="input-cx" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all" value="0">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-slate-400 uppercase mb-2 block tracking-wider">Center Y (px)</label>
+                                    <input type="number" id="input-cy" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all" value="0">
+                                </div>
                             </div>
                         </div>
 
                         <div class="mb-8">
-                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-4 block">Export Format</label>
-                            <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-2xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer appearance-none">
+                            <label class="text-xs font-bold text-slate-400 uppercase mb-4 block tracking-wider">Aspect Ratio</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button data-ratio="free" class="ratio-btn py-2 px-1 rounded-xl bg-blue-600 text-white font-bold text-xs shadow-md transition-all">Free</button>
+                                <button data-ratio="1:1" class="ratio-btn py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-xs border border-transparent hover:bg-slate-100 transition-all">1:1</button>
+                                <button data-ratio="16:9" class="ratio-btn py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-xs border border-transparent hover:bg-slate-100 transition-all">16:9</button>
+                                <button data-ratio="4:3" class="ratio-btn py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-xs border border-transparent hover:bg-slate-100 transition-all">4:3</button>
+                                <button data-ratio="2:3" class="ratio-btn py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-xs border border-transparent hover:bg-slate-100 transition-all">2:3</button>
+                                <button data-ratio="9:16" class="ratio-btn py-2 px-1 rounded-xl bg-slate-50 dark:bg-slate-900/50 text-slate-600 dark:text-slate-400 font-bold text-xs border border-transparent hover:bg-slate-100 transition-all">9:16</button>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <label class="text-xs font-bold text-slate-400 uppercase mb-4 block tracking-wider">Output Format</label>
+                            <select id="output-format" class="w-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 rounded-xl px-5 py-4 text-sm font-bold focus:ring-4 focus:ring-blue-500/10 outline-none transition-all cursor-pointer">
                                 <option value="image/jpeg">JPEG (.jpg)</option>
                                 <option value="image/png">PNG (.png)</option>
                                 <option value="image/webp">WebP (.webp)</option>
@@ -165,34 +153,42 @@
 
                         <div class="flex-grow"></div>
 
-                        <button id="download-btn" disabled class="w-full py-5 rounded-[2rem] bg-blue-600 text-white font-bold text-xl hover:bg-blue-700 transition shadow-2xl shadow-blue-500/30 disabled:opacity-50 disabled:cursor-not-allowed group">
-                            <span class="flex items-center justify-center gap-3">
-                                <span>Download Image</span>
-                                <svg class="w-6 h-6 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
-                            </span>
+                        <button id="crop-btn" disabled class="w-full py-5 rounded-2xl bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition shadow-xl shadow-blue-500/20 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3 group">
+                            <svg class="w-6 h-6 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758L5 19m0-14l4.121 4.121"></path></svg>
+                            <span>Crop & Save</span>
                         </button>
-                        
-                        <p class="text-center text-[10px] text-slate-400 mt-4 font-medium uppercase tracking-widest">Original Quality Preserved</p>
                     </div>
 
-                    <!-- Info/Preview Card (Mini) -->
-                    <div id="stats-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-6 shadow-sm border border-slate-100 dark:border-slate-800/50">
-                        <div class="grid grid-cols-2 gap-4">
-                            <div>
-                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Crop Size</span>
-                                <span id="crop-res" class="text-sm font-black text-blue-600">0 x 0</span>
+                    <!-- Stats Card -->
+                    <div id="stats-card" class="hidden bg-white dark:bg-slate-800/40 rounded-[2.5rem] p-8 shadow-sm border border-slate-100 dark:border-slate-800/50">
+                        <div class="flex flex-col gap-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-slate-400 font-bold uppercase">Original Resolution</span>
+                                <span id="orig-res" class="text-sm font-black text-slate-600 dark:text-slate-300">0 x 0</span>
                             </div>
-                            <div>
-                                <span class="text-[10px] text-slate-400 font-bold uppercase block mb-1">Aspect Ratio</span>
-                                <span id="aspect-val" class="text-sm font-black text-slate-600 dark:text-slate-300">Free</span>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-slate-400 font-bold uppercase">Current Aspect</span>
+                                <span id="aspect-val" class="text-sm font-black text-blue-600">Free</span>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-        
-            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div></div>
+
+            <!-- Cropped Results Section -->
+            <div id="results-section" class="mt-24 hidden">
+                <div class="flex items-center justify-between mb-8">
+                    <h2 class="text-3xl font-bold">Results <span id="result-count" class="text-slate-400 font-normal ml-2">0</span></h2>
+                    <button id="clear-results" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">Clear All</button>
+                </div>
+                <div id="results-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <!-- Results will be injected here -->
+                </div>
+            </div>
+            
+            <div id="related-tools-section" class="lg:col-span-12 mt-12 hidden"></div>           
+        </div>
 
         <!-- Editorial Section -->
         <div class="max-w-5xl mx-auto border-t border-slate-200 dark:border-slate-800 pt-24 pb-24">
@@ -200,95 +196,67 @@
                 
                 <!-- How to Use -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">Mastering the Image Cropper</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic tracking-tight">How to use Image Cropper</h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Upload Photo</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Simply drag your photo into the editor or click to select from your device.</p>
+                        <!-- Step 1 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">1</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Upload Image</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Drag and drop or select the image you want to crop. Supports JPG, PNG, and WebP.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
+                        <!-- Step 2 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">2</div>
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Adjust Area</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Choose a preset aspect ratio or drag the handles to define your custom crop area.</p>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Define your region by dragging the crop box or entering exact pixels for width, height, and center coordinates.</p>
                         </div>
-                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-blue-500/5 transition-all group text-center">
-                            <div class="w-16 h-16 bg-blue-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-blue-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
-                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Download</h3>
-                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Select your preferred format and download your perfectly cropped image instantly.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- High Contrast Privacy Section -->
-                <section class="bg-slate-900 rounded-[3rem] p-12 text-white relative overflow-hidden shadow-2xl">
-                    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
-                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                        <div>
-                            <h2 class="text-4xl font-bold mb-6 italic tracking-tight text-blue-400">Pure Client-Side Power</h2>
-                            <p class="text-lg text-slate-400 leading-relaxed mb-8 text-pretty">
-                                Why risk your data with cloud-based editors? Our Image Cropper runs entirely in your browser. Using the HTML5 Canvas API, we process your pixels locally—your images never touch our servers. It's faster, more secure, and works offline.
-                            </p>
-                            <div class="flex gap-4 flex-wrap">
-                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
-                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">Safety</div>
-                                    <div class="font-bold">Zero Upload</div>
-                                </div>
-                                <div class="bg-white/5 backdrop-blur-md px-6 py-4 rounded-3xl border border-white/10">
-                                    <div class="text-blue-400 text-xs font-bold uppercase mb-1 text-center">Speed</div>
-                                    <div class="font-bold text-center">Local-Only</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex justify-center">
-                            <div class="relative">
-                                <div class="w-64 h-64 border-4 border-dashed border-blue-500/20 rounded-full animate-[spin_60s_linear_infinite]"></div>
-                                <div class="absolute inset-0 flex items-center justify-center">
-                                    <svg class="w-32 h-32 text-blue-500/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                                </div>
-                            </div>
+                        <!-- Step 3 -->
+                        <div class="relative p-8 rounded-[2.5rem] bg-white dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700/50 hover:shadow-2xl hover:shadow-sky-500/5 transition-all group text-center">
+                            <div class="w-16 h-16 bg-sky-600 text-white rounded-2xl flex items-center justify-center font-bold text-2xl shadow-lg shadow-sky-500/30 mx-auto mb-6 group-hover:scale-110 transition-transform">3</div>
+                            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3 text-pretty">Crop & Download</h3>
+                            <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Click "Crop & Save" to generate your new image instantly. Download it directly from the results section.</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Feature Grid -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Engineered for Precision</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center">Key Features</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
-                            <div class="flex-shrink-0 w-14 h-14 bg-blue-100 dark:bg-blue-900/30 text-blue-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
+                            <div class="flex-shrink-0 w-14 h-14 bg-sky-100 dark:bg-sky-900/30 text-sky-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Smart Presets</h3>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Standard ratios for Instagram, YouTube, and LinkedIn pre-configured for instant use across all social platforms.</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Fast & Local</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Everything happens in your browser. No data ever leaves your device, ensuring maximum speed and security.</p>
                             </div>
                         </div>
-                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
                             <div class="flex-shrink-0 w-14 h-14 bg-green-100 dark:bg-green-900/30 text-green-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Lossless Preview</h3>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">See exactly how your crop looks before downloading. We maintain pixel-perfect accuracy throughout the editing process.</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Pixel Precision</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Gain absolute control over your dimensions. Enter exact pixel values for professional-grade results.</p>
                             </div>
                         </div>
-                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
                             <div class="flex-shrink-0 w-14 h-14 bg-purple-100 dark:bg-purple-900/30 text-purple-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Transform Tools</h3>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">Rotate and flip your images with a single click while maintaining the crop selection area for ultimate flexibility.</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Multi-Format Support</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">Export to JPEG, PNG, or WebP. Choose the format that best fits your needs for quality and file size.</p>
                             </div>
                         </div>
-                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-blue-500/10 transition-all group">
+                        <div class="flex gap-6 p-10 rounded-[2.5rem] bg-slate-50 dark:bg-slate-800/20 border-2 border-transparent hover:border-sky-500/10 transition-all group">
                             <div class="flex-shrink-0 w-14 h-14 bg-orange-100 dark:bg-orange-900/30 text-orange-600 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Optimized for Speed</h3>
-                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm text-pretty">No loading screens. No ads. Just a pure utility focused on getting your image cropping task done as fast as possible.</p>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Non-Destructive History</h3>
+                                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-sm">The original image remains untouched, allowing you to create multiple crops without re-uploading.</p>
                             </div>
                         </div>
                     </div>
@@ -296,21 +264,31 @@
 
                 <!-- FAQ -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Common Questions</h2>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-12 text-center italic">Frequently Asked Questions</h2>
                     <div class="max-w-3xl mx-auto space-y-4">
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
                             <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">Will my image lose quality?</span>
+                                <span class="text-xl">Will cropping reduce image quality?</span>
                                 <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
                                     <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
                                 </span>
                             </summary>
                             <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
-                                No. We crop the image at its original resolution. If you choose PNG or lossless formats, there is zero quality loss. For JPEG, we use a high-quality setting to ensure sharpness.
+                                No, we crop based on the original resolution. If you choose PNG or Lossless WebP, there is no quality loss. For JPEG, we use high-quality settings to ensure clarity.
                             </div>
                         </details>
-                        
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
+                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
+                                <span class="text-xl">Is my data secure?</span>
+                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
+                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
+                                </span>
+                            </summary>
+                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
+                                Absolutely. All processing is done locally in your browser. Your images are never uploaded to our servers, keeping your privacy 100% intact.
+                            </div>
+                        </details>
+                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-sky-500/10">
                             <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
                                 <span class="text-xl">What formats are supported?</span>
                                 <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
@@ -318,386 +296,414 @@
                                 </span>
                             </summary>
                             <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
-                                We support <strong>JPEG, PNG, and WebP</strong> for both input and output.
+                                We currently support importing and exporting JPEG, PNG, and WebP formats, covering most professional and daily requirements.
                             </div>
                         </details>
-
-                        <details class="group bg-slate-50 dark:bg-slate-800/20 rounded-[2rem] p-8 cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-800/40 transition-all border border-transparent hover:border-blue-500/10">
-                            <summary class="flex justify-between items-center font-bold text-slate-900 dark:text-white list-none">
-                                <span class="text-xl">Does it work on mobile?</span>
-                                <span class="transition-transform group-open:rotate-180 bg-white dark:bg-slate-700 p-2 rounded-xl shadow-sm">
-                                    <svg fill="none" height="20" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" width="20"><path d="M6 9l6 6 6-6"></path></svg>
-                                </span>
-                            </summary>
-                            <div class="text-slate-600 dark:text-slate-400 mt-6 leading-relaxed text-lg text-pretty">
-                                Yes! Our cropper is fully responsive and supports touch events, making it easy to crop photos on your smartphone or tablet with natural gestures.
-                            </div>
-                        </details>
-                    </div>
-                </section>
-
-                <!-- Related Tools Section -->
-                <section class="pt-12 border-t border-slate-200 dark:border-slate-800">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8">Related Tools You Might Need</h2>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                        <a href="/image-compressor/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
-                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Compressor</h3>
-                            <p class="text-sm text-slate-500 mt-1">Reduce image weights without losing quality.</p>
-                        </a>
-                        <a href="/image-resizer/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
-                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Image Resizer</h3>
-                            <p class="text-sm text-slate-500 mt-1">Batch resize images by dimensions or percentage.</p>
-                        </a>
-                        <a href="/webp-converter/" class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/40 border border-slate-100 dark:border-slate-700 hover:border-blue-500/30 transition-all group text-center">
-                            <h3 class="font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">WebP Converter</h3>
-                            <p class="text-sm text-slate-500 mt-1">Convert photos to modern WebP for best compression.</p>
-                        </a>
                     </div>
                 </section>
 
             </article>
         </div>
       
-    </main>    <!-- Unified Component Management (Header + Footer + Theme) -->
+    </main>
+
+    <!-- Footer is automatically injected by components.js -->
+
     <script src="../assets/js/components.js"></script>
 
-    <!-- Tool-specific Logic -->
-
     <script>
-        // === Cropper Logic ===
-        const dropZone = document.getElementById('drop-zone');
-        const emptyState = document.getElementById('empty-state');
-        const editorContainer = document.getElementById('editor-container');
-        const fileInput = document.getElementById('file-input');
-        const sourceImage = document.getElementById('source-image');
-        const cropBox = document.getElementById('crop-box');
-        const cropperStage = document.getElementById('cropper-stage');
-        const dropOverlay = document.getElementById('drop-overlay');
-        const ratioBtns = document.querySelectorAll('.ratio-btn');
-        const downloadBtn = document.getElementById('download-btn');
-        const outputFormatSelect = document.getElementById('output-format');
-        const statsCard = document.getElementById('stats-card');
-        const cropResDisplay = document.getElementById('crop-res');
-        const aspectValDisplay = document.getElementById('aspect-val');
-        const resetBtn = document.getElementById('reset-btn');
-        const rotateL = document.getElementById('rotate-left');
-        const rotateR = document.getElementById('rotate-right');
-        const flipHBtn = document.getElementById('flip-h');
-        const flipVBtn = document.getElementById('flip-v');
+        // === Tool Logic ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const dropZone = document.getElementById('drop-zone');
+            const emptyState = document.getElementById('empty-state');
+            const editorContainer = document.getElementById('editor-container');
+            const fileInput = document.getElementById('file-input');
+            const sourceImage = document.getElementById('source-image');
+            const cropBox = document.getElementById('crop-box');
+            const cropperStage = document.getElementById('cropper-stage');
+            const dropOverlay = document.getElementById('drop-overlay');
+            const ratioBtns = document.querySelectorAll('.ratio-btn');
+            const cropBtn = document.getElementById('crop-btn');
+            const outputFormatSelect = document.getElementById('output-format');
+            const statsCard = document.getElementById('stats-card');
+            const origResDisplay = document.getElementById('orig-res');
+            const aspectValDisplay = document.getElementById('aspect-val');
+            const resetBtn = document.getElementById('reset-btn');
+            const rotateL = document.getElementById('rotate-left');
+            const rotateR = document.getElementById('rotate-right');
 
-        let originalFile = null;
-        let originalImg = new Image();
-        let currentRatio = null; // null for free
-        let rotation = 0;
-        let flipH = 1;
-        let flipV = 1;
+            // Inputs
+            const inputW = document.getElementById('input-w');
+            const inputH = document.getElementById('input-h');
+            const inputCX = document.getElementById('input-cx');
+            const inputCY = document.getElementById('input-cy');
 
-        // State for dragging
-        let isDragging = false;
-        let dragTarget = null; // 'box' or handle name
-        let startX, startY;
-        let startLeft, startTop, startWidth, startHeight;
+            // Results
+            const resultsSection = document.getElementById('results-section');
+            const resultsGrid = document.getElementById('results-grid');
+            const resultCount = document.getElementById('result-count');
+            const clearResultsBtn = document.getElementById('clear-results');
 
-        // Initialization
-        emptyState.addEventListener('click', () => fileInput.click());
-        fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+            let originalFile = null;
+            let originalImg = new Image();
+            let currentRatio = null; // null for free
+            let rotation = 0;
+            let results = [];
 
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropOverlay.classList.replace('opacity-0', 'opacity-100');
-        });
+            // State for dragging
+            let isDragging = false;
+            let dragTarget = null; // 'box' or handle name
+            let startX, startY;
+            let startBoxL, startBoxT, startBoxW, startBoxH;
 
-        ['dragleave', 'drop'].forEach(event => {
-            dropZone.addEventListener(event, () => {
-                dropOverlay.classList.replace('opacity-100', 'opacity-0');
+            // Initialization
+            emptyState.addEventListener('click', () => fileInput.click());
+            fileInput.addEventListener('change', (e) => handleFile(e.target.files[0]));
+
+            dropZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                dropOverlay.classList.replace('opacity-0', 'opacity-100');
             });
-        });
 
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            handleFile(e.dataTransfer.files[0]);
-        });
+            ['dragleave', 'drop'].forEach(event => {
+                dropZone.addEventListener(event, () => {
+                    dropOverlay.classList.replace('opacity-100', 'opacity-0');
+                });
+            });
 
-        function handleFile(file) {
-            if (!file || !file.type.startsWith('image/')) return;
-            originalFile = file;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                originalImg.onload = () => {
-                    initEditor();
+            dropZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                handleFile(e.dataTransfer.files[0]);
+            });
+
+            function handleFile(file) {
+                if (!file || !file.type.startsWith('image/')) return;
+                originalFile = file;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    originalImg.onload = () => {
+                        initEditor();
+                    };
+                    originalImg.src = e.target.result;
                 };
-                originalImg.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
+                reader.readAsDataURL(file);
+            }
 
-        function initEditor() {
-            sourceImage.src = originalImg.src;
-            emptyState.classList.add('hidden');
-            editorContainer.classList.remove('hidden');
-            statsCard.classList.remove('hidden');
-            downloadBtn.disabled = false;
-            
-            // Reset transforms
-            rotation = 0;
-            flipH = 1;
-            flipV = 1;
-            applyTransforms();
+            function initEditor() {
+                sourceImage.src = originalImg.src;
+                emptyState.classList.add('hidden');
+                editorContainer.classList.remove('hidden');
+                statsCard.classList.remove('hidden');
+                cropBtn.disabled = false;
+                
+                rotation = 0;
+                applyTransforms();
 
-            // Initial crop box: 80% of image
-            setTimeout(() => {
-                const imgW = sourceImage.offsetWidth;
-                const imgH = sourceImage.offsetHeight;
+                origResDisplay.textContent = `${originalImg.width} x ${originalImg.height}`;
+
+                // Set initial inputs
+                inputW.value = Math.round(originalImg.width * 0.8);
+                inputH.value = Math.round(originalImg.height * 0.8);
+                inputCX.value = Math.round(originalImg.width / 2);
+                inputCY.value = Math.round(originalImg.height / 2);
+
+                // Wait for image to render to get its display dimensions
+                setTimeout(updateBoxFromInputs, 50);
+            }
+
+            function updateBoxFromInputs() {
+                if (!originalImg.src) return;
+
+                const imgDisplayW = sourceImage.offsetWidth;
+                const imgDisplayH = sourceImage.offsetHeight;
                 
-                let w = imgW * 0.8;
-                let h = imgH * 0.8;
+                // Rotation handling for display scaling
+                const isRotated = (rotation / 90) % 2 !== 0;
+                const baseW = isRotated ? originalImg.height : originalImg.width;
+                const baseH = isRotated ? originalImg.width : originalImg.height;
+
+                const scaleX = imgDisplayW / baseW;
+                const scaleY = imgDisplayH / baseH;
+
+                const w = parseFloat(inputW.value) * scaleX;
+                const h = parseFloat(inputH.value) * scaleY;
+                const cx = parseFloat(inputCX.value) * scaleX;
+                const cy = parseFloat(inputCY.value) * scaleY;
+
+                const l = cx - w / 2;
+                const t = cy - h / 2;
+
+                setCropBoxUI(l, t, w, h);
+            }
+
+            function updateInputsFromBox() {
+                const imgDisplayW = sourceImage.offsetWidth;
+                const imgDisplayH = sourceImage.offsetHeight;
                 
-                if (currentRatio) {
-                    const [rW, rH] = currentRatio.split(':').map(Number);
-                    const targetRatio = rW / rH;
-                    if (w / h > targetRatio) {
-                        w = h * targetRatio;
-                    } else {
-                        h = w / targetRatio;
+                const isRotated = (rotation / 90) % 2 !== 0;
+                const baseW = isRotated ? originalImg.height : originalImg.width;
+                const baseH = isRotated ? originalImg.width : originalImg.height;
+
+                const scaleX = baseW / imgDisplayW;
+                const scaleY = baseH / imgDisplayH;
+
+                const l = parseFloat(cropBox.style.left);
+                const t = parseFloat(cropBox.style.top);
+                const w = parseFloat(cropBox.style.width);
+                const h = parseFloat(cropBox.style.height);
+
+                const actualW = Math.round(w * scaleX);
+                const actualH = Math.round(h * scaleY);
+                const actualCX = Math.round((l + w / 2) * scaleX);
+                const actualCY = Math.round((t + h / 2) * scaleY);
+
+                inputW.value = actualW;
+                inputH.value = actualH;
+                inputCX.value = actualCX;
+                inputCY.value = actualCY;
+            }
+
+            function setCropBoxUI(l, t, w, h) {
+                const imgDisplayW = sourceImage.offsetWidth;
+                const imgDisplayH = sourceImage.offsetHeight;
+
+                // Constraints
+                w = Math.max(10, Math.min(w, imgDisplayW));
+                h = Math.max(10, Math.min(h, imgDisplayH));
+                l = Math.max(0, Math.min(l, imgDisplayW - w));
+                t = Math.max(0, Math.min(t, imgDisplayH - h));
+
+                cropBox.style.left = `${l}px`;
+                cropBox.style.top = `${t}px`;
+                cropBox.style.width = `${w}px`;
+                cropBox.style.height = `${h}px`;
+            }
+
+            // Input Event Listeners
+            [inputW, inputH, inputCX, inputCY].forEach(input => {
+                input.addEventListener('input', () => {
+                    if (currentRatio && (input === inputW || input === inputH)) {
+                        const [rW, rH] = currentRatio.split(':').map(Number);
+                        const ratio = rW / rH;
+                        if (input === inputW) inputH.value = Math.round(inputW.value / ratio);
+                        else inputW.value = Math.round(inputH.value * ratio);
                     }
-                }
+                    updateBoxFromInputs();
+                });
+            });
 
-                setCropBox(
-                    (imgW - w) / 2,
-                    (imgH - h) / 2,
-                    w,
-                    h
-                );
-            }, 50);
-        }
+            // Dragging Logic
+            window.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', doDrag);
+            window.addEventListener('mouseup', endDrag);
+            window.addEventListener('touchstart', (e) => startDrag(e.touches[0]), {passive: false});
+            window.addEventListener('touchmove', (e) => doDrag(e.touches[0]), {passive: false});
+            window.addEventListener('touchend', endDrag);
 
-        function setCropBox(l, t, w, h) {
-            const imgW = sourceImage.offsetWidth;
-            const imgH = sourceImage.offsetHeight;
+            function startDrag(e) {
+                const handle = e.target.closest('[data-handle]');
+                const box = e.target.closest('#crop-box');
+                
+                if (!handle && !box) return;
 
-            // Constraints
-            w = Math.max(20, Math.min(w, imgW));
-            h = Math.max(20, Math.min(h, imgH));
-            l = Math.max(0, Math.min(l, imgW - w));
-            t = Math.max(0, Math.min(t, imgH - h));
+                isDragging = true;
+                dragTarget = handle ? handle.dataset.handle : 'box';
+                startX = e.clientX;
+                startY = e.clientY;
+                startBoxL = parseFloat(cropBox.style.left);
+                startBoxT = parseFloat(cropBox.style.top);
+                startBoxW = parseFloat(cropBox.style.width);
+                startBoxH = parseFloat(cropBox.style.height);
 
-            cropBox.style.left = `${l}px`;
-            cropBox.style.top = `${t}px`;
-            cropBox.style.width = `${w}px`;
-            cropBox.style.height = `${h}px`;
+                if (e.preventDefault) e.preventDefault();
+            }
 
-            updateStats();
-        }
+            function doDrag(e) {
+                if (!isDragging) return;
 
-        function updateStats() {
-            const l = parseFloat(cropBox.style.left);
-            const t = parseFloat(cropBox.style.top);
-            const w = parseFloat(cropBox.style.width);
-            const h = parseFloat(cropBox.style.height);
-            
-            const imgDisplayW = sourceImage.offsetWidth;
-            const imgDisplayH = sourceImage.offsetHeight;
-            
-            const scaleX = originalImg.width / imgDisplayW;
-            const scaleY = originalImg.height / imgDisplayH;
+                const dx = e.clientX - startX;
+                const dy = e.clientY - startY;
+                const imgDisplayW = sourceImage.offsetWidth;
+                const imgDisplayH = sourceImage.offsetHeight;
 
-            const actualW = Math.round(w * scaleX);
-            const actualH = Math.round(h * scaleY);
+                let nl = startBoxL, nt = startBoxT, nw = startBoxW, nh = startBoxH;
 
-            cropResDisplay.textContent = `${actualW} x ${actualH}`;
-            aspectValDisplay.textContent = currentRatio || 'Free';
-        }
+                if (dragTarget === 'box') {
+                    nl = startBoxL + dx;
+                    nt = startBoxT + dy;
+                } else {
+                    // Resizing
+                    if (dragTarget.includes('e')) nw = startBoxW + dx;
+                    if (dragTarget.includes('w')) { nw = startBoxW - dx; nl = startBoxL + dx; }
+                    if (dragTarget.includes('s')) nh = startBoxH + dy;
+                    if (dragTarget.includes('n')) { nh = startBoxH - dy; nt = startBoxT + dy; }
 
-        // Interaction Logic
-        window.addEventListener('mousedown', startDrag);
-        window.addEventListener('mousemove', doDrag);
-        window.addEventListener('mouseup', endDrag);
-        window.addEventListener('touchstart', (e) => startDrag(e.touches[0]), {passive: false});
-        window.addEventListener('touchmove', (e) => doDrag(e.touches[0]), {passive: false});
-        window.addEventListener('touchend', endDrag);
-
-        function startDrag(e) {
-            const handle = e.target.closest('[data-handle]');
-            const box = e.target.closest('#crop-box');
-            
-            if (!handle && !box) return;
-
-            isDragging = true;
-            dragTarget = handle ? handle.dataset.handle : 'box';
-            startX = e.clientX;
-            startY = e.clientY;
-            startLeft = parseFloat(cropBox.style.left);
-            startTop = parseFloat(cropBox.style.top);
-            startWidth = parseFloat(cropBox.style.width);
-            startHeight = parseFloat(cropBox.style.height);
-
-            if (e.preventDefault) e.preventDefault();
-        }
-
-        function doDrag(e) {
-            if (!isDragging) return;
-
-            const dx = e.clientX - startX;
-            const dy = e.clientY - startY;
-            const imgW = sourceImage.offsetWidth;
-            const imgH = sourceImage.offsetHeight;
-
-            let nl = startLeft, nt = startTop, nw = startWidth, nh = startHeight;
-
-            if (dragTarget === 'box') {
-                nl = startLeft + dx;
-                nt = startTop + dy;
-            } else {
-                // Handle resizing
-                if (dragTarget.includes('e')) nw = startWidth + dx;
-                if (dragTarget.includes('w')) {
-                    nw = startWidth - dx;
-                    nl = startLeft + dx;
-                }
-                if (dragTarget.includes('s')) nh = startHeight + dy;
-                if (dragTarget.includes('n')) {
-                    nh = startHeight - dy;
-                    nt = startTop + dy;
-                }
-
-                // Apply Ratio
-                if (currentRatio) {
-                    const [rW, rH] = currentRatio.split(':').map(Number);
-                    const ratio = rW / rH;
-                    
-                    if (dragTarget === 'e' || dragTarget === 'w' || dragTarget === 's' || dragTarget === 'n') {
-                        // Single side drag with ratio is tricky, usually we lock it
-                        if (dragTarget === 'e' || dragTarget === 'w') nh = nw / ratio;
-                        else nw = nh * ratio;
-                    } else {
-                        // Corner drag
+                    if (currentRatio) {
+                        const [rW, rH] = currentRatio.split(':').map(Number);
+                        const ratio = rW / rH;
                         if (Math.abs(dx) > Math.abs(dy)) nh = nw / ratio;
                         else nw = nh * ratio;
-                    }
 
-                    // Re-calculate nl/nt for left/top handles
-                    if (dragTarget.includes('w')) nl = startLeft + (startWidth - nw);
-                    if (dragTarget.includes('n')) nt = startTop + (startHeight - nh);
+                        if (dragTarget.includes('w')) nl = startBoxL + (startBoxW - nw);
+                        if (dragTarget.includes('n')) nt = startBoxT + (startBoxH - nh);
+                    }
                 }
+
+                setCropBoxUI(nl, nt, nw, nh);
+                updateInputsFromBox();
             }
 
-            setCropBox(nl, nt, nw, nh);
-        }
+            function endDrag() {
+                isDragging = false;
+                dragTarget = null;
+            }
 
-        function endDrag() {
-            isDragging = false;
-            dragTarget = null;
-        }
+            // Ratio Buttons
+            ratioBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    ratioBtns.forEach(b => {
+                        b.classList.remove('bg-blue-600', 'text-white', 'shadow-md');
+                        b.classList.add('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+                    });
+                    btn.classList.add('bg-blue-600', 'text-white', 'shadow-md');
+                    btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
 
-        // Ratio Buttons
-        ratioBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                ratioBtns.forEach(b => {
-                    b.classList.remove('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20');
-                    b.classList.add('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
+                    currentRatio = btn.dataset.ratio === 'free' ? null : btn.dataset.ratio;
+                    aspectValDisplay.textContent = currentRatio === null ? 'Free' : currentRatio;
+
+                    if (currentRatio) {
+                        const [rW, rH] = currentRatio.split(':').map(Number);
+                        const ratio = rW / rH;
+                        inputH.value = Math.round(inputW.value / ratio);
+                        updateBoxFromInputs();
+                        updateInputsFromBox(); // Sync back in case of constraints
+                    }
                 });
-                btn.classList.add('bg-blue-600', 'text-white', 'shadow-lg', 'shadow-blue-500/20');
-                btn.classList.remove('bg-slate-50', 'dark:bg-slate-900/50', 'text-slate-600', 'dark:text-slate-400');
-
-                currentRatio = btn.dataset.ratio === 'free' ? null : btn.dataset.ratio;
-                
-                // Adjust current box to ratio
-                if (currentRatio) {
-                    const [rW, rH] = currentRatio.split(':').map(Number);
-                    const ratio = rW / rH;
-                    let w = parseFloat(cropBox.style.width);
-                    let h = w / ratio;
-                    if (h > sourceImage.offsetHeight) {
-                        h = sourceImage.offsetHeight;
-                        w = h * ratio;
-                    }
-                    setCropBox(parseFloat(cropBox.style.left), parseFloat(cropBox.style.top), w, h);
-                }
-                updateStats();
             });
-        });
 
-        // Transforms
-        function applyTransforms() {
-            sourceImage.style.transform = `rotate(${rotation}deg) scale(${flipH}, ${flipV})`;
-            // Reset crop box when rotating since image dimensions change in UI
-            setTimeout(() => {
-                // This is a simple implementation, a robust one would transform the crop box
-                const imgW = sourceImage.offsetWidth;
-                const imgH = sourceImage.offsetHeight;
-                setCropBox(imgW*0.1, imgH*0.1, imgW*0.8, imgH*0.8);
-            }, 150);
-        }
-
-        rotateL.addEventListener('click', () => { rotation -= 90; applyTransforms(); });
-        rotateR.addEventListener('click', () => { rotation += 90; applyTransforms(); });
-        flipHBtn.addEventListener('click', () => { flipH *= -1; applyTransforms(); });
-        flipVBtn.addEventListener('click', () => { flipV *= -1; applyTransforms(); });
-        resetBtn.addEventListener('click', initEditor);
-
-        // Download
-        downloadBtn.addEventListener('click', () => {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-
-            const l = parseFloat(cropBox.style.left);
-            const t = parseFloat(cropBox.style.top);
-            const w = parseFloat(cropBox.style.width);
-            const h = parseFloat(cropBox.style.height);
-            
-            const imgDisplayW = sourceImage.offsetWidth;
-            const imgDisplayH = sourceImage.offsetHeight;
-            
-            const scaleX = originalImg.width / imgDisplayW;
-            const scaleY = originalImg.height / imgDisplayH;
-
-            const actualX = l * scaleX;
-            const actualY = t * scaleY;
-            const actualW = w * scaleX;
-            const actualH = h * scaleY;
-
-            canvas.width = actualW;
-            canvas.height = actualH;
-
-            // Handle rotations and flips on the hidden canvas
-            const tempCanvas = document.createElement('canvas');
-            const tCtx = tempCanvas.getContext('2d');
-            
-            // Normalize rotation to 0, 90, 180, 270
-            const normRot = ((rotation % 360) + 360) % 360;
-            
-            if (normRot === 90 || normRot === 270) {
-                tempCanvas.width = originalImg.height;
-                tempCanvas.height = originalImg.width;
-            } else {
-                tempCanvas.width = originalImg.width;
-                tempCanvas.height = originalImg.height;
+            // Rotation
+            function applyTransforms() {
+                sourceImage.style.transform = `rotate(${rotation}deg)`;
+                // When rotating, we should reset or adjust the crop box because dimensions swapped
+                setTimeout(() => {
+                    if (originalImg.src) {
+                        inputW.value = Math.round(originalImg.width * 0.8);
+                        inputH.value = Math.round(originalImg.height * 0.8);
+                        updateBoxFromInputs();
+                    }
+                }, 100);
             }
 
-            tCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
-            tCtx.rotate(normRot * Math.PI / 180);
-            tCtx.scale(flipH, flipV);
-            tCtx.drawImage(originalImg, -originalImg.width / 2, -originalImg.height / 2);
+            rotateL.addEventListener('click', () => { rotation -= 90; applyTransforms(); });
+            rotateR.addEventListener('click', () => { rotation += 90; applyTransforms(); });
+            resetBtn.addEventListener('click', () => {
+                originalFile = null;
+                sourceImage.src = '';
+                emptyState.classList.remove('hidden');
+                editorContainer.classList.add('hidden');
+                statsCard.classList.add('hidden');
+                cropBtn.disabled = true;
+                fileInput.value = '';
+            });
 
-            // Now crop from the transformed image
-            // Note: The UI crop box is relative to the *displayed* transformed image.
-            // Our tempCanvas now contains that transformed image at full res.
-            ctx.drawImage(tempCanvas, actualX, actualY, actualW, actualH, 0, 0, actualW, actualH);
+            // Crop Action
+            cropBtn.addEventListener('click', () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
 
-            const format = outputFormatSelect.value;
-            const quality = format === 'image/jpeg' ? 0.92 : undefined;
-            
-            canvas.toBlob((blob) => {
-                const url = URL.createObjectURL(blob);
-                const link = document.createElement('a');
-                link.download = `cropped_${originalFile.name.split('.')[0]}.${format.split('/')[1]}`;
-                link.href = url;
-                link.click();
-                URL.revokeObjectURL(url);
-            }, format, quality);
+                const w = parseFloat(inputW.value);
+                const h = parseFloat(inputH.value);
+                const cx = parseFloat(inputCX.value);
+                const cy = parseFloat(inputCY.value);
+
+                const x = cx - w / 2;
+                const y = cy - h / 2;
+
+                canvas.width = w;
+                canvas.height = h;
+
+                // Transformed Image Canvas
+                const tempCanvas = document.createElement('canvas');
+                const tCtx = tempCanvas.getContext('2d');
+                const normRot = ((rotation % 360) + 360) % 360;
+
+                if (normRot === 90 || normRot === 270) {
+                    tempCanvas.width = originalImg.height;
+                    tempCanvas.height = originalImg.width;
+                } else {
+                    tempCanvas.width = originalImg.width;
+                    tempCanvas.height = originalImg.height;
+                }
+
+                tCtx.translate(tempCanvas.width / 2, tempCanvas.height / 2);
+                tCtx.rotate(normRot * Math.PI / 180);
+                tCtx.drawImage(originalImg, -originalImg.width / 2, -originalImg.height / 2);
+
+                // Perform Crop
+                ctx.drawImage(tempCanvas, x, y, w, h, 0, 0, w, h);
+
+                const format = outputFormatSelect.value;
+                const quality = format === 'image/jpeg' ? 0.92 : undefined;
+                
+                canvas.toBlob((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    addResult(url, format, w, h);
+                }, format, quality);
+            });
+
+            function addResult(url, format, w, h) {
+                resultsSection.classList.remove('hidden');
+                const id = Date.now();
+                const ext = format.split('/')[1];
+                const fileName = `cropped_${id}.${ext}`;
+                
+                const item = document.createElement('div');
+                item.className = 'bg-white dark:bg-slate-800 rounded-3xl p-4 shadow-sm border border-slate-100 dark:border-slate-700 group relative';
+                item.innerHTML = `
+                    <div class="aspect-square rounded-2xl overflow-hidden bg-slate-100 dark:bg-slate-900 mb-4 flex items-center justify-center">
+                        <img src="${url}" class="max-w-full max-h-full object-contain" alt="Cropped result">
+                    </div>
+                    <div class="space-y-1 mb-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">${ext.toUpperCase()}</p>
+                        <p class="text-sm font-bold truncate">${w} x ${h}</p>
+                    </div>
+                    <a href="${url}" download="${fileName}" class="w-full py-2 bg-blue-600 text-white rounded-xl text-xs font-bold flex items-center justify-center gap-2 hover:bg-blue-700 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                        Download
+                    </a>
+                    <button class="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full opacity-0 group-hover:opacity-100 transition shadow-lg flex items-center justify-center delete-res">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                `;
+
+                item.querySelector('.delete-res').onclick = () => {
+                    item.remove();
+                    URL.revokeObjectURL(url);
+                    updateResultCount();
+                };
+
+                resultsGrid.prepend(item);
+                updateResultCount();
+                
+                // Smooth scroll to results
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            function updateResultCount() {
+                const count = resultsGrid.children.length;
+                resultCount.textContent = count;
+                if (count === 0) resultsSection.classList.add('hidden');
+            }
+
+            clearResultsBtn.onclick = () => {
+                Array.from(resultsGrid.children).forEach(item => {
+                    const img = item.querySelector('img');
+                    if (img) URL.revokeObjectURL(img.src);
+                    item.remove();
+                });
+                updateResultCount();
+            };
         });
-
     </script>
 </body>
 </html>
-
